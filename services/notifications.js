@@ -98,6 +98,20 @@ async function cancelForAnalysis(analysisId) {
   }
 }
 
+/** Cancels every scheduled NexuLex reminder (account deletion / full local purge). */
+export async function cancelAllNexuLexNotifications() {
+  if (Platform.OS === 'web' || !Notifications?.getAllScheduledNotificationsAsync) return 0;
+  try {
+    const existing = await Notifications.getAllScheduledNotificationsAsync();
+    const ours = (existing || []).filter((item) => String(item.identifier || '').startsWith(ID_PREFIX));
+    await Promise.all(ours.map((item) => Notifications.cancelScheduledNotificationAsync(item.identifier)));
+    return ours.length;
+  } catch (error) {
+    console.log('Hatırlatıcılar iptal edilemedi:', error?.message);
+    return 0;
+  }
+}
+
 export async function scheduleTrapReminders({
   analysisId,
   events = [],

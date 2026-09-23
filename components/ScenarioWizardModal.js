@@ -18,10 +18,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ACCENT, DANGER, styles } from '../theme';
 import { getScenarioById } from '../constants/legalScenarios';
 import { draftForScenario } from '../constants/draftTemplates';
+import { resolveJurisdiction } from '../constants/jurisdiction';
 import {
   buildAdvisorFollowUpPrompt,
+  buildRoadmap,
   formatRoadmapForSharing,
-  generateScenarioRoadmap,
 } from '../services/scenarioRoadmap';
 import { useFeedback } from '../context/FeedbackContext';
 
@@ -32,6 +33,7 @@ export default function ScenarioWizardModal({
   visible,
   theme,
   scenarioId,
+  country = 'auto',
   onClose,
   onAskAdvisor,
   onOpenDraft,
@@ -56,7 +58,16 @@ export default function ScenarioWizardModal({
   const questions = scenario?.questions || [];
   const currentQ = questions[stepIndex] || null;
   const isResult = !!roadmap;
-  const draftTemplateId = roadmap ? draftForScenario(roadmap.scenarioId, roadmap.templateId) : null;
+  const jurisdiction = resolveJurisdiction(country, i18n.language);
+  const draftTemplateId = roadmap
+    ? draftForScenario(roadmap.scenarioId, roadmap.templateId, jurisdiction)
+    : null;
+
+  useEffect(() => {
+    setRoadmap((prev) =>
+      prev ? buildRoadmap(prev.scenarioId, prev.answers, { country, language: i18n.language }) : prev
+    );
+  }, [country, i18n.language]);
 
   const pickOption = (value) => {
     if (!currentQ) return;
@@ -67,7 +78,7 @@ export default function ScenarioWizardModal({
       return;
     }
     // Instant local generation — no network.
-    const built = generateScenarioRoadmap(scenario.id, nextAnswers, i18n.language);
+    const built = buildRoadmap(scenario.id, nextAnswers, { country, language: i18n.language });
     setRoadmap(built);
   };
 
@@ -184,6 +195,19 @@ export default function ScenarioWizardModal({
               </>
             ) : (
               <>
+                {roadmap.generic ? (
+                  <View
+                    style={[
+                      styles.previewBanner,
+                      { backgroundColor: theme.cardBg, borderColor: ACCENT, marginBottom: 12 },
+                    ]}
+                  >
+                    <Ionicons name="globe-outline" size={16} color={ACCENT} />
+                    <Text style={[styles.previewBannerText, { color: theme.text }]}>
+                      {roadmap.banner || t('scenarioGenericBanner')}
+                    </Text>
+                  </View>
+                ) : null}
                 <Text style={[styles.sectionHeader, { color: theme.text }]}>
                   {t('scenarioTimelineTitle')}
                 </Text>

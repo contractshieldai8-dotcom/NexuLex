@@ -1,0 +1,7 @@
+{
+  "ios": {
+    "NSMicrophoneUsageDescription": "NexuLex AI は、法律に関する質問を音声で入力できるようにマイクを使用します。",
+    "NSSpeechRecognitionUsageDescription": "NexuLex AI は、音声をテキストに変換するために音声認識を使用します。",
+    "NSPhotoLibraryUsageDescription": "NexuLex AI は、分析する契約書の写真を選ぶ場合にのみ写真ライブラリを開きます。"
+  }
+}

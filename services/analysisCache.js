@@ -61,6 +61,14 @@ const writeStore = async (entries) => {
   }
 };
 
+export async function clearAnalysisCache() {
+  try {
+    await AsyncStorage.removeItem(STORAGE_KEY);
+  } catch {
+    /* yut */
+  }
+}
+
 export async function getCachedAnalysis(text, meta) {
   const source = String(text || '').trim();
   if (!isCacheToken(source) && source.length < 200) return null;

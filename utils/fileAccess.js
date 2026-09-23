@@ -135,12 +135,15 @@ export async function readOwnedFile(uri, { asBase64 = false } = {}) {
 
 /**
  * Soft-purge stale NexuLex export files from cache (24h default).
+ * Accepts an options object or a bare max age in ms; `0` purges every NexuLex export.
  * Never throws into the share/export UX path.
  */
-export async function cleanStaleExportCache({
-  maxAgeMs = 86400000,
-  prefixPatterns = [/^NexuLex-/i, /^nexulex-/i],
-} = {}) {
+export async function cleanStaleExportCache(options = {}) {
+  const {
+    maxAgeMs = 86400000,
+    prefixPatterns = [/^NexuLex-/i, /^nexulex-/i],
+  } = typeof options === 'number' ? { maxAgeMs: options } : options || {};
+  const purgeAll = maxAgeMs <= 0;
   try {
     const root = FileSystem.cacheDirectory;
     if (!root || typeof FileSystem.readDirectoryAsync !== 'function') {
@@ -155,10 +158,12 @@ export async function cleanStaleExportCache({
       try {
         const info = await FileSystem.getInfoAsync(uri);
         if (!info?.exists) continue;
-        const mod = Number(info.modificationTime || 0);
-        if (!mod) continue;
-        const modMs = mod > 1e12 ? mod : mod * 1000;
-        if (now - modMs < maxAgeMs) continue;
+        if (!purgeAll) {
+          const mod = Number(info.modificationTime || 0);
+          if (!mod) continue;
+          const modMs = mod > 1e12 ? mod : mod * 1000;
+          if (now - modMs < maxAgeMs) continue;
+        }
         await FileSystem.deleteAsync(uri, { idempotent: true });
         deleted += 1;
       } catch {

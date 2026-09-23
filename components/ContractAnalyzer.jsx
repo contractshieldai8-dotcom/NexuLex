@@ -49,20 +49,21 @@ export default function ContractAnalyzer({ onImagesReady, disabled, imageCount =
       return;
     }
 
-    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!permissionResult.granted) {
-      Alert.alert(t('permissionRequired'), t('galleryPermissionDenied'));
+    // System photo picker (iOS 14+ PHPicker / Android 13+ Photo Picker): no runtime permission prompt.
+    let result;
+    try {
+      result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images'],
+        allowsMultipleSelection: true,
+        selectionLimit: room,
+        quality: 1,
+      });
+    } catch (error) {
+      Alert.alert(t('errorTitle'), error?.message || '');
       return;
     }
 
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ['images'],
-      allowsMultipleSelection: true,
-      selectionLimit: room,
-      quality: 1,
-    });
-
-    if (result.canceled || !result.assets) return;
+    if (result?.canceled || !result?.assets) return;
 
     try {
       setPicking(true);

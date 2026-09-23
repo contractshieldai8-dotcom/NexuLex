@@ -1,15 +1,14 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
-  Keyboard,
+  InteractionManager,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -19,15 +18,16 @@ import { useTranslation } from 'react-i18next';
 import { ACCENT, styles } from '../theme';
 import { JURISDICTIONS } from '../constants/options';
 import { LEGAL_SCENARIOS } from '../constants/legalScenarios';
-import { LEGAL_CALCULATORS } from '../constants/legalCalcRates';
+import { LEGAL_CALCULATORS, getCalcPack, isCalculatorAvailable } from '../constants/legalCalcRates';
 import { OptionSheet, SelectorField } from '../components/OptionSelector';
 import ScenarioWizardModal from '../components/ScenarioWizardModal';
 import CalculatorModal from '../components/CalculatorModal';
 import DraftWizardModal from '../components/DraftWizardModal';
-import { DRAFT_TEMPLATES } from '../constants/draftTemplates';
+import { listDraftTemplatesFor } from '../constants/draftTemplates';
 import VoiceMicButton from '../components/VoiceMicButton';
 import SpeakButton from '../components/SpeakButton';
 import RecentChatsList from '../components/RecentChatsList';
+import { ReportAiButton } from '../components/AiReportSheet';
 import { askLegalAdvisor } from '../services/ai';
 import { nextMessageId } from '../services/advisorChat';
 import { describeError } from '../utils/errors';
@@ -41,6 +41,8 @@ export default function LegalAdvisorScreen({
   analysisContext = null,
   isPro = false,
   onNeedPaywall,
+  paywallVisible = false,
+  isActive = true,
 }) {
   const { t, i18n } = useTranslation();
   const listRef = useRef(null);
@@ -55,11 +57,72 @@ export default function LegalAdvisorScreen({
   const [calculatorId, setCalculatorId] = useState(null);
   const [draftOpen, setDraftOpen] = useState(false);
   const [draftTemplateId, setDraftTemplateId] = useState(null);
+  const [draftOpenAtPreview, setDraftOpenAtPreview] = useState(false);
+  // In-memory only: wizard answers survive the paywall round-trip, never persisted.
+  const [draftAnswersById, setDraftAnswersById] = useState({});
+  const pendingDraftReturnRef = useRef(null);
+  const paywallWasVisibleRef = useRef(paywallVisible);
 
-  const openDraft = useCallback((id = null) => {
+  const calcPack = useMemo(() => getCalcPack(country, i18n.language), [country, i18n.language]);
+  const offeredDrafts = useMemo(
+    () => listDraftTemplatesFor({ country, language: i18n.language }),
+    [country, i18n.language]
+  );
+
+  const openDraft = useCallback((id = null, { atPreview = false } = {}) => {
     setDraftTemplateId(id);
+    setDraftOpenAtPreview(atPreview);
     setDraftOpen(true);
   }, []);
+
+  const handleDraftAnswers = useCallback((id, answers) => {
+    setDraftAnswersById((prev) => ({ ...prev, [id]: answers }));
+  }, []);
+
+  const clearDraftAnswers = useCallback((id) => {
+    setDraftAnswersById((prev) => {
+      if (!prev[id]) return prev;
+      const next = { ...prev };
+      delete next[id];
+      return next;
+    });
+  }, []);
+
+  const handleDraftPaywall = useCallback(
+    (id) => {
+      pendingDraftReturnRef.current = id || null;
+      setDraftOpen(false);
+      onNeedPaywall?.('draft');
+    },
+    [onNeedPaywall]
+  );
+
+  const [paywallClosedTick, setPaywallClosedTick] = useState(0);
+
+  useEffect(() => {
+    const wasVisible = paywallWasVisibleRef.current;
+    paywallWasVisibleRef.current = paywallVisible;
+    if (wasVisible && !paywallVisible) setPaywallClosedTick((n) => n + 1);
+  }, [paywallVisible]);
+
+  useEffect(() => {
+    if (!paywallClosedTick || paywallVisible || !isActive) return undefined;
+    const id = pendingDraftReturnRef.current;
+    if (!id) return undefined;
+    let timer = null;
+    // Present only after the purchase Alert / paywall dismissal has settled (iOS stacks one modal at a time).
+    const task = InteractionManager.runAfterInteractions(() => {
+      timer = setTimeout(() => {
+        if (pendingDraftReturnRef.current !== id) return;
+        pendingDraftReturnRef.current = null;
+        openDraft(id, { atPreview: true });
+      }, 400);
+    });
+    return () => {
+      task?.cancel?.();
+      if (timer) clearTimeout(timer);
+    };
+  }, [isActive, openDraft, paywallClosedTick, paywallVisible]);
 
   const countryOptions = useMemo(
     () => (JURISDICTIONS || []).map((item) => ({ code: item.code, label: t(item.labelKey), hint: item.hint })),
@@ -68,9 +131,16 @@ export default function LegalAdvisorScreen({
 
   const selectedCountry = countryOptions.find((item) => item.code === country) || countryOptions[0];
 
+  // Follow the conversation only after the user sends; first open keeps the header chips in view.
+  const followChatRef = useRef(false);
   const scrollToEnd = useCallback(() => {
+    if (!followChatRef.current) return;
     requestAnimationFrame(() => listRef.current?.scrollToEnd({ animated: true }));
   }, []);
+
+  useEffect(() => {
+    if (messages.length > 0) scrollToEnd();
+  }, [messages.length, scrollToEnd, sending]);
 
   const handleSend = useCallback(async () => {
     const trimmed = question.trim();
@@ -83,10 +153,10 @@ export default function LegalAdvisorScreen({
     const userMessage = { id: nextMessageId(), role: 'user', text: trimmed };
     const historySnapshot = messages.filter((msg) => msg.id !== 'greeting');
 
+    followChatRef.current = true;
     setMessages((prev) => [...prev, userMessage]);
     setQuestion('');
     setSending(true);
-    scrollToEnd();
 
     try {
       const answer = await askLegalAdvisor({
@@ -105,9 +175,8 @@ export default function LegalAdvisorScreen({
       ]);
     } finally {
       setSending(false);
-      scrollToEnd();
     }
-  }, [analysisContext, country, i18n.language, messages, question, scrollToEnd, setMessages, showToast, t]);
+  }, [analysisContext, country, i18n.language, messages, question, setMessages, showToast, t]);
 
   const handleCopy = useCallback(
     async (message) => {
@@ -126,7 +195,11 @@ export default function LegalAdvisorScreen({
       confirmLabel: t('confirmDelete'),
       destructive: true,
     });
-    if (choice === 'confirm') resetActive({ archive: true, country });
+    if (choice === 'confirm') {
+      followChatRef.current = false;
+      resetActive({ archive: true, country });
+      listRef.current?.scrollToOffset?.({ offset: 0, animated: true });
+    }
   }, [country, resetActive, showModal, t]);
 
   const renderMessage = ({ item }) => {
@@ -154,6 +227,16 @@ export default function LegalAdvisorScreen({
           </Text>
 
           {item.id !== 'greeting' && !item.isError ? (
+            <ReportAiButton
+              theme={theme}
+              featureId="advisor_answer"
+              targetId={item.id}
+              country={country}
+              context={item.text}
+            />
+          ) : null}
+
+          {item.id !== 'greeting' && !item.isError ? (
             <TouchableOpacity
               onPress={() => handleCopy(item)}
               hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
@@ -179,14 +262,10 @@ export default function LegalAdvisorScreen({
     );
   };
 
-  return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={{ paddingHorizontal: 20, paddingTop: 16 }}>
+  // Stable element (not an inline component) so RecentChatsList and chip rows never remount on send.
+  const headerElement = useMemo(
+    () => (
+      <View>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 4 }}>
           <Text style={[styles.sectionHeader, { color: theme.text, flex: 1, marginBottom: 0 }]}>
             {t('advisorTitle')}
@@ -258,36 +337,49 @@ export default function LegalAdvisorScreen({
           contentContainerStyle={{ gap: 8, paddingBottom: 6 }}
           style={{ marginBottom: 8 }}
         >
-          {(LEGAL_CALCULATORS || []).map((item) => (
-            <TouchableOpacity
-              key={item.id}
-              activeOpacity={0.85}
-              onPress={() => setCalculatorId(item.id)}
-              style={{
-                borderWidth: 1,
-                borderColor: theme.borderColor,
-                backgroundColor: theme.cardBg,
-                borderRadius: 12,
-                paddingHorizontal: 12,
-                paddingVertical: 10,
-                maxWidth: 200,
-                minWidth: 140,
-              }}
-            >
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 }}>
-                <Ionicons name={item.icon || 'calculator-outline'} size={16} color={ACCENT} />
-                <Text
-                  style={[styles.settingLabel, { color: theme.text, fontSize: 13, flex: 1 }]}
-                  numberOfLines={2}
-                >
-                  {t(item.titleKey)}
+          {(LEGAL_CALCULATORS || []).map((item) => {
+            const locked = !isCalculatorAvailable(item.id, calcPack);
+            return (
+              <TouchableOpacity
+                key={item.id}
+                activeOpacity={0.85}
+                onPress={() =>
+                  locked
+                    ? showToast(t('calcNotAvailableForCountry'), { type: 'info', duration: 2200 })
+                    : setCalculatorId(item.id)
+                }
+                accessibilityState={{ disabled: locked }}
+                style={{
+                  borderWidth: 1,
+                  borderColor: theme.borderColor,
+                  backgroundColor: theme.cardBg,
+                  borderRadius: 12,
+                  paddingHorizontal: 12,
+                  paddingVertical: 10,
+                  maxWidth: 200,
+                  minWidth: 140,
+                  opacity: locked ? 0.55 : 1,
+                }}
+              >
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+                  <Ionicons
+                    name={locked ? 'lock-closed-outline' : item.icon || 'calculator-outline'}
+                    size={16}
+                    color={locked ? theme.subText : ACCENT}
+                  />
+                  <Text
+                    style={[styles.settingLabel, { color: theme.text, fontSize: 13, flex: 1 }]}
+                    numberOfLines={2}
+                  >
+                    {t(item.titleKey)}
+                  </Text>
+                </View>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]} numberOfLines={2}>
+                  {t(locked ? 'calcNotAvailableForCountry' : item.descriptionKey)}
                 </Text>
-              </View>
-              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]} numberOfLines={2}>
-                {t(item.descriptionKey)}
-              </Text>
-            </TouchableOpacity>
-          ))}
+              </TouchableOpacity>
+            );
+          })}
         </ScrollView>
 
         <Text style={[styles.label, { color: theme.subText, marginTop: 4 }]}>
@@ -299,7 +391,7 @@ export default function LegalAdvisorScreen({
           contentContainerStyle={{ gap: 8, paddingBottom: 6 }}
           style={{ marginBottom: 8 }}
         >
-          {DRAFT_TEMPLATES.map((item) => (
+          {offeredDrafts.map(({ template: item, variant }) => (
             <TouchableOpacity
               key={item.id}
               activeOpacity={0.85}
@@ -322,7 +414,7 @@ export default function LegalAdvisorScreen({
                 style={[styles.settingLabel, { color: theme.text, fontSize: 13 }]}
                 numberOfLines={1}
               >
-                {t(item.titleKey)}
+                {t(variant.titleKey)}
               </Text>
             </TouchableOpacity>
           ))}
@@ -339,17 +431,31 @@ export default function LegalAdvisorScreen({
             disabled={sending}
           />
         </View>
-        </View>
-      </TouchableWithoutFeedback>
+      </View>
+    ),
+    [calcPack, handleClear, i18n.language, offeredDrafts, openDraft, selectedCountry, sending, showToast, t, theme]
+  );
 
+  return (
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+    >
       <FlatList
         ref={listRef}
         style={{ flex: 1, flexGrow: 1 }}
         data={messages}
         keyExtractor={(item) => item.id}
         renderItem={renderMessage}
-        contentContainerStyle={styles.chatList}
-        onContentSizeChange={scrollToEnd}
+        ListHeaderComponent={headerElement}
+        contentContainerStyle={[styles.chatList, { flexGrow: 1, paddingBottom: 12 }]}
+        onContentSizeChange={() => {
+          if (messages.length > 0) scrollToEnd();
+        }}
+        onScrollBeginDrag={() => {
+          if (!sending) followChatRef.current = false;
+        }}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
         ListFooterComponent={
@@ -375,11 +481,9 @@ export default function LegalAdvisorScreen({
         }
       />
 
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <Text style={[styles.chatDisclaimer, { color: theme.subText }]}>
-          {t('advisorDisclaimer')}
-        </Text>
-      </TouchableWithoutFeedback>
+      <Text style={[styles.chatDisclaimer, { color: theme.subText, flexShrink: 0 }]}>
+        {t('advisorDisclaimer')}
+      </Text>
 
       <View style={[styles.chatInputRow, { borderTopColor: theme.borderColor, flexGrow: 0, flexShrink: 0 }]}>
         <TextInput
@@ -435,6 +539,7 @@ export default function LegalAdvisorScreen({
         visible={!!scenarioId}
         theme={theme}
         scenarioId={scenarioId}
+        country={country}
         onClose={() => setScenarioId(null)}
         onAskAdvisor={(prompt) => {
           setQuestion(String(prompt || '').trim());
@@ -450,6 +555,7 @@ export default function LegalAdvisorScreen({
         visible={!!calculatorId}
         theme={theme}
         calculatorId={calculatorId}
+        country={country}
         onClose={() => setCalculatorId(null)}
         onAskAdvisor={(prompt) => {
           setQuestion(String(prompt || '').trim());
@@ -463,11 +569,15 @@ export default function LegalAdvisorScreen({
         templateId={draftTemplateId}
         country={country}
         isPro={isPro}
-        onNeedPaywall={() => {
+        answersById={draftAnswersById}
+        onChangeAnswers={handleDraftAnswers}
+        onClearAnswers={clearDraftAnswers}
+        openAtPreview={draftOpenAtPreview}
+        onNeedPaywall={handleDraftPaywall}
+        onClose={() => {
           setDraftOpen(false);
-          onNeedPaywall?.();
+          setDraftOpenAtPreview(false);
         }}
-        onClose={() => setDraftOpen(false)}
       />
     </KeyboardAvoidingView>
   );

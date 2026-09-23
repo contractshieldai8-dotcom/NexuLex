@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Dimensions,
   Modal,
@@ -18,29 +18,40 @@ import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ACCENT, DANGER, styles } from '../theme';
-import { LEGAL_CALC_RATES, LEGAL_CALCULATORS } from '../constants/legalCalcRates';
+import { LEGAL_CALCULATORS, isCalculatorAvailable } from '../constants/legalCalcRates';
 import {
   buildCalcAdvisorPrompt,
   calculateLegalInterest,
   calculateRentIncrease,
   calculateSeverance,
   formatCalculationForSharing,
+  formatMoney,
+  resolveCalcContext,
 } from '../utils/legalCalculators';
 import { useFeedback } from '../context/FeedbackContext';
 
 const WIN_H = Dimensions.get('window').height;
 const SHEET_MAX = Math.round(WIN_H * 0.9);
 
-const formatMoney = (amount, currency = 'TRY') => {
-  const n = Number(amount);
-  if (currency === 'DAY') return String(Math.round(n));
-  if (currency === 'PCT') return `%${Math.abs(n).toFixed(2)}`;
-  const sign = n < 0 ? '-' : '';
-  return `${sign}${Math.abs(n).toFixed(2)} ${currency}`;
-};
+const toNumber = (value) => Number(String(value ?? '').replace(',', '.'));
 
-export default function CalculatorModal({ visible, theme, calculatorId, onClose, onAskAdvisor }) {
-  const { t } = useTranslation();
+export default function CalculatorModal({
+  visible,
+  theme,
+  calculatorId,
+  country = 'auto',
+  onClose,
+  onAskAdvisor,
+}) {
+  const { t, i18n } = useTranslation();
+  const language = i18n.language;
+  const ctx = useMemo(() => resolveCalcContext({ country, language }), [country, language]);
+  const available = isCalculatorAvailable(calculatorId, ctx.pack);
+  const statutory =
+    calculatorId === 'labor_severance'
+      ? available
+      : !!ctx.pack?.calculators?.[calculatorId];
+  const displayLocale = ctx.pack?.locale || language;
   const insets = useSafeAreaInsets();
   const { showToast } = useFeedback();
   const meta = useMemo(
@@ -59,37 +70,59 @@ export default function CalculatorModal({ visible, theme, calculatorId, onClose,
   const [startDate, setStartDate] = useState('2025-01-01');
   const [endDate, setEndDate] = useState('2026-01-01');
   const [interestType, setInterestType] = useState('legal');
+  const [userRate, setUserRate] = useState('');
   const [result, setResult] = useState(null);
+  const hasResultRef = useRef(false);
 
   useEffect(() => {
     if (!visible) setResult(null);
   }, [visible, calculatorId]);
 
-  const runCalculate = () => {
-    let next = null;
+  const compute = () => {
+    const ctxArgs = { country, language };
     if (calculatorId === 'labor_severance') {
-      next = calculateSeverance({
-        grossSalary: Number(String(grossSalary).replace(',', '.')),
-        workMonths: Number(String(workMonths).replace(',', '.')),
+      return calculateSeverance({
+        grossSalary: toNumber(grossSalary),
+        workMonths: toNumber(workMonths),
         includesNoticePay,
+        ...ctxArgs,
       });
-    } else if (calculatorId === 'rent_cap') {
-      next = calculateRentIncrease({
-        currentRent: Number(String(currentRent).replace(',', '.')),
-        proposedRent: Number(String(proposedRent).replace(',', '.')),
-        tufeRate: Number(String(tufeRate).replace(',', '.')),
+    }
+    if (calculatorId === 'rent_cap') {
+      return calculateRentIncrease({
+        currentRent: toNumber(currentRent),
+        proposedRent: toNumber(proposedRent),
+        tufeRate: toNumber(tufeRate),
         isResidential,
+        ...ctxArgs,
       });
-    } else if (calculatorId === 'legal_interest') {
-      next = calculateLegalInterest({
-        principal: Number(String(principal).replace(',', '.')),
+    }
+    if (calculatorId === 'legal_interest') {
+      return calculateLegalInterest({
+        principal: toNumber(principal),
         startDate,
         endDate,
         interestType,
+        userRate: toNumber(userRate),
+        ...ctxArgs,
       });
     }
-    setResult(next);
+    return null;
   };
+
+  const runCalculate = () => {
+    const next = compute();
+    setResult(next && !next.unavailable ? next : null);
+  };
+
+  hasResultRef.current = !!result;
+  // Jurisdiction switched while open: recompute so no stale currency / statutory numbers remain.
+  useEffect(() => {
+    if (!hasResultRef.current) return;
+    const next = compute();
+    setResult(next && !next.unavailable ? next : null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [country, language]);
 
   const handleCopy = async () => {
     if (!result) return;
@@ -164,17 +197,59 @@ export default function CalculatorModal({ visible, theme, calculatorId, onClose,
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
+              <View style={[styles.offerTierChip, { borderColor: theme.borderColor, backgroundColor: theme.cardBg }]}>
+                <Text style={[styles.offerTierChipText, { color: theme.text }]}>
+                  {`${ctx.jurisdiction || '—'} · ${ctx.currency || '—'}`}
+                </Text>
+              </View>
+              {available ? (
+                <View
+                  style={[
+                    styles.offerTierChip,
+                    { borderColor: statutory ? ACCENT : theme.borderColor, backgroundColor: theme.cardBg },
+                  ]}
+                >
+                  <Text style={[styles.offerTierChipText, { color: statutory ? ACCENT : theme.subText }]}>
+                    {t(statutory ? 'calcModeStatutory' : 'calcModeGeneric')}
+                  </Text>
+                </View>
+              ) : null}
+            </View>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
               {t(meta.descriptionKey)}
             </Text>
-            <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 12 }]}>
-              {t('calcAsOfNotice', { date: LEGAL_CALC_RATES.asOfDate })}
-            </Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 14 }]}>
-              {t(LEGAL_CALC_RATES.sourceNoteKey)}
-            </Text>
+            {statutory && ctx.pack ? (
+              <>
+                <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 12 }]}>
+                  {t('calcAsOfNotice', { date: ctx.pack.asOfDate })}
+                </Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 14 }]}>
+                  {t(ctx.pack.sourceNoteKey)}
+                </Text>
+              </>
+            ) : null}
+            {available && !ctx.currency ? (
+              <Text style={[styles.sectionHint, { color: DANGER, marginBottom: 12 }]}>
+                {t('calcCurrencyUnset')}
+              </Text>
+            ) : null}
 
-            {calculatorId === 'labor_severance' ? (
+            {!available ? (
+              <View
+                style={[
+                  styles.previewBanner,
+                  { backgroundColor: theme.cardBg, borderColor: DANGER, marginBottom: 12 },
+                ]}
+              >
+                <Ionicons name="lock-closed-outline" size={16} color={DANGER} />
+                <Text style={[styles.previewBannerText, { color: theme.text }]}>
+                  {t('calcNotAvailableForCountry')}
+                </Text>
+              </View>
+            ) : null}
+
+            {calculatorId === 'labor_severance' && available ? (
               <>
                 <Text style={[styles.label, { color: theme.subText }]}>{t('calcGrossSalary')}</Text>
                 <TextInput
@@ -230,7 +305,9 @@ export default function CalculatorModal({ visible, theme, calculatorId, onClose,
                   onChangeText={setProposedRent}
                   placeholderTextColor={theme.subText}
                 />
-                <Text style={[styles.label, { color: theme.subText }]}>{t('calcTufeRate')}</Text>
+                <Text style={[styles.label, { color: theme.subText }]}>
+                  {t(statutory ? ctx.pack.calculators.rent_cap.indexLabelKey : 'calcUserRate')}
+                </Text>
                 <TextInput
                   style={inputStyle}
                   keyboardType="decimal-pad"
@@ -282,6 +359,20 @@ export default function CalculatorModal({ visible, theme, calculatorId, onClose,
                   placeholderTextColor={theme.subText}
                   autoCapitalize="none"
                 />
+                {!statutory ? (
+                  <>
+                    <Text style={[styles.label, { color: theme.subText }]}>{t('calcUserRate')}</Text>
+                    <TextInput
+                      style={inputStyle}
+                      keyboardType="decimal-pad"
+                      value={userRate}
+                      onChangeText={setUserRate}
+                      placeholder="%"
+                      placeholderTextColor={theme.subText}
+                    />
+                  </>
+                ) : null}
+                {statutory ? (
                 <View style={{ flexDirection: 'row', gap: 8, marginBottom: 12 }}>
                   {[
                     { id: 'legal', labelKey: 'calcInterestTypeLegal' },
@@ -307,12 +398,15 @@ export default function CalculatorModal({ visible, theme, calculatorId, onClose,
                     );
                   })}
                 </View>
+                ) : null}
               </>
             ) : null}
 
-            <TouchableOpacity style={styles.primaryButton} onPress={runCalculate} activeOpacity={0.85}>
-              <Text style={styles.primaryButtonText}>{t('calcCalculate')}</Text>
-            </TouchableOpacity>
+            {available ? (
+              <TouchableOpacity style={styles.primaryButton} onPress={runCalculate} activeOpacity={0.85}>
+                <Text style={styles.primaryButtonText}>{t('calcCalculate')}</Text>
+              </TouchableOpacity>
+            ) : null}
 
             {result ? (
               <View style={{ marginTop: 8 }}>
@@ -333,7 +427,7 @@ export default function CalculatorModal({ visible, theme, calculatorId, onClose,
                       {t(row.labelKey)}
                     </Text>
                     <Text style={[styles.settingLabel, { color: theme.text }]}>
-                      {formatMoney(row.amount, row.currency)}
+                      {formatMoney(row.amount, row.currency, displayLocale)}
                     </Text>
                   </View>
                 ))}
@@ -346,7 +440,7 @@ export default function CalculatorModal({ visible, theme, calculatorId, onClose,
                 >
                   <Ionicons name="calculator-outline" size={16} color={ACCENT} />
                   <Text style={[styles.previewBannerText, { color: theme.text }]}>
-                    {t('calcEstimatedNet')}: {formatMoney(result.totalAmount)}
+                    {t('calcEstimatedNet')}: {formatMoney(result.totalAmount, result.currency, displayLocale)}
                   </Text>
                 </View>
 

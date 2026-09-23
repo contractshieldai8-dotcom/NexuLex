@@ -1,9 +1,12 @@
 /**
- * WAVE CC — Guided Draft registry (local templates, no LLM).
- * Body strings live in i18n.wavecc.js and use {{questionId}} placeholders.
- * fixedReferenceKey strings are the ONLY statute references a draft may carry;
- * they are reviewed here and must not be generated.
+ * WAVE CC / CB.1 — Guided Draft registry (local templates, no LLM).
+ * Body strings live in i18n and use {{questionId}} placeholders.
+ * Statute references exist only under a reviewed jurisdiction pack (packs.TR.fixedReferenceKey);
+ * other jurisdictions get the neutral `generic` letter (no statutes, no local institutions)
+ * or nothing at all when `generic` is null.
  */
+
+import { resolveJurisdiction } from './jurisdiction';
 
 export const DRAFT_TEMPLATE_IDS = ['notice_payment', 'mediation_application', 'consumer_complaint'];
 
@@ -18,8 +21,11 @@ export const DRAFT_TEMPLATES = [
     titleKey: 'draftNoticeTitle',
     descriptionKey: 'draftNoticeDesc',
     icon: 'mail-unread-outline',
-    bodyTemplateKey: 'draftNoticeBody',
-    fixedReferenceKey: 'draftNoticeRef',
+    jurisdictions: ['TR'],
+    packs: {
+      TR: { bodyTemplateKey: 'draftNoticeBody', fixedReferenceKey: 'draftNoticeRef' },
+    },
+    generic: { bodyTemplateKey: 'draftNoticeGenericBody' },
     disclaimerKey: DRAFT_DISCLAIMER_KEY,
     questions: [
       { id: 'sender', labelKey: 'draftQSender', type: 'text', required: true },
@@ -35,8 +41,11 @@ export const DRAFT_TEMPLATES = [
     titleKey: 'draftMediationTitle',
     descriptionKey: 'draftMediationDesc',
     icon: 'people-outline',
-    bodyTemplateKey: 'draftMediationBody',
-    fixedReferenceKey: 'draftMediationRef',
+    jurisdictions: ['TR'],
+    packs: {
+      TR: { bodyTemplateKey: 'draftMediationBody', fixedReferenceKey: 'draftMediationRef' },
+    },
+    generic: null,
     disclaimerKey: DRAFT_DISCLAIMER_KEY,
     questions: [
       { id: 'applicant', labelKey: 'draftQApplicant', type: 'text', required: true },
@@ -52,8 +61,15 @@ export const DRAFT_TEMPLATES = [
     titleKey: 'draftConsumerTitle',
     descriptionKey: 'draftConsumerDesc',
     icon: 'cart-outline',
-    bodyTemplateKey: 'draftConsumerBody',
-    fixedReferenceKey: 'draftConsumerRef',
+    jurisdictions: ['TR'],
+    packs: {
+      TR: { bodyTemplateKey: 'draftConsumerBody', fixedReferenceKey: 'draftConsumerRef' },
+    },
+    generic: {
+      titleKey: 'draftGenericSettlementTitle',
+      descriptionKey: 'draftGenericSettlementDesc',
+      bodyTemplateKey: 'draftConsumerGenericBody',
+    },
     disclaimerKey: DRAFT_DISCLAIMER_KEY,
     questions: [
       { id: 'consumer', labelKey: 'draftQConsumer', type: 'text', required: true },
@@ -71,6 +87,48 @@ export function getDraftTemplateById(id) {
 }
 
 /**
+ * Which variant of a template applies for a resolved jurisdiction.
+ * @returns {{ generic: boolean, jurisdiction: string|null, titleKey: string, descriptionKey: string,
+ *   bodyTemplateKey: string, fixedReferenceKey: string|null } | null} null → not offered here.
+ */
+export function resolveDraftVariant(template, jurisdiction) {
+  if (!template) return null;
+  const pack = jurisdiction && (template.jurisdictions || []).includes(jurisdiction)
+    ? template.packs?.[jurisdiction]
+    : null;
+  if (pack) {
+    return {
+      generic: false,
+      jurisdiction,
+      titleKey: template.titleKey,
+      descriptionKey: template.descriptionKey,
+      bodyTemplateKey: pack.bodyTemplateKey,
+      fixedReferenceKey: pack.fixedReferenceKey || null,
+    };
+  }
+  if (!template.generic) return null;
+  return {
+    generic: true,
+    jurisdiction: jurisdiction || null,
+    titleKey: template.generic.titleKey || template.titleKey,
+    descriptionKey: template.generic.descriptionKey || template.descriptionKey,
+    bodyTemplateKey: template.generic.bodyTemplateKey,
+    fixedReferenceKey: null,
+  };
+}
+
+export function isDraftAvailable(templateId, jurisdiction) {
+  return !!resolveDraftVariant(getDraftTemplateById(templateId), jurisdiction);
+}
+
+/** Templates offered for a country/language pair, each with its resolved variant. */
+export function listDraftTemplatesFor({ country, language } = {}) {
+  const jurisdiction = resolveJurisdiction(country, language);
+  return DRAFT_TEMPLATES.map((template) => ({ template, variant: resolveDraftVariant(template, jurisdiction) }))
+    .filter((item) => !!item.variant);
+}
+
+/**
  * CA′ roadmap → matching draft. Keys are `${scenarioId}:${templateId}` or `${scenarioId}:*`.
  * Branches without a sensible document (e.g. tenant defence) return null.
  */
@@ -83,11 +141,12 @@ const SCENARIO_DRAFT_MAP = {
   'unpaid_invoice_b2b:*': 'notice_payment',
 };
 
-export function draftForScenario(scenarioId, templateId) {
+/** Only returns a draft that is actually offered for the resolved jurisdiction. */
+export function draftForScenario(scenarioId, templateId, jurisdiction) {
   if (!scenarioId) return null;
-  return (
+  const id =
     SCENARIO_DRAFT_MAP[`${scenarioId}:${templateId || 'default'}`] ||
     SCENARIO_DRAFT_MAP[`${scenarioId}:*`] ||
-    null
-  );
+    null;
+  return id && isDraftAvailable(id, jurisdiction) ? id : null;
 }

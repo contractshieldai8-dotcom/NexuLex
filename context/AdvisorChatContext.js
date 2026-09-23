@@ -111,6 +111,12 @@ export function AdvisorChatProvider({ children }) {
     });
   }, [t]);
 
+  // Account deletion: drop every session from memory so nothing is re-persisted.
+  const wipeAll = useCallback(() => {
+    setSessions([]);
+    setActive(createSession({ greeting: t('advisorGreeting') }));
+  }, [t]);
+
   const value = useMemo(
     () => ({
       hydrated,
@@ -121,9 +127,10 @@ export function AdvisorChatProvider({ children }) {
       resetActive,
       openSession,
       deleteSession,
+      wipeAll,
       sessionTitle: (session) => sessionTitle(session, t('recentChatsUntitled')),
     }),
-    [active, deleteSession, hydrated, messages, openSession, resetActive, sessions, setMessages, t]
+    [active, deleteSession, hydrated, messages, openSession, resetActive, sessions, setMessages, t, wipeAll]
   );
 
   return <AdvisorChatContext.Provider value={value}>{children}</AdvisorChatContext.Provider>;

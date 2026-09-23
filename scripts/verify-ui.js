@@ -59,12 +59,16 @@ const waveCbSrc = fs.readFileSync('i18n.wavecb.js', 'utf8');
 const waveCbMatch = waveCbSrc.match(/export const WAVE_CB_I18N = ([\s\S]*);\s*$/);
 const waveCcSrc = fs.readFileSync('i18n.wavecc.js', 'utf8');
 const waveCcMatch = waveCcSrc.match(/export const WAVE_CC_I18N = ([\s\S]*);\s*$/);
+const waveCb1Src = fs.readFileSync('i18n.wavecb1.js', 'utf8');
+const waveCb1Match = waveCb1Src.match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/);
+const waveStSrc = fs.existsSync('i18n.wavest.js') ? fs.readFileSync('i18n.wavest.js', 'utf8') : '';
+const waveStMatch = waveStSrc.match(/export const WAVE_ST_I18N = ([\s\S]*);\s*$/);
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -77,6 +81,8 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_CA_I18N = eval(`(${waveCaMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_CB_I18N = eval(`(${waveCbMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_CC_I18N = eval(`(${waveCcMatch[1]})`); // eslint-disable-line no-eval
+  const WAVE_CB1_I18N = eval(`(${waveCb1Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_ST_I18N = eval(`(${waveStMatch[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -89,8 +95,10 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_CA_I18N',
     'WAVE_CB_I18N',
     'WAVE_CC_I18N',
+    'WAVE_CB1_I18N',
+    'WAVE_ST_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N);
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
 
@@ -250,6 +258,46 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     console.log(`WAVE_CC key count ${waveCcBase.length}, beklenen 51`);
   }
 
+  const waveCb1Langs = Object.keys(WAVE_CB1_I18N);
+  const waveCb1Base = Object.keys(WAVE_CB1_I18N.en || {});
+  if (waveCb1Langs.length !== 13) {
+    failed = true;
+    console.log(`WAVE_CB1 dil sayisi ${waveCb1Langs.length}, beklenen 13`);
+  }
+  for (const lang of waveCb1Langs) {
+    const keys = Object.keys(WAVE_CB1_I18N[lang] || {});
+    const missing = waveCb1Base.filter((key) => !keys.includes(key));
+    const extra = keys.filter((key) => !waveCb1Base.includes(key));
+    if (missing.length || extra.length) {
+      failed = true;
+      console.log(`WAVE_CB1 ${lang}: eksik=[${missing.join(', ')}] fazla=[${extra.join(', ')}]`);
+    }
+  }
+  if (waveCb1Base.length !== 26) {
+    failed = true;
+    console.log(`WAVE_CB1 key count ${waveCb1Base.length}, beklenen 26`);
+  }
+
+  const waveStLangs = Object.keys(WAVE_ST_I18N);
+  const waveStBase = Object.keys(WAVE_ST_I18N.en || {});
+  if (waveStLangs.length !== 13) {
+    failed = true;
+    console.log(`WAVE_ST dil sayisi ${waveStLangs.length}, beklenen 13`);
+  }
+  for (const lang of waveStLangs) {
+    const keys = Object.keys(WAVE_ST_I18N[lang] || {});
+    const missing = waveStBase.filter((key) => !keys.includes(key));
+    const extra = keys.filter((key) => !waveStBase.includes(key));
+    if (missing.length || extra.length) {
+      failed = true;
+      console.log(`WAVE_ST ${lang}: eksik=[${missing.join(', ')}] fazla=[${extra.join(', ')}]`);
+    }
+  }
+  if (waveStBase.length !== 25) {
+    failed = true;
+    console.log(`WAVE_ST key count ${waveStBase.length}, beklenen 25`);
+  }
+
   for (const lang of languages) {
     const keys = Object.keys(resources[lang].translation);
     const missing = baseKeys.filter((key) => !keys.includes(key));
@@ -262,7 +310,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   // Interpolasyon yer tutucuları çeviride korunmalı.
-  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice'];
+  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine'];
   for (const lang of languages) {
     for (const key of placeholderKeys) {
       const value = resources[lang].translation[key];
@@ -274,9 +322,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 979) {
+  if (languages.length !== 13 || baseKeys.length !== 1030) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 979`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1030`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -2671,8 +2719,12 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_CA_I18N',
       'WAVE_CB_I18N',
       'WAVE_CC_I18N',
+      'WAVE_CB1_I18N',
+      'WAVE_ST_I18N',
       `return (${i18nMatch[1]});`
-    )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc);
+    )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
+      eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavest.js', 'utf8').match(/export const WAVE_ST_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -3118,24 +3170,15 @@ Ticaret Unvanı: Anadolu Bilişim
       console.log('WAVE CB i18n parity/key count fail');
     }
 
-    const ratesBody = ratesSrc
-      .replace(/export const LEGAL_CALC_RATES =/, 'const LEGAL_CALC_RATES =')
-      .replace(/export const CALCULATOR_IDS =[\s\S]*?;/, '')
-      .replace(/export const LEGAL_CALCULATORS =[\s\S]*?;/, '')
-      .replace(/export /g, '');
-    const calcBody = calcSrc
-      .replace(/import \{ LEGAL_CALC_RATES \} from '\.\.\/constants\/legalCalcRates';\s*/, '')
-      .replace(/export /g, '');
     const near = (a, b) => Math.abs(Number(a) - Number(b)) <= 0.01;
-    const run = new Function( // eslint-disable-line no-new-func
-      `${ratesBody}\n${calcBody}\nreturn {\n  LEGAL_CALC_RATES,\n  calculateSeverance,\n  calculateRentIncrease,\n  calculateLegalInterest,\n  formatCalculationForSharing,\n};`
-    );
-    const api = run();
+    const { api } = require('./cb1-harness').loadApp('tr');
+    const trCtx = { country: 'TR', language: 'tr' };
 
     const sev = api.calculateSeverance({
       grossSalary: 50000,
       workMonths: 36,
       includesNoticePay: false,
+      ...trCtx,
     });
     // monthlyBase=46154.2, years=3 → gross=138462.6; stamp=1050.93; net=137411.67
     if (!near(sev.totalAmount, 137411.67) || sev.asOfDate !== api.LEGAL_CALC_RATES.asOfDate) {
@@ -3149,6 +3192,7 @@ Ticaret Unvanı: Anadolu Bilişim
       proposedRent: 18000,
       tufeRate: 25,
       isResidential: true,
+      ...trCtx,
     });
     if (!near(rent.totalAmount, 18750) || rent.meta.overCap !== false) {
       failed = true;
@@ -3161,6 +3205,7 @@ Ticaret Unvanı: Anadolu Bilişim
       startDate: '2025-01-01',
       endDate: '2026-01-01',
       interestType: 'legal',
+      ...trCtx,
     });
     if (!near(interest.totalAmount, 124000) || !near(interest.meta.interestAmount, 24000)) {
       failed = true;
@@ -3238,10 +3283,10 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/buildDraftPreview/.test(modalSrc) || !/isPro/.test(modalSrc) || !/onNeedPaywall/.test(modalSrc)) {
     ccFail('Free preview / Pro gate yok');
   }
-  if (!/DRAFT_TEMPLATES/.test(advisorCc) || !/DraftWizardModal/.test(advisorCc) || !/draftSectionTitle/.test(advisorCc)) {
+  if (!/DRAFT_TEMPLATES|listDraftTemplatesFor/.test(advisorCc) || !/DraftWizardModal/.test(advisorCc) || !/draftSectionTitle/.test(advisorCc)) {
     ccFail('LegalAdvisor "Belge Hazırla" chips yok');
   }
-  if (!/isPro=\{!lockPremium\}/.test(appSrc) || !/onNeedPaywall=\{\(\) => openPaywall\(/.test(appSrc)) {
+  if (!/isPro=\{!lockPremium\}/.test(appSrc) || !/onNeedPaywall=\{\((hook)?\) => openPaywall\(/.test(appSrc)) {
     ccFail('App.js must pass isPro + existing openPaywall hook to LegalAdvisor');
   }
   if (!/draftForScenario/.test(scenarioModalSrc) || !/onOpenDraft/.test(scenarioModalSrc)) {
@@ -3265,19 +3310,8 @@ Ticaret Unvanı: Anadolu Bilişim
       }
     }
 
-    const tplBody = tplSrc.replace(/export /g, '');
-    const draftBody = draftSrc
-      .replace(/import i18n from '\.\.\/i18n';\s*/, '')
-      .replace(/import \{[^}]+\} from '\.\.\/constants\/draftTemplates';\s*/, '')
-      .replace(/export /g, '');
-    const i18nStub = {
-      language: 'tr',
-      getResource: (lang, _ns, key) => (WAVE_CC[lang] || {})[key],
-    };
-    const api = new Function( // eslint-disable-line no-new-func
-      'i18n',
-      `${tplBody}\n${draftBody}\nreturn { DRAFT_TEMPLATES, DRAFT_TEMPLATE_IDS, DRAFT_FREE_PREVIEW_LINES, getDraftTemplateById, draftForScenario, buildDraft, formatDraftForSharing, buildDraftPreview, applyImprovedWording, citationsIn, draftDocxFilename };`
-    )(i18nStub);
+    const { api } = require('./cb1-harness').loadApp('tr');
+    const trPack = (tpl) => tpl.packs?.TR || {};
 
     const P0 = ['notice_payment', 'mediation_application', 'consumer_complaint'];
     if (JSON.stringify(api.DRAFT_TEMPLATE_IDS) !== JSON.stringify(P0) || api.DRAFT_TEMPLATES.length !== 3) {
@@ -3285,23 +3319,31 @@ Ticaret Unvanı: Anadolu Bilişim
     }
     const phRe = /\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g;
     for (const tpl of api.DRAFT_TEMPLATES) {
-      const fields = ['id', 'titleKey', 'bodyTemplateKey', 'fixedReferenceKey', 'disclaimerKey'];
-      if (fields.some((f) => !tpl[f]) || !Array.isArray(tpl.questions)) ccFail(`${tpl.id} registry fields`);
+      const fields = ['id', 'titleKey', 'disclaimerKey'];
+      if (
+        fields.some((f) => !tpl[f]) ||
+        !trPack(tpl).bodyTemplateKey ||
+        !trPack(tpl).fixedReferenceKey ||
+        !Array.isArray(tpl.questions)
+      ) {
+        ccFail(`${tpl.id} registry fields`);
+      }
       if (tpl.questions.length < 4 || tpl.questions.length > 6) ccFail(`${tpl.id} must have 4–6 questions`);
       const qIds = tpl.questions.map((q) => q.id);
       tpl.questions.forEach((q) => {
         if (!q.id || !q.labelKey || !q.type || typeof q.required !== 'boolean') ccFail(`${tpl.id}.${q.id} question shape`);
       });
-      const keys = [tpl.titleKey, tpl.descriptionKey, tpl.bodyTemplateKey, tpl.fixedReferenceKey, tpl.disclaimerKey, ...tpl.questions.map((q) => q.labelKey)];
-      const enPh = [...new Set([...String(WAVE_CC.en[tpl.bodyTemplateKey] || '').matchAll(phRe)].map((m) => m[1]))].sort();
+      const bodyKey = trPack(tpl).bodyTemplateKey;
+      const keys = [tpl.titleKey, tpl.descriptionKey, bodyKey, trPack(tpl).fixedReferenceKey, tpl.disclaimerKey, ...tpl.questions.map((q) => q.labelKey)];
+      const enPh = [...new Set([...String(WAVE_CC.en[bodyKey] || '').matchAll(phRe)].map((m) => m[1]))].sort();
       if (JSON.stringify(enPh) !== JSON.stringify([...qIds].sort())) ccFail(`${tpl.id} body placeholders ≠ question ids`);
       for (const lang of ccLangs) {
         keys.forEach((k) => {
           if (!WAVE_CC[lang][k]) ccFail(`${lang}.${k} missing`);
         });
-        const ph = [...new Set([...String(WAVE_CC[lang][tpl.bodyTemplateKey] || '').matchAll(phRe)].map((m) => m[1]))].sort();
-        if (JSON.stringify(ph) !== JSON.stringify(enPh)) ccFail(`${lang}.${tpl.bodyTemplateKey} placeholder drift`);
-        if (api.citationsIn(WAVE_CC[lang][tpl.bodyTemplateKey]).size) ccFail(`${lang}.${tpl.bodyTemplateKey} carries a citation`);
+        const ph = [...new Set([...String(WAVE_CC[lang][bodyKey] || '').matchAll(phRe)].map((m) => m[1]))].sort();
+        if (JSON.stringify(ph) !== JSON.stringify(enPh)) ccFail(`${lang}.${bodyKey} placeholder drift`);
+        if (api.citationsIn(WAVE_CC[lang][bodyKey]).size) ccFail(`${lang}.${bodyKey} carries a citation`);
       }
     }
 
@@ -3332,10 +3374,10 @@ Ticaret Unvanı: Anadolu Bilişim
 
     for (const lang of ccLangs) {
       for (const id of P0) {
-        const d = api.buildDraft(id, {}, lang);
+        const d = api.buildDraft(id, {}, { country: 'TR', language: lang });
         const disc = WAVE_CC[lang].draftDisclaimer;
         if (!d || !d.text.endsWith(disc) || /\{\{/.test(d.text)) ccFail(`${lang}/${id} disclaimer-last or blank fill`);
-        const allowed = api.citationsIn(WAVE_CC[lang][api.getDraftTemplateById(id).fixedReferenceKey]);
+        const allowed = api.citationsIn(WAVE_CC[lang][trPack(api.getDraftTemplateById(id)).fixedReferenceKey]);
         for (const c of api.citationsIn(d.text)) {
           if (!allowed.has(c)) ccFail(`${lang}/${id} citation outside fixed reference: ${c}`);
         }
@@ -3362,10 +3404,10 @@ Ticaret Unvanı: Anadolu Bilişim
     }
 
     if (
-      api.draftForScenario('labor_exit', 'unpaid_claim') !== 'mediation_application' ||
-      api.draftForScenario('rent_arrears', 'tenant_protect') !== null ||
-      api.draftForScenario('unpaid_invoice_b2b', 'disputed') !== 'mediation_application' ||
-      api.draftForScenario('unpaid_invoice_b2b', 'formal_std') !== 'notice_payment'
+      api.draftForScenario('labor_exit', 'unpaid_claim', 'TR') !== 'mediation_application' ||
+      api.draftForScenario('rent_arrears', 'tenant_protect', 'TR') !== null ||
+      api.draftForScenario('unpaid_invoice_b2b', 'disputed', 'TR') !== 'mediation_application' ||
+      api.draftForScenario('unpaid_invoice_b2b', 'formal_std', 'TR') !== 'notice_payment'
     ) {
       ccFail('CA′ → draft mapping');
     }
@@ -3375,6 +3417,550 @@ Ticaret Unvanı: Anadolu Bilişim
 
   if (ccOk) {
     console.log('OK  WAVE CC guided drafts (N=51 → 13×979) + disclaimer-last + Edge sha256 frozen');
+  }
+}
+
+// WAVE CB.1 — Jurisdiction packs (calculators + scenarios + drafts)
+{
+  let cb1Ok = true;
+  const cb1Fail = (msg) => {
+    failed = true;
+    cb1Ok = false;
+    console.log(`WAVE CB.1 ${msg}`);
+  };
+  const read = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
+  const localSrc = ['constants/jurisdiction.js', 'constants/legalCalcRates.js', 'utils/legalCalculators.js', 'constants/legalScenarios.js', 'services/scenarioRoadmap.js', 'constants/draftTemplates.js', 'services/guidedDraft.js']
+    .map(read)
+    .join('\n');
+  if (/fetch\(|XMLHttpRequest|askLegalAdvisor\(|callClaudeProxy|getDefaultCountryForLanguage/.test(localSrc)) {
+    cb1Fail('calculators/scenarios/drafts must stay local and must not use getDefaultCountryForLanguage');
+  }
+  if (/from\s+'[^']*i18n[^']*'|require\([^)]*i18n/.test(read('constants/legalCalcRates.js') + read('constants/jurisdiction.js'))) {
+    cb1Fail('rate/jurisdiction constants must not import i18n');
+  }
+  const advisorSrcCb1 = read('screens/LegalAdvisorScreen.js');
+  const calcModalCb1 = read('components/CalculatorModal.js');
+  const draftModalCb1 = read('components/DraftWizardModal.js');
+  const scenarioModalCb1 = read('components/ScenarioWizardModal.js');
+  for (const name of ['CalculatorModal', 'ScenarioWizardModal', 'DraftWizardModal']) {
+    const block = advisorSrcCb1.match(new RegExp(`<${name}[\\s\\S]*?/>`));
+    if (!block || !/country=\{country\}/.test(block[0])) cb1Fail(`LegalAdvisor must pass country to ${name}`);
+  }
+  if (!/resolveCalcContext/.test(calcModalCb1) || !/calcModeStatutory/.test(calcModalCb1) || !/calcModeGeneric/.test(calcModalCb1) || !/calcCurrencyUnset/.test(calcModalCb1)) {
+    cb1Fail('CalculatorModal jurisdiction/mode badges or currency hint missing');
+  }
+  if (!/<Pressable\s+style=\{StyleSheet\.absoluteFillObject\}[\s\S]*?\/>\s*<View/.test(calcModalCb1)) {
+    cb1Fail('CalculatorModal BL.3 regress');
+  }
+  if (!/buildRoadmap\(/.test(scenarioModalCb1) || !/scenarioGenericBanner|roadmap\.banner/.test(scenarioModalCb1)) {
+    cb1Fail('ScenarioWizardModal must use buildRoadmap + generic banner');
+  }
+  if (!/draftGenericBanner/.test(draftModalCb1) || !/listDraftTemplatesFor/.test(draftModalCb1)) {
+    cb1Fail('DraftWizardModal must filter by jurisdiction + show generic banner');
+  }
+  if (!/draftAnswersById/.test(advisorSrcCb1) || !/paywallVisible/.test(advisorSrcCb1) || !/paywallVisible=\{paywallVisible\}/.test(appSrc)) {
+    cb1Fail('P4 draft answers must survive paywall (LegalAdvisor state + App paywallVisible)');
+  }
+  if (!/draftResetAnswers/.test(draftModalCb1) || !/onClearAnswers/.test(draftModalCb1)) {
+    cb1Fail('P4 clear answers on export / explicit reset missing');
+  }
+
+  try {
+    const golden = JSON.parse(read('scripts/fixtures/cb1-golden.json'));
+    const { loadApp, LANGS } = require('./cb1-harness');
+    const { api, t } = loadApp('tr');
+    const near = (a, b) => Math.abs(Number(a) - Number(b)) <= 0.01;
+
+    // P0 — packs + currency
+    if (!api.getCalcPack('TR') || api.getCalcPack('DE') !== null || api.getCalcPack('auto', 'de') !== null) cb1Fail('getCalcPack basics');
+    if (api.getCalcPack('auto', 'tr') !== api.LEGAL_CALC_PACKS.TR || api.LEGAL_CALC_RATES !== api.LEGAL_CALC_PACKS.TR) cb1Fail('getCalcPack auto+tr / alias');
+    if (api.getCalcPack('XX', 'tr') !== null) cb1Fail('unknown country must have no pack');
+    if (
+      api.resolveCurrency('auto', 'en') !== null ||
+      api.resolveCurrency('auto', 'xx') !== null ||
+      api.resolveCurrency('auto', 'pt') !== 'EUR' ||
+      api.resolveCurrency('US', 'tr') !== 'USD' ||
+      api.resolveCurrency('auto', 'tr') !== 'TRY' ||
+      api.resolveCurrency('GB', 'en') !== 'GBP' ||
+      api.resolveCurrency('XX', 'tr') !== null
+    ) {
+      cb1Fail('resolveCurrency map');
+    }
+    LANGS.filter((l) => l !== 'tr').forEach((l) => {
+      if (api.resolveCurrency('auto', l) === 'TRY') cb1Fail(`auto+${l} must never resolve TRY`);
+    });
+    if (api.resolveJurisdiction('auto', 'tr') !== 'TR' || api.resolveJurisdiction('auto', 'de') !== null || api.resolveJurisdiction('US', 'tr') !== 'US') {
+      cb1Fail('resolveJurisdiction');
+    }
+
+    // P1 — calculators
+    const sevDe = api.calculateSeverance({ grossSalary: 50000, workMonths: 36, country: 'DE', language: 'de' });
+    if (!sevDe.unavailable || sevDe.totalAmount !== null || sevDe.breakdown.length || api.formatCalculationForSharing(sevDe, 'plain', t('de')) !== '') {
+      cb1Fail('severance DE must be unavailable (no numbers)');
+    }
+    const sevTr = api.calculateSeverance({ grossSalary: 50000, workMonths: 36, country: 'TR', language: 'tr' });
+    if (!near(sevTr.totalAmount, 137411.67) || sevTr.currency !== 'TRY' || sevTr.mode !== 'statutory') cb1Fail('TR severance total changed');
+    const intDe = api.calculateLegalInterest({ principal: 100000, startDate: '2025-01-01', endDate: '2026-01-01', userRate: 5, country: 'DE', language: 'de' });
+    if (intDe.currency !== 'EUR' || intDe.mode !== 'generic' || 'asOfDate' in intDe || !near(intDe.totalAmount, 105000) || intDe.statutoryFootnoteKey !== 'calcFootnoteGenericInterest') {
+      cb1Fail('generic DE interest');
+    }
+    const intAutoDe = api.calculateLegalInterest({ principal: 1000, startDate: '2025-01-01', endDate: '2026-01-01', userRate: 5, country: 'auto', language: 'de' });
+    if (intAutoDe.currency === 'TRY' || intAutoDe.mode !== 'generic') cb1Fail('auto+de interest must not be TRY/statutory');
+    const intAutoEn = api.calculateLegalInterest({ principal: 1000, startDate: '2025-01-01', endDate: '2026-01-01', userRate: 5, country: 'auto', language: 'en' });
+    const shareAutoEn = api.formatCalculationForSharing(intAutoEn, 'plain', t('en'));
+    if (intAutoEn.currency !== null || /\b(TRY|GBP|USD)\b/.test(shareAutoEn)) cb1Fail('auto+en must have no currency');
+    const shareDe = api.formatCalculationForSharing(intDe, 'whatsapp', t('de'));
+    const deLines = shareDe.split('\n');
+    if (!/EUR/.test(shareDe) || /TRY/.test(shareDe) || deLines[deLines.length - 1] !== t('de')('calcDisclaimer') || /2026-01-01 \(/.test(shareDe)) {
+      cb1Fail('DE share must be EUR, no TRY/asOf, disclaimer last');
+    }
+    const rentUs = api.calculateRentIncrease({ currentRent: 1000, proposedRent: 1100, indexRate: 5, country: 'US', language: 'en' });
+    if (rentUs.currency !== 'USD' || rentUs.mode !== 'generic' || rentUs.statutoryFootnoteKey !== 'calcFootnoteGenericRent' || !near(rentUs.totalAmount, 1050)) {
+      cb1Fail('generic US rent');
+    }
+    if (api.formatMoney(1234.5, 'EUR', 'de-DE').indexOf('€') < 0 || api.formatMoney(12, null, 'en-US') !== '12.00' || api.formatMoney(1, 'BAD!', 'en') !== '1.00 BAD!') {
+      cb1Fail('formatMoney Intl + fallback');
+    }
+
+    // TR calculator share: identical to pre-CB.1 except one jurisdiction line.
+    const tTr = t('tr');
+    const calcCases = {
+      severance: (c) => api.calculateSeverance({ grossSalary: 50000, workMonths: 36, includesNoticePay: false, ...c }),
+      severanceNotice: (c) => api.calculateSeverance({ grossSalary: 80000, workMonths: 50, includesNoticePay: true, ...c }),
+      rent: (c) => api.calculateRentIncrease({ currentRent: 15000, proposedRent: 18000, tufeRate: 25, isResidential: true, ...c }),
+      interestLegal: (c) => api.calculateLegalInterest({ principal: 100000, startDate: '2025-01-01', endDate: '2026-01-01', interestType: 'legal', ...c }),
+      interestCommercial: (c) => api.calculateLegalInterest({ principal: 100000, startDate: '2025-01-01', endDate: '2025-07-01', interestType: 'commercial', ...c }),
+    };
+    const jLine = tTr('calcJurisdictionLine', { jurisdiction: 'TR', currency: 'TRY' });
+    for (const [k, fn] of Object.entries(calcCases)) {
+      for (const country of ['TR', 'auto']) {
+        const r = fn({ country, language: 'tr' });
+        const text = api.formatCalculationForSharing(r, 'whatsapp', tTr);
+        if (!near(r.totalAmount, golden.golden.calc[k].total)) cb1Fail(`TR ${k} total drift`);
+        if (text.split(jLine).length !== 2 || text.replace(`${jLine}\n\n`, '') !== golden.golden.calc[k].text) {
+          cb1Fail(`TR ${k} share text drift (${country})`);
+        }
+      }
+    }
+    const autoTrSev = api.calculateSeverance({ grossSalary: 50000, workMonths: 36, country: 'auto', language: 'tr' });
+    if (autoTrSev.unavailable || autoTrSev.currency !== 'TRY' || !near(autoTrSev.totalAmount, 137411.67)) cb1Fail('auto+tr severance must equal TR');
+
+    // P3 — scenarios
+    let roadmapChecked = 0;
+    for (const [key, g] of Object.entries(golden.golden.roadmaps)) {
+      const sid = key.slice(0, key.indexOf(':'));
+      const answers = JSON.parse(key.slice(key.indexOf(':') + 1));
+      for (const country of ['auto', 'TR']) {
+        const r = api.buildRoadmap(sid, answers, { country, language: 'tr' });
+        if (JSON.stringify(r) !== g.json || api.formatRoadmapForSharing(r, 'plain') !== g.text) cb1Fail(`TR roadmap drift ${key} (${country})`);
+      }
+      roadmapChecked += 1;
+    }
+    if (roadmapChecked < 20) cb1Fail('golden roadmap fixture too small');
+    const bannedRoadmap = /\b(arabulucu\w*|icra|noter\w*|TÜFE)\b/i;
+    for (const sc of api.LEGAL_SCENARIOS) {
+      if (JSON.stringify(sc.jurisdictions) !== JSON.stringify(['TR'])) cb1Fail(`${sc.id} jurisdictions`);
+      for (const L of LANGS) {
+        for (const country of ['US', 'DE', 'auto']) {
+          if (country === 'auto' && L === 'tr') continue;
+          const r = api.buildRoadmap(sc.id, {}, { country, language: L });
+          const text = api.formatRoadmapForSharing(r, 'plain');
+          if (!r.generic || r.steps.length !== 5 || !r.banner || bannedRoadmap.test(text) || bannedRoadmap.test(JSON.stringify(r))) {
+            cb1Fail(`generic roadmap ${sc.id} ${country}/${L}`);
+          }
+          if (!text.endsWith(r.disclaimer)) cb1Fail(`generic roadmap disclaimer last ${sc.id}/${L}`);
+        }
+      }
+    }
+    if (api.buildRoadmap('labor_exit', {}, { country: 'auto', language: 'tr' }).generic) cb1Fail('auto+tr roadmap must be TR');
+    if (!api.buildRoadmap('labor_exit', {}, { country: 'auto', language: 'de' }).generic) cb1Fail('auto+de roadmap must be generic');
+
+    // P3 — drafts
+    for (const id of Object.keys(golden.DRAFT_ANSWERS)) {
+      for (const country of ['auto', 'TR']) {
+        const full = api.buildDraft(id, golden.DRAFT_ANSWERS[id], { country, language: 'tr' });
+        const empty = api.buildDraft(id, {}, { country, language: 'tr' });
+        if (!full || full.text !== golden.golden.drafts[`${id}:full`] || empty.text !== golden.golden.drafts[`${id}:empty`] || full.generic) {
+          cb1Fail(`TR draft drift ${id} (${country})`);
+        }
+      }
+    }
+    const bannedDraft = /\b(TBK|TKHK|6325|6502|m\.\s?\d+|arabulucu\w*|icra|noter\w*)\b/i;
+    const genDe = api.buildDraft('notice_payment', golden.DRAFT_ANSWERS.notice_payment, { country: 'DE', language: 'de' });
+    if (!genDe || !genDe.generic || bannedDraft.test(genDe.text) || genDe.reference || !genDe.text.endsWith(t('de')('draftDisclaimer')) || !genDe.text.includes('45.000 TL')) {
+      cb1Fail('generic DE notice draft');
+    }
+    for (const L of LANGS) {
+      for (const country of ['US', 'DE', 'GB']) {
+        for (const id of ['notice_payment', 'consumer_complaint']) {
+          const d = api.buildDraft(id, golden.DRAFT_ANSWERS[id], { country, language: L });
+          if (!d || !d.generic || bannedDraft.test(d.text) || /Hakem Heyeti/i.test(d.text) || api.citationsIn(d.text).size || /\{\{/.test(d.text)) {
+            cb1Fail(`generic draft ${id} ${country}/${L}`);
+          }
+          if (!d.text.endsWith(t(L)('draftDisclaimer'))) cb1Fail(`generic draft disclaimer last ${id}/${L}`);
+        }
+        if (api.buildDraft('mediation_application', {}, { country, language: L }) !== null) cb1Fail(`mediation must be unavailable for ${country}`);
+      }
+    }
+    const phOf = (s) => [...new Set([...String(s || '').matchAll(/\{\{\s*(\w+)\s*\}\}/g)].map((m) => m[1]))].sort().join(',');
+    const enRes = t('en');
+    for (const tpl of api.DRAFT_TEMPLATES) {
+      if (JSON.stringify(tpl.jurisdictions) !== JSON.stringify(['TR']) || tpl.fixedReferenceKey || tpl.bodyTemplateKey) cb1Fail(`${tpl.id} statute refs must live under packs.TR only`);
+      if (tpl.generic) {
+        const q = tpl.questions.map((x) => x.id).sort().join(',');
+        const cbRes = require('./cb1-harness').buildResources();
+        LANGS.forEach((L) => {
+          if (phOf(cbRes[L][tpl.generic.bodyTemplateKey]) !== q) cb1Fail(`${L}.${tpl.generic.bodyTemplateKey} placeholders ≠ questions`);
+        });
+      }
+    }
+    const usList = api.listDraftTemplatesFor({ country: 'US', language: 'en' }).map((x) => x.template.id);
+    const trList = api.listDraftTemplatesFor({ country: 'auto', language: 'tr' }).map((x) => x.template.id);
+    if (usList.includes('mediation_application') || usList.length !== 2 || trList.length !== 3) cb1Fail('draft availability per jurisdiction');
+    if (
+      api.draftForScenario('labor_exit', 'generic', 'US') !== null ||
+      api.draftForScenario('unpaid_invoice_b2b', 'generic', 'US') !== 'notice_payment' ||
+      api.draftForScenario('unpaid_invoice_b2b', 'disputed', null) !== null ||
+      api.draftForScenario('labor_exit', 'unpaid_claim', 'TR') !== 'mediation_application'
+    ) {
+      cb1Fail('scenario → draft mapping must respect jurisdiction');
+    }
+    if (enRes('draftGenericBanner') === 'draftGenericBanner') cb1Fail('i18n draftGenericBanner missing');
+
+    // P5 — TR footnotes: tr untouched (golden above), non-tr labelled Türkiye.
+    const cbRes = require('./cb1-harness').buildResources();
+    LANGS.filter((l) => l !== 'tr').forEach((L) => {
+      ['calcFootnoteSeverance', 'calcFootnoteRent', 'calcFootnoteInterest'].forEach((k) => {
+        if (!/^Türkiye/.test(cbRes[L][k] || '')) cb1Fail(`${L}.${k} must be labelled Türkiye`);
+      });
+      if (!/1475 s\. İş K\. m\.14/.test(cbRes[L].calcFootnoteSeverance)) cb1Fail(`${L}.calcFootnoteSeverance must cite 1475 s. İş K. m.14`);
+    });
+    if (cbRes.tr.scenarioGenericBanner !== 'Bu ülke için özel yol haritası henüz yok; genel adımlar gösteriliyor.') cb1Fail('TR scenarioGenericBanner text');
+    if (cbRes.tr.draftGenericBanner !== 'Bu ülke için özel şablon yok; genel mektup formatı hazırlandı. Yerel hukuku kontrol edin.') cb1Fail('TR draftGenericBanner text');
+  } catch (error) {
+    cb1Fail(`runtime: ${error.message}`);
+  }
+
+  if (cb1Ok) {
+    console.log('OK  WAVE CB.1 jurisdiction packs (N=26 → 13×1005) + TR byte-identity + generic fallbacks');
+  }
+}
+
+// WAVE CB.1a + P2.1 — Draft paywall return on purchase path + advisor header inside FlatList
+{
+  let cb1aOk = true;
+  const cb1aFail = (msg) => {
+    failed = true;
+    cb1aOk = false;
+    console.log(`WAVE CB.1a ${msg}`);
+  };
+  const advisor = fs.readFileSync('screens/LegalAdvisorScreen.js', 'utf8');
+  const app = fs.readFileSync('App.js', 'utf8');
+
+  // P2.1 layout
+  if (!/ListHeaderComponent=\{headerElement\}/.test(advisor)) cb1aFail('FlatList must use ListHeaderComponent={headerElement}');
+  if (!/const headerElement = useMemo\(/.test(advisor)) cb1aFail('headerElement must be a useMemo stable element');
+  if (/ListHeaderComponent=\{\s*\(/.test(advisor)) cb1aFail('ListHeaderComponent must not be an inline component');
+  const headerBlock = (advisor.match(/const headerElement = useMemo\([\s\S]*?\n  \);/) || [''])[0];
+  for (const needle of ['RecentChatsList', 'scenarioSectionTitle', 'calcSectionTitle', 'draftSectionTitle', 'SelectorField', 'LEGAL_SCENARIOS', 'LEGAL_CALCULATORS', 'offeredDrafts']) {
+    if (!headerBlock.includes(needle)) cb1aFail(`header must contain ${needle}`);
+  }
+  const depsMatch = headerBlock.match(/\),\s*\[([^\]]*)\]\s*\);$/);
+  const deps = depsMatch ? depsMatch[1] : '';
+  for (const dep of ['theme', 't', 'calcPack', 'offeredDrafts', 'sending', 'i18n.language']) {
+    if (!new RegExp(`(^|[\\s,])${dep.replace('.', '\\.')}([\\s,]|$)`).test(deps)) cb1aFail(`headerElement deps missing ${dep}`);
+  }
+  if (/TouchableWithoutFeedback/.test(advisor)) cb1aFail('no TouchableWithoutFeedback wrappers (BL.3 lock)');
+  const scrollViews = advisor.match(/<ScrollView\b[^>]*>/g) || [];
+  if (scrollViews.some((tag) => !/\bhorizontal\b/.test(tag))) cb1aFail('no vertical ScrollView may wrap the FlatList');
+  if ((advisor.match(/<FlatList\b/g) || []).length !== 1) cb1aFail('exactly one FlatList expected');
+  if (!/keyboardDismissMode="on-drag"/.test(advisor) || !/keyboardShouldPersistTaps="handled"/.test(advisor)) {
+    cb1aFail('FlatList keyboard dismiss/persist props required');
+  }
+  if (!/flexGrow: 1, paddingBottom: 12/.test(advisor)) cb1aFail('contentContainerStyle flexGrow:1 + paddingBottom:12');
+  const flatEnd = advisor.indexOf('/>', advisor.indexOf('<FlatList'));
+  const inputIdx = advisor.indexOf('<TextInput');
+  const disclaimerIdx = advisor.indexOf("t('advisorDisclaimer')");
+  if (!(flatEnd > 0 && inputIdx > flatEnd && disclaimerIdx > flatEnd)) cb1aFail('disclaimer + input must stay outside FlatList');
+  if (!/followChatRef\.current = true/.test(advisor) || !/if \(!followChatRef\.current\) return;/.test(advisor)) {
+    cb1aFail('scrollToEnd must only follow after send (no auto-scroll on first open)');
+  }
+  if (!/messages\.length > 0/.test(advisor)) cb1aFail('scrollToEnd must be gated on messages.length > 0');
+  if (!/keyboardVerticalOffset=\{Platform\.OS === 'ios' \? 90 : 0\}/.test(advisor)) cb1aFail('iOS keyboardVerticalOffset 90 preserved');
+
+  // CB.1a paywall return
+  if (!/onNeedPaywall\?\.\('draft'\)/.test(advisor)) cb1aFail("draft paywall must call onNeedPaywall('draft')");
+  if (!/onNeedPaywall=\{\(hook\) => openPaywall\(hook \|\| null, null\)\}/.test(app)) cb1aFail('App advisor onNeedPaywall must forward hook');
+  if (!/isActive=\{activeTab === 'advisor'\}/.test(app)) cb1aFail("App must pass isActive={activeTab === 'advisor'}");
+  const purchased = (app.match(/onPurchased=\{async \(\) => \{[\s\S]*?\n        \}\}/) || [''])[0];
+  const guardIdx = purchased.search(/capturedHook === 'draft'/);
+  const tabIdx = purchased.indexOf("setActiveTab('analyze')");
+  if (!/const capturedHook = paywallHookRef\.current/.test(purchased) || guardIdx < 0 || tabIdx < 0 || guardIdx > tabIdx) {
+    cb1aFail("onPurchased must capture hook and guard 'draft' before setActiveTab('analyze')");
+  }
+  const draftBranch = purchased.slice(guardIdx, tabIdx);
+  if (!/refreshProfile\(\)/.test(draftBranch) || !/return;/.test(draftBranch) || /setActiveTab|scrollTo/.test(draftBranch)) {
+    cb1aFail("'draft' branch must refreshProfile and return without tab change/scroll");
+  }
+  const reopen = (advisor.match(/useEffect\(\(\) => \{\s*if \(!paywallClosedTick[\s\S]*?\}, \[[^\]]*\]\);/) || [''])[0];
+  if (!/isActive/.test(reopen) || !/InteractionManager\.runAfterInteractions/.test(reopen) || !/setTimeout\([\s\S]*400\)/.test(reopen)) {
+    cb1aFail('reopen effect must gate on isActive + runAfterInteractions + 400ms');
+  }
+  if (!/openDraft\(id, \{ atPreview: true \}\)/.test(reopen)) cb1aFail('reopen must restore the same template at preview');
+  const paywallSrc = fs.readFileSync('screens/PaywallScreen.js', 'utf8');
+  if (/HOOK_COPY = new Set\([^)]*'draft'/.test(paywallSrc)) cb1aFail("'draft' hook must reuse generic paywall copy");
+
+  if (cb1aOk) {
+    console.log('OK  WAVE CB.1a draft paywall return (purchase path) + P2.1 advisor header in FlatList');
+  }
+}
+
+// WAVE ST — Store hardening (account deletion, AI output report, permissions, listing)
+{
+  let stOk = true;
+  const stFail = (msg) => {
+    failed = true;
+    stOk = false;
+    console.log(`WAVE ST ${msg}`);
+  };
+  const read = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
+
+  // P0 — Edge delete-account
+  const edge = read('supabase/functions/delete-account/index.ts');
+  if (!edge) stFail('supabase/functions/delete-account/index.ts missing');
+  if (!/auth\.getUser\(token\)/.test(edge) || !/req\.headers\.get\('Authorization'\)/.test(edge)) {
+    stFail('delete-account must verify the JWT via auth.getUser(token)');
+  }
+  const userIdAssignments = edge.match(/\buserId\s*=(?!=)[^;\n]*/g) || [];
+  if (userIdAssignments.length !== 1 || !/authData\?\.user\?\.id/.test(userIdAssignments[0] || '')) {
+    stFail('userId must be derived only from the validated token');
+  }
+  if (!/'userId' in body/.test(edge) || !/USER_ID_NOT_ACCEPTED/.test(edge)) stFail('body-supplied userId must be rejected');
+  if (/body\.(userId|user_id)/.test(edge)) stFail('body userId must never be read');
+  if (/free_quota_claims/.test(edge)) stFail('delete-account must not touch the free-quota claim table');
+  if (/brief-web|\.storage\b/.test(edge)) stFail('delete-account must not touch storage / the shared viewer bucket');
+  if (!/from\('analyses'\)\.delete\(\)\.eq\('user_id', userId\)/.test(edge)) stFail('analyses delete by token user missing');
+  if (!/from\('support_messages'\)\.delete\(\)\.eq\('user_id', userId\)/.test(edge)) stFail('support_messages delete missing');
+  if (!/auth\.admin\.deleteUser\(userId\)/.test(edge)) stFail('auth.admin.deleteUser(userId) missing');
+  if (!/SUPABASE_SERVICE_ROLE_KEY/.test(edge)) stFail('service role env missing');
+  if (!/isUserMissing\(authError\)\) return json\(\{ ok: true \}\)/.test(edge)) stFail('idempotent { ok: true } for missing user');
+
+  // P0 — client cleanup reuses the notifications ID_PREFIX
+  const notif = read('services/notifications.js');
+  const account = read('services/account.js');
+  if ((notif.match(/const ID_PREFIX = 'nexulex';/g) || []).length !== 1) stFail("ID_PREFIX must be defined once in services/notifications.js");
+  if (!/export async function cancelAllNexuLexNotifications[\s\S]{0,400}startsWith\(ID_PREFIX\)/.test(notif)) {
+    stFail('cancelAllNexuLexNotifications must filter by ID_PREFIX');
+  }
+  if (!/import \{ cancelAllNexuLexNotifications \} from '\.\/notifications'/.test(account)) stFail('account purge must reuse notifications cleanup');
+  const clientFiles = ['App.js', ...['services', 'utils', 'components', 'screens', 'context']
+    .flatMap((dir) => (fs.existsSync(dir) ? fs.readdirSync(dir).map((f) => `${dir}/${f}`) : []))]
+    .filter((f) => /\.(js|jsx|ts|tsx)$/.test(f) && f !== 'services/notifications.js');
+  const prefixCopies = clientFiles.filter((f) => /startsWith\(\s*['"`]nexulex|=\s*['"`]nexulex['"`]\s*;|['"`]nexulex:(?!\/\/)/.test(read(f)));
+  if (prefixCopies.length) stFail(`notification prefix copied outside notifications.js: ${prefixCopies.join(', ')}`);
+  if (!/clearAnalysisCache\(\)/.test(account) || !/multiRemove/.test(account) || !/cleanStaleExportCache\(0\)/.test(account)) {
+    stFail('purge must clear analysis cache + app AsyncStorage keys + cleanStaleExportCache(0)');
+  }
+  if (!/signOut\(\{ scope: 'local' \}\)/.test(account)) stFail('purge must sign out');
+  if (!/functions\.invoke\('delete-account', \{ body: \{\} \}\)/.test(account)) stFail('client must call delete-account without a user id');
+  if (!/typeof options === 'number'/.test(read('utils/fileAccess.js'))) stFail('cleanStaleExportCache(0) must purge (numeric maxAge)');
+  if (!/wipeAll/.test(read('context/AdvisorChatContext.js'))) stFail('advisor chats must be wiped from memory');
+
+  // P0 — Settings entry + subscription URLs
+  const app = read('App.js');
+  if (!/const handleDeleteAccount = async/.test(app) || !/onPress=\{handleDeleteAccount\}/.test(app)) stFail('Settings delete account entry missing');
+  const deleteFn = (app.match(/const handleDeleteAccount = async[\s\S]*?\n  \};/) || [''])[0];
+  if ((deleteFn.match(/showModal\(/g) || []).length < 2) stFail('account deletion must be a 2-step showModal');
+  for (const key of ['accountDeleteWarning', 'accountManageSubscription', 'accountDeleteConfirmCta']) {
+    if (!deleteFn.includes(`t('${key}')`)) stFail(`delete flow missing ${key}`);
+  }
+  if (!/deleteAccountAndPurge\(\)/.test(deleteFn) || !/wipeAdvisorChats\(\)/.test(deleteFn)) stFail('delete flow must purge + wipe chats');
+  if (!/openSubscriptionManagement/.test(app)) stFail('Manage Subscription action missing');
+  if (!account.includes("ios: 'https://apps.apple.com/account/subscriptions'") || !account.includes("android: 'https://play.google.com/store/account/subscriptions'")) {
+    stFail('subscription URLs must target the store pages');
+  }
+  const stI18n = read('i18n.wavest.js');
+  if (!stI18n.includes('"accountDeleteWarning": "Your data will be permanently deleted. An active App Store / Google Play subscription is NOT cancelled automatically."')) {
+    stFail('en.accountDeleteWarning copy');
+  }
+
+  // P1 — AI output report
+  const reportSvc = read('services/aiReport.js');
+  const sheet = read('components/AiReportSheet.js');
+  if (!/import \{ submitSupportMessage \} from '\.\/support'/.test(reportSvc) || /supabase/.test(reportSvc)) {
+    stFail('AI report must go through services/support.js');
+  }
+  if (!/AI_REPORT_SUBJECT_PREFIX = 'ai_report:'/.test(reportSvc)) stFail("subject prefix 'ai_report:' missing");
+  try {
+    const body = reportSvc.replace(/^import .*$/gm, '').replace(/^export /gm, '');
+    const api = new Function('submitSupportMessage', `${body}\nreturn { buildAiReport, AI_REPORT_FEATURES };`)(async () => ({}));
+    const long = 'x'.repeat(5000);
+    const off = api.buildAiReport({ featureId: 'advisor_answer', reason: 'harmful', note: 'n1', targetId: 'm-1', locale: 'tr', country: 'TR', context: long });
+    const on = api.buildAiReport({ featureId: 'analysis_report', reason: 'incorrect', targetId: 'a-9', locale: 'en', country: 'auto', includeContext: true, context: long });
+    const lastLine = (msg) => msg.split('\n').pop();
+    if (off.subject !== 'ai_report:advisor_answer' || on.subject !== 'ai_report:analysis_report') stFail('subject must be ai_report:<featureId>');
+    if (off.message.includes('xxx')) stFail('context must not be sent without explicit opt-in');
+    if (!/^reason: harmful\nnote: n1\nmeta: /.test(off.message)) stFail('message order: reason → note → meta');
+    const meta = JSON.parse(lastLine(off.message).replace(/^meta: /, ''));
+    if (meta.id !== 'm-1' || meta.locale !== 'tr' || meta.country !== 'TR' || Object.keys(meta).join(',') !== 'id,locale,country') stFail('meta line shape');
+    if (((on.message.match(/x{10,}/) || [''])[0]).length !== 2000) stFail('opt-in context must be truncated to 2000 chars');
+    if (!lastLine(on.message).startsWith('meta: {"id":"a-9"')) stFail('meta must be the final line');
+    if (api.AI_REPORT_FEATURES.join(',') !== 'analysis_report,advisor_answer,draft_polish') stFail('feature ids');
+    let threw = false;
+    try { api.buildAiReport({ featureId: 'nope', reason: 'other' }); } catch { threw = true; }
+    if (!threw) stFail('unknown featureId must be rejected');
+  } catch (err) {
+    stFail(`aiReport runtime: ${err.message}`);
+  }
+  if (!/<Pressable\s+style=\{StyleSheet\.absoluteFillObject\}[\s\S]*?\/>\s*<View\s+style=\{\[\s*styles\.modalSheet/.test(sheet)) stFail('AiReportSheet BL.3 sibling backdrop');
+  if (!/catch \{\s*setSending\(false\);\s*showToast\(t\('aiReportFailed'\)/.test(sheet)) stFail('report submit must fail gracefully');
+  if (!/featureId="analysis_report"/.test(app)) stFail('report action missing on analysis report header');
+  if (!/featureId="advisor_answer"/.test(read('screens/LegalAdvisorScreen.js'))) stFail('report action missing on advisor bubbles');
+  if (!/draft\.improved \? \([\s\S]{0,500}featureId="draft_polish"/.test(read('components/DraftWizardModal.js'))) stFail('report action missing on draft polish result');
+
+  // P2 — app.json permissions + iOS config
+  let appJson = null;
+  try {
+    appJson = JSON.parse(read('app.json')).expo;
+  } catch {
+    stFail('app.json parse');
+  }
+  if (appJson) {
+    if (/SCHEDULE_EXACT_ALARM/.test(read('app.json'))) stFail('SCHEDULE_EXACT_ALARM must be removed');
+    const plist = appJson.ios?.infoPlist || {};
+    if (plist.ITSAppUsesNonExemptEncryption !== false) stFail('ITSAppUsesNonExemptEncryption must be false');
+    if (appJson.ios?.supportsTablet !== false) stFail('ios.supportsTablet must be false');
+    if (plist.CFBundleAllowMixedLocalizations !== true) stFail('CFBundleAllowMixedLocalizations required for locales');
+    const turkish = /[çğıöşüÇĞİÖŞÜ]/;
+    for (const key of ['NSMicrophoneUsageDescription', 'NSSpeechRecognitionUsageDescription']) {
+      if (!plist[key] || turkish.test(plist[key])) stFail(`infoPlist.${key} must be English base text`);
+    }
+    const pluginOpts = (name) => ((appJson.plugins || []).find((p) => Array.isArray(p) && p[0] === name) || [])[1] || {};
+    const pluginStrings = [pluginOpts('expo-av').microphonePermission, pluginOpts('expo-speech-recognition').microphonePermission, pluginOpts('expo-speech-recognition').speechRecognitionPermission];
+    if (pluginStrings.some((s) => !s || turkish.test(s))) stFail('plugin permission strings must be English base text (they override infoPlist)');
+    if ((appJson.plugins || []).some((p) => (Array.isArray(p) ? p[0] : p) === 'locales')) stFail('locales is a top-level expo.locales field, not a plugin');
+    const locales = appJson.locales || {};
+    const want = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+    if (want.some((l) => !locales[l]) || Object.keys(locales).length !== 13) stFail('expo.locales must list all 13 languages');
+    for (const l of want) {
+      try {
+        const ios = JSON.parse(read(String(locales[l] || '').replace(/^\.\//, ''))).ios || {};
+        for (const key of ['NSMicrophoneUsageDescription', 'NSSpeechRecognitionUsageDescription', 'NSPhotoLibraryUsageDescription']) {
+          if (!String(ios[key] || '').trim()) stFail(`locales ${l}.ios.${key} missing`);
+        }
+      } catch {
+        stFail(`locale file for ${l} unreadable`);
+      }
+    }
+    if (appJson.android?.softwareKeyboardLayoutMode !== 'pan') stFail('android softwareKeyboardLayoutMode must stay app-wide pan');
+  }
+
+  // Web deletion page + privacy policy
+  const del = read('web/delete-account.html');
+  const privacy = read('web/privacy.html');
+  if (!del || !/nexulexai@gmail\.com/.test(del) || !/apps\.apple\.com\/account\/subscriptions/.test(del) || !/play\.google\.com\/store\/account\/subscriptions/.test(del)) {
+    stFail('web/delete-account.html must give instructions + support email + subscription links');
+  }
+  if (!/href="delete-account\.html"/.test(privacy)) stFail('privacy.html must link delete-account.html');
+  if (!/device identifier and phone number used to claim the free quota are retained without any link to your account, solely to prevent repeated free-quota abuse/.test(privacy)) {
+    stFail('privacy.html must state the unlinked free-quota retention');
+  }
+  if (/anonymi[sz]ed|hashed|anonimleştir|hashlen/i.test(privacy + del)) stFail('free-quota retention must not be described as anonymized/hashed');
+  if (!/delete-account\.html/.test(read('scripts/publish-brief-web.js'))) stFail('publish-brief-web must copy delete-account.html');
+
+  // P3 — store listing
+  const listing = read('STORE_LISTING.md').replace(/\r\n/g, '\n');
+  const section = (title) => (listing.split(/\n## /).find((s) => s.startsWith(title)) || '');
+  const langsUpper = ['TR', 'EN', 'DE', 'FR', 'ES', 'AR', 'IT', 'ZH', 'RU', 'FA', 'JA', 'PT', 'NL'];
+  const shortSec = section('Kısa açıklama');
+  const longSec = section('Uzun açıklama');
+  for (const L of langsUpper) {
+    const shortText = (shortSec.split(`### ${L}\n`)[1] || '').split('\n')[0].trim();
+    if (!shortText) stFail(`STORE_LISTING short ${L} missing`);
+    else if ([...shortText].length > 80) stFail(`STORE_LISTING short ${L} > 80 chars`);
+    if (!(longSec.split(`### ${L}\n`)[1] || '').trim()) stFail(`STORE_LISTING long ${L} missing`);
+  }
+  if (!/General legal information, not legal advice \/ lawyer representation\./.test(longSec)) stFail('mandatory disclaimer missing in listing');
+  if (!/Data Safety & App Privacy/.test(listing)) stFail('Data Safety & App Privacy section missing');
+  if (!/generic mode/i.test(longSec) || !/Turkish tables/.test(longSec)) stFail('jurisdiction pack disclosure missing');
+  if (/court-ready|\b\d{1,3}\s?%\s*(win|success|chance)/i.test(listing)) stFail('listing must not claim court-ready or win %');
+
+  // Locks
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') stFail('analyze-contract SHA256 changed');
+
+  if (stOk) {
+    console.log('OK  WAVE ST store hardening (N=25 → 13×1030) + delete-account + AI report + permissions + listing');
+  }
+}
+
+// WAVE ST.1 — Permission minimization + function config hardening
+{
+  let st1Ok = true;
+  const st1Fail = (msg) => {
+    failed = true;
+    st1Ok = false;
+    console.log(`WAVE ST.1 ${msg}`);
+  };
+  const read = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
+
+  const toml = read('supabase/config.toml').replace(/\r\n/g, '\n');
+  const fnBlock = (toml.match(/\[functions\.delete-account\]\n([\s\S]*?)(?=\n\[|$)/) || [])[1] || '';
+  if (!fnBlock) st1Fail('config.toml [functions.delete-account] missing');
+  if (!/^verify_jwt = true$/m.test(fnBlock)) st1Fail('delete-account verify_jwt = true required');
+  if (!/^enabled = true$/m.test(fnBlock) || !/^entrypoint = "\.\/functions\/delete-account\/index\.ts"$/m.test(fnBlock)) {
+    st1Fail('delete-account enabled + entrypoint required');
+  }
+
+  let android = {};
+  let ios = {};
+  try {
+    const expo = JSON.parse(read('app.json')).expo || {};
+    android = expo.android || {};
+    ios = expo.ios || {};
+  } catch {
+    st1Fail('app.json parse');
+  }
+  const blocked = android.blockedPermissions || [];
+  for (const perm of ['CAMERA', 'READ_MEDIA_IMAGES', 'READ_MEDIA_VIDEO', 'READ_MEDIA_VISUAL_USER_SELECTED']) {
+    if (!blocked.includes(`android.permission.${perm}`)) st1Fail(`blockedPermissions missing ${perm}`);
+  }
+  for (const perm of ['RECORD_AUDIO', 'MODIFY_AUDIO_SETTINGS', 'POST_NOTIFICATIONS']) {
+    const full = `android.permission.${perm}`;
+    if (!(android.permissions || []).includes(full) || blocked.includes(full)) st1Fail(`${perm} must stay granted`);
+  }
+  if (/microphonePermission"\s*:\s*false|cameraPermission"\s*:\s*false/.test(read('app.json'))) {
+    st1Fail('do not use image-picker permission:false switches (strips RECORD_AUDIO)');
+  }
+  if (!String(ios.infoPlist?.NSPhotoLibraryUsageDescription || '').trim()) st1Fail('keep NSPhotoLibraryUsageDescription fallback');
+
+  const analyzer = read('components/ContractAnalyzer.jsx');
+  if (/requestMediaLibraryPermissionsAsync/.test(analyzer)) st1Fail('ContractAnalyzer must not gate on requestMediaLibraryPermissionsAsync');
+  if (!/launchImageLibraryAsync/.test(analyzer) || !/result\?\.canceled/.test(analyzer) || !/catch \(error\) \{\s*Alert\.alert\(t\('errorTitle'\)/.test(analyzer)) {
+    st1Fail('picker cancel / failure handling must remain');
+  }
+
+  const purchases = read('services/purchases.js');
+  const logOutFn = (purchases.match(/export async function logOutPurchases\(\) \{[\s\S]*?\n\}/) || [''])[0];
+  if (!logOutFn) st1Fail('services/purchases.js must export logOutPurchases()');
+  if (!/const sdk = loadModule\(\);\s*if \(!sdk\) return false;/.test(logOutFn) || !/try \{[\s\S]*sdk\.logOut\(\)[\s\S]*\} catch/.test(logOutFn)) {
+    st1Fail('logOutPurchases must follow the loadModule + try/catch guard pattern');
+  }
+  const account = read('services/account.js');
+  const purge = (account.match(/export async function purgeLocalAppData\(\) \{[\s\S]*?\n\}/) || [''])[0];
+  if (!/import \{ logOutPurchases \} from '\.\/purchases'/.test(account) || !/Promise\.allSettled\(\[[\s\S]*logOutPurchases\(\)/.test(purge)) {
+    st1Fail('account deletion cleanup must call logOutPurchases() inside allSettled');
+  }
+
+  const listing = read('STORE_LISTING.md');
+  const safety = (listing.replace(/\r\n/g, '\n').split(/\n## /).find((s) => s.startsWith('Data Safety & App Privacy')) || '');
+  if (!safety.includes("Selected by the user via the system picker. Sent to our server and AI provider solely to analyze the contract; analysis results are stored in the user's account until deleted by the user or upon account deletion. Never accessed in the background.")) {
+    st1Fail('Data Safety photo/document statement missing');
+  }
+  if (/^\|\s*Camera/im.test(safety) || /birleştirir; uygulama kamerayı/.test(safety)) st1Fail('Camera must not be listed as collected/requested');
+
+  if (st1Ok) {
+    console.log('OK  WAVE ST.1 permission minimization + delete-account verify_jwt + RevenueCat logout on deletion');
   }
 }
 

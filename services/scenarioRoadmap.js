@@ -3,7 +3,8 @@
  */
 
 import i18n from '../i18n';
-import { getScenarioById, resolveTemplateId } from '../constants/legalScenarios';
+import { getScenarioById, isScenarioAvailableFor, resolveTemplateId } from '../constants/legalScenarios';
+import { normalizeLanguage, resolveJurisdiction } from '../constants/jurisdiction';
 
 function tKey(key, locale) {
   if (!key) return '';
@@ -62,6 +63,47 @@ export function generateScenarioRoadmap(scenarioId, answers = {}, locale = 'en')
   };
 }
 
+const GENERIC_STEPS = [1, 2, 3, 4, 5];
+
+/**
+ * Jurisdiction-aware entry point. Scenario content is only used where it was written for
+ * (scenario.jurisdictions); elsewhere a neutral 5-step roadmap without local institutions.
+ */
+export function buildRoadmap(scenarioId, answers = {}, { country, language } = {}) {
+  const scenario = getScenarioById(scenarioId);
+  if (!scenario) return null;
+  const locale = normalizeLanguage(language) || 'en';
+  const jurisdiction = resolveJurisdiction(country, language);
+  if (isScenarioAvailableFor(scenario, jurisdiction)) {
+    return generateScenarioRoadmap(scenarioId, answers, locale);
+  }
+  const firstDoc = scenario.templates?.default?.steps?.[0]?.docHintKey;
+  const steps = GENERIC_STEPS.map((n) => {
+    const out = {
+      stepNumber: n,
+      title: tKey(`scenarioGenericS${n}Title`, locale),
+      detail: tKey(`scenarioGenericS${n}Detail`, locale),
+    };
+    if (n === 1 && firstDoc) {
+      const docHint = tKey(firstDoc, locale);
+      if (docHint) out.docHint = docHint;
+    }
+    return out;
+  });
+  return {
+    scenarioId: scenario.id,
+    title: tKey(scenario.titleKey, locale),
+    steps,
+    lawyerThreshold: tKey('scenarioGenericLawyer', locale),
+    disclaimer: tKey('scenarioLegalDisclaimer', locale),
+    answers: { ...(answers || {}) },
+    templateId: 'generic',
+    generic: true,
+    jurisdiction,
+    banner: tKey('scenarioGenericBanner', locale),
+  };
+}
+
 /**
  * Clean share/copy text. Always appends mandatory disclaimer at the end.
  * @param {'plain'|'whatsapp'|'email'} format
@@ -72,6 +114,10 @@ export function formatRoadmapForSharing(roadmap, format = 'plain') {
   const title = String(roadmap.title || roadmap.scenarioId || '').trim();
   if (title) lines.push(title);
   lines.push('');
+  if (roadmap.generic && roadmap.banner) {
+    lines.push(`ℹ ${String(roadmap.banner).trim()}`);
+    lines.push('');
+  }
 
   (roadmap.steps || []).forEach((step) => {
     const n = step.stepNumber || '';

@@ -1,5 +1,5 @@
 // Bakes web/brief.html → gitignored web/dist/index.html. Copies web/get.html,
-// web/privacy.html, and web/terms.html → web/dist/.
+// web/privacy.html, web/terms.html, and web/delete-account.html → web/dist/.
 // Deploy those files to EXPO_PUBLIC_BRIEF_VIEW_BASE (same Netlify site). Do not log keys.
 
 const fs = require('fs');
@@ -41,6 +41,8 @@ const distPath = path.join(distDir, 'index.html');
 const getDistPath = path.join(distDir, 'get.html');
 const privacyDistPath = path.join(distDir, 'privacy.html');
 const termsDistPath = path.join(distDir, 'terms.html');
+const deleteSourcePath = path.join(__dirname, '..', 'web', 'delete-account.html');
+const deleteDistPath = path.join(distDir, 'delete-account.html');
 
 let html = fs.readFileSync(sourcePath, 'utf8');
 html = html.split('__SUPABASE_URL__').join(supabaseUrl);
@@ -57,7 +59,9 @@ fs.writeFileSync(distPath, html, { encoding: 'utf8' });
 fs.copyFileSync(getSourcePath, getDistPath);
 fs.copyFileSync(privacySourcePath, privacyDistPath);
 fs.copyFileSync(termsSourcePath, termsDistPath);
+fs.copyFileSync(deleteSourcePath, deleteDistPath);
 console.log('web/dist/index.html written');
 console.log('web/dist/get.html written');
 console.log('web/dist/privacy.html written');
 console.log('web/dist/terms.html written');
+console.log('web/dist/delete-account.html written');

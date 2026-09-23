@@ -1,0 +1,7 @@
+{
+  "ios": {
+    "NSMicrophoneUsageDescription": "NexuLex AI 使用麦克风，方便您用语音提出法律问题。",
+    "NSSpeechRecognitionUsageDescription": "NexuLex AI 使用语音识别将您的语音转换为文字。",
+    "NSPhotoLibraryUsageDescription": "NexuLex AI 仅在您选择要分析的合同照片时打开照片图库。"
+  }
+}

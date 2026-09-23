@@ -30,6 +30,11 @@ const tpl = (prefix, lawyerKey, docs = []) => ({
   disclaimerKey: 'scenarioLegalDisclaimer',
 });
 
+/** Scenario content is jurisdiction-specific; other jurisdictions get the generic roadmap. */
+export function isScenarioAvailableFor(scenario, jurisdiction) {
+  return !!jurisdiction && (scenario?.jurisdictions || []).includes(jurisdiction);
+}
+
 export function resolveTemplateId(scenario, answers = {}) {
   const a = answers || {};
   const fn = scenario?.resolveBranch;
@@ -46,7 +51,7 @@ export const LEGAL_SCENARIOS = [
     titleKey: 'scenarioLaborTitle',
     descriptionKey: 'scenarioLaborDesc',
     icon: 'briefcase-outline',
-    jurisdictionSupport: ['TR', 'GLOBAL'],
+    jurisdictions: ['TR'],
     questions: [
       {
         id: 'tenure',
@@ -110,7 +115,7 @@ export const LEGAL_SCENARIOS = [
     titleKey: 'scenarioRentTitle',
     descriptionKey: 'scenarioRentDesc',
     icon: 'home-outline',
-    jurisdictionSupport: ['TR', 'GLOBAL'],
+    jurisdictions: ['TR'],
     questions: [
       {
         id: 'role',
@@ -175,7 +180,7 @@ export const LEGAL_SCENARIOS = [
     titleKey: 'scenarioConsumerTitle',
     descriptionKey: 'scenarioConsumerDesc',
     icon: 'cart-outline',
-    jurisdictionSupport: ['TR', 'GLOBAL'],
+    jurisdictions: ['TR'],
     questions: [
       {
         id: 'kind',
@@ -231,7 +236,7 @@ export const LEGAL_SCENARIOS = [
     titleKey: 'scenarioNdaTitle',
     descriptionKey: 'scenarioNdaDesc',
     icon: 'lock-closed-outline',
-    jurisdictionSupport: ['TR', 'GLOBAL'],
+    jurisdictions: ['TR'],
     questions: [
       {
         id: 'evidence',
@@ -292,7 +297,7 @@ export const LEGAL_SCENARIOS = [
     titleKey: 'scenarioInvoiceTitle',
     descriptionKey: 'scenarioInvoiceDesc',
     icon: 'receipt-outline',
-    jurisdictionSupport: ['TR', 'GLOBAL'],
+    jurisdictions: ['TR'],
     questions: [
       {
         id: 'amount',

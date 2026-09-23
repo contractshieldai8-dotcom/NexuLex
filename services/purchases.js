@@ -62,6 +62,23 @@ export async function configurePurchases(userId) {
   }
 }
 
+// Hesap silme sonrası: sonraki hesap önceki RevenueCat müşteri kimliğini / yetkisini devralmasın.
+// Anonim kullanıcı, yapılandırılmamış SDK veya çevrimdışı durumda hata yutulur.
+export async function logOutPurchases() {
+  const sdk = loadModule();
+  if (!sdk) return false;
+
+  try {
+    const ready = configured || (await sdk.isConfigured?.().catch(() => false));
+    if (!ready) return false;
+    await sdk.logOut();
+    return true;
+  } catch (error) {
+    console.log('RevenueCat oturumu kapatılamadı:', error?.message);
+    return false;
+  }
+}
+
 // Mağazadan güncel paketleri (fiyat, dönem) çeker.
 export async function fetchOfferings() {
   const sdk = loadModule();

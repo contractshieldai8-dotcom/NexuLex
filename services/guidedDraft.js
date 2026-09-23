@@ -4,7 +4,12 @@
  */
 
 import i18n from '../i18n';
-import { DRAFT_FREE_PREVIEW_LINES, getDraftTemplateById } from '../constants/draftTemplates';
+import {
+  DRAFT_FREE_PREVIEW_LINES,
+  getDraftTemplateById,
+  resolveDraftVariant,
+} from '../constants/draftTemplates';
+import { resolveJurisdiction } from '../constants/jurisdiction';
 
 function langOf(locale) {
   return String(locale || i18n.language || 'en').slice(0, 2);
@@ -45,12 +50,21 @@ function blankFor(label) {
  *   missing: Array<{ id: string, label: string, required: boolean }>,
  *   missingRequired: string[],
  *   answers: Record<string, string>,
+ *   generic: boolean,
+ *   jurisdiction: string|null,
  *   text: string,
  * } | null}
+ * `options` is { country, language }; a bare string is treated as the language with country 'auto'.
+ * Returns null when the template is not offered for the resolved jurisdiction.
  */
-export function buildDraft(templateId, answers = {}, locale = 'en') {
+export function buildDraft(templateId, answers = {}, options = {}) {
   const template = getDraftTemplateById(templateId);
   if (!template) return null;
+  const { country = 'auto', language } =
+    typeof options === 'string' ? { language: options } : options || {};
+  const locale = langOf(language);
+  const variant = resolveDraftVariant(template, resolveJurisdiction(country, locale));
+  if (!variant) return null;
 
   const filled = {};
   const missing = [];
@@ -63,7 +77,7 @@ export function buildDraft(templateId, answers = {}, locale = 'en') {
     else missing.push({ id: q.id, label, required: !!q.required });
   });
 
-  const body = rawKey(template.bodyTemplateKey, locale)
+  const body = rawKey(variant.bodyTemplateKey, locale)
     .replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (_m, id) =>
       filled[id] ? filled[id] : blankFor(labels[id] || id)
     )
@@ -72,13 +86,15 @@ export function buildDraft(templateId, answers = {}, locale = 'en') {
 
   const draft = {
     templateId: template.id,
-    title: rawKey(template.titleKey, locale).trim(),
+    title: rawKey(variant.titleKey, locale).trim(),
     body,
-    reference: rawKey(template.fixedReferenceKey, locale).trim(),
+    reference: variant.fixedReferenceKey ? rawKey(variant.fixedReferenceKey, locale).trim() : '',
     disclaimer: rawKey(template.disclaimerKey, locale).trim(),
     missing,
     missingRequired: missing.filter((m) => m.required).map((m) => m.id),
     answers: filled,
+    generic: variant.generic,
+    jurisdiction: variant.jurisdiction,
   };
   draft.text = formatDraftForSharing(draft, 'plain');
   return draft;
@@ -152,7 +168,7 @@ const CITATION_RE =
 const OVERCLAIM_RE =
   /(court[- ]ready|guaranteed (?:to|acceptance|success)|kabul(?:ü)? garanti|mahkemeye hazır|kesin kabul|kesinlikle kazan|gerichtsfest|prêt pour le tribunal)/i;
 
-function citationsIn(text) {
+export function citationsIn(text) {
   return new Set(
     (String(text || '').match(CITATION_RE) || []).map((m) => m.toLowerCase().replace(/\s+/g, ''))
   );

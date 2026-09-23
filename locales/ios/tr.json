@@ -1,0 +1,7 @@
+{
+  "ios": {
+    "NSMicrophoneUsageDescription": "NexuLex AI, hukuki sorularınızı sesle sorabilmeniz için mikrofonu kullanır.",
+    "NSSpeechRecognitionUsageDescription": "NexuLex AI, konuşmanızı metne çevirmek için konuşma tanıma kullanır.",
+    "NSPhotoLibraryUsageDescription": "NexuLex AI, fotoğraf arşivinizi yalnızca analiz edilecek sözleşme fotoğraflarını seçmeniz için açar."
+  }
+}

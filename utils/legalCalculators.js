@@ -1,17 +1,18 @@
 /**
- * WAVE CB — Pure local financial/legal calculators (0 LLM, 0 network).
+ * WAVE CB / CB.1 — Pure local financial/legal calculators (0 LLM, 0 network).
+ * Jurisdiction-aware: statutory values come only from a rate pack; otherwise generic mode
+ * with user-entered rates. Currency is passed in and never defaults to TRY.
  */
 
-import { LEGAL_CALC_RATES } from '../constants/legalCalcRates';
-
-const CURRENCY = 'TRY';
+import { getCalcPack, resolveCurrency } from '../constants/legalCalcRates';
+import { resolveJurisdiction } from '../constants/jurisdiction';
 
 const round2 = (n) => Math.round((Number(n) + Number.EPSILON) * 100) / 100;
 
-const line = (labelKey, amount) => ({
+const makeLine = (currency) => (labelKey, amount) => ({
   labelKey,
   amount: round2(amount),
-  currency: CURRENCY,
+  currency: currency || null,
 });
 
 const dayCount = (startDate, endDate) => {
@@ -37,11 +38,61 @@ export function parseIsoDate(value) {
 }
 
 /**
- * Kıdem (severance): monthly base capped × years; stamp tax deducted.
- * Optional estimated notice pay when includesNoticePay (1× capped monthly).
+ * Explicit { pack, currency } wins; otherwise both are resolved from { country, language }.
+ * Missing everything → no pack, no currency (generic / unavailable).
  */
-export function calculateSeverance({ grossSalary, workMonths, includesNoticePay } = {}) {
-  const rates = LEGAL_CALC_RATES;
+export function resolveCalcContext({ pack, currency, country, language } = {}) {
+  const explicit = pack !== undefined || currency !== undefined;
+  const resolvedPack = explicit ? pack || null : getCalcPack(country, language);
+  const resolvedCurrency = explicit
+    ? currency !== undefined
+      ? currency || null
+      : resolvedPack?.currency || null
+    : resolveCurrency(country, language);
+  const jurisdiction =
+    resolvedPack?.code || (country !== undefined || language !== undefined ? resolveJurisdiction(country, language) : null);
+  return { pack: resolvedPack, currency: resolvedCurrency, jurisdiction: jurisdiction || null };
+}
+
+/** UI display: Intl currency when known, plain number when currency is unset. */
+export function formatMoney(amount, currency, locale) {
+  const n = Number(amount) || 0;
+  if (currency === 'DAY') return String(Math.round(n));
+  if (currency === 'PCT') return `%${Math.abs(n).toFixed(2)}`;
+  try {
+    if (!currency) {
+      return new Intl.NumberFormat(locale || undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(n);
+    }
+    return new Intl.NumberFormat(locale || undefined, { style: 'currency', currency }).format(n);
+  } catch (_error) {
+    return currency ? `${n.toFixed(2)} ${currency}` : n.toFixed(2);
+  }
+}
+
+/**
+ * Kıdem (severance): monthly base capped × years; stamp tax deducted.
+ * Statutory only — no pack → unavailable (no numbers).
+ */
+export function calculateSeverance({ grossSalary, workMonths, includesNoticePay, ...ctxInput } = {}) {
+  const ctx = resolveCalcContext(ctxInput);
+  const rates = ctx.pack?.calculators?.labor_severance;
+  if (!rates) {
+    return {
+      calculatorId: 'labor_severance',
+      unavailable: true,
+      reasonKey: 'calcNotAvailableForCountry',
+      jurisdiction: ctx.jurisdiction,
+      currency: ctx.currency,
+      mode: null,
+      breakdown: [],
+      totalAmount: null,
+      disclaimerKey: 'calcDisclaimer',
+    };
+  }
+  const line = makeLine(ctx.currency);
   const salary = Math.max(0, Number(grossSalary) || 0);
   const months = Math.max(0, Number(workMonths) || 0);
   const years = months / 12;
@@ -64,30 +115,37 @@ export function calculateSeverance({ grossSalary, workMonths, includesNoticePay 
 
   return {
     calculatorId: 'labor_severance',
+    jurisdiction: ctx.jurisdiction,
+    currency: ctx.currency,
+    mode: 'statutory',
     breakdown,
     totalAmount: round2(totalAmount),
-    statutoryFootnoteKey: 'calcFootnoteSeverance',
+    statutoryFootnoteKey: ctx.pack.footnoteKeys?.labor_severance || 'calcFootnoteSeverance',
     disclaimerKey: 'calcDisclaimer',
-    asOfDate: rates.asOfDate,
+    asOfDate: ctx.pack.asOfDate,
     meta: { years: round2(years), monthlyBase: round2(monthlyBase), capApplied },
   };
 }
 
 /**
- * Rent increase vs TÜFE / statutory limit (local only; proposedRate vs tufeRate).
+ * Rent increase vs an index / limit %. Statutory mode labels it per pack (e.g. TÜFE);
+ * generic mode is a plain comparison against the user's own %.
  */
 export function calculateRentIncrease({
   currentRent,
   proposedRent,
   tufeRate,
+  indexRate,
   isResidential = true,
+  ...ctxInput
 } = {}) {
-  const rates = LEGAL_CALC_RATES;
+  const ctx = resolveCalcContext(ctxInput);
+  const statutory = !!ctx.pack?.calculators?.rent_cap;
+  const line = makeLine(ctx.currency);
   const current = Math.max(0, Number(currentRent) || 0);
   const proposed = Math.max(0, Number(proposedRent) || 0);
-  const tufe = Math.max(0, Number(tufeRate) || 0);
-  // P0: residential and non-residential both compare against provided tufeRate locally.
-  const maxAllowed = current * (1 + tufe / 100);
+  const rate = Math.max(0, Number(indexRate ?? tufeRate) || 0);
+  const maxAllowed = current * (1 + rate / 100);
   const difference = proposed - maxAllowed;
   const overCap = proposed > maxAllowed + 0.009;
 
@@ -100,13 +158,18 @@ export function calculateRentIncrease({
 
   return {
     calculatorId: 'rent_cap',
+    jurisdiction: ctx.jurisdiction,
+    currency: ctx.currency,
+    mode: statutory ? 'statutory' : 'generic',
     breakdown,
     totalAmount: round2(maxAllowed),
-    statutoryFootnoteKey: 'calcFootnoteRent',
+    statutoryFootnoteKey: statutory
+      ? ctx.pack.footnoteKeys?.rent_cap || 'calcFootnoteRent'
+      : 'calcFootnoteGenericRent',
     disclaimerKey: 'calcDisclaimer',
-    asOfDate: rates.asOfDate,
+    ...(statutory ? { asOfDate: ctx.pack.asOfDate } : {}),
     meta: {
-      tufeRate: round2(tufe),
+      tufeRate: round2(rate),
       isResidential: Boolean(isResidential),
       overCap,
       proposedRate: current > 0 ? round2(((proposed - current) / current) * 100) : 0,
@@ -115,22 +178,29 @@ export function calculateRentIncrease({
 }
 
 /**
- * Simple day-count legal/commercial interest (estimated).
- * (Principal × Rate × Days) / (365 × 100)
+ * Simple day-count interest (estimated): (Principal × Rate × Days) / (365 × 100).
+ * Statutory mode takes the pack rate; generic mode uses the user's own annual %.
  */
 export function calculateLegalInterest({
   principal,
   startDate,
   endDate,
   interestType = 'legal',
+  userRate,
+  ...ctxInput
 } = {}) {
-  const rates = LEGAL_CALC_RATES;
+  const ctx = resolveCalcContext(ctxInput);
+  const rates = ctx.pack?.calculators?.legal_interest;
+  const statutory = !!rates;
+  const line = makeLine(ctx.currency);
   const amount = Math.max(0, Number(principal) || 0);
   const days = dayCount(startDate, endDate);
-  const annual =
-    String(interestType || 'legal').toLowerCase() === 'commercial'
+  const isCommercial = String(interestType || 'legal').toLowerCase() === 'commercial';
+  const annual = statutory
+    ? isCommercial
       ? Number(rates.commercialInterestAnnual) || 0
-      : Number(rates.legalInterestAnnual) || 0;
+      : Number(rates.legalInterestAnnual) || 0
+    : Math.max(0, Number(userRate) || 0);
   const interest = (amount * annual * days) / (365 * 100);
   const total = amount + interest;
 
@@ -144,26 +214,37 @@ export function calculateLegalInterest({
 
   return {
     calculatorId: 'legal_interest',
+    jurisdiction: ctx.jurisdiction,
+    currency: ctx.currency,
+    mode: statutory ? 'statutory' : 'generic',
     breakdown,
     totalAmount: round2(total),
-    statutoryFootnoteKey: 'calcFootnoteInterest',
+    statutoryFootnoteKey: statutory
+      ? ctx.pack.footnoteKeys?.legal_interest || 'calcFootnoteInterest'
+      : 'calcFootnoteGenericInterest',
     disclaimerKey: 'calcDisclaimer',
-    asOfDate: rates.asOfDate,
+    ...(statutory ? { asOfDate: ctx.pack.asOfDate } : {}),
     meta: {
       days,
       annualRate: annual,
-      interestType: String(interestType || 'legal').toLowerCase() === 'commercial' ? 'commercial' : 'legal',
+      interestType: statutory ? (isCommercial ? 'commercial' : 'legal') : 'user',
       interestAmount: round2(interest),
       estimated: true,
     },
   };
 }
 
+const shareAmount = (amount, currency) => {
+  const n = Number(amount) || 0;
+  const sign = n < 0 ? '-' : '';
+  return `${sign}${Math.abs(n).toFixed(2)}${currency ? ` ${currency}` : ''}`;
+};
+
 /**
- * Share/copy text. Always appends footnote, asOfDate, and mandatory disclaimer last.
+ * Share/copy text: breakdown → total → footnote → asOf (statutory only) → jurisdiction → disclaimer LAST.
  */
 export function formatCalculationForSharing(result, format = 'plain', t = (k) => k) {
-  if (!result || typeof result !== 'object') return '';
+  if (!result || typeof result !== 'object' || result.unavailable) return '';
   const lines = [];
   const titleKey =
     result.calculatorId === 'labor_severance'
@@ -179,21 +260,19 @@ export function formatCalculationForSharing(result, format = 'plain', t = (k) =>
   (result.breakdown || []).forEach((row) => {
     const label = t(row.labelKey);
     const amt = Number(row.amount);
-    const cur = String(row.currency || CURRENCY);
-    if (cur === 'DAY') {
+    if (row.currency === 'DAY') {
       lines.push(`${label}: ${Math.round(amt)}`);
       return;
     }
-    if (cur === 'PCT') {
+    if (row.currency === 'PCT') {
       lines.push(`${label}: %${Math.abs(amt).toFixed(2)}`);
       return;
     }
-    const sign = amt < 0 ? '-' : '';
-    lines.push(`${label}: ${sign}${Math.abs(amt).toFixed(2)} ${cur}`);
+    lines.push(`${label}: ${shareAmount(amt, row.currency)}`);
   });
 
   lines.push('');
-  lines.push(`${t('calcEstimatedNet')}: ${Number(result.totalAmount || 0).toFixed(2)} ${CURRENCY}`);
+  lines.push(`${t('calcEstimatedNet')}: ${shareAmount(result.totalAmount, result.currency)}`);
   lines.push('');
 
   const footnote = String(t(result.statutoryFootnoteKey) || '').trim();
@@ -202,9 +281,20 @@ export function formatCalculationForSharing(result, format = 'plain', t = (k) =>
     lines.push('');
   }
 
-  const asOf = String(result.asOfDate || LEGAL_CALC_RATES.asOfDate || '').trim();
+  const asOf = result.mode === 'statutory' ? String(result.asOfDate || '').trim() : '';
   if (asOf) {
     lines.push(String(t('calcAsOfNotice', { date: asOf }) || `asOf ${asOf}`).trim());
+    lines.push('');
+  }
+
+  const jurisdictionLine = String(
+    t('calcJurisdictionLine', {
+      jurisdiction: result.jurisdiction || '—',
+      currency: result.currency || '—',
+    }) || ''
+  ).trim();
+  if (jurisdictionLine) {
+    lines.push(jurisdictionLine);
     lines.push('');
   }
 
@@ -214,11 +304,7 @@ export function formatCalculationForSharing(result, format = 'plain', t = (k) =>
     lines.push(disclaimer);
   }
 
-  let text = lines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
-  if (format === 'whatsapp' || format === 'email') {
-    text = text;
-  }
-  return text;
+  return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
 }
 
 export function buildCalcAdvisorPrompt(result, t = (k) => k) {

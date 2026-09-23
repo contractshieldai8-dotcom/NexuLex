@@ -119,7 +119,9 @@ import { scheduleTrapReminders, subscribeReminderOpens } from './services/notifi
 import { LIFECYCLES, lifecycleLabelKey, normalizeLifecycle } from './utils/lifecycle';
 import { resolveSourceText } from './utils/shieldDocument';
 import { useFeedback, FeedbackProvider } from './context/FeedbackContext';
-import { AdvisorChatProvider } from './context/AdvisorChatContext';
+import { AdvisorChatProvider, useAdvisorChat } from './context/AdvisorChatContext';
+import { ReportAiButton } from './components/AiReportSheet';
+import { deleteAccountAndPurge, openSubscriptionManagement } from './services/account';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LAST_ANALYSIS_KEY = '@nexulex/last_analysis_id';
@@ -173,6 +175,7 @@ const stripMissingColumn = (row, error) => {
 function AppContent() {
   const { t, i18n } = useTranslation();
   const { showToast, showModal } = useFeedback();
+  const { wipeAll: wipeAdvisorChats } = useAdvisorChat();
   
   // Dinamik Sözleşme Tipleri
   const CONTRACT_TYPES = [
@@ -205,6 +208,7 @@ function AppContent() {
   const [forgotPasswordMode, setForgotPasswordMode] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const [updatingPassword, setUpdatingPassword] = useState(false);
+  const [deletingAccount, setDeletingAccount] = useState(false);
 
   // Geçmiş Taramalar ve Modal Durumu
   const [history, setHistory] = useState([]);
@@ -264,10 +268,12 @@ function AppContent() {
   const signedScrollTriesRef = useRef(0);
   const signedContentHeightRef = useRef(0);
   const signedScrollTimerRef = useRef(null);
+  const paywallHookRef = useRef(null);
   const openPaywall = (hook = null, context = null) => {
     setPaywallHook(hook);
     setPaywallContext(context || null);
     setPaywallVisible(true);
+    paywallHookRef.current = hook;
   };
   const [supportVisible, setSupportVisible] = useState(false);
   const [resendingVerification, setResendingVerification] = useState(false);
@@ -1407,6 +1413,47 @@ function AppContent() {
       Alert.alert(t('errorTitle'), error.message);
     } finally {
       setUpdatingPassword(false);
+    }
+  };
+
+  // Store 5.1.1(v): two-step confirm → server delete → local purge → local sign-out (Auth screen).
+  const handleDeleteAccount = async () => {
+    if (deletingAccount) return;
+    const first = await showModal({
+      title: t('accountDeleteTitle'),
+      message: t('accountDeleteWarning'),
+      destructive: true,
+      actions: [
+        { id: 'cancel', label: t('cancelButton'), style: 'cancel' },
+        { id: 'manage', label: t('accountManageSubscription'), style: 'cancel' },
+        { id: 'continue', label: t('accountDeleteContinue'), style: 'destructive' },
+      ],
+    });
+    if (first === 'manage') {
+      const opened = await openSubscriptionManagement();
+      if (!opened) showToast(t('accountManageSubscriptionFailed'), { type: 'warning' });
+      return;
+    }
+    if (first !== 'continue') return;
+    await new Promise((resolve) => setTimeout(resolve, 320));
+    const second = await showModal({
+      title: t('accountDeleteConfirmTitle'),
+      message: t('accountDeleteConfirmBody'),
+      confirmLabel: t('accountDeleteConfirmCta'),
+      destructive: true,
+    });
+    if (second !== 'confirm') return;
+
+    setDeletingAccount(true);
+    try {
+      await deleteAccountAndPurge();
+      wipeAdvisorChats();
+      setActiveTab('analyze');
+      showToast(t('accountDeleteDone'), { type: 'success' });
+    } catch {
+      showToast(t('accountDeleteFailed'), { type: 'error' });
+    } finally {
+      setDeletingAccount(false);
     }
   };
 
@@ -2600,6 +2647,17 @@ function AppContent() {
           </TouchableOpacity>
         ) : null}
 
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 6 }}>
+          <ReportAiButton
+            theme={theme}
+            featureId="analysis_report"
+            targetId={analysis.id || fullRaw?.id || ''}
+            country={analysis.country || analysisCountry}
+            context={analysis.contract_text || analysis.contractText || (keyPrefix === 'result' ? contractText : '')}
+            showLabel
+          />
+        </View>
+
         <ContractMiniRadar theme={theme} radar={analysis?.contractRadar} />
 
         {(() => {
@@ -3591,7 +3649,9 @@ function AppContent() {
                 return item ? t(item.titleKey) : id;
               })}
               isPro={!lockPremium}
-              onNeedPaywall={() => openPaywall(null, null)}
+              onNeedPaywall={(hook) => openPaywall(hook || null, null)}
+              paywallVisible={paywallVisible}
+              isActive={activeTab === 'advisor'}
             />
           </View>
 
@@ -3820,6 +3880,45 @@ function AppContent() {
               >
                 <Text style={styles.logoutTextLarge}>{t('logout')}</Text>
               </TouchableOpacity>
+
+              {/* Hesap silme — App Store 5.1.1(v) / Google Play */}
+              <View
+                style={[
+                  styles.card,
+                  { backgroundColor: theme.cardBg, borderColor: DANGER, marginTop: 16, marginBottom: 24 },
+                ]}
+              >
+                <Text style={[styles.settingLabel, { color: DANGER }]}>{t('accountDeleteTitle')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>
+                  {t('accountDeleteHint')}
+                </Text>
+                <TouchableOpacity
+                  style={[
+                    styles.secondaryBtn,
+                    { borderColor: DANGER, marginTop: 4 },
+                    deletingAccount && styles.buttonDisabled,
+                  ]}
+                  onPress={handleDeleteAccount}
+                  disabled={deletingAccount}
+                  accessibilityRole="button"
+                  accessibilityLabel={t('accountDeleteTitle')}
+                >
+                  {deletingAccount ? (
+                    <ActivityIndicator color={DANGER} />
+                  ) : (
+                    <Text style={[styles.secondaryBtnText, { color: DANGER }]}>{t('accountDeleteTitle')}</Text>
+                  )}
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.secondaryBtn, { marginTop: 8 }]}
+                  onPress={async () => {
+                    const opened = await openSubscriptionManagement();
+                    if (!opened) showToast(t('accountManageSubscriptionFailed'), { type: 'warning' });
+                  }}
+                >
+                  <Text style={styles.secondaryBtnText}>{t('accountManageSubscription')}</Text>
+                </TouchableOpacity>
+              </View>
             </KeyboardScreen>
           )}
         </View>
@@ -3913,10 +4012,17 @@ function AppContent() {
         exhausted={quotaEnforced && !isPro && freeLeft <= 0}
         onClose={() => {
           setPaywallVisible(false);
+          paywallHookRef.current = null;
           setPaywallHook(null);
           setPaywallContext(null);
         }}
         onPurchased={async () => {
+          const capturedHook = paywallHookRef.current;
+          if (capturedHook === 'draft') {
+            // Advisor reopens the draft wizard at preview; stay on the advisor tab.
+            await refreshProfile();
+            return;
+          }
           await refreshProfile();
           setActiveTab('analyze');
           const y = Math.max(0, Number(reportYRef.current) || 0);

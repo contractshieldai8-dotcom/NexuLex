@@ -20,7 +20,12 @@ import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ACCENT, DANGER, styles } from '../theme';
-import { DRAFT_TEMPLATES, getDraftTemplateById } from '../constants/draftTemplates';
+import {
+  getDraftTemplateById,
+  listDraftTemplatesFor,
+  resolveDraftVariant,
+} from '../constants/draftTemplates';
+import { resolveJurisdiction } from '../constants/jurisdiction';
 import {
   applyImprovedWording,
   buildDraft,
@@ -33,6 +38,7 @@ import { askLegalAdvisor } from '../services/ai';
 import { shareShieldDocx } from '../utils/redlineExport';
 import { describeError } from '../utils/errors';
 import { useFeedback } from '../context/FeedbackContext';
+import { ReportAiButton } from './AiReportSheet';
 
 const WIN_H = Dimensions.get('window').height;
 const SHEET_MAX = Math.round(WIN_H * 0.92);
@@ -48,34 +54,73 @@ export default function DraftWizardModal({
   templateId: presetTemplateId = null,
   country = 'auto',
   isPro = false,
+  answersById = {},
+  onChangeAnswers,
+  onClearAnswers,
+  openAtPreview = false,
   onNeedPaywall,
   onClose,
 }) {
   const { t, i18n } = useTranslation();
   const insets = useSafeAreaInsets();
   const { showToast } = useFeedback();
+  const language = i18n.language;
+  const draftCtx = useMemo(() => ({ country, language }), [country, language]);
+  const jurisdiction = resolveJurisdiction(country, language);
+  const offered = useMemo(() => listDraftTemplatesFor(draftCtx), [draftCtx]);
 
   const [templateId, setTemplateId] = useState(presetTemplateId);
-  const [answers, setAnswers] = useState({});
   const [draft, setDraft] = useState(null);
   const [originalDraft, setOriginalDraft] = useState(null);
   const [improving, setImproving] = useState(false);
   const [exporting, setExporting] = useState(false);
 
+  const answers = (templateId && answersById[templateId]) || {};
+  const setAnswers = (updater) => {
+    if (!templateId) return;
+    const next = typeof updater === 'function' ? updater(answers) : updater;
+    onChangeAnswers?.(templateId, next);
+  };
+
   useEffect(() => {
     if (visible) {
       setTemplateId(presetTemplateId);
+      if (openAtPreview && presetTemplateId) {
+        const built = buildDraft(presetTemplateId, answersById[presetTemplateId] || {}, draftCtx);
+        setDraft(built);
+        setOriginalDraft(built);
+      }
     } else {
       setTemplateId(null);
-      setAnswers({});
       setDraft(null);
       setOriginalDraft(null);
       setImproving(false);
       setExporting(false);
     }
-  }, [visible, presetTemplateId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible, presetTemplateId, openAtPreview]);
 
   const template = useMemo(() => getDraftTemplateById(templateId), [templateId]);
+  const variant = useMemo(() => resolveDraftVariant(template, jurisdiction), [template, jurisdiction]);
+
+  // Country / language switched while open: rebuild or fall back to the picker if no longer offered.
+  useEffect(() => {
+    if (!templateId) return;
+    if (!variant) {
+      setTemplateId(null);
+      setDraft(null);
+      setOriginalDraft(null);
+      return;
+    }
+    setDraft((prev) => {
+      if (!prev) return prev;
+      const rebuilt = buildDraft(templateId, answersById[templateId] || {}, draftCtx);
+      setOriginalDraft(rebuilt);
+      return rebuilt;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [draftCtx, variant]);
+
   const preview = useMemo(() => (draft ? buildDraftPreview(draft) : null), [draft]);
   const missingRequiredLabels = useMemo(
     () => (draft?.missing || []).filter((m) => m.required).map((m) => m.label),
@@ -84,14 +129,21 @@ export default function DraftWizardModal({
 
   const handleGenerate = () => {
     if (!template) return;
-    const built = buildDraft(template.id, answers, i18n.language);
+    const built = buildDraft(template.id, answers, draftCtx);
     setDraft(built);
     setOriginalDraft(built);
   };
 
+  const handleReset = () => {
+    if (!templateId) return;
+    onClearAnswers?.(templateId);
+    setDraft(null);
+    setOriginalDraft(null);
+  };
+
   const requirePro = () => {
     if (isPro) return true;
-    onNeedPaywall?.();
+    onNeedPaywall?.(templateId);
     return false;
   };
 
@@ -104,7 +156,8 @@ export default function DraftWizardModal({
   const handleShare = async () => {
     if (!draft || !requirePro()) return;
     try {
-      await Share.share({ message: formatDraftForSharing(draft, 'whatsapp') });
+      const out = await Share.share({ message: formatDraftForSharing(draft, 'whatsapp') });
+      if (out?.action === Share.sharedAction) onClearAnswers?.(draft.templateId);
     } catch (_error) {
       showToast(t('shareUnavailable'), { type: 'warning' });
     }
@@ -118,6 +171,7 @@ export default function DraftWizardModal({
         filename: draftDocxFilename(draft),
       });
       if (!out?.uri) showToast(t('shareUnavailable'), { type: 'warning' });
+      else onClearAnswers?.(draft.templateId);
     } catch (error) {
       showToast(describeError(t, error), { type: 'error' });
     } finally {
@@ -157,13 +211,12 @@ export default function DraftWizardModal({
     }
     if (template && !presetTemplateId) {
       setTemplateId(null);
-      setAnswers({});
       return;
     }
     onClose?.();
   };
 
-  const headerTitle = template ? t(template.titleKey) : t('draftSectionTitle');
+  const headerTitle = variant ? t(variant.titleKey) : t('draftSectionTitle');
   const headerIcon = template?.icon || 'document-text-outline';
 
   return (
@@ -211,12 +264,25 @@ export default function DraftWizardModal({
               keyboardShouldPersistTaps="handled"
               showsVerticalScrollIndicator={false}
             >
-              {!template ? (
+              {variant?.generic ? (
+                <View
+                  style={[
+                    styles.previewBanner,
+                    { backgroundColor: theme.cardBg, borderColor: ACCENT, marginBottom: 12 },
+                  ]}
+                >
+                  <Ionicons name="globe-outline" size={16} color={ACCENT} />
+                  <Text style={[styles.previewBannerText, { color: theme.text }]}>
+                    {t('draftGenericBanner')}
+                  </Text>
+                </View>
+              ) : null}
+              {!template || !variant ? (
                 <>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
                     {t('draftSectionHint')}
                   </Text>
-                  {DRAFT_TEMPLATES.map((item) => (
+                  {offered.map(({ template: item, variant: itemVariant }) => (
                     <TouchableOpacity
                       key={item.id}
                       activeOpacity={0.85}
@@ -229,11 +295,11 @@ export default function DraftWizardModal({
                       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                         <Ionicons name={item.icon} size={16} color={ACCENT} />
                         <Text style={[styles.secondaryBtnText, { textAlign: 'left' }]}>
-                          {t(item.titleKey)}
+                          {t(itemVariant.titleKey)}
                         </Text>
                       </View>
                       <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
-                        {t(item.descriptionKey)}
+                        {t(itemVariant.descriptionKey)}
                       </Text>
                     </TouchableOpacity>
                   ))}
@@ -241,7 +307,7 @@ export default function DraftWizardModal({
               ) : !draft ? (
                 <>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
-                    {t(template.descriptionKey)}
+                    {t(variant.descriptionKey)}
                   </Text>
                   {template.questions.map((q) => (
                     <View key={q.id} style={{ marginBottom: 12 }}>
@@ -275,6 +341,11 @@ export default function DraftWizardModal({
                   <TouchableOpacity style={styles.primaryButton} onPress={handleGenerate}>
                     <Text style={styles.primaryButtonText}>{t('draftGenerate')}</Text>
                   </TouchableOpacity>
+                  {Object.keys(answers).length ? (
+                    <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={handleReset}>
+                      <Text style={styles.secondaryBtnText}>{t('draftResetAnswers')}</Text>
+                    </TouchableOpacity>
+                  ) : null}
                 </>
               ) : (
                 <>
@@ -304,6 +375,18 @@ export default function DraftWizardModal({
                       marginBottom: 12,
                     }}
                   >
+                    {draft.improved ? (
+                      <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 6 }}>
+                        <ReportAiButton
+                          theme={theme}
+                          featureId="draft_polish"
+                          targetId={draft.templateId}
+                          country={country}
+                          context={draft.body}
+                          showLabel
+                        />
+                      </View>
+                    ) : null}
                     <Text selectable style={[styles.bubbleText, { color: theme.text }]}>
                       {isPro ? formatDraftForSharing(draft, 'plain') : preview?.text}
                     </Text>
@@ -325,7 +408,7 @@ export default function DraftWizardModal({
                       <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
                         {t('draftProLockBody')}
                       </Text>
-                      <TouchableOpacity style={styles.primaryButton} onPress={() => onNeedPaywall?.()}>
+                      <TouchableOpacity style={styles.primaryButton} onPress={() => onNeedPaywall?.(templateId)}>
                         <Text style={styles.primaryButtonText}>{t('draftUnlockCta')}</Text>
                       </TouchableOpacity>
                     </View>

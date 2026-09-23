@@ -19,11 +19,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.nexulex.ai",
       "infoPlist": {
-        "NSMicrophoneUsageDescription": "NexuLex AI, sesli hukuk sorularınızı kaydetmek için mikrofona ihtiyaç duyar.",
-        "NSSpeechRecognitionUsageDescription": "NexuLex AI, konuşmanızı metne çevirmek için konuşma tanıma kullanır.",
+        "ITSAppUsesNonExemptEncryption": false,
+        "CFBundleAllowMixedLocalizations": true,
+        "NSMicrophoneUsageDescription": "NexuLex AI uses the microphone so you can ask legal questions by voice.",
+        "NSSpeechRecognitionUsageDescription": "NexuLex AI uses speech recognition to turn your voice into text.",
+        "NSPhotoLibraryUsageDescription": "NexuLex AI opens your photo library only so you can pick contract photos to analyze.",
         "CFBundleURLTypes": [
           {
             "CFBundleURLName": "com.nexulex.ai",
@@ -47,8 +50,13 @@
       "permissions": [
         "android.permission.RECORD_AUDIO",
         "android.permission.MODIFY_AUDIO_SETTINGS",
-        "android.permission.POST_NOTIFICATIONS",
-        "android.permission.SCHEDULE_EXACT_ALARM"
+        "android.permission.POST_NOTIFICATIONS"
+      ],
+      "blockedPermissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VIDEO",
+        "android.permission.READ_MEDIA_VISUAL_USER_SELECTED"
       ],
       "softwareKeyboardLayoutMode": "pan",
       "intentFilters": [
@@ -107,6 +115,21 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "locales": {
+      "tr": "./locales/ios/tr.json",
+      "en": "./locales/ios/en.json",
+      "de": "./locales/ios/de.json",
+      "fr": "./locales/ios/fr.json",
+      "es": "./locales/ios/es.json",
+      "ar": "./locales/ios/ar.json",
+      "it": "./locales/ios/it.json",
+      "zh": "./locales/ios/zh.json",
+      "ru": "./locales/ios/ru.json",
+      "fa": "./locales/ios/fa.json",
+      "ja": "./locales/ios/ja.json",
+      "pt": "./locales/ios/pt.json",
+      "nl": "./locales/ios/nl.json"
+    },
     "plugins": [
       "expo-sharing",
       "expo-dev-client",
@@ -145,14 +168,14 @@
       [
         "expo-av",
         {
-          "microphonePermission": "NexuLex AI, sesli hukuk sorularınızı kaydetmek için mikrofona ihtiyaç duyar."
+          "microphonePermission": "NexuLex AI uses the microphone so you can ask legal questions by voice."
         }
       ],
       [
         "expo-speech-recognition",
         {
-          "microphonePermission": "NexuLex AI, sorularınızı sesle yazmak için mikrofona ihtiyaç duyar.",
-          "speechRecognitionPermission": "NexuLex AI, konuşmanızı metne çevirmek için konuşma tanıma kullanır."
+          "microphonePermission": "NexuLex AI uses the microphone so you can ask legal questions by voice.",
+          "speechRecognitionPermission": "NexuLex AI uses speech recognition to turn your voice into text."
         }
       ],
       "expo-localization",

@@ -1,0 +1,7 @@
+{
+  "ios": {
+    "NSMicrophoneUsageDescription": "NexuLex AI nutzt das Mikrofon, damit Sie Rechtsfragen per Sprache stellen können.",
+    "NSSpeechRecognitionUsageDescription": "NexuLex AI nutzt die Spracherkennung, um Ihre Stimme in Text umzuwandeln.",
+    "NSPhotoLibraryUsageDescription": "NexuLex AI öffnet Ihre Fotomediathek nur, damit Sie Vertragsfotos zur Analyse auswählen können."
+  }
+}
