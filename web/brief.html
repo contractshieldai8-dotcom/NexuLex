@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="noindex"/>
+<title>NexuLex AI brief</title>
+<style>
+body{margin:0;background:#0A0F1D;color:#F8FAFC;font-family:system-ui,sans-serif;line-height:1.45}
+main{max-width:720px;margin:0 auto;padding:28px 20px 160px}
+.accent{color:#00F5D4}
+.card{background:#111827;border:1px solid #1E293B;border-radius:14px;padding:18px;margin:14px 0}
+.score{font-size:28px;color:#00F5D4;font-weight:700}
+h1{font-size:22px;font-weight:700;line-height:1.3;margin:8px 0 12px}
+.chip{display:inline-block;border:1px solid #00F5D4;color:#00F5D4;border-radius:999px;padding:4px 10px;margin:4px 6px 0 0;font-size:12px}
+.flag{border-radius:12px;padding:14px 16px;margin-top:12px;background:rgba(0,245,212,0.12);border-left:4px solid #00F5D4}
+.flag.red{background:rgba(255,59,92,0.12);border-left-color:#FF3B5C}
+.flag.yellow{background:rgba(255,184,0,0.12);border-left-color:#FFB800}
+.flag h3{margin:0 0 8px;font-size:15px;color:#00F5D4}
+.flag.red h3{color:#FF3B5C}
+.flag.yellow h3{color:#FFB800}
+.flag p{color:#94A3B8;margin:0 0 8px}
+.flag .counter{color:#00F5D4;white-space:pre-wrap;margin:0}
+pre{white-space:pre-wrap;font-family:inherit;background:#0A0F1D;padding:12px;border-radius:10px}
+.foot{color:#94A3B8;font-size:12px;margin-top:24px}
+.cta{display:flex;flex-direction:column;gap:10px;margin-top:22px;width:100%}
+.cta a{display:block;box-sizing:border-box;width:100%;text-align:center;text-decoration:none;border-radius:12px;padding:14px 16px;font-weight:600;min-height:48px;line-height:20px}
+.cta .primary{background:#00F5D4;color:#080C14}
+.cta .secondary{border:1px solid #00F5D4;color:#00F5D4}
+.hidden{display:none}
+#unavailable{color:#CBD5E1;padding:28px 8px;text-align:center}
+ol{margin:0;padding-left:22px}
+ol:empty{display:none}
+</style>
+</head>
+<body>
+<main>
+<p id="unavailable" class="hidden">This brief is missing or expired.</p>
+<div id="content" class="hidden">
+<p class="accent">NexuLex AI</p>
+<h1><span id="action"></span> · <span id="score" class="score"></span></h1>
+<p id="headline"></p>
+<div id="decision-card" class="card">
+<ol id="reasons"></ol>
+<p id="harm"></p>
+</div>
+<p id="summary"></p>
+<div id="flags"></div>
+<div id="missing-wrap" class="card hidden"></div>
+<div id="trap-wrap" class="card hidden"><h2>Dates</h2><ul id="trap"></ul></div>
+<div id="shield-wrap" class="card hidden"><h2>Shield</h2><pre id="shield"></pre></div>
+<p id="disclaimer" class="foot"></p>
+<div class="cta">
+<a id="open-app" class="primary" href="nexulex://share/"></a>
+<a id="get-app" class="secondary" href="__GET_APP_HREF__"></a>
+</div>
+</div>
+</main>
+<script>
+(function () {
+  var SUPABASE_URL = '__SUPABASE_URL__';
+  var ANON_KEY = '__SUPABASE_ANON_KEY__';
+  var CODE_RE = /^[0-9A-HJKMNP-TV-Z]{8}$/;
+  var OPEN_LABELS = {
+    tr: 'NexuLex’te aç',
+    en: 'Open in NexuLex',
+    de: 'In NexuLex öffnen',
+    fr: 'Ouvrir dans NexuLex',
+    es: 'Abrir en NexuLex',
+    ar: 'افتح في NexuLex',
+    it: 'Apri in NexuLex',
+    zh: '在 NexuLex 中打开',
+    ru: 'Открыть в NexuLex',
+    fa: 'باز کردن در NexuLex',
+    ja: 'NexuLexで開く',
+    pt: 'Abrir no NexuLex',
+    nl: 'Openen in NexuLex'
+  };
+  var GET_APP_LABELS = {
+    tr: 'Uygulamayı al — 2 ücretsiz tarama',
+    en: 'Get the app — 2 free scans',
+    de: 'App holen — 2 kostenlose Scans',
+    fr: 'Installer l’app — 2 analyses gratuites',
+    es: 'Consigue la app — 2 análisis gratis',
+    ar: 'احصل على التطبيق — مسحتان مجانيتان',
+    it: 'Scarica l’app — 2 scan gratis',
+    zh: '获取应用 — 2 次免费扫描',
+    ru: 'Скачать приложение — 2 бесплатных сканирования',
+    fa: 'دریافت برنامه — ۲ اسکن رایگان',
+    ja: 'アプリを入手 — 無料スキャン2回',
+    pt: 'Obter a app — 2 scans grátis',
+    nl: 'App downloaden — 2 gratis scans'
+  };
+
+  function escapeHtml(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function setText(id, value) {
+    var node = document.getElementById(id);
+    var text = value == null ? '' : String(value);
+    if (node) node.textContent = text;
+    return text;
+  }
+
+  function setTextOrHide(id, value) {
+    var node = document.getElementById(id);
+    var text = String(value == null ? '' : value).trim();
+    if (!node) return text;
+    node.textContent = text;
+    if (text) node.classList.remove('hidden');
+    else node.classList.add('hidden');
+    return text;
+  }
+
+  function showUnavailable() {
+    document.getElementById('content').classList.add('hidden');
+    document.getElementById('unavailable').classList.remove('hidden');
+  }
+
+  function addText(parent, tag, value, className) {
+    var el = document.createElement(tag);
+    if (className) el.className = className;
+    el.textContent = value == null ? '' : String(value);
+    parent.appendChild(el);
+    return el;
+  }
+
+  function render(snapshot, code) {
+    var locale = String(snapshot.locale || 'en').slice(0, 2).toLowerCase();
+    var rtl = locale === 'ar' || locale === 'fa';
+    document.documentElement.lang = locale;
+    document.documentElement.dir = rtl ? 'rtl' : 'ltr';
+
+    var decision = snapshot.decision && typeof snapshot.decision === 'object' ? snapshot.decision : {};
+    setText('action', decision.action);
+    setText('score', String(snapshot.score == null ? '' : snapshot.score) + '/100');
+    setTextOrHide('headline', decision.headline);
+    var harm = setTextOrHide('harm', decision.estimatedHarm);
+    setTextOrHide('summary', snapshot.summary);
+    setTextOrHide('disclaimer', snapshot.disclaimer);
+
+    var reasons = document.getElementById('reasons');
+    reasons.textContent = '';
+    var reasonItems = (Array.isArray(decision.reasons) ? decision.reasons : [])
+      .map(function (item) { return String(item || '').trim(); })
+      .filter(Boolean);
+    reasonItems.forEach(function (item) {
+      addText(reasons, 'li', item);
+    });
+    if (reasonItems.length) reasons.classList.remove('hidden');
+    else reasons.classList.add('hidden');
+    var decisionCard = document.getElementById('decision-card');
+    if (!reasonItems.length && !harm) decisionCard.classList.add('hidden');
+    else decisionCard.classList.remove('hidden');
+
+    var flagsRoot = document.getElementById('flags');
+    flagsRoot.textContent = '';
+    (Array.isArray(snapshot.flags) ? snapshot.flags : []).forEach(function (item) {
+      var row = item && typeof item === 'object' ? item : {};
+      var title = String(row.title || '').trim();
+      var explanation = String(row.explanation || '').trim();
+      var counter = String(row.counterOffer || '').trim();
+      if (!title && !explanation && !counter) return;
+      var severity = String(row.severity || '').toUpperCase();
+      var article = document.createElement('article');
+      article.className = 'flag' + (severity === 'YELLOW' ? ' yellow' : severity === 'RED' ? ' red' : '');
+      addText(article, 'h3', (title || 'Flag') + (severity ? ' · ' + severity : ''));
+      if (explanation) addText(article, 'p', explanation);
+      if (counter) addText(article, 'p', counter, 'counter');
+      flagsRoot.appendChild(article);
+    });
+
+    var missingWrap = document.getElementById('missing-wrap');
+    missingWrap.textContent = '';
+    var missing = Array.isArray(snapshot.missing) ? snapshot.missing : [];
+    if (missing.length) {
+      missing.forEach(function (item) {
+        var row = item && typeof item === 'object' ? item : {};
+        addText(missingWrap, 'span', (row.playbookId || '') + ' · ' + (row.status || ''), 'chip');
+      });
+      missingWrap.classList.remove('hidden');
+    }
+
+    var trapList = document.getElementById('trap');
+    trapList.textContent = '';
+    var trap = snapshot.trap;
+    var trapCount = 0;
+    if (Array.isArray(trap)) {
+      trap.forEach(function (item) {
+        var row = item && typeof item === 'object' ? item : {};
+        addText(trapList, 'li', (row.label || row.kind || '') + ' — ' + (row.date || row.date_or_rule || '') + ' ' + (row.note || ''));
+        trapCount += 1;
+      });
+    } else if (trap && typeof trap === 'object') {
+      Object.keys(trap).forEach(function (key) {
+        var value = trap[key];
+        var row = value && typeof value === 'object' ? value : {};
+        addText(trapList, 'li', key + ' — ' + (row.date_or_rule || row.date || '') + ' ' + (row.note || ''));
+        trapCount += 1;
+      });
+    }
+    if (trapCount) document.getElementById('trap-wrap').classList.remove('hidden');
+
+    var shield = String(snapshot.shieldText || '');
+    if (shield) {
+      setText('shield', shield);
+      document.getElementById('shield-wrap').classList.remove('hidden');
+    }
+
+    var openApp = document.getElementById('open-app');
+    openApp.href = 'nexulex://share/' + encodeURIComponent(code);
+    openApp.textContent = OPEN_LABELS[locale] || OPEN_LABELS.en;
+    var getApp = document.getElementById('get-app');
+    getApp.textContent = GET_APP_LABELS[locale] || GET_APP_LABELS.en;
+    var bakedHref = String(getApp.getAttribute('href') || '').trim();
+    var playLive = false;
+    try {
+      var parsedHref = new URL(bakedHref, location.href);
+      playLive = parsedHref.protocol === 'https:' && /(^|\.)play\.google\.com$/i.test(parsedHref.hostname);
+    } catch (err) {
+      playLive = false;
+    }
+    if (playLive) {
+      getApp.href = bakedHref;
+    } else {
+      getApp.href = 'get.html?code=' + encodeURIComponent(code);
+    }
+
+    document.getElementById('unavailable').classList.add('hidden');
+    document.getElementById('content').classList.remove('hidden');
+  }
+
+  var params = new URLSearchParams(location.search);
+  var code = String(params.get('code') || '').trim().toUpperCase();
+  if (!CODE_RE.test(code)) {
+    showUnavailable();
+    return;
+  }
+
+  var base = String(SUPABASE_URL || '').replace(/\/+$/, '');
+  fetch(base + '/functions/v1/open-share?code=' + encodeURIComponent(code), {
+    headers: {
+      apikey: ANON_KEY,
+      Authorization: 'Bearer ' + ANON_KEY,
+      Accept: 'application/json'
+    }
+  })
+    .then(function (res) { return res.json().then(function (body) { return { ok: res.ok, body: body }; }); })
+    .then(function (result) {
+      var packed = JSON.stringify(result.body || {});
+      if (/contract_text|contractText|originalText/.test(packed)) {
+        showUnavailable();
+        return;
+      }
+      if (!result.ok || !result.body || !result.body.snapshot) {
+        showUnavailable();
+        return;
+      }
+      render(result.body.snapshot, code);
+    })
+    .catch(function () {
+      showUnavailable();
+    });
+})();
+</script>
+</body>
+</html>

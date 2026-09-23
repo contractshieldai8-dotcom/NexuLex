@@ -1,0 +1,30 @@
+
+[functions.analyze-contract]
+enabled = true
+# Anthropic anahtarını taşıyan proxy: yalnızca oturum açmış kullanıcılar
+# çağırabilsin diye JWT doğrulaması zorunludur.
+# Hosted Edge idle/wall clock is 150s; `timeout` is not a supported config.toml key.
+verify_jwt = true
+import_map = "./functions/analyze-contract/deno.json"
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/analyze-contract/index.ts"
+
+[functions.notify-support]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/notify-support/index.ts"
+
+[functions.mint-share]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/mint-share/index.ts"
+
+[functions.open-share]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/open-share/index.ts"
+
+[functions.advisor-seat]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/advisor-seat/index.ts"

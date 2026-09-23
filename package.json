@@ -3,20 +3,61 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "@google/genai": "^2.21.0",
+    "@expo/vector-icons": "^15.0.2",
+    "@react-native-async-storage/async-storage": "2.2.0",
     "@supabase/supabase-js": "^2.115.0",
     "dotenv": "^17.4.2",
-    "expo": "~57.0.20",
+    "expo": "~57.0.22",
+    "expo-application": "~57.0.3",
+    "expo-av": "^16.0.8",
+    "expo-build-properties": "~57.0.17",
+    "expo-clipboard": "~57.0.2",
+    "expo-constants": "~57.0.18",
+    "expo-dev-client": "~57.0.19",
+    "expo-device": "~57.0.2",
+    "expo-document-picker": "~57.0.2",
+    "expo-file-system": "~57.0.7",
+    "expo-image-manipulator": "~57.0.17",
+    "expo-image-picker": "~57.0.17",
+    "expo-linking": "~57.0.10",
+    "expo-localization": "~57.0.2",
+    "expo-notifications": "~57.0.18",
+    "expo-print": "~57.0.2",
+    "expo-sharing": "~57.0.19",
+    "expo-speech": "~57.0.3",
+    "expo-speech-recognition": "^57.0.0",
+    "expo-splash-screen": "~57.0.9",
     "expo-status-bar": "~57.0.1",
+    "expo-updates": "~57.0.22",
+    "i18next": "^26.4.2",
     "react": "19.2.3",
+    "react-i18next": "^17.0.13",
     "react-native": "0.86.3",
-    "react-native-url-polyfill": "^4.0.0"
+    "react-native-purchases": "^10.9.0",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-url-polyfill": "^4.0.0",
+    "react-native-view-shot": "5.1.0"
   },
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web"
   },
-  "private": true
+  "private": true,
+  "expo": {
+    "autolinking": {
+      "android": {
+        "buildFromSource": [
+          "expo-av",
+          "expo-modules-core",
+          "expo-updates"
+        ]
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.4",
+    "typescript": "~6.0.3"
+  }
 }

@@ -1,24 +1,189 @@
 {
   "expo": {
-    "name": "ContractShield",
-    "slug": "ContractShield",
+    "name": "NexuLex AI",
+    "slug": "doka",
+    "scheme": [
+      "contractshield",
+      "nexulex"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.nexulex.ai",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "NexuLex AI, sesli hukuk sorularınızı kaydetmek için mikrofona ihtiyaç duyar.",
+        "NSSpeechRecognitionUsageDescription": "NexuLex AI, konuşmanızı metne çevirmek için konuşma tanıma kullanır.",
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLName": "com.nexulex.ai",
+            "CFBundleURLSchemes": [
+              "contractshield",
+              "nexulex"
+            ]
+          }
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
-      }
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#02091d"
+      },
+      "package": "com.nexulex.ai",
+      "compileSdkVersion": 36,
+      "targetSdkVersion": 36,
+      "buildToolsVersion": "35.0.0",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.SCHEDULE_EXACT_ALARM"
+      ],
+      "softwareKeyboardLayoutMode": "pan",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "contractshield"
+            },
+            {
+              "scheme": "nexulex"
+            }
+          ]
+        },
+        {
+          "action": "VIEW",
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "contractshield",
+              "host": "auth",
+              "pathPrefix": "/callback"
+            },
+            {
+              "scheme": "nexulex",
+              "host": "auth",
+              "pathPrefix": "/callback"
+            },
+            {
+              "scheme": "contractshield",
+              "host": "expo-development-client"
+            },
+            {
+              "scheme": "nexulex",
+              "host": "expo-development-client"
+            },
+            {
+              "scheme": "contractshield",
+              "host": "verify-email"
+            },
+            {
+              "scheme": "contractshield",
+              "host": "reset-password"
+            }
+          ]
+        }
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-sharing",
+      "expo-dev-client",
+      "./plugins/withAudioPermissions",
+      "./plugins/withAndroidNativeBuild",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 36,
+            "targetSdkVersion": 36,
+            "buildToolsVersion": "35.0.0",
+            "ndkVersion": "27.1.12297006",
+            "packagingOptions": {
+              "pickFirst": [
+                "**/libc++_shared.so",
+                "**/libjsi.so",
+                "**/libfbjni.so",
+                "**/libreactnative.so",
+                "**/libhermes.so",
+                "**/libhermesvm.so"
+              ]
+            }
+          }
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#00F5D4",
+          "defaultChannel": "trap-calendar",
+          "enableBackgroundRemoteNotifications": false
+        }
+      ],
+      [
+        "expo-av",
+        {
+          "microphonePermission": "NexuLex AI, sesli hukuk sorularınızı kaydetmek için mikrofona ihtiyaç duyar."
+        }
+      ],
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "NexuLex AI, sorularınızı sesle yazmak için mikrofona ihtiyaç duyar.",
+          "speechRecognitionPermission": "NexuLex AI, konuşmanızı metne çevirmek için konuşma tanıma kullanır."
+        }
+      ],
+      "expo-localization",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#000000",
+          "android": {
+            "image": "./assets/splash-icon.png",
+            "imageWidth": 200,
+            "resizeMode": "contain"
+          },
+          "ios": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "enableFullScreenImage_legacy": true
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "79964394-bb0f-41f7-9236-3e6f15d99106"
+      }
+    },
+    "owner": "nexulexs-team",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/79964394-bb0f-41f7-9236-3e6f15d99106"
     }
   }
 }

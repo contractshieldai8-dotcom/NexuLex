@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="noindex"/>
+<title>NexuLex AI</title>
+<style>
+body{margin:0;background:#0A0F1D;color:#F8FAFC;font-family:system-ui,sans-serif;line-height:1.45}
+main{max-width:720px;margin:0 auto;padding:28px 20px 160px}
+.accent{color:#00F5D4}
+h1{font-size:22px;font-weight:700;line-height:1.3;margin:8px 0 12px}
+.pitch{font-size:16px;margin:0 0 14px}
+.body{color:#CBD5E1;margin:0 0 12px}
+.code{color:#00F5D4;font-weight:700;letter-spacing:0.08em;font-size:20px;margin:12px 0 18px}
+.cta{display:flex;flex-direction:column;gap:10px;margin-top:22px;width:100%}
+.cta a{display:block;box-sizing:border-box;width:100%;text-align:center;text-decoration:none;border-radius:12px;padding:14px 16px;font-weight:600;min-height:48px;line-height:20px;background:#00F5D4;color:#080C14}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<main>
+<p class="accent">NexuLex AI</p>
+<h1 id="title"></h1>
+<p id="pitch" class="pitch"></p>
+<p id="body" class="body"></p>
+<p id="code-line" class="code hidden"></p>
+<div class="cta">
+<a id="open-app" href="nexulex://share/"></a>
+</div>
+</main>
+<script>
+(function () {
+  var CODE_RE = /^[0-9A-HJKMNP-TV-Z]{8}$/;
+  var LANGS = ['tr','en','de','fr','es','ar','it','zh','ru','fa','ja','pt','nl'];
+  var TITLE = {
+    tr: 'NexuLex AI', en: 'NexuLex AI', de: 'NexuLex AI', fr: 'NexuLex AI', es: 'NexuLex AI',
+    ar: 'NexuLex AI', it: 'NexuLex AI', zh: 'NexuLex AI', ru: 'NexuLex AI', fa: 'NexuLex AI',
+    ja: 'NexuLex AI', pt: 'NexuLex AI', nl: 'NexuLex AI'
+  };
+  var PITCH = {
+    tr: 'İkinci bir çift göz. Orijinal metin gizli kalır. 2 ücretsiz tarama. Avukat değildir.',
+    en: 'A second pair of eyes. The original stays private. 2 free scans. Not a lawyer.',
+    de: 'Ein zweites Paar Augen. Das Original bleibt privat. 2 kostenlose Scans. Kein Anwalt.',
+    fr: 'Un second regard. L’original reste privé. 2 analyses gratuites. Pas un avocat.',
+    es: 'Un segundo par de ojos. El original permanece privado. 2 análisis gratis. No es un abogado.',
+    ar: 'زوج عيون ثانٍ. يبقى الأصل خاصًا. مسحتان مجانيتان. ليس محاميًا.',
+    it: 'Un secondo paio di occhi. L’originale resta privato. 2 scan gratis. Non è un avvocato.',
+    zh: '第二双眼睛。原文保持私密。2 次免费扫描。不是律师。',
+    ru: 'Вторая пара глаз. Оригинал остаётся конфиденциальным. 2 бесплатных сканирования. Это не адвокат.',
+    fa: 'یک جفت چشم دوم. اصل قرارداد خصوصی می‌ماند. ۲ اسکن رایگان. وکیل نیست.',
+    ja: 'もう一組の目。原本は非公開のまま。無料スキャン2回。弁護士ではありません。',
+    pt: 'Um segundo par de olhos. O original permanece privado. 2 scans grátis. Não é um advogado.',
+    nl: 'Een extra paar ogen. Het origineel blijft privé. 2 gratis scans. Geen advocaat.'
+  };
+  var BODY = {
+    tr: 'Play kaydı henüz yayında değil. Kullandığınız NexuLex AI uygulamasını açın veya yükleyin; ardından 8 karakterlik kodu yapıştırın.',
+    en: 'The Play listing is not live yet. Install or open the NexuLex AI app you already use, then paste the 8-character code.',
+    de: 'Der Play-Eintrag ist noch nicht live. Installieren oder öffnen Sie die NexuLex-AI-App, die Sie bereits nutzen, und fügen Sie dann den 8-Zeichen-Code ein.',
+    fr: 'La fiche Play n’est pas encore en ligne. Installez ou ouvrez l’app NexuLex AI que vous utilisez déjà, puis collez le code à 8 caractères.',
+    es: 'La ficha de Play aún no está publicada. Instala o abre la app NexuLex AI que ya usas y pega el código de 8 caracteres.',
+    ar: 'قائمة Play ليست متاحة بعد. ثبّت أو افتح تطبيق NexuLex AI الذي تستخدمه ثم الصق الرمز المكوّن من 8 أحرف.',
+    it: 'La scheda Play non è ancora online. Installa o apri l’app NexuLex AI che già usi, poi incolla il codice di 8 caratteri.',
+    zh: 'Play 上架尚未上线。请安装或打开你已在使用的 NexuLex AI 应用，然后粘贴 8 位代码。',
+    ru: 'Страница Play ещё не опубликована. Установите или откройте приложение NexuLex AI, которым вы уже пользуетесь, затем вставьте 8-символьный код.',
+    fa: 'فهرست Play هنوز منتشر نشده. برنامه NexuLex AI را که از قبل استفاده می‌کنید نصب یا باز کنید؛ سپس کد ۸ نویسه‌ای را بچسبانید.',
+    ja: 'Playの掲載はまだ公開されていません。利用中のNexuLex AIアプリをインストールまたは開き、8文字のコードを貼り付けてください。',
+    pt: 'A ficha da Play ainda não está publicada. Instale ou abra a app NexuLex AI que já usa e cole o código de 8 caracteres.',
+    nl: 'De Play-vermelding is nog niet live. Installeer of open de NexuLex AI-app die je al gebruikt en plak daarna de 8-tekencode.'
+  };
+  var CODE_LINE = {
+    tr: 'Kodunuz: ',
+    en: 'Your code: ',
+    de: 'Ihr Code: ',
+    fr: 'Votre code : ',
+    es: 'Tu código: ',
+    ar: 'رمزك: ',
+    it: 'Il tuo codice: ',
+    zh: '你的代码：',
+    ru: 'Ваш код: ',
+    fa: 'کد شما: ',
+    ja: 'コード: ',
+    pt: 'O seu código: ',
+    nl: 'Jouw code: '
+  };
+  var OPEN = {
+    tr: 'NexuLex’te aç',
+    en: 'Open in NexuLex',
+    de: 'In NexuLex öffnen',
+    fr: 'Ouvrir dans NexuLex',
+    es: 'Abrir en NexuLex',
+    ar: 'افتح في NexuLex',
+    it: 'Apri in NexuLex',
+    zh: '在 NexuLex 中打开',
+    ru: 'Открыть в NexuLex',
+    fa: 'باز کردن در NexuLex',
+    ja: 'NexuLexで開く',
+    pt: 'Abrir no NexuLex',
+    nl: 'Openen in NexuLex'
+  };
+
+  function setText(id, value) {
+    var node = document.getElementById(id);
+    if (node) node.textContent = value == null ? '' : String(value);
+  }
+
+  var params = new URLSearchParams(location.search);
+  var requested = String(params.get('lang') || '').slice(0, 2).toLowerCase();
+  var htmlLang = String(document.documentElement.lang || 'tr').slice(0, 2).toLowerCase();
+  var locale = LANGS.indexOf(requested) >= 0 ? requested : (LANGS.indexOf(htmlLang) >= 0 ? htmlLang : 'tr');
+  var rtl = locale === 'ar' || locale === 'fa';
+  document.documentElement.lang = locale;
+  document.documentElement.dir = rtl ? 'rtl' : 'ltr';
+
+  var code = String(params.get('code') || '').trim().toUpperCase();
+  var hasCode = CODE_RE.test(code);
+
+  setText('title', TITLE[locale] || TITLE.tr);
+  setText('pitch', PITCH[locale] || PITCH.tr);
+  setText('body', BODY[locale] || BODY.tr);
+
+  var codeLine = document.getElementById('code-line');
+  if (hasCode) {
+    codeLine.textContent = (CODE_LINE[locale] || CODE_LINE.tr) + code;
+    codeLine.classList.remove('hidden');
+  } else {
+    codeLine.textContent = '';
+    codeLine.classList.add('hidden');
+  }
+
+  var openApp = document.getElementById('open-app');
+  openApp.textContent = OPEN[locale] || OPEN.tr;
+  openApp.href = hasCode ? 'nexulex://share/' + encodeURIComponent(code) : 'nexulex://share/';
+})();
+</script>
+</body>
+</html>

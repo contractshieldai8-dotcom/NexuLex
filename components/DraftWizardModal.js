@@ -1,0 +1,399 @@
+import React, { useEffect, useMemo, useState } from 'react';
+import {
+  ActivityIndicator,
+  Dimensions,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  Pressable,
+  ScrollView,
+  Share,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import * as Clipboard from 'expo-clipboard';
+import { useTranslation } from 'react-i18next';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { ACCENT, DANGER, styles } from '../theme';
+import { DRAFT_TEMPLATES, getDraftTemplateById } from '../constants/draftTemplates';
+import {
+  applyImprovedWording,
+  buildDraft,
+  buildDraftPreview,
+  buildImproveWordingPrompt,
+  draftDocxFilename,
+  formatDraftForSharing,
+} from '../services/guidedDraft';
+import { askLegalAdvisor } from '../services/ai';
+import { shareShieldDocx } from '../utils/redlineExport';
+import { describeError } from '../utils/errors';
+import { useFeedback } from '../context/FeedbackContext';
+
+const WIN_H = Dimensions.get('window').height;
+const SHEET_MAX = Math.round(WIN_H * 0.92);
+
+function keyboardFor(type) {
+  if (type === 'number') return Platform.OS === 'ios' ? 'numbers-and-punctuation' : 'default';
+  return 'default';
+}
+
+export default function DraftWizardModal({
+  visible,
+  theme,
+  templateId: presetTemplateId = null,
+  country = 'auto',
+  isPro = false,
+  onNeedPaywall,
+  onClose,
+}) {
+  const { t, i18n } = useTranslation();
+  const insets = useSafeAreaInsets();
+  const { showToast } = useFeedback();
+
+  const [templateId, setTemplateId] = useState(presetTemplateId);
+  const [answers, setAnswers] = useState({});
+  const [draft, setDraft] = useState(null);
+  const [originalDraft, setOriginalDraft] = useState(null);
+  const [improving, setImproving] = useState(false);
+  const [exporting, setExporting] = useState(false);
+
+  useEffect(() => {
+    if (visible) {
+      setTemplateId(presetTemplateId);
+    } else {
+      setTemplateId(null);
+      setAnswers({});
+      setDraft(null);
+      setOriginalDraft(null);
+      setImproving(false);
+      setExporting(false);
+    }
+  }, [visible, presetTemplateId]);
+
+  const template = useMemo(() => getDraftTemplateById(templateId), [templateId]);
+  const preview = useMemo(() => (draft ? buildDraftPreview(draft) : null), [draft]);
+  const missingRequiredLabels = useMemo(
+    () => (draft?.missing || []).filter((m) => m.required).map((m) => m.label),
+    [draft]
+  );
+
+  const handleGenerate = () => {
+    if (!template) return;
+    const built = buildDraft(template.id, answers, i18n.language);
+    setDraft(built);
+    setOriginalDraft(built);
+  };
+
+  const requirePro = () => {
+    if (isPro) return true;
+    onNeedPaywall?.();
+    return false;
+  };
+
+  const handleCopy = async () => {
+    if (!draft || !requirePro()) return;
+    await Clipboard.setStringAsync(formatDraftForSharing(draft, 'plain'));
+    showToast(t('copiedToClipboard'), { type: 'success', duration: 1400 });
+  };
+
+  const handleShare = async () => {
+    if (!draft || !requirePro()) return;
+    try {
+      await Share.share({ message: formatDraftForSharing(draft, 'whatsapp') });
+    } catch (_error) {
+      showToast(t('shareUnavailable'), { type: 'warning' });
+    }
+  };
+
+  const handleDocx = async () => {
+    if (!draft || !requirePro() || exporting) return;
+    setExporting(true);
+    try {
+      const out = await shareShieldDocx(formatDraftForSharing(draft, 'plain'), {
+        filename: draftDocxFilename(draft),
+      });
+      if (!out?.uri) showToast(t('shareUnavailable'), { type: 'warning' });
+    } catch (error) {
+      showToast(describeError(t, error), { type: 'error' });
+    } finally {
+      setExporting(false);
+    }
+  };
+
+  const handleImprove = async () => {
+    if (!draft || !requirePro() || improving) return;
+    setImproving(true);
+    try {
+      const improvedText = await askLegalAdvisor({
+        question: buildImproveWordingPrompt(draft, i18n.language),
+        country,
+        lang: i18n.language,
+        task: 'draft_polish',
+      });
+      const result = applyImprovedWording(draft, improvedText);
+      if (result.ok) {
+        setDraft(result.draft);
+        showToast(t('draftImproveApplied'), { type: 'success', duration: 1600 });
+      } else {
+        showToast(t('draftImproveRejected'), { type: 'warning', duration: 2600 });
+      }
+    } catch (error) {
+      showToast(describeError(t, error), { type: 'error' });
+    } finally {
+      setImproving(false);
+    }
+  };
+
+  const goBack = () => {
+    if (draft) {
+      setDraft(null);
+      setOriginalDraft(null);
+      return;
+    }
+    if (template && !presetTemplateId) {
+      setTemplateId(null);
+      setAnswers({});
+      return;
+    }
+    onClose?.();
+  };
+
+  const headerTitle = template ? t(template.titleKey) : t('draftSectionTitle');
+  const headerIcon = template?.icon || 'document-text-outline';
+
+  return (
+    <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <View style={styles.modalOverlay}>
+          {/* BL.3: backdrop Pressable is sibling of sheet — not a wrapping parent. */}
+          <Pressable
+            style={StyleSheet.absoluteFillObject}
+            onPress={onClose}
+            accessibilityRole="button"
+            accessibilityLabel={t('draftClose')}
+          />
+          <View
+            style={[
+              styles.modalSheet,
+              {
+                backgroundColor: theme.cardBg,
+                borderColor: theme.borderColor,
+                maxHeight: SHEET_MAX,
+                paddingBottom: Math.max(insets.bottom, 0) + 16,
+              },
+            ]}
+          >
+            <View style={styles.modalHandle} />
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+              <Ionicons name={headerIcon} size={20} color={ACCENT} />
+              <Text
+                style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]}
+                numberOfLines={2}
+              >
+                {headerTitle}
+              </Text>
+              <TouchableOpacity onPress={onClose} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+                <Ionicons name="close" size={22} color={theme.subText} />
+              </TouchableOpacity>
+            </View>
+
+            <ScrollView
+              style={{ maxHeight: Math.round(WIN_H * 0.7) }}
+              contentContainerStyle={{ paddingBottom: 12 }}
+              keyboardShouldPersistTaps="handled"
+              showsVerticalScrollIndicator={false}
+            >
+              {!template ? (
+                <>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
+                    {t('draftSectionHint')}
+                  </Text>
+                  {DRAFT_TEMPLATES.map((item) => (
+                    <TouchableOpacity
+                      key={item.id}
+                      activeOpacity={0.85}
+                      onPress={() => setTemplateId(item.id)}
+                      style={[
+                        styles.secondaryBtn,
+                        { marginTop: 8, alignItems: 'flex-start', paddingHorizontal: 14 },
+                      ]}
+                    >
+                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                        <Ionicons name={item.icon} size={16} color={ACCENT} />
+                        <Text style={[styles.secondaryBtnText, { textAlign: 'left' }]}>
+                          {t(item.titleKey)}
+                        </Text>
+                      </View>
+                      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
+                        {t(item.descriptionKey)}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </>
+              ) : !draft ? (
+                <>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
+                    {t(template.descriptionKey)}
+                  </Text>
+                  {template.questions.map((q) => (
+                    <View key={q.id} style={{ marginBottom: 12 }}>
+                      <Text style={[styles.label, { color: theme.subText }]}>
+                        {t(q.labelKey)}
+                        {q.required ? ' *' : ''}
+                      </Text>
+                      <TextInput
+                        style={[
+                          styles.chatInput,
+                          {
+                            backgroundColor: theme.inputBg,
+                            color: theme.text,
+                            borderColor: theme.borderColor,
+                            minHeight: q.type === 'multiline' ? 80 : 44,
+                            textAlignVertical: q.type === 'multiline' ? 'top' : 'center',
+                          },
+                        ]}
+                        value={answers[q.id] || ''}
+                        onChangeText={(value) => setAnswers((prev) => ({ ...prev, [q.id]: value }))}
+                        placeholder={q.type === 'date' ? t('draftDatePlaceholder') : ''}
+                        placeholderTextColor={theme.subText}
+                        keyboardType={keyboardFor(q.type)}
+                        multiline={q.type === 'multiline'}
+                      />
+                    </View>
+                  ))}
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
+                    {t('draftBlankHint')}
+                  </Text>
+                  <TouchableOpacity style={styles.primaryButton} onPress={handleGenerate}>
+                    <Text style={styles.primaryButtonText}>{t('draftGenerate')}</Text>
+                  </TouchableOpacity>
+                </>
+              ) : (
+                <>
+                  {missingRequiredLabels.length ? (
+                    <View
+                      style={{
+                        borderWidth: 1,
+                        borderColor: DANGER,
+                        backgroundColor: 'rgba(255,59,92,0.08)',
+                        borderRadius: 10,
+                        padding: 10,
+                        marginBottom: 12,
+                      }}
+                    >
+                      <Text style={[styles.sectionHint, { color: theme.text, marginBottom: 0 }]}>
+                        {t('draftMissingWarning')} {missingRequiredLabels.join(', ')}
+                      </Text>
+                    </View>
+                  ) : null}
+
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      borderColor: theme.borderColor,
+                      borderRadius: 10,
+                      padding: 12,
+                      marginBottom: 12,
+                    }}
+                  >
+                    <Text selectable style={[styles.bubbleText, { color: theme.text }]}>
+                      {isPro ? formatDraftForSharing(draft, 'plain') : preview?.text}
+                    </Text>
+                  </View>
+
+                  {!isPro ? (
+                    <View
+                      style={{
+                        borderWidth: 1,
+                        borderColor: ACCENT,
+                        borderRadius: 10,
+                        padding: 12,
+                        marginBottom: 12,
+                      }}
+                    >
+                      <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 4 }]}>
+                        🔒 {t('draftProLockTitle')}
+                      </Text>
+                      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
+                        {t('draftProLockBody')}
+                      </Text>
+                      <TouchableOpacity style={styles.primaryButton} onPress={() => onNeedPaywall?.()}>
+                        <Text style={styles.primaryButtonText}>{t('draftUnlockCta')}</Text>
+                      </TouchableOpacity>
+                    </View>
+                  ) : null}
+
+                  <TouchableOpacity
+                    style={[styles.primaryButton, exporting && styles.buttonDisabled]}
+                    onPress={handleDocx}
+                    disabled={exporting}
+                  >
+                    {exporting ? (
+                      <ActivityIndicator color="#080C14" size="small" />
+                    ) : (
+                      <Text style={styles.primaryButtonText}>
+                        {isPro ? '' : '🔒 '}
+                        {t('draftExportDocx')}
+                      </Text>
+                    )}
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.secondaryBtn} onPress={handleCopy}>
+                    <Text style={styles.secondaryBtnText}>
+                      {isPro ? '' : '🔒 '}
+                      {t('draftCopy')}
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={handleShare}>
+                    <Text style={styles.secondaryBtnText}>
+                      {isPro ? '' : '🔒 '}
+                      {t('draftShare')}
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[styles.secondaryBtn, { marginTop: 8 }, improving && styles.buttonDisabled]}
+                    onPress={handleImprove}
+                    disabled={improving}
+                  >
+                    {improving ? (
+                      <ActivityIndicator color={ACCENT} size="small" />
+                    ) : (
+                      <Text style={styles.secondaryBtnText}>
+                        {isPro ? '' : '🔒 '}
+                        {t('draftImprove')}
+                      </Text>
+                    )}
+                  </TouchableOpacity>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 0 }]}>
+                    {t('draftImproveHint')}
+                  </Text>
+                  {draft.improved && originalDraft ? (
+                    <TouchableOpacity
+                      style={[styles.secondaryBtn, { marginTop: 8 }]}
+                      onPress={() => setDraft(originalDraft)}
+                    >
+                      <Text style={styles.secondaryBtnText}>{t('draftRevert')}</Text>
+                    </TouchableOpacity>
+                  ) : null}
+                </>
+              )}
+            </ScrollView>
+
+            <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={goBack}>
+              <Text style={styles.secondaryBtnText}>
+                {draft || (template && !presetTemplateId) ? t('draftBack') : t('draftClose')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </KeyboardAvoidingView>
+    </Modal>
+  );
+}

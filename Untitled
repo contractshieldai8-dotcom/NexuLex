@@ -1,0 +1,594 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  TextInput, 
+  TouchableOpacity, 
+  ScrollView, 
+  ActivityIndicator, 
+  Alert,
+  StatusBar,
+  Switch,
+  FlatList,
+  Image
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import * as ImagePicker from 'expo-image-picker';
+import * as Linking from 'expo-linking';
+import './i18n';
+import { useTranslation } from 'react-i18next';
+import { analyzeContract, analyzeContractImages } from './services/ai';
+import { supabase } from './services/supabase';
+import Auth from './components/Auth';
+
+const CONTRACT_TYPES = [
+  'Genel Hukuk', 'İş Sözleşmesi', 'Kira Sözleşmesi', 
+  'Gizlilik (NDA)', 'Yazılım & Hizmet (SaaS)', 'Satış Sözleşmesi'
+];
+
+const formatDate = (dateString, lang) => {
+  const localeMap = { tr: 'tr-TR', de: 'de-DE', fr: 'fr-FR', es: 'es-ES', ar: 'ar-SA', it: 'it-IT' };
+  return new Date(dateString).toLocaleDateString(localeMap[lang] || 'en-US');
+};
+
+export default function App() {
+  const { t, i18n } = useTranslation();
+  
+  // App States
+  const [activeTab, setActiveTab] = useState('analyze');
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [contractText, setContractText] = useState('');
+  const [selectedType, setSelectedType] = useState('Genel Hukuk');
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
+  const [currentLang, setCurrentLang] = useState(i18n.language || 'tr');
+  const [user, setUser] = useState(null);
+  
+  // Auth & Security States
+  const [resetEmail, setResetEmail] = useState('');
+  const [forgotPasswordMode, setForgotPasswordMode] = useState(false);
+  const [isResetPasswordFlow, setIsResetPasswordFlow] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+  const [updatingPassword, setUpdatingPassword] = useState(false);
+
+  // History States
+  const [history, setHistory] = useState([]);
+  const [loadingHistory, setLoadingHistory] = useState(false);
+
+  // Deep Link Dinleyici (E-postadan Şifre Sıfırlama Bağlantısına Tıklandığında)
+  useEffect(() => {
+    const handleDeepLink = async (event) => {
+      const url = event.url;
+      if (url && (url.includes('reset-password') || url.includes('type=recovery'))) {
+        const { data, error } = await supabase.auth.getSessionFromUrl({ url });
+        if (!error && data?.session) {
+          setUser(data.session.user);
+          setIsResetPasswordFlow(true);
+          setActiveTab('settings');
+          Alert.alert('Şifre Yenileme', 'Lütfen ayarlar ekranından yeni şifrenizi girin.');
+        }
+      }
+    };
+
+    const subscription = Linking.addEventListener('url', handleDeepLink);
+    Linking.getInitialURL().then((url) => {
+      if (url) handleDeepLink({ url });
+    });
+
+    return () => subscription.remove();
+  }, []);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (user && activeTab === 'history') {
+      fetchHistory();
+    }
+  }, [user, activeTab]);
+
+  const fetchHistory = async () => {
+    setLoadingHistory(true);
+    try {
+      const { data, error } = await supabase
+        .from('analyses')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setHistory(data || []);
+    } catch (err) {
+      console.log('Geçmiş çekme hatası:', err.message);
+    } finally {
+      setLoadingHistory(false);
+    }
+  };
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+    setCurrentLang(lang);
+  };
+
+  const handleResetPassword = async () => {
+    if (!resetEmail.trim()) {
+      Alert.alert('Uyarı', 'Lütfen e-posta adresinizi girin.');
+      return;
+    }
+    try {
+      // Supabase Redirect URL eklendi
+      const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+        redirectTo: 'contractshield://reset-password',
+      });
+      if (error) throw error;
+      Alert.alert('Başarılı', 'Şifre sıfırlama bağlantısı e-postanıza gönderildi.');
+      setForgotPasswordMode(false);
+    } catch (err) {
+      Alert.alert('Hata', err.message);
+    }
+  };
+
+  const handleUpdatePassword = async () => {
+    if (!newPassword.trim() || newPassword.length < 6) {
+      Alert.alert(t('alertWarning'), t('alertEnterPassword'));
+      return;
+    }
+    setUpdatingPassword(true);
+    try {
+      const { error } = await supabase.auth.updateUser({ password: newPassword });
+      if (error) throw error;
+      Alert.alert('Başarılı', t('successPassUpdate'));
+      setNewPassword('');
+      setIsResetPasswordFlow(false);
+    } catch (error) {
+      Alert.alert('Hata', error.message || t('errPassUpdate'));
+    } finally {
+      setUpdatingPassword(false);
+    }
+  };
+
+  const saveAnalysisToSupabase = async (analysisData) => {
+    if (!user) return;
+    try {
+      await supabase.from('analyses').insert([
+        {
+          user_id: user.id,
+          score: analysisData.score,
+          overall_risk: analysisData.overallRisk,
+          summary: analysisData.summary,
+          clauses: analysisData.clauses,
+          created_at: new Date().toISOString()
+        }
+      ]);
+    } catch (err) {
+      console.log('Veritabanı kayıt hatası:', err.message);
+    }
+  };
+
+  const handleAnalyzeText = async () => {
+    if (!contractText.trim() && selectedImages.length === 0) {
+      Alert.alert('Uyarı', 'Lütfen metin girin veya en az bir sayfa görsel yükleyin.');
+      return;
+    }
+
+    setLoading(true);
+    setResult(null);
+
+    try {
+      let data;
+      if (selectedImages.length > 0) {
+        data = await analyzeContractImages(selectedImages, selectedType);
+      } else {
+        data = await analyzeContract(contractText, selectedType);
+      }
+      setResult(data);
+      await saveAnalysisToSupabase(data);
+    } catch (error) {
+      Alert.alert('Analiz Hatası', 'Hata: ' + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePickMultipleImages = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!permissionResult.granted) {
+      Alert.alert('İzin Gerekli', 'Galeriye erişim izni verilmedi.');
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsMultipleSelection: true,
+      quality: 0.8,
+      base64: true,
+    });
+
+    if (pickerResult.canceled || !pickerResult.assets) return;
+
+    const formattedImages = pickerResult.assets
+      .filter(asset => asset.base64)
+      .map(asset => ({
+        uri: asset.uri,
+        base64: asset.base64,
+        mimeType: asset.mimeType || 'image/jpeg'
+      }));
+
+    setSelectedImages(formattedImages);
+  };
+
+  const getRiskColor = (level) => {
+    switch (level) {
+      case 'RED': return '#FF3B5C';
+      case 'YELLOW': return '#FFB800';
+      case 'GREEN': return '#00E676';
+      default: return '#8E8E93';
+    }
+  };
+
+  const theme = isDarkMode ? darkTheme : lightTheme;
+
+  return (
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.bg }]}>
+      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} backgroundColor={theme.bg} />
+      
+      {/* Brand Header */}
+      <View style={styles.topHeader}>
+        <View style={styles.brandRow}>
+          <Text style={[styles.title, { color: theme.text }]}>
+            NEXULEX <Text style={{ color: '#00F5D4' }}>AI</Text>
+          </Text>
+        </View>
+        <Text style={[styles.tagline, { color: theme.subText }]}>{t('tagline')}</Text>
+
+        {user && (
+          <View style={[styles.tabBar, { borderBottomColor: theme.borderColor }]}>
+            <TouchableOpacity 
+              onPress={() => setActiveTab('analyze')} 
+              style={[styles.tabItem, activeTab === 'analyze' && styles.activeTabBorder]}
+            >
+              <Text style={[styles.tabText, { color: activeTab === 'analyze' ? '#00F5D4' : theme.subText }]}>
+                {t('tabAnalyze')}
+              </Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity 
+              onPress={() => setActiveTab('history')} 
+              style={[styles.tabItem, activeTab === 'history' && styles.activeTabBorder]}
+            >
+              <Text style={[styles.tabText, { color: activeTab === 'history' ? '#00F5D4' : theme.subText }]}>
+                {t('tabHistory')}
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              onPress={() => setActiveTab('settings')} 
+              style={[styles.tabItem, activeTab === 'settings' && styles.activeTabBorder]}
+            >
+              <Text style={[styles.tabText, { color: activeTab === 'settings' ? '#00F5D4' : theme.subText }]}>
+                {t('tabSettings')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
+
+      {!user ? (
+        <ScrollView contentContainerStyle={{ padding: 20 }}>
+          {forgotPasswordMode ? (
+            <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor }]}>
+              <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 12 }]}>{t('forgotPasswordTitle')}</Text>
+              <TextInput
+                style={[styles.input, { backgroundColor: theme.inputBg, color: theme.text, borderColor: theme.borderColor }]}
+                placeholder={t('resetEmailPlaceholder')}
+                placeholderTextColor={theme.subText}
+                value={resetEmail}
+                onChangeText={setResetEmail}
+                autoCapitalize="none"
+              />
+              <TouchableOpacity style={styles.primaryButton} onPress={handleResetPassword}>
+                <Text style={styles.primaryButtonText}>{t('btnSendResetLink')}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{ marginTop: 15 }} onPress={() => setForgotPasswordMode(false)}>
+                <Text style={{ color: '#00F5D4', textAlign: 'center' }}>{t('backToLogin')}</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <>
+              <Auth onLoginSuccess={(u) => setUser(u)} />
+              <TouchableOpacity style={{ marginTop: 15 }} onPress={() => setForgotPasswordMode(true)}>
+                <Text style={{ color: theme.subText, textAlign: 'center', fontSize: 13 }}>Şifrenizi mi unuttunuz?</Text>
+              </TouchableOpacity>
+            </>
+          )}
+        </ScrollView>
+      ) : (
+        <View style={{ flex: 1 }}>
+          {/* TAB 1: ANALİZ EKRANI */}
+          {activeTab === 'analyze' && (
+            <ScrollView contentContainerStyle={styles.scrollContent}>
+              <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor }]}>
+                
+                {/* Sözleşme Tipi Seçimi */}
+                <Text style={[styles.label, { color: theme.subText }]}>{t('contractLibrary')}</Text>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
+                  {CONTRACT_TYPES.map((type) => (
+                    <TouchableOpacity 
+                      key={type} 
+                      style={[styles.typeChip, selectedType === type && styles.activeTypeChip]}
+                      onPress={() => setSelectedType(type)}
+                    >
+                      <Text style={[styles.typeChipText, selectedType === type && styles.activeTypeChipText]}>{type}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
+
+                {/* Çoklu Görsel Yükleme */}
+                <TouchableOpacity 
+                  style={styles.uploadButton} 
+                  onPress={handlePickMultipleImages}
+                  disabled={loading}
+                >
+                  <Text style={styles.uploadButtonText}>
+                    📸 {selectedImages.length > 0 
+                      ? t('imagesSelected', { count: selectedImages.length }) 
+                      : t('uploadImages')}
+                  </Text>
+                </TouchableOpacity>
+
+                {/* Yüklenen Önizlemeler */}
+                {selectedImages.length > 0 && (
+                  <ScrollView horizontal style={{ marginBottom: 15 }}>
+                    {selectedImages.map((img, idx) => (
+                      <Image key={idx} source={{ uri: img.uri }} style={styles.previewImage} />
+                    ))}
+                  </ScrollView>
+                )}
+
+                <Text style={[styles.label, { color: theme.subText }]}>{t('pasteLabel')}</Text>
+                <TextInput
+                  style={[styles.textArea, { backgroundColor: theme.inputBg, color: theme.text, borderColor: theme.borderColor }]}
+                  multiline
+                  numberOfLines={6}
+                  placeholder={t('placeholderText')}
+                  placeholderTextColor={theme.subText}
+                  value={contractText}
+                  onChangeText={setContractText}
+                />
+                
+                <TouchableOpacity 
+                  style={[styles.primaryButton, loading && styles.buttonDisabled]} 
+                  onPress={handleAnalyzeText}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <ActivityIndicator color="#080C14" />
+                  ) : (
+                    <Text style={styles.primaryButtonText}>{t('btnStartAnalyze')}</Text>
+                  )}
+                </TouchableOpacity>
+              </View>
+
+              {/* Sonuç Paneli */}
+              {result && (
+                <View style={styles.resultContainer}>
+                  <View style={[styles.scoreCard, { backgroundColor: theme.cardBg, borderColor: getRiskColor(result.overallRisk) }]}>
+                    <Text style={[styles.scoreTitle, { color: theme.subText }]}>{t('securityScore')}</Text>
+                    <Text style={[styles.scoreValue, { color: getRiskColor(result.overallRisk) }]}>
+                      {result.score} / 100
+                    </Text>
+                    <Text style={[styles.summaryText, { color: theme.text }]}>{result.summary}</Text>
+                  </View>
+
+                  <Text style={[styles.sectionHeader, { color: theme.text }]}>{t('analyzedClauses')}</Text>
+                  
+                  {result.clauses?.map((item, index) => (
+                    <View key={index} style={[styles.clauseCard, { backgroundColor: theme.cardBg, borderColor: theme.borderColor }]}>
+                      <View style={styles.clauseHeader}>
+                        <View style={[styles.badge, { backgroundColor: getRiskColor(item.riskLevel) }]}>
+                          <Text style={styles.badgeText}>{item.riskLevel}</Text>
+                        </View>
+                        <Text style={[styles.clauseTitle, { color: theme.text }]}>{item.clauseTitle || `Madde ${index + 1}`}</Text>
+                      </View>
+
+                      <Text style={[styles.originalText, { color: theme.subText }]}>"{item.originalText}"</Text>
+
+                      <View style={styles.issueBox}>
+                        <Text style={styles.issueTitle}>{t('riskTitle')}</Text>
+                        <Text style={styles.issueText}>{item.issue}</Text>
+                      </View>
+
+                      {item.counterOffer && (
+                        <View style={styles.counterBox}>
+                          <Text style={styles.counterTitle}>{t('counterTitle')}</Text>
+                          <Text style={styles.counterText}>{item.counterOffer}</Text>
+                        </View>
+                      )}
+                    </View>
+                  ))}
+                </View>
+              )}
+            </ScrollView>
+          )}
+
+          {/* TAB 2: GEÇMİŞ ANALİZLER */}
+          {activeTab === 'history' && (
+            <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 20 }}>
+              <Text style={[styles.sectionHeader, { color: theme.text, marginBottom: 16 }]}>{t('historyTitle')}</Text>
+              {loadingHistory ? (
+                <ActivityIndicator color="#00F5D4" size="large" style={{ marginTop: 40 }} />
+              ) : history.length === 0 ? (
+                <Text style={{ color: theme.subText, textAlign: 'center', marginTop: 40 }}>{t('noHistory')}</Text>
+              ) : (
+                <FlatList
+                  data={history}
+                  keyExtractor={(item) => item.id.toString()}
+                  contentContainerStyle={{ paddingBottom: 30 }}
+                  renderItem={({ item }) => (
+                    <View style={[styles.historyCard, { backgroundColor: theme.cardBg, borderColor: theme.borderColor }]}>
+                      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Text style={{ color: getRiskColor(item.overall_risk), fontWeight: 'bold', fontSize: 16 }}>
+                          Skor: {item.score}/100 ({item.overall_risk})
+                        </Text>
+                        <Text style={{ color: theme.subText, fontSize: 11 }}>
+                          {formatDate(item.created_at, currentLang)}
+                        </Text>
+                      </View>
+                      <Text style={{ color: theme.text, marginTop: 8, fontSize: 13 }} numberOfLines={2}>
+                        {item.summary}
+                      </Text>
+                    </View>
+                  )}
+                />
+              )}
+            </View>
+          )}
+
+          {/* TAB 3: AYARLAR & PROFİL */}
+          {activeTab === 'settings' && (
+            <ScrollView contentContainerStyle={{ padding: 20 }}>
+              <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}>
+                <Text style={[styles.settingLabel, { color: theme.text }]}>{t('userInfo')}</Text>
+                <Text style={{ color: theme.subText, marginTop: 6, fontSize: 14 }}>{t('userEmail')}: {user.email}</Text>
+              </View>
+
+              <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}>
+                <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 10 }]}>{t('securitySettings')}</Text>
+                <TextInput
+                  style={[styles.input, { backgroundColor: theme.inputBg, color: theme.text, borderColor: theme.borderColor }]}
+                  placeholder={t('newPasswordPlaceholder')}
+                  placeholderTextColor={theme.subText}
+                  secureTextEntry
+                  value={newPassword}
+                  onChangeText={setNewPassword}
+                />
+                <TouchableOpacity 
+                  style={[styles.secondaryBtn, updatingPassword && styles.buttonDisabled]}
+                  onPress={handleUpdatePassword}
+                  disabled={updatingPassword}
+                >
+                  {updatingPassword ? (
+                    <ActivityIndicator color="#00F5D4" />
+                  ) : (
+                    <Text style={styles.secondaryBtnText}>{t('btnUpdatePassword')}</Text>
+                  )}
+                </TouchableOpacity>
+              </View>
+
+              <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Text style={[styles.settingLabel, { color: theme.text }]}>{t('darkMode')}</Text>
+                  <Switch 
+                    value={isDarkMode} 
+                    onValueChange={(val) => setIsDarkMode(val)}
+                    thumbColor={isDarkMode ? "#00F5D4" : "#f4f3f4"}
+                  />
+                </View>
+              </View>
+
+              <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 20 }]}>
+                <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 12 }]}>{t('appLanguage')}</Text>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+                  {['tr', 'en', 'de', 'fr', 'es', 'ar', 'it'].map((lang) => (
+                    <TouchableOpacity 
+                      key={lang} 
+                      onPress={() => changeLanguage(lang)}
+                      style={[styles.langBtn, currentLang === lang && styles.activeLangBtn]}
+                    >
+                      <Text style={[styles.langText, currentLang === lang && styles.activeLangText]}>
+                        {lang.toUpperCase()}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </View>
+
+              <TouchableOpacity 
+                onPress={() => supabase.auth.signOut()}
+                style={styles.logoutBtnLarge}
+              >
+                <Text style={styles.logoutTextLarge}>{t('logout')}</Text>
+              </TouchableOpacity>
+            </ScrollView>
+          )}
+        </View>
+      )}
+    </SafeAreaView>
+  );
+}
+
+const darkTheme = {
+  bg: '#080C14', cardBg: '#121824', text: '#FFFFFF',
+  subText: '#A0AEC0', borderColor: '#1E2638', inputBg: '#0B0F19'
+};
+
+const lightTheme = {
+  bg: '#F4F6F8', cardBg: '#FFFFFF', text: '#1A202C',
+  subText: '#718096', borderColor: '#E2E8F0', inputBg: '#EDF2F7'
+};
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  topHeader: { paddingHorizontal: 20, paddingTop: 10, paddingBottom: 5 },
+  brandRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  title: { fontSize: 28, fontWeight: '900', letterSpacing: 1 },
+  tagline: { fontSize: 12, marginTop: 2, fontWeight: '500' },
+  tabBar: { flexDirection: 'row', marginTop: 15, borderBottomWidth: 1 },
+  tabItem: { paddingVertical: 10, paddingHorizontal: 16, marginRight: 8 },
+  activeTabBorder: { borderBottomColor: '#00F5D4', borderBottomWidth: 2 },
+  tabText: { fontSize: 14, fontWeight: '700' },
+  scrollContent: { padding: 20 },
+  card: { borderRadius: 16, padding: 18, borderWidth: 1 },
+  typeChip: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20, backgroundColor: '#1E2638', marginRight: 8 },
+  activeTypeChip: { backgroundColor: '#00F5D4' },
+  typeChipText: { color: '#A0AEC0', fontSize: 12, fontWeight: '600' },
+  activeTypeChipText: { color: '#080C14', fontWeight: '800' },
+  uploadButton: { backgroundColor: '#1E2638', borderRadius: 12, paddingVertical: 14, alignItems: 'center', marginBottom: 12 },
+  uploadButtonText: { color: '#00F5D4', fontSize: 15, fontWeight: '700' },
+  previewImage: { width: 60, height: 80, borderRadius: 8, marginRight: 8, borderWidth: 1, borderColor: '#00F5D4' },
+  label: { fontSize: 13, fontWeight: '600', marginBottom: 8 },
+  textArea: { borderRadius: 12, padding: 14, borderWidth: 1, minHeight: 120, textAlignVertical: 'top', marginBottom: 16 },
+  input: { borderRadius: 12, padding: 14, borderWidth: 1, marginBottom: 12 },
+  primaryButton: { backgroundColor: '#00F5D4', borderRadius: 12, paddingVertical: 16, alignItems: 'center' },
+  primaryButtonText: { color: '#080C14', fontSize: 16, fontWeight: '800' },
+  buttonDisabled: { opacity: 0.6 },
+  resultContainer: { marginTop: 24 },
+  scoreCard: { borderRadius: 16, padding: 20, borderWidth: 2, alignItems: 'center', marginBottom: 20 },
+  scoreTitle: { fontSize: 13, fontWeight: '600', textTransform: 'uppercase' },
+  scoreValue: { fontSize: 36, fontWeight: '900', marginVertical: 6 },
+  summaryText: { fontSize: 14, textAlign: 'center', lineHeight: 20 },
+  sectionHeader: { fontSize: 18, fontWeight: '800', marginBottom: 12 },
+  clauseCard: { borderRadius: 16, padding: 16, borderWidth: 1, marginBottom: 12 },
+  clauseHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 10 },
+  badge: { borderRadius: 6, paddingHorizontal: 8, paddingVertical: 4, marginRight: 8 },
+  badgeText: { color: '#FFFFFF', fontSize: 10, fontWeight: '800' },
+  clauseTitle: { fontSize: 15, fontWeight: '700', flex: 1 },
+  originalText: { fontSize: 13, fontStyle: 'italic', marginBottom: 10 },
+  issueBox: { backgroundColor: 'rgba(255, 59, 92, 0.1)', borderRadius: 8, padding: 10, marginBottom: 8 },
+  issueTitle: { color: '#FF3B5C', fontSize: 12, fontWeight: '700', marginBottom: 2 },
+  issueText: { color: '#FF3B5C', fontSize: 13 },
+  counterBox: { backgroundColor: 'rgba(0, 245, 212, 0.1)', borderRadius: 8, padding: 10 },
+  counterTitle: { color: '#00F5D4', fontSize: 12, fontWeight: '700', marginBottom: 2 },
+  counterText: { color: '#00F5D4', fontSize: 13 },
+  historyCard: { borderRadius: 12, padding: 16, borderWidth: 1, marginBottom: 10 },
+  settingLabel: { fontSize: 16, fontWeight: '700' },
+  secondaryBtn: { borderRadius: 10, borderWidth: 1, borderColor: '#00F5D4', paddingVertical: 12, alignItems: 'center', marginTop: 4 },
+  secondaryBtnText: { color: '#00F5D4', fontSize: 14, fontWeight: '700' },
+  langBtn: { paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8, backgroundColor: '#1E2638' },
+  activeLangBtn: { backgroundColor: '#00F5D4' },
+  langText: { color: '#A0AEC0', fontSize: 12, fontWeight: '700' },
+  activeLangText: { color: '#080C14' },
+  logoutBtnLarge: { backgroundColor: 'rgba(255, 59, 92, 0.15)', borderRadius: 12, paddingVertical: 16, alignItems: 'center', marginTop: 10 },
+  logoutTextLarge: { color: '#FF3B5C', fontSize: 16, fontWeight: '800' }
+});
