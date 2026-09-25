@@ -1,0 +1,18 @@
+module.exports = {
+  vlTitle: 'İkinci bir çift göz gönderin',
+  vlHint: 'Bu yalnızca NexuLex indirme sayfasını paylaşır. Sözleşmeniz ve rapor bu telefonda kalır.',
+  vlShare: 'Daveti paylaş',
+  vlShareHint: 'Sistem paylaşımını açar. Madde metni eklenmez.',
+  vlCopy: 'Daveti kopyala',
+  vlCopied: 'Davet kopyalandı. Sözleşme kopyalanmadı.',
+  vlRate: 'NexuLex’i puanla',
+  vlRateHint: 'Yayındaysa mağaza sayfasını, değilse genel indirme sayfasını açar.',
+  vlSkip: 'Şimdi değil',
+  vlDisclaimer: 'NexuLex bir hukuk bürosu değildir. Bu hukuki tavsiye değildir ve NexuLex sizi temsil etmez.',
+  vlInviteBody: 'İmzalamadan önce sözleşmeyi NexuLex ile okudum. Asıl metin telefonda kalır. NexuLex hukuk bürosu değildir.\n{{url}}',
+  vlCardTitle: 'Davet kartı',
+  vlCardBody: 'Karşı tarafın göreceği metin. Sözleşme yok. Kazanma oranı yok.',
+  vlRateFailed: 'Mağaza sayfası bu telefonda açılamadı.',
+  vlShareFailed: 'Davet bu telefonda kopyalanamadı.',
+  vlLinkLabel: 'Yalnızca genel indirme sayfası',
+};

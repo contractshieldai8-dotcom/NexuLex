@@ -1,0 +1,18 @@
+module.exports = {
+  vlTitle: '送出第二双眼睛',
+  vlHint: '只会分享 NexuLex 下载页。合同和报告留在这台手机上。',
+  vlShare: '分享邀请',
+  vlShareHint: '打开系统分享。不会附带任何条款原文。',
+  vlCopy: '复制邀请',
+  vlCopied: '邀请已复制。合同未被复制。',
+  vlRate: '为 NexuLex 评分',
+  vlRateHint: '商店上线后打开商店页，否则打开公开下载页。',
+  vlSkip: '暂不',
+  vlDisclaimer: 'NexuLex 不是律师事务所。这不是法律意见，NexuLex 也不代理你。',
+  vlInviteBody: '我在签署前用 NexuLex 读了一份合同。原文留在手机上。NexuLex 不是律师事务所。\n{{url}}',
+  vlCardTitle: '邀请卡片',
+  vlCardBody: '对方将看到的内容。没有合同原文。没有胜诉率。',
+  vlRateFailed: '无法在这台手机上打开商店页。',
+  vlShareFailed: '无法在这台手机上复制邀请。',
+  vlLinkLabel: '仅公开下载页',
+};

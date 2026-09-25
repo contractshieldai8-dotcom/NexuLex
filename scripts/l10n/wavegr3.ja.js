@@ -1,0 +1,18 @@
+module.exports = {
+  vlTitle: 'もう一組の目を送る',
+  vlHint: '共有されるのは NexuLex のダウンロードページだけです。契約と報告はこの端末に残ります。',
+  vlShare: '招待を共有',
+  vlShareHint: 'システムの共有を開きます。条項の本文は付きません。',
+  vlCopy: '招待をコピー',
+  vlCopied: '招待をコピーしました。契約はコピーしていません。',
+  vlRate: 'NexuLex を評価',
+  vlRateHint: 'ストア公開後はストア、それ以外は公開ダウンロードページを開きます。',
+  vlSkip: '今はしない',
+  vlDisclaimer: 'NexuLex は法律事務所ではありません。法的助言ではなく、NexuLex はあなたを代理しません。',
+  vlInviteBody: '署名前に NexuLex で契約を読みました。原本は端末に残ります。NexuLex は法律事務所ではありません。\n{{url}}',
+  vlCardTitle: '招待カード',
+  vlCardBody: '相手に見える内容です。契約本文なし。勝率なし。',
+  vlRateFailed: 'この端末でストアページを開けませんでした。',
+  vlShareFailed: 'この端末で招待をコピーできませんでした。',
+  vlLinkLabel: '公開ダウンロードページのみ',
+};

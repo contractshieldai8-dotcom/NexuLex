@@ -1,0 +1,18 @@
+module.exports = {
+  vlTitle: 'Envie um segundo par de olhos',
+  vlHint: 'Partilha-se só a página de transferência da NexuLex. O contrato e o relatório ficam neste telemóvel.',
+  vlShare: 'Partilhar o convite',
+  vlShareHint: 'Abre a partilha do sistema. Nenhum texto de cláusula é anexado.',
+  vlCopy: 'Copiar o convite',
+  vlCopied: 'Convite copiado. O contrato não foi copiado.',
+  vlRate: 'Avaliar a NexuLex',
+  vlRateHint: 'Abre a ficha da loja quando estiver publicada, ou a página pública de transferência.',
+  vlSkip: 'Agora não',
+  vlDisclaimer: 'A NexuLex não é um escritório. Isto não é aconselhamento jurídico e a NexuLex não o representa.',
+  vlInviteBody: 'Li um contrato com a NexuLex antes de assinar. O original fica no telemóvel. A NexuLex não é um escritório.\n{{url}}',
+  vlCardTitle: 'Cartão de convite',
+  vlCardBody: 'O que a outra pessoa vê. Sem texto do contrato. Sem taxa de êxito.',
+  vlRateFailed: 'A ficha da loja não abriu neste telemóvel.',
+  vlShareFailed: 'O convite não foi copiado neste telemóvel.',
+  vlLinkLabel: 'Apenas a página pública de transferência',
+};

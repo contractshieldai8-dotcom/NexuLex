@@ -1,0 +1,18 @@
+module.exports = {
+  vlTitle: 'Ein zweites Paar Augen schicken',
+  vlHint: 'Geteilt wird nur die NexuLex-Downloadseite. Vertrag und Bericht bleiben auf diesem Telefon.',
+  vlShare: 'Einladung teilen',
+  vlShareHint: 'Öffnet die Systemfreigabe. Kein Klauseltext wird angehängt.',
+  vlCopy: 'Einladung kopieren',
+  vlCopied: 'Einladung kopiert. Der Vertrag wurde nicht kopiert.',
+  vlRate: 'NexuLex bewerten',
+  vlRateHint: 'Öffnet die Store-Seite, sobald sie live ist, sonst die öffentliche Downloadseite.',
+  vlSkip: 'Jetzt nicht',
+  vlDisclaimer: 'NexuLex ist keine Kanzlei. Dies ist keine Rechtsberatung und NexuLex vertritt Sie nicht.',
+  vlInviteBody: 'Ich habe einen Vertrag vor der Unterschrift mit NexuLex gelesen. Das Original bleibt auf dem Telefon. NexuLex ist keine Kanzlei.\n{{url}}',
+  vlCardTitle: 'Einladungskarte',
+  vlCardBody: 'Was die andere Person sieht. Kein Vertragstext. Keine Gewinnquote.',
+  vlRateFailed: 'Die Store-Seite ließ sich auf diesem Telefon nicht öffnen.',
+  vlShareFailed: 'Die Einladung ließ sich auf diesem Telefon nicht kopieren.',
+  vlLinkLabel: 'Nur die öffentliche Downloadseite',
+};

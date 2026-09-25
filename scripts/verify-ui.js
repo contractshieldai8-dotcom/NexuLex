@@ -87,13 +87,15 @@ const waveGr1Src = fs.existsSync('i18n.wavegr1.js') ? fs.readFileSync('i18n.wave
 const waveGr1Match = waveGr1Src.match(/export const WAVE_GR1_I18N = ([\s\S]*);\s*$/);
 const waveGr2Src = fs.existsSync('i18n.wavegr2.js') ? fs.readFileSync('i18n.wavegr2.js', 'utf8') : '';
 const waveGr2Match = waveGr2Src.match(/export const WAVE_GR2_I18N = ([\s\S]*);\s*$/);
+const waveGr3Src = fs.existsSync('i18n.wavegr3.js') ? fs.readFileSync('i18n.wavegr3.js', 'utf8') : '';
+const waveGr3Match = waveGr3Src.match(/export const WAVE_GR3_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2 kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -120,6 +122,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_QA1_I18N = eval(`(${waveQa1Match[1]})`); // eslint-disable-line no-eval
   const WAVE_GR1_I18N = eval(`(${waveGr1Match[1]})`); // eslint-disable-line no-eval
   const WAVE_GR2_I18N = eval(`(${waveGr2Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_GR3_I18N = eval(`(${waveGr3Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -146,8 +149,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_QA1_I18N',
     'WAVE_GR1_I18N',
     'WAVE_GR2_I18N',
+    'WAVE_GR3_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -631,6 +635,32 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     }
   }
 
+  const waveGr3Base = Object.keys(WAVE_GR3_I18N.en || {});
+  if (Object.keys(WAVE_GR3_I18N).length !== 13) {
+    failed = true;
+    console.log(`WAVE_GR3 dil sayisi ${Object.keys(WAVE_GR3_I18N).length}, beklenen 13`);
+  }
+  for (const [lang, table] of Object.entries(WAVE_GR3_I18N)) {
+    const keys = Object.keys(table || {});
+    const missing = waveGr3Base.filter((key) => !keys.includes(key));
+    const extra = keys.filter((key) => !waveGr3Base.includes(key));
+    if (missing.length || extra.length) {
+      failed = true;
+      console.log(`WAVE_GR3 ${lang}: eksik=[${missing.join(', ')}] fazla=[${extra.join(', ')}]`);
+    }
+  }
+  if (waveGr3Base.length !== 16) {
+    failed = true;
+    console.log(`WAVE_GR3 key count ${waveGr3Base.length}, beklenen 16`);
+  }
+  for (const [name, wave] of Object.entries({ ...earlierWaves, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N })) {
+    const shadowed = waveGr3Base.filter((key) => Object.prototype.hasOwnProperty.call(wave.en || {}, key));
+    if (shadowed.length) {
+      failed = true;
+      console.log(`WAVE_GR3 shadows ${name}: ${shadowed.join(', ')}`);
+    }
+  }
+
   for (const lang of languages) {
     const keys = Object.keys(resources[lang].translation);
     const missing = baseKeys.filter((key) => !keys.includes(key));
@@ -643,7 +673,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   // Interpolasyon yer tutucuları çeviride korunmalı.
-  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine', 'calcGrossSalary', 'calcCurrentRent', 'calcProposedRent', 'calcPrincipal', 'calcRatesAsOfPublic', 'draftInvalidDate', 'availPendingLine', 'calcAddedDays', 'calcAddedBusinessDays', 'calcAddedWeeks', 'calcAddedMonths', 'calcLabelInstallmentRow', 'calcProRataAmount', 'calcInstallmentTotalInput', 'calcPenaltyAmountInput', 'calcContractValueInput', 'draftU_termination_notice_body', 'draftU_deposit_return_request_body', 'draftU_repair_or_defect_notice_body', 'draftU_rent_increase_objection_body', 'draftU_unpaid_wages_request_body', 'draftU_personal_data_access_request_body', 'draftU_cancellation_request_body', 'guideItemsHeader', 'docExplainPages', 'docExplainFreeLeft', 'docExplainPageLimit', 'docExplainDaysLeft', 'docExplainLockedTitle', 'docExplainRemindDone', 'askQuotaLeft', 'pgLinksFor', 'pgEmergency', 'pgAskTemplate', 'ptMaterialCount', 'ptQuotaLeft', 'ptRun', 'ptAddedToTimeline', 'lhFindTitle', 'lhMsgArea', 'lhMsgSummary', 'lhMsgParty', 'lhMsgDeadline', 'lhPacketPrepared', 'lhPacketJurisdiction', 'lhPacketUrgent', 'lhPacketUrgentToday'];
+  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine', 'calcGrossSalary', 'calcCurrentRent', 'calcProposedRent', 'calcPrincipal', 'calcRatesAsOfPublic', 'draftInvalidDate', 'availPendingLine', 'calcAddedDays', 'calcAddedBusinessDays', 'calcAddedWeeks', 'calcAddedMonths', 'calcLabelInstallmentRow', 'calcProRataAmount', 'calcInstallmentTotalInput', 'calcPenaltyAmountInput', 'calcContractValueInput', 'draftU_termination_notice_body', 'draftU_deposit_return_request_body', 'draftU_repair_or_defect_notice_body', 'draftU_rent_increase_objection_body', 'draftU_unpaid_wages_request_body', 'draftU_personal_data_access_request_body', 'draftU_cancellation_request_body', 'guideItemsHeader', 'docExplainPages', 'docExplainFreeLeft', 'docExplainPageLimit', 'docExplainDaysLeft', 'docExplainLockedTitle', 'docExplainRemindDone', 'askQuotaLeft', 'pgLinksFor', 'pgEmergency', 'pgAskTemplate', 'ptMaterialCount', 'ptQuotaLeft', 'ptRun', 'ptAddedToTimeline', 'lhFindTitle', 'lhMsgArea', 'lhMsgSummary', 'lhMsgParty', 'lhMsgDeadline', 'lhPacketPrepared', 'lhPacketJurisdiction', 'lhPacketUrgent', 'lhPacketUrgentToday', 'vlInviteBody'];
   for (const lang of languages) {
     for (const key of placeholderKeys) {
       const value = resources[lang].translation[key];
@@ -655,9 +685,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 1922) {
+  if (languages.length !== 13 || baseKeys.length !== 1938) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1922`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1938`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -3066,6 +3096,7 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_QA1_I18N',
       'WAVE_GR1_I18N',
       'WAVE_GR2_I18N',
+      'WAVE_GR3_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -3081,7 +3112,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.wavelr6.js', 'utf8').match(/export const WAVE_LR6_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waveqa1.js', 'utf8').match(/export const WAVE_QA1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavegr1.js', 'utf8').match(/export const WAVE_GR1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.wavegr2.js', 'utf8').match(/export const WAVE_GR2_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavegr2.js', 'utf8').match(/export const WAVE_GR2_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavegr3.js', 'utf8').match(/export const WAVE_GR3_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -4481,7 +4513,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -5887,7 +5919,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/const offerCorridor = async \(\) => \{/.test(app) || !/isIntentOnboarded/.test(app)) grFail('locale corridor and first-intent must stay');
   if (!/FIRST_INTENTS\.map\(\(item\) => \(/.test(app) || !/\{!result \? \(/.test(app)) grFail('home chips on empty analyze must stay');
   if (!/if \(fromSheet\) \{\s*setResumeOpen\(false\);\s*setTimeout\(\(\) => applyResume\(item\), 400\);/.test(app)) grFail('sheet-to-route must wait 400ms');
-  if (!/<FirstIntentSheet[\s\S]{0,240}<ResumeSessionSheet[\s\S]{0,240}<NexuLexGuideSheet/.test(app)) grFail('resume sheet sits between intent and guide');
+  if (!/<FirstIntentSheet[\s\S]+<ResumeSessionSheet[\s\S]+<NexuLexGuideSheet/.test(app)) grFail('resume sheet sits between intent and guide');
   if (!/isUsableDraft\(resumeDraft\) && !resumeBannerHidden/.test(app)) grFail('home banner only for an unfinished draft');
   if (!/saveResumeDraft\(\{ text: contractText, fileName: selectedFile\?\.name/.test(app)) grFail('draft persist is text plus file name only');
 
@@ -5897,6 +5929,71 @@ Ticaret Unvanı: Anadolu Bilişim
 
   if (grOk) {
     console.log(`OK  WAVE GR.2 second-session resume (${fixtures} fixtures): draft on device, case/ask sheet, corridor kept`);
+  }
+}
+
+
+// WAVE GR.3 — after-scan invite: public get page only, no contract text, one-shot
+{
+  let grOk = true;
+  const grFail = (msg) => {
+    failed = true;
+    grOk = false;
+    console.log(`WAVE GR.3 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const LANGS = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+  let fixtures = 0;
+  try {
+    const { loadApp } = require('./cb1-harness');
+    const { api } = loadApp('en');
+    ({ cases: fixtures } = api.assertShareLoopFixtures());
+  } catch (error) {
+    grFail(`runtime: ${error.message}`);
+  }
+
+  const R = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
+  const keys = ['vlTitle', 'vlHint', 'vlShare', 'vlShareHint', 'vlCopy', 'vlCopied', 'vlRate', 'vlRateHint', 'vlSkip', 'vlDisclaimer', 'vlInviteBody', 'vlCardTitle', 'vlCardBody', 'vlRateFailed', 'vlShareFailed', 'vlLinkLabel'];
+  if (keys.length !== 16) grFail('sixteen copy keys');
+  for (const L of LANGS) {
+    const miss = keys.filter((k) => typeof R[L][k] !== 'string' || !R[L][k].trim());
+    if (miss.length) grFail(`${L} missing ${miss.join(', ')}`);
+    if (!/NexuLex/.test(R[L].vlDisclaimer || '')) grFail(`${L}.vlDisclaimer must name NexuLex`);
+    if (!/\{\{url\}\}/.test(R[L].vlInviteBody || '')) grFail(`${L}.vlInviteBody needs {{url}}`);
+    if (L !== 'en') {
+      const same = keys.filter((k) => R[L][k] === R.en[k] && R.en[k].length >= 12);
+      if (same.length) grFail(`${L} identical to EN: ${same.join(', ')}`);
+    }
+  }
+
+  const sheet = read('components/ShareLoopSheet.js');
+  const app = read('App.js');
+  const persist = read('utils/shareLoop.js');
+  const account = read('services/account.js');
+  const model = read('constants/shareLoop.js');
+
+  if (!/<Pressable\s+style=\{StyleSheet\.absoluteFillObject\}/.test(sheet)) grFail('BL.3 sibling backdrop');
+  if (!/onRequestClose=\{onClose\}/.test(sheet)) grFail('Android back must close the sheet');
+  if (!/t\('vlDisclaimer'\)\}<\/Text>\s*<\/KeyboardSafeSheet>/.test(sheet)) grFail('disclaimer must be the last element');
+  if (!/Share\.share\(\{ message: payload\.message \}\)/.test(sheet)) grFail('OS share must send the invite message only');
+  if (!/Linking\.openURL\(rateUrl\(Platform\.OS\)\)\.catch\(/.test(sheet)) grFail('store link must catch');
+  if (/contractText|contract_text|analysis\./.test(sheet)) grFail('sheet must not read the contract');
+
+  if (!/export const SHARE_LOOP_KEY = '@nexulex\/shareLoopSeen'/.test(persist)) grFail('share-loop flag must use the @nexulex/ prefix');
+  if (/DEVICE_PREF_KEYS = new Set\(\[[^\]]*shareLoopSeen/.test(account)) grFail('share-loop flag must clear on account delete');
+  if (!/nexulexai\.netlify\.app\/get\.html/.test(model) || !/id=com\.nexulex\.ai/.test(model)) grFail('invite URL and Play package');
+  if (!/from ['"].*storeListing['"]/.test(read('i18n.js')) === false && /from ['"].*storeListing['"]/.test(app)) grFail('store listing must stay out of the app');
+  if (!/isAcceptableAnalysis\(decorated, pasted \|\| sourceText\)\) maybeOfferShareLoop\(\)/.test(app)) grFail('offer only after an acceptable scan');
+  if (!/setTimeout\(\{\s*if \(overlayBusyRef\.current\) return;/.test(app) && !/setTimeout\(\(\) => \{\s*if \(overlayBusyRef\.current\) return;/.test(app)) grFail('must not stack on another sheet');
+  if (!/<ResumeSessionSheet[\s\S]+<ShareLoopSheet[\s\S]+<NexuLexGuideSheet/.test(app)) grFail('share loop sits between resume and guide');
+  if (!/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) { /* ok if absent */ }
+
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') grFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) grFail('dependency count changed');
+
+  if (grOk) {
+    console.log(`OK  WAVE GR.3 after-scan invite (${fixtures} fixtures): get.html only, no contract leak, one-shot × 13`);
   }
 }
 

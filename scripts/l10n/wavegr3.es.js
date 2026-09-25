@@ -1,0 +1,18 @@
+module.exports = {
+  vlTitle: 'Envía un segundo par de ojos',
+  vlHint: 'Solo se comparte la página de descarga de NexuLex. El contrato y el informe se quedan en este teléfono.',
+  vlShare: 'Compartir la invitación',
+  vlShareHint: 'Abre el compartir del sistema. No se adjunta ningún texto de cláusula.',
+  vlCopy: 'Copiar la invitación',
+  vlCopied: 'Invitación copiada. El contrato no se copió.',
+  vlRate: 'Valorar NexuLex',
+  vlRateHint: 'Abre la ficha de la tienda cuando esté publicada, o la página pública de descarga.',
+  vlSkip: 'Ahora no',
+  vlDisclaimer: 'NexuLex no es un bufete. Esto no es asesoramiento jurídico y NexuLex no te representa.',
+  vlInviteBody: 'Leí un contrato con NexuLex antes de firmar. El original se queda en el teléfono. NexuLex no es un bufete.\n{{url}}',
+  vlCardTitle: 'Tarjeta de invitación',
+  vlCardBody: 'Lo que verá la otra persona. Sin texto del contrato. Sin tasa de éxito.',
+  vlRateFailed: 'No se pudo abrir la ficha de la tienda en este teléfono.',
+  vlShareFailed: 'No se pudo copiar la invitación en este teléfono.',
+  vlLinkLabel: 'Solo la página pública de descarga',
+};

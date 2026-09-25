@@ -68,6 +68,7 @@ import {
 import { FIRST_INTENTS, actionForIntent } from './constants/firstIntent';
 import { collectResumeItems, shouldOfferResumeSheet, actionForResume } from './constants/sessionResume';
 import { loadResumeDraft, saveResumeDraft, clearResumeDraft, isUsableDraft } from './utils/sessionResume';
+import { isShareLoopSeen, markShareLoopSeen } from './utils/shareLoop';
 import { loadCases } from './services/caseFileStore';
 import { loadSavedAnswers } from './services/legalAsk';
 import { mergeDeadlines, loadUpcomingDeadlines, sortDeadlines, kindLabelKey, nextAnniversary, parseIsoDate } from './utils/deadlines';
@@ -119,6 +120,7 @@ import ShieldDocumentCard from './components/ShieldDocumentCard';
 import NexuLexGuideSheet from './components/NexuLexGuideSheet';
 import FirstIntentSheet from './components/FirstIntentSheet';
 import ResumeSessionSheet from './components/ResumeSessionSheet';
+import ShareLoopSheet from './components/ShareLoopSheet';
 import { getAvailability } from './constants/jurisdictionPacks';
 import LifecycleChips from './components/LifecycleChips';
 import VoiceMicButton from './components/VoiceMicButton';
@@ -332,6 +334,9 @@ function AppContent() {
   const [resumeReady, setResumeReady] = useState(false);
   const [resumeBannerHidden, setResumeBannerHidden] = useState(false);
   const resumeOfferedRef = useRef(false);
+  const [shareLoopOpen, setShareLoopOpen] = useState(false);
+  const shareOfferedRef = useRef(false);
+  const overlayBusyRef = useRef(false);
   const [localeReady, setLocaleReady] = useState(false);
   const [authBootstrapped, setAuthBootstrapped] = useState(false);
   const [reportLangSheetVisible, setReportLangSheetVisible] = useState(false);
@@ -633,6 +638,26 @@ function AppContent() {
     setResumeOpen(false);
   }, []);
 
+  overlayBusyRef.current = intentOpen || resumeOpen || guideVisible || paywallVisible || shareLoopOpen;
+
+  const closeShareLoop = useCallback(() => {
+    markShareLoopSeen();
+    setShareLoopOpen(false);
+  }, []);
+
+  const maybeOfferShareLoop = useCallback(() => {
+    if (shareOfferedRef.current) return;
+    const offer = async () => {
+      if (await isShareLoopSeen()) return;
+      setTimeout(() => {
+        if (overlayBusyRef.current) return;
+        shareOfferedRef.current = true;
+        setShareLoopOpen(true);
+      }, 800);
+    };
+    offer().catch(() => {});
+  }, []);
+
   const openReminderAnalysis = useCallback(
     async (analysisId) => {
       const id = String(analysisId || '').trim();
@@ -853,6 +878,8 @@ function AppContent() {
       setResumeOpen(false);
       setResumeItems([]);
       resumeOfferedRef.current = false;
+      shareOfferedRef.current = false;
+      setShareLoopOpen(false);
       return undefined;
     }
     let cancelled = false;
@@ -1971,6 +1998,7 @@ function AppContent() {
       }
       setOfferTiers({});
       setResult({ ...decorated, id: analysisId });
+      if (isAcceptableAnalysis(decorated, pasted || sourceText)) maybeOfferShareLoop();
       if (analysisId) rememberLastAnalysisId(analysisId);
       const detectedCategory = decorated.detected_contract_category || decorated.detectedContractCategory;
       if (!typeLocked) {
@@ -4429,6 +4457,13 @@ function AppContent() {
         onPick={(item) => runResume(item, { fromSheet: true })}
         onSkip={skipResume}
         onClose={skipResume}
+      />
+
+      <ShareLoopSheet
+        visible={shareLoopOpen}
+        theme={theme}
+        onDone={closeShareLoop}
+        onClose={closeShareLoop}
       />
 
       <NexuLexGuideSheet

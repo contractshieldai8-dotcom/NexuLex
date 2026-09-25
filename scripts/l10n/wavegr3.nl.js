@@ -1,0 +1,18 @@
+module.exports = {
+  vlTitle: 'Stuur een extra paar ogen',
+  vlHint: 'Alleen de NexuLex-downloadpagina wordt gedeeld. Contract en rapport blijven op deze telefoon.',
+  vlShare: 'De uitnodiging delen',
+  vlShareHint: 'Opent het systeemdelen. Er wordt geen clausuletekst bijgevoegd.',
+  vlCopy: 'Uitnodiging kopiëren',
+  vlCopied: 'Uitnodiging gekopieerd. Het contract is niet gekopieerd.',
+  vlRate: 'NexuLex beoordelen',
+  vlRateHint: 'Opent de winkelpagina zodra die live is, anders de openbare downloadpagina.',
+  vlSkip: 'Nu niet',
+  vlDisclaimer: 'NexuLex is geen advocatenkantoor. Dit is geen juridisch advies en NexuLex vertegenwoordigt u niet.',
+  vlInviteBody: 'Ik heb een contract met NexuLex gelezen vóór ik tekende. Het origineel blijft op de telefoon. NexuLex is geen kantoor.\n{{url}}',
+  vlCardTitle: 'Uitnodigingskaart',
+  vlCardBody: 'Wat de ander ziet. Geen contracttekst. Geen winstpercentage.',
+  vlRateFailed: 'De winkelpagina kon op deze telefoon niet worden geopend.',
+  vlShareFailed: 'De uitnodiging kon op deze telefoon niet worden gekopieerd.',
+  vlLinkLabel: 'Alleen de openbare downloadpagina',
+};

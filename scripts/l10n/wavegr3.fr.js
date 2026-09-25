@@ -1,0 +1,18 @@
+module.exports = {
+  vlTitle: 'Envoyer un second regard',
+  vlHint: 'Seule la page de téléchargement NexuLex est partagée. Le contrat et le rapport restent sur ce téléphone.',
+  vlShare: 'Partager l’invitation',
+  vlShareHint: 'Ouvre le partage système. Aucune clause n’est jointe.',
+  vlCopy: 'Copier l’invitation',
+  vlCopied: 'Invitation copiée. Le contrat n’a pas été copié.',
+  vlRate: 'Noter NexuLex',
+  vlRateHint: 'Ouvre la fiche store lorsqu’elle est en ligne, sinon la page de téléchargement.',
+  vlSkip: 'Pas maintenant',
+  vlDisclaimer: 'NexuLex n’est pas un cabinet. Ceci n’est pas un conseil juridique et NexuLex ne vous représente pas.',
+  vlInviteBody: 'J’ai lu un contrat avec NexuLex avant de signer. L’original reste sur le téléphone. NexuLex n’est pas un cabinet.\n{{url}}',
+  vlCardTitle: 'Carte d’invitation',
+  vlCardBody: 'Ce que l’autre personne verra. Pas de contrat. Pas de taux de gain.',
+  vlRateFailed: 'La fiche store n’a pas pu s’ouvrir sur ce téléphone.',
+  vlShareFailed: 'L’invitation n’a pas pu être copiée sur ce téléphone.',
+  vlLinkLabel: 'Page de téléchargement publique uniquement',
+};
