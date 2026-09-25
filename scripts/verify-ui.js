@@ -69,13 +69,15 @@ const waveJp2Src = fs.existsSync('i18n.wavejp2.js') ? fs.readFileSync('i18n.wave
 const waveJp2Match = waveJp2Src.match(/export const WAVE_JP2_I18N = ([\s\S]*);\s*$/);
 const waveGd2Src = fs.existsSync('i18n.wavegd2.js') ? fs.readFileSync('i18n.wavegd2.js', 'utf8') : '';
 const waveGd2Match = waveGd2Src.match(/export const WAVE_GD2_I18N = ([\s\S]*);\s*$/);
+const waveLr1Src = fs.existsSync('i18n.wavelr1.js') ? fs.readFileSync('i18n.wavelr1.js', 'utf8') : '';
+const waveLr1Match = waveLr1Src.match(/export const WAVE_LR1_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2 kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -93,6 +95,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_UX1_I18N = eval(`(${waveUx1Match[1]})`); // eslint-disable-line no-eval
   const WAVE_JP2_I18N = eval(`(${waveJp2Match[1]})`); // eslint-disable-line no-eval
   const WAVE_GD2_I18N = eval(`(${waveGd2Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_LR1_I18N = eval(`(${waveLr1Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -110,8 +113,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_UX1_I18N',
     'WAVE_JP2_I18N',
     'WAVE_GD2_I18N',
+    'WAVE_LR1_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -387,6 +391,32 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     }
   }
 
+  const waveLr1Base = Object.keys(WAVE_LR1_I18N.en || {});
+  if (Object.keys(WAVE_LR1_I18N).length !== 13) {
+    failed = true;
+    console.log(`WAVE_LR1 dil sayisi ${Object.keys(WAVE_LR1_I18N).length}, beklenen 13`);
+  }
+  for (const [lang, table] of Object.entries(WAVE_LR1_I18N)) {
+    const keys = Object.keys(table || {});
+    const missing = waveLr1Base.filter((key) => !keys.includes(key));
+    const extra = keys.filter((key) => !waveLr1Base.includes(key));
+    if (missing.length || extra.length) {
+      failed = true;
+      console.log(`WAVE_LR1 ${lang}: eksik=[${missing.join(', ')}] fazla=[${extra.join(', ')}]`);
+    }
+  }
+  if (waveLr1Base.length !== 62) {
+    failed = true;
+    console.log(`WAVE_LR1 key count ${waveLr1Base.length}, beklenen 62`);
+  }
+  for (const [name, wave] of Object.entries({ ...earlierWaves, WAVE_JP2_I18N, WAVE_GD2_I18N })) {
+    const shadowed = waveLr1Base.filter((key) => Object.prototype.hasOwnProperty.call(wave.en || {}, key));
+    if (shadowed.length) {
+      failed = true;
+      console.log(`WAVE_LR1 shadows ${name}: ${shadowed.join(', ')}`);
+    }
+  }
+
   for (const lang of languages) {
     const keys = Object.keys(resources[lang].translation);
     const missing = baseKeys.filter((key) => !keys.includes(key));
@@ -399,7 +429,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   // Interpolasyon yer tutucuları çeviride korunmalı.
-  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine', 'calcGrossSalary', 'calcCurrentRent', 'calcProposedRent', 'calcPrincipal', 'calcRatesAsOfPublic', 'draftInvalidDate', 'availPendingLine', 'calcAddedDays', 'calcAddedBusinessDays', 'calcAddedWeeks', 'calcAddedMonths', 'calcLabelInstallmentRow', 'calcProRataAmount', 'calcInstallmentTotalInput', 'calcPenaltyAmountInput', 'calcContractValueInput', 'draftU_termination_notice_body', 'draftU_deposit_return_request_body', 'draftU_repair_or_defect_notice_body', 'draftU_rent_increase_objection_body', 'draftU_unpaid_wages_request_body', 'draftU_personal_data_access_request_body', 'draftU_cancellation_request_body', 'guideItemsHeader'];
+  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine', 'calcGrossSalary', 'calcCurrentRent', 'calcProposedRent', 'calcPrincipal', 'calcRatesAsOfPublic', 'draftInvalidDate', 'availPendingLine', 'calcAddedDays', 'calcAddedBusinessDays', 'calcAddedWeeks', 'calcAddedMonths', 'calcLabelInstallmentRow', 'calcProRataAmount', 'calcInstallmentTotalInput', 'calcPenaltyAmountInput', 'calcContractValueInput', 'draftU_termination_notice_body', 'draftU_deposit_return_request_body', 'draftU_repair_or_defect_notice_body', 'draftU_rent_increase_objection_body', 'draftU_unpaid_wages_request_body', 'draftU_personal_data_access_request_body', 'draftU_cancellation_request_body', 'guideItemsHeader', 'docExplainPages', 'docExplainFreeLeft', 'docExplainPageLimit', 'docExplainDaysLeft', 'docExplainLockedTitle', 'docExplainRemindDone'];
   for (const lang of languages) {
     for (const key of placeholderKeys) {
       const value = resources[lang].translation[key];
@@ -411,9 +441,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 1285) {
+  if (languages.length !== 13 || baseKeys.length !== 1347) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1285`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1347`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -2813,13 +2843,15 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_UX1_I18N',
       'WAVE_JP2_I18N',
       'WAVE_GD2_I18N',
+      'WAVE_LR1_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavest.js', 'utf8').match(/export const WAVE_ST_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waveux1.js', 'utf8').match(/export const WAVE_UX1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavejp2.js', 'utf8').match(/export const WAVE_JP2_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.wavegd2.js', 'utf8').match(/export const WAVE_GD2_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavegd2.js', 'utf8').match(/export const WAVE_GD2_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavelr1.js', 'utf8').match(/export const WAVE_LR1_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -3904,7 +3936,7 @@ Ticaret Unvanı: Anadolu Bilişim
     if (meta.id !== 'm-1' || meta.locale !== 'tr' || meta.country !== 'TR' || Object.keys(meta).join(',') !== 'id,locale,country') stFail('meta line shape');
     if (((on.message.match(/x{10,}/) || [''])[0]).length !== 2000) stFail('opt-in context must be truncated to 2000 chars');
     if (!lastLine(on.message).startsWith('meta: {"id":"a-9"')) stFail('meta must be the final line');
-    if (api.AI_REPORT_FEATURES.join(',') !== 'analysis_report,advisor_answer,draft_polish') stFail('feature ids');
+    if (!['analysis_report,advisor_answer,draft_polish', 'analysis_report,advisor_answer,draft_polish,document_explain'].includes(api.AI_REPORT_FEATURES.join(','))) stFail('feature ids');
     let threw = false;
     try { api.buildAiReport({ featureId: 'nope', reason: 'other' }); } catch { threw = true; }
     if (!threw) stFail('unknown featureId must be rejected');
@@ -4219,7 +4251,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavelr1', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -4658,6 +4690,95 @@ Ticaret Unvanı: Anadolu Bilişim
 
   if (gdOk) {
     console.log(`OK  WAVE GD.2 guide covers ${flows} workflows, ${actions} actionable steps, registry lists + availability, What's new, 8 FAQ × 13`);
+  }
+}
+
+// WAVE LR.1 — Document Explainer: safe schema, free safety facts, deadline reminders, Pro plan, 13 languages
+{
+  let lrOk = true;
+  const lrFail = (msg) => {
+    failed = true;
+    lrOk = false;
+    console.log(`WAVE LR.1 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const ai = read('services/ai.js');
+  const sheetSrc = read('components/DocumentExplainerSheet.js');
+  const store = read('services/documentExplainStore.js');
+  const app = read('App.js');
+  const advisor = read('screens/LegalAdvisorScreen.js');
+  const capSrc = read('constants/appCapabilities.js');
+  let cases = 0;
+  try {
+    const { loadApp, LANGS } = require('./cb1-harness');
+    const { api } = loadApp('en');
+    cases = api.assertExplainFixtures().cases;
+    if (api.FREE_EXPLAINS_PER_MONTH !== 3 || api.MAX_EXPLAIN_PAGES !== 4) lrFail('free quota / page limit changed');
+    if (!api.DOC_TYPES.includes('OTHER') || api.DOC_TYPES.some((type) => !api.DOC_TYPE_ICONS[type])) lrFail('every document type needs an icon');
+    const res = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
+    const keys = [...sheetSrc.matchAll(/t\('(docExplain\w+)'/g), ...advisor.matchAll(/t\('(docExplain\w+)'/g)].map((m) => m[1]);
+    ['hookExplainTitle', 'hookExplainBody', 'guideNewDocExplainer', 'guideFlowExplainTitle', 'guideStepExplain1'].forEach((k) => keys.push(k));
+    for (const L of LANGS) {
+      const missing = [...new Set(keys)].filter((key) => !res[L][key]);
+      if (missing.length) lrFail(`${L} missing: ${missing.join(', ')}`);
+    }
+    for (const L of ['en', 'tr', 'de']) {
+      if (!/not legal advice|hukuki tavsiye değildir|keine Rechtsberatung/.test(res[L].docExplainDisclaimer)) lrFail(`${L} disclaimer must say it is not legal advice`);
+    }
+    for (const L of LANGS) {
+      if (/%|guarantee|garanti|garantiert/i.test(`${res[L].hookExplainBody} ${res[L].docExplainLockedBody}`)) lrFail(`${L} paywall copy must not promise outcomes`);
+    }
+  } catch (error) {
+    lrFail(`runtime: ${error.message}`);
+  }
+
+  // AI call: existing authenticated proxy, strict schema, no invented law, no computed dates, no odds
+  const explainFn = (ai.match(/export function buildExplainSystemPrompt[\s\S]*?\n}\n\n\/\/ LR\.1[\s\S]*?\n}\n/) || [''])[0];
+  if (!explainFn) lrFail('buildExplainSystemPrompt / explainLegalDocument missing');
+  if (!/expectJson: 'explain'/.test(explainFn) || !/callClaude\(/.test(explainFn)) lrFail('explain must go through the authenticated proxy with expectJson "explain"');
+  if (/temperature/i.test(explainFn)) lrFail('no temperature in the explain call');
+  if (!/Never invent statute or article numbers/.test(explainFn)) lrFail('prompt must forbid invented statutes');
+  if (!/Never compute a date from a period/.test(explainFn)) lrFail('prompt must forbid computed deadline dates');
+  if (!/No chances of winning, no percentages, no guarantees/.test(explainFn)) lrFail('prompt must forbid win odds');
+  if (!/You do not represent anyone in court/.test(explainFn)) lrFail('prompt must state no court representation');
+  if (!/normalizeExplanation\(safeParseJSON\(raw\)\)/.test(explainFn) || !/isUsableExplanation/.test(explainFn)) lrFail('model output must be normalized and validated');
+  if (!/assertMediaBudget\(/.test(explainFn)) lrFail('media budget must be enforced');
+
+  // Sheet: BL.3, keyboard-safe, free safety facts, Pro plan, reminders, disclaimer last
+  if (!/<Pressable\s+style=\{StyleSheet\.absoluteFillObject\}[\s\S]{0,200}\/>\s*<View\s+style=\{\[\s*styles\.modalSheet/.test(sheetSrc)) lrFail('backdrop Pressable must stay a sibling of the sheet');
+  if (/onStartShouldSetResponder/.test(sheetSrc)) lrFail('no onStartShouldSetResponder');
+  if (!/useKeyboardSafeSheet\(/.test(sheetSrc) || !/sheet\.field\('paste'/.test(sheetSrc) || !/<KeyboardSafeSheet/.test(sheetSrc)) lrFail('paste field must be keyboard-safe');
+  if (!/splitForTier\(entry\?\.explanation \|\| null, isPro\)/.test(sheetSrc)) lrFail('result must be split by tier');
+  if (!/<LockedSection[\s\S]{0,300}onUnlock=\{\(\) => onNeedPaywall\?\.\(\)\}/.test(sheetSrc)) lrFail('locked plan must open the paywall');
+  if (!/!isPro && freeLeft <= 0\) \{\s*onNeedPaywall\?\.\(\);\s*return;/.test(sheetSrc)) lrFail('free monthly limit must open the paywall');
+  if (!/scheduleDeadlineReminders\(/.test(sheetSrc) || !/onOpenCalculator\?\.\('deadline_date'\)/.test(sheetSrc)) lrFail('deadlines need reminders and the day counter');
+  if (!/featureId="document_explain"/.test(sheetSrc)) lrFail('report-AI action missing');
+  if (!/t\('docExplainDisclaimer'\)\}<\/Text>\s*<\/View>\s*\);\s*\};/.test(sheetSrc)) lrFail('disclaimer must be the last element of the result');
+  if (/launchCameraAsync/.test(sheetSrc)) lrFail('camera needs an iOS usage string that app.json does not declare');
+  if (!/mediaTypes: \['images'\]/.test(sheetSrc) || !/selectionLimit: room/.test(sheetSrc)) lrFail('photo picker must use the system picker with a page limit');
+
+  // Local store: device only, purged with the account, reminders through the existing channel
+  if (!/'@nexulex\/docExplains'/.test(store) || !/'@nexulex\/docExplainUsage'/.test(store)) lrFail('store keys must use the @nexulex/ prefix (account purge)');
+  if (!/analysisId: `doc-\$\{entryId\}-\$\{index\}`/.test(store) || !/scheduleTrapReminders\(/.test(store)) lrFail('deadline reminders must use the nexulex notification channel');
+  if (/supabase/.test(store)) lrFail('explanations must stay on the device');
+
+  // Wiring
+  if (!/action\.type === 'openAdvisorTool'/.test(app)) lrFail('App must handle openAdvisorTool');
+  if (!/\/\^doc-\(\[a-z0-9\]\+\)-\\d\+\$\/i/.test(app)) lrFail('document reminder taps must open the explainer, not an analysis');
+  if (!/capturedHook === 'draft' \|\| capturedHook === 'explain'/.test(app)) lrFail('purchase from the explainer must stay on the advisor tab');
+  if (!/'explain'\]\);/.test(read('screens/PaywallScreen.js'))) lrFail('paywall hook copy for explain');
+  if (!/guideAction\.type === 'openAdvisorTool' && guideAction\.id === 'doc_explainer'/.test(advisor)) lrFail('advisor must open the explainer from the guide');
+  if (!/onNeedPaywall\?\.\('explain'\)/.test(advisor) || !/<DocumentExplainerSheet/.test(advisor) || !/t\('docExplainCardTitle'\)/.test(advisor)) lrFail('advisor entry card / sheet / paywall');
+  if (!/GUIDE_ADVISOR_TOOLS = \['doc_explainer'\]/.test(capSrc) || !/'openAdvisorTool'/.test(capSrc)) lrFail('guide action type');
+  if (!/id: 'document_explainer'[\s\S]{0,400}action: \{ type: 'openAdvisorTool', id: 'doc_explainer' \}/.test(capSrc)) lrFail('guide workflow must deep-link the explainer');
+  if (!/'document_explain'\]/.test(read('services/aiReport.js'))) lrFail('aiReport feature id');
+
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') lrFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) lrFail('dependency count changed');
+
+  if (lrOk) {
+    console.log(`OK  WAVE LR.1 document explainer (${cases} fixtures): strict schema, free deadlines + Pro plan, reminders, advisor hand-off × 13`);
   }
 }
 

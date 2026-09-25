@@ -33,7 +33,7 @@ const FEATURE_KEYS = [
   'paywallFeature7',
 ];
 
-const HOOK_COPY = new Set(['escape', 'validity', 'costs', 'negotiate', 'missing', 'ladder', 'lawClash']);
+const HOOK_COPY = new Set(['escape', 'validity', 'costs', 'negotiate', 'missing', 'ladder', 'lawClash', 'explain']);
 const PRIVACY_URL = 'https://nexulexai.netlify.app/privacy.html';
 const TERMS_URL = 'https://nexulexai.netlify.app/terms.html';
 

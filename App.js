@@ -251,6 +251,11 @@ function AppContent() {
         setPendingSettingsSection({ id: action.id, nonce: Date.now() });
         return;
       }
+      if (action.type === 'openAdvisorTool') {
+        setActiveTab('advisor');
+        setGuideAdvisorAction({ type: action.type, id: action.id, entryId: action.entryId || null, nonce: Date.now() });
+        return;
+      }
       const itemType = GUIDE_ITEM_TYPES[action.type];
       if (!itemType) return;
       const availability = getAvailability(itemType, action.id, { country: advisorCountry, language: i18n.language });
@@ -263,6 +268,8 @@ function AppContent() {
     },
     [advisorCountry, i18n.language, showToast, t]
   );
+  const guideActionRef = useRef(handleGuideAction);
+  guideActionRef.current = handleGuideAction;
   useEffect(() => {
     if (activeTab !== 'settings' || !pendingSettingsSection) return undefined;
     // Settings mounts on tab switch; give its sections one layout pass before scrolling.
@@ -775,6 +782,11 @@ function AppContent() {
   useEffect(() => {
     if (!userId) return undefined;
     return subscribeReminderOpens((analysisId) => {
+      const docMatch = /^doc-([a-z0-9]+)-\d+$/i.exec(String(analysisId || ''));
+      if (docMatch) {
+        guideActionRef.current?.({ type: 'openAdvisorTool', id: 'doc_explainer', entryId: docMatch[1] });
+        return;
+      }
       openReminderAnalysis(analysisId).catch(() => {});
     });
   }, [userId, openReminderAnalysis]);
@@ -4090,8 +4102,8 @@ function AppContent() {
         }}
         onPurchased={async () => {
           const capturedHook = paywallHookRef.current;
-          if (capturedHook === 'draft') {
-            // Advisor reopens the draft wizard at preview; stay on the advisor tab.
+          if (capturedHook === 'draft' || capturedHook === 'explain') {
+            // Advisor reopens the draft wizard / document explainer; stay on the advisor tab.
             await refreshProfile();
             return;
           }

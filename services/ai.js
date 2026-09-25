@@ -9,6 +9,7 @@ import { getCachedAnalysis, setCachedAnalysis, documentCacheToken } from './anal
 import { isAcceptableAnalysis, isPlaceholderText } from '../utils/analysis';
 import { resolveAnalysisCategory } from '../utils/contractType';
 import { statuteFor, getPlaybook, PLAYBOOKS } from '../constants/playbooks';
+import { DOC_TYPES, isUsableExplanation, localIsoDate, normalizeExplanation } from '../utils/documentExplain';
 
 const EDGE_FUNCTION_NAME = 'analyze-contract';
 const REQUEST_TIMEOUT_MS = 145000;
@@ -1507,6 +1508,120 @@ ${buildTypographyDirective(lang)}`;
     return answer;
   } catch (error) {
     console.warn('Claude Danışman Hatası:', error?.code || error?.message);
+    throw error;
+  }
+}
+
+const EXPLAIN_MAX_TOKENS = 3000;
+const EXPLAIN_TIMEOUT_MS = 120000;
+const EXPLAIN_TEXT_CHARS = 20000;
+
+export function buildExplainSystemPrompt(lang, countryCode, todayIso = localIsoDate()) {
+  const { name: languageName } = resolveLanguage(lang);
+  const profile = JURISDICTION_PROFILES[countryCode];
+  const jurisdictionLine = profile
+    ? `JURISDICTION SELECTED BY THE USER: ${profile}
+If the document clearly comes from another country, say so in "plain_summary" and explain it under the document's own country.`
+    : `JURISDICTION: infer the issuing country from the letterhead, court or authority name, language, currency and addresses. Name it in "plain_summary". Do not default to Turkish law.`;
+
+  return `You are NexuLex AI explaining an official or legal document that a member of the public has just received.
+Explain what it is, who sent it, what it demands, every deadline, and the safest next steps — in plain language.
+
+${jurisdictionLine}
+
+TODAY: ${todayIso}.
+
+HARD RULES:
+- Never invent statute or article numbers, case numbers, courts, amounts, names or dates. Quote only what the document says.
+- Deadlines: put a calendar date in "date" (YYYY-MM-DD) ONLY when the document itself states that date. If the document states a period (e.g. "within 7 days of service"), leave "date" empty, copy the period into "rule", and set "from_service": true when the period runs from the day the person received it. Never compute a date from a period.
+- If the document is illegible, cut off or not a legal/official document, say so in "plain_summary", list what is unreadable in "unclear" and set "confidence" to "LOW".
+- No chances of winning, no percentages, no guarantees. Never promise an outcome. You do not represent anyone in court.
+- "legal_basis": official act names only, and only when the document cites them or you are certain; otherwise "".
+- If there is any deadline under 14 days, a court or enforcement step, or a risk of losing money, housing or liberty, set "urgency" to "HIGH".
+- "lawyer_threshold": one sentence on when the person should see a lawyer or a free legal-aid office.
+
+OUTPUT LANGUAGE (STRICT): ${languageName}. Enum values stay in English.
+${buildTypographyDirective(lang)}
+
+Return ONLY one JSON object, first character "{", last character "}":
+{
+  "document_type": "${DOC_TYPES.join('|')}",
+  "title": "Short name of the document",
+  "issuer": "Who sent it (court, office, company, lawyer) as written",
+  "plain_summary": "Max 3 sentences: what it is and what it wants from the person",
+  "urgency": "HIGH|MEDIUM|LOW",
+  "deadlines": [{ "label": "What must be done", "date": "", "rule": "Period as written", "from_service": false }],
+  "amounts": [{ "label": "What the amount is", "value": "Amount with currency as written" }],
+  "respond_to": "Where or to whom the person must respond, as written, or empty",
+  "next_steps": ["Concrete step 1", "Step 2", "Step 3"],
+  "options": [{ "title": "Option", "detail": "What happens if they choose it" }],
+  "documents_needed": ["Document to gather"],
+  "legal_basis": "",
+  "lawyer_threshold": "",
+  "unclear": [],
+  "confidence": "HIGH|MEDIUM|LOW"
+}
+Limits: deadlines max 4, amounts max 4, next_steps 3-5, options max 4, documents_needed max 6, unclear max 3.`;
+}
+
+// LR.1 — Explain a received legal document (photos, PDF or pasted text) in one call.
+export async function explainLegalDocument({
+  text = '',
+  images = [],
+  pdf = null,
+  country = 'auto',
+  lang = 'tr',
+  mode = 'default',
+} = {}) {
+  const blocks = [];
+  let budgetKind = 'pdf';
+  const imageBlocks = (images || [])
+    .filter((img) => img?.base64)
+    .map((img) => ({
+      type: 'image',
+      source: { type: 'base64', media_type: img.mimeType || 'image/jpeg', data: img.base64 },
+    }));
+  if (imageBlocks.length) {
+    budgetKind = 'images';
+    assertMediaBudget(imageBlocks.map((block) => block.source.data), 'images');
+    blocks.push(...imageBlocks);
+  }
+  if (pdf?.base64) {
+    assertMediaBudget([pdf.base64]);
+    blocks.push({
+      type: 'document',
+      source: { type: 'base64', media_type: pdf.mimeType || 'application/pdf', data: pdf.base64 },
+    });
+  }
+  const pasted = String(text || '').trim().slice(0, EXPLAIN_TEXT_CHARS);
+  if (!blocks.length && !pasted) {
+    throw makeError(AI_ERROR_CODES.EMPTY_INPUT, 'Belge boş.');
+  }
+  blocks.push({
+    type: 'text',
+    text: pasted
+      ? `Explain this document.\n\nDOCUMENT TEXT:\n"""\n${pasted}\n"""`
+      : 'Explain the attached document.',
+  });
+
+  try {
+    const raw = await callClaude({
+      system: buildExplainSystemPrompt(lang, country),
+      content: blocks,
+      mode,
+      maxTokens: EXPLAIN_MAX_TOKENS,
+      timeoutMs: EXPLAIN_TIMEOUT_MS,
+      maxAttempts: MAX_ATTEMPTS,
+      expectJson: 'explain',
+      budgetKind,
+    });
+    const explanation = normalizeExplanation(safeParseJSON(raw));
+    if (!isUsableExplanation(explanation)) {
+      throw makeError(AI_ERROR_CODES.PARSE, 'Belge açıklaması eksik.');
+    }
+    return explanation;
+  } catch (error) {
+    console.warn('Claude Belge Açıklama Hatası:', error?.code || error?.message);
     throw error;
   }
 }

@@ -26,6 +26,7 @@ import { OptionSheet, SelectorField } from '../components/OptionSelector';
 import ScenarioWizardModal from '../components/ScenarioWizardModal';
 import CalculatorModal from '../components/CalculatorModal';
 import DraftWizardModal from '../components/DraftWizardModal';
+import DocumentExplainerSheet from '../components/DocumentExplainerSheet';
 import { DRAFT_CATALOG, resolveDraftVariant } from '../constants/draftTemplates';
 import VoiceMicButton from '../components/VoiceMicButton';
 import SpeakButton from '../components/SpeakButton';
@@ -64,6 +65,9 @@ export default function LegalAdvisorScreen({
   const [draftOpenAtPreview, setDraftOpenAtPreview] = useState(false);
   // In-memory only: wizard answers survive the paywall round-trip, never persisted.
   const [draftAnswersById, setDraftAnswersById] = useState({});
+  const [docExplainOpen, setDocExplainOpen] = useState(false);
+  const [docExplainEntryId, setDocExplainEntryId] = useState(null);
+  const pendingExplainReturnRef = useRef(false);
   const pendingDraftReturnRef = useRef(null);
   const paywallWasVisibleRef = useRef(paywallVisible);
 
@@ -105,7 +109,17 @@ export default function LegalAdvisorScreen({
     if (guideAction.type === 'openCalculator') setCalculatorId(guideAction.id);
     else if (guideAction.type === 'openScenario') setScenarioId(guideAction.id);
     else if (guideAction.type === 'openDraft') openDraft(guideAction.id);
+    else if (guideAction.type === 'openAdvisorTool' && guideAction.id === 'doc_explainer') {
+      setDocExplainEntryId(guideAction.entryId || null);
+      setDocExplainOpen(true);
+    }
   }, [guideAction, openDraft]);
+
+  const handleExplainPaywall = useCallback(() => {
+    pendingExplainReturnRef.current = true;
+    setDocExplainOpen(false);
+    onNeedPaywall?.('explain');
+  }, [onNeedPaywall]);
 
   const handleDraftAnswers = useCallback((id, answers) => {
     setDraftAnswersById((prev) => ({ ...prev, [id]: answers }));
@@ -155,6 +169,22 @@ export default function LegalAdvisorScreen({
       if (timer) clearTimeout(timer);
     };
   }, [isActive, openDraft, paywallClosedTick, paywallVisible]);
+
+  useEffect(() => {
+    if (!paywallClosedTick || paywallVisible || !isActive || !pendingExplainReturnRef.current) return undefined;
+    let timer = null;
+    const task = InteractionManager.runAfterInteractions(() => {
+      timer = setTimeout(() => {
+        if (!pendingExplainReturnRef.current) return;
+        pendingExplainReturnRef.current = false;
+        setDocExplainOpen(true);
+      }, 400);
+    });
+    return () => {
+      task?.cancel?.();
+      if (timer) clearTimeout(timer);
+    };
+  }, [isActive, paywallClosedTick, paywallVisible]);
 
   const countryOptions = useMemo(
     () => (JURISDICTIONS || []).map((item) => ({ code: item.code, label: t(item.labelKey), hint: item.hint })),
@@ -322,6 +352,35 @@ export default function LegalAdvisorScreen({
             <Ionicons name="trash-outline" size={18} color={theme.subText} />
           </TouchableOpacity>
         </View>
+
+        <TouchableOpacity
+          activeOpacity={0.85}
+          onPress={() => {
+            setDocExplainEntryId(null);
+            setDocExplainOpen(true);
+          }}
+          accessibilityRole="button"
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 12,
+            borderWidth: 1,
+            borderColor: ACCENT,
+            backgroundColor: theme.cardBg,
+            borderRadius: 14,
+            padding: 14,
+            marginVertical: 8,
+          }}
+        >
+          <Ionicons name="document-attach-outline" size={26} color={ACCENT} />
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>{t('docExplainCardTitle')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
+              {t('docExplainCardHint')}
+            </Text>
+          </View>
+          <Ionicons name="chevron-forward" size={18} color={ACCENT} />
+        </TouchableOpacity>
 
         <RecentChatsList theme={theme} compact />
 
@@ -658,6 +717,25 @@ export default function LegalAdvisorScreen({
           setDraftOpen(false);
           setDraftOpenAtPreview(false);
         }}
+      />
+
+      <DocumentExplainerSheet
+        visible={docExplainOpen}
+        theme={theme}
+        country={country}
+        isPro={isPro}
+        openEntryId={docExplainEntryId}
+        onNeedPaywall={handleExplainPaywall}
+        onAskAdvisor={(prompt) => {
+          setDocExplainOpen(false);
+          setQuestion(String(prompt || '').trim());
+          showToast(t('docExplainAskAdvisorToast'), { type: 'info', duration: 1600 });
+        }}
+        onOpenCalculator={(id) => {
+          setDocExplainOpen(false);
+          setCalculatorId(id);
+        }}
+        onClose={() => setDocExplainOpen(false)}
       />
     </KeyboardAvoidingView>
   );

@@ -10,7 +10,7 @@ import { useFeedback } from '../context/FeedbackContext';
 const MAX_PAGES = 8;
 const HEAVY_BASE64 = 700000;
 
-async function compressImage(uri, knownWidth) {
+export async function compressImage(uri, knownWidth) {
   let width = Number(knownWidth) || 0;
   let source = uri;
   if (!width) {
