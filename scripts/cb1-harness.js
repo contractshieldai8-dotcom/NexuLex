@@ -47,6 +47,7 @@ function buildResources() {
     loadWave('i18n.wavegr8.js', 'WAVE_GR8_I18N'),
     loadWave('i18n.waveux4.js', 'WAVE_UX4_I18N'),
     loadWave('i18n.wavemx2.js', 'WAVE_MX2_I18N'),
+    loadWave('i18n.wavest8.js', 'WAVE_ST8_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {
@@ -163,6 +164,7 @@ const APP_FILES = [
   'constants/seatInvite.js',
   'constants/settingsLocale.js',
   'constants/settingsShortcuts.js',
+  'constants/settingsPlan.js',
 ];
 
 function loadApp(language = 'tr') {

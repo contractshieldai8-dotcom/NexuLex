@@ -134,7 +134,7 @@ import { saveContractReminders } from './services/reminders';
 import { scheduleTrapReminders, subscribeReminderOpens } from './services/notifications';
 import { LIFECYCLES, lifecycleLabelKey, normalizeLifecycle } from './utils/lifecycle';
 import { resolveSourceText } from './utils/shieldDocument';
-import { planOf } from './utils/plan';
+import { PLAN_LIMITS, planOf } from './utils/plan';
 import { syncEntitlement } from './services/purchases';
 import { useFeedback, FeedbackProvider } from './context/FeedbackContext';
 import { AdvisorChatProvider, useAdvisorChat } from './context/AdvisorChatContext';
@@ -4110,13 +4110,26 @@ function AppContent() {
                     />
                     <Text style={{ color: theme.subText, fontSize: 13, flex: 1 }}>
                       {isPro
-                        ? t('paywallTitle')
+                        ? plan === 'professional' ? t('planTabProfessional') : t('planTabPro')
                         : freeLeft > 0
                           ? t('freeAnalysesLeft', { count: freeLeft })
                           : t('noFreeAnalysesLeft')}
                     </Text>
                   </View>
                 )}
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('st8Plan')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Store')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Quota')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
+                  {t('st8Ask', {
+                    freeAsk: String(PLAN_LIMITS.free.askDaily),
+                    proAsk: String(PLAN_LIMITS.pro.askDaily),
+                    professionalAsk: String(PLAN_LIMITS.professional.askDaily),
+                  })}
+                </Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Tools')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8First')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Restore')}</Text>
 
                 {!emailVerified && (
                   <>
@@ -4150,6 +4163,7 @@ function AppContent() {
                     </Text>
                   </TouchableOpacity>
                 )}
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('st8Disclaimer')}</Text>
               </View>
 
               <View onLayout={onSettingsSectionLayout('seats')}>
