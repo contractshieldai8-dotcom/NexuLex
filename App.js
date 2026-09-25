@@ -57,12 +57,15 @@ import { loadStoredParty, savePartyRole } from './utils/party';
 import { buildPartyChoiceCards, flipPartyCode } from './utils/partyCards';
 import {
   deviceRegion,
+  isIntentOnboarded,
   isLocaleOnboarded,
   loadStoredJurisdiction,
+  markIntentOnboarded,
   markLocaleOnboarded,
   persistJurisdiction,
   suggestJurisdiction,
 } from './utils/locale';
+import { FIRST_INTENTS, actionForIntent } from './constants/firstIntent';
 import { mergeDeadlines, loadUpcomingDeadlines, sortDeadlines, kindLabelKey, nextAnniversary, parseIsoDate } from './utils/deadlines';
 import {
   APP_LANGUAGES,
@@ -110,6 +113,7 @@ import {
 import DiffTool from './components/DiffTool';
 import ShieldDocumentCard from './components/ShieldDocumentCard';
 import NexuLexGuideSheet from './components/NexuLexGuideSheet';
+import FirstIntentSheet from './components/FirstIntentSheet';
 import { getAvailability } from './constants/jurisdictionPacks';
 import LifecycleChips from './components/LifecycleChips';
 import VoiceMicButton from './components/VoiceMicButton';
@@ -270,6 +274,37 @@ function AppContent() {
     },
     [advisorCountry, i18n.language, showToast, t]
   );
+  const applyFirstIntent = useCallback(
+    (id) => {
+      const action = actionForIntent(id);
+      if (!action || action.type === 'openTab') {
+        setActiveTab('analyze');
+        setWorkspaceMode('analyze');
+        return;
+      }
+      handleGuideAction(action);
+    },
+    [handleGuideAction]
+  );
+
+  const runFirstIntent = useCallback(
+    (id, { fromSheet = false } = {}) => {
+      markIntentOnboarded();
+      if (fromSheet) {
+        setIntentOpen(false);
+        setTimeout(() => applyFirstIntent(id), 400);
+        return;
+      }
+      applyFirstIntent(id);
+    },
+    [applyFirstIntent]
+  );
+
+  const skipFirstIntent = useCallback(() => {
+    markIntentOnboarded();
+    setIntentOpen(false);
+  }, []);
+
   const guideActionRef = useRef(handleGuideAction);
   guideActionRef.current = handleGuideAction;
   useEffect(() => {
@@ -284,6 +319,8 @@ function AppContent() {
   }, [activeTab, pendingSettingsSection]);
   const [countrySheetVisible, setCountrySheetVisible] = useState(false);
   const [welcomeLangSheet, setWelcomeLangSheet] = useState(false);
+  const [intentOpen, setIntentOpen] = useState(false);
+  const [localeOnboardTick, setLocaleOnboardTick] = useState(0);
   const [localeReady, setLocaleReady] = useState(false);
   const [authBootstrapped, setAuthBootstrapped] = useState(false);
   const [reportLangSheetVisible, setReportLangSheetVisible] = useState(false);
@@ -713,6 +750,7 @@ function AppContent() {
         actions,
       });
       await markLocaleOnboarded();
+      setLocaleOnboardTick((n) => n + 1);
       if (cancelled) return;
       if (choice === 'us') {
         setAnalysisCountry('US');
@@ -739,6 +777,21 @@ function AppContent() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, localeReady]);
+
+  useEffect(() => {
+    if (!userId || !localeReady) return undefined;
+    let cancelled = false;
+    const offerIntent = async () => {
+      if (await isIntentOnboarded()) return;
+      if (!(await isLocaleOnboarded())) return;
+      if (cancelled) return;
+      setIntentOpen(true);
+    };
+    offerIntent().catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [userId, localeReady, localeOnboardTick]);
 
   // Girişte ve satın alma sonrasında profili/kotayı yeniden okur.
   const refreshProfile = useCallback(async () => {
@@ -3522,6 +3575,34 @@ function AppContent() {
 
               {workspaceMode === 'analyze' ? (
               <View>
+              {!result ? (
+                <View style={{ marginBottom: 12 }}>
+                  <Text style={[styles.label, { color: theme.subText, marginBottom: 8 }]}>{t('fiHomeTitle')}</Text>
+                  <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingVertical: 2 }}>
+                    {FIRST_INTENTS.map((item) => (
+                      <TouchableOpacity
+                        key={item.id}
+                        onPress={() => runFirstIntent(item.id)}
+                        accessibilityRole="button"
+                        style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          gap: 6,
+                          paddingHorizontal: 12,
+                          paddingVertical: 8,
+                          borderRadius: 16,
+                          borderWidth: 1,
+                          borderColor: theme.borderColor,
+                        }}
+                      >
+                        <Ionicons name={item.icon} size={14} color={ACCENT} />
+                        <Text style={{ color: theme.text, fontSize: 13, fontWeight: '600' }}>{t(item.titleKey)}</Text>
+                      </TouchableOpacity>
+                    ))}
+                  </ScrollView>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 0 }]}>{t('fiHomeHint')}</Text>
+                </View>
+              ) : null}
               <View style={{ flexDirection: 'row', gap: 10, marginBottom: 12 }}>
                 <ContractAnalyzer
                   disabled={loading}
@@ -4185,6 +4266,14 @@ function AppContent() {
           rememberLastAnalysisId(id);
           return id;
         }}
+      />
+
+      <FirstIntentSheet
+        visible={intentOpen}
+        theme={theme}
+        onPick={(id) => runFirstIntent(id, { fromSheet: true })}
+        onSkip={skipFirstIntent}
+        onClose={skipFirstIntent}
       />
 
       <NexuLexGuideSheet

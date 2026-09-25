@@ -1,0 +1,18 @@
+module.exports = {
+  fiTitle: 'Wat wilt u doen?',
+  fiHint: 'Kies één pad. De andere bereikt u altijd via Analyseren of Adviseur.',
+  fiAnalyze: 'Een contract scannen',
+  fiAnalyzeHint: 'Plak tekst, een PDF of foto’s. Zie riskante clausules en data vóór u tekent.',
+  fiAsk: 'Een juridische vraag stellen',
+  fiAskHint: 'Een kort antwoord voor uw land, met officiële bronnen om te controleren.',
+  fiCase: 'Een dossier openen',
+  fiCaseHint: 'Houd data, notities en vingerafdrukken van bewijs op deze telefoon.',
+  fiGuides: 'Een procedure volgen',
+  fiGuidesHint: 'Stapsgewijze gidsen en links naar officiële instanties.',
+  fiLawyer: 'Advocaat vinden',
+  fiLawyerHint: 'Officiële advocaten- en rechtsbijstandsgidsen. NexuLex noemt geen advocaat.',
+  fiSkip: 'Ik kijk eerst zelf rond',
+  fiDisclaimer: 'NexuLex is geen advocatenkantoor. Dit is geen juridisch advies en NexuLex vertegenwoordigt u niet. NexuLex beveelt geen advocaat aan.',
+  fiHomeTitle: 'Begin hier',
+  fiHomeHint: 'Of plak hieronder een contract. Niets verlaat de telefoon tot u analyseert of deelt.',
+};

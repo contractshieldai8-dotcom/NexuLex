@@ -1,0 +1,18 @@
+module.exports = {
+  fiTitle: '你想先做什么？',
+  fiHint: '选一条路径。之后随时可从分析或顾问回到其他功能。',
+  fiAnalyze: '扫描合同',
+  fiAnalyzeHint: '粘贴文本、PDF 或照片。签署前查看风险条款和日期。',
+  fiAsk: '提出法律问题',
+  fiAskHint: '针对你所在国家的简短回答，并附可核验的官方来源。',
+  fiCase: '打开案件档案',
+  fiCaseHint: '把日期、笔记和证据指纹保存在这台手机上。',
+  fiGuides: '按流程办理',
+  fiGuidesHint: '分步指南和官方机构链接。',
+  fiLawyer: '查找律师',
+  fiLawyerHint: '官方律师协会和法律援助名录。NexuLex 不点名任何律师。',
+  fiSkip: '我先自己看看',
+  fiDisclaimer: 'NexuLex 不是律师事务所。这不是法律意见，NexuLex 也不代理你。NexuLex 不推荐任何律师。',
+  fiHomeTitle: '从这里开始',
+  fiHomeHint: '或在下方粘贴合同。在你分析或分享之前，任何内容都不会离开手机。',
+};

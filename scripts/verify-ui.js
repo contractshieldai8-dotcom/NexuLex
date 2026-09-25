@@ -83,13 +83,15 @@ const waveLr6Src = fs.existsSync('i18n.wavelr6.js') ? fs.readFileSync('i18n.wave
 const waveLr6Match = waveLr6Src.match(/export const WAVE_LR6_I18N = ([\s\S]*);\s*$/);
 const waveQa1Src = fs.existsSync('i18n.waveqa1.js') ? fs.readFileSync('i18n.waveqa1.js', 'utf8') : '';
 const waveQa1Match = waveQa1Src.match(/export const WAVE_QA1_I18N = ([\s\S]*);\s*$/);
+const waveGr1Src = fs.existsSync('i18n.wavegr1.js') ? fs.readFileSync('i18n.wavegr1.js', 'utf8') : '';
+const waveGr1Match = waveGr1Src.match(/export const WAVE_GR1_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1 kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -114,6 +116,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_LR5_I18N = eval(`(${waveLr5Match[1]})`); // eslint-disable-line no-eval
   const WAVE_LR6_I18N = eval(`(${waveLr6Match[1]})`); // eslint-disable-line no-eval
   const WAVE_QA1_I18N = eval(`(${waveQa1Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_GR1_I18N = eval(`(${waveGr1Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -138,8 +141,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_LR5_I18N',
     'WAVE_LR6_I18N',
     'WAVE_QA1_I18N',
+    'WAVE_GR1_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -571,6 +575,32 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     }
   }
 
+  const waveGr1Base = Object.keys(WAVE_GR1_I18N.en || {});
+  if (Object.keys(WAVE_GR1_I18N).length !== 13) {
+    failed = true;
+    console.log(`WAVE_GR1 dil sayisi ${Object.keys(WAVE_GR1_I18N).length}, beklenen 13`);
+  }
+  for (const [lang, table] of Object.entries(WAVE_GR1_I18N)) {
+    const keys = Object.keys(table || {});
+    const missing = waveGr1Base.filter((key) => !keys.includes(key));
+    const extra = keys.filter((key) => !waveGr1Base.includes(key));
+    if (missing.length || extra.length) {
+      failed = true;
+      console.log(`WAVE_GR1 ${lang}: eksik=[${missing.join(', ')}] fazla=[${extra.join(', ')}]`);
+    }
+  }
+  if (waveGr1Base.length !== 16) {
+    failed = true;
+    console.log(`WAVE_GR1 key count ${waveGr1Base.length}, beklenen 16`);
+  }
+  for (const [name, wave] of Object.entries({ ...earlierWaves, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N })) {
+    const shadowed = waveGr1Base.filter((key) => Object.prototype.hasOwnProperty.call(wave.en || {}, key));
+    if (shadowed.length) {
+      failed = true;
+      console.log(`WAVE_GR1 shadows ${name}: ${shadowed.join(', ')}`);
+    }
+  }
+
   for (const lang of languages) {
     const keys = Object.keys(resources[lang].translation);
     const missing = baseKeys.filter((key) => !keys.includes(key));
@@ -595,9 +625,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 1888) {
+  if (languages.length !== 13 || baseKeys.length !== 1904) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1888`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1904`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -3004,6 +3034,7 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_LR5_I18N',
       'WAVE_LR6_I18N',
       'WAVE_QA1_I18N',
+      'WAVE_GR1_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -3017,7 +3048,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.wavelr4.js', 'utf8').match(/export const WAVE_LR4_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavelr5.js', 'utf8').match(/export const WAVE_LR5_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavelr6.js', 'utf8').match(/export const WAVE_LR6_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.waveqa1.js', 'utf8').match(/export const WAVE_QA1_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.waveqa1.js', 'utf8').match(/export const WAVE_QA1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavegr1.js', 'utf8').match(/export const WAVE_GR1_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -4417,7 +4449,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -5694,5 +5726,79 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`OK  WAVE REL.1 store listings (${fixtures} fixtures): ${LANGS.length} locales, ${shots} screenshot captions, ${checks} launch checks, listing not in the app bundle`);
   }
 }
+
+// WAVE GR.1 — first-value intent picker after the locale corridor; chips on empty analyze
+{
+  let grOk = true;
+  const grFail = (msg) => {
+    failed = true;
+    grOk = false;
+    console.log(`WAVE GR.1 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const LANGS = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+  let fixtures = 0;
+  try {
+    const { loadApp } = require('./cb1-harness');
+    const { api } = loadApp('en');
+    ({ cases: fixtures } = api.assertFirstIntentFixtures());
+  } catch (error) {
+    grFail(`runtime: ${error.message}`);
+  }
+
+  const R = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
+  const keys = ['fiTitle', 'fiHint', 'fiAnalyze', 'fiAnalyzeHint', 'fiAsk', 'fiAskHint', 'fiCase', 'fiCaseHint', 'fiGuides', 'fiGuidesHint', 'fiLawyer', 'fiLawyerHint', 'fiSkip', 'fiDisclaimer', 'fiHomeTitle', 'fiHomeHint'];
+  if (keys.length !== 16) grFail('sixteen copy keys');
+  for (const L of LANGS) {
+    const miss = keys.filter((k) => typeof R[L][k] !== 'string' || !R[L][k].trim());
+    if (miss.length) grFail(`${L} missing ${miss.join(', ')}`);
+    if (!/NexuLex/.test(R[L].fiDisclaimer || '')) grFail(`${L}.fiDisclaimer must name NexuLex`);
+    if (L !== 'en') {
+      const same = keys.filter((k) => R[L][k] === R.en[k] && R.en[k].length >= 12);
+      if (same.length) grFail(`${L} identical to EN: ${same.join(', ')}`);
+    }
+  }
+  for (const L of ['ar', 'fa']) {
+    const bad = keys.filter((k) => /→/.test(R[L][k] || '') || /[\u0600-\u06FF][^?]*\?(\s|$)/.test(R[L][k] || ''));
+    if (bad.length) grFail(`${L} RTL punctuation: ${bad.join(', ')}`);
+  }
+
+  const sheet = read('components/FirstIntentSheet.js');
+  const app = read('App.js');
+  const locale = read('utils/locale.js');
+  const account = read('services/account.js');
+
+  if (!/<Pressable\s+style=\{StyleSheet\.absoluteFillObject\}/.test(sheet)) grFail('BL.3 sibling backdrop');
+  if (/<TouchableWithoutFeedback[^>]*onPress=\{\(\) => \{\}\}/.test(sheet)) grFail('must not wrap the sheet in a swallowing backdrop');
+  if (!/onRequestClose=\{onClose\}/.test(sheet)) grFail('Android back must close the sheet');
+  if (!/t\('fiDisclaimer'\)\}<\/Text>\s*<\/KeyboardSafeSheet>/.test(sheet)) grFail('disclaimer must be the last element');
+  if (!/useKeyboardSafeSheet/.test(sheet)) grFail('keyboard-safe sheet');
+
+  if (!/const INTENT_KEY = '@nexulex\/intentOnboarded'/.test(locale)) grFail('intent flag must be its own key');
+  if (/DEVICE_PREF_KEYS = new Set\(\[[^\]]*intentOnboarded/.test(account)) grFail('intent flag must clear on account delete');
+  if (!/await markLocaleOnboarded\(\);\s*setLocaleOnboardTick\(\(n\) => n \+ 1\)/.test(app)) grFail('locale corridor must still run and then tick');
+  if (!/if \(await isIntentOnboarded\(\)\) return;\s*if \(!\(await isLocaleOnboarded\(\)\)\) return;/.test(app)) grFail('intent sheet only after locale onboarded');
+  if (!/\[userId, localeReady, localeOnboardTick\]/.test(app)) grFail('intent effect must depend on the locale tick');
+  if (!/const offerCorridor = async \(\) => \{/.test(app) || !/localeWelcomeTitle/.test(app)) grFail('locale corridor dialog must stay');
+
+  if (!/\{!result \? \(/.test(app) || !/FIRST_INTENTS\.map\(\(item\) => \(/.test(app)) grFail('home chips only on empty analyze');
+  if (!/onPick=\{\(id\) => runFirstIntent\(id, \{ fromSheet: true \}\)\}/.test(app)) grFail('sheet pick must delay the route');
+  if (!/if \(fromSheet\) \{\s*setIntentOpen\(false\);\s*setTimeout\(\(\) => applyFirstIntent\(id\), 400\);/.test(app)) grFail('sheet-to-route must wait 400ms');
+  if (!/markIntentOnboarded\(\);\s*setIntentOpen\(false\);/.test(app)) grFail('skip must still mark onboarded');
+  if (!/<FirstIntentSheet[\s\S]{0,240}<NexuLexGuideSheet/.test(app)) grFail('intent sheet before the guide sheet');
+  if (!/setActiveTab\('analyze'\);\s*setWorkspaceMode\('analyze'\)/.test(app)) grFail('analyze intent stays on analyze');
+  if (!/handleGuideAction\(action\)/.test(app)) grFail('advisor intents reuse the guide router');
+
+  if (/from ['"].*storeListing['"]/.test(app) || /from ['"].*storeListing['"]/.test(read('i18n.js'))) grFail('store listing must stay out of the app');
+
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') grFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) grFail('dependency count changed');
+
+  if (grOk) {
+    console.log(`OK  WAVE GR.1 first-value intent (${fixtures} fixtures): 5 paths × 13, corridor kept, chips on empty analyze`);
+  }
+}
+
 
 process.exit(failed ? 1 : 0);

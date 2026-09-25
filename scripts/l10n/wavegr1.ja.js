@@ -1,0 +1,18 @@
+module.exports = {
+  fiTitle: '何をしますか？',
+  fiHint: 'ひとつ選んでください。ほかは分析またはアドバイザーからいつでも開けます。',
+  fiAnalyze: '契約を確認する',
+  fiAnalyzeHint: 'テキスト、PDF、写真を貼り付けます。署名前にリスク条項と期日を見られます。',
+  fiAsk: '法律の質問をする',
+  fiAskHint: '国に合わせた短い回答と、確認できる公式出典。',
+  fiCase: '事件ファイルを開く',
+  fiCaseHint: '期日、メモ、証拠の指紋をこの端末に残します。',
+  fiGuides: '手続きを進める',
+  fiGuidesHint: '手順ガイドと公式機関へのリンク。',
+  fiLawyer: '弁護士を探す',
+  fiLawyerHint: '公式の弁護士会・法律扶助名簿。NexuLex は弁護士名を出しません。',
+  fiSkip: 'まず自分で見る',
+  fiDisclaimer: 'NexuLex は法律事務所ではありません。法的助言ではなく、NexuLex はあなたを代理しません。NexuLex は弁護士を推薦しません。',
+  fiHomeTitle: 'ここから始める',
+  fiHomeHint: 'または下に契約を貼ってください。分析または共有するまで、何も端末から出ません。',
+};

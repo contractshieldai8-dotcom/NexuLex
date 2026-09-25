@@ -7,6 +7,7 @@ import { JURISDICTIONS, SUPPORTED_LANGUAGE_CODES } from '../constants/options';
 
 const JURISDICTION_KEY = '@nexulex/jurisdiction';
 const ONBOARDED_KEY = '@nexulex/localeOnboarded';
+const INTENT_KEY = '@nexulex/intentOnboarded';
 
 const VALID_JURISDICTIONS = new Set((JURISDICTIONS || []).map((item) => item.code));
 
@@ -118,5 +119,21 @@ export async function markLocaleOnboarded() {
     await AsyncStorage.setItem(ONBOARDED_KEY, '1');
   } catch (error) {
     console.warn('Locale onboarding bayrağı yazılamadı:', error.message);
+  }
+}
+
+export async function isIntentOnboarded() {
+  try {
+    return (await AsyncStorage.getItem(INTENT_KEY)) === '1';
+  } catch {
+    return false;
+  }
+}
+
+export async function markIntentOnboarded() {
+  try {
+    await AsyncStorage.setItem(INTENT_KEY, '1');
+  } catch (error) {
+    console.warn('Intent onboarding bayrağı yazılamadı:', error.message);
   }
 }

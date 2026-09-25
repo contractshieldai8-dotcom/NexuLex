@@ -1,0 +1,18 @@
+module.exports = {
+  fiTitle: 'Was möchten Sie tun?',
+  fiHint: 'Wählen Sie einen Weg. Zu den anderen gelangen Sie jederzeit über Analyse oder Berater.',
+  fiAnalyze: 'Vertrag prüfen',
+  fiAnalyzeHint: 'Text, PDF oder Fotos einfügen. Riskante Klauseln und Fristen vor der Unterschrift sehen.',
+  fiAsk: 'Eine Rechtsfrage stellen',
+  fiAskHint: 'Eine kurze Antwort für Ihr Land, mit amtlichen Quellen zum Nachprüfen.',
+  fiCase: 'Eine Akte öffnen',
+  fiCaseHint: 'Termine, Notizen und Beweis-Fingerabdrücke auf diesem Telefon behalten.',
+  fiGuides: 'Einem Verfahren folgen',
+  fiGuidesHint: 'Schritt-für-Schritt-Leitfäden und Links zu offiziellen Stellen.',
+  fiLawyer: 'Anwalt finden',
+  fiLawyerHint: 'Offizielle Kammer- und Rechtshilfeverzeichnisse. NexuLex nennt keinen Anwalt.',
+  fiSkip: 'Ich schaue zuerst selbst',
+  fiDisclaimer: 'NexuLex ist keine Kanzlei. Dies ist keine Rechtsberatung und NexuLex vertritt Sie nicht. NexuLex empfiehlt keine Anwälte.',
+  fiHomeTitle: 'Hier starten',
+  fiHomeHint: 'Oder fügen Sie unten einen Vertrag ein. Nichts verlässt das Telefon, bis Sie analysieren oder teilen.',
+};

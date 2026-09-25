@@ -1,0 +1,18 @@
+module.exports = {
+  fiTitle: '¿Qué quieres hacer?',
+  fiHint: 'Elige un camino. Siempre puedes volver a los demás desde Analizar o Asesor.',
+  fiAnalyze: 'Analizar un contrato',
+  fiAnalyzeHint: 'Pega texto, un PDF o fotos. Ve cláusulas de riesgo y fechas antes de firmar.',
+  fiAsk: 'Hacer una pregunta jurídica',
+  fiAskHint: 'Una respuesta breve para tu país, con fuentes oficiales que puedes comprobar.',
+  fiCase: 'Abrir un expediente',
+  fiCaseHint: 'Guarda fechas, notas y huellas de pruebas en este teléfono.',
+  fiGuides: 'Seguir un trámite',
+  fiGuidesHint: 'Guías paso a paso y enlaces a organismos oficiales.',
+  fiLawyer: 'Encontrar abogado',
+  fiLawyerHint: 'Directorios oficiales de colegios y justicia gratuita. NexuLex no nombra a ningún abogado.',
+  fiSkip: 'Primero echaré un vistazo',
+  fiDisclaimer: 'NexuLex no es un bufete. Esto no es asesoramiento jurídico y NexuLex no te representa. NexuLex no recomienda a ningún abogado.',
+  fiHomeTitle: 'Empieza aquí',
+  fiHomeHint: 'O pega un contrato abajo. Nada sale del teléfono hasta que analices o compartas.',
+};
