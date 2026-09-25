@@ -185,6 +185,88 @@ JA: 契約,賃貸,雇用,NDA,SaaS,条項,弁護士,リスク,期日,消費者,�
 PT: contrato,aluguel,trabalho,NDA,SaaS,cláusula,advogado,risco,prazo,consumo,inquilino,assinatura
 NL: contract,huur,arbeid,NDA,SaaS,clausule,advocaat,risico,termijn,consument,huurder,handtekening
 
+## Tanıtım metni (Apple, ≤ 170)
+
+### TR
+Sözleşmeyi tarayın, ülkenize sorun, dosyanızı cihazda tutun; resmî rehberlerden sizin seçtiğiniz avukata hazır paketle gidin. NexuLex kimseyi önermez.
+
+### EN
+Scan a contract, ask your country, keep a case file, then take a ready pack to a lawyer you pick from official directories. NexuLex names none.
+
+### DE
+Vertrag prüfen, Ihr Land fragen, die Akte auf dem Gerät behalten — dann mit fertiger Mappe zu einer Kanzlei aus amtlichen Verzeichnissen. NexuLex nennt niemanden.
+
+### FR
+Analysez un contrat, interrogez votre pays, gardez le dossier sur l’appareil, puis partez chez un avocat choisi dans les annuaires officiels. NexuLex n’en cite aucun.
+
+### ES
+Analiza un contrato, pregunta a tu país, guarda el expediente en el dispositivo y llega al abogado que elijas en directorios oficiales. NexuLex no nombra a nadie.
+
+### AR
+افحص عقدًا، اسأل بلدك، واحتفظ بالملف على الجهاز ثم اذهب إلى محامٍ تختاره من الأدلة الرسمية بحزمة جاهزة. NexuLex لا يسمّي أحدًا ولا يوصي أبدًا.
+
+### IT
+Analizza un contratto, interroga il tuo paese, tieni il fascicolo sul dispositivo e vai da un avvocato scelto negli albi ufficiali. NexuLex non ne indica nessuno.
+
+### ZH
+扫描合同、向你所在国家提问、把案件档案留在设备上，再带着现成材料包去见你在官方律师名录中自己选择的律师。NexuLex 不点名、不推荐、不转介任何人。先选国家和立场，再粘贴文本、PDF 或合同照片。十三种语言可用。一般法律信息，并非法律意见，也不出庭代理，也不保证任何结果。请核验来源。
+
+### RU
+Проверьте договор, спросите свою страну, храните дело на устройстве и придите к адвокату из официальных реестров с готовым пакетом. NexuLex никого не называет.
+
+### FA
+قرارداد را بررسی کنید، از کشور خود بپرسید، پرونده را روی دستگاه نگه دارید و با بستهٔ آماده نزد وکیلی بروید که از فهرست رسمی انتخاب می‌کنید. NexuLex کسی را نام نمی‌برد.
+
+### JA
+契約を確認し、国に尋ね、事件ファイルを端末に残し、公式名簿で自分で選んだ弁護士へ準備済みの資料パックを持って行けます。NexuLex は誰の名も出さず、推薦もしません。国と立場を先に選び、テキスト・PDF・写真を入れて確認します。十三の言語。一般的な法律情報であり、法的助言ではありません。
+
+### PT
+Analise um contrato, pergunte ao seu país, guarde o processo no aparelho e chegue a um advogado escolhido em diretórios oficiais. A NexuLex não indica ninguém.
+
+### NL
+Scan een contract, vraag uw land, bewaar het dossier op het toestel en ga met een kant-en-klare map naar een advocaat uit officiële gidsen. NexuLex noemt niemand.
+
+## Yenilikler (What's New)
+
+### TR
+Avukat bulun: resmî baro ve adli yardım rehberleri, ilk temas mesajı ve dışa aktarılabilen Pro dosya paketi. Danışman ülkenize göre soru-cevap, adım adım süreç rehberleri ve yalnızca cihazdaki dosyaları ekler. Professional çalışma masası kronoloji, uyuşmazlık listesi ve araştırma notunu ücretli planda iş yardımcısı olarak sunar. On üç dil, tek dürüst uyarı. NexuLex hâlâ hiçbir avukatı önermez, sıralamaz ve yönlendirmez. Bu hukuki danışmanlık değildir.
+
+### EN
+Find a lawyer through official bar and legal-aid directories, write a first-contact message and export a Pro case packet. The advisor keeps country questions, step-by-step process guides and on-device case files. Professional adds a chronology, an issue list and a research memo as work aids on paid plans. Thirteen languages, one honest disclaimer. NexuLex still does not recommend, rank or refer any lawyer. General legal information, not legal advice.
+
+### DE
+Anwalt finden über amtliche Kammer- und Rechtshilfeverzeichnisse, eine erste Nachricht schreiben und eine Pro-Fallmappe exportieren. Der Berater hält Landesfragen, Schritt-für-Schritt-Leitfäden und Akten auf dem Gerät. Professional ergänzt Chronologie, Streitpunkte und Recherchevermerk als Arbeitshilfen in bezahlten Plänen. Dreizehn Sprachen, ein ehrlicher Hinweis. NexuLex empfiehlt, bewertet und vermittelt weiterhin keine Anwälte. Allgemeine rechtliche Information, keine Rechtsberatung.
+
+### FR
+Trouvez un avocat via les annuaires officiels des barreaux et de l’aide juridique, rédigez un premier message et exportez un dossier Pro. Le conseiller garde les questions de votre pays, des guides pas à pas et des dossiers sur l’appareil. Professional ajoute chronologie, points en litige et note de recherche comme aides de travail. Treize langues, une mise en garde honnête. NexuLex ne recommande, ne classe et n’oriente toujours aucun avocat. Information juridique générale, pas un conseil.
+
+### ES
+Encuentra un abogado en directorios oficiales de colegios y de asistencia jurídica, redacta el primer mensaje y exporta un dosier Pro. El asesor guarda preguntas de tu país, guías paso a paso y expedientes en el dispositivo. Professional añade cronología, puntos controvertidos y memorando de investigación como ayudas de trabajo. Trece idiomas, un aviso honesto. NexuLex sigue sin recomendar, clasificar ni derivar a ningún abogado. Información jurídica general, no es asesoramiento.
+
+### AR
+ابحث عن محامٍ عبر الأدلة الرسمية للنقابات والمساعدة القانونية، واكتب رسالة التواصل الأولى وصَدّر ملف Pro. يحتفظ المستشار بأسئلة بلدك وأدلة خطوة بخطوة وملفات على الجهاز. تضيف منصة Professional تسلسلًا زمنيًا وقائمة نزاع ومذكرة بحث كوسائل عمل في الخطط المدفوعة. ثلاث عشرة لغة وتحذير واحد صادق. ما زال NexuLex لا يوصي بأي محامٍ ولا يرتّبه ولا يحيل إليه. معلومات قانونية عامة، وليست استشارة قانونية.
+
+### IT
+Trova un avvocato negli albi ufficiali e nelle guide al patrocinio, scrivi il primo messaggio ed esporta un fascicolo Pro. Il consulente tiene domande del tuo paese, guide passo passo e fascicoli sul dispositivo. Professional aggiunge cronologia, questioni controverse e nota di ricerca come ausili di lavoro. Tredici lingue, un avviso onesto. NexuLex non raccomanda, non classifica e non indica ancora alcun avvocato. Informazione giuridica generale, non è consulenza.
+
+### ZH
+通过官方律师协会与法律援助名录查找律师，撰写首次联系消息，并导出可带走的 Pro 案件材料包。顾问会保留面向你所在国家的法律问答、分步流程指南，以及只存在这台设备上的案件档案。Professional 工作台在付费套餐中提供时间线、争议问题清单和研究备忘，仅作为工作辅助，不是出庭文件。第一次扫描、每日提问和一件案件档案的基础额度仍然免费。十三种语言，同一条诚实声明。NexuLex 仍不推荐、不排名、不转介任何律师，也不预测裁判结果。请自行核验官方来源后再行动。以上为一般法律信息，并非法律意见，也不是任何形式的律师代理。
+
+### RU
+Найдите адвоката через официальные реестры коллегий и правовой помощи, напишите первое сообщение и экспортируйте пакет Pro. Советник хранит вопросы вашей страны, пошаговые гиды и дела на устройстве. Professional добавляет хронологию, спорные вопросы и исследовательскую записку как рабочие пособия. Тринадцать языков, одно честное предупреждение. NexuLex по-прежнему не рекомендует, не ранжирует и не направляет адвокатов. Общая правовая информация, не консультация.
+
+### FA
+وکیل را از فهرست‌های رسمی کانون و معاضدت پیدا کنید، پیام تماس اول را بنویسید و بستهٔ Pro را بیرون ببرید. مشاور پرسش‌های کشور شما، راهنماهای گام‌به‌گام و پرونده‌های روی دستگاه را نگه می‌دارد. میز Professional گاه‌شمار، فهرست اختلاف و یادداشت پژوهش را به‌عنوان ابزار کار در طرح‌های پولی می‌افزاید. سیزده زبان، یک هشدار صادقانه. NexuLex همچنان هیچ وکیلی را توصیه، رتبه‌بندی یا ارجاع نمی‌کند. اطلاعات حقوقی عمومی است، مشاوره حقوقی نیست.
+
+### JA
+公式の弁護士会・法律扶助名簿から弁護士を探し、最初の連絡文を書き、持ち帰れる Pro の事件パックを書き出せます。顧問は国にあわせた法律の質問、手続きの手順ガイド、この端末上だけの事件ファイルを残します。Professional 作業台は有料プランで時系列、争点一覧、調査メモを作業補助として加えます。裁判用の提出書類ではありません。初回の確認、毎日の質問、一件の事件ファイルの基本枠は無料のままです。十三の言語と、一つの誠実な注意。NexuLex は今も弁護士を推薦・順位付け・紹介せず、結果も予測しません。公式の出典はご自身で確かめてください。一般的な法律情報であり、法的助言でも弁護士による代理でもありません。
+
+### PT
+Encontre um advogado em diretórios oficiais de ordens e de apoio jurídico, escreva a primeira mensagem e exporte um dossiê Pro. O consultor guarda perguntas do seu país, guias passo a passo e processos no aparelho. A Professional acrescenta cronologia, questões controversas e memorando de investigação como ajudas de trabalho. Treze idiomas, um aviso honesto. A NexuLex continua sem recomendar, classificar ou indicar qualquer advogado. Informação jurídica geral, não é aconselhamento.
+
+### NL
+Vind een advocaat via officiële orde- en rechtsbijstandsgidsen, schrijf een eerste bericht en exporteer een Pro-dossiermap. De adviseur bewaart landvragen, stapsgewijze gidsen en dossiers op het toestel. Professional voegt tijdlijn, geschilpunten en onderzoeksnota toe als werkhulpen. Dertien talen, één eerlijke waarschuwing. NexuLex beveelt, rangschikt of verwijst nog steeds geen advocaat. Algemene juridische informatie, geen advies.
+
 ## Ekran görüntüsü sırası
 
 1. Yapıştır, PDF veya foto — ülke ve taraf seç / Paste, PDF or photos — pick country and side

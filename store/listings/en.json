@@ -3,10 +3,10 @@
   "apple": {
     "name": "NexuLex AI",
     "subtitle": "Legal copilot, not a law firm",
-    "promotionalText": "Scan a contract, ask your country, keep a case file and take a ready pack to a lawyer you choose from official directories.",
+    "promotionalText": "Scan a contract, ask your country, keep a case file, then take a ready pack to a lawyer you pick from official directories. NexuLex names none.",
     "description": "NexuLex AI is a legal copilot for rent, work, NDA, SaaS and sales contracts. Pick your country and your side, then paste text, a PDF or photos. Before you sign it flags risky clauses, missing protections and dates you must not miss, suggests counter-offers and sets reminders.\n\nThe advisor adds legal questions for your country, step-by-step process guides, on-device case files and a first-contact pack with official bar and legal-aid directories. NexuLex does not recommend, rank or refer lawyers. Professional tools (chronology, issue list, research memo) are work aids on paid plans.\n\nReports are available in 13 languages. Statutory calculators (severance, rent increase, legal interest) use Turkish tables (dated 1 January 2026; check current official values). In other countries the calculators run in a generic mode where you enter the rate. Scenarios and drafts are Türkiye-specific; elsewhere you get generic steps and a generic letter format. Drafts are templates; there is no prediction of winning and no guarantee of acceptance by a court.\n\nGeneral legal information, not legal advice / lawyer representation.",
     "keywords": "contract,lease,NDA,employment,risk,clause,advisor,lawyer,rent,SaaS,tenant,deadline,signature",
-    "whatsNew": "Find a lawyer: official bar and legal-aid directories, a first message and a Pro case packet. Professional workbench, process guides and legal Q&A. NexuLex still does not recommend any lawyer."
+    "whatsNew": "Find a lawyer through official bar and legal-aid directories, write a first-contact message and export a Pro case packet. The advisor keeps country questions, step-by-step process guides and on-device case files. Professional adds a chronology, an issue list and a research memo as work aids on paid plans. Thirteen languages, one honest disclaimer. NexuLex still does not recommend, rank or refer any lawyer. General legal information, not legal advice."
   },
   "google": {
     "title": "NexuLex AI",

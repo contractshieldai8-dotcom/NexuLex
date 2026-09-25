@@ -2,7 +2,7 @@
 module.exports = {
   name: 'NexuLex AI',
   subtitle: 'Aiuto legale, non uno studio',
-  promotionalText: 'Analizza un contratto, interroga il tuo paese, tieni un fascicolo e vai da un avvocato scelto negli albi ufficiali.',
+  promotionalText: 'Analizza un contratto, interroga il tuo paese, tieni il fascicolo sul dispositivo e vai da un avvocato scelto negli albi ufficiali. NexuLex non ne indica nessuno.',
   shortDescription: 'Rischio contratto: trappole, scadenze, domande e albi ufficiali.',
   description: `NexuLex AI è un copilota legale per contratti di locazione, lavoro, NDA, SaaS e compravendita. Scegli il paese e la tua parte, poi incolla testo, un PDF o foto. Prima della firma segnala clausole rischiose, tutele mancanti e scadenze da non perdere, suggerisce controproposte e imposta promemoria.
 
@@ -12,7 +12,7 @@ Report disponibili in 13 lingue. I calcolatori legali (indennità, aumento del c
 
 Informazione legale generale, non consulenza legale / rappresentanza di un avvocato.`,
   keywords: 'contratto,locazione,lavoro,NDA,SaaS,clausola,avvocato,rischio,scadenza,consumo,inquilino,firma',
-  whatsNew: 'Trova un avvocato: albi ufficiali, primo messaggio e fascicolo Pro. Banco Professional, guide alle procedure e domande giuridiche. NexuLex non raccomanda ancora alcun avvocato.',
+  whatsNew: 'Trova un avvocato negli albi ufficiali e nelle guide al patrocinio, scrivi il primo messaggio ed esporta un fascicolo Pro. Il consulente tiene domande del tuo paese, guide passo passo e fascicoli sul dispositivo. Professional aggiunge cronologia, questioni controverse e nota di ricerca come ausili di lavoro. Tredici lingue, un avviso onesto. NexuLex non raccomanda, non classifica e non indica ancora alcun avvocato. Informazione giuridica generale, non è consulenza.',
   shot_analyze: 'Testo, PDF o foto — paese e parte',
   shot_decision: 'Firma, tratta o rinuncia — con motivi',
   shot_advisor: 'Chiedi al tuo paese — fonti da verificare',

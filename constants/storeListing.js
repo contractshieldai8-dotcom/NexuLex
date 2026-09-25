@@ -58,6 +58,8 @@ export const STORE_CHECKLIST = [
   { id: 'no_win_percent', store: 'both', need: 'Listing never states a win %, court representation or a recommended lawyer' },
   { id: 'screenshot_order', store: 'both', need: 'Seven screenshots in SCREENSHOT_IDS order: analyze, decision, advisor, cases, guides, lawyer, languages' },
   { id: 'aso_keywords_fill', store: 'appstore', need: 'Apple keywords use most of the 100-character budget, no app name, comma-separated, no spaces around commas' },
+  { id: 'promo_fill', store: 'appstore', need: 'Apple promotional text uses most of the 170-character budget and names no recommended lawyer' },
+  { id: 'whats_new_fill', store: 'both', need: 'What\'s New names official directories, Professional work aids and that NexuLex recommends no lawyer' },
 ];
 
 const len = (value) => [...String(value || '')].length;
@@ -145,5 +147,42 @@ export function assertStoreAso(tables) {
       check(n >= 22 && n <= STORE_LIMITS.screenshot, `${lang} shot_${id} length ${n}`);
     }
   }
+  return { cases };
+}
+
+/** WAVE REL.3 — promotional text and What's New fill. Still not imported by the app. */
+export function assertStorePromo(tables) {
+  let cases = 0;
+  const check = (cond, msg) => {
+    cases += 1;
+    if (!cond) throw new Error(`storePromo: ${msg}`);
+  };
+  check(STORE_CHECKLIST.some((item) => item.id === 'promo_fill'), 'checklist covers promotional text');
+  check(STORE_CHECKLIST.some((item) => item.id === 'whats_new_fill'), 'checklist covers What\'s New');
+  const en = tables.en;
+  for (const lang of STORE_LANGS) {
+    const row = tables[lang];
+    const promo = String(row?.promotionalText || '');
+    const news = String(row?.whatsNew || '');
+    const promoLen = len(promo);
+    const newsLen = len(news);
+    check(promoLen >= 140 && promoLen <= STORE_LIMITS.promotionalText, `${lang} promo fill ${promoLen}`);
+    check(newsLen >= 260 && newsLen <= 1200, `${lang} whatsNew fill ${newsLen}`);
+    check(/NexuLex/.test(news), `${lang} whatsNew must name NexuLex`);
+    check(/NexuLex/.test(promo), `${lang} promo must name NexuLex`);
+    check(!/court-ready|\b\d{1,3}\s?%\s*(win|success|chance)|best lawyer|top lawyer|en iyi avukat/i.test(`${promo}\n${news}`), `${lang} no win% or ranking`);
+    if (lang === 'ar' || lang === 'fa') {
+      check(!/→/.test(`${promo}\n${news}`), `${lang} no arrows`);
+      check(!/[\u0600-\u06FF][^?]*\?(\s|$)/.test(`${promo}\n${news}`), `${lang} use ؟`);
+    }
+    if (lang !== 'en') {
+      if (promo.length >= 12) check(promo !== en.promotionalText, `${lang}.promotionalText identical to EN`);
+      if (news.length >= 12) check(news !== en.whatsNew, `${lang}.whatsNew identical to EN`);
+    }
+  }
+  check(/hukuki danışmanlık değildir|hukuki tavsiye/.test(tables.tr.whatsNew), 'TR What\'s New is not legal advice');
+  check(/avukatı önermez|avukat önermez/.test(tables.tr.whatsNew), 'TR What\'s New says no lawyer is recommended');
+  check(/does not recommend|still does not recommend/.test(en.whatsNew), 'EN What\'s New says no lawyer is recommended');
+  check(/not legal advice/.test(en.whatsNew), 'EN What\'s New keeps the disclaimer');
   return { cases };
 }

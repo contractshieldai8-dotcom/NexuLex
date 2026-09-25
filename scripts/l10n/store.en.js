@@ -2,7 +2,7 @@
 module.exports = {
   name: 'NexuLex AI',
   subtitle: 'Legal copilot, not a law firm',
-  promotionalText: 'Scan a contract, ask your country, keep a case file and take a ready pack to a lawyer you choose from official directories.',
+  promotionalText: 'Scan a contract, ask your country, keep a case file, then take a ready pack to a lawyer you pick from official directories. NexuLex names none.',
   shortDescription: 'Scan contract risk: trap clauses, dates, Q&A and official lawyer directories.',
   description: `NexuLex AI is a legal copilot for rent, work, NDA, SaaS and sales contracts. Pick your country and your side, then paste text, a PDF or photos. Before you sign it flags risky clauses, missing protections and dates you must not miss, suggests counter-offers and sets reminders.
 
@@ -12,7 +12,7 @@ Reports are available in 13 languages. Statutory calculators (severance, rent in
 
 General legal information, not legal advice / lawyer representation.`,
   keywords: 'contract,lease,NDA,employment,risk,clause,advisor,lawyer,rent,SaaS,tenant,deadline,signature',
-  whatsNew: 'Find a lawyer: official bar and legal-aid directories, a first message and a Pro case packet. Professional workbench, process guides and legal Q&A. NexuLex still does not recommend any lawyer.',
+  whatsNew: 'Find a lawyer through official bar and legal-aid directories, write a first-contact message and export a Pro case packet. The advisor keeps country questions, step-by-step process guides and on-device case files. Professional adds a chronology, an issue list and a research memo as work aids on paid plans. Thirteen languages, one honest disclaimer. NexuLex still does not recommend, rank or refer any lawyer. General legal information, not legal advice.',
   shot_analyze: 'Paste, PDF or photos — pick country and side',
   shot_decision: 'Sign, negotiate or walk away — with reasons',
   shot_advisor: 'Ask your country — sources you can check',

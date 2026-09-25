@@ -6161,4 +6161,54 @@ Ticaret Unvanı: Anadolu Bilişim
   }
 }
 
+// WAVE REL.3 — promotional text 140–170 and What's New 260–1200 × 13; listing stays out of the app
+{
+  let relOk = true;
+  const relFail = (msg) => {
+    failed = true;
+    relOk = false;
+    console.log(`WAVE REL.3 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const LANGS = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+  let fixtures = 0;
+  try {
+    const { loadApp } = require('./cb1-harness');
+    const { api } = loadApp('en');
+    const tables = Object.fromEntries(LANGS.map((L) => [L, require(`./l10n/store.${L}.js`)]));
+    ({ cases: fixtures } = api.assertStorePromo(tables));
+    if (!api.STORE_CHECKLIST.some((item) => item.id === 'promo_fill') || !api.STORE_CHECKLIST.some((item) => item.id === 'whats_new_fill')) {
+      relFail('checklist must cover promotional text and What\'s New');
+    }
+    if (api.STORE_CHECKLIST.length < 18) relFail('launch checklist must keep REL.1–REL.2 rows plus promo rows');
+    for (const L of LANGS) {
+      const file = `store/listings/${L}.json`;
+      if (!fs.existsSync(file)) {
+        relFail(`${file} missing — run node scripts/gen-store-listings.js`);
+        continue;
+      }
+      const json = JSON.parse(read(file));
+      if (json.apple.promotionalText !== tables[L].promotionalText) relFail(`${L} promotionalText drifted`);
+      if (json.apple.whatsNew !== tables[L].whatsNew) relFail(`${L} whatsNew drifted`);
+    }
+    const listing = read('STORE_LISTING.md');
+    if (!/## Tanıtım metni/.test(listing) || !/## Yenilikler/.test(listing)) relFail('STORE_LISTING.md must include promo and What\'s New');
+    if (!/Selected by the user via the system picker/.test(listing)) relFail('Data Safety photo-picker sentence must stay');
+    if (/generic mode|Turkish tables/.test(tables.de.promotionalText + tables.de.whatsNew + tables.fr.promotionalText + tables.fr.whatsNew)) {
+      relFail('DE/FR promo and What\'s New must not paste the English jurisdiction jargon');
+    }
+    if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) relFail('store listing must not be imported by the app');
+  } catch (error) {
+    relFail(`runtime: ${error.message}`);
+  }
+
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') relFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) relFail('dependency count changed');
+
+  if (relOk) {
+    console.log(`OK  WAVE REL.3 store promo (${fixtures} fixtures): promotional text 140–170 and What's New 260–1200 × ${LANGS.length}, listing not in the app bundle`);
+  }
+}
+
 process.exit(failed ? 1 : 0);

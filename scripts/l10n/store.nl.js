@@ -2,7 +2,7 @@
 module.exports = {
   name: 'NexuLex AI',
   subtitle: 'Juridische hulp, geen kantoor',
-  promotionalText: 'Scan een contract, vraag uw land, houd een dossier bij en ga met een kant-en-klare map naar een advocaat uit officiële gidsen.',
+  promotionalText: 'Scan een contract, vraag uw land, bewaar het dossier op het toestel en ga met een kant-en-klare map naar een advocaat uit officiële gidsen. NexuLex noemt niemand.',
   shortDescription: 'Contractrisico: valkuilen, termijnen, vragen en officiële advocatengidsen.',
   description: `NexuLex AI is een juridische copiloot voor huur-, arbeids-, NDA-, SaaS- en koopcontracten. Kies land en partij, plak tekst, een PDF of foto’s. Vóór ondertekening markeert het riskante clausules, ontbrekende bescherming en data die u niet mag missen, stelt het tegenvoorstellen voor en zet het herinneringen.
 
@@ -12,7 +12,7 @@ Rapporten in 13 talen. Wettelijke rekenhulpen (ontslagvergoeding, huurverhoging,
 
 Algemene juridische informatie, geen juridisch advies / vertegenwoordiging door een advocaat.`,
   keywords: 'contract,huur,arbeid,NDA,SaaS,clausule,advocaat,risico,termijn,consument,huurder,handtekening',
-  whatsNew: 'Advocaat vinden: officiële gidsen, eerste bericht en Pro-dossiermap. Professional-werkbank, procedurehulp en juridische vragen. NexuLex beveelt nog steeds geen advocaat aan.',
+  whatsNew: 'Vind een advocaat via officiële orde- en rechtsbijstandsgidsen, schrijf een eerste bericht en exporteer een Pro-dossiermap. De adviseur bewaart landvragen, stapsgewijze gidsen en dossiers op het toestel. Professional voegt tijdlijn, geschilpunten en onderzoeksnota toe als werkhulpen. Dertien talen, één eerlijke waarschuwing. NexuLex beveelt, rangschikt of verwijst nog steeds geen advocaat. Algemene juridische informatie, geen advies.',
   shot_analyze: 'Tekst, PDF of foto’s — land en partij',
   shot_decision: 'Teken, onderhandel of stap weg',
   shot_advisor: 'Vraag uw land — bronnen om te checken',

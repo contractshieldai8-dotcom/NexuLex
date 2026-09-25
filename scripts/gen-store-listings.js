@@ -21,11 +21,12 @@ for (const lang of langs) {
   tables[lang] = load(lang);
 }
 
-const { assertStoreListing, assertStoreAso, SCREENSHOT_IDS } = require('./cb1-harness').loadApp('en').api;
+const { assertStoreListing, assertStoreAso, assertStorePromo, SCREENSHOT_IDS } = require('./cb1-harness').loadApp('en').api;
 let result;
 try {
   result = assertStoreListing(tables);
   result.aso = assertStoreAso(tables).cases;
+  result.promo = assertStorePromo(tables).cases;
 } catch (error) {
   console.error(error.message);
   process.exit(1);
@@ -68,6 +69,8 @@ const shortBlocks = langs.map((L) => `### ${LANG_HEAD[L]}\n${tables[L].shortDesc
 const longBlocks = langs.map((L) => `### ${LANG_HEAD[L]}\n${tables[L].description}\n`).join('\n');
 const shotBlocks = SCREENSHOT_IDS.map((id, i) => `${i + 1}. ${tables.tr[`shot_${id}`]} / ${tables.en[`shot_${id}`]}`).join('\n');
 const keywordLine = langs.map((L) => `${LANG_HEAD[L]}: ${tables[L].keywords}`).join('\n');
+const promoBlocks = langs.map((L) => `### ${LANG_HEAD[L]}\n${tables[L].promotionalText}\n`).join('\n');
+const newsBlocks = langs.map((L) => `### ${LANG_HEAD[L]}\n${tables[L].whatsNew}\n`).join('\n');
 
 const head = `# NexuLex AI — mağaza listeleri
 
@@ -90,6 +93,12 @@ ${longBlocks}
 
 ${keywordLine}
 
+## Tanıtım metni (Apple, ≤ 170)
+
+${promoBlocks}
+## Yenilikler (What's New)
+
+${newsBlocks}
 ## Ekran görüntüsü sırası
 
 ${shotBlocks}
@@ -100,4 +109,4 @@ EN: The original trap wording is not sent to the AI again; the shield draft is.
 `;
 
 fs.writeFileSync(listingPath, `${head}${tail}`, 'utf8');
-console.log('Wrote store/listings ×', langs.length, 'fixtures=', result.cases, 'aso=', result.aso);
+console.log('Wrote store/listings ×', langs.length, 'fixtures=', result.cases, 'aso=', result.aso, 'promo=', result.promo);

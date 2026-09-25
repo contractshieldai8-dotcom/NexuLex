@@ -2,7 +2,7 @@
 module.exports = {
   name: 'NexuLex AI',
   subtitle: 'Rechtshilfe, keine Kanzlei',
-  promotionalText: 'Vertrag prüfen, Ihr Land fragen, eine Akte führen und mit fertiger Mappe zu einer Kanzlei aus offiziellen Verzeichnissen gehen.',
+  promotionalText: 'Vertrag prüfen, Ihr Land fragen, die Akte auf dem Gerät behalten — dann mit fertiger Mappe zu einer Kanzlei aus amtlichen Verzeichnissen. NexuLex nennt niemanden.',
   shortDescription: 'Vertragsrisiko: Fallen, Fristen, Fragen und offizielle Anwaltsverzeichnisse.',
   description: `NexuLex AI ist ein Rechtsassistent für Miet-, Arbeits-, NDA-, SaaS- und Kaufverträge. Wählen Sie Land und Partei, fügen Sie Text, PDF oder Fotos ein. Vor der Unterschrift markiert er riskante Klauseln, fehlende Schutzklauseln und Fristen, schlägt Gegenangebote vor und setzt Erinnerungen.
 
@@ -12,7 +12,7 @@ Berichte gibt es in 13 Sprachen. Gesetzliche Rechner (Abfindung, Mieterhöhung, 
 
 Allgemeine rechtliche Information, keine Rechtsberatung / anwaltliche Vertretung.`,
   keywords: 'Vertrag,Miete,Arbeitsvertrag,NDA,SaaS,AGB,Anwalt,Frist,Risiko,DSGVO,Mieter,Unterschrift,Klausel',
-  whatsNew: 'Anwalt finden: offizielle Kammer- und Rechtshilfeverzeichnisse, erste Nachricht und Pro-Fallmappe. Professional-Werkbank, Verfahrensleitfäden und Rechtsfragen. NexuLex empfiehlt weiterhin keine Anwälte.',
+  whatsNew: 'Anwalt finden über amtliche Kammer- und Rechtshilfeverzeichnisse, eine erste Nachricht schreiben und eine Pro-Fallmappe exportieren. Der Berater hält Landesfragen, Schritt-für-Schritt-Leitfäden und Akten auf dem Gerät. Professional ergänzt Chronologie, Streitpunkte und Recherchevermerk als Arbeitshilfen in bezahlten Plänen. Dreizehn Sprachen, ein ehrlicher Hinweis. NexuLex empfiehlt, bewertet und vermittelt weiterhin keine Anwälte. Allgemeine rechtliche Information, keine Rechtsberatung.',
   shot_analyze: 'Text, PDF oder Foto — Land und Partei',
   shot_decision: 'Unterschreiben, verhandeln oder gehen',
   shot_advisor: 'Ihr Land fragen — prüfbare Quellen',

@@ -2,7 +2,7 @@
 module.exports = {
   name: 'NexuLex AI',
   subtitle: 'Ajuda legal, não um escritório',
-  promotionalText: 'Analise um contrato, pergunte ao seu país, guarde um processo e chegue a um advogado escolhido em diretórios oficiais.',
+  promotionalText: 'Analise um contrato, pergunte ao seu país, guarde o processo no aparelho e chegue a um advogado escolhido em diretórios oficiais. A NexuLex não indica ninguém.',
   shortDescription: 'Risco do contrato: armadilhas, prazos, perguntas e diretórios oficiais.',
   description: `O NexuLex AI é um copiloto jurídico para contratos de locação, trabalho, NDA, SaaS e compra e venda. Escolha o país e a sua parte; cole texto, um PDF ou fotos. Antes de assinar, destaca cláusulas de risco, proteções em falta e prazos que não pode perder, sugere contrapropostas e cria lembretes.
 
@@ -12,7 +12,7 @@ Relatórios em 13 idiomas. As calculadoras legais (indenização, reajuste de al
 
 Informação jurídica geral, não aconselhamento jurídico / representação por advogado.`,
   keywords: 'contrato,aluguel,trabalho,NDA,SaaS,cláusula,advogado,risco,prazo,consumo,inquilino,assinatura',
-  whatsNew: 'Encontrar advogado: diretórios oficiais, primeira mensagem e dossiê Pro. Bancada Professional, guias de procedimentos e perguntas jurídicas. A NexuLex continua sem recomendar nenhum advogado.',
+  whatsNew: 'Encontre um advogado em diretórios oficiais de ordens e de apoio jurídico, escreva a primeira mensagem e exporte um dossiê Pro. O consultor guarda perguntas do seu país, guias passo a passo e processos no aparelho. A Professional acrescenta cronologia, questões controversas e memorando de investigação como ajudas de trabalho. Treze idiomas, um aviso honesto. A NexuLex continua sem recomendar, classificar ou indicar qualquer advogado. Informação jurídica geral, não é aconselhamento.',
   shot_analyze: 'Texto, PDF ou fotos — país e parte',
   shot_decision: 'Assinar, negociar ou recuar — com motivos',
   shot_advisor: 'Pergunte ao seu país — fontes para verificar',
