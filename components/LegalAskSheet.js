@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
@@ -38,11 +38,13 @@ export default function LegalAskSheet({
   onNeedPaywall,
   onAskAdvisor,
   onOpenCalculator,
+  prefill = null,
   onClose,
 }) {
   const { t, i18n } = useTranslation();
   const { showToast } = useFeedback();
   const sheet = useKeyboardSafeSheet({ maxHeight: SHEET_MAX });
+  const appliedPrefillRef = useRef(null);
 
   const [question, setQuestion] = useState('');
   const [facts, setFacts] = useState('');
@@ -68,6 +70,15 @@ export default function LegalAskSheet({
       alive = false;
     };
   }, [visible]);
+
+  // Applied once per prefill object, so a paywall round-trip keeps whatever the user typed since.
+  useEffect(() => {
+    if (!visible || !prefill || appliedPrefillRef.current === prefill) return;
+    appliedPrefillRef.current = prefill;
+    if (CASE_AREAS.includes(prefill.area)) setArea(prefill.area);
+    if (prefill.question) setQuestion(String(prefill.question).slice(0, ASK_QUESTION_MAX));
+    setEntry(null);
+  }, [visible, prefill]);
 
   const attached = cases.find((item) => item.id === caseId) || null;
   const outOfQuota = !!quota && quota.remaining <= 0;

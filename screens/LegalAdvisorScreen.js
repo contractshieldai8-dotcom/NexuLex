@@ -29,6 +29,8 @@ import DraftWizardModal from '../components/DraftWizardModal';
 import DocumentExplainerSheet from '../components/DocumentExplainerSheet';
 import CaseHubSheet from '../components/CaseHubSheet';
 import LegalAskSheet from '../components/LegalAskSheet';
+import ProcessGuideSheet from '../components/ProcessGuideSheet';
+import { PROCESS_GUIDES } from '../constants/processGuides';
 import { loadCases } from '../services/caseFileStore';
 import { DRAFT_CATALOG, resolveDraftVariant } from '../constants/draftTemplates';
 import VoiceMicButton from '../components/VoiceMicButton';
@@ -77,7 +79,11 @@ export default function LegalAdvisorScreen({
   const [caseCount, setCaseCount] = useState(0);
   const pendingCaseReturnRef = useRef(false);
   const [askOpen, setAskOpen] = useState(false);
+  const [askPrefill, setAskPrefill] = useState(null);
   const pendingAskReturnRef = useRef(false);
+  const [guidesOpen, setGuidesOpen] = useState(false);
+  const [guideOpenId, setGuideOpenId] = useState(null);
+  const [caseSeed, setCaseSeed] = useState(null);
   const pendingDraftReturnRef = useRef(null);
   const paywallWasVisibleRef = useRef(paywallVisible);
 
@@ -127,8 +133,26 @@ export default function LegalAdvisorScreen({
       setCaseHubOpen(true);
     } else if (guideAction.type === 'openAdvisorTool' && guideAction.id === 'legal_ask') {
       setAskOpen(true);
+    } else if (guideAction.type === 'openAdvisorTool' && guideAction.id === 'process_guides') {
+      setGuideOpenId(guideAction.entryId || null);
+      setGuidesOpen(true);
     }
   }, [guideAction, openDraft]);
+
+  // WAVE LR.4 — guide hand-offs; iOS presents one modal at a time, so open after the guide dismisses.
+  const openAskFromGuide = useCallback((prefill) => {
+    setGuidesOpen(false);
+    setAskPrefill(prefill);
+    setTimeout(() => setAskOpen(true), 400);
+  }, []);
+
+  const openCaseFromGuide = useCallback((seed) => {
+    setGuidesOpen(false);
+    setCaseImport(null);
+    setCaseOpenId(null);
+    setCaseSeed(seed);
+    setTimeout(() => setCaseHubOpen(true), 400);
+  }, []);
 
   const handleAskPaywall = useCallback(() => {
     pendingAskReturnRef.current = true;
@@ -517,6 +541,36 @@ export default function LegalAdvisorScreen({
           <Ionicons name="chevron-forward" size={18} color={ACCENT} />
         </TouchableOpacity>
 
+        <TouchableOpacity
+          onPress={() => {
+            setGuideOpenId(null);
+            setGuidesOpen(true);
+          }}
+          accessibilityRole="button"
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 12,
+            borderWidth: 1,
+            borderColor: theme.borderColor,
+            backgroundColor: theme.cardBg,
+            borderRadius: 14,
+            padding: 14,
+            marginBottom: 8,
+          }}
+        >
+          <Ionicons name="map-outline" size={26} color={ACCENT} />
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>
+              {t('pgCardTitle')} ({PROCESS_GUIDES.length})
+            </Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
+              {t('pgCardHint')}
+            </Text>
+          </View>
+          <Ionicons name="chevron-forward" size={18} color={ACCENT} />
+        </TouchableOpacity>
+
         <RecentChatsList theme={theme} compact />
 
         <Text style={[styles.label, { color: theme.subText, marginTop: 8 }]}>
@@ -882,6 +936,7 @@ export default function LegalAdvisorScreen({
         openCaseId={caseOpenId}
         importExplanation={caseImport}
         onImportDone={() => setCaseImport(null)}
+        seed={caseSeed}
         onNeedPaywall={handleCasePaywall}
         onChanged={(list) => setCaseCount(list.length)}
         onAskAdvisor={(prompt) => {
@@ -892,6 +947,7 @@ export default function LegalAdvisorScreen({
         onClose={() => {
           setCaseHubOpen(false);
           setCaseImport(null);
+          setCaseSeed(null);
         }}
       />
 
@@ -900,6 +956,7 @@ export default function LegalAdvisorScreen({
         theme={theme}
         country={country}
         isPro={isPro}
+        prefill={askPrefill}
         onNeedPaywall={handleAskPaywall}
         onAskAdvisor={(prompt) => {
           setAskOpen(false);
@@ -910,7 +967,24 @@ export default function LegalAdvisorScreen({
           setAskOpen(false);
           setCalculatorId(id);
         }}
-        onClose={() => setAskOpen(false)}
+        onClose={() => {
+          setAskOpen(false);
+          setAskPrefill(null);
+        }}
+      />
+
+      <ProcessGuideSheet
+        visible={guidesOpen}
+        theme={theme}
+        country={country}
+        openGuideId={guideOpenId}
+        onAsk={openAskFromGuide}
+        onStartCase={openCaseFromGuide}
+        onOpenCalculator={(id) => {
+          setGuidesOpen(false);
+          setCalculatorId(id);
+        }}
+        onClose={() => setGuidesOpen(false)}
       />
     </KeyboardAvoidingView>
   );

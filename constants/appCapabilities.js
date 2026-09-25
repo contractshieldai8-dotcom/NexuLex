@@ -4,7 +4,7 @@
 
 export const GUIDE_TABS = ['analyze', 'advisor', 'history', 'settings'];
 export const GUIDE_SETTINGS_SECTIONS = ['account', 'seats', 'support', 'security', 'language', 'privacy', 'delete'];
-export const GUIDE_ADVISOR_TOOLS = ['doc_explainer', 'case_files', 'legal_ask'];
+export const GUIDE_ADVISOR_TOOLS = ['doc_explainer', 'case_files', 'legal_ask', 'process_guides'];
 export const GUIDE_ACTION_TYPES = [
   'openTab',
   'openCalculator',
@@ -36,6 +36,7 @@ export const GUIDE_CHANGELOG = [
   { id: 'cl_doc_explainer', titleKey: 'guideNewDocExplainer', date: '2026-09-26', workflowId: 'document_explainer' },
   { id: 'cl_case_files', titleKey: 'guideNewCaseFiles', date: '2026-09-27', workflowId: 'case_files' },
   { id: 'cl_legal_ask', titleKey: 'guideNewLegalAsk', date: '2026-09-28', workflowId: 'legal_ask' },
+  { id: 'cl_process_guides', titleKey: 'guideNewProcessGuides', date: '2026-09-29', workflowId: 'process_guides' },
 ];
 
 export function latestChangelog(count = 5) {
@@ -143,6 +144,20 @@ export const GUIDE_WORKFLOWS = [
       { bodyKey: 'guideStepAsk2', ctaKey: 'askFactsLabel' },
       { bodyKey: 'guideStepAsk3', ctaKey: 'askSources' },
       { bodyKey: 'guideStepAsk4', ctaKey: 'askSaveToCase' },
+    ],
+  },
+  {
+    id: 'process_guides',
+    titleKey: 'guideFlowGuidesTitle',
+    hintKey: 'guideFlowGuidesHint',
+    introKey: 'guideFlowGuidesIntro',
+    chipKey: 'guideChipGuides',
+    tab: 'advisor',
+    steps: [
+      { bodyKey: 'guideStepGuides1', ctaKey: 'pgCardTitle', action: { type: 'openAdvisorTool', id: 'process_guides' } },
+      { bodyKey: 'guideStepGuides2', ctaKey: 'pgLinksTitle' },
+      { bodyKey: 'guideStepGuides3', ctaKey: 'pgAskCta' },
+      { bodyKey: 'guideStepGuides4', ctaKey: 'pgCaseCta' },
     ],
   },
   {

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -76,6 +76,7 @@ export default function CaseHubSheet({
   openCaseId = null,
   importExplanation = null,
   onImportDone,
+  seed = null,
   onNeedPaywall,
   onAskAdvisor,
   onChanged,
@@ -84,6 +85,7 @@ export default function CaseHubSheet({
   const { t } = useTranslation();
   const { showToast } = useFeedback();
   const sheet = useKeyboardSafeSheet({ maxHeight: SHEET_MAX });
+  const appliedSeedRef = useRef(null);
 
   const [cases, setCases] = useState([]);
   const [view, setView] = useState('list');
@@ -105,6 +107,11 @@ export default function CaseHubSheet({
       if (openCaseId && list.some((item) => item.id === openCaseId)) {
         setActiveId(openCaseId);
         setView('detail');
+      } else if (seed && appliedSeedRef.current !== seed && canCreateCase(list, isPro)) {
+        // Over the free limit the seed waits in the list; "new case" opens the paywall as usual.
+        appliedSeedRef.current = seed;
+        setDraft({ title: seed.title || '', area: seed.area || 'other', side: 'undecided', counterparty: '' });
+        setView('new');
       } else {
         setView('list');
       }
@@ -112,7 +119,7 @@ export default function CaseHubSheet({
     return () => {
       alive = false;
     };
-  }, [visible, openCaseId]);
+  }, [visible, openCaseId, seed, isPro]);
 
   const commit = useCallback(
     async (next) => {
@@ -137,7 +144,9 @@ export default function CaseHubSheet({
       needPaywall();
       return;
     }
-    setDraft({ title: '', area: 'other', side: 'undecided', counterparty: '' });
+    const fromSeed = seed && appliedSeedRef.current !== seed ? seed : null;
+    if (fromSeed) appliedSeedRef.current = fromSeed;
+    setDraft({ title: fromSeed?.title || '', area: fromSeed?.area || 'other', side: 'undecided', counterparty: '' });
     go('new');
   };
 
