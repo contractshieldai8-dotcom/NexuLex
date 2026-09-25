@@ -16,6 +16,31 @@ function panelOf(html, lang) {
   return (html.match(re) || [''])[0];
 }
 
+function assertLegalWebTerms(terms) {
+  let cases = 0;
+  const check = (cond, msg) => {
+    cases += 1;
+    if (!cond) throw new Error(`legalWebTerms: ${msg}`);
+  };
+  check(LANGS.length === 13, '13 terms languages');
+  for (const lang of LANGS) {
+    check(terms.includes(`id="${lang}"`) && terms.includes(`data-lang="${lang}"`), `terms panel ${lang}`);
+    check(/NexuLex/.test(panelOf(terms, lang)), `terms ${lang} names NexuLex`);
+    check(/Professional/.test(panelOf(terms, lang)) && /RevenueCat/.test(panelOf(terms, lang)), `terms ${lang} names Professional and RevenueCat`);
+  }
+  check(/does not recommend, rank or refer lawyers/.test(terms), 'EN lawyer-referral sentence stays');
+  check(/avukat önermez, sıralamaz/.test(terms), 'TR lawyer-referral sentence stays');
+  check(/NexuLex AI is not a law firm and does not provide legal advice/.test(terms), 'EN not-a-law-firm sentence stays');
+  check(!/anonymi[sz]ed|hashed|anonimleştir|hashlen|win rate|en iyi avukat|best lawyer/i.test(terms), 'no overclaims');
+  for (const lang of ['ar', 'fa']) {
+    const blob = panelOf(terms, lang);
+    check(!/→/.test(blob), `${lang} must not use →`);
+    check(!/[\u0600-\u06FF][^?]*\?(\s|$)/.test(blob.replace(/https?:\/\/\S+/g, '').replace(/href="[^"]+"/g, '')), `${lang} use ؟`);
+  }
+  check(/dir="rtl"/.test(panelOf(terms, 'ar')) && /dir="rtl"/.test(panelOf(terms, 'fa')), 'RTL terms panels set dir');
+  return { cases };
+}
+
 function assertLegalWebPages(privacy, del, listing) {
   let cases = 0;
   const check = (cond, msg) => {
@@ -55,4 +80,5 @@ module.exports = {
   LOCKED_LAWYER,
   LOCKED_PHOTO,
   assertLegalWebPages,
+  assertLegalWebTerms,
 };

@@ -58,4 +58,38 @@ module.exports = {
 <h2>Ce qui est conserve</h2>
 <p>L identifiant d appareil et le numero utilises pour le quota d analyse gratuit restent sans lien avec votre compte, seulement pour bloquer les demandes gratuites repetees. Les achats chez Apple, Google et RevenueCat suivent leurs propres regles.</p>
 <p>Voir aussi la <a href="privacy.html">politique de confidentialite</a>.</p>`,
+
+  terms: `<h1>Conditions d utilisation (EULA)</h1>
+<p class="meta">Mise a jour: 25 septembre 2026. Traduction de commodite. Le texte anglais fait foi.</p>
+<p>En telechargeant ou en utilisant NexuLex AI vous acceptez ces conditions et notre <a href="privacy.html">politique de confidentialite</a>.</p>
+<h2>1. Description du service</h2>
+<p>NexuLex AI est un logiciel grand public qui aide a relire des contrats, voir des risques, rediger un contre-langage et partager des briefs en lecture seule. Il est fourni « en l etat ».</p>
+<h2>2. Pas un cabinet</h2>
+<p><strong>NexuLex AI n est pas un cabinet d avocats et ne fournit pas de conseil juridique.</strong> Rien dans l app ne cree de relation avocat-client. Verifiez les decisions importantes aupres d un avocat habilite dans votre pays.</p>
+<p>« Trouver un avocat » renvoie seulement aux annuaires officiels des barreaux et organismes publics. NexuLex AI ne recommande, ne classe ni ne reoriente d avocats, ne percoit aucun honoraire de recommandation et n est pas responsable des services de l avocat que vous choisissez. Verifiez inscription et honoraires avant de le mandater.</p>
+<h2>3. Comptes et abonnements</h2>
+<ul>
+<li>Les quotas gratuits et droits Pro sont appliques cote serveur et via RevenueCat / les boutiques.</li>
+<li>Le forfait Professional inclut tout Pro plus les outils Professional et les plafonds quotidiens plus eleves affiches dans l app. Votre forfait est verifie par notre serveur avec RevenueCat; il ne peut pas etre change depuis l app.</li>
+<li>Les outils Professional sont des aides de travail, pas un conseil juridique. Ils n utilisent que votre materiau et peuvent contenir des erreurs; verifiez chaque date, fait et source. NexuLex AI ne represente personne devant une juridiction ou une autorite.</li>
+<li>Facturation, remboursements et annulations suivent les regles App Store ou Google Play.</li>
+<li>Vous etes responsable de la securite de vos identifiants.</li>
+</ul>
+<h2>4. Usage acceptable</h2>
+<ul>
+<li>N uploadez pas de contenu illicite ni de materiau que vous n etes pas autorise a traiter.</li>
+<li>N essayez pas de contourner, surcharger ou desosser la securite, les quotas ou les paywalls.</li>
+<li>N utilisez pas le service pour harceler, frauder ou tromper.</li>
+<li>Ne partagez pas de secrets, identifiants ou donnees personnelles de tiers sans base legale.</li>
+</ul>
+<h2>5. Propriete intellectuelle</h2>
+<p>Le nom, la marque et le logiciel NexuLex AI appartiennent a l editeur. Vous gardez les droits sur les contrats televerses. Vous nous accordez une licence limitee pour traiter ce contenu uniquement afin de fournir le service.</p>
+<h2>6. Briefs partages et sieges</h2>
+<p>Les liens de brief et les sieges conseiller / foyer sont concus pour cacher le contrat original. Les destinataires voient quand meme les syntheses d analyse que vous choisissez de partager. Soyez prudent avant de creer des codes.</p>
+<h2>7. Limitation de responsabilite</h2>
+<p>Dans la mesure permise par la loi, nous ne sommes pas responsables des decisions prises sur la sortie de l app, des erreurs d IA tierce, des litiges de facturation boutique ou des pannes hors de notre controle raisonnable.</p>
+<h2>8. Modifications</h2>
+<p>Nous pouvons mettre a jour ces conditions. Continuer a utiliser le service apres une mise a jour vaut acceptation.</p>
+<h2>9. Contact</h2>
+<p>Pour le compte ou le produit, utilisez l ecran Assistance dans l app. Pour les reclamation consommateurs, les mentions de l editeur sur la fiche boutique s appliquent.</p>`,
 };

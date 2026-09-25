@@ -6599,4 +6599,40 @@ Ticaret Unvanı: Anadolu Bilişim
   }
 }
 
+// WAVE ST.5 — terms of use × 13; lawyer-referral sentences stay locked
+{
+  let st5Ok = true;
+  const st5Fail = (msg) => {
+    failed = true;
+    st5Ok = false;
+    console.log(`WAVE ST.5 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  let fixtures = 0;
+  try {
+    const { assertLegalWebTerms, LOCKED_QUOTA, LOCKED_PHOTO } = require('./legalWebAssert');
+    ({ cases: fixtures } = assertLegalWebTerms(read('web/terms.html')));
+    if (!read('web/privacy.html').includes(LOCKED_QUOTA)) st5Fail('privacy free-quota sentence must stay');
+    if (!read('STORE_LISTING.md').includes(LOCKED_PHOTO)) st5Fail('Data Safety photo-picker sentence must stay');
+  } catch (error) {
+    st5Fail(`runtime: ${error.message}`);
+  }
+  const terms = read('web/terms.html');
+  if (!/data-lang="ja"/.test(terms) || !/URLSearchParams\(location\.search\)/.test(terms)) {
+    st5Fail('terms must have 13 buttons and honor ?lang=');
+  }
+  if (!/does not recommend, rank or refer lawyers/.test(terms) || !/avukat önermez, sıralamaz/.test(terms)) {
+    st5Fail('EN/TR lawyer-referral goldens must stay');
+  }
+  if (!/Professional/.test(terms) || !/RevenueCat/.test(terms)) st5Fail('terms must still describe Professional and RevenueCat');
+  if (!/terms\.html/.test(read('scripts/publish-brief-web.js'))) st5Fail('publish-brief-web must still copy terms.html');
+  if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) st5Fail('store listing must stay out of the app');
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') st5Fail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) st5Fail('dependency count changed');
+  if (st5Ok) {
+    console.log(`OK  WAVE ST.5 terms of use (${fixtures} fixtures): 13 locales, lawyer-referral goldens frozen`);
+  }
+}
+
 process.exit(failed ? 1 : 0);

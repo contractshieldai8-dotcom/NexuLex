@@ -71,4 +71,47 @@ module.exports = {
 <p>Ücretsiz analiz hakkını almak için kullanılan cihaz tanımlayıcısı ve telefon numarası, hesabınızla hiçbir bağlantı olmadan ve yalnızca ücretsiz hakkın tekrar tekrar kötüye kullanılmasını önlemek amacıyla saklanır. Apple, Google ve RevenueCat’teki satın alma kayıtları kendi politikalarına tabidir.</p>
 
 <p>Ayrıca bkz. <a href="privacy.html">Gizlilik Politikası</a>.</p>`,
+
+  terms: `<h1>Kullanım Koşulları (EULA)</h1>
+<p class="meta">Son güncelleme: 25 Eylül 2026</p>
+<p>NexuLex AI’yi indirerek veya kullanarak bu Kullanım Koşulları’nı ve <a href="privacy.html">Gizlilik Politikası</a>’nı kabul etmiş olursunuz.</p>
+
+<h2>1. Hizmetin tanımı</h2>
+<p>NexuLex AI; sözleşmeleri gözden geçirmenize, riskleri görmenize, karşı dil taslağı üretmenize ve sınırlı salt okunur brief paylaşmanıza yardımcı olan bir tüketici yazılımıdır. Hizmet “olduğu gibi” sunulur.</p>
+
+<h2>2. Hukuk bürosu değildir</h2>
+<p><strong>NexuLex AI bir hukuk bürosu değildir ve hukuki tavsiye vermez.</strong> Uygulamadaki hiçbir içerik avukat–müvekkil ilişkisi oluşturmaz. Önemli kararları kendi yetki alanınızdaki yetkili bir avukatla doğrulayın.</p>
+<p>“Avukat bul” yalnızca baroların ve kamu kurumlarının yönettiği resmî rehberlere bağlantı verir. NexuLex AI avukat önermez, sıralamaz veya yönlendirmez, yönlendirme ücreti almaz ve seçtiğiniz avukatın hizmetlerinden sorumlu değildir. Vekâlet vermeden önce avukatın baro kaydını ve ücretini kontrol edin.</p>
+
+<h2>3. Hesaplar ve abonelikler</h2>
+<ul>
+<li>Ücretsiz kotalar ve Pro hakları sunucu tarafında ve RevenueCat / uygulama mağazaları üzerinden uygulanır.</li>
+<li>Professional (Profesyonel) plan, Pro’daki her şeye ek olarak Professional araçları ve uygulamada gösterilen daha yüksek günlük limitleri içerir. Planınız sunucumuz tarafından RevenueCat ile doğrulanır; uygulamadan değiştirilemez.</li>
+<li>Professional araçlar profesyoneller için çalışma araçlarıdır, hukuki danışmanlık değildir. Yalnızca verdiğiniz malzemeyi kullanır ve hata içerebilir; güvenmeden önce her tarihi, olguyu ve kaynağı doğrulamanız gerekir. NexuLex AI hiç kimseyi herhangi bir mahkeme veya kurum önünde temsil etmez.</li>
+<li>Ücretli planların faturalandırması, iadesi ve iptali Apple App Store veya Google Play kurallarına tabidir.</li>
+<li>Giriş bilgilerinizin güvenliğinden siz sorumlusunuz.</li>
+</ul>
+
+<h2>4. Kabul edilebilir kullanım</h2>
+<ul>
+<li>Yasadışı içerik veya işlemeye yetkili olmadığınız materyali yüklemeyin.</li>
+<li>Tersine mühendislik, aşırı yükleme veya güvenlik / kota / paywall aşma girişimlerinde bulunmayın.</li>
+<li>Hizmeti taciz, dolandırıcılık veya yanıltma için kullanmayın.</li>
+<li>Hukuki dayanak olmadan sır, kimlik bilgisi veya üçüncü kişi kişisel verisi paylaşmayın.</li>
+</ul>
+
+<h2>5. Fikri mülkiyet</h2>
+<p>NexuLex AI adı, markası ve uygulama yazılımı yayıncıya aittir. Yüklediğiniz sözleşmelerdeki haklar sizde kalır. Bu içeriği yalnızca hizmeti sunmak için işlemek üzere bize sınırlı bir lisans verirsiniz.</p>
+
+<h2>6. Brief’ler ve koltuklar</h2>
+<p>Brief bağlantıları ile danışman / hane koltukları orijinal sözleşme metnini gizleyecek şekilde tasarlanmıştır. Alıcılar yine de paylaşmayı seçtiğiniz analiz özetlerini görür. Kod üretmeden önce dikkatli olun.</p>
+
+<h2>7. Sorumluluğun sınırlandırılması</h2>
+<p>Yasaların izin verdiği azami ölçüde; uygulama çıktısına dayanan kararlarınız, üçüncü taraf yapay zekâ hataları, mağaza fatura uyuşmazlıkları veya makul kontrolümüz dışındaki kesintilerden sorumlu olmayız.</p>
+
+<h2>8. Değişiklikler</h2>
+<p>Bu Koşulları güncelleyebiliriz. Güncellemeden sonra hizmeti kullanmaya devam etmeniz, revize edilmiş Koşulları kabul ettiğiniz anlamına gelir.</p>
+
+<h2>9. İletişim</h2>
+<p>Hesap veya ürün soruları için uygulama içi Destek ekranını kullanın. Tüketici şikayetlerinde mağaza kaydındaki yayıncı bilgileri geçerlidir.</p>`,
 };

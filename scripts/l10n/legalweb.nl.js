@@ -58,4 +58,38 @@ module.exports = {
 <h2>Wat blijft</h2>
 <p>Het apparaatkenmerk en telefoonnummer van het gratis analysequotum blijven zonder koppeling met uw account, alleen om herhaalde gratis claims te blokkeren. Aankopen bij Apple, Google en RevenueCat volgen hun eigen regels.</p>
 <p>Zie ook het <a href="privacy.html">privacybeleid</a>.</p>`,
+
+  terms: `<h1>Gebruiksvoorwaarden (EULA)</h1>
+<p class="meta">Bijgewerkt: 25 september 2026. Vertaling ter verduidelijking. De Engelse tekst is leidend.</p>
+<p>Door NexuLex AI te downloaden of te gebruiken aanvaardt u deze voorwaarden en ons <a href="privacy.html">privacybeleid</a>.</p>
+<h2>1. Dienstomschrijving</h2>
+<p>NexuLex AI is consumentensoftware die helpt contracten te beoordelen, risico's te zien, tegen-taal te schetsen en beperkte alleen-lezen briefs te delen. De dienst wordt «zoals ze is» geleverd.</p>
+<h2>2. Geen advocatenkantoor</h2>
+<p><strong>NexuLex AI is geen advocatenkantoor en geeft geen juridisch advies.</strong> Niets in de app schept een advocaat-cliëntrelatie. Toets belangrijke beslissingen bij een bevoegde advocaat in uw land.</p>
+<p>«Advocaat vinden» linkt alleen naar officiële lijsten van balies en overheidsorganen. NexuLex AI beveelt geen advocaten aan, rangschikt ze niet en verwijst niet door, ontvangt geen doorverwijzingsvergoeding en is niet verantwoordelijk voor de diensten van de advocaat die u kiest. Controleer inschrijving en honorarium voordat u opdracht geeft.</p>
+<h2>3. Accounts en abonnementen</h2>
+<ul>
+<li>Gratis quota en Pro-rechten worden serverzijdig en via RevenueCat / de winkels afgedwongen.</li>
+<li>Het Professional-plan bevat alles van Pro plus de Professional-hulpmiddelen en de hogere daglimieten in de app. Uw plan wordt door onze server met RevenueCat gecontroleerd; het kan niet vanuit de app worden gewijzigd.</li>
+<li>De Professional-hulpmiddelen zijn werkhulpen, geen juridisch advies. Ze gebruiken alleen uw materiaal en kunnen fouten bevatten; controleer elke datum, elk feit en elke bron. NexuLex AI vertegenwoordigt niemand voor een rechter of instantie.</li>
+<li>Facturatie, terugbetalingen en opzeggingen volgen de regels van App Store of Google Play.</li>
+<li>U bent verantwoordelijk voor de veiligheid van uw inloggegevens.</li>
+</ul>
+<h2>4. Aanvaardbaar gebruik</h2>
+<ul>
+<li>Upload geen onrechtmatige inhoud of materiaal dat u niet mag verwerken.</li>
+<li>Probeer beveiliging, quota of paywalls niet te omzeilen, te overbelasten of te ontleden.</li>
+<li>Gebruik de dienst niet om te pesten, te frauderen of te misleiden.</li>
+<li>Deel geen geheimen, inloggegevens of persoonsgegevens van derden zonder wettelijke grond.</li>
+</ul>
+<h2>5. Intellectuele eigendom</h2>
+<p>Naam, merk en software van NexuLex AI zijn van de uitgever. Rechten op geüploade contracten blijven bij u. U geeft ons een beperkte licentie om die inhoud alleen te verwerken om de dienst te leveren.</p>
+<h2>6. Gedeelde briefs en plekken</h2>
+<p>Brieflinks en adviseur- / huishoudplekken zijn bedoeld om de oorspronkelijke contracttekst te verbergen. Ontvangers zien toch de analysesamenvattingen die u deelt. Wees voorzichtig voordat u codes maakt.</p>
+<h2>7. Aansprakelijkheidsbeperking</h2>
+<p>Voor zover de wet toestaat zijn wij niet aansprakelijk voor beslissingen op basis van app-uitvoer, fouten van derde-AI, winkelfactuurgeschillen of storingen buiten onze redelijke controle.</p>
+<h2>8. Wijzigingen</h2>
+<p>We kunnen deze voorwaarden bijwerken. Door na een update door te gaan, aanvaardt u de herziene tekst.</p>
+<h2>9. Contact</h2>
+<p>Voor account of product gebruikt u het Support-scherm in de app. Voor consumentenklachten gelden de gegevens van de uitgever op de winkelvermelding.</p>`,
 };

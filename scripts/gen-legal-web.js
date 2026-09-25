@@ -1,7 +1,7 @@
 // WAVE ST.3 — bake privacy.html and delete-account.html for 13 languages.
 const fs = require('fs');
 const path = require('path');
-const { LANGS, assertLegalWebPages } = require('./legalWebAssert');
+const { LANGS, assertLegalWebPages, assertLegalWebTerms } = require('./legalWebAssert');
 
 const ROOT = path.join(__dirname, '..');
 const RTL = new Set(['ar', 'fa']);
@@ -15,11 +15,11 @@ const load = (lang) => {
 const tables = {};
 for (const lang of LANGS) {
   const row = load(lang);
-  if (typeof row.privacy !== 'string' || !row.privacy.trim() || typeof row.deleteAccount !== 'string' || !row.deleteAccount.trim()) {
-    console.error(`${lang}: privacy/deleteAccount missing`);
+  if (typeof row.privacy !== 'string' || !row.privacy.trim() || typeof row.deleteAccount !== 'string' || !row.deleteAccount.trim() || typeof row.terms !== 'string' || !row.terms.trim()) {
+    console.error(`${lang}: privacy/deleteAccount/terms missing`);
     process.exit(1);
   }
-  if (!/NexuLex/.test(row.privacy) || !/NexuLex/.test(row.deleteAccount)) {
+  if (!/NexuLex/.test(row.privacy) || !/NexuLex/.test(row.deleteAccount) || !/NexuLex/.test(row.terms)) {
     console.error(`${lang}: must name NexuLex`);
     process.exit(1);
   }
@@ -98,13 +98,16 @@ function panels(field) {
 
 const privacyPath = path.join(ROOT, 'web', 'privacy.html');
 const deletePath = path.join(ROOT, 'web', 'delete-account.html');
+const termsPath = path.join(ROOT, 'web', 'terms.html');
 fs.writeFileSync(privacyPath, shell('NexuLex AI — Privacy Policy', panels('privacy')), 'utf8');
 fs.writeFileSync(deletePath, shell('NexuLex AI — Delete your account', panels('deleteAccount')), 'utf8');
+fs.writeFileSync(termsPath, shell('NexuLex AI — Terms of Use', panels('terms')), 'utf8');
 
 const listing = fs.readFileSync(path.join(ROOT, 'STORE_LISTING.md'), 'utf8');
 try {
   const result = assertLegalWebPages(fs.readFileSync(privacyPath, 'utf8'), fs.readFileSync(deletePath, 'utf8'), listing);
-  console.log('Wrote privacy.html + delete-account.html ×', result.langs, 'fixtures=', result.cases);
+  const terms = assertLegalWebTerms(fs.readFileSync(termsPath, 'utf8'));
+  console.log('Wrote privacy.html + delete-account.html + terms.html ×', result.langs, 'fixtures=', result.cases + terms.cases);
 } catch (error) {
   console.error(error.message);
   process.exit(1);
