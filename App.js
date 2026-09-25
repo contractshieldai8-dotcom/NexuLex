@@ -4120,8 +4120,8 @@ function AppContent() {
         }}
         onPurchased={async () => {
           const capturedHook = paywallHookRef.current;
-          if (capturedHook === 'draft' || capturedHook === 'explain' || capturedHook === 'cases' || capturedHook === 'ask' || capturedHook === 'professional') {
-            // Advisor reopens the draft wizard / document explainer / case files / legal Q&A / Professional workbench; stay on the advisor tab.
+          if (capturedHook === 'draft' || capturedHook === 'explain' || capturedHook === 'cases' || capturedHook === 'ask' || capturedHook === 'professional' || capturedHook === 'lawyer') {
+            // Advisor reopens the draft wizard / document explainer / case files / legal Q&A / Professional workbench / lawyer hand-off; stay on the advisor tab.
             await refreshProfile();
             return;
           }

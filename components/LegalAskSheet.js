@@ -38,6 +38,7 @@ export default function LegalAskSheet({
   onNeedPaywall,
   onAskAdvisor,
   onOpenCalculator,
+  onFindLawyer,
   prefill = null,
   onClose,
 }) {
@@ -371,6 +372,9 @@ export default function LegalAskSheet({
 
         {ans.lawyerWhen ? sectionTitle('askLawyerWhen', 'person-outline') : null}
         {ans.lawyerWhen ? <Text style={bodyText}>{ans.lawyerWhen}</Text> : null}
+        {onFindLawyer ? (
+          <View style={{ marginTop: 8 }}>{linkBtn('person-outline', 'lhFindCta', () => onFindLawyer({ area, caseId }))}</View>
+        ) : null}
 
         {ans.followUps.length ? sectionTitle('askFollowUps', 'chatbubble-ellipses-outline') : null}
         {ans.followUps.length ? chipRow(ans.followUps.map((item, index) => chip(`fu-${index}`, false, item, () => followUp(item)))) : null}

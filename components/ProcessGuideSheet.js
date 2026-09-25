@@ -43,6 +43,7 @@ export default function ProcessGuideSheet({
   onAsk,
   onStartCase,
   onOpenCalculator,
+  onFindLawyer,
   onClose,
 }) {
   const { t, i18n } = useTranslation();
@@ -250,6 +251,16 @@ export default function ProcessGuideSheet({
       <View style={{ ...box, borderColor: DANGER, backgroundColor: 'rgba(255,59,92,0.08)', marginTop: 12 }}>
         <Text style={[styles.label, { color: DANGER, marginBottom: 4 }]}>{t('pgLawyerTitle')}</Text>
         <Text style={bodyText}>{t(active.lawyerKey)}</Text>
+        {onFindLawyer ? (
+          <TouchableOpacity
+            onPress={() => onFindLawyer({ area: active.area })}
+            style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 8 }}
+            accessibilityRole="button"
+          >
+            <Ionicons name="person-outline" size={15} color={ACCENT} />
+            <Text style={[styles.label, { color: ACCENT, marginBottom: 0 }]}>{t('lhFindCta')}</Text>
+          </TouchableOpacity>
+        ) : null}
       </View>
 
       <TouchableOpacity

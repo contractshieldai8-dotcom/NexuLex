@@ -79,13 +79,15 @@ const waveLr4Src = fs.existsSync('i18n.wavelr4.js') ? fs.readFileSync('i18n.wave
 const waveLr4Match = waveLr4Src.match(/export const WAVE_LR4_I18N = ([\s\S]*);\s*$/);
 const waveLr5Src = fs.existsSync('i18n.wavelr5.js') ? fs.readFileSync('i18n.wavelr5.js', 'utf8') : '';
 const waveLr5Match = waveLr5Src.match(/export const WAVE_LR5_I18N = ([\s\S]*);\s*$/);
+const waveLr6Src = fs.existsSync('i18n.wavelr6.js') ? fs.readFileSync('i18n.wavelr6.js', 'utf8') : '';
+const waveLr6Match = waveLr6Src.match(/export const WAVE_LR6_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5 kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -108,6 +110,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_LR3_I18N = eval(`(${waveLr3Match[1]})`); // eslint-disable-line no-eval
   const WAVE_LR4_I18N = eval(`(${waveLr4Match[1]})`); // eslint-disable-line no-eval
   const WAVE_LR5_I18N = eval(`(${waveLr5Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_LR6_I18N = eval(`(${waveLr6Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -130,8 +133,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_LR3_I18N',
     'WAVE_LR4_I18N',
     'WAVE_LR5_I18N',
+    'WAVE_LR6_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -537,6 +541,32 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     }
   }
 
+  const waveLr6Base = Object.keys(WAVE_LR6_I18N.en || {});
+  if (Object.keys(WAVE_LR6_I18N).length !== 13) {
+    failed = true;
+    console.log(`WAVE_LR6 dil sayisi ${Object.keys(WAVE_LR6_I18N).length}, beklenen 13`);
+  }
+  for (const [lang, table] of Object.entries(WAVE_LR6_I18N)) {
+    const keys = Object.keys(table || {});
+    const missing = waveLr6Base.filter((key) => !keys.includes(key));
+    const extra = keys.filter((key) => !waveLr6Base.includes(key));
+    if (missing.length || extra.length) {
+      failed = true;
+      console.log(`WAVE_LR6 ${lang}: eksik=[${missing.join(', ')}] fazla=[${extra.join(', ')}]`);
+    }
+  }
+  if (waveLr6Base.length !== 77) {
+    failed = true;
+    console.log(`WAVE_LR6 key count ${waveLr6Base.length}, beklenen 77`);
+  }
+  for (const [name, wave] of Object.entries({ ...earlierWaves, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N })) {
+    const shadowed = waveLr6Base.filter((key) => Object.prototype.hasOwnProperty.call(wave.en || {}, key));
+    if (shadowed.length) {
+      failed = true;
+      console.log(`WAVE_LR6 shadows ${name}: ${shadowed.join(', ')}`);
+    }
+  }
+
   for (const lang of languages) {
     const keys = Object.keys(resources[lang].translation);
     const missing = baseKeys.filter((key) => !keys.includes(key));
@@ -549,7 +579,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   // Interpolasyon yer tutucuları çeviride korunmalı.
-  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine', 'calcGrossSalary', 'calcCurrentRent', 'calcProposedRent', 'calcPrincipal', 'calcRatesAsOfPublic', 'draftInvalidDate', 'availPendingLine', 'calcAddedDays', 'calcAddedBusinessDays', 'calcAddedWeeks', 'calcAddedMonths', 'calcLabelInstallmentRow', 'calcProRataAmount', 'calcInstallmentTotalInput', 'calcPenaltyAmountInput', 'calcContractValueInput', 'draftU_termination_notice_body', 'draftU_deposit_return_request_body', 'draftU_repair_or_defect_notice_body', 'draftU_rent_increase_objection_body', 'draftU_unpaid_wages_request_body', 'draftU_personal_data_access_request_body', 'draftU_cancellation_request_body', 'guideItemsHeader', 'docExplainPages', 'docExplainFreeLeft', 'docExplainPageLimit', 'docExplainDaysLeft', 'docExplainLockedTitle', 'docExplainRemindDone', 'askQuotaLeft', 'pgLinksFor', 'pgEmergency', 'pgAskTemplate', 'ptMaterialCount', 'ptQuotaLeft', 'ptRun', 'ptAddedToTimeline'];
+  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine', 'calcGrossSalary', 'calcCurrentRent', 'calcProposedRent', 'calcPrincipal', 'calcRatesAsOfPublic', 'draftInvalidDate', 'availPendingLine', 'calcAddedDays', 'calcAddedBusinessDays', 'calcAddedWeeks', 'calcAddedMonths', 'calcLabelInstallmentRow', 'calcProRataAmount', 'calcInstallmentTotalInput', 'calcPenaltyAmountInput', 'calcContractValueInput', 'draftU_termination_notice_body', 'draftU_deposit_return_request_body', 'draftU_repair_or_defect_notice_body', 'draftU_rent_increase_objection_body', 'draftU_unpaid_wages_request_body', 'draftU_personal_data_access_request_body', 'draftU_cancellation_request_body', 'guideItemsHeader', 'docExplainPages', 'docExplainFreeLeft', 'docExplainPageLimit', 'docExplainDaysLeft', 'docExplainLockedTitle', 'docExplainRemindDone', 'askQuotaLeft', 'pgLinksFor', 'pgEmergency', 'pgAskTemplate', 'ptMaterialCount', 'ptQuotaLeft', 'ptRun', 'ptAddedToTimeline', 'lhFindTitle', 'lhMsgArea', 'lhMsgSummary', 'lhMsgParty', 'lhMsgDeadline', 'lhPacketPrepared', 'lhPacketJurisdiction', 'lhPacketUrgent', 'lhPacketUrgentToday'];
   for (const lang of languages) {
     for (const key of placeholderKeys) {
       const value = resources[lang].translation[key];
@@ -561,9 +591,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 1811) {
+  if (languages.length !== 13 || baseKeys.length !== 1888) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1811`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1888`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -2968,6 +2998,7 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_LR3_I18N',
       'WAVE_LR4_I18N',
       'WAVE_LR5_I18N',
+      'WAVE_LR6_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -2979,7 +3010,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.wavelr2.js', 'utf8').match(/export const WAVE_LR2_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavelr3.js', 'utf8').match(/export const WAVE_LR3_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavelr4.js', 'utf8').match(/export const WAVE_LR4_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.wavelr5.js', 'utf8').match(/export const WAVE_LR5_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavelr5.js', 'utf8').match(/export const WAVE_LR5_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavelr6.js', 'utf8').match(/export const WAVE_LR6_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -4379,7 +4411,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -5110,7 +5142,7 @@ Ticaret Unvanı: Anadolu Bilişim
   // Wiring
   if (!/guideAction\.type === 'openAdvisorTool' && guideAction\.id === 'legal_ask'/.test(advisor) || !/\}, \[guideAction, openDraft\]\);/.test(advisor)) qaFail('advisor must open the Q&A from the guide');
   if (!/onNeedPaywall\?\.\('ask'\)/.test(advisor) || !/<LegalAskSheet/.test(advisor) || !/pendingAskReturnRef\.current = false;\s*setAskOpen\(true\);/.test(advisor)) qaFail('advisor sheet / paywall round-trip');
-  if (!/capturedHook === 'ask'/.test(app) || !/'ask'(, 'professional')?\]\);/.test(read('screens/PaywallScreen.js'))) qaFail('paywall hook ask');
+  if (!/capturedHook === 'ask'/.test(app) || !/'ask'(, 'professional')?(, 'lawyer')?\]\);/.test(read('screens/PaywallScreen.js'))) qaFail('paywall hook ask');
   if (!/'legal_ask'[,\]]/.test(capSrc) || !/id: 'legal_ask'[\s\S]{0,400}action: \{ type: 'openAdvisorTool', id: 'legal_ask' \}/.test(capSrc) || !/id: 'cl_legal_ask'/.test(capSrc)) qaFail('guide workflow + changelog');
 
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
@@ -5338,10 +5370,10 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/<ProToolsSheet[\s\S]{0,200}plan=\{plan\}[\s\S]{0,60}seed=\{proSeed\}/.test(advisor) || !/onOpenProTools=\{openProToolsFromCase\}/.test(advisor)) proFail('advisor sheet wiring');
   if (!/onOpenProTools \? linkBtn\('ribbon-outline', 'ptCardTitle', \(\) => onOpenProTools\(active\)\)/.test(caseSheet)) proFail('case detail must open the workbench');
   if (!/const TIERS = \['pro', 'professional'\];/.test(paywall) || !/fetchOfferings\(tier\)/.test(paywall) || !/purchasePackage\(selected, \{ tier \}\)/.test(paywall) || !/outcome\.plan !== 'free'/.test(paywall) || !/t\('planSyncPending'\)/.test(paywall)) proFail('paywall tiers + purchase outcome');
-  if (!/'ask', 'professional'\]\);/.test(paywall) || !/!canPurchase \|\| busy/.test(paywall) || !/!owned;/.test(paywall)) proFail('paywall hook + owned plan cannot be bought again');
+  if (!/'ask', 'professional'(, 'lawyer')?\]\);/.test(paywall) || !/!canPurchase \|\| busy/.test(paywall) || !/!owned;/.test(paywall)) proFail('paywall hook + owned plan cannot be bought again');
   if (!/const plan = planOf\(profile\);/.test(appSrc) || !/syncEntitlement\(\)\s*\.then\(\(synced\) => \(synced \? fetchProfile\(\) : null\)\)/.test(appSrc) || (appSrc.match(/plan=\{plan\}/g) || []).length < 3 || !/capturedHook === 'professional'/.test(appSrc)) proFail('App plan + sync + wiring');
   if (!/plan === 'professional' \? 'seatLimitProfessional' : 'seatLimitPro'/.test(seatCard) || !/plan === 'pro' && role !== 'household' \? 'professional' : 'share'/.test(seatCard)) proFail('seat card must show the Professional cap and upsell');
-  if (!/'process_guides', 'pro_tools'\]/.test(capSrc) || !/id: 'pro_tools'[\s\S]{0,400}action: \{ type: 'openAdvisorTool', id: 'pro_tools' \}/.test(capSrc) || !/id: 'cl_professional'/.test(capSrc)) proFail('guide workflow + changelog');
+  if (!/'process_guides', 'pro_tools'[,\]]/.test(capSrc) || !/id: 'pro_tools'[\s\S]{0,400}action: \{ type: 'openAdvisorTool', id: 'pro_tools' \}/.test(capSrc) || !/id: 'cl_professional'/.test(capSrc)) proFail('guide workflow + changelog');
   for (const page of ['web/privacy.html', 'web/terms.html']) {
     const html = read(page);
     if (!/Professional/.test(html) || !/RevenueCat/.test(html)) proFail(`${page} must describe the Professional plan and store verification`);
@@ -5354,6 +5386,118 @@ Ticaret Unvanı: Anadolu Bilişim
 
   if (proOk) {
     console.log(`OK  WAVE LR.5 Professional tier (${fixtures} fixtures): server-verified plans, locked profiles, ${limits.professional.toolsDaily}/day tools with refund, ${limits.professional.askDaily} questions, ${limits.professional.advisorSeats} seats × 13`);
+  }
+}
+
+// WAVE LR.6 — Lawyer hand-off: official bar / legal-aid directories, a first message, a Pro case packet; no lawyer list
+{
+  let lhOk = true;
+  const lhFail = (msg) => {
+    failed = true;
+    lhOk = false;
+    console.log(`WAVE LR.6 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const dataSrc = read('constants/lawyerHandoff.js');
+  const sheetSrc = read('components/LawyerHandoffSheet.js');
+  const advisor = read('screens/LegalAdvisorScreen.js');
+  const caseSheet = read('components/CaseHubSheet.js');
+  const askSheet = read('components/LegalAskSheet.js');
+  const guideSheet = read('components/ProcessGuideSheet.js');
+  const paywall = read('screens/PaywallScreen.js');
+  const appSrc = read('App.js');
+  const capSrc = read('constants/appCapabilities.js');
+  const lr6 = eval(`(${read('i18n.wavelr6.js').match(/export const WAVE_LR6_I18N = ([\s\S]*);\s*$/)[1]})`); // eslint-disable-line no-eval
+  let fixtures = 0;
+  let countries = 0;
+  let bodies = 0;
+  try {
+    const { loadApp, LANGS } = require('./cb1-harness');
+    const { api } = loadApp('en');
+    ({ cases: fixtures } = api.assertHandoffFixtures());
+    const codes = Object.keys(api.OFFICIAL_BODIES);
+    countries = codes.length;
+    const all = [...Object.values(api.BAR_BODIES).flat(), ...Object.values(api.EXTRA_LEGAL_AID).flat()];
+    bodies = all.length;
+    for (const code of codes) {
+      const dirs = api.lawyerDirectoriesFor(code);
+      if (!dirs.covered) lhFail(`${code} has no official bar directory`);
+      const urls = [...dirs.bar, ...dirs.legalAid].map((x) => x.url);
+      if (urls.some((url) => !/^https:\/\//.test(url))) lhFail(`${code} links must be https`);
+      if (new Set(dirs.bar.map((x) => x.url)).size !== dirs.bar.length || new Set(dirs.legalAid.map((x) => x.url)).size !== dirs.legalAid.length) lhFail(`${code} duplicate links`);
+    }
+    if (new Set(all.map((x) => x.url)).size !== all.length) lhFail('a directory url is listed twice');
+    if (all.some((x) => /\b(av\.|avukat|attorney at law|rechtsanwalt|maître|lawyer)\b/i.test(x.name) && !/society|association|kammer|bar|birli|ordem|orde|consiglio|consejo|conseil|federal|council/i.test(x.name))) lhFail('directories must be bodies, never individual lawyers');
+
+    const res = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
+    const keys = [
+      ...[...sheetSrc.matchAll(/t\('(lh\w+|hook\w+)'/g)].map((m) => m[1]),
+      ...[...advisor.matchAll(/t\('(lh\w+)'/g)].map((m) => m[1]),
+      ...[...(caseSheet + askSheet + guideSheet).matchAll(/'(lh[A-Z]\w+)'/g)].map((m) => m[1]),
+      ...[...capSrc.matchAll(/Key: '(guide\w*Lawyer\w*|lh\w+)'/g)].map((m) => m[1]),
+      ...api.handoffKeys(),
+      ...api.CASE_AREAS.map((a) => `caseArea_${a}`),
+      'hookLawyerTitle', 'hookLawyerBody', 'guideNewLawyer', 'askLinkFailed', 'genShareFailed', 'closeButton',
+    ];
+    for (const L of LANGS) {
+      const missing = [...new Set(keys)].filter((key) => !res[L][key]);
+      if (missing.length) lhFail(`${L} missing: ${missing.join(', ')}`);
+      if (!res[L].lhDisclaimer.includes('NexuLex') || !res[L].lhNoReferral.includes('NexuLex')) lhFail(`${L} disclaimer / no-referral note must name NexuLex`);
+      const pushy = Object.entries(lr6[L] || {}).filter(([, value]) => /%|\bbest\b|top[- ]rated|en iyi|guarantee|garanti\b/i.test(value));
+      if (pushy.length) lhFail(`${L} hand-off copy must not rank lawyers or promise outcomes: ${pushy.map(([k]) => k).join(', ')}`);
+      const t = (key, opts) => String(res[L][key] || key).replace(/\{\{(\w+)\}\}/g, (m, k) => (opts && opts[k] !== undefined ? String(opts[k]) : ''));
+      const packet = api.buildHandoffPacket({ summary: 'x'.repeat(40), questions: api.HANDOFF_QUESTIONS }, t, { today: '2026-01-01', disclaimer: res[L].lhDisclaimer });
+      if (!packet.endsWith(res[L].lhDisclaimer)) lhFail(`${L} packet must end with the disclaimer`);
+    }
+    if (!/not legal advice/.test(res.en.lhDisclaimer) || !/does not recommend any lawyer/.test(res.en.lhDisclaimer)) lhFail('en disclaimer must say not legal advice + no recommendation');
+    if (!/hukuki danışmanlık değildir/.test(res.tr.lhDisclaimer) || !/hiçbir avukatı önermez/.test(res.tr.lhDisclaimer)) lhFail('tr disclaimer must say not legal advice + no recommendation');
+    if (!/keine Rechtsberatung/.test(res.de.lhDisclaimer)) lhFail('de disclaimer must say not legal advice');
+    for (const L of ['ar', 'fa']) {
+      const bad = Object.entries(lr6[L]).filter(([, value]) => /→|\?/.test(value));
+      if (bad.length) lhFail(`${L} RTL copy must use ؟ and no arrows: ${bad.map(([k]) => k).join(', ')}`);
+    }
+  } catch (error) {
+    lhFail(`runtime: ${error.message}`);
+  }
+
+  // Data module: pure, no network, disclaimer last; intro never carries evidence.
+  if (/fetch\(|supabase|functions\.invoke|AsyncStorage/.test(dataSrc + sheetSrc)) lhFail('hand-off must stay on the device (no network / storage writes)');
+  if (!/if \(disclaimer\) lines\.push\('', disclaimer\);\s*return lines\.join/.test(dataSrc)) lhFail('packet text must end with the disclaimer');
+  if (!/'constants\/lawyerHandoff\.js'/.test(read('scripts/cb1-harness.js'))) lhFail('harness must load lawyerHandoff');
+
+  // Sheet: BL.3, keyboard-safe, horizontal chips, disclaimer last, seed once, packet Pro-gated, intro free.
+  if (!/<Pressable\s+style=\{StyleSheet\.absoluteFillObject\}[\s\S]{0,200}\/>\s*<View\s+style=\{\[\s*styles\.modalSheet/.test(sheetSrc)) lhFail('backdrop Pressable must stay a sibling of the sheet');
+  if (/onStartShouldSetResponder|FlatList|launchCameraAsync/.test(sheetSrc)) lhFail('no responder hacks / nested lists / camera');
+  if (!/<ScrollView horizontal/.test(sheetSrc)) lhFail('chips must scroll horizontally');
+  const inputs = (sheetSrc.match(/<TextInput/g) || []).length;
+  if (inputs !== 2 || inputs !== (sheetSrc.match(/\{\.\.\.sheet\.field\('/g) || []).length || !/<KeyboardSafeSheet/.test(sheetSrc)) lhFail('inputs must be keyboard-safe');
+  if (!/t\('lhDisclaimer'\)\}<\/Text>\s*<\/View>\s*\);/.test(sheetSrc)) lhFail('disclaimer must be the last element');
+  if (!/appliedSeedRef\.current === seed\) return;/.test(sheetSrc)) lhFail('seed must apply once');
+  if (!/if \(!isPro\) \{\s*onNeedPaywall\?\.\('lawyer'\);\s*return false;/.test(sheetSrc)) lhFail('packet must be Pro-gated');
+  if (!/const copyPacket = async \(\) => \{\s*if \(!guardPacket\(\)\) return;/.test(sheetSrc) || !/const sharePacketPdf = async \(\) => \{\s*if \(!guardPacket\(\) \|\| busy\) return;/.test(sheetSrc)) lhFail('every packet action must pass the gate');
+  if (/guardPacket/.test((sheetSrc.match(/const copyIntro[\s\S]*?const guardPacket/) || [''])[0].replace(/const guardPacket$/, ''))) lhFail('the first message must stay free');
+  if (!/Print\.printToFileAsync\(\{ html, base64: true \}\)/.test(sheetSrc) || !/mimeType: 'application\/pdf', UTI: 'com\.adobe\.pdf'/.test(sheetSrc) || !/exportPlain\(text, TXT_NAME, \{ shareAlways: true \}\)/.test(sheetSrc)) lhFail('PDF share with text fallback');
+  if (!/isRtlLanguage\(i18n\.language\) \? '<body dir="rtl">'/.test(sheetSrc)) lhFail('PDF must be right-to-left for ar / fa');
+
+  // Wiring: advisor card + deep link + hand-offs + paywall round-trip; case / answer / guide links; paywall hook; guide.
+  if (!/guideAction\.type === 'openAdvisorTool' && guideAction\.id === 'lawyer_handoff'/.test(advisor) || !/\}, \[guideAction, openDraft\]\);/.test(advisor)) lhFail('advisor must open the hand-off from the guide deep link');
+  if (!/const openLawyerFrom = useCallback\(\(seed\) => \{\s*setCaseHubOpen\(false\);\s*setAskOpen\(false\);\s*setGuidesOpen\(false\);[\s\S]{0,80}setTimeout\(\(\) => setLawyerOpen\(true\), 400\);/.test(advisor)) lhFail('hand-offs must close the source sheet first');
+  if (!/pendingLawyerReturnRef\.current = true;\s*setLawyerOpen\(false\);\s*onNeedPaywall\?\.\('lawyer'\);/.test(advisor) || !/if \(!pendingLawyerReturnRef\.current\) return;\s*pendingLawyerReturnRef\.current = false;\s*setLawyerOpen\(true\);/.test(advisor)) lhFail('paywall round-trip must reopen the hand-off');
+  if (!/<LawyerHandoffSheet[\s\S]{0,200}isPro=\{isPro\}\s*seed=\{lawyerSeed\}/.test(advisor) || (advisor.match(/onFindLawyer=\{openLawyerFrom\}/g) || []).length !== 2 || !/onOpenLawyer=\{\(caseItem\) => openLawyerFrom\(caseItem \? \{ caseId: caseItem\.id \} : null\)\}/.test(advisor)) lhFail('advisor sheet wiring');
+  if (!/onOpenLawyer \? linkBtn\('person-outline', 'lhFindCta', \(\) => onOpenLawyer\(active\)\)/.test(caseSheet)) lhFail('case detail must open the hand-off');
+  if (!/onFindLawyer\(\{ area, caseId \}\)/.test(askSheet) || !/onFindLawyer\(\{ area: active\.area \}\)/.test(guideSheet)) lhFail('answers and guides must open the hand-off');
+  if (!/'ask', 'professional', 'lawyer'\]\);/.test(paywall) || !/capturedHook === 'lawyer'/.test(appSrc)) lhFail('paywall hook + stay on the advisor tab');
+  if (!/'pro_tools', 'lawyer_handoff'[,\]]/.test(capSrc) || !/id: 'lawyer_handoff'[\s\S]{0,400}action: \{ type: 'openAdvisorTool', id: 'lawyer_handoff' \}/.test(capSrc) || !/id: 'cl_lawyer_handoff'/.test(capSrc)) lhFail('guide workflow + changelog');
+  const privacy = read('web/privacy.html');
+  if (!/Find a lawyer: [^<]*created on your device[^<]*not sent to our servers/.test(privacy) || !/Avukat bul: [^<]*cihazınızda oluşturulur/.test(privacy)) lhFail('privacy must say the packet stays on the device');
+  if (!/does not recommend, rank or refer lawyers/.test(read('web/terms.html')) || !/avukat önermez, sıralamaz/.test(read('web/terms.html'))) lhFail('terms must say NexuLex does not refer lawyers');
+
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') lhFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) lhFail('dependency count changed');
+
+  if (lhOk) {
+    console.log(`OK  WAVE LR.6 lawyer hand-off (${fixtures} fixtures): ${countries} jurisdictions, ${bodies} official bodies, no lawyer list, packet Pro-gated, on-device × 13`);
   }
 }
 

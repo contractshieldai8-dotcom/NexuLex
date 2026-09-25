@@ -44,7 +44,7 @@ const PROFESSIONAL_FEATURE_KEYS = [
 ];
 const TIERS = ['pro', 'professional'];
 
-const HOOK_COPY = new Set(['escape', 'validity', 'costs', 'negotiate', 'missing', 'ladder', 'lawClash', 'explain', 'cases', 'ask', 'professional']);
+const HOOK_COPY = new Set(['escape', 'validity', 'costs', 'negotiate', 'missing', 'ladder', 'lawClash', 'explain', 'cases', 'ask', 'professional', 'lawyer']);
 const PRIVACY_URL = 'https://nexulexai.netlify.app/privacy.html';
 const TERMS_URL = 'https://nexulexai.netlify.app/terms.html';
 

@@ -31,6 +31,7 @@ import CaseHubSheet from '../components/CaseHubSheet';
 import LegalAskSheet from '../components/LegalAskSheet';
 import ProcessGuideSheet from '../components/ProcessGuideSheet';
 import ProToolsSheet from '../components/ProToolsSheet';
+import LawyerHandoffSheet from '../components/LawyerHandoffSheet';
 import { PROCESS_GUIDES } from '../constants/processGuides';
 import { loadCases } from '../services/caseFileStore';
 import { DRAFT_CATALOG, resolveDraftVariant } from '../constants/draftTemplates';
@@ -89,6 +90,9 @@ export default function LegalAdvisorScreen({
   const [proToolsOpen, setProToolsOpen] = useState(false);
   const [proSeed, setProSeed] = useState(null);
   const pendingProReturnRef = useRef(false);
+  const [lawyerOpen, setLawyerOpen] = useState(false);
+  const [lawyerSeed, setLawyerSeed] = useState(null);
+  const pendingLawyerReturnRef = useRef(false);
   const pendingDraftReturnRef = useRef(null);
   const paywallWasVisibleRef = useRef(paywallVisible);
 
@@ -144,6 +148,9 @@ export default function LegalAdvisorScreen({
     } else if (guideAction.type === 'openAdvisorTool' && guideAction.id === 'pro_tools') {
       setProSeed(null);
       setProToolsOpen(true);
+    } else if (guideAction.type === 'openAdvisorTool' && guideAction.id === 'lawyer_handoff') {
+      setLawyerSeed(null);
+      setLawyerOpen(true);
     }
   }, [guideAction, openDraft]);
 
@@ -168,6 +175,21 @@ export default function LegalAdvisorScreen({
     setProSeed(caseItem ? { caseItem } : null);
     setTimeout(() => setProToolsOpen(true), 400);
   }, []);
+
+  // WAVE LR.6 — lawyer hand-off from a case, an answer or a guide; the source sheet closes first.
+  const openLawyerFrom = useCallback((seed) => {
+    setCaseHubOpen(false);
+    setAskOpen(false);
+    setGuidesOpen(false);
+    setLawyerSeed(seed || null);
+    setTimeout(() => setLawyerOpen(true), 400);
+  }, []);
+
+  const handleLawyerPaywall = useCallback(() => {
+    pendingLawyerReturnRef.current = true;
+    setLawyerOpen(false);
+    onNeedPaywall?.('lawyer');
+  }, [onNeedPaywall]);
 
   const handleProPaywall = useCallback(() => {
     pendingProReturnRef.current = true;
@@ -316,6 +338,22 @@ export default function LegalAdvisorScreen({
         if (!pendingProReturnRef.current) return;
         pendingProReturnRef.current = false;
         setProToolsOpen(true);
+      }, 400);
+    });
+    return () => {
+      task?.cancel?.();
+      if (timer) clearTimeout(timer);
+    };
+  }, [isActive, paywallClosedTick, paywallVisible]);
+
+  useEffect(() => {
+    if (!paywallClosedTick || paywallVisible || !isActive || !pendingLawyerReturnRef.current) return undefined;
+    let timer = null;
+    const task = InteractionManager.runAfterInteractions(() => {
+      timer = setTimeout(() => {
+        if (!pendingLawyerReturnRef.current) return;
+        pendingLawyerReturnRef.current = false;
+        setLawyerOpen(true);
       }, 400);
     });
     return () => {
@@ -640,6 +678,36 @@ export default function LegalAdvisorScreen({
           ) : (
             <Text style={{ color: ACCENT, fontSize: 11, fontWeight: '800' }}>{t('planProfessionalBadge')}</Text>
           )}
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            setLawyerSeed(null);
+            setLawyerOpen(true);
+          }}
+          accessibilityRole="button"
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 12,
+            borderWidth: 1,
+            borderColor: theme.borderColor,
+            backgroundColor: theme.cardBg,
+            borderRadius: 14,
+            padding: 14,
+            marginBottom: 8,
+          }}
+        >
+          <Ionicons name="briefcase-outline" size={26} color={ACCENT} />
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>
+              {t('lhCardTitle')}
+            </Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
+              {t('lhCardHint')}
+            </Text>
+          </View>
+          <Ionicons name="chevron-forward" size={18} color={ACCENT} />
         </TouchableOpacity>
 
         <RecentChatsList theme={theme} compact />
@@ -1016,6 +1084,7 @@ export default function LegalAdvisorScreen({
           showToast(t('caseAdvisorToast'), { type: 'info', duration: 1600 });
         }}
         onOpenProTools={openProToolsFromCase}
+        onOpenLawyer={(caseItem) => openLawyerFrom(caseItem ? { caseId: caseItem.id } : null)}
         onClose={() => {
           setCaseHubOpen(false);
           setCaseImport(null);
@@ -1039,6 +1108,7 @@ export default function LegalAdvisorScreen({
           setAskOpen(false);
           setCalculatorId(id);
         }}
+        onFindLawyer={openLawyerFrom}
         onClose={() => {
           setAskOpen(false);
           setAskPrefill(null);
@@ -1056,6 +1126,7 @@ export default function LegalAdvisorScreen({
           setGuidesOpen(false);
           setCalculatorId(id);
         }}
+        onFindLawyer={openLawyerFrom}
         onClose={() => setGuidesOpen(false)}
       />
 
@@ -1069,6 +1140,19 @@ export default function LegalAdvisorScreen({
         onClose={() => {
           setProToolsOpen(false);
           setProSeed(null);
+        }}
+      />
+
+      <LawyerHandoffSheet
+        visible={lawyerOpen}
+        theme={theme}
+        country={country}
+        isPro={isPro}
+        seed={lawyerSeed}
+        onNeedPaywall={handleLawyerPaywall}
+        onClose={() => {
+          setLawyerOpen(false);
+          setLawyerSeed(null);
         }}
       />
     </KeyboardAvoidingView>
