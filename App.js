@@ -3819,6 +3819,16 @@ function AppContent() {
                     ))}
                   </ScrollView>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 0 }]}>{t('fiHomeHint')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 0 }]}>
+                    {t('ux5Country', { country: selectedCountryOption.label })}
+                  </Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Lang')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Scan')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Free')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Guides')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Lawyer')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5NoWin')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Disclaimer')}</Text>
                 </View>
               ) : null}
               <View style={{ flexDirection: 'row', gap: 10, marginBottom: 12 }}>
