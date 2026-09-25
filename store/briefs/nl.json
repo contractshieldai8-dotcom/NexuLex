@@ -1,0 +1,33 @@
+{
+  "locale": "nl",
+  "order": [
+    "analyze",
+    "decision",
+    "advisor",
+    "cases",
+    "guides",
+    "lawyer",
+    "languages"
+  ],
+  "captions": {
+    "analyze": "Tekst, PDF of foto’s — land en partij",
+    "decision": "Teken, onderhandel of stap weg",
+    "advisor": "Vraag uw land — bronnen om te checken",
+    "cases": "Dossier: tijdlijn, data, vingerafdruk",
+    "guides": "Stap voor stap en officiële links",
+    "lawyer": "Officiële gidsen — geen namen",
+    "languages": "Dertien talen, één eerlijke waarschuwing"
+  },
+  "frames": {
+    "analyze": "Analyse met land en partij al gekozen. Alleen voorbeeldtekst — nooit een echt klantdossier.",
+    "decision": "Teken, onderhandel of stap weg met zichtbare redenen. Geen winstkans over het beeld.",
+    "advisor": "Een landvraag en officiele bronnen die openen. Verzin geen gerechtelijke verwijzing.",
+    "cases": "Voorbeelddossier met tijdlijn en data. Geen pasfoto en geen echt bewijsstuk.",
+    "guides": "Stapsgewijze gids met een zichtbare link naar het officiele portaal.",
+    "lawyer": "Officiele balie- en rechtsbijstandlijsten. Noem, rangschik of beveel geen advocaat aan.",
+    "languages": "Toon de dertien talen en houd de eerlijke disclaimer als laatste regel."
+  },
+  "device": "Schone telefoonrand. Verberg namen, e-mail, echte contracten en betaalkaarten.",
+  "banned": "Geen winstkans, genoemde advocaat, klaar-voor-de-rechter claim of beloofde uitkomst over het beeld.",
+  "disclaimer": "NexuLex is geen advocatenkantoor. Deze beelden zijn productdemo, geen juridisch advies."
+}

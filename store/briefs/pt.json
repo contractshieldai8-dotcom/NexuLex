@@ -1,0 +1,33 @@
+{
+  "locale": "pt",
+  "order": [
+    "analyze",
+    "decision",
+    "advisor",
+    "cases",
+    "guides",
+    "lawyer",
+    "languages"
+  ],
+  "captions": {
+    "analyze": "Texto, PDF ou fotos — país e parte",
+    "decision": "Assinar, negociar ou recuar — com motivos",
+    "advisor": "Pergunte ao seu país — fontes para verificar",
+    "cases": "Processo: cronologia, datas, impressões",
+    "guides": "Guias passo a passo e ligações oficiais",
+    "lawyer": "Diretórios oficiais — nenhum nome",
+    "languages": "Treze idiomas, um aviso honesto"
+  },
+  "frames": {
+    "analyze": "Ecran Analisar com pais e parte ja escolhidos. So texto de exemplo — nunca um processo real.",
+    "decision": "Assinar, negociar ou desistir com motivos visiveis. Nao sobreponha uma taxa de vitoria.",
+    "advisor": "Uma pergunta do pais e fontes oficiais que se possam abrir. Nao invente uma citacao judicial.",
+    "cases": "Processo de exemplo com linha temporal e datas. Sem foto de passaporte nem prova real.",
+    "guides": "Guia passo a passo com uma ligacao de portal oficial visivel no ecran.",
+    "lawyer": "Diretorios oficiais da ordem e do apoio juridico. Nao nomeie, classifique nem recomende advogado.",
+    "languages": "Mostre as treze linguas e deixe o aviso honesto como ultima linha."
+  },
+  "device": "Moldura de telemovel limpa. Esconda nomes, e-mails, contratos reais e cartoes de pagamento.",
+  "banned": "Nao sobreponha taxa de vitoria, advogado nomeado, pretensao pronta para tribunal nem resultado prometido.",
+  "disclaimer": "A NexuLex nao e um escritorio de advogados. Estes fotogramas sao demos de produto, nao aconselhamento juridico."
+}

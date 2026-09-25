@@ -277,6 +277,258 @@ Vind een advocaat via officiële orde- en rechtsbijstandsgidsen, schrijf een eer
 6. Resmî rehberler — avukat adı yok / Official directories — we name no lawyer
 7. On üç dil, tek dürüst uyarı metni / Thirteen languages, one honest disclaimer
 
+## Çekim özeti
+
+Sıra kilitlidir: analyze, decision, advisor, cases, guides, lawyer, languages. Altyazılar 22–48 karakter kalır. Çekim notları uygulama paketine girmez: `store/briefs/<lang>.json`.
+
+### TR
+Temiz telefon çerçevesi kullanın. Kişi adı, e-posta, gerçek sözleşme ve ödeme kartı göstermeyin.
+1. analyze — Yapıştır, PDF veya foto — ülke ve taraf seç
+   Analiz ekranında ülke ve taraf seçili olsun. Yalnızca örnek metin kullanın; gerçek müvekkil dosyası yok.
+2. decision — İmzala, müzakere et veya vazgeç — gerekçeli
+   İmzala, müzakere et veya vazgeç gerekçeleri görünsün. Kazanma oranı bindirmeyin.
+3. advisor — Ülkene sor — kontrol edebileceğin kaynaklar
+   Ülkeye özel bir soru ve kullanıcının açabileceği resmî kaynaklar görünsün. Mahkeme künyesi uydurmayın.
+4. cases — Dosya: zaman çizelgesi, tarihler, parmak izi
+   Örnek dosyada zaman çizelgesi ve tarihler görünsün. Pasaport fotoğrafı ve gerçek delil yok.
+5. guides — Adım adım rehberler ve resmî bağlantılar
+   Adım adım rehberde resmî portal bağlantısı ekranda görünsün.
+6. lawyer — Resmî rehberler — avukat adı yok
+   Resmî baro ve adli yardım rehberleri görünsün. Avukat adı, sıralama veya öneri yok.
+7. languages — On üç dil, tek dürüst uyarı metni
+   On üç dil listesi görünsün; dürüst uyarı son satırda kalsın.
+Kazanma oranı, isimli avukat, mahkemeye hazır iddia veya vaat edilen sonuç bindirmeyin.
+NexuLex bir hukuk bürosu değildir. Bu kareler ürün gösterimidir, hukuki danışmanlık değildir.
+
+### EN
+Use a clean phone frame. Hide personal names, emails, real contracts and payment cards.
+1. analyze — Paste, PDF or photos — pick country and side
+   Show Analyze with country and side already picked. Use a sample contract only — never a real client file.
+2. decision — Sign, negotiate or walk away — with reasons
+   Show Sign, negotiate or walk away with visible reasons. Do not overlay a win rate.
+3. advisor — Ask your country — sources you can check
+   Show a country question and official sources the user can open. Invent no court citation.
+4. cases — Case file: timeline, dates, evidence prints
+   Show a sample case timeline with dates. No passport photo and no real evidence file.
+5. guides — Step-by-step guides and official links
+   Show a step-by-step guide with an official portal link visible on screen.
+6. lawyer — Official directories — we name no lawyer
+   Show official bar and legal-aid directories. Name, rank or recommend no lawyer.
+7. languages — Thirteen languages, one honest disclaimer
+   Show the thirteen-language list and keep the honest disclaimer as the last line.
+Never overlay a win rate, a named lawyer, a ready-for-court claim or a promised court outcome.
+NexuLex is not a law firm. These frames are product demos, not legal advice.
+
+### DE
+Sauberer Telefonrahmen. Keine Klarnamen, E-Mails, echten Verträge oder Zahlungskarten.
+1. analyze — Text, PDF oder Foto — Land und Partei
+   Analyse mit bereits gewähltem Land und Partei. Nur Mustertext — keine echte Mandantenakte.
+2. decision — Unterschreiben, verhandeln oder gehen
+   Unterzeichnen, verhandeln oder Abstand mit sichtbaren Gründen. Keine Erfolgsquote einblenden.
+3. advisor — Ihr Land fragen — prüfbare Quellen
+   Eine Landesfrage und offizielle Quellen, die sich öffnen lassen. Keine erfundene Gerichtsakte.
+4. cases — Akte: Zeitlinie, Fristen, Fingerabdruck
+   Musterakte mit Zeitlinie und Daten. Kein Passfoto und keine echte Beweisdatei.
+5. guides — Schritt-für-Schritt und Amtslinks
+   Schritt-für-Schritt-Leitfaden mit sichtbarem Link zum offiziellen Portal.
+6. lawyer — Offizielle Verzeichnisse — kein Name
+   Offizielle Kammer- und Prozesskostenhilfe-Verzeichnisse. Keinen Anwalt nennen, reihen oder empfehlen.
+7. languages — Dreizehn Sprachen, ein ehrlicher Hinweis
+   Die dreizehn Sprachen zeigen und den ehrlichen Hinweis als letzte Zeile lassen.
+Keine Erfolgsquote, keinen namentlichen Anwalt, keinen gerichtsreifen Anspruch und keinen versprochenen Ausgang einblenden.
+NexuLex ist keine Anwaltskanzlei. Diese Bilder sind Produktdemos, keine Rechtsberatung.
+
+### FR
+Cadre telephone propre. Masquez noms, e-mails, vrais contrats et cartes de paiement.
+1. analyze — Texte, PDF ou photos — pays et partie
+   Ecran Analyser avec pays et partie deja choisis. Texte d exemple seulement — jamais un vrai dossier.
+2. decision — Signer, négocier ou renoncer — motivé
+   Signer, negocier ou renoncer avec motifs visibles. N superposez aucun taux de victoire.
+3. advisor — Demandez à votre pays — sources à vérifier
+   Une question du pays et des sources officielles ouvrables. N inventez aucune cote de jugement.
+4. cases — Dossier : chronologie, dates, empreintes
+   Dossier exemple avec calendrier et dates. Pas de photo de passeport ni de vraie preuve.
+5. guides — Guides pas à pas et liens officiels
+   Guide pas a pas avec un lien de portail officiel visible a l ecran.
+6. lawyer — Annuaires officiels — aucun nom d’avocat
+   Annuaires officiels du barreau et de l aide juridictionnelle. Ne nommez, classez ni recommandez aucun avocat.
+7. languages — Treize langues, une mise en garde honnête
+   Montrez la liste des treize langues et gardez l avertissement honnete en derniere ligne.
+Ne superposez ni taux de victoire, ni avocat nomme, ni pretention prete au tribunal, ni issue promise.
+NexuLex n est pas un cabinet d avocats. Ces images sont des demos produit, pas un conseil juridique.
+
+### ES
+Marco de telefono limpio. Oculte nombres, correos, contratos reales y tarjetas de pago.
+1. analyze — Texto, PDF o fotos — país y parte
+   Pantalla Analizar con pais y parte ya elegidos. Solo texto de muestra — nunca un expediente real.
+2. decision — Firmar, negociar o retirarte — con motivos
+   Firmar, negociar o retirarse con motivos visibles. No superponga una tasa de exito.
+3. advisor — Pregunta a tu país — fuentes verificables
+   Una pregunta del pais y fuentes oficiales que se puedan abrir. No invente una cita judicial.
+4. cases — Expediente: cronología, fechas, huellas
+   Expediente de muestra con linea de tiempo y fechas. Sin foto de pasaporte ni prueba real.
+5. guides — Guías paso a paso y enlaces oficiales
+   Guia paso a paso con un enlace de portal oficial visible en pantalla.
+6. lawyer — Directorios oficiales — ningún nombre
+   Directorios oficiales de colegio y asistencia juridica. No nombre, clasifique ni recomiende abogado.
+7. languages — Trece idiomas, un aviso honesto
+   Muestre las trece lenguas y deje el aviso honesto como ultima linea.
+No superponga tasa de exito, abogado con nombre, pretension lista para tribunal ni resultado prometido.
+NexuLex no es un despacho de abogados. Estos fotogramas son demos de producto, no asesoramiento juridico.
+
+### AR
+استخدم إطار هاتف نظيف. أخفِ الأسماء والبريد والعقود الحقيقية وبطاقات الدفع.
+1. analyze — نص أو PDF أو صور — البلد والطرف
+   اعرض التحليل مع اختيار البلد والطرف مسبقا. استخدم نصا نموذجيا فقط وليس ملف عميل حقيقي.
+2. decision — وقّع أو فاوض أو انسحب — مع الأسباب
+   اعرض وقّع أو تفاوض أو انسحب مع أسباب ظاهرة. لا تضع معدل كسب فوق الصورة.
+3. advisor — اسأل بلدك — مصادر يمكنك التحقق منها
+   اعرض سؤالا للبلد ومصادر رسمية يمكن فتحها. لا تختلق إشارة محكمة.
+4. cases — ملف: خط زمني ومواعيد وبصمات
+   اعرض ملفا نموذجيا بخط زمني وتواريخ. بلا صورة جواز وبلا دليل حقيقي.
+5. guides — أدلة خطوة بخطوة وروابط رسمية
+   اعرض دليلا خطوة بخطوة مع رابط بوابة رسمية ظاهر على الشاشة.
+6. lawyer — أدلة رسمية — بلا اسم محامٍ
+   اعرض أدلة النقابة والمساعدة القانونية الرسمية. لا تسمّ محاميا ولا ترتبه ولا توصِ به.
+7. languages — ثلاث عشرة لغة وتحذير واحد صادق
+   اعرض قائمة اللغات الثلاث عشرة وأبقِ التنبيه الصادق في السطر الأخير.
+لا تضع معدل كسب ولا محاميا مسمى ولا ادعاء جاهزا للمحكمة ولا نتيجة موعودة.
+NexuLex ليس مكتب محاماة. هذه الإطارات عروض منتج وليست استشارة قانونية.
+
+### IT
+Cornice telefono pulita. Nascondi nomi, e-mail, contratti veri e carte di pagamento.
+1. analyze — Testo, PDF o foto — paese e parte
+   Schermata Analizza con paese e parte gia scelti. Solo testo di esempio — mai un fascicolo reale.
+2. decision — Firma, tratta o rinuncia — con motivi
+   Firma, tratta o rinuncia con motivi visibili. Non sovrapporre un tasso di vittoria.
+3. advisor — Chiedi al tuo paese — fonti da verificare
+   Una domanda del paese e fonti ufficiali apribili. Non inventare una citazione del tribunale.
+4. cases — Fascicolo: cronologia, date, impronte
+   Fascicolo di esempio con cronologia e date. Niente foto passaporto ne prova reale.
+5. guides — Guide passo passo e link ufficiali
+   Guida passo passo con un link al portale ufficiale visibile sullo schermo.
+6. lawyer — Albi ufficiali — nessun nome
+   Elenchi ufficiali di ordine e patrocinio. Non nominare, classificare o consigliare un avvocato.
+7. languages — Tredici lingue, un avviso onesto
+   Mostra le tredici lingue e lascia l avviso onesto come ultima riga.
+Non sovrapporre tasso di vittoria, avvocato nominato, pretesa pronta per il tribunale o esito promesso.
+NexuLex non e uno studio legale. Questi fotogrammi sono demo di prodotto, non consulenza legale.
+
+### ZH
+使用干净的手机外框。隐藏姓名、邮箱、真实合同和支付卡。
+1. analyze — 粘贴文本、PDF 或合同照片，先选国家和立场再扫描
+   分析页已选好国家与立场。只用示例文本，不要用真实客户文件。
+2. decision — 签署、谈判或退出，每条建议都附上清晰理由说明
+   显示签署、协商或退出及可见理由。不要叠加上胜率数字。
+3. advisor — 向你所在国家提问，并核验可查的官方来源链接清单
+   显示该国问题及可打开的官方来源。不要编造法庭案号。
+4. cases — 案件档案：时间线、关键日期、证据指纹一并保存
+   示例案件时间线与日期。不要出现护照照片或真实证据。
+5. guides — 分步办理指南，并附可点开查看的官方机构链接清单
+   分步指南，屏幕上可见官方门户链接。
+6. lawyer — 官方律师名录，页面上不出现任何律师个人姓名信息
+   显示官方律师公会与法律援助名录。不要点名、排名或推荐律师。
+7. languages — 十三种语言，同一条诚实、不夸大结果的法律声明
+   显示十三种语言列表，诚实声明留在最后一行。
+不要叠加胜率、具名律师、可上庭主张或承诺的结果。
+NexuLex 不是律师事务所。这些画面是产品演示，不是法律意见。
+
+### RU
+Чистая рамка телефона. Скройте имена, почту, настоящие договоры и платёжные карты.
+1. analyze — Текст, PDF или фото — страна и сторона
+   Экран анализа со уже выбранной страной и стороной. Только образец текста — не реальное дело.
+2. decision — Подписать, торговаться или уйти
+   Подписать, торговаться или отказаться с видимыми причинами. Не накладывайте шанс победы.
+3. advisor — Спросите страну — источники для проверки
+   Вопрос по стране и официальные источники, которые можно открыть. Не выдумывайте судебную ссылку.
+4. cases — Дело: хронология, сроки, отпечатки
+   Образец дела с лентой и датами. Без фото паспорта и без настоящего доказательства.
+5. guides — Пошаговые гиды и официальные ссылки
+   Пошаговый гид со ссылкой на официальный портал на экране.
+6. lawyer — Официальные реестры — без имён
+   Официальные справочники коллегии и правовой помощи. Не называйте, не ранжируйте и не рекомендуйте юриста.
+7. languages — Тринадцать языков, одно честное предупреждение
+   Покажите список из тринадцати языков и оставьте честный дисклеймер последней строкой.
+Не накладывайте шанс победы, юриста по имени, готовность к суду или обещанный исход.
+NexuLex не юридическая фирма. Эти кадры — демо продукта, а не юридическая консультация.
+
+### FA
+قاب گوشی تمیز. نام، ایمیل، قرارداد واقعی و کارت پرداخت را پنهان کنید.
+1. analyze — متن، PDF یا عکس — کشور و طرف
+   صفحه تحلیل با کشور و طرف از پیش انتخاب‌شده. فقط متن نمونه؛ پرونده موکل واقعی نه.
+2. decision — امضا، مذاکره یا انصراف — با دلیل
+   امضا، مذاکره یا انصراف با دلیلهای نمایان. نرخ برد روی تصویر نگذارید.
+3. advisor — از کشور خود بپرسید — منابع قابل بررسی
+   یک پرسش کشوری و منابع رسمی قابل گشودن. استناد دادگاه نسازید.
+4. cases — پرونده: خط زمانی، تاریخ، اثر انگشت
+   پرونده نمونه با خط زمان و تاریخ. بدون عکس گذرنامه و بدون مدرک واقعی.
+5. guides — راهنمای گام‌به‌گام و پیوندهای رسمی
+   راهنمای گام‌به‌گام با پیوند درگاه رسمی روی صفحه.
+6. lawyer — فهرست رسمی — بدون نام وکیل
+   فهرست رسمی کانون و معاضدت حقوقی. هیچ وکیلی را نام نبرید، رتبه‌بندی نکنید و پیشنهاد ندهید.
+7. languages — سیزده زبان، یک هشدار صادقانه
+   فهرست سیزده زبان را نشان دهید و هشدار صادق را خط آخر نگه دارید.
+نرخ برد، وکیل نام‌دار، ادعای آماده دادگاه یا نتیجه وعده‌داده‌شده روی تصویر نگذارید.
+NexuLex دفتر وکالت نیست. این قاب‌ها نمایش محصول است، نه مشاوره حقوقی.
+
+### JA
+きれいな端末フレームを使う。氏名、メール、実契約、支払カードは隠す。
+1. analyze — テキスト・PDF・写真を入れ、国と立場を選んで確認
+   分析画面で国と立場を先に選ぶ。実依頼の文書ではなく、サンプル文だけを使う。
+2. decision — 署名・交渉・撤退を、理由つきで判断できる確認画面
+   署名・交渉・見送りと理由を見せる。勝率は重ねない。
+3. advisor — 国にあわせて質問し、公式出典をその場で確認できる
+   その国の質問と、開ける公式出典を見せる。裁判の引用は作らない。
+4. cases — 事件ファイル：時系列、期日、証拠の指紋を保存
+   日付付きのサンプル案件タイムライン。パスポート写真と実証拠は出さない。
+5. guides — 手続きの手順ガイドと、公式機関への確認リンク
+   公式ポータルのリンクが見える手順ガイドを撮る。
+6. lawyer — 公式名簿のみ表示。弁護士の個人名は出しません
+   公式の弁護士会・法律扶助名簿を見せる。弁護士の指名・順位・推奨はしない。
+7. languages — 十三の言語と、一つの誠実で誇張しない注意文です
+   十三言語の一覧を見せ、誠実な注意文を最後の行に残す。
+勝率、実名の弁護士、出廷可能という主張、約束した結末を重ねない。
+NexuLex は法律事務所ではありません。これらの画面は製品デモであり、法的助言ではありません。
+
+### PT
+Moldura de telemovel limpa. Esconda nomes, e-mails, contratos reais e cartoes de pagamento.
+1. analyze — Texto, PDF ou fotos — país e parte
+   Ecran Analisar com pais e parte ja escolhidos. So texto de exemplo — nunca um processo real.
+2. decision — Assinar, negociar ou recuar — com motivos
+   Assinar, negociar ou desistir com motivos visiveis. Nao sobreponha uma taxa de vitoria.
+3. advisor — Pergunte ao seu país — fontes para verificar
+   Uma pergunta do pais e fontes oficiais que se possam abrir. Nao invente uma citacao judicial.
+4. cases — Processo: cronologia, datas, impressões
+   Processo de exemplo com linha temporal e datas. Sem foto de passaporte nem prova real.
+5. guides — Guias passo a passo e ligações oficiais
+   Guia passo a passo com uma ligacao de portal oficial visivel no ecran.
+6. lawyer — Diretórios oficiais — nenhum nome
+   Diretorios oficiais da ordem e do apoio juridico. Nao nomeie, classifique nem recomende advogado.
+7. languages — Treze idiomas, um aviso honesto
+   Mostre as treze linguas e deixe o aviso honesto como ultima linha.
+Nao sobreponha taxa de vitoria, advogado nomeado, pretensao pronta para tribunal nem resultado prometido.
+A NexuLex nao e um escritorio de advogados. Estes fotogramas sao demos de produto, nao aconselhamento juridico.
+
+### NL
+Schone telefoonrand. Verberg namen, e-mail, echte contracten en betaalkaarten.
+1. analyze — Tekst, PDF of foto’s — land en partij
+   Analyse met land en partij al gekozen. Alleen voorbeeldtekst — nooit een echt klantdossier.
+2. decision — Teken, onderhandel of stap weg
+   Teken, onderhandel of stap weg met zichtbare redenen. Geen winstkans over het beeld.
+3. advisor — Vraag uw land — bronnen om te checken
+   Een landvraag en officiele bronnen die openen. Verzin geen gerechtelijke verwijzing.
+4. cases — Dossier: tijdlijn, data, vingerafdruk
+   Voorbeelddossier met tijdlijn en data. Geen pasfoto en geen echt bewijsstuk.
+5. guides — Stap voor stap en officiële links
+   Stapsgewijze gids met een zichtbare link naar het officiele portaal.
+6. lawyer — Officiële gidsen — geen namen
+   Officiele balie- en rechtsbijstandlijsten. Noem, rangschik of beveel geen advocaat aan.
+7. languages — Dertien talen, één eerlijke waarschuwing
+   Toon de dertien talen en houd de eerlijke disclaimer als laatste regel.
+Geen winstkans, genoemde advocaat, klaar-voor-de-rechter claim of beloofde uitkomst over het beeld.
+NexuLex is geen advocatenkantoor. Deze beelden zijn productdemo, geen juridisch advies.
+
+
 TR: Orijinal tuzak metni AI’ya ikinci kez gitmez; kalkan taslağı gider.
 EN: The original trap wording is not sent to the AI again; the shield draft is.
 

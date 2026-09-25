@@ -6255,6 +6255,70 @@ Ticaret Unvanı: Anadolu Bilişim
   }
 }
 
+// WAVE REL.4 — screenshot shoot brief × 13; order frozen; captions stay 22–48; listing stays out of the app
+{
+  let relOk = true;
+  const relFail = (msg) => {
+    failed = true;
+    relOk = false;
+    console.log(`WAVE REL.4 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const LANGS = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+  let fixtures = 0;
+  try {
+    const { loadApp } = require('./cb1-harness');
+    const { api } = loadApp('en');
+    const tables = Object.fromEntries(LANGS.map((L) => [L, require(`./l10n/store.${L}.js`)]));
+    const briefs = Object.fromEntries(LANGS.map((L) => [L, require(`./l10n/shotbrief.${L}.js`)]));
+    ({ cases: fixtures } = api.assertStoreShootBrief(briefs, tables));
+    if (!api.STORE_CHECKLIST.some((item) => item.id === 'screenshot_brief') || !api.STORE_CHECKLIST.some((item) => item.id === 'screenshot_order')) {
+      relFail('checklist must cover shoot brief and screenshot order');
+    }
+    if (api.STORE_CHECKLIST.length < 19) relFail('launch checklist must keep REL.1–REL.3 rows plus the shoot brief');
+    if (api.SCREENSHOT_IDS.join(',') !== 'analyze,decision,advisor,cases,guides,lawyer,languages') relFail('screenshot order must stay frozen');
+    for (const L of LANGS) {
+      const file = `store/briefs/${L}.json`;
+      if (!fs.existsSync(file)) {
+        relFail(`${file} missing — run node scripts/gen-store-listings.js`);
+        continue;
+      }
+      const json = JSON.parse(read(file));
+      if (json.order.join(',') !== api.SCREENSHOT_IDS.join(',')) relFail(`${L} brief order drifted`);
+      if (json.disclaimer !== briefs[L].briefDisclaimer || json.banned !== briefs[L].briefBanned) relFail(`${L} brief copy drifted`);
+      for (const id of api.SCREENSHOT_IDS) {
+        if (json.captions?.[id] !== tables[L][`shot_${id}`]) relFail(`${L} caption ${id} drifted`);
+        if (json.frames?.[id] !== briefs[L][api.SCREENSHOT_BRIEF_SHOT_KEYS[id]]) relFail(`${L} frame ${id} drifted`);
+      }
+      const listingFile = `store/listings/${L}.json`;
+      if (fs.existsSync(listingFile)) {
+        const listing = JSON.parse(read(listingFile));
+        for (const id of api.SCREENSHOT_IDS) {
+          if (listing.screenshots?.[id] !== tables[L][`shot_${id}`]) relFail(`${L} listing caption ${id} drifted`);
+        }
+      }
+    }
+    const listing = read('STORE_LISTING.md');
+    if (!/## Ekran görüntüsü sırası/.test(listing) || !/## Çekim özeti/.test(listing)) relFail('STORE_LISTING.md must include screenshot order and the shoot brief');
+    if (!/Selected by the user via the system picker/.test(listing)) relFail('Data Safety photo-picker sentence must stay');
+    if (/generic mode|Turkish tables/.test(briefs.de.briefAnalyze + briefs.de.briefBanned + briefs.fr.briefAnalyze + briefs.fr.briefBanned)) {
+      relFail('DE/FR shoot brief must not paste the English jurisdiction jargon');
+    }
+    if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) relFail('store listing must not be imported by the app');
+    if (/from ['"].*shotbrief/.test(read('App.js') + read('i18n.js'))) relFail('shoot brief must not be imported by the app');
+  } catch (error) {
+    relFail(`runtime: ${error.message}`);
+  }
+
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') relFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) relFail('dependency count changed');
+
+  if (relOk) {
+    console.log(`OK  WAVE REL.4 screenshot shoot brief (${fixtures} fixtures): seven frames × ${LANGS.length}, captions frozen, listing not in the app bundle`);
+  }
+}
+
 // WAVE GR.6 — first-scan success: case / ask / invite; 400 ms gap; no stacked sheets
 {
   let grOk = true;

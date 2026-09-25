@@ -1,0 +1,33 @@
+{
+  "locale": "fr",
+  "order": [
+    "analyze",
+    "decision",
+    "advisor",
+    "cases",
+    "guides",
+    "lawyer",
+    "languages"
+  ],
+  "captions": {
+    "analyze": "Texte, PDF ou photos — pays et partie",
+    "decision": "Signer, négocier ou renoncer — motivé",
+    "advisor": "Demandez à votre pays — sources à vérifier",
+    "cases": "Dossier : chronologie, dates, empreintes",
+    "guides": "Guides pas à pas et liens officiels",
+    "lawyer": "Annuaires officiels — aucun nom d’avocat",
+    "languages": "Treize langues, une mise en garde honnête"
+  },
+  "frames": {
+    "analyze": "Ecran Analyser avec pays et partie deja choisis. Texte d exemple seulement — jamais un vrai dossier.",
+    "decision": "Signer, negocier ou renoncer avec motifs visibles. N superposez aucun taux de victoire.",
+    "advisor": "Une question du pays et des sources officielles ouvrables. N inventez aucune cote de jugement.",
+    "cases": "Dossier exemple avec calendrier et dates. Pas de photo de passeport ni de vraie preuve.",
+    "guides": "Guide pas a pas avec un lien de portail officiel visible a l ecran.",
+    "lawyer": "Annuaires officiels du barreau et de l aide juridictionnelle. Ne nommez, classez ni recommandez aucun avocat.",
+    "languages": "Montrez la liste des treize langues et gardez l avertissement honnete en derniere ligne."
+  },
+  "device": "Cadre telephone propre. Masquez noms, e-mails, vrais contrats et cartes de paiement.",
+  "banned": "Ne superposez ni taux de victoire, ni avocat nomme, ni pretention prete au tribunal, ni issue promise.",
+  "disclaimer": "NexuLex n est pas un cabinet d avocats. Ces images sont des demos produit, pas un conseil juridique."
+}

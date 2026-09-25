@@ -21,12 +21,32 @@ for (const lang of langs) {
   tables[lang] = load(lang);
 }
 
-const { assertStoreListing, assertStoreAso, assertStorePromo, SCREENSHOT_IDS } = require('./cb1-harness').loadApp('en').api;
+const {
+  assertStoreListing,
+  assertStoreAso,
+  assertStorePromo,
+  assertStoreShootBrief,
+  SCREENSHOT_IDS,
+  SCREENSHOT_BRIEF_SHOT_KEYS,
+} = require('./cb1-harness').loadApp('en').api;
+
+const briefs = {};
+for (const lang of langs) {
+  const file = path.join(__dirname, 'l10n', `shotbrief.${lang}.js`);
+  if (!fs.existsSync(file)) {
+    console.error(`${lang}: shotbrief missing`);
+    process.exit(1);
+  }
+  delete require.cache[require.resolve(file)];
+  briefs[lang] = require(file);
+}
+
 let result;
 try {
   result = assertStoreListing(tables);
   result.aso = assertStoreAso(tables).cases;
   result.promo = assertStorePromo(tables).cases;
+  result.brief = assertStoreShootBrief(briefs, tables).cases;
 } catch (error) {
   console.error(error.message);
   process.exit(1);
@@ -56,6 +76,22 @@ for (const lang of langs) {
   fs.writeFileSync(path.join(outDir, `${lang}.json`), `${JSON.stringify(json, null, 2)}\n`, 'utf8');
 }
 
+const briefDir = path.join(ROOT, 'store', 'briefs');
+fs.mkdirSync(briefDir, { recursive: true });
+for (const lang of langs) {
+  const row = briefs[lang];
+  const json = {
+    locale: lang,
+    order: SCREENSHOT_IDS,
+    captions: Object.fromEntries(SCREENSHOT_IDS.map((id) => [id, tables[lang][`shot_${id}`]])),
+    frames: Object.fromEntries(SCREENSHOT_IDS.map((id) => [id, row[SCREENSHOT_BRIEF_SHOT_KEYS[id]]])),
+    device: row.briefDevice,
+    banned: row.briefBanned,
+    disclaimer: row.briefDisclaimer,
+  };
+  fs.writeFileSync(path.join(briefDir, `${lang}.json`), `${JSON.stringify(json, null, 2)}\n`, 'utf8');
+}
+
 const listingPath = path.join(ROOT, 'STORE_LISTING.md');
 const prev = fs.readFileSync(listingPath, 'utf8').replace(/\r\n/g, '\n');
 const keepFrom = prev.indexOf('\n## Gizlilik cümlesi');
@@ -68,6 +104,11 @@ const tail = prev.slice(keepFrom + 1).replace(/\n## Ekran görüntüsü sırası
 const shortBlocks = langs.map((L) => `### ${LANG_HEAD[L]}\n${tables[L].shortDescription}\n`).join('\n');
 const longBlocks = langs.map((L) => `### ${LANG_HEAD[L]}\n${tables[L].description}\n`).join('\n');
 const shotBlocks = SCREENSHOT_IDS.map((id, i) => `${i + 1}. ${tables.tr[`shot_${id}`]} / ${tables.en[`shot_${id}`]}`).join('\n');
+const briefBlocks = langs.map((L) => {
+  const row = briefs[L];
+  const lines = SCREENSHOT_IDS.map((id, i) => `${i + 1}. ${id} — ${tables[L][`shot_${id}`]}\n   ${row[SCREENSHOT_BRIEF_SHOT_KEYS[id]]}`).join('\n');
+  return `### ${LANG_HEAD[L]}\n${row.briefDevice}\n${lines}\n${row.briefBanned}\n${row.briefDisclaimer}\n`;
+}).join('\n');
 const keywordLine = langs.map((L) => `${LANG_HEAD[L]}: ${tables[L].keywords}`).join('\n');
 const promoBlocks = langs.map((L) => `### ${LANG_HEAD[L]}\n${tables[L].promotionalText}\n`).join('\n');
 const newsBlocks = langs.map((L) => `### ${LANG_HEAD[L]}\n${tables[L].whatsNew}\n`).join('\n');
@@ -103,10 +144,16 @@ ${newsBlocks}
 
 ${shotBlocks}
 
+## Çekim özeti
+
+Sıra kilitlidir: analyze, decision, advisor, cases, guides, lawyer, languages. Altyazılar 22–48 karakter kalır. Çekim notları uygulama paketine girmez: \`store/briefs/<lang>.json\`.
+
+${briefBlocks}
+
 TR: Orijinal tuzak metni AI’ya ikinci kez gitmez; kalkan taslağı gider.
 EN: The original trap wording is not sent to the AI again; the shield draft is.
 
 `;
 
 fs.writeFileSync(listingPath, `${head}${tail}`, 'utf8');
-console.log('Wrote store/listings ×', langs.length, 'fixtures=', result.cases, 'aso=', result.aso, 'promo=', result.promo);
+console.log('Wrote store/listings ×', langs.length, 'briefs ×', langs.length, 'fixtures=', result.cases, 'aso=', result.aso, 'promo=', result.promo, 'brief=', result.brief);

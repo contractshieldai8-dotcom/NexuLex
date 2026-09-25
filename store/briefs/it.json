@@ -1,0 +1,33 @@
+{
+  "locale": "it",
+  "order": [
+    "analyze",
+    "decision",
+    "advisor",
+    "cases",
+    "guides",
+    "lawyer",
+    "languages"
+  ],
+  "captions": {
+    "analyze": "Testo, PDF o foto — paese e parte",
+    "decision": "Firma, tratta o rinuncia — con motivi",
+    "advisor": "Chiedi al tuo paese — fonti da verificare",
+    "cases": "Fascicolo: cronologia, date, impronte",
+    "guides": "Guide passo passo e link ufficiali",
+    "lawyer": "Albi ufficiali — nessun nome",
+    "languages": "Tredici lingue, un avviso onesto"
+  },
+  "frames": {
+    "analyze": "Schermata Analizza con paese e parte gia scelti. Solo testo di esempio — mai un fascicolo reale.",
+    "decision": "Firma, tratta o rinuncia con motivi visibili. Non sovrapporre un tasso di vittoria.",
+    "advisor": "Una domanda del paese e fonti ufficiali apribili. Non inventare una citazione del tribunale.",
+    "cases": "Fascicolo di esempio con cronologia e date. Niente foto passaporto ne prova reale.",
+    "guides": "Guida passo passo con un link al portale ufficiale visibile sullo schermo.",
+    "lawyer": "Elenchi ufficiali di ordine e patrocinio. Non nominare, classificare o consigliare un avvocato.",
+    "languages": "Mostra le tredici lingue e lascia l avviso onesto come ultima riga."
+  },
+  "device": "Cornice telefono pulita. Nascondi nomi, e-mail, contratti veri e carte di pagamento.",
+  "banned": "Non sovrapporre tasso di vittoria, avvocato nominato, pretesa pronta per il tribunale o esito promesso.",
+  "disclaimer": "NexuLex non e uno studio legale. Questi fotogrammi sono demo di prodotto, non consulenza legale."
+}

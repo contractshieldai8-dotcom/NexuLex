@@ -1,0 +1,33 @@
+{
+  "locale": "de",
+  "order": [
+    "analyze",
+    "decision",
+    "advisor",
+    "cases",
+    "guides",
+    "lawyer",
+    "languages"
+  ],
+  "captions": {
+    "analyze": "Text, PDF oder Foto — Land und Partei",
+    "decision": "Unterschreiben, verhandeln oder gehen",
+    "advisor": "Ihr Land fragen — prüfbare Quellen",
+    "cases": "Akte: Zeitlinie, Fristen, Fingerabdruck",
+    "guides": "Schritt-für-Schritt und Amtslinks",
+    "lawyer": "Offizielle Verzeichnisse — kein Name",
+    "languages": "Dreizehn Sprachen, ein ehrlicher Hinweis"
+  },
+  "frames": {
+    "analyze": "Analyse mit bereits gewähltem Land und Partei. Nur Mustertext — keine echte Mandantenakte.",
+    "decision": "Unterzeichnen, verhandeln oder Abstand mit sichtbaren Gründen. Keine Erfolgsquote einblenden.",
+    "advisor": "Eine Landesfrage und offizielle Quellen, die sich öffnen lassen. Keine erfundene Gerichtsakte.",
+    "cases": "Musterakte mit Zeitlinie und Daten. Kein Passfoto und keine echte Beweisdatei.",
+    "guides": "Schritt-für-Schritt-Leitfaden mit sichtbarem Link zum offiziellen Portal.",
+    "lawyer": "Offizielle Kammer- und Prozesskostenhilfe-Verzeichnisse. Keinen Anwalt nennen, reihen oder empfehlen.",
+    "languages": "Die dreizehn Sprachen zeigen und den ehrlichen Hinweis als letzte Zeile lassen."
+  },
+  "device": "Sauberer Telefonrahmen. Keine Klarnamen, E-Mails, echten Verträge oder Zahlungskarten.",
+  "banned": "Keine Erfolgsquote, keinen namentlichen Anwalt, keinen gerichtsreifen Anspruch und keinen versprochenen Ausgang einblenden.",
+  "disclaimer": "NexuLex ist keine Anwaltskanzlei. Diese Bilder sind Produktdemos, keine Rechtsberatung."
+}

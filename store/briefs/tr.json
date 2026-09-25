@@ -1,0 +1,33 @@
+{
+  "locale": "tr",
+  "order": [
+    "analyze",
+    "decision",
+    "advisor",
+    "cases",
+    "guides",
+    "lawyer",
+    "languages"
+  ],
+  "captions": {
+    "analyze": "Yapıştır, PDF veya foto — ülke ve taraf seç",
+    "decision": "İmzala, müzakere et veya vazgeç — gerekçeli",
+    "advisor": "Ülkene sor — kontrol edebileceğin kaynaklar",
+    "cases": "Dosya: zaman çizelgesi, tarihler, parmak izi",
+    "guides": "Adım adım rehberler ve resmî bağlantılar",
+    "lawyer": "Resmî rehberler — avukat adı yok",
+    "languages": "On üç dil, tek dürüst uyarı metni"
+  },
+  "frames": {
+    "analyze": "Analiz ekranında ülke ve taraf seçili olsun. Yalnızca örnek metin kullanın; gerçek müvekkil dosyası yok.",
+    "decision": "İmzala, müzakere et veya vazgeç gerekçeleri görünsün. Kazanma oranı bindirmeyin.",
+    "advisor": "Ülkeye özel bir soru ve kullanıcının açabileceği resmî kaynaklar görünsün. Mahkeme künyesi uydurmayın.",
+    "cases": "Örnek dosyada zaman çizelgesi ve tarihler görünsün. Pasaport fotoğrafı ve gerçek delil yok.",
+    "guides": "Adım adım rehberde resmî portal bağlantısı ekranda görünsün.",
+    "lawyer": "Resmî baro ve adli yardım rehberleri görünsün. Avukat adı, sıralama veya öneri yok.",
+    "languages": "On üç dil listesi görünsün; dürüst uyarı son satırda kalsın."
+  },
+  "device": "Temiz telefon çerçevesi kullanın. Kişi adı, e-posta, gerçek sözleşme ve ödeme kartı göstermeyin.",
+  "banned": "Kazanma oranı, isimli avukat, mahkemeye hazır iddia veya vaat edilen sonuç bindirmeyin.",
+  "disclaimer": "NexuLex bir hukuk bürosu değildir. Bu kareler ürün gösterimidir, hukuki danışmanlık değildir."
+}

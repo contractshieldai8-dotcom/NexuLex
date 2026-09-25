@@ -60,6 +60,7 @@ export const STORE_CHECKLIST = [
   { id: 'aso_keywords_fill', store: 'appstore', need: 'Apple keywords use most of the 100-character budget, no app name, comma-separated, no spaces around commas' },
   { id: 'promo_fill', store: 'appstore', need: 'Apple promotional text uses most of the 170-character budget and names no recommended lawyer' },
   { id: 'whats_new_fill', store: 'both', need: 'What\'s New names official directories, Professional work aids and that NexuLex recommends no lawyer' },
+  { id: 'screenshot_brief', store: 'both', need: 'Shoot seven frames in SCREENSHOT_IDS order using the localized brief; never overlay a win rate, a named lawyer or a ready-for-court claim' },
 ];
 
 const len = (value) => [...String(value || '')].length;
@@ -184,5 +185,72 @@ export function assertStorePromo(tables) {
   check(/avukatı önermez|avukat önermez/.test(tables.tr.whatsNew), 'TR What\'s New says no lawyer is recommended');
   check(/does not recommend|still does not recommend/.test(en.whatsNew), 'EN What\'s New says no lawyer is recommended');
   check(/not legal advice/.test(en.whatsNew), 'EN What\'s New keeps the disclaimer');
+  return { cases };
+}
+
+/** WAVE REL.4 — screenshot shoot brief. Still not imported by the app. Captions stay 22–48. */
+export const SCREENSHOT_BRIEF_KEYS = [
+  'briefDevice',
+  'briefAnalyze',
+  'briefDecision',
+  'briefAdvisor',
+  'briefCases',
+  'briefGuides',
+  'briefLawyer',
+  'briefLanguages',
+  'briefBanned',
+  'briefDisclaimer',
+];
+
+export const SCREENSHOT_BRIEF_SHOT_KEYS = {
+  analyze: 'briefAnalyze',
+  decision: 'briefDecision',
+  advisor: 'briefAdvisor',
+  cases: 'briefCases',
+  guides: 'briefGuides',
+  lawyer: 'briefLawyer',
+  languages: 'briefLanguages',
+};
+
+export function assertStoreShootBrief(briefs, tables) {
+  let cases = 0;
+  const check = (cond, msg) => {
+    cases += 1;
+    if (!cond) throw new Error(`storeShoot: ${msg}`);
+  };
+  check(STORE_CHECKLIST.some((item) => item.id === 'screenshot_brief'), 'checklist covers the shoot brief');
+  check(SCREENSHOT_IDS.join(',') === 'analyze,decision,advisor,cases,guides,lawyer,languages', 'screenshot order stays frozen');
+  check(SCREENSHOT_BRIEF_KEYS.length === 10, 'ten brief keys');
+  const en = briefs.en;
+  check(en && /NexuLex/.test(en.briefDisclaimer), 'EN brief names NexuLex');
+  check(/win rate/.test(en.briefBanned) && /lawyer/.test(en.briefBanned), 'EN banned overlay names win rate and lawyer');
+  check(/not legal advice/.test(en.briefDisclaimer), 'EN brief keeps the disclaimer');
+  for (const lang of STORE_LANGS) {
+    const row = briefs[lang];
+    check(row && typeof row === 'object', `${lang} brief exists`);
+    const missing = SCREENSHOT_BRIEF_KEYS.filter((key) => typeof row[key] !== 'string' || !row[key].trim());
+    check(!missing.length, `${lang} missing ${missing.join(', ')}`);
+    check(/NexuLex/.test(row.briefDisclaimer), `${lang} brief must name NexuLex`);
+    const blob = SCREENSHOT_BRIEF_KEYS.map((key) => row[key]).join('\n');
+    check(!/\b\d{1,3}\s?%\s*(win|success|chance)|best lawyer|top lawyer|en iyi avukat/i.test(blob), `${lang} no win% or ranking`);
+    check(!/court-ready/i.test(blob), `${lang} must not use court-ready even as a label`);
+    if (lang === 'ar' || lang === 'fa') {
+      check(!/→/.test(blob), `${lang} no arrows`);
+      check(!/[\u0600-\u06FF][^?]*\?(\s|$)/.test(blob), `${lang} use ؟`);
+    }
+    if (lang !== 'en') {
+      for (const key of SCREENSHOT_BRIEF_KEYS) {
+        if (row[key].length >= 12) check(row[key] !== en[key], `${lang}.${key} identical to EN`);
+      }
+    }
+    if (tables && tables[lang]) {
+      for (const id of SCREENSHOT_IDS) {
+        const n = len(tables[lang][`shot_${id}`]);
+        check(n >= 22 && n <= STORE_LIMITS.screenshot, `${lang} caption ${id} stay ${n}`);
+      }
+    }
+  }
+  check(/hukuki danışmanlık değildir/.test(briefs.tr.briefDisclaimer), 'TR brief is not legal advice');
+  check(/avukat/i.test(briefs.tr.briefLawyer) && /önerm|sıralama|öneri yok/i.test(briefs.tr.briefLawyer + briefs.tr.briefBanned), 'TR brief names no lawyer');
   return { cases };
 }

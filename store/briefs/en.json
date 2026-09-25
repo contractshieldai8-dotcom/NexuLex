@@ -1,0 +1,33 @@
+{
+  "locale": "en",
+  "order": [
+    "analyze",
+    "decision",
+    "advisor",
+    "cases",
+    "guides",
+    "lawyer",
+    "languages"
+  ],
+  "captions": {
+    "analyze": "Paste, PDF or photos — pick country and side",
+    "decision": "Sign, negotiate or walk away — with reasons",
+    "advisor": "Ask your country — sources you can check",
+    "cases": "Case file: timeline, dates, evidence prints",
+    "guides": "Step-by-step guides and official links",
+    "lawyer": "Official directories — we name no lawyer",
+    "languages": "Thirteen languages, one honest disclaimer"
+  },
+  "frames": {
+    "analyze": "Show Analyze with country and side already picked. Use a sample contract only — never a real client file.",
+    "decision": "Show Sign, negotiate or walk away with visible reasons. Do not overlay a win rate.",
+    "advisor": "Show a country question and official sources the user can open. Invent no court citation.",
+    "cases": "Show a sample case timeline with dates. No passport photo and no real evidence file.",
+    "guides": "Show a step-by-step guide with an official portal link visible on screen.",
+    "lawyer": "Show official bar and legal-aid directories. Name, rank or recommend no lawyer.",
+    "languages": "Show the thirteen-language list and keep the honest disclaimer as the last line."
+  },
+  "device": "Use a clean phone frame. Hide personal names, emails, real contracts and payment cards.",
+  "banned": "Never overlay a win rate, a named lawyer, a ready-for-court claim or a promised court outcome.",
+  "disclaimer": "NexuLex is not a law firm. These frames are product demos, not legal advice."
+}
