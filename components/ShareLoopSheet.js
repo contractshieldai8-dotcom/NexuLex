@@ -12,12 +12,12 @@ import KeyboardSafeSheet, { useKeyboardSafeSheet } from './KeyboardSafeSheet';
 const WIN_H = Dimensions.get('window').height;
 const SHEET_MAX = Math.round(WIN_H * 0.92);
 
-export default function ShareLoopSheet({ visible, theme, onDone, onClose }) {
-  const { t } = useTranslation();
+export default function ShareLoopSheet({ visible, theme, country, onDone, onClose }) {
+  const { t, i18n } = useTranslation();
   const { showToast } = useFeedback();
   const sheet = useKeyboardSafeSheet({ maxHeight: SHEET_MAX });
   const [busy, setBusy] = useState(false);
-  const payload = useMemo(() => buildInvitePayload(t, inviteUrl()), [t]);
+  const payload = useMemo(() => buildInvitePayload(t, inviteUrl(i18n.language)), [t, i18n.language]);
 
   const shareInvite = async () => {
     if (busy) return;
@@ -44,7 +44,7 @@ export default function ShareLoopSheet({ visible, theme, onDone, onClose }) {
   };
 
   const openStore = () => {
-    Linking.openURL(rateUrl(Platform.OS)).catch(() => showToast(t('vlRateFailed'), { type: 'error' }));
+    Linking.openURL(rateUrl(Platform.OS, { language: i18n.language, country })).catch(() => showToast(t('vlRateFailed'), { type: 'error' }));
     onDone?.();
   };
 
@@ -106,6 +106,15 @@ export default function ShareLoopSheet({ visible, theme, onDone, onClose }) {
               <Text style={styles.secondaryBtnText}>{t('vlRate')}</Text>
             </TouchableOpacity>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('vlRateHint')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('gr7RateHint')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>
+              {Platform.OS === 'android' ? t('gr7Play') : t('gr7Get')}
+            </Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('gr7NoApple')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('gr7InviteHint')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('gr7Align')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('gr7Country')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('gr7Note')}</Text>
 
             <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 4 }]} onPress={onClose}>
               <Text style={styles.secondaryBtnText}>{t('vlSkip')}</Text>

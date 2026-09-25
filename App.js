@@ -4536,6 +4536,7 @@ function AppContent() {
       <ShareLoopSheet
         visible={shareLoopOpen}
         theme={theme}
+        country={analysisCountry}
         onDone={closeShareLoop}
         onClose={closeShareLoop}
       />
