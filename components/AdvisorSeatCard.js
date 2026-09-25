@@ -21,9 +21,11 @@ import {
   revokeAdvisorSeat,
 } from '../services/advisorSeat';
 import { useFeedback } from '../context/FeedbackContext';
+import { inviteUrl } from '../constants/shareLoop';
+import { buildSeatInvitePayload } from '../constants/seatInvite';
 
 export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPaywall, onOpenBrief }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { showToast } = useFeedback();
   const [busy, setBusy] = useState(false);
   const [seats, setSeats] = useState([]);
@@ -62,19 +64,16 @@ export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPay
     }
   };
 
-  const osMessageFor = (seat) =>
-    seat?.role === 'household'
-      ? t('seatOsHousehold', { code: seat.code })
-      : t('seatOsMessage', { code: seat.code });
+  const payloadFor = (seat) => buildSeatInvitePayload(t, seat, i18n.language);
 
   const handleShareCode = async (seat) => {
-    const message = osMessageFor(seat);
+    const payload = payloadFor(seat);
     const title = seat?.role === 'household' ? t('seatHouseholdTitle') : t('seatTitle');
-    await Share.share(Platform.OS === 'ios' ? { message, title } : { message });
+    await Share.share(Platform.OS === 'ios' ? { message: payload.message, title } : { message: payload.message });
   };
 
   const handleCopy = async (seat) => {
-    await Clipboard.setStringAsync(osMessageFor(seat));
+    await Clipboard.setStringAsync(payloadFor(seat).message);
     showToast(t('shieldCopied'), { type: 'success' });
   };
 
@@ -146,6 +145,8 @@ export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPay
     <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}>
       <Text style={[styles.settingLabel, { color: theme.text }]}>{t('seatHouseholdTitle')}</Text>
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('seatHouseholdHint')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux3Household')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux3InviteHint')}</Text>
       {householdSeats.map(renderSeatRow)}
       <TouchableOpacity
         style={[styles.secondaryBtn, { marginTop: 14 }, busy && styles.buttonDisabled]}
@@ -158,6 +159,10 @@ export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPay
 
       <Text style={[styles.settingLabel, { color: theme.text, marginTop: 20 }]}>{t('seatTitle')}</Text>
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('seatHint')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux3Advisor')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux3Get')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux3Install', { url: inviteUrl(i18n.language) })}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux3Copy')}</Text>
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t(plan === 'professional' ? 'seatLimitProfessional' : 'seatLimitPro')}</Text>
       {advisorSeats.map(renderSeatRow)}
       <TouchableOpacity
@@ -170,6 +175,7 @@ export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPay
       </TouchableOpacity>
 
       <Text style={[styles.settingLabel, { color: theme.text, marginTop: 18 }]}>{t('seatRedeem')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 6 }]}>{t('ux3RedeemHint')}</Text>
       <TextInput
         style={[
           styles.input,
@@ -220,6 +226,7 @@ export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPay
       ) : (
         <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('seatEmpty')}</Text>
       )}
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 14 }]}>{t('ux3Disclaimer')}</Text>
     </View>
   );
 }

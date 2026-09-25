@@ -1,0 +1,134 @@
+// WAVE UX.3 — seat invite clarity. Same key set in all 13 languages.
+
+export const WAVE_UX3_I18N = {
+  "tr": {
+    "ux3InviteHint": "Sistem paylaşımı yalnızca koltuk kodunu gönderir. Orijinal sözleşme eklenmez.",
+    "ux3RedeemHint": "Karşı taraf sekiz karakterlik kodu Ayarlar’a yapıştırır. Sonra salt okunur brief görür, orijinal metni değil.",
+    "ux3Install": "Önce NexuLex gerekir. Yalnızca genel sayfa: {{url}}",
+    "ux3Household": "Hane koltuğu bir eş veya hane üyesidir. Sizin danışman koltuklarınızı oluşturamaz.",
+    "ux3Advisor": "Danışman koltukları salt okunur kalır. İlişki biterse kodu iptal edin.",
+    "ux3Get": "Genel sayfada sözleşme ve brief yoktur. Yalnızca NexuLex’i açmalarına yardım eder.",
+    "ux3Copy": "Kopyalama aynı kod iletisini gönderir. Madde metni kopyalanmaz.",
+    "ux3Disclaimer": "NexuLex bir hukuk bürosu değildir. Koltuk ürün aracıdır, avukat dosyası değildir."
+  },
+  "en": {
+    "ux3InviteHint": "The system share sends only the seat code. The original contract is not attached.",
+    "ux3RedeemHint": "The other person pastes the eight-character code in Settings. They later see a read-only brief, not the original text.",
+    "ux3Install": "They need NexuLex first. Public page only: {{url}}",
+    "ux3Household": "A household seat is one spouse or household member. They cannot create your advisor seats.",
+    "ux3Advisor": "Advisor seats stay read-only. Revoke the code if the relationship ends.",
+    "ux3Get": "The public page has no contract and no brief. It only helps them open NexuLex.",
+    "ux3Copy": "Copy sends the same code message. No clause text is copied.",
+    "ux3Disclaimer": "NexuLex is not a law firm. A seat is a product tool, not a lawyer file."
+  },
+  "de": {
+    "ux3InviteHint": "Die Systemfreigabe sendet nur den Sitzcode. Der Originalvertrag wird nicht angehaengt.",
+    "ux3RedeemHint": "Die andere Person fuegt den achtstelligen Code in den Einstellungen ein. Spaeter sieht sie einen Nur-Lese-Brief, nicht den Originaltext.",
+    "ux3Install": "Zuerst brauchen sie NexuLex. Nur die oeffentliche Seite: {{url}}",
+    "ux3Household": "Ein Haushaltssitz ist ein Ehepartner oder Haushaltsmitglied. Er kann Ihre Beratersitze nicht anlegen.",
+    "ux3Advisor": "Beratersitze bleiben nur lesbar. Widerrufen Sie den Code, wenn die Beziehung endet.",
+    "ux3Get": "Die oeffentliche Seite hat keinen Vertrag und keinen Brief. Sie hilft nur, NexuLex zu oeffnen.",
+    "ux3Copy": "Kopieren sendet dieselbe Codenachricht. Kein Klauseltext wird kopiert.",
+    "ux3Disclaimer": "NexuLex ist keine Kanzlei. Ein Sitz ist ein Produktwerkzeug, keine Anwaltsakte."
+  },
+  "fr": {
+    "ux3InviteHint": "Le partage systeme n envoie que le code de siege. Le contrat original n est pas joint.",
+    "ux3RedeemHint": "L autre personne colle le code de huit caracteres dans Reglages. Elle voit ensuite un brief en lecture seule, pas le texte original.",
+    "ux3Install": "Ils ont d abord besoin de NexuLex. Page publique seulement: {{url}}",
+    "ux3Household": "Un siege foyer est un conjoint ou un membre du foyer. Il ne peut pas creer vos sieges conseiller.",
+    "ux3Advisor": "Les sieges conseiller restent en lecture seule. Revoquez le code si la relation s arrete.",
+    "ux3Get": "La page publique n a ni contrat ni brief. Elle aide seulement a ouvrir NexuLex.",
+    "ux3Copy": "Copier envoie le meme message de code. Aucun texte de clause n est copie.",
+    "ux3Disclaimer": "NexuLex n est pas un cabinet. Un siege est un outil produit, pas un dossier avocat."
+  },
+  "es": {
+    "ux3InviteHint": "El recurso del sistema envia solo el codigo del asiento. El contrato original no se adjunta.",
+    "ux3RedeemHint": "La otra persona pega el codigo de ocho caracteres en Ajustes. Luego ve un brief de solo lectura, no el texto original.",
+    "ux3Install": "Primero necesitan NexuLex. Solo la pagina publica: {{url}}",
+    "ux3Household": "Un asiento de hogar es un conyuge o miembro del hogar. No puede crear sus asientos de asesor.",
+    "ux3Advisor": "Los asientos de asesor siguen en solo lectura. Revogue el codigo si termina la relacion.",
+    "ux3Get": "La pagina publica no tiene contrato ni brief. Solo ayuda a abrir NexuLex.",
+    "ux3Copy": "Copiar envia el mismo mensaje de codigo. No se copia texto de clausula.",
+    "ux3Disclaimer": "NexuLex no es un bufete. Un asiento es una herramienta de producto, no un expediente de abogado."
+  },
+  "ar": {
+    "ux3InviteHint": "مشاركة النظام ترسل رمز المقعد فقط. ولا يُرفق العقد الأصلي.",
+    "ux3RedeemHint": "يلصق الطرف الآخر الرمز المكوّن من ثمانية أحرف في الإعدادات. ثم يرى ملخصا للقراءة فقط لا النص الأصلي.",
+    "ux3Install": "يحتاجون NexuLex أولا. الصفحة العامة فقط: {{url}}",
+    "ux3Household": "مقعد الأسرة زوج أو فرد من الأسرة. ولا يمكنه إنشاء مقاعد المستشار الخاصة بك.",
+    "ux3Advisor": "مقاعد المستشار تبقى للقراءة فقط. وألغِ الرمز إذا انتهت العلاقة.",
+    "ux3Get": "الصفحة العامة بلا عقد وبلا ملخص. وتساعد فقط على فتح NexuLex.",
+    "ux3Copy": "النسخ يرسل رسالة الرمز نفسها. ولا يُنسخ نص بند.",
+    "ux3Disclaimer": "NexuLex ليس مكتب محاماة. المقعد أداة منتج وليس ملف محام."
+  },
+  "it": {
+    "ux3InviteHint": "La condivisione di sistema invia solo il codice del posto. Il contratto originale non e allegato.",
+    "ux3RedeemHint": "L altra persona incolla il codice di otto caratteri in Impostazioni. Poi vede un brief in sola lettura, non il testo originale.",
+    "ux3Install": "Prima serve NexuLex. Solo la pagina pubblica: {{url}}",
+    "ux3Household": "Un posto nucleo e un coniuge o un membro del nucleo. Non puo creare i tuoi posti advisor.",
+    "ux3Advisor": "I posti advisor restano in sola lettura. Revoca il codice se il rapporto finisce.",
+    "ux3Get": "La pagina pubblica non ha contratto ne brief. Serve solo ad aprire NexuLex.",
+    "ux3Copy": "Copiare invia lo stesso messaggio di codice. Nessun testo di clausola viene copiato.",
+    "ux3Disclaimer": "NexuLex non e uno studio. Un posto e uno strumento di prodotto, non un fascicolo avvocato."
+  },
+  "zh": {
+    "ux3InviteHint": "系统分享只发送席位代码。不会附上原始合同。",
+    "ux3RedeemHint": "对方在设置中粘贴八位代码。之后看到只读简报，而不是原文。",
+    "ux3Install": "他们先需要 NexuLex。仅公开页面：{{url}}",
+    "ux3Household": "家庭席位是一位配偶或家庭成员。他们不能创建你的顾问席位。",
+    "ux3Advisor": "顾问席位保持只读。关系结束后请撤销代码。",
+    "ux3Get": "公开页面没有合同，也没有简报。只帮助打开 NexuLex。",
+    "ux3Copy": "复制发送同一条代码消息。不会复制条款文本。",
+    "ux3Disclaimer": "NexuLex 不是律师事务所。席位是产品工具，不是律师档案。"
+  },
+  "ru": {
+    "ux3InviteHint": "Системная отправка шлёт только код места. Исходный договор не прикладывается.",
+    "ux3RedeemHint": "Другой человек вставляет восьмизначный код в Настройки. Потом видит бриф только для чтения, а не исходный текст.",
+    "ux3Install": "Сначала им нужен NexuLex. Только публичная страница: {{url}}",
+    "ux3Household": "Семейное место — супруг или член семьи. Оно не может создать ваши места советника.",
+    "ux3Advisor": "Места советника остаются только для чтения. Отзовите код, если отношения закончились.",
+    "ux3Get": "На публичной странице нет договора и брифа. Она лишь помогает открыть NexuLex.",
+    "ux3Copy": "Копирование шлёт то же сообщение с кодом. Текст пункта не копируется.",
+    "ux3Disclaimer": "NexuLex не юридическая фирма. Место — продуктовый инструмент, не дело юриста."
+  },
+  "fa": {
+    "ux3InviteHint": "هم‌رسانی سامانه فقط کد صندلی را می‌فرستد. قرارداد اصلی پیوست نمی‌شود.",
+    "ux3RedeemHint": "طرف دیگر کد هشت‌نویسه‌ای را در تنظیمات می‌چسباند. بعد خلاصه فقط‌خواندنی می‌بیند، نه متن اصلی.",
+    "ux3Install": "اول به NexuLex نیاز دارند. فقط صفحه عمومی: {{url}}",
+    "ux3Household": "صندلی خانواده همسر یا عضو خانوار است. نمی‌تواند صندلی مشاور شما را بسازد.",
+    "ux3Advisor": "صندلی مشاور فقط‌خواندنی می‌ماند. اگر رابطه تمام شد کد را لغو کنید.",
+    "ux3Get": "صفحه عمومی نه قرارداد دارد نه خلاصه. فقط برای بازکردن NexuLex کمک می‌کند.",
+    "ux3Copy": "رونوشت همان پیام کد را می‌فرستد. متن بند رونوشت نمی‌شود.",
+    "ux3Disclaimer": "NexuLex دفتر وکالت نیست. صندلی ابزار محصول است، نه پرونده وکیل."
+  },
+  "ja": {
+    "ux3InviteHint": "システム共有はシートコードだけを送ります。元の契約は添付しません。",
+    "ux3RedeemHint": "相手は八文字のコードを設定に貼ります。あとで読み取り専用ブリーフを見ます。原文ではありません。",
+    "ux3Install": "先に NexuLex が必要です。公開ページのみ: {{url}}",
+    "ux3Household": "世帯シートは配偶者か世帯の一員です。あなたのアドバイザーシートは作れません。",
+    "ux3Advisor": "アドバイザーシートは読み取り専用のままです。関係が終わったらコードを取り消してください。",
+    "ux3Get": "公開ページに契約もブリーフもありません。NexuLex を開く手助けだけです。",
+    "ux3Copy": "コピーは同じコード文面を送ります。条項文はコピーしません。",
+    "ux3Disclaimer": "NexuLex は法律事務所ではありません。シートは製品ツールであり、弁護士ファイルではありません。"
+  },
+  "pt": {
+    "ux3InviteHint": "A partilha do sistema envia so o codigo do lugar. O contrato original nao e anexado.",
+    "ux3RedeemHint": "A outra pessoa cola o codigo de oito caracteres em Definicoes. Depois ve um brief so de leitura, nao o texto original.",
+    "ux3Install": "Primeiro precisam da NexuLex. So a pagina publica: {{url}}",
+    "ux3Household": "Um lugar de agregado e um conjuge ou membro do agregado. Nao pode criar os seus lugares de consultor.",
+    "ux3Advisor": "Os lugares de consultor ficam so de leitura. Revoque o codigo se a relacao terminar.",
+    "ux3Get": "A pagina publica nao tem contrato nem brief. So ajuda a abrir a NexuLex.",
+    "ux3Copy": "Copiar envia a mesma mensagem de codigo. Nenhum texto de clausula e copiado.",
+    "ux3Disclaimer": "A NexuLex nao e um escritorio. Um lugar e uma ferramenta de produto, nao um processo de advogado."
+  },
+  "nl": {
+    "ux3InviteHint": "De systeemdeling stuurt alleen de plekcode. Het oorspronkelijke contract wordt niet bijgevoegd.",
+    "ux3RedeemHint": "De andere persoon plakt de achttekencode in Instellingen. Daarna ziet die een alleen-lezen brief, niet de oorspronkelijke tekst.",
+    "ux3Install": "Eerst hebben ze NexuLex nodig. Alleen de openbare pagina: {{url}}",
+    "ux3Household": "Een huishoudplek is een partner of huisgenoot. Die kan uw adviseurplekken niet aanmaken.",
+    "ux3Advisor": "Adviseurplekken blijven alleen-lezen. Trek de code in als de relatie stopt.",
+    "ux3Get": "De openbare pagina heeft geen contract en geen brief. Ze helpt alleen NexuLex te openen.",
+    "ux3Copy": "Kopieren stuurt hetzelfde codebericht. Er wordt geen clausuletekst gekopieerd.",
+    "ux3Disclaimer": "NexuLex is geen advocatenkantoor. Een plek is een producthulp, geen advocatendossier."
+  }
+};

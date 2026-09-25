@@ -41,6 +41,7 @@ function buildResources() {
     loadWave('i18n.waveux2.js', 'WAVE_UX2_I18N'),
     loadWave('i18n.wavest4.js', 'WAVE_ST4_I18N'),
     loadWave('i18n.wavegr7.js', 'WAVE_GR7_I18N'),
+    loadWave('i18n.waveux3.js', 'WAVE_UX3_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {
@@ -151,6 +152,7 @@ const APP_FILES = [
   'constants/settingsTrust.js',
   'constants/localeCorridor.js',
   'constants/settingsOps.js',
+  'constants/seatInvite.js',
 ];
 
 function loadApp(language = 'tr') {
