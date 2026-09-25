@@ -5633,4 +5633,66 @@ Ticaret Unvanı: Anadolu Bilişim
   }
 }
 
+// WAVE REL.1 — store listings × 13, screenshot captions, RevenueCat / store checklist; listing stays out of the app bundle
+{
+  let relOk = true;
+  const relFail = (msg) => {
+    failed = true;
+    relOk = false;
+    console.log(`WAVE REL.1 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const LANGS = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+  let fixtures = 0;
+  let shots = 0;
+  let checks = 0;
+  try {
+    const { loadApp } = require('./cb1-harness');
+    const { api } = loadApp('en');
+    const tables = Object.fromEntries(LANGS.map((L) => [L, require(`./l10n/store.${L}.js`)]));
+    ({ cases: fixtures, shots, checks } = api.assertStoreListing(tables));
+    for (const L of LANGS) {
+      const file = `store/listings/${L}.json`;
+      if (!fs.existsSync(file)) {
+        relFail(`${file} missing — run node scripts/gen-store-listings.js`);
+        continue;
+      }
+      const json = JSON.parse(read(file));
+      if (json.apple.description !== tables[L].description || json.google.shortDescription !== tables[L].shortDescription) relFail(`${L} generated listing drifted from the source`);
+      if (json.apple.keywords !== tables[L].keywords) relFail(`${L} keywords drifted`);
+    }
+    const listing = read('STORE_LISTING.md');
+    if (!/store\/listings\/<lang>\.json/.test(listing) || !/scripts\/l10n\/store\.<lang>\.js/.test(listing)) relFail('STORE_LISTING.md must point at the generated JSON');
+    if (!/avukat listesi, sıralama veya yönlendirme yoktur/i.test(listing)) relFail('listing header must say there is no lawyer list');
+    const expo = JSON.parse(read('app.json')).expo || {};
+    const localeMap = expo.locales || {};
+    if (LANGS.some((L) => localeMap[L] !== `./locales/ios/${L}.json`)) relFail('app.json locales map must stay 13 files (do not edit app.json)');
+    const plistKeys = ['NSMicrophoneUsageDescription', 'NSSpeechRecognitionUsageDescription', 'NSPhotoLibraryUsageDescription'];
+    const enPlist = JSON.parse(read('locales/ios/en.json')).ios;
+    for (const L of LANGS) {
+      const ios = JSON.parse(read(`locales/ios/${L}.json`)).ios || {};
+      const missing = plistKeys.filter((key) => !String(ios[key] || '').trim());
+      if (missing.length) relFail(`locales/ios/${L}.json missing ${missing.join(', ')}`);
+      if (L !== 'en') {
+        const same = plistKeys.filter((key) => ios[key] === enPlist[key] && String(ios[key]).length >= 12);
+        if (same.length) relFail(`locales/ios/${L}.json still English: ${same.join(', ')}`);
+      }
+    }
+    const purchases = read('services/purchases.js');
+    if (!/PROFESSIONAL_OFFERING_ID/.test(purchases) || !/WITH_TIME_PRORATION/.test(purchases)) relFail('app must still implement the Professional offering and Play proration');
+    if (!api.STORE_CHECKLIST.some((item) => item.id === 'ios_same_group') || !api.STORE_CHECKLIST.some((item) => item.id === 'delete_url')) relFail('checklist must cover the iOS group and Play deletion URL');
+    if (/require\(['"]\.\.\/constants\/storeListing['"]\)|from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) relFail('store listing must not be imported by the app');
+  } catch (error) {
+    relFail(`runtime: ${error.message}`);
+  }
+
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') relFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) relFail('dependency count changed');
+
+  if (relOk) {
+    console.log(`OK  WAVE REL.1 store listings (${fixtures} fixtures): ${LANGS.length} locales, ${shots} screenshot captions, ${checks} launch checks, listing not in the app bundle`);
+  }
+}
+
 process.exit(failed ? 1 : 0);

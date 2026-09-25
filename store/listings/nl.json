@@ -1,0 +1,25 @@
+{
+  "locale": "nl",
+  "apple": {
+    "name": "NexuLex AI",
+    "subtitle": "Juridische hulp, geen kantoor",
+    "promotionalText": "Scan een contract, vraag uw land, houd een dossier bij en ga met een kant-en-klare map naar een advocaat uit officiële gidsen.",
+    "description": "NexuLex AI is een juridische copiloot voor huur-, arbeids-, NDA-, SaaS- en koopcontracten. Kies land en partij, plak tekst, een PDF of foto’s. Vóór ondertekening markeert het riskante clausules, ontbrekende bescherming en data die u niet mag missen, stelt het tegenvoorstellen voor en zet het herinneringen.\n\nDe adviseur voegt juridische vragen voor uw land toe, stapsgewijze procedurehulp, dossiers op het toestel en een eerste-contactpakket met officiële advocaten- en rechtsbijstandsgidsen. NexuLex beveelt geen advocaten aan, rangschikt of verwijst ze niet. Professional-hulpmiddelen (chronologie, geschilpunten, onderzoeksnota) zijn werkhulpen in betaalde plannen.\n\nRapporten in 13 talen. Wettelijke rekenhulpen (ontslagvergoeding, huurverhoging, wettelijke rente) gebruiken Turkse tabellen (per 1 januari 2026; controleer de actuele officiële waarden). In andere landen werken ze in een algemene modus waarin u het tarief zelf invult. Scenario’s en concepten zijn specifiek voor Turkije; elders algemene stappen en een algemeen briefformaat. Concepten zijn sjablonen; geen voorspelling van winst en geen garantie op aanvaarding door een rechter.\n\nAlgemene juridische informatie, geen juridisch advies / vertegenwoordiging door een advocaat.",
+    "keywords": "contract,huur,arbeid,NDA,SaaS,clausule,advocaat,risico,termijn,consument",
+    "whatsNew": "Advocaat vinden: officiële gidsen, eerste bericht en Pro-dossiermap. Professional-werkbank, procedurehulp en juridische vragen. NexuLex beveelt nog steeds geen advocaat aan."
+  },
+  "google": {
+    "title": "NexuLex AI",
+    "shortDescription": "Contractrisico: valkuilen, termijnen, vragen en officiële advocatengidsen.",
+    "fullDescription": "NexuLex AI is een juridische copiloot voor huur-, arbeids-, NDA-, SaaS- en koopcontracten. Kies land en partij, plak tekst, een PDF of foto’s. Vóór ondertekening markeert het riskante clausules, ontbrekende bescherming en data die u niet mag missen, stelt het tegenvoorstellen voor en zet het herinneringen.\n\nDe adviseur voegt juridische vragen voor uw land toe, stapsgewijze procedurehulp, dossiers op het toestel en een eerste-contactpakket met officiële advocaten- en rechtsbijstandsgidsen. NexuLex beveelt geen advocaten aan, rangschikt of verwijst ze niet. Professional-hulpmiddelen (chronologie, geschilpunten, onderzoeksnota) zijn werkhulpen in betaalde plannen.\n\nRapporten in 13 talen. Wettelijke rekenhulpen (ontslagvergoeding, huurverhoging, wettelijke rente) gebruiken Turkse tabellen (per 1 januari 2026; controleer de actuele officiële waarden). In andere landen werken ze in een algemene modus waarin u het tarief zelf invult. Scenario’s en concepten zijn specifiek voor Turkije; elders algemene stappen en een algemeen briefformaat. Concepten zijn sjablonen; geen voorspelling van winst en geen garantie op aanvaarding door een rechter.\n\nAlgemene juridische informatie, geen juridisch advies / vertegenwoordiging door een advocaat."
+  },
+  "screenshots": {
+    "analyze": "Tekst, PDF of foto’s — land en partij",
+    "decision": "Teken, onderhandel of stap weg",
+    "advisor": "Vraag uw land — bronnen om te checken",
+    "cases": "Dossier: tijdlijn, data, vingerafdruk",
+    "guides": "Stap voor stap en officiële links",
+    "lawyer": "Officiële gidsen — geen namen",
+    "languages": "Dertien talen, één eerlijke waarschuwing"
+  }
+}

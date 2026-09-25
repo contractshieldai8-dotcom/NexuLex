@@ -127,6 +127,7 @@ const APP_FILES = [
   'constants/processGuides.js',
   'constants/lawyerHandoff.js',
   'utils/plan.js',
+  'constants/storeListing.js',
 ];
 
 function loadApp(language = 'tr') {

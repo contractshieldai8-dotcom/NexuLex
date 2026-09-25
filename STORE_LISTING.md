@@ -1,127 +1,202 @@
 # NexuLex AI — mağaza listeleri
 
 Uygulama içi ekran değildir. App Store / Google Play metinleri. Runtime’a import etmeyin.
+Kaynak: `scripts/l10n/store.<lang>.js` — yapıştırılacak JSON: `store/listings/<lang>.json` — `node scripts/gen-store-listings.js` ile üretin.
 
 **Ad:** NexuLex AI
 
 **Zorunlu uyarı (her dilde listede yer alır):** General legal information, not legal advice / lawyer representation.
 
-**Yargı alanı paketleri (dürüst beyan):** Kanuni hesaplayıcılar (kıdem tazminatı, kira artışı, yasal faiz) yalnızca Türkiye tablolarıyla çalışır (tablo tarihi 1 Ocak 2026, resmî kaynakla doğrulanmalıdır). Diğer ülkelerde faiz ve kira hesaplayıcıları genel modda çalışır (oranı kullanıcı girer), kıdem hesaplayıcısı kapalıdır. Senaryo yol haritaları ve dilekçe/mektup taslakları Türkiye’ye özgüdür; diğer ülkelerde genel adımlar ve kanun atfı içermeyen genel mektup formatı gösterilir. Kazanma olasılığı, emsal karar veya mahkemede temsil iddiası yoktur; taslaklar şablondur.
+**Yargı alanı paketleri (dürüst beyan):** Kanuni hesaplayıcılar (kıdem tazminatı, kira artışı, yasal faiz) yalnızca Türkiye tablolarıyla çalışır (tablo tarihi 1 Ocak 2026, resmî kaynakla doğrulanmalıdır). Diğer ülkelerde faiz ve kira hesaplayıcıları genel modda çalışır (oranı kullanıcı girer), kıdem hesaplayıcısı kapalıdır. Senaryo yol haritaları ve dilekçe/mektup taslakları Türkiye’ye özgüdür; diğer ülkelerde genel adımlar ve kanun atfı içermeyen genel mektup formatı gösterilir. Kazanma olasılığı, emsal karar veya mahkemede temsil iddiası yoktur; taslaklar şablondur. Avukat listesi, sıralama veya yönlendirme yoktur.
 
 ## Kısa açıklama (≤ 80 karakter)
 
 ### TR
-Sözleşme riskini tarayın: tuzak maddeler, eksik korumalar ve tarihler.
+Sözleşme riski: tuzak madde, tarihler, soru-cevap ve resmî avukat rehberleri.
 
 ### EN
-Scan contract risk: trap clauses, missing protections and key dates.
+Scan contract risk: trap clauses, dates, Q&A and official lawyer directories.
 
 ### DE
-Vertragsrisiko prüfen: Fallen, fehlende Schutzklauseln und Fristen.
+Vertragsrisiko: Fallen, Fristen, Fragen und offizielle Anwaltsverzeichnisse.
 
 ### FR
-Analysez les risques d’un contrat : clauses pièges, protections, dates.
+Risque contrat : clauses pièges, dates, questions et annuaires officiels.
 
 ### ES
-Analiza el riesgo de un contrato: cláusulas trampa, protecciones y fechas.
+Riesgo del contrato: trampas, fechas, preguntas y directorios oficiales.
 
 ### AR
-افحص مخاطر العقد: البنود الخطرة والحمايات الناقصة والمواعيد المهمة.
+مخاطر العقد: بنود خطرة ومواعيد وأسئلة وأدلة محامين رسمية.
 
 ### IT
-Analizza i rischi del contratto: clausole trappola, tutele e scadenze.
+Rischio contratto: trappole, scadenze, domande e albi ufficiali.
 
 ### ZH
-扫描合同风险：陷阱条款、缺失保护与关键日期。
+合同风险：陷阱条款、日期、问答与官方律师名录。
 
 ### RU
-Проверьте риски договора: ловушки, недостающие гарантии и сроки.
+Риски договора: ловушки, сроки, вопросы и официальные реестры адвокатов.
 
 ### FA
-ریسک قرارداد را بررسی کنید: بندهای تله، حمایت‌های ناقص و تاریخ‌ها.
+ریسک قرارداد: بندهای تله، تاریخ‌ها، پرسش و فهرست‌های رسمی وکلا.
 
 ### JA
-契約のリスクを確認：落とし穴条項、不足する保護、重要な期日。
+契約リスク：落とし穴、期日、質問、公式の弁護士名簿。
 
 ### PT
-Analise o risco do contrato: cláusulas armadilha, proteções e prazos.
+Risco do contrato: armadilhas, prazos, perguntas e diretórios oficiais.
 
 ### NL
-Scan contractrisico: valkuilclausules, ontbrekende bescherming, data.
+Contractrisico: valkuilen, termijnen, vragen en officiële advocatengidsen.
 
 ## Uzun açıklama
 
 ### TR
-NexuLex AI; kira, iş, NDA, SaaS ve satış sözleşmelerini seçtiğiniz ülke ve tarafa göre tarayan bir analiz yardımcısıdır. İmzadan önce riskli maddeleri, eksik korumaları ve kaçırmamanız gereken tarihleri gösterir; karşı teklif önerir ve hatırlatıcı kurar. Hukuk danışmanı sohbeti, senaryo yol haritaları, hesaplayıcılar ve rehberli belge taslakları içerir. Raporlar 13 dilde alınabilir.
-Yargı alanı: Kanuni hesaplayıcılar (kıdem, kira artışı, yasal faiz) Türkiye tablolarıyla çalışır (1 Ocak 2026 tarihli; güncel resmî değerleri kontrol edin). Diğer ülkelerde hesaplayıcılar genel modda çalışır ve oranı siz girersiniz. Senaryolar ve taslaklar Türkiye’ye özgüdür; diğer ülkelerde genel adımlar ve genel mektup formatı sunulur. Taslaklar şablondur; kazanma olasılığı veya mahkemede kabul garantisi verilmez.
-Genel hukuki bilgidir; hukuki tavsiye veya avukat temsili değildir.
+NexuLex AI; kira, iş, NDA, SaaS ve satış sözleşmeleri için bir hukuk yardımcısıdır. Ülkenizi ve tarafınızı seçin; metin, PDF veya fotoğraf yapıştırın. İmzadan önce riskli maddeleri, eksik korumaları ve kaçırmamanız gereken tarihleri gösterir, karşı teklif önerir ve hatırlatıcı kurar.
+
+Danışman; ülkenize göre hukuki sorular, adım adım süreç rehberleri, cihazdaki dosyalar ve resmî baro ile adli yardım rehberleriyle ilk temas paketi ekler. NexuLex avukat önermez, sıralamaz ve yönlendirmez. Professional araçları (kronoloji, uyuşmazlık listesi, araştırma notu) ücretli planlarda çalışma yardımcısıdır.
+
+Raporlar 13 dilde alınabilir. Kanuni hesaplayıcılar (kıdem, kira artışı, yasal faiz) Türkiye tablolarıyla çalışır (1 Ocak 2026; güncel resmî değerleri kontrol edin). Diğer ülkelerde hesaplayıcılar genel modda çalışır ve oranı siz girersiniz. Senaryolar ve taslaklar Türkiye’ye özgüdür; diğer ülkelerde genel adımlar ve genel mektup formatı sunulur. Taslaklar şablondur; kazanma olasılığı veya mahkemede kabul garantisi verilmez.
+
+NexuLex bir hukuk bürosu değildir. Bu hukuki danışmanlık değildir ve NexuLex sizi temsil etmez. NexuLex hiçbir avukatı önermez.
 
 ### EN
-NexuLex AI is an analysis assistant for rent, employment, NDA, SaaS and sales contracts, tuned to the country and party you choose. Before you sign it highlights risky clauses, missing protections and dates you must not miss, suggests counter-offers and sets reminders. It also includes an advisor chat, scenario roadmaps, calculators and guided document drafts. Reports are available in 13 languages.
-Jurisdiction: statutory calculators (severance, rent increase, legal interest) use Turkish tables (dated 1 January 2026; check current official values). In other countries the calculators run in a generic mode where you enter the rate. Scenarios and drafts are Türkiye-specific; elsewhere you get generic steps and a generic letter format. Drafts are templates; there is no prediction of winning and no guarantee of acceptance by a court.
+NexuLex AI is a legal copilot for rent, work, NDA, SaaS and sales contracts. Pick your country and your side, then paste text, a PDF or photos. Before you sign it flags risky clauses, missing protections and dates you must not miss, suggests counter-offers and sets reminders.
+
+The advisor adds legal questions for your country, step-by-step process guides, on-device case files and a first-contact pack with official bar and legal-aid directories. NexuLex does not recommend, rank or refer lawyers. Professional tools (chronology, issue list, research memo) are work aids on paid plans.
+
+Reports are available in 13 languages. Statutory calculators (severance, rent increase, legal interest) use Turkish tables (dated 1 January 2026; check current official values). In other countries the calculators run in a generic mode where you enter the rate. Scenarios and drafts are Türkiye-specific; elsewhere you get generic steps and a generic letter format. Drafts are templates; there is no prediction of winning and no guarantee of acceptance by a court.
+
 General legal information, not legal advice / lawyer representation.
 
 ### DE
-NexuLex AI ist ein Analyse-Assistent für Miet-, Arbeits-, NDA-, SaaS- und Kaufverträge, abgestimmt auf das gewählte Land und Ihre Vertragspartei. Vor der Unterschrift zeigt er riskante Klauseln, fehlende Schutzklauseln und wichtige Fristen, schlägt Gegenangebote vor und setzt Erinnerungen. Dazu kommen Berater-Chat, Szenario-Fahrpläne, Rechner und geführte Dokumententwürfe. Berichte gibt es in 13 Sprachen.
-Rechtsordnung: Gesetzliche Rechner (Abfindung, Mieterhöhung, gesetzliche Zinsen) nutzen türkische Tabellen (Stand 1. Januar 2026; aktuelle amtliche Werte prüfen). In anderen Ländern laufen die Rechner im allgemeinen Modus, den Satz geben Sie selbst ein. Szenarien und Entwürfe sind türkeispezifisch; anderswo gibt es allgemeine Schritte und ein allgemeines Briefformat. Entwürfe sind Vorlagen; keine Erfolgsprognose, keine Garantie der Annahme durch ein Gericht.
+NexuLex AI ist ein Rechtsassistent für Miet-, Arbeits-, NDA-, SaaS- und Kaufverträge. Wählen Sie Land und Partei, fügen Sie Text, PDF oder Fotos ein. Vor der Unterschrift markiert er riskante Klauseln, fehlende Schutzklauseln und Fristen, schlägt Gegenangebote vor und setzt Erinnerungen.
+
+Der Berater ergänzt Rechtsfragen für Ihr Land, Schritt-für-Schritt-Leitfäden, Akten auf dem Gerät und ein Erstkontakt-Paket mit offiziellen Anwalts- und Rechtshilfeverzeichnissen. NexuLex empfiehlt, bewertet und vermittelt keine Anwälte. Professional-Werkzeuge (Chronologie, Streitpunkte, Recherchevermerk) sind Arbeitshilfen in bezahlten Plänen.
+
+Berichte gibt es in 13 Sprachen. Gesetzliche Rechner (Abfindung, Mieterhöhung, gesetzliche Zinsen) nutzen türkische Tabellen (Stand 1. Januar 2026; aktuelle amtliche Werte prüfen). In anderen Ländern laufen die Rechner im allgemeinen Modus, den Satz geben Sie selbst ein. Szenarien und Entwürfe sind Türkei-spezifisch; anderswo allgemeine Schritte und ein allgemeines Briefformat. Entwürfe sind Vorlagen; keine Erfolgsprognose, keine Garantie der Annahme durch ein Gericht.
+
 Allgemeine rechtliche Information, keine Rechtsberatung / anwaltliche Vertretung.
 
 ### FR
-NexuLex AI est un assistant d’analyse pour les baux, contrats de travail, NDA, SaaS et contrats de vente, adapté au pays et à la partie que vous choisissez. Avant la signature, il met en évidence les clauses risquées, les protections manquantes et les dates à ne pas manquer, propose des contre-offres et programme des rappels. Il comprend aussi un chat conseiller, des feuilles de route par scénario, des calculateurs et des modèles de documents guidés. Rapports disponibles en 13 langues.
-Juridiction : les calculateurs légaux (indemnité de licenciement, hausse de loyer, intérêt légal) utilisent des tables turques (au 1er janvier 2026 ; vérifiez les valeurs officielles actuelles). Dans les autres pays, ils fonctionnent en mode générique avec un taux que vous saisissez. Scénarios et modèles sont propres à la Turquie ; ailleurs, étapes génériques et format de lettre générique. Les modèles restent des modèles ; aucune prédiction de succès ni garantie d’acceptation par un tribunal.
+NexuLex AI est un copilote juridique pour les baux, contrats de travail, NDA, SaaS et ventes. Choisissez le pays et votre partie, puis collez un texte, un PDF ou des photos. Avant la signature, il signale les clauses risquées, les protections manquantes et les dates à ne pas manquer, propose des contre-offres et programme des rappels.
+
+Le conseiller ajoute des questions juridiques pour votre pays, des guides de procédure, des dossiers sur l’appareil et un pack de premier contact avec les annuaires officiels des barreaux et de l’aide juridictionnelle. NexuLex ne recommande, ne classe et n’oriente vers aucun avocat. Les outils Professional (chronologie, questions en litige, note de recherche) sont des aides de travail sur les offres payantes.
+
+Rapports disponibles en 13 langues. Les calculateurs légaux (indemnité, hausse de loyer, intérêt légal) utilisent des tables turques (au 1er janvier 2026 ; vérifiez les valeurs officielles). Dans les autres pays, ils fonctionnent en mode générique avec un taux que vous saisissez. Scénarios et modèles sont propres à la Turquie ; ailleurs, étapes génériques et format de lettre générique. Les modèles restent des modèles ; aucune prédiction de succès ni garantie d’acceptation par un tribunal.
+
 Information juridique générale, pas un conseil juridique / une représentation par un avocat.
 
 ### ES
-NexuLex AI es un asistente de análisis para contratos de alquiler, laborales, NDA, SaaS y de compraventa, ajustado al país y a la parte que elijas. Antes de firmar destaca cláusulas de riesgo, protecciones que faltan y fechas que no debes pasar por alto, sugiere contraofertas y crea recordatorios. Incluye chat asesor, hojas de ruta por escenario, calculadoras y borradores de documentos guiados. Informes en 13 idiomas.
-Jurisdicción: las calculadoras legales (indemnización, aumento de renta, interés legal) usan tablas de Turquía (a 1 de enero de 2026; verifica los valores oficiales vigentes). En otros países funcionan en modo genérico con la tasa que introduces. Escenarios y borradores son específicos de Turquía; en otros países se ofrecen pasos genéricos y un formato de carta genérico. Los borradores son plantillas; no hay predicción de ganar ni garantía de aceptación judicial.
+NexuLex AI es un copiloto jurídico para contratos de alquiler, laborales, NDA, SaaS y compraventa. Elige el país y tu parte; pega texto, un PDF o fotos. Antes de firmar señala cláusulas de riesgo, protecciones que faltan y fechas que no debes pasar, sugiere contraofertas y crea recordatorios.
+
+El asesor añade preguntas jurídicas de tu país, guías de trámites, expedientes en el dispositivo y un paquete de primer contacto con directorios oficiales de colegios y de justicia gratuita. NexuLex no recomienda, clasifica ni deriva a abogados. Las herramientas Professional (cronología, cuestiones en litigio, nota de investigación) son ayudas de trabajo en los planes de pago.
+
+Informes en 13 idiomas. Las calculadoras legales (indemnización, aumento de renta, interés legal) usan tablas de Turquía (a 1 de enero de 2026; verifica los valores oficiales). En otros países funcionan en modo genérico con la tasa que introduces. Escenarios y borradores son específicos de Turquía; en otros países, pasos genéricos y un formato de carta genérico. Los borradores son plantillas; no hay predicción de ganar ni garantía de aceptación judicial.
+
 Información jurídica general, no asesoramiento jurídico / representación por abogado.
 
 ### AR
-NexuLex AI مساعد لتحليل عقود الإيجار والعمل والسرية وخدمات البرمجيات والبيع، وفق البلد والطرف الذي تختاره. قبل التوقيع يُبرز البنود الخطرة والحمايات الناقصة والمواعيد المهمة، ويقترح عروضًا مضادة ويضبط التذكيرات. يتضمن أيضًا محادثة مستشار وخرائط طريق للسيناريوهات وحاسبات ومسودات مستندات موجّهة. التقارير متاحة بـ 13 لغة.
-الاختصاص: الحاسبات القانونية (تعويض نهاية الخدمة، زيادة الإيجار، الفائدة القانونية) تعتمد جداول تركيا (بتاريخ 1 يناير 2026؛ تحقّق من القيم الرسمية الحالية). في البلدان الأخرى تعمل الحاسبات بوضع عام وتُدخل النسبة بنفسك. السيناريوهات والمسودات خاصة بتركيا؛ وفي غيرها تُعرض خطوات عامة وصيغة رسالة عامة. المسودات قوالب؛ لا توقّع للفوز ولا ضمان لقبول المحكمة.
-معلومات قانونية عامة، وليست استشارة قانونية / تمثيلًا من محامٍ.
+NexuLex AI مساعد قانوني لعقود الإيجار والعمل والسرية وخدمات البرمجيات والبيع. اختر البلد والطرف ثم الصق نصًا أو ملف PDF أو صورًا. قبل التوقيع يُبرز البنود الخطرة والحمايات الناقصة والمواعيد المهمة، ويقترح عروضًا مضادة ويضبط التذكيرات.
+
+يضيف المستشار أسئلة قانونية لبلدك وأدلة إجراءات خطوة بخطوة وملفات على الجهاز وحزمة تواصل أول مع الأدلة الرسمية للنقابات والمساعدة القانونية. لا يوصي NexuLex بأي محامٍ ولا يرتّب المحامين ولا يحيل إليهم. أدوات Professional (التسلسل الزمني وقائمة النزاع ومذكرة البحث) وسائل عمل في الخطط المدفوعة.
+
+التقارير متاحة بـ 13 لغة. الحاسبات القانونية (تعويض نهاية الخدمة وزيادة الإيجار والفائدة القانونية) تعتمد جداول تركيا (بتاريخ 1 يناير 2026؛ تحقّق من القيم الرسمية الحالية). في البلدان الأخرى تعمل بوضع عام وتُدخل النسبة بنفسك. السيناريوهات والمسودات خاصة بتركيا؛ وفي غيرها تُعرض خطوات عامة وصيغة رسالة عامة. المسودات قوالب؛ لا توقّع للفوز ولا ضمان لقبول المحكمة.
+
+معلومات قانونية عامة، وليست استشارة قانونية ولا تمثيلًا من محامٍ.
 
 ### IT
-NexuLex AI è un assistente di analisi per contratti di locazione, lavoro, NDA, SaaS e compravendita, calibrato sul paese e sulla parte che scegli. Prima della firma evidenzia clausole rischiose, tutele mancanti e scadenze da non perdere, suggerisce controproposte e imposta promemoria. Include chat con consulente, percorsi per scenario, calcolatori e bozze di documenti guidate. Report disponibili in 13 lingue.
-Giurisdizione: i calcolatori legali (TFR/indennità, aumento del canone, interessi legali) usano tabelle turche (al 1° gennaio 2026; verifica i valori ufficiali aggiornati). Negli altri paesi funzionano in modalità generica con il tasso che inserisci tu. Scenari e bozze sono specifici per la Turchia; altrove trovi passaggi generici e un formato di lettera generico. Le bozze sono modelli; nessuna previsione di vittoria né garanzia di accoglimento in tribunale.
+NexuLex AI è un copilota legale per contratti di locazione, lavoro, NDA, SaaS e compravendita. Scegli il paese e la tua parte, poi incolla testo, un PDF o foto. Prima della firma segnala clausole rischiose, tutele mancanti e scadenze da non perdere, suggerisce controproposte e imposta promemoria.
+
+Il consulente aggiunge domande giuridiche per il tuo paese, guide alle procedure, fascicoli sul dispositivo e un pacchetto di primo contatto con gli albi ufficiali e il patrocinio a spese dello Stato. NexuLex non raccomanda, non classifica e non segnala avvocati. Gli strumenti Professional (cronologia, questioni in lite, nota di ricerca) sono ausili di lavoro nei piani a pagamento.
+
+Report disponibili in 13 lingue. I calcolatori legali (indennità, aumento del canone, interessi legali) usano tabelle turche (al 1° gennaio 2026; verifica i valori ufficiali). Negli altri paesi funzionano in modalità generica con il tasso che inserisci tu. Scenari e bozze sono specifici per la Turchia; altrove passaggi generici e un formato di lettera generico. Le bozze sono modelli; nessuna previsione di vittoria né garanzia di accoglimento in tribunale.
+
 Informazione legale generale, non consulenza legale / rappresentanza di un avvocato.
 
 ### ZH
-NexuLex AI 是一款合同分析助手，适用于租赁、劳动、保密协议、SaaS 和买卖合同，并根据您选择的国家和合同方进行分析。签署前，它会标出风险条款、缺失的保护和不能错过的日期，提出反提案并设置提醒。另含顾问对话、情景路线图、计算器和引导式文书草稿。报告支持 13 种语言。
-司法辖区：法定计算器（遣散费、租金上涨、法定利息）使用土耳其的表格（截至 2026 年 1 月 1 日，请核对最新官方数值）。在其他国家，计算器以通用模式运行，由您自行输入利率。情景和草稿仅针对土耳其；其他国家提供通用步骤和通用信函格式。草稿仅为模板，不预测胜诉，也不保证被法院采纳。
-一般法律信息，并非法律意见 / 律师代理。
+NexuLex AI 是租赁、劳动、保密协议、SaaS 和买卖合同的法律副驾。选择国家和你的立场，粘贴文本、PDF 或照片。签署前会标出风险条款、缺失的保护和不能错过的日期，提出反提案并设置提醒。
+
+顾问还提供针对你所在国家的法律问答、分步流程指南、设备上的案件档案，以及带有官方律师协会和法律援助名录的首次联系材料包。NexuLex 不推荐、不排名、不转介律师。Professional 工具（时间线、争议问题、研究备忘）是付费套餐中的工作辅助。
+
+报告支持 13 种语言。法定计算器（遣散费、租金上涨、法定利息）使用土耳其表格（截至 2026 年 1 月 1 日，请核对最新官方数值）。在其他国家，计算器以通用模式运行，由你自行输入利率。情景和草稿仅针对土耳其；其他国家提供通用步骤和通用信函格式。草稿仅为模板，不预测胜诉，也不保证被法院采纳。
+
+一般法律信息，并非法律意见，也不是律师代理。
 
 ### RU
-NexuLex AI — помощник для анализа договоров аренды, трудовых, NDA, SaaS и купли-продажи с учётом выбранной страны и вашей стороны. До подписания он показывает рискованные условия, недостающие гарантии и сроки, которые нельзя пропустить, предлагает встречные условия и ставит напоминания. Также есть чат-консультант, дорожные карты сценариев, калькуляторы и пошаговые черновики документов. Отчёты на 13 языках.
-Юрисдикция: правовые калькуляторы (выходное пособие, повышение аренды, законные проценты) используют таблицы Турции (на 1 января 2026 г.; сверяйте актуальные официальные значения). В других странах калькуляторы работают в общем режиме, ставку вы вводите сами. Сценарии и черновики рассчитаны на Турцию; в других странах — общие шаги и общий формат письма. Черновики — это шаблоны; нет прогноза выигрыша и гарантии принятия судом.
-Общая правовая информация, не юридическая консультация / представительство адвоката.
+NexuLex AI — юридический помощник для договоров аренды, трудовых, NDA, SaaS и купли-продажи. Выберите страну и сторону, вставьте текст, PDF или фото. До подписания он показывает рискованные условия, недостающие гарантии и сроки, предлагает встречные условия и ставит напоминания.
+
+Советник добавляет юридические вопросы по вашей стране, пошаговые гиды, дела на устройстве и пакет первого контакта с официальными реестрами адвокатов и бесплатной помощи. NexuLex не рекомендует, не ранжирует и не направляет к адвокатам. Инструменты Professional (хронология, спорные вопросы, исследовательская записка) — рабочие помощники в платных планах.
+
+Отчёты на 13 языках. Правовые калькуляторы (выходное пособие, повышение аренды, законные проценты) используют таблицы Турции (на 1 января 2026 г.; сверяйте актуальные официальные значения). В других странах калькуляторы работают в общем режиме, ставку вы вводите сами. Сценарии и черновики рассчитаны на Турцию; в других странах — общие шаги и общий формат письма. Черновики — шаблоны; нет прогноза выигрыша и гарантии принятия судом.
+
+Общая правовая информация, не юридическая консультация и не представительство адвоката.
 
 ### FA
-NexuLex AI دستیار تحلیل قراردادهای اجاره، کار، محرمانگی، SaaS و خرید و فروش است که بر اساس کشور و طرف انتخابی شما کار می‌کند. پیش از امضا، بندهای پرخطر، حمایت‌های ناقص و تاریخ‌های مهم را نشان می‌دهد، پیشنهاد متقابل ارائه می‌کند و یادآور تنظیم می‌کند. گفت‌وگو با مشاور، نقشه راه سناریوها، محاسبه‌گرها و پیش‌نویس اسناد راهنمایی‌شده نیز دارد. گزارش‌ها به ۱۳ زبان در دسترس است.
-حوزه قضایی: محاسبه‌گرهای قانونی (سنوات، افزایش اجاره، بهره قانونی) از جدول‌های ترکیه استفاده می‌کنند (تاریخ ۱ ژانویه ۲۰۲۶؛ مقادیر رسمی فعلی را بررسی کنید). در کشورهای دیگر محاسبه‌گرها در حالت عمومی کار می‌کنند و نرخ را خودتان وارد می‌کنید. سناریوها و پیش‌نویس‌ها مخصوص ترکیه‌اند؛ در سایر کشورها گام‌های عمومی و قالب نامه عمومی ارائه می‌شود. پیش‌نویس‌ها الگو هستند؛ پیش‌بینی پیروزی یا تضمین پذیرش در دادگاه وجود ندارد.
-اطلاعات حقوقی عمومی است، نه مشاوره حقوقی / وکالت.
+NexuLex AI دستیار حقوقی برای قراردادهای اجاره، کار، محرمانگی، SaaS و خرید و فروش است. کشور و طرف خود را انتخاب کنید؛ متن، PDF یا عکس بچسبانید. پیش از امضا بندهای پرخطر، حمایت‌های ناقص و تاریخ‌های مهم را نشان می‌دهد، پیشنهاد متقابل می‌دهد و یادآور می‌گذارد.
+
+مشاور پرسش‌های حقوقی کشور شما، راهنمای گام‌به‌گام روندها، پرونده‌های روی دستگاه و بستهٔ تماس اول با فهرست‌های رسمی کانون وکلا و معاضدت قضایی را اضافه می‌کند. NexuLex هیچ وکیلی را توصیه، رتبه‌بندی یا معرفی نمی‌کند. ابزارهای Professional (گاه‌شمار، موضوعات اختلاف، یادداشت پژوهش) در طرح‌های پولی کمک‌کار هستند.
+
+گزارش‌ها به ۱۳ زبان در دسترس است. محاسبه‌گرهای قانونی (سنوات، افزایش اجاره، بهره قانونی) از جدول‌های ترکیه استفاده می‌کنند (تاریخ ۱ ژانویه ۲۰۲۶؛ مقادیر رسمی فعلی را بررسی کنید). در کشورهای دیگر در حالت عمومی کار می‌کنند و نرخ را خودتان وارد می‌کنید. سناریوها و پیش‌نویس‌ها مخصوص ترکیه‌اند؛ در سایر کشورها گام‌های عمومی و قالب نامه عمومی ارائه می‌شود. پیش‌نویس‌ها الگو هستند؛ پیش‌بینی پیروزی یا تضمین پذیرش در دادگاه وجود ندارد.
+
+اطلاعات حقوقی عمومی است، نه مشاورهٔ حقوقی و نه وکالت.
 
 ### JA
-NexuLex AI は、賃貸・雇用・NDA・SaaS・売買契約を、選択した国と当事者の立場に合わせて分析するアシスタントです。署名前に、リスクのある条項、不足している保護、見逃せない期日を示し、対案を提案してリマインダーを設定します。アドバイザーチャット、シナリオ別ロードマップ、計算ツール、ガイド付き書面ドラフトも備えています。レポートは 13 言語に対応。
-法域：法定計算ツール（退職金、賃料増額、法定利息）はトルコの表を使用します（2026 年 1 月 1 日時点。最新の公式値をご確認ください）。その他の国では一般モードで動作し、利率はご自身で入力します。シナリオとドラフトはトルコ向けで、その他の国では一般的な手順と一般的な書簡形式を表示します。ドラフトはテンプレートであり、勝訴の予測や裁判所での採用の保証はありません。
-一般的な法律情報であり、法的助言／弁護士による代理ではありません。
+NexuLex AI は、賃貸・雇用・NDA・SaaS・売買契約向けの法律補助です。国と立場を選び、テキスト、PDF、写真を貼り付けます。署名前にリスクのある条項、不足する保護、見逃せない期日を示し、対案を提案してリマインダーを設定します。
+
+アドバイザーは、その国向けの法律質問、手順ガイド、端末上の事件ファイル、公式の弁護士会・法律扶助名簿付きの初回連絡パックを追加します。NexuLex は弁護士の推薦・順位付け・紹介を行いません。Professional ツール（時系列、争点、調査メモ）は有料プランの作業補助です。
+
+レポートは 13 言語に対応。法定計算ツール（退職金、賃料増額、法定利息）はトルコの表を使用します（2026 年 1 月 1 日時点。最新の公式値をご確認ください）。その他の国では一般モードで動作し、利率はご自身で入力します。シナリオとドラフトはトルコ向けで、その他の国では一般的な手順と書簡形式を表示します。ドラフトはテンプレートであり、勝訴の予測や裁判所での採用の保証はありません。
+
+一般的な法律情報であり、法的助言でも弁護士による代理でもありません。
 
 ### PT
-O NexuLex AI é um assistente de análise para contratos de locação, trabalho, NDA, SaaS e compra e venda, ajustado ao país e à parte que você escolher. Antes de assinar, destaca cláusulas de risco, proteções ausentes e prazos que não podem ser perdidos, sugere contrapropostas e cria lembretes. Inclui chat com consultor, roteiros por cenário, calculadoras e rascunhos de documentos guiados. Relatórios em 13 idiomas.
-Jurisdição: as calculadoras legais (indenização, reajuste de aluguel, juros legais) usam tabelas da Turquia (em 1º de janeiro de 2026; confira os valores oficiais atuais). Em outros países, funcionam em modo genérico com a taxa que você informa. Cenários e rascunhos são específicos da Turquia; nos demais países há passos genéricos e um formato de carta genérico. Rascunhos são modelos; não há previsão de vitória nem garantia de aceitação judicial.
+O NexuLex AI é um copiloto jurídico para contratos de locação, trabalho, NDA, SaaS e compra e venda. Escolha o país e a sua parte; cole texto, um PDF ou fotos. Antes de assinar, destaca cláusulas de risco, proteções em falta e prazos que não pode perder, sugere contrapropostas e cria lembretes.
+
+O assistente acrescenta perguntas jurídicas do seu país, guias de procedimentos, processos no dispositivo e um pacote de primeiro contacto com diretórios oficiais da ordem e do apoio judiciário. A NexuLex não recomenda, não classifica nem encaminha advogados. As ferramentas Professional (cronologia, questões em litígio, nota de pesquisa) são auxílios de trabalho nos planos pagos.
+
+Relatórios em 13 idiomas. As calculadoras legais (indenização, reajuste de aluguel, juros legais) usam tabelas da Turquia (em 1 de janeiro de 2026; confira os valores oficiais). Noutros países funcionam em modo genérico com a taxa que você informa. Cenários e rascunhos são específicos da Turquia; nos demais, passos genéricos e um formato de carta genérico. Rascunhos são modelos; não há previsão de vitória nem garantia de aceitação judicial.
+
 Informação jurídica geral, não aconselhamento jurídico / representação por advogado.
 
 ### NL
-NexuLex AI is een analyse-assistent voor huur-, arbeids-, NDA-, SaaS- en koopcontracten, afgestemd op het land en de partij die u kiest. Vóór ondertekening toont het riskante clausules, ontbrekende bescherming en data die u niet mag missen, stelt het tegenvoorstellen voor en zet het herinneringen. Ook inbegrepen: adviseurschat, scenario-stappenplannen, rekenhulpen en begeleide documentconcepten. Rapporten in 13 talen.
-Rechtsgebied: wettelijke rekenhulpen (ontslagvergoeding, huurverhoging, wettelijke rente) gebruiken Turkse tabellen (per 1 januari 2026; controleer de actuele officiële waarden). In andere landen werken ze in een algemene modus waarin u het tarief zelf invult. Scenario’s en concepten zijn specifiek voor Turkije; elders krijgt u algemene stappen en een algemeen briefformaat. Concepten zijn sjablonen; geen voorspelling van winst en geen garantie op aanvaarding door een rechter.
+NexuLex AI is een juridische copiloot voor huur-, arbeids-, NDA-, SaaS- en koopcontracten. Kies land en partij, plak tekst, een PDF of foto’s. Vóór ondertekening markeert het riskante clausules, ontbrekende bescherming en data die u niet mag missen, stelt het tegenvoorstellen voor en zet het herinneringen.
+
+De adviseur voegt juridische vragen voor uw land toe, stapsgewijze procedurehulp, dossiers op het toestel en een eerste-contactpakket met officiële advocaten- en rechtsbijstandsgidsen. NexuLex beveelt geen advocaten aan, rangschikt of verwijst ze niet. Professional-hulpmiddelen (chronologie, geschilpunten, onderzoeksnota) zijn werkhulpen in betaalde plannen.
+
+Rapporten in 13 talen. Wettelijke rekenhulpen (ontslagvergoeding, huurverhoging, wettelijke rente) gebruiken Turkse tabellen (per 1 januari 2026; controleer de actuele officiële waarden). In andere landen werken ze in een algemene modus waarin u het tarief zelf invult. Scenario’s en concepten zijn specifiek voor Turkije; elders algemene stappen en een algemeen briefformaat. Concepten zijn sjablonen; geen voorspelling van winst en geen garantie op aanvaarding door een rechter.
+
 Algemene juridische informatie, geen juridisch advies / vertegenwoordiging door een advocaat.
 
 ## Anahtar sözcükler
 
-kira, iş sözleşmesi, NDA, SaaS, tüketici, cezai şart  
-employment contract, lease, NDA, unfair terms, auto-renewal  
-Mietvertrag, Arbeitsvertrag, AGB, DSGVO  
-عقد إيجار, عقد عمل, شرط جزائي, حماية المستهلك
+TR: sözleşme,kira,iş,NDA,SaaS,tuzak,avukat,danışman,tüketici,cezai şart
+EN: contract,lease,NDA,employment,risk,clause,advisor,lawyer,rent,SaaS
+DE: Vertrag,Miete,Arbeitsvertrag,NDA,SaaS,AGB,Anwalt,Frist,Risiko,DSGVO
+FR: contrat,bail,travail,NDA,SaaS,clause,avocat,risque,loyer,échéance
+ES: contrato,alquiler,trabajo,NDA,SaaS,cláusula,abogado,riesgo,plazo,consumo
+AR: عقد,إيجار,عمل,سرية,شرط,محام,مخاطر,موعد,مستهلك,جزاء
+IT: contratto,locazione,lavoro,NDA,SaaS,clausola,avvocato,rischio,scadenza,consumo
+ZH: 合同,租赁,劳动,保密,条款,律师,风险,期限,消费,违约金
+RU: договор,аренда,труд,NDA,SaaS,оговорка,адвокат,риск,срок,потребитель
+FA: قرارداد,اجاره,کار,محرمانگی,بند,وکیل,ریسک,مهلت,مصرف,جریمه
+JA: 契約,賃貸,雇用,NDA,SaaS,条項,弁護士,リスク,期日,消費者
+PT: contrato,aluguel,trabalho,NDA,SaaS,cláusula,advogado,risco,prazo,consumo
+NL: contract,huur,arbeid,NDA,SaaS,clausule,advocaat,risico,termijn,consument
+
+## Ekran görüntüsü sırası
+
+1. Yapıştır, PDF veya foto — ülke ve taraf seç / Paste, PDF or photos — pick country and side
+2. İmzala, müzakere et veya vazgeç — gerekçeli / Sign, negotiate or walk away — with reasons
+3. Ülkene sor — kontrol edebileceğin kaynaklar / Ask your country — sources you can check
+4. Dosya: zaman çizelgesi, tarihler, parmak izi / Case file: timeline, dates, evidence prints
+5. Adım adım rehberler ve resmî bağlantılar / Step-by-step guides and official links
+6. Resmî rehberler — avukat adı yok / Official directories — we name no lawyer
+7. On üç dil, tek dürüst uyarı metni / Thirteen languages, one honest disclaimer
+
+TR: Orijinal tuzak metni AI’ya ikinci kez gitmez; kalkan taslağı gider.
+EN: The original trap wording is not sent to the AI again; the shield draft is.
 
 ## Gizlilik cümlesi (mağaza)
 
@@ -155,12 +230,3 @@ Google Play “Data safety” ve App Store “App Privacy” formları bu tabloy
 
 **İzinler:** Mikrofon + konuşma tanıma (sesle soru yazma), bildirim (tarih tetiklemeli yerel hatırlatıcılar; `SCHEDULE_EXACT_ALARM` kullanılmaz), fotoğraflar sistem fotoğraf seçicisiyle alınır (iOS 14+ PHPicker / Android 13+ Photo Picker; çalışma zamanı izin penceresi yok). `android.blockedPermissions` ile `CAMERA`, `READ_MEDIA_IMAGES`, `READ_MEDIA_VIDEO`, `READ_MEDIA_VISUAL_USER_SELECTED` manifestten çıkarılır; seçici kütüphanesinin yalnızca Android 12 ve altı için bildirdiği `READ_EXTERNAL_STORAGE` (maxSdkVersion 32) kalır. Kamera kullanılmaz ve toplanan veri türleri arasında yer almaz. Konum ve kişiler izni istenmez; PDF’ler sistem belge seçicisiyle alınır.
 
-## Ekran görüntüsü sırası
-
-1. Analiz Et — sözleşme yapıştırma / PDF, ülke ve taraf seçici  
-2. Karar kartı — SIGN / NEGOTIATE / WALK_AWAY ve skor  
-3. Playbook — seçilen ülke kanun atıflı eksik kalkan çipleri  
-4. Brief paylaş — orijinal sözleşme gitmez; eş/danışman 7 gün kod ile karar ve kalkanı okur  
-
-TR: Orijinal tuzak metni AI’ya ikinci kez gitmez; kalkan taslağı gider.  
-EN: The original trap wording is not sent to the AI again; the shield draft is.
