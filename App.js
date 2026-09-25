@@ -4324,6 +4324,7 @@ function AppContent() {
                 >
                   <Text style={styles.secondaryBtnText}>{t('privacyPolicy')}</Text>
                 </TouchableOpacity>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 8 }]}>{t('st7Privacy')}</Text>
                 <TouchableOpacity
                   style={styles.secondaryBtn}
                   onPress={() => Linking.openURL(TRUST_URLS.terms || 'https://nexulexai.netlify.app/terms.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
@@ -4331,6 +4332,7 @@ function AppContent() {
                 >
                   <Text style={styles.secondaryBtnText}>{t('termsOfUse')}</Text>
                 </TouchableOpacity>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 8 }]}>{t('st7Terms')}</Text>
                 <TouchableOpacity
                   style={styles.secondaryBtn}
                   onPress={() => Linking.openURL(TRUST_URLS.deleteAccount || 'https://nexulexai.netlify.app/delete-account.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
@@ -4338,6 +4340,12 @@ function AppContent() {
                 >
                   <Text style={styles.secondaryBtnText}>{t('st2WebDelete')}</Text>
                 </TouchableOpacity>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Delete')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Lang')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Binding')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Store')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Offline')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Note')}</Text>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10 }]}>
                   {t('disclaimerShort')}
                 </Text>
