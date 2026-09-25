@@ -15,6 +15,7 @@ import {
   findNodeHandle,
   Platform,
   Keyboard,
+  I18nManager,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as DocumentPicker from 'expo-document-picker';
@@ -4159,6 +4160,9 @@ function AppContent() {
                   onNeedPaywall={(hook) => openPaywall(hook === 'professional' ? 'professional' : 'share')}
                   onOpenBrief={(snapshot) => setAdvisorSnapshot(snapshot)}
                 />
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8 }]}>{t('st4Seats')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st4SeatsHint')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st4Plan')}</Text>
               </View>
 
               {/* Destek ve Hata Bildirimi */}
@@ -4185,12 +4189,18 @@ function AppContent() {
                   </Text>
                   <Text
                     style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}
-                    numberOfLines={1}
+                    numberOfLines={2}
                   >
-                    {t('supportGreeting')}
+                    {t('st4SupportHint')}
+                  </Text>
+                  <Text
+                    style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}
+                    numberOfLines={3}
+                  >
+                    {t('st4Support')}
                   </Text>
                 </View>
-                <Ionicons name="chevron-forward" size={18} color={theme.subText} />
+                <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={theme.subText} />
               </TouchableOpacity>
 
               <View
@@ -4198,6 +4208,8 @@ function AppContent() {
                 style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
               >
                 <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 10 }]}>{t('securitySettings')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('st4Security')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('st4SecurityHint')}</Text>
                 <TextInput
                   style={[
                     styles.input,
@@ -4230,6 +4242,9 @@ function AppContent() {
                     <Text style={styles.secondaryBtnText}>{t('btnUpdatePassword')}</Text>
                   )}
                 </TouchableOpacity>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>
+                  {t('st4Disclaimer')}
+                </Text>
               </View>
 
               <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}>

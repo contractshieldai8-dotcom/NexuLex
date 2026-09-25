@@ -39,6 +39,7 @@ function buildResources() {
     loadWave('i18n.wavejp3.js', 'WAVE_JP3_I18N'),
     loadWave('i18n.wavest2.js', 'WAVE_ST2_I18N'),
     loadWave('i18n.waveux2.js', 'WAVE_UX2_I18N'),
+    loadWave('i18n.wavest4.js', 'WAVE_ST4_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {
@@ -148,6 +149,7 @@ const APP_FILES = [
   'constants/annualHighlight.js',
   'constants/settingsTrust.js',
   'constants/localeCorridor.js',
+  'constants/settingsOps.js',
 ];
 
 function loadApp(language = 'tr') {
