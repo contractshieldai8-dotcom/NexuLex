@@ -97,6 +97,8 @@ export async function fetchOfferings(tier = 'pro') {
     description: pkg.product.description,
     // Mağazadan gelen yerelleştirilmiş fiyat; elle biçimlendirilmez.
     priceString: pkg.product.priceString,
+    price: pkg.product.price,
+    currencyCode: pkg.product.currencyCode,
     period: pkg.product.subscriptionPeriod,
     raw: pkg,
   }));

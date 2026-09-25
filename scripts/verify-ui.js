@@ -95,13 +95,15 @@ const waveGr5Src = fs.existsSync('i18n.wavegr5.js') ? fs.readFileSync('i18n.wave
 const waveGr5Match = waveGr5Src.match(/export const WAVE_GR5_I18N = ([\s\S]*);\s*$/);
 const waveGr6Src = fs.existsSync('i18n.wavegr6.js') ? fs.readFileSync('i18n.wavegr6.js', 'utf8') : '';
 const waveGr6Match = waveGr6Src.match(/export const WAVE_GR6_I18N = ([\s\S]*);\s*$/);
+const waveMx1Src = fs.existsSync('i18n.wavemx1.js') ? fs.readFileSync('i18n.wavemx1.js', 'utf8') : '';
+const waveMx1Match = waveMx1Src.match(/export const WAVE_MX1_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !waveGr6Match || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !waveGr6Match || !waveMx1Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5/GR6 kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5/GR6/MX1 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -132,6 +134,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_GR4_I18N = eval(`(${waveGr4Match[1]})`); // eslint-disable-line no-eval
   const WAVE_GR5_I18N = eval(`(${waveGr5Match[1]})`); // eslint-disable-line no-eval
   const WAVE_GR6_I18N = eval(`(${waveGr6Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_MX1_I18N = eval(`(${waveMx1Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -162,8 +165,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_GR4_I18N',
     'WAVE_GR5_I18N',
     'WAVE_GR6_I18N',
+    'WAVE_MX1_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -701,6 +705,11 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     failed = true;
     console.log(`WAVE_GR6 count langs=${Object.keys(WAVE_GR6_I18N).length} keys=${waveGr6Base.length}`);
   }
+  const waveMx1Base = Object.keys(WAVE_MX1_I18N.en || {});
+  if (Object.keys(WAVE_MX1_I18N).length !== 13 || waveMx1Base.length !== 6) {
+    failed = true;
+    console.log(`WAVE_MX1 count langs=${Object.keys(WAVE_MX1_I18N).length} keys=${waveMx1Base.length}`);
+  }
 
   for (const lang of languages) {
     const keys = Object.keys(resources[lang].translation);
@@ -714,7 +723,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   // Interpolasyon yer tutucuları çeviride korunmalı.
-  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine', 'calcGrossSalary', 'calcCurrentRent', 'calcProposedRent', 'calcPrincipal', 'calcRatesAsOfPublic', 'draftInvalidDate', 'availPendingLine', 'calcAddedDays', 'calcAddedBusinessDays', 'calcAddedWeeks', 'calcAddedMonths', 'calcLabelInstallmentRow', 'calcProRataAmount', 'calcInstallmentTotalInput', 'calcPenaltyAmountInput', 'calcContractValueInput', 'draftU_termination_notice_body', 'draftU_deposit_return_request_body', 'draftU_repair_or_defect_notice_body', 'draftU_rent_increase_objection_body', 'draftU_unpaid_wages_request_body', 'draftU_personal_data_access_request_body', 'draftU_cancellation_request_body', 'guideItemsHeader', 'docExplainPages', 'docExplainFreeLeft', 'docExplainPageLimit', 'docExplainDaysLeft', 'docExplainLockedTitle', 'docExplainRemindDone', 'askQuotaLeft', 'pgLinksFor', 'pgEmergency', 'pgAskTemplate', 'ptMaterialCount', 'ptQuotaLeft', 'ptRun', 'ptAddedToTimeline', 'lhFindTitle', 'lhMsgArea', 'lhMsgSummary', 'lhMsgParty', 'lhMsgDeadline', 'lhPacketPrepared', 'lhPacketJurisdiction', 'lhPacketUrgent', 'lhPacketUrgentToday', 'vlInviteBody'];
+  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine', 'calcGrossSalary', 'calcCurrentRent', 'calcProposedRent', 'calcPrincipal', 'calcRatesAsOfPublic', 'draftInvalidDate', 'availPendingLine', 'calcAddedDays', 'calcAddedBusinessDays', 'calcAddedWeeks', 'calcAddedMonths', 'calcLabelInstallmentRow', 'calcProRataAmount', 'calcInstallmentTotalInput', 'calcPenaltyAmountInput', 'calcContractValueInput', 'draftU_termination_notice_body', 'draftU_deposit_return_request_body', 'draftU_repair_or_defect_notice_body', 'draftU_rent_increase_objection_body', 'draftU_unpaid_wages_request_body', 'draftU_personal_data_access_request_body', 'draftU_cancellation_request_body', 'guideItemsHeader', 'docExplainPages', 'docExplainFreeLeft', 'docExplainPageLimit', 'docExplainDaysLeft', 'docExplainLockedTitle', 'docExplainRemindDone', 'askQuotaLeft', 'pgLinksFor', 'pgEmergency', 'pgAskTemplate', 'ptMaterialCount', 'ptQuotaLeft', 'ptRun', 'ptAddedToTimeline', 'lhFindTitle', 'lhMsgArea', 'lhMsgSummary', 'lhMsgParty', 'lhMsgDeadline', 'lhPacketPrepared', 'lhPacketJurisdiction', 'lhPacketUrgent', 'lhPacketUrgentToday', 'vlInviteBody', 'mxAnnualBadge'];
   for (const lang of languages) {
     for (const key of placeholderKeys) {
       const value = resources[lang].translation[key];
@@ -726,9 +735,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 1966) {
+  if (languages.length !== 13 || baseKeys.length !== 1972) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1966`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1972`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -3141,6 +3150,7 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_GR4_I18N',
       'WAVE_GR5_I18N',
       'WAVE_GR6_I18N',
+      'WAVE_MX1_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -3160,7 +3170,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.wavegr3.js', 'utf8').match(/export const WAVE_GR3_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavegr4.js', 'utf8').match(/export const WAVE_GR4_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavegr5.js', 'utf8').match(/export const WAVE_GR5_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.wavegr6.js', 'utf8').match(/export const WAVE_GR6_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavegr6.js', 'utf8').match(/export const WAVE_GR6_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavemx1.js', 'utf8').match(/export const WAVE_MX1_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -4560,7 +4571,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavemx1', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -6290,6 +6301,57 @@ Ticaret Unvanı: Anadolu Bilişim
 
   if (grOk) {
     console.log(`OK  WAVE GR.6 first-scan success (${fixtures} fixtures): case / ask / invite × 13, 400 ms gap, no stacked sheets`);
+  }
+}
+
+// WAVE MX.1 — honest yearly highlight from store prices; first value stays free
+{
+  let mxOk = true;
+  const mxFail = (msg) => {
+    failed = true;
+    mxOk = false;
+    console.log(`WAVE MX.1 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const LANGS = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+  let fixtures = 0;
+  try {
+    const { loadApp } = require('./cb1-harness');
+    ({ cases: fixtures } = loadApp('en').api.assertAnnualHighlightFixtures());
+  } catch (error) {
+    mxFail(`runtime: ${error.message}`);
+  }
+  const R = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
+  const keys = ['mxAnnualBadge', 'mxAnnualHint', 'mxMonthlyNote', 'mxNoCompare', 'mxFirstValue', 'mxYearlyPick'];
+  if (keys.length !== 6) mxFail('six copy keys');
+  for (const L of LANGS) {
+    const miss = keys.filter((k) => typeof R[L][k] !== 'string' || !R[L][k].trim());
+    if (miss.length) mxFail(`${L} missing ${miss.join(', ')}`);
+    if (!/\{\{percent\}\}/.test(R[L].mxAnnualBadge || '')) mxFail(`${L}.mxAnnualBadge needs {{percent}}`);
+    if (/%/.test(keys.map((k) => R[L][k]).join('\n'))) mxFail(`${L} must not hard-code a percent sign`);
+    if (L !== 'en') {
+      const same = keys.filter((k) => R[L][k] === R.en[k] && R.en[k].length >= 12);
+      if (same.length) mxFail(`${L} identical to EN: ${same.join(', ')}`);
+    }
+  }
+  const paywall = read('screens/PaywallScreen.js');
+  const purchases = read('services/purchases.js');
+  const model = read('constants/annualHighlight.js');
+  if (!/pickAnnualCompare/.test(paywall) || !/mxAnnualBadge/.test(paywall)) mxFail('paywall must show the store-based yearly compare');
+  if (!/t\('mxFirstValue'\)/.test(paywall)) mxFail('paywall must say the first value stays free');
+  if (!/t\('disclaimerCounsel'\)/.test(paywall)) mxFail('paywall disclaimer must stay last');
+  if (!/price: pkg\.product\.price/.test(purchases) || !/currencyCode: pkg\.product\.currencyCode/.test(purchases)) {
+    mxFail('offerings must pass the store price and currency');
+  }
+  if (!/percent < 1 \|\| percent > 80/.test(model)) mxFail('savings must stay inside a sane band');
+  if (!/mixed currency is not compared/.test(model) && !/monthCurrency !== yearCurrency/.test(model)) mxFail('mixed currency must not invent a compare');
+  if (/40\s*%|save 40|yüzde 40/i.test(paywall + model)) mxFail('no hardcoded marketing percent');
+  if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) mxFail('guides must stay unlocked');
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') mxFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) mxFail('dependency count changed');
+  if (mxOk) {
+    console.log(`OK  WAVE MX.1 yearly highlight (${fixtures} fixtures): store-price compare × 13, first value free, no invented percent`);
   }
 }
 

@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { ACCENT, styles } from '../theme';
 import { useFeedback } from '../context/FeedbackContext';
 import { footKeyForHook } from '../constants/paywallIntent';
+import { isAnnualPackage, isMonthlyPackage, pickAnnualCompare } from '../constants/annualHighlight';
 import {
   configurePurchases,
   fetchOfferings,
@@ -52,9 +53,6 @@ const TERMS_URL = 'https://nexulexai.netlify.app/terms.html';
 
 const hookCopyKey = (hook, part) =>
   `hook${String(hook)[0].toUpperCase()}${String(hook).slice(1)}${part}`;
-
-// Yıllık paketler genelde en avantajlısıdır; rozet için işaretlenir.
-const isAnnual = (pkg) => /ANNUAL|YEARLY/i.test(pkg.packageType || '');
 
 // Ücretsiz hak bittiğinde açılan abonelik ekranı.
 export default function PaywallScreen({
@@ -125,7 +123,7 @@ export default function PaywallScreen({
       const offerings = await fetchOfferings(tier);
       setPackages(offerings);
       // Varsayılan olarak en avantajlı paket seçili gelir.
-      setSelectedId((offerings.find(isAnnual) || offerings[0])?.identifier ?? null);
+      setSelectedId((offerings.find(isAnnualPackage) || offerings[0])?.identifier ?? null);
     } catch (error) {
       console.warn('Abonelik paketleri alınamadı:', error.message);
       setPackages([]);
@@ -180,9 +178,12 @@ export default function PaywallScreen({
   };
 
   const canPurchase = available && !loadingPlans && packages.length > 0 && !!selectedId && !owned;
+  const annualCompare = pickAnnualCompare(packages);
 
   const renderPlan = (pkg) => {
     const active = pkg.identifier === selectedId;
+    const yearly = isAnnualPackage(pkg);
+    const monthly = isMonthlyPackage(pkg);
 
     return (
       <TouchableOpacity
@@ -201,8 +202,16 @@ export default function PaywallScreen({
           <Text style={[styles.planTitle, { color: theme.text }]} numberOfLines={1}>
             {pkg.title}
           </Text>
-          {isAnnual(pkg) ? (
-            <Text style={[styles.planBadge, { color: ACCENT }]}>{t('paywallBestValue')}</Text>
+          {yearly ? (
+            <Text style={[styles.planBadge, { color: ACCENT }]}>
+              {annualCompare ? t('mxAnnualBadge', { percent: String(annualCompare.percent) }) : t('paywallBestValue')}
+            </Text>
+          ) : null}
+          {yearly && annualCompare ? (
+            <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('mxAnnualHint')}</Text>
+          ) : null}
+          {monthly ? (
+            <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('mxMonthlyNote')}</Text>
           ) : null}
         </View>
 
@@ -315,6 +324,14 @@ export default function PaywallScreen({
             ))}
 
             <View style={{ marginBottom: 16 }} />
+
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mxFirstValue')}</Text>
+            {!loadingPlans && packages.length > 0 && !annualCompare ? (
+              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mxNoCompare')}</Text>
+            ) : null}
+            {!loadingPlans && annualCompare ? (
+              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mxYearlyPick')}</Text>
+            ) : null}
 
             {loadingPlans ? (
               <View style={{ alignItems: 'center', paddingVertical: 20 }}>
