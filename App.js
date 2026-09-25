@@ -4263,7 +4263,9 @@ function AppContent() {
                 onLayout={onSettingsSectionLayout('language')}
                 style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 20 }]}
               >
-                <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 12 }]}>{t('appLanguage')}</Text>
+                <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 8 }]}>{t('appLanguage')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('st6Lang')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('st6LangHint')}</Text>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
                   {(APP_LANGUAGES || []).map((lang) => (
                     <TouchableOpacity 
@@ -4280,11 +4282,27 @@ function AppContent() {
                     </TouchableOpacity>
                   ))}
                 </View>
-                <Text style={[styles.settingLabel, { color: theme.text, marginTop: 16, marginBottom: 4 }]}>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 12, marginBottom: 8 }]}>{t('st6Rtl')}</Text>
+                <Text style={[styles.settingLabel, { color: theme.text, marginTop: 8, marginBottom: 4 }]}>
                   {t('analysisCountryLabel')}
                 </Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>
-                  {selectedCountryOption.label} · {t('localeCountryHint')}
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('st6Country')}</Text>
+                <TouchableOpacity
+                  onPress={() => setCountrySheetVisible(true)}
+                  accessibilityRole="button"
+                  accessibilityLabel={t('analysisCountryLabel')}
+                  style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 6 }}
+                >
+                  <Text style={[styles.sectionHint, { color: theme.text, flex: 1, marginBottom: 0 }]}>
+                    {selectedCountryOption.label} · {t('localeCountryHint')}
+                  </Text>
+                  <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={theme.subText} />
+                </TouchableOpacity>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8 }]}>{t('st6CountryHint')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st6Generic')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st6Corridor')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>
+                  {t('st6Disclaimer')}
                 </Text>
               </View>
 
