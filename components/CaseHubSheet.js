@@ -79,6 +79,7 @@ export default function CaseHubSheet({
   seed = null,
   onNeedPaywall,
   onAskAdvisor,
+  onOpenProTools,
   onChanged,
   onClose,
 }) {
@@ -512,6 +513,7 @@ export default function CaseHubSheet({
             ACCENT,
             isPro ? null : <Ionicons name="lock-closed" size={12} color={ACCENT} />
           )}
+          {onOpenProTools ? linkBtn('ribbon-outline', 'ptCardTitle', () => onOpenProTools(active)) : null}
         </View>
 
         {sectionTitle('caseTimeline', 'git-commit-outline')}

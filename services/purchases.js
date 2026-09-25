@@ -6,9 +6,11 @@
 
 import { Platform } from 'react-native';
 import { supabase } from './supabase';
+import { PROFESSIONAL_OFFERING_ID, planFromEntitlementIds } from '../utils/plan';
 
-// Pro erişimi RevenueCat panelinde bu entitlement adıyla tanımlanmalıdır.
-const ENTITLEMENT_ID = 'pro';
+// RevenueCat panelinde "pro" ve "professional" entitlement'ları tanımlanmalıdır; Professional ürünleri
+// "professional" offering'inde satılır. Plan sunucuda yalnızca sync-entitlement ile yazılır.
+const SYNC_FUNCTION = 'sync-entitlement';
 
 const API_KEY = Platform.select({
   ios: process.env.EXPO_PUBLIC_REVENUECAT_IOS_KEY,
@@ -79,13 +81,14 @@ export async function logOutPurchases() {
   }
 }
 
-// Mağazadan güncel paketleri (fiyat, dönem) çeker.
-export async function fetchOfferings() {
+// Mağazadan paketleri (fiyat, dönem) çeker: Pro güncel offering'den, Professional kendi offering'inden.
+export async function fetchOfferings(tier = 'pro') {
   const sdk = loadModule();
   if (!sdk) return [];
 
   const offerings = await sdk.getOfferings();
-  const packages = offerings?.current?.availablePackages || [];
+  const offering = tier === 'professional' ? offerings?.all?.[PROFESSIONAL_OFFERING_ID] : offerings?.current;
+  const packages = offering?.availablePackages || [];
 
   return packages.map((pkg) => ({
     identifier: pkg.identifier,
@@ -99,31 +102,66 @@ export async function fetchOfferings() {
   }));
 }
 
-const hasProEntitlement = (customerInfo) =>
-  Boolean(customerInfo?.entitlements?.active?.[ENTITLEMENT_ID]);
+const planFromCustomerInfo = (customerInfo) =>
+  planFromEntitlementIds(Object.keys(customerInfo?.entitlements?.active || {}));
 
-// Satın alma sonrası Supabase profilini Pro'ya çeker.
-async function markProfilePro(isPro) {
-  const { data } = await supabase.auth.getUser();
-  if (!data?.user?.id) return;
-
-  const { error } = await supabase
-    .from('profiles')
-    .update({ is_pro: isPro })
-    .eq('id', data.user.id);
-
-  if (error) console.warn('Pro durumu kaydedilemedi:', error.message);
+// Sunucu RevenueCat'e sorup profiles.plan / is_pro alanlarını yazar. Başarısızsa null döner (çökme yok).
+export async function syncEntitlement() {
+  const url = process.env.EXPO_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !anonKey) return null;
+  try {
+    const { data } = await supabase.auth.getSession();
+    const token = data?.session?.access_token;
+    if (!token) return null;
+    const response = await fetch(`${String(url).replace(/\/+$/, '')}/functions/v1/${SYNC_FUNCTION}`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', apikey: anonKey, Authorization: `Bearer ${token}` },
+      body: '{}',
+    });
+    if (!response.ok) return null;
+    const payload = await response.json().catch(() => null);
+    return payload?.plan ? { plan: payload.plan, expiresAt: payload.expiresAt || null } : null;
+  } catch (error) {
+    console.log('Plan eşitlenemedi:', error?.message);
+    return null;
+  }
 }
 
-export async function purchasePackage(selectedPackage) {
+// Dönen değer: { plan: 'free' | 'pro' | 'professional', synced }.
+// synced=false ise mağaza satın almayı onayladı ama sunucu henüz eşitlenemedi.
+async function settle(customerInfo) {
+  const plan = planFromCustomerInfo(customerInfo);
+  if (plan === 'free') return { plan, synced: true };
+  const synced = await syncEntitlement();
+  return { plan, synced: synced?.plan === plan };
+}
+
+// Google Play otherwise starts a second subscription: Pro → Professional must replace the Pro product.
+// iOS upgrades inside one subscription group on its own, so both tiers must share that group.
+async function upgradeChangeInfo(sdk, tier) {
+  if (Platform.OS !== 'android' || tier !== 'professional') return null;
+  try {
+    const info = await sdk.getCustomerInfo();
+    const active = info?.entitlements?.active || {};
+    const oldProductIdentifier = active.pro?.productIdentifier;
+    if (!oldProductIdentifier || active.professional) return null;
+    const modes = require('react-native-purchases').STORE_REPLACEMENT_MODE;
+    return { oldProductIdentifier, replacementMode: modes?.WITH_TIME_PRORATION || 'WITH_TIME_PRORATION' };
+  } catch {
+    return null;
+  }
+}
+
+export async function purchasePackage(selectedPackage, { tier = 'pro' } = {}) {
   const sdk = loadModule();
   if (!sdk) throw new Error(unavailableReason || 'Satın alma kullanılamıyor.');
 
-  const { customerInfo } = await sdk.purchasePackage(selectedPackage.raw);
-  const isPro = hasProEntitlement(customerInfo);
-
-  if (isPro) await markProfilePro(true);
-  return isPro;
+  const change = await upgradeChangeInfo(sdk, tier);
+  const { customerInfo } = change
+    ? await sdk.purchasePackage(selectedPackage.raw, null, change)
+    : await sdk.purchasePackage(selectedPackage.raw);
+  return settle(customerInfo);
 }
 
 export async function restorePurchases() {
@@ -131,10 +169,7 @@ export async function restorePurchases() {
   if (!sdk) throw new Error(unavailableReason || 'Satın alma kullanılamıyor.');
 
   const customerInfo = await sdk.restorePurchases();
-  const isPro = hasProEntitlement(customerInfo);
-
-  if (isPro) await markProfilePro(true);
-  return isPro;
+  return settle(customerInfo);
 }
 
 // Kullanıcı iptal ettiğinde hata gösterilmemelidir.

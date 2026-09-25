@@ -17,6 +17,7 @@ const MAX_TOKENS = 3500;
 
 const FREE_DAILY_LIMIT = 3;
 const PRO_DAILY_LIMIT = 40;
+const PROFESSIONAL_DAILY_LIMIT = 150;
 
 const MAX_QUESTION = 2000;
 const MIN_QUESTION = 8;
@@ -214,15 +215,20 @@ Deno.serve(async (req: Request) => {
   if (!body || typeof body !== 'object') return json({ error: 'INVALID' }, 400);
 
   const admin = createClient(supabaseUrl, service);
-  const { data: profile } = await admin.from('profiles').select('is_pro').eq('id', user.id).maybeSingle();
-  const isPro = !!profile?.is_pro;
-  const limit = isPro ? PRO_DAILY_LIMIT : FREE_DAILY_LIMIT;
+  // The plan column arrives with the LR.5 migration; until then is_pro alone decides.
+  const planned = await admin.from('profiles').select('is_pro, plan').eq('id', user.id).maybeSingle();
+  const profile = planned.error
+    ? (await admin.from('profiles').select('is_pro').eq('id', user.id).maybeSingle()).data
+    : planned.data;
+  const plan = profile?.plan === 'professional' ? 'professional' : profile?.is_pro ? 'pro' : 'free';
+  const isPro = plan !== 'free';
+  const limit = plan === 'professional' ? PROFESSIONAL_DAILY_LIMIT : isPro ? PRO_DAILY_LIMIT : FREE_DAILY_LIMIT;
 
   if (body.action === 'quota') {
     const { data: used, error } = await admin.rpc('legal_ask_used_today', { p_user: user.id });
     if (error) return json({ error: 'UNAVAILABLE' }, 503);
     const count = Number(used) || 0;
-    return json({ quota: { used: count, limit, remaining: Math.max(0, limit - count), pro: isPro } });
+    return json({ quota: { used: count, limit, remaining: Math.max(0, limit - count), pro: isPro, plan } });
   }
 
   const question = clip(body.question, MAX_QUESTION);
@@ -241,6 +247,7 @@ Deno.serve(async (req: Request) => {
     limit,
     remaining: Math.max(0, limit - (Number(consumed.used) || 0)),
     pro: isPro,
+    plan,
   };
   if (!consumed.allowed) return json({ error: 'QUOTA_EXCEEDED', quota }, 429);
 

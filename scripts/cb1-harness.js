@@ -26,6 +26,7 @@ function buildResources() {
     loadWave('i18n.wavelr2.js', 'WAVE_LR2_I18N'),
     loadWave('i18n.wavelr3.js', 'WAVE_LR3_I18N'),
     loadWave('i18n.wavelr4.js', 'WAVE_LR4_I18N'),
+    loadWave('i18n.wavelr5.js', 'WAVE_LR5_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {
@@ -122,6 +123,7 @@ const APP_FILES = [
   'utils/caseFiles.js',
   'utils/legalAnswer.js',
   'constants/processGuides.js',
+  'utils/plan.js',
 ];
 
 function loadApp(language = 'tr') {

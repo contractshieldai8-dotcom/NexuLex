@@ -22,7 +22,7 @@ import {
 } from '../services/advisorSeat';
 import { useFeedback } from '../context/FeedbackContext';
 
-export default function AdvisorSeatCard({ theme, isPro, onNeedPaywall, onOpenBrief }) {
+export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPaywall, onOpenBrief }) {
   const { t } = useTranslation();
   const { showToast } = useFeedback();
   const [busy, setBusy] = useState(false);
@@ -55,7 +55,7 @@ export default function AdvisorSeatCard({ theme, isPro, onNeedPaywall, onOpenBri
       setRedeemCode('');
       await refresh();
     } catch (error) {
-      if (error?.code === 'SEAT_LIMIT') onNeedPaywall?.('share');
+      if (error?.code === 'SEAT_LIMIT') onNeedPaywall?.(plan === 'pro' && role !== 'household' ? 'professional' : 'share');
       else showToast(t('shareUnavailable'), { type: 'error' });
     } finally {
       setBusy(false);
@@ -158,7 +158,7 @@ export default function AdvisorSeatCard({ theme, isPro, onNeedPaywall, onOpenBri
 
       <Text style={[styles.settingLabel, { color: theme.text, marginTop: 20 }]}>{t('seatTitle')}</Text>
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('seatHint')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('seatLimitPro')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t(plan === 'professional' ? 'seatLimitProfessional' : 'seatLimitPro')}</Text>
       {advisorSeats.map(renderSeatRow)}
       <TouchableOpacity
         style={[styles.secondaryBtn, { marginTop: 14 }, busy && styles.buttonDisabled]}

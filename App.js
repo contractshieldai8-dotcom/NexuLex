@@ -119,6 +119,8 @@ import { saveContractReminders } from './services/reminders';
 import { scheduleTrapReminders, subscribeReminderOpens } from './services/notifications';
 import { LIFECYCLES, lifecycleLabelKey, normalizeLifecycle } from './utils/lifecycle';
 import { resolveSourceText } from './utils/shieldDocument';
+import { planOf } from './utils/plan';
+import { syncEntitlement } from './services/purchases';
 import { useFeedback, FeedbackProvider } from './context/FeedbackContext';
 import { AdvisorChatProvider, useAdvisorChat } from './context/AdvisorChatContext';
 import { ReportAiButton } from './components/AiReportSheet';
@@ -776,6 +778,13 @@ function AppContent() {
       resultRef.current = null;
     }
     restoreLastShield(userId).catch(() => {});
+    // WAVE LR.5: once per sign-in the server re-checks the store plan (renewals, expiries, upgrades).
+    syncEntitlement()
+      .then((synced) => (synced ? fetchProfile() : null))
+      .then((fresh) => {
+        if (fresh && fresh.id === userId) setProfile(fresh);
+      })
+      .catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
@@ -799,6 +808,7 @@ function AppContent() {
   const emailVerified = !!user?.email_confirmed_at || !!user?.confirmed_at || (__DEV__ && devEmailBypass);
   const freeLeft = remainingAnalyses(profile);
   const isPro = !!profile?.is_pro;
+  const plan = planOf(profile);
   // Migration henüz uygulanmadıysa profil okunamaz; bu durumda kota zorlanmaz.
   const quotaEnforced = !!profile;
   const lockPremium = quotaEnforced && !isPro;
@@ -3228,7 +3238,7 @@ function AppContent() {
                     numberOfLines={1}
                   >
                     {isPro
-                      ? t('paywallTitle')
+                      ? plan === 'professional' ? t('planTabProfessional') : t('paywallTitle')
                       : freeLeft > 0
                         ? t('freeAnalysesLeft', { count: freeLeft })
                         : `${t('noFreeAnalysesLeft')} · ${t('seePlans')}`}
@@ -3715,6 +3725,7 @@ function AppContent() {
                 return item ? t(item.titleKey) : id;
               })}
               isPro={!lockPremium}
+              plan={plan}
               onNeedPaywall={(hook) => openPaywall(hook || null, null)}
               paywallVisible={paywallVisible}
               isActive={activeTab === 'advisor'}
@@ -3821,7 +3832,8 @@ function AppContent() {
                 <AdvisorSeatCard
                   theme={theme}
                   isPro={isPro}
-                  onNeedPaywall={() => openPaywall('share')}
+                  plan={plan}
+                  onNeedPaywall={(hook) => openPaywall(hook === 'professional' ? 'professional' : 'share')}
                   onOpenBrief={(snapshot) => setAdvisorSnapshot(snapshot)}
                 />
               </View>
@@ -4099,6 +4111,7 @@ function AppContent() {
         hook={paywallHook}
         context={paywallContext}
         exhausted={quotaEnforced && !isPro && freeLeft <= 0}
+        plan={plan}
         onClose={() => {
           setPaywallVisible(false);
           paywallHookRef.current = null;
@@ -4107,8 +4120,8 @@ function AppContent() {
         }}
         onPurchased={async () => {
           const capturedHook = paywallHookRef.current;
-          if (capturedHook === 'draft' || capturedHook === 'explain' || capturedHook === 'cases' || capturedHook === 'ask') {
-            // Advisor reopens the draft wizard / document explainer / case files / legal Q&A; stay on the advisor tab.
+          if (capturedHook === 'draft' || capturedHook === 'explain' || capturedHook === 'cases' || capturedHook === 'ask' || capturedHook === 'professional') {
+            // Advisor reopens the draft wizard / document explainer / case files / legal Q&A / Professional workbench; stay on the advisor tab.
             await refreshProfile();
             return;
           }

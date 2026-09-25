@@ -12,6 +12,7 @@ const CROCKFORD = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
 const SHARE_CODE_RE = /^[0-9A-HJKMNP-TV-Z]{8}$/;
 const ADVISOR_SEAT_CAP = 2;
 const HOUSEHOLD_SEAT_CAP = 1;
+const PROFESSIONAL_ADVISOR_SEAT_CAP = 10;
 const SEAT_ROLES = ['advisor', 'household'] as const;
 
 const normalizeSeatRole = (value: unknown) => {
@@ -264,10 +265,16 @@ Deno.serve(async (req) => {
     if (action === 'mint') {
       const role = normalizeSeatRole(body.role || 'advisor');
       if (!role) return json({ error: 'SEAT_INVALID' }, 400);
-      const cap = role === 'household' ? HOUSEHOLD_SEAT_CAP : ADVISOR_SEAT_CAP;
-
-      const { data: profile } = await admin.from('profiles').select('is_pro').eq('id', user.id).maybeSingle();
+      // The plan column arrives with the LR.5 migration; until then is_pro alone decides.
+      const planned = await admin.from('profiles').select('is_pro, plan').eq('id', user.id).maybeSingle();
+      const profile = planned.error
+        ? (await admin.from('profiles').select('is_pro').eq('id', user.id).maybeSingle()).data
+        : planned.data;
       if (!profile?.is_pro) return json({ error: 'SEAT_LIMIT' }, 402);
+      const professional = profile?.plan === 'professional';
+      const cap = role === 'household'
+        ? HOUSEHOLD_SEAT_CAP
+        : professional ? PROFESSIONAL_ADVISOR_SEAT_CAP : ADVISOR_SEAT_CAP;
 
       const { data: active } = await admin
         .from('advisor_seats')

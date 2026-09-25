@@ -33,7 +33,18 @@ const FEATURE_KEYS = [
   'paywallFeature7',
 ];
 
-const HOOK_COPY = new Set(['escape', 'validity', 'costs', 'negotiate', 'missing', 'ladder', 'lawClash', 'explain', 'cases', 'ask']);
+const PROFESSIONAL_FEATURE_KEYS = [
+  'planProfessionalFeature1',
+  'planProfessionalFeature2',
+  'planProfessionalFeature3',
+  'planProfessionalFeature4',
+  'planProfessionalFeature5',
+  'planProfessionalFeature6',
+  'planProfessionalFeature7',
+];
+const TIERS = ['pro', 'professional'];
+
+const HOOK_COPY = new Set(['escape', 'validity', 'costs', 'negotiate', 'missing', 'ladder', 'lawClash', 'explain', 'cases', 'ask', 'professional']);
 const PRIVACY_URL = 'https://nexulexai.netlify.app/privacy.html';
 const TERMS_URL = 'https://nexulexai.netlify.app/terms.html';
 
@@ -51,30 +62,40 @@ export default function PaywallScreen({
   hook,
   context = null,
   exhausted = false,
+  plan = 'free',
   onClose,
   onPurchased,
 }) {
   const { t } = useTranslation();
+  const [tier, setTier] = useState('pro');
   const [packages, setPackages] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [loadingPlans, setLoadingPlans] = useState(false);
   const [busy, setBusy] = useState(false);
 
   const available = isPurchasesAvailable();
+  // Professional includes everything in Pro, so a Professional subscriber owns both tiers.
+  const owned = plan === tier || plan === 'professional';
+
+  useEffect(() => {
+    if (visible) setTier(hook === 'professional' || plan === 'pro' ? 'professional' : 'pro');
+  }, [visible, hook, plan]);
+
+  const copyHook = tier === 'professional' ? 'professional' : hook;
 
   const heroTitle = () => {
-    if (hook === 'share') return t('sharePaywallTitle');
-    if (hook === 'quota' || (exhausted && !hook)) return t('quotaExhaustedTitle');
-    if (HOOK_COPY.has(hook)) return t(hookCopyKey(hook, 'Title'));
+    if (copyHook === 'share') return t('sharePaywallTitle');
+    if (copyHook === 'quota' || (exhausted && !copyHook)) return t('quotaExhaustedTitle');
+    if (HOOK_COPY.has(copyHook)) return t(hookCopyKey(copyHook, 'Title'));
     return t('paywallTitle');
   };
 
   const heroBody = () => {
     let body = '';
-    if (hook === 'share') body = t('sharePaywallBody');
-    else if (hook === 'quota' || (exhausted && !hook)) {
+    if (copyHook === 'share') body = t('sharePaywallBody');
+    else if (copyHook === 'quota' || (exhausted && !copyHook)) {
       body = exhausted ? t('quotaExhaustedMessage') : t('paywallSubtitle');
-    } else if (HOOK_COPY.has(hook)) body = t(hookCopyKey(hook, 'Body'));
+    } else if (HOOK_COPY.has(copyHook)) body = t(hookCopyKey(copyHook, 'Body'));
     else body = t('paywallSubtitle');
 
     const partyLabel = String(context?.partyLabel || '').trim();
@@ -91,9 +112,11 @@ export default function PaywallScreen({
     if (!available) return;
 
     setLoadingPlans(true);
+    setPackages([]);
+    setSelectedId(null);
     try {
       await configurePurchases(userId);
-      const offerings = await fetchOfferings();
+      const offerings = await fetchOfferings(tier);
       setPackages(offerings);
       // Varsayılan olarak en avantajlı paket seçili gelir.
       setSelectedId((offerings.find(isAnnual) || offerings[0])?.identifier ?? null);
@@ -103,14 +126,15 @@ export default function PaywallScreen({
     } finally {
       setLoadingPlans(false);
     }
-  }, [available, userId]);
+  }, [available, userId, tier]);
 
   useEffect(() => {
     if (visible) loadPlans();
   }, [visible, loadPlans]);
 
-  const finishAsPro = async () => {
-    Alert.alert(t('paywallTitle'), t('paywallPurchaseSuccess'));
+  // synced=false: the store confirmed the purchase but the server could not confirm it yet.
+  const finishAsPro = async ({ synced = true } = {}) => {
+    Alert.alert(t('paywallTitle'), synced ? t('paywallPurchaseSuccess') : t('planSyncPending'));
     await onPurchased?.();
     onClose();
   };
@@ -121,7 +145,8 @@ export default function PaywallScreen({
 
     setBusy(true);
     try {
-      if (await purchasePackage(selected)) finishAsPro();
+      const outcome = await purchasePackage(selected, { tier });
+      if (outcome.plan !== 'free') finishAsPro(outcome);
       else Alert.alert(t('paywallTitle'), t('paywallPurchaseFailed'));
     } catch (error) {
       // Kullanıcı vazgeçtiyse hata gösterilmez.
@@ -137,7 +162,8 @@ export default function PaywallScreen({
   const handleRestore = async () => {
     setBusy(true);
     try {
-      if (await restorePurchases()) finishAsPro();
+      const outcome = await restorePurchases();
+      if (outcome.plan !== 'free') finishAsPro(outcome);
       else Alert.alert(t('paywallTitle'), t('paywallNoPurchases'));
     } catch (error) {
       console.warn('Geri yükleme hatası:', error.message);
@@ -147,7 +173,7 @@ export default function PaywallScreen({
     }
   };
 
-  const canPurchase = available && !loadingPlans && packages.length > 0 && !!selectedId;
+  const canPurchase = available && !loadingPlans && packages.length > 0 && !!selectedId && !owned;
 
   const renderPlan = (pkg) => {
     const active = pkg.identifier === selectedId;
@@ -226,6 +252,40 @@ export default function PaywallScreen({
             </Text>
           </View>
 
+          <View style={{ flexDirection: 'row', gap: 10, marginTop: 16 }}>
+            {TIERS.map((value) => {
+              const active = tier === value;
+              return (
+                <TouchableOpacity
+                  key={value}
+                  activeOpacity={0.85}
+                  onPress={() => setTier(value)}
+                  disabled={busy}
+                  accessibilityRole="tab"
+                  accessibilityState={{ selected: active }}
+                  style={{
+                    flex: 1,
+                    borderWidth: 1,
+                    borderRadius: 14,
+                    padding: 12,
+                    borderColor: active ? ACCENT : theme.borderColor,
+                    backgroundColor: active ? 'rgba(0, 245, 212, 0.08)' : theme.cardBg,
+                  }}
+                >
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                    <Ionicons name={value === 'professional' ? 'ribbon-outline' : 'shield-checkmark-outline'} size={16} color={active ? ACCENT : theme.subText} />
+                    <Text style={[styles.settingLabel, { color: active ? ACCENT : theme.text, fontSize: 15 }]} numberOfLines={1}>
+                      {t(value === 'professional' ? 'planTabProfessional' : 'planTabPro')}
+                    </Text>
+                  </View>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]} numberOfLines={2}>
+                    {t(value === 'professional' ? 'planProfessionalTagline' : 'planProTagline')}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+
           <View
             style={[
               styles.card,
@@ -236,7 +296,7 @@ export default function PaywallScreen({
               {t('lockedTitle')}
             </Text>
 
-            {(FEATURE_KEYS || []).map((key) => (
+            {(tier === 'professional' ? PROFESSIONAL_FEATURE_KEYS : FEATURE_KEYS).map((key) => (
               <View key={key} style={styles.paywallFeatureRow}>
                 <Ionicons name="checkmark-circle" size={17} color={ACCENT} />
                 <Text style={[styles.paywallFeatureText, { color: theme.text }]}>{t(key)}</Text>
@@ -264,7 +324,17 @@ export default function PaywallScreen({
                   { color: theme.subText, textAlign: 'center', marginVertical: 12 },
                 ]}
               >
-                {t('paywallUnavailable')}
+                {available && tier === 'professional' ? t('planProfessionalUnavailable') : t('paywallUnavailable')}
+              </Text>
+            ) : null}
+
+            {owned ? (
+              <Text style={[styles.sectionHint, { color: ACCENT, textAlign: 'center', marginVertical: 8 }]}>
+                {t('planYouHave')}
+              </Text>
+            ) : tier === 'professional' && plan === 'pro' && packages.length > 0 ? (
+              <Text style={[styles.sectionHint, { color: theme.subText, textAlign: 'center', marginVertical: 8 }]}>
+                {t('planUpgradeNote')}
               </Text>
             ) : null}
 

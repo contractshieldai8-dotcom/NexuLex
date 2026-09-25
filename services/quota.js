@@ -169,11 +169,16 @@ export async function fetchProfile() {
   const userId = auth?.user?.id;
   if (!userId) return null;
 
-  const { data, error } = await supabase
+  const baseColumns = 'id, email, phone_number, device_id, free_analyses_left, is_pro';
+  let { data, error } = await supabase
     .from('profiles')
-    .select('id, email, phone_number, device_id, free_analyses_left, is_pro')
+    .select(`${baseColumns}, plan`)
     .eq('id', userId)
     .maybeSingle();
+  // The plan column arrives with the Professional migration; older databases still load.
+  if (error) {
+    ({ data, error } = await supabase.from('profiles').select(baseColumns).eq('id', userId).maybeSingle());
+  }
 
   if (error) {
     console.log('Profil okunamadı:', error.message);
