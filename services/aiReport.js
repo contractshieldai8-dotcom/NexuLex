@@ -4,7 +4,7 @@
 import { submitSupportMessage } from './support';
 
 export const AI_REPORT_SUBJECT_PREFIX = 'ai_report:';
-export const AI_REPORT_FEATURES = ['analysis_report', 'advisor_answer', 'draft_polish', 'document_explain'];
+export const AI_REPORT_FEATURES = ['analysis_report', 'advisor_answer', 'draft_polish', 'document_explain', 'legal_ask'];
 export const AI_REPORT_REASONS = [
   { id: 'incorrect', labelKey: 'aiReportReasonIncorrect' },
   { id: 'harmful', labelKey: 'aiReportReasonHarmful' },

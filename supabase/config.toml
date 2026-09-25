@@ -29,6 +29,12 @@ enabled = true
 verify_jwt = true
 entrypoint = "./functions/advisor-seat/index.ts"
 
+# WAVE LR.3 hukuki soru motoru: sabit sunucu talimatı + günlük kota (legal_ask_usage).
+[functions.legal-ask]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/legal-ask/index.ts"
+
 # Hesap silme: kullanıcı yalnızca doğrulanmış JWT'den türetilir; gateway doğrulaması da zorunlu.
 [functions.delete-account]
 enabled = true

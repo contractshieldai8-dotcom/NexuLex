@@ -28,6 +28,7 @@ import CalculatorModal from '../components/CalculatorModal';
 import DraftWizardModal from '../components/DraftWizardModal';
 import DocumentExplainerSheet from '../components/DocumentExplainerSheet';
 import CaseHubSheet from '../components/CaseHubSheet';
+import LegalAskSheet from '../components/LegalAskSheet';
 import { loadCases } from '../services/caseFileStore';
 import { DRAFT_CATALOG, resolveDraftVariant } from '../constants/draftTemplates';
 import VoiceMicButton from '../components/VoiceMicButton';
@@ -75,6 +76,8 @@ export default function LegalAdvisorScreen({
   const [caseImport, setCaseImport] = useState(null);
   const [caseCount, setCaseCount] = useState(0);
   const pendingCaseReturnRef = useRef(false);
+  const [askOpen, setAskOpen] = useState(false);
+  const pendingAskReturnRef = useRef(false);
   const pendingDraftReturnRef = useRef(null);
   const paywallWasVisibleRef = useRef(paywallVisible);
 
@@ -122,8 +125,16 @@ export default function LegalAdvisorScreen({
     } else if (guideAction.type === 'openAdvisorTool' && guideAction.id === 'case_files') {
       setCaseOpenId(guideAction.entryId || null);
       setCaseHubOpen(true);
+    } else if (guideAction.type === 'openAdvisorTool' && guideAction.id === 'legal_ask') {
+      setAskOpen(true);
     }
   }, [guideAction, openDraft]);
+
+  const handleAskPaywall = useCallback(() => {
+    pendingAskReturnRef.current = true;
+    setAskOpen(false);
+    onNeedPaywall?.('ask');
+  }, [onNeedPaywall]);
 
   const handleExplainPaywall = useCallback(() => {
     pendingExplainReturnRef.current = true;
@@ -228,6 +239,22 @@ export default function LegalAdvisorScreen({
         if (!pendingCaseReturnRef.current) return;
         pendingCaseReturnRef.current = false;
         setCaseHubOpen(true);
+      }, 400);
+    });
+    return () => {
+      task?.cancel?.();
+      if (timer) clearTimeout(timer);
+    };
+  }, [isActive, paywallClosedTick, paywallVisible]);
+
+  useEffect(() => {
+    if (!paywallClosedTick || paywallVisible || !isActive || !pendingAskReturnRef.current) return undefined;
+    let timer = null;
+    const task = InteractionManager.runAfterInteractions(() => {
+      timer = setTimeout(() => {
+        if (!pendingAskReturnRef.current) return;
+        pendingAskReturnRef.current = false;
+        setAskOpen(true);
       }, 400);
     });
     return () => {
@@ -402,6 +429,32 @@ export default function LegalAdvisorScreen({
             <Ionicons name="trash-outline" size={18} color={theme.subText} />
           </TouchableOpacity>
         </View>
+
+        <TouchableOpacity
+          activeOpacity={0.85}
+          onPress={() => setAskOpen(true)}
+          accessibilityRole="button"
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 12,
+            borderWidth: 1,
+            borderColor: ACCENT,
+            backgroundColor: `${ACCENT}14`,
+            borderRadius: 14,
+            padding: 14,
+            marginTop: 8,
+          }}
+        >
+          <Ionicons name="help-buoy-outline" size={26} color={ACCENT} />
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>{t('askCardTitle')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
+              {t('askCardHint')}
+            </Text>
+          </View>
+          <Ionicons name="chevron-forward" size={18} color={ACCENT} />
+        </TouchableOpacity>
 
         <TouchableOpacity
           activeOpacity={0.85}
@@ -840,6 +893,24 @@ export default function LegalAdvisorScreen({
           setCaseHubOpen(false);
           setCaseImport(null);
         }}
+      />
+
+      <LegalAskSheet
+        visible={askOpen}
+        theme={theme}
+        country={country}
+        isPro={isPro}
+        onNeedPaywall={handleAskPaywall}
+        onAskAdvisor={(prompt) => {
+          setAskOpen(false);
+          setQuestion(String(prompt || '').trim());
+          showToast(t('askAdvisorToast'), { type: 'info', duration: 1600 });
+        }}
+        onOpenCalculator={(id) => {
+          setAskOpen(false);
+          setCalculatorId(id);
+        }}
+        onClose={() => setAskOpen(false)}
       />
     </KeyboardAvoidingView>
   );

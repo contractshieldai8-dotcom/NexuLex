@@ -24,6 +24,7 @@ function buildResources() {
     loadWave('i18n.wavegd2.js', 'WAVE_GD2_I18N'),
     loadWave('i18n.wavelr1.js', 'WAVE_LR1_I18N'),
     loadWave('i18n.wavelr2.js', 'WAVE_LR2_I18N'),
+    loadWave('i18n.wavelr3.js', 'WAVE_LR3_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {
@@ -118,6 +119,7 @@ const APP_FILES = [
   'services/guidedDraft.js',
   'utils/documentExplain.js',
   'utils/caseFiles.js',
+  'utils/legalAnswer.js',
 ];
 
 function loadApp(language = 'tr') {

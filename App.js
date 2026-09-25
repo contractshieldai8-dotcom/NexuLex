@@ -4107,8 +4107,8 @@ function AppContent() {
         }}
         onPurchased={async () => {
           const capturedHook = paywallHookRef.current;
-          if (capturedHook === 'draft' || capturedHook === 'explain' || capturedHook === 'cases') {
-            // Advisor reopens the draft wizard / document explainer / case files; stay on the advisor tab.
+          if (capturedHook === 'draft' || capturedHook === 'explain' || capturedHook === 'cases' || capturedHook === 'ask') {
+            // Advisor reopens the draft wizard / document explainer / case files / legal Q&A; stay on the advisor tab.
             await refreshProfile();
             return;
           }
