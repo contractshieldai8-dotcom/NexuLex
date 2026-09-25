@@ -2,9 +2,11 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   ActivityIndicator,
   FlatList,
+  I18nManager,
   InteractionManager,
   Keyboard,
   KeyboardAvoidingView,
+  Linking,
   Platform,
   ScrollView,
   Text,
@@ -33,6 +35,7 @@ import ProcessGuideSheet from '../components/ProcessGuideSheet';
 import ProToolsSheet from '../components/ProToolsSheet';
 import LawyerHandoffSheet from '../components/LawyerHandoffSheet';
 import { PROCESS_GUIDES } from '../constants/processGuides';
+import { packDepthFor } from '../constants/packDepth';
 import { ADVISOR_HOME_JOBS } from '../constants/advisorHome';
 import { loadCases } from '../services/caseFileStore';
 import { DRAFT_CATALOG, resolveDraftVariant } from '../constants/draftTemplates';
@@ -116,6 +119,7 @@ export default function LegalAdvisorScreen({
     const match = JURISDICTIONS.find((item) => item.code === code);
     return match ? t(match.labelKey) : code || '';
   }, [country, i18n.language, t]);
+  const packDepth = useMemo(() => packDepthFor(country, i18n.language), [country, i18n.language]);
 
   const openHomeJob = useCallback((open) => {
     if (open === 'ask') setAskOpen(true);
@@ -572,6 +576,49 @@ export default function LegalAdvisorScreen({
             </TouchableOpacity>
           ))}
         </ScrollView>
+        <View
+          style={{
+            borderWidth: 1,
+            borderColor: theme.borderColor,
+            backgroundColor: theme.cardBg,
+            borderRadius: 14,
+            padding: 14,
+            marginTop: 10,
+            marginBottom: 8,
+          }}
+        >
+          <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>{t('jp3Title')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 8 }]}>
+            {packDepth.statutoryLive
+              ? t('jp3HintStatutory', { date: packDepth.asOfDate || '' })
+              : packDepth.packPending
+                ? t('jp3Pending')
+                : t('jp3HintUniversal')}
+          </Text>
+          {packDepth.portal ? (
+            <TouchableOpacity
+              onPress={() => Linking.openURL(packDepth.portal).catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
+              accessibilityRole="link"
+              style={{ marginBottom: 8 }}
+            >
+              <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 0 }]}>{t('jp3Portal')}</Text>
+            </TouchableOpacity>
+          ) : null}
+          {packDepth.officialCount ? (
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
+              {t('jp3Bodies', { count: String(packDepth.officialCount) })}
+            </Text>
+          ) : null}
+          <TouchableOpacity
+            onPress={() => openHomeJob('guides')}
+            accessibilityRole="button"
+            style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}
+          >
+            <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 0, flex: 1 }]}>{t('jp3SeeGuides')}</Text>
+            <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={16} color={ACCENT} />
+          </TouchableOpacity>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 12, marginBottom: 0 }]}>{t('jp3Disclaimer')}</Text>
+        </View>
         {messages.length <= 1 ? (
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 4 }]}>
             {t('ahEmptyLead')} {t('ahEmptyTail')}
@@ -945,8 +992,10 @@ export default function LegalAdvisorScreen({
       offeredDrafts,
       openDraft,
       openHomeJob,
+      packDepth,
       pendingCountryLabel,
       plan,
+      showToast,
       scenarioItems,
       selectedCountry,
       sending,
