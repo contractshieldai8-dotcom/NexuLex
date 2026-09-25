@@ -122,7 +122,7 @@ export const WAVE_F_I18N = {
     "guideStepPlaybookSeat": "In Settings use Advisor seat / Household seat to mint a read-only brief code. The original contract is not sent; respect Pro limits."
   },
   "de": {
-    "guideTitle": "NexuLex Guide",
+    "guideTitle": "NexuLex-Leitfaden",
     "guideSubtitle": "Wie geht das? Thema wählen — volle Schritte.",
     "guideAskAdvisor": "Das klingt nach einer Rechtsfrage. Der Guide erklärt die App; für Recht nutzen Sie den Berater-Tab.",
     "guideAskAdvisorCta": "Berater fragen",
@@ -355,7 +355,7 @@ export const WAVE_F_I18N = {
     "guideStepAdvisorVs": "الدليل يشرح التطبيق. المستشار للأسئلة القانونية. للقوانين والتعويض والمحاكم انتقل للمستشار.",
     "guideStepAdvisorOpen": "انتقل لتبويب المستشار. قد يوفّر التحليل سياقاً — اكتب السؤال بوضوح.",
     "guideStepAdvisorAsk": "في المستشار راجع الطرف/البلد ثم أرسل. الإجابات لا تغني عن خطوات الدليل.",
-    "guideStepAdvisorWhen": "الاستخدام («كيف PDF؟») → الدليل. القانون («هل البند باطل؟») → اسأل المستشار.",
+    "guideStepAdvisorWhen": "الاستخدام («كيف PDF؟») ← الدليل. القانون («هل البند باطل؟») ← اسأل المستشار.",
     "guideStepSettingsOpen": "افتح الإعدادات من الأعلى. اللغة والمظهر والأمان ورموز المقاعد هنا.",
     "guideStepSettingsLang": "اختر إحدى 13 لغة. لغة التقرير قد تختلف.",
     "guideStepPlaybookOpen": "مرّر لنتيجة التحليل وافتح الدليل. علّم الحمايات الناقصة — الدرع يعتمد عليها.",
@@ -595,7 +595,7 @@ export const WAVE_F_I18N = {
     "guideStepAdvisorVs": "راهنما کار با اپ را می‌گوید. مشاور پرسش حقوقی است. برای قانون/خسارت/دادگاه به مشاور بروید.",
     "guideStepAdvisorOpen": "به تب مشاور بروید. تحلیل ممکن است زمینه بدهد — سؤال را واضح بنویسید.",
     "guideStepAdvisorAsk": "در مشاور نقش/کشور را چک کنید و بفرستید. پاسخ‌ها جایگزین گام‌های راهنما نیستند.",
-    "guideStepAdvisorWhen": "کاربرد («چطور PDF؟») → راهنما. حقوق («بند باطل است؟») → از مشاور بپرس.",
+    "guideStepAdvisorWhen": "کاربرد («چطور PDF؟») ← راهنما. حقوق («بند باطل است؟») ← از مشاور بپرس.",
     "guideStepSettingsOpen": "از بالا تنظیمات را باز کنید. زبان، تم، امنیت و کد صندلی اینجاست.",
     "guideStepSettingsLang": "یکی از ۱۳ زبان را انتخاب کنید. زبان گزارش می‌تواند جدا باشد.",
     "guideStepPlaybookOpen": "نتیجه تحلیل را پایین بکشید و پلی‌بوک را باز کنید. حفاظت‌های کم را علامت بزنید — سپر از آن‌ها تغذیه می‌کند.",

@@ -4137,4 +4137,86 @@ Ticaret Unvanı: Anadolu Bilişim
   }
 }
 
+// WAVE L10N.1 — No English leaking into localized wave files
+{
+  let l10nOk = true;
+  const l10nFail = (msg) => {
+    failed = true;
+    l10nOk = false;
+    console.log(`WAVE L10N.1 ${msg}`);
+  };
+  const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavef', 'wavebn', 'wavebo'];
+  const RTL = ['ar', 'fa'];
+  const KEY_ALLOWLIST = new Set([]);
+  const brandOnly = (value) => value
+    .replace(/https?:\/\/\S+/g, '')
+    .replace(/\{\{\w+\}\}/g, '')
+    .replace(/\b(NexuLex(?: AI)?|NDA|B2B|B2C|IBAN|PDF|SWIFT|BIC|VAT|GDPR|KVKK|App Store|Google Play|RevenueCat|Supabase)\b/g, '')
+    .replace(/[^\p{L}]/gu, '').length < 4;
+
+  let audited = 0;
+  for (const name of AUDITED) {
+    const file = `i18n.${name}.js`;
+    if (!fs.existsSync(file)) {
+      l10nFail(`${file} missing`);
+      continue;
+    }
+    let wave;
+    try {
+      wave = loadWave(file);
+    } catch (error) {
+      l10nFail(`${file} parse: ${error.message}`);
+      continue;
+    }
+    const en = wave.en || {};
+    for (const [lang, table] of Object.entries(wave)) {
+      if (lang === 'en') continue;
+      for (const [key, value] of Object.entries(table)) {
+        if (typeof value !== 'string') continue;
+        audited += 1;
+        if (value.length >= 12 && value === en[key] && !KEY_ALLOWLIST.has(key) && !brandOnly(value)) {
+          l10nFail(`${name}.${lang}.${key} is identical to EN: "${value.slice(0, 60)}"`);
+        }
+        if (RTL.includes(lang)) {
+          if (/→/.test(value)) l10nFail(`${name}.${lang}.${key} uses → in RTL copy (use ←)`);
+          if (/[\u0600-\u06FF][^?]*\?(\s|$)/.test(value.replace(/https?:\/\/\S+/g, ''))) l10nFail(`${name}.${lang}.${key} uses ASCII ? after RTL text (use ؟)`);
+        }
+      }
+    }
+  }
+  if (audited < 13 * 400) l10nFail(`audit coverage too small (${audited})`);
+
+  // waveca translations are authored per locale and must stay in sync with the generated file.
+  try {
+    const waveCa = loadWave('i18n.waveca.js');
+    for (const lang of ['de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl']) {
+      const src = `scripts/l10n/waveca.${lang}.js`;
+      if (!fs.existsSync(src)) {
+        l10nFail(`${src} missing`);
+        continue;
+      }
+      delete require.cache[require.resolve(`./l10n/waveca.${lang}.js`)];
+      const authored = require(`./l10n/waveca.${lang}.js`);
+      const keys = Object.keys(authored);
+      if (keys.length < 170) l10nFail(`${src} has only ${keys.length} keys`);
+      for (const key of keys) {
+        if (waveCa[lang][key] !== authored[key]) l10nFail(`i18n.waveca.js ${lang}.${key} out of sync with ${src} (re-run gen-waveca-i18n.js)`);
+      }
+      // Short option labels (Yes/No/Tenant…) must be localized too, except where the word is genuinely shared.
+      const shortSame = keys.filter((key) => waveCa.en[key] === authored[key] && !/^(Service|No)$/.test(authored[key]));
+      if (shortSame.length) l10nFail(`${lang} short labels still English: ${shortSame.join(', ')}`);
+    }
+    const gen = fs.readFileSync('scripts/gen-waveca-i18n.js', 'utf8');
+    if (!/Missing \$\{lang\} translation for key/.test(gen)) l10nFail('gen-waveca must fail loudly on a missing translation (no silent EN fallback)');
+    if (JSON.stringify(waveCa.tr).length < 1000 || waveCa.tr.scenarioSectionTitle !== 'Hızlı Aksiyon Senaryoları') l10nFail('TR waveca copy changed');
+  } catch (error) {
+    l10nFail(`waveca sync: ${error.message}`);
+  }
+
+  if (l10nOk) {
+    console.log(`OK  WAVE L10N.1 no EN-identical copy in ${AUDITED.length} wave files (${audited} strings) + RTL punctuation`);
+  }
+}
+
 process.exit(failed ? 1 : 0);

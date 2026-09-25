@@ -35,11 +35,11 @@ const SHARED = {
     de: '3 Fragen → sofortige lokale Roadmap. Kein erfundenes Recht; kein Anwaltsersatz.',
     fr: '3 questions → feuille de route locale. Pas de droit inventé ; pas un avocat.',
     es: '3 preguntas → hoja de ruta local. Sin inventar derecho; no sustituye a un abogado.',
-    ar: '3 أسئلة → خارطة طريق محلية فورية. لا قانون مخترع؛ ليست بديلاً عن محامٍ.',
+    ar: '3 أسئلة ← خارطة طريق محلية فورية. لا قانون مخترع؛ ليست بديلاً عن محامٍ.',
     it: '3 domande → roadmap locale. Nessuna legge inventata; non sostituisce un avvocato.',
     zh: '3 个问题 → 即时本地路线图。不编造法律；不能替代律师。',
     ru: '3 вопроса → локальная дорожная карта. Без выдуманного права; не замена адвокату.',
-    fa: '۳ سؤال → نقشه راه محلی فوری. قانون جعل نمی‌شود؛ جایگزین وکیل نیست.',
+    fa: '۳ سؤال ← نقشه راه محلی فوری. قانون جعل نمی‌شود؛ جایگزین وکیل نیست.',
     ja: '3問 → 即時ローカル道筋。法を創作しません。弁護士の代替ではありません。',
     pt: '3 perguntas → roteiro local. Sem inventar direito; não substitui advogado.',
     nl: '3 vragen → lokale roadmap. Geen verzonnen recht; geen advocaatvervanging.',
@@ -413,9 +413,26 @@ function collectKeys() {
   return [...keys].sort();
 }
 
+// WAVE L10N.1 — authored translations for EN_TR keys, one file per locale.
+const L10N = {};
+for (const lang of langs) {
+  if (lang === 'tr' || lang === 'en') continue;
+  const file = path.join(__dirname, 'l10n', `waveca.${lang}.js`);
+  L10N[lang] = require(file);
+  const extra = Object.keys(L10N[lang]).filter((key) => !EN_TR[key]);
+  if (extra.length) throw new Error(`waveca.${lang}.js has unknown keys: ${extra.join(', ')}`);
+}
+
 function valueFor(key, lang) {
   if (SHARED[key]) return SHARED[key][lang] || SHARED[key].en;
-  if (EN_TR[key]) return EN_TR[key][lang] || EN_TR[key].en;
+  if (EN_TR[key]) {
+    if (EN_TR[key][lang]) return EN_TR[key][lang];
+    if (L10N[lang]) {
+      if (!L10N[lang][key]) throw new Error(`Missing ${lang} translation for key: ${key}`);
+      return L10N[lang][key];
+    }
+    return EN_TR[key].en;
+  }
   // Missing authored string — fail loudly at gen time
   throw new Error(`Missing i18n authoring for key: ${key}`);
 }
