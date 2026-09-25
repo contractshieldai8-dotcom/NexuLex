@@ -59,7 +59,8 @@ export default function ContractAnalyzer({ onImagesReady, disabled, imageCount =
         quality: 1,
       });
     } catch (error) {
-      Alert.alert(t('errorTitle'), error?.message || '');
+      console.warn('Image picker failed:', error);
+      Alert.alert(t('errorTitle'), t('errImagePickFailed'));
       return;
     }
 
@@ -85,7 +86,8 @@ export default function ContractAnalyzer({ onImagesReady, disabled, imageCount =
       const withBase64 = processedImages.filter((img) => img.base64);
       if (onImagesReady) onImagesReady(withBase64);
     } catch (error) {
-      Alert.alert(t('errorTitle'), error.message);
+      console.warn('Image processing failed:', error);
+      Alert.alert(t('errorTitle'), t('errImagePickFailed'));
     } finally {
       setPicking(false);
     }

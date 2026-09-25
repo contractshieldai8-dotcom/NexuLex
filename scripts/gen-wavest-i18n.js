@@ -163,6 +163,7 @@ set('aiReportFailed', ui(
   'Não foi possível enviar a denúncia. Verifique a conexão e tente novamente.',
   'De melding kon niet worden verstuurd. Controleer de verbinding en probeer opnieuw.'
 ));
+set('errImagePickFailed', ui('Fotoğraflar seçilemedi. Lütfen tekrar deneyin.', 'Could not select photos. Please try again.', 'Fotos konnten nicht ausgewählt werden. Bitte versuchen Sie es erneut.', 'Impossible de sélectionner les photos. Veuillez réessayer.', 'No se pudieron seleccionar las fotos. Inténtalo de nuevo.', 'تعذّر اختيار الصور. يرجى المحاولة مرة أخرى.', 'Impossibile selezionare le foto. Riprova.', '无法选择照片，请重试。', 'Не удалось выбрать фотографии. Попробуйте ещё раз.', 'انتخاب عکس‌ها ممکن نشد. لطفاً دوباره تلاش کنید.', '写真を選択できませんでした。もう一度お試しください。', 'Não foi possível selecionar as fotos. Tente novamente.', 'Foto’s konden niet worden geselecteerd. Probeer het opnieuw.'));
 set('aiReportPickReason', ui('Lütfen bir neden seçin.', 'Please choose a reason.', 'Bitte wählen Sie einen Grund.', 'Veuillez choisir un motif.', 'Elige un motivo.', 'يرجى اختيار سبب.', 'Scegli un motivo.', '请选择一个原因。', 'Выберите причину.', 'لطفاً یک دلیل انتخاب کنید.', '理由を選択してください。', 'Escolha um motivo.', 'Kies een reden.'));
 
 const out = {};

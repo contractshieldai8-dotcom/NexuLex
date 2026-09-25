@@ -103,6 +103,20 @@ function upsertProperty(properties, key, value) {
   }
 }
 
+function removeProperty(properties, key) {
+  for (let i = properties.length - 1; i >= 0; i -= 1) {
+    if (properties[i].type === 'property' && properties[i].key === key) properties.splice(i, 1);
+  }
+}
+
+// org.gradle.java.home is machine-specific: only pin it for local Windows builds where the JDK exists.
+function resolveLocalJavaHome() {
+  if (process.env.EAS_BUILD === 'true' || process.platform !== 'win32') return null;
+  const override = process.env.NEXULEX_JAVA_HOME;
+  const candidate = override && fs.existsSync(override) ? override : JDK17;
+  return fs.existsSync(candidate) ? candidate.replace(/\\/g, '/') : null;
+}
+
 function withJdkAndNdkProperties(config) {
   return withGradleProperties(config, (mod) => {
     const props = mod.modResults;
@@ -110,7 +124,12 @@ function withJdkAndNdkProperties(config) {
     if (jvm && !String(jvm.value).includes('--enable-native-access=ALL-UNNAMED')) {
       jvm.value = `${jvm.value} --enable-native-access=ALL-UNNAMED`;
     }
-    upsertProperty(props, 'org.gradle.java.home', JDK17);
+    const javaHome = resolveLocalJavaHome();
+    if (javaHome) {
+      upsertProperty(props, 'org.gradle.java.home', javaHome);
+    } else {
+      removeProperty(props, 'org.gradle.java.home');
+    }
     upsertProperty(props, 'android.ndkVersion', NDK);
     upsertProperty(props, 'ANDROID_NDK_CPP_FLAGS', CPP_FLAGS);
     upsertProperty(props, 'FOLLY_CFG_NO_COROUTINES', '1');

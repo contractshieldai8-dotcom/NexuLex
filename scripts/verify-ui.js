@@ -293,9 +293,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
       console.log(`WAVE_ST ${lang}: eksik=[${missing.join(', ')}] fazla=[${extra.join(', ')}]`);
     }
   }
-  if (waveStBase.length !== 25) {
+  if (waveStBase.length !== 26) {
     failed = true;
-    console.log(`WAVE_ST key count ${waveStBase.length}, beklenen 25`);
+    console.log(`WAVE_ST key count ${waveStBase.length}, beklenen 26`);
   }
 
   for (const lang of languages) {
@@ -322,9 +322,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 1030) {
+  if (languages.length !== 13 || baseKeys.length !== 1031) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1030`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1031`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -3890,7 +3890,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') stFail('analyze-contract SHA256 changed');
 
   if (stOk) {
-    console.log('OK  WAVE ST store hardening (N=25 → 13×1030) + delete-account + AI report + permissions + listing');
+    console.log('OK  WAVE ST store hardening (N=26 → 13×1031) + delete-account + AI report + permissions + listing');
   }
 }
 
@@ -3936,9 +3936,10 @@ Ticaret Unvanı: Anadolu Bilişim
 
   const analyzer = read('components/ContractAnalyzer.jsx');
   if (/requestMediaLibraryPermissionsAsync/.test(analyzer)) st1Fail('ContractAnalyzer must not gate on requestMediaLibraryPermissionsAsync');
-  if (!/launchImageLibraryAsync/.test(analyzer) || !/result\?\.canceled/.test(analyzer) || !/catch \(error\) \{\s*Alert\.alert\(t\('errorTitle'\)/.test(analyzer)) {
-    st1Fail('picker cancel / failure handling must remain');
+  if (!/launchImageLibraryAsync/.test(analyzer) || !/result\?\.canceled/.test(analyzer) || !/catch \(error\) \{\s*console\.warn\([^)]*error\);\s*Alert\.alert\(t\('errorTitle'\), t\('errImagePickFailed'\)\);/.test(analyzer)) {
+    st1Fail('picker cancel / localized failure handling must remain');
   }
+  if (/Alert\.alert\([^;]*error\??\.message/.test(analyzer)) st1Fail('ContractAnalyzer must not show raw error.message');
 
   const purchases = read('services/purchases.js');
   const logOutFn = (purchases.match(/export async function logOutPurchases\(\) \{[\s\S]*?\n\}/) || [''])[0];

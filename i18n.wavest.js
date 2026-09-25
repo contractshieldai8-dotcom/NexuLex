@@ -26,6 +26,7 @@ export const WAVE_ST_I18N = {
     "aiReportSubmit": "Bildir",
     "aiReportSent": "Teşekkürler, bildiriminiz alındı.",
     "aiReportFailed": "Bildirim gönderilemedi. Bağlantınızı kontrol edip tekrar deneyin.",
+    "errImagePickFailed": "Fotoğraflar seçilemedi. Lütfen tekrar deneyin.",
     "aiReportPickReason": "Lütfen bir neden seçin."
   },
   "en": {
@@ -53,6 +54,7 @@ export const WAVE_ST_I18N = {
     "aiReportSubmit": "Send report",
     "aiReportSent": "Thanks, your report was received.",
     "aiReportFailed": "The report could not be sent. Check your connection and try again.",
+    "errImagePickFailed": "Could not select photos. Please try again.",
     "aiReportPickReason": "Please choose a reason."
   },
   "de": {
@@ -80,6 +82,7 @@ export const WAVE_ST_I18N = {
     "aiReportSubmit": "Meldung senden",
     "aiReportSent": "Danke, Ihre Meldung ist eingegangen.",
     "aiReportFailed": "Die Meldung konnte nicht gesendet werden. Verbindung prüfen und erneut versuchen.",
+    "errImagePickFailed": "Fotos konnten nicht ausgewählt werden. Bitte versuchen Sie es erneut.",
     "aiReportPickReason": "Bitte wählen Sie einen Grund."
   },
   "fr": {
@@ -107,6 +110,7 @@ export const WAVE_ST_I18N = {
     "aiReportSubmit": "Envoyer",
     "aiReportSent": "Merci, votre signalement a été reçu.",
     "aiReportFailed": "Le signalement n’a pas pu être envoyé. Vérifiez la connexion et réessayez.",
+    "errImagePickFailed": "Impossible de sélectionner les photos. Veuillez réessayer.",
     "aiReportPickReason": "Veuillez choisir un motif."
   },
   "es": {
@@ -134,6 +138,7 @@ export const WAVE_ST_I18N = {
     "aiReportSubmit": "Enviar reporte",
     "aiReportSent": "Gracias, hemos recibido tu reporte.",
     "aiReportFailed": "No se pudo enviar el reporte. Revisa la conexión e inténtalo de nuevo.",
+    "errImagePickFailed": "No se pudieron seleccionar las fotos. Inténtalo de nuevo.",
     "aiReportPickReason": "Elige un motivo."
   },
   "ar": {
@@ -161,6 +166,7 @@ export const WAVE_ST_I18N = {
     "aiReportSubmit": "إرسال البلاغ",
     "aiReportSent": "شكرًا، تم استلام بلاغك.",
     "aiReportFailed": "تعذّر إرسال البلاغ. تحقّق من الاتصال وحاول مجددًا.",
+    "errImagePickFailed": "تعذّر اختيار الصور. يرجى المحاولة مرة أخرى.",
     "aiReportPickReason": "يرجى اختيار سبب."
   },
   "it": {
@@ -188,6 +194,7 @@ export const WAVE_ST_I18N = {
     "aiReportSubmit": "Invia segnalazione",
     "aiReportSent": "Grazie, segnalazione ricevuta.",
     "aiReportFailed": "Impossibile inviare la segnalazione. Controlla la connessione e riprova.",
+    "errImagePickFailed": "Impossibile selezionare le foto. Riprova.",
     "aiReportPickReason": "Scegli un motivo."
   },
   "zh": {
@@ -215,6 +222,7 @@ export const WAVE_ST_I18N = {
     "aiReportSubmit": "提交举报",
     "aiReportSent": "感谢，已收到您的举报。",
     "aiReportFailed": "举报发送失败。请检查网络后重试。",
+    "errImagePickFailed": "无法选择照片，请重试。",
     "aiReportPickReason": "请选择一个原因。"
   },
   "ru": {
@@ -242,6 +250,7 @@ export const WAVE_ST_I18N = {
     "aiReportSubmit": "Отправить",
     "aiReportSent": "Спасибо, жалоба получена.",
     "aiReportFailed": "Не удалось отправить жалобу. Проверьте соединение и повторите.",
+    "errImagePickFailed": "Не удалось выбрать фотографии. Попробуйте ещё раз.",
     "aiReportPickReason": "Выберите причину."
   },
   "fa": {
@@ -269,6 +278,7 @@ export const WAVE_ST_I18N = {
     "aiReportSubmit": "ارسال گزارش",
     "aiReportSent": "متشکریم، گزارش شما دریافت شد.",
     "aiReportFailed": "گزارش ارسال نشد. اتصال را بررسی و دوباره تلاش کنید.",
+    "errImagePickFailed": "انتخاب عکس‌ها ممکن نشد. لطفاً دوباره تلاش کنید.",
     "aiReportPickReason": "لطفاً یک دلیل انتخاب کنید."
   },
   "ja": {
@@ -296,6 +306,7 @@ export const WAVE_ST_I18N = {
     "aiReportSubmit": "報告を送信",
     "aiReportSent": "ありがとうございます。報告を受け付けました。",
     "aiReportFailed": "報告を送信できませんでした。接続を確認して再試行してください。",
+    "errImagePickFailed": "写真を選択できませんでした。もう一度お試しください。",
     "aiReportPickReason": "理由を選択してください。"
   },
   "pt": {
@@ -323,6 +334,7 @@ export const WAVE_ST_I18N = {
     "aiReportSubmit": "Enviar denúncia",
     "aiReportSent": "Obrigado, sua denúncia foi recebida.",
     "aiReportFailed": "Não foi possível enviar a denúncia. Verifique a conexão e tente novamente.",
+    "errImagePickFailed": "Não foi possível selecionar as fotos. Tente novamente.",
     "aiReportPickReason": "Escolha um motivo."
   },
   "nl": {
@@ -350,6 +362,7 @@ export const WAVE_ST_I18N = {
     "aiReportSubmit": "Melding versturen",
     "aiReportSent": "Bedankt, uw melding is ontvangen.",
     "aiReportFailed": "De melding kon niet worden verstuurd. Controleer de verbinding en probeer opnieuw.",
+    "errImagePickFailed": "Foto’s konden niet worden geselecteerd. Probeer het opnieuw.",
     "aiReportPickReason": "Kies een reden."
   }
 };
