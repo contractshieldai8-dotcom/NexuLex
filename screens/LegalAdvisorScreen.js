@@ -576,7 +576,15 @@ export default function LegalAdvisorScreen({
             </TouchableOpacity>
           ))}
         </ScrollView>
-        <View
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8 }]}>{t('ux4Ask')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Guides')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Case')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Lawyer')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Country')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Free')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4NoPay')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 4 }]}>{t('ux4Disclaimer')}</Text>
+        <View>
           style={{
             borderWidth: 1,
             borderColor: theme.borderColor,
