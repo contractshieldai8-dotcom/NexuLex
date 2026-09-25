@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 
 import { ACCENT, styles } from '../theme';
 import { useFeedback } from '../context/FeedbackContext';
+import { footKeyForHook } from '../constants/paywallIntent';
 import {
   configurePurchases,
   fetchOfferings,
@@ -255,6 +256,11 @@ export default function PaywallScreen({
             <Text style={[styles.summaryText, { color: theme.subText }]}>
               {heroBody()}
             </Text>
+            {footKeyForHook(exhausted && !hook ? 'quota' : hook) ? (
+              <Text style={[styles.sectionHint, { color: theme.subText, textAlign: 'center', marginTop: 10, marginBottom: 0 }]}>
+                {t(footKeyForHook(exhausted && !hook ? 'quota' : hook))}
+              </Text>
+            ) : null}
           </View>
 
           <View style={{ flexDirection: 'row', gap: 10, marginTop: 16 }}>
