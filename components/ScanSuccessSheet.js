@@ -5,13 +5,14 @@ import { useTranslation } from 'react-i18next';
 
 import { ACCENT, styles } from '../theme';
 import { SCAN_SUCCESS_JOBS } from '../constants/scanSuccess';
+import { scanSuccessInviteUrl } from '../constants/scanSuccessLocale';
 import KeyboardSafeSheet, { useKeyboardSafeSheet } from './KeyboardSafeSheet';
 
 const WIN_H = Dimensions.get('window').height;
 const SHEET_MAX = Math.round(WIN_H * 0.92);
 
-export default function ScanSuccessSheet({ visible, theme, onPick, onSkip, onClose }) {
-  const { t } = useTranslation();
+export default function ScanSuccessSheet({ visible, theme, countryLabel, onPick, onSkip, onClose }) {
+  const { t, i18n } = useTranslation();
   const sheet = useKeyboardSafeSheet({ maxHeight: SHEET_MAX });
 
   return (
@@ -44,6 +45,8 @@ export default function ScanSuccessSheet({ visible, theme, onPick, onSkip, onClo
 
           <KeyboardSafeSheet controller={sheet} style={{ maxHeight: Math.round(WIN_H * 0.7) }} contentContainerStyle={{ paddingBottom: 12 }}>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ssHint')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('gr8Country', { country: countryLabel })}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('gr8Lang')}</Text>
             <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, marginBottom: 8 }]}>{t('ssLead')}</Text>
             {SCAN_SUCCESS_JOBS.map((item) => (
               <TouchableOpacity
@@ -73,6 +76,13 @@ export default function ScanSuccessSheet({ visible, theme, onPick, onSkip, onClo
             <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={onSkip}>
               <Text style={styles.secondaryBtnText}>{t('ssSkip')}</Text>
             </TouchableOpacity>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10 }]}>{t('gr8Case')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('gr8Ask')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('gr8Invite')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('gr8Get')}</Text>
+            <Text style={[styles.sectionHint, { color: ACCENT, marginTop: 6 }]}>{scanSuccessInviteUrl(i18n.language)}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('gr8NoWin')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('gr8Note')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('ssTail')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 14 }]}>{t('ssDisclaimer')}</Text>
           </KeyboardSafeSheet>

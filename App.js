@@ -4570,6 +4570,7 @@ function AppContent() {
       <ScanSuccessSheet
         visible={scanSuccessOpen}
         theme={theme}
+        countryLabel={t(getJurisdiction(analysisCountry).labelKey)}
         onPick={runScanSuccess}
         onSkip={skipScanSuccess}
         onClose={skipScanSuccess}
