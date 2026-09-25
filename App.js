@@ -66,9 +66,11 @@ import {
   suggestJurisdiction,
 } from './utils/locale';
 import { FIRST_INTENTS, actionForIntent } from './constants/firstIntent';
+import { jobForScanSuccess } from './constants/scanSuccess';
 import { collectResumeItems, shouldOfferResumeSheet, actionForResume } from './constants/sessionResume';
 import { loadResumeDraft, saveResumeDraft, clearResumeDraft, isUsableDraft } from './utils/sessionResume';
 import { isShareLoopSeen, markShareLoopSeen } from './utils/shareLoop';
+import { isScanSuccessSeen, markScanSuccessSeen } from './utils/scanSuccess';
 import { loadCases } from './services/caseFileStore';
 import { loadSavedAnswers } from './services/legalAsk';
 import { mergeDeadlines, loadUpcomingDeadlines, sortDeadlines, kindLabelKey, nextAnniversary, parseIsoDate } from './utils/deadlines';
@@ -121,6 +123,7 @@ import NexuLexGuideSheet from './components/NexuLexGuideSheet';
 import FirstIntentSheet from './components/FirstIntentSheet';
 import ResumeSessionSheet from './components/ResumeSessionSheet';
 import ShareLoopSheet from './components/ShareLoopSheet';
+import ScanSuccessSheet from './components/ScanSuccessSheet';
 import { getAvailability } from './constants/jurisdictionPacks';
 import LifecycleChips from './components/LifecycleChips';
 import VoiceMicButton from './components/VoiceMicButton';
@@ -336,6 +339,8 @@ function AppContent() {
   const resumeOfferedRef = useRef(false);
   const [shareLoopOpen, setShareLoopOpen] = useState(false);
   const shareOfferedRef = useRef(false);
+  const [scanSuccessOpen, setScanSuccessOpen] = useState(false);
+  const scanSuccessOfferedRef = useRef(false);
   const overlayBusyRef = useRef(false);
   const [localeReady, setLocaleReady] = useState(false);
   const [authBootstrapped, setAuthBootstrapped] = useState(false);
@@ -638,16 +643,52 @@ function AppContent() {
     setResumeOpen(false);
   }, []);
 
-  overlayBusyRef.current = intentOpen || resumeOpen || guideVisible || paywallVisible || shareLoopOpen;
+  overlayBusyRef.current = intentOpen || resumeOpen || guideVisible || paywallVisible || shareLoopOpen || scanSuccessOpen;
 
   const closeShareLoop = useCallback(() => {
     markShareLoopSeen();
     setShareLoopOpen(false);
   }, []);
 
+  const skipScanSuccess = useCallback(() => {
+    markScanSuccessSeen();
+    setScanSuccessOpen(false);
+  }, []);
+
+  const runScanSuccess = useCallback(
+    (id) => {
+      markScanSuccessSeen();
+      setScanSuccessOpen(false);
+      const job = jobForScanSuccess(id);
+      if (!job) return;
+      setTimeout(() => {
+        if (job.action.type === 'invite') {
+          if (shareOfferedRef.current) return;
+          shareOfferedRef.current = true;
+          setShareLoopOpen(true);
+          return;
+        }
+        handleGuideAction(job.action);
+      }, 400);
+    },
+    [handleGuideAction]
+  );
+
   const maybeOfferShareLoop = useCallback(() => {
     if (shareOfferedRef.current) return;
     const offer = async () => {
+      if (!(await isScanSuccessSeen())) {
+        if (scanSuccessOfferedRef.current) return;
+        scanSuccessOfferedRef.current = true;
+        setTimeout(() => {
+          if (overlayBusyRef.current) {
+            scanSuccessOfferedRef.current = false;
+            return;
+          }
+          setScanSuccessOpen(true);
+        }, 800);
+        return;
+      }
       if (await isShareLoopSeen()) return;
       setTimeout(() => {
         if (overlayBusyRef.current) return;
@@ -4464,6 +4505,14 @@ function AppContent() {
         theme={theme}
         onDone={closeShareLoop}
         onClose={closeShareLoop}
+      />
+
+      <ScanSuccessSheet
+        visible={scanSuccessOpen}
+        theme={theme}
+        onPick={runScanSuccess}
+        onSkip={skipScanSuccess}
+        onClose={skipScanSuccess}
       />
 
       <NexuLexGuideSheet

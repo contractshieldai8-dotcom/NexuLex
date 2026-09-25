@@ -93,13 +93,15 @@ const waveGr4Src = fs.existsSync('i18n.wavegr4.js') ? fs.readFileSync('i18n.wave
 const waveGr4Match = waveGr4Src.match(/export const WAVE_GR4_I18N = ([\s\S]*);\s*$/);
 const waveGr5Src = fs.existsSync('i18n.wavegr5.js') ? fs.readFileSync('i18n.wavegr5.js', 'utf8') : '';
 const waveGr5Match = waveGr5Src.match(/export const WAVE_GR5_I18N = ([\s\S]*);\s*$/);
+const waveGr6Src = fs.existsSync('i18n.wavegr6.js') ? fs.readFileSync('i18n.wavegr6.js', 'utf8') : '';
+const waveGr6Match = waveGr6Src.match(/export const WAVE_GR6_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !waveGr6Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5 kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5/GR6 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -129,6 +131,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_GR3_I18N = eval(`(${waveGr3Match[1]})`); // eslint-disable-line no-eval
   const WAVE_GR4_I18N = eval(`(${waveGr4Match[1]})`); // eslint-disable-line no-eval
   const WAVE_GR5_I18N = eval(`(${waveGr5Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_GR6_I18N = eval(`(${waveGr6Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -158,8 +161,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_GR3_I18N',
     'WAVE_GR4_I18N',
     'WAVE_GR5_I18N',
+    'WAVE_GR6_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -692,6 +696,11 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     failed = true;
     console.log(`WAVE_GR5 count langs=${Object.keys(WAVE_GR5_I18N).length} keys=${waveGr5Base.length}`);
   }
+  const waveGr6Base = Object.keys(WAVE_GR6_I18N.en || {});
+  if (Object.keys(WAVE_GR6_I18N).length !== 13 || waveGr6Base.length !== 12) {
+    failed = true;
+    console.log(`WAVE_GR6 count langs=${Object.keys(WAVE_GR6_I18N).length} keys=${waveGr6Base.length}`);
+  }
 
   for (const lang of languages) {
     const keys = Object.keys(resources[lang].translation);
@@ -717,9 +726,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 1954) {
+  if (languages.length !== 13 || baseKeys.length !== 1966) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1954`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1966`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -3131,6 +3140,7 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_GR3_I18N',
       'WAVE_GR4_I18N',
       'WAVE_GR5_I18N',
+      'WAVE_GR6_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -3149,7 +3159,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.wavegr2.js', 'utf8').match(/export const WAVE_GR2_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavegr3.js', 'utf8').match(/export const WAVE_GR3_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavegr4.js', 'utf8').match(/export const WAVE_GR4_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.wavegr5.js', 'utf8').match(/export const WAVE_GR5_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavegr5.js', 'utf8').match(/export const WAVE_GR5_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavegr6.js', 'utf8').match(/export const WAVE_GR6_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -4549,7 +4560,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -6208,6 +6219,77 @@ Ticaret Unvanı: Anadolu Bilişim
 
   if (relOk) {
     console.log(`OK  WAVE REL.3 store promo (${fixtures} fixtures): promotional text 140–170 and What's New 260–1200 × ${LANGS.length}, listing not in the app bundle`);
+  }
+}
+
+// WAVE GR.6 — first-scan success: case / ask / invite; 400 ms gap; no stacked sheets
+{
+  let grOk = true;
+  const grFail = (msg) => {
+    failed = true;
+    grOk = false;
+    console.log(`WAVE GR.6 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const LANGS = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+  let fixtures = 0;
+  try {
+    const { loadApp } = require('./cb1-harness');
+    ({ cases: fixtures } = loadApp('en').api.assertScanSuccessFixtures());
+  } catch (error) {
+    grFail(`runtime: ${error.message}`);
+  }
+  const R = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
+  const keys = ['ssTitle', 'ssHint', 'ssLead', 'ssCase', 'ssCaseHint', 'ssAsk', 'ssAskHint', 'ssInvite', 'ssInviteHint', 'ssSkip', 'ssTail', 'ssDisclaimer'];
+  if (keys.length !== 12) grFail('twelve copy keys');
+  for (const L of LANGS) {
+    const miss = keys.filter((k) => typeof R[L][k] !== 'string' || !R[L][k].trim());
+    if (miss.length) grFail(`${L} missing ${miss.join(', ')}`);
+    if (!/NexuLex/.test(R[L].ssDisclaimer || '')) grFail(`${L}.ssDisclaimer must name NexuLex`);
+    if (L !== 'en') {
+      const same = keys.filter((k) => R[L][k] === R.en[k] && R.en[k].length >= 12);
+      if (same.length) grFail(`${L} identical to EN: ${same.join(', ')}`);
+    }
+  }
+  for (const L of ['ar', 'fa']) {
+    const bad = keys.filter((k) => /→/.test(R[L][k] || '') || /[\u0600-\u06FF][^?]*\?(\s|$)/.test(R[L][k] || ''));
+    if (bad.length) grFail(`${L} RTL punctuation: ${bad.join(', ')}`);
+  }
+
+  const sheet = read('components/ScanSuccessSheet.js');
+  const app = read('App.js');
+  const persist = read('utils/scanSuccess.js');
+  const account = read('services/account.js');
+  const model = read('constants/scanSuccess.js');
+
+  if (!/<Pressable\s+style=\{StyleSheet\.absoluteFillObject\}/.test(sheet)) grFail('BL.3 sibling backdrop');
+  if (!/onRequestClose=\{onClose\}/.test(sheet)) grFail('Android back must close the sheet');
+  if (!/t\('ssDisclaimer'\)\}<\/Text>\s*<\/KeyboardSafeSheet>/.test(sheet)) grFail('disclaimer must be the last element');
+  if (!/useKeyboardSafeSheet/.test(sheet)) grFail('keyboard-safe sheet');
+  if (!/I18nManager\.isRTL \? 'chevron-back' : 'chevron-forward'/.test(sheet)) grFail('RTL chevron');
+
+  if (!/export const SCAN_SUCCESS_KEY = '@nexulex\/scanSuccessSeen'/.test(persist)) grFail('success flag must use the @nexulex/ prefix');
+  if (/DEVICE_PREF_KEYS = new Set\(\[[^\]]*scanSuccessSeen/.test(account)) grFail('success flag must clear on account delete');
+  if (!/id: 'case'[\s\S]{0,160}case_files/.test(model) || !/id: 'ask'[\s\S]{0,160}legal_ask/.test(model)) grFail('case and ask must reuse advisor tools');
+  if (!/action: \{ type: 'invite' \}/.test(model)) grFail('invite job stays local');
+  if (!/isAcceptableAnalysis\(decorated, pasted \|\| sourceText\)\) maybeOfferShareLoop\(\)/.test(app)) grFail('offer only after an acceptable scan');
+  if (!/isScanSuccessSeen/.test(app) || !/setScanSuccessOpen\(true\)/.test(app)) grFail('first acceptable scan must offer the success sheet');
+  if (!/scanSuccessOpen/.test(app) || !/overlayBusyRef\.current = intentOpen \|\| resumeOpen \|\| guideVisible \|\| paywallVisible \|\| shareLoopOpen \|\| scanSuccessOpen/.test(app)) {
+    grFail('success sheet must count as a busy overlay');
+  }
+  const runner = (app.match(/const runScanSuccess = useCallback\([\s\S]*?\[handleGuideAction\]\s*\);/) || [''])[0];
+  if (!/setTimeout\(\(\) => \{/.test(runner) || !/400/.test(runner)) grFail('jobs must wait 400 ms before the next sheet');
+  if (!/setShareLoopOpen\(true\)/.test(runner) || !/handleGuideAction\(job\.action\)/.test(runner)) grFail('invite opens share; case and ask reuse the guide action');
+  if (/openPaywall/.test(runner)) grFail('success jobs must not open the paywall');
+  if (!/<ShareLoopSheet[\s\S]+<ScanSuccessSheet[\s\S]+<NexuLexGuideSheet/.test(app)) grFail('success sheet sits between share loop and guide');
+  if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) { /* ok if absent */ }
+
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') grFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) grFail('dependency count changed');
+
+  if (grOk) {
+    console.log(`OK  WAVE GR.6 first-scan success (${fixtures} fixtures): case / ask / invite × 13, 400 ms gap, no stacked sheets`);
   }
 }
 

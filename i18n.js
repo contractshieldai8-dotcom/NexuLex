@@ -28,6 +28,7 @@ import { WAVE_GR2_I18N } from './i18n.wavegr2';
 import { WAVE_GR3_I18N } from './i18n.wavegr3';
 import { WAVE_GR4_I18N } from './i18n.wavegr4';
 import { WAVE_GR5_I18N } from './i18n.wavegr5';
+import { WAVE_GR6_I18N } from './i18n.wavegr6';
 
 const resources = {
   tr: {
@@ -318,6 +319,7 @@ const resources = {
       ...WAVE_GR3_I18N.tr,
       ...WAVE_GR4_I18N.tr,
       ...WAVE_GR5_I18N.tr,
+      ...WAVE_GR6_I18N.tr,
     }
   },
   en: {
@@ -608,6 +610,7 @@ const resources = {
       ...WAVE_GR3_I18N.en,
       ...WAVE_GR4_I18N.en,
       ...WAVE_GR5_I18N.en,
+      ...WAVE_GR6_I18N.en,
     }
   },
   de: {
@@ -898,6 +901,7 @@ const resources = {
       ...WAVE_GR3_I18N.de,
       ...WAVE_GR4_I18N.de,
       ...WAVE_GR5_I18N.de,
+      ...WAVE_GR6_I18N.de,
     }
   },
   fr: {
@@ -1188,6 +1192,7 @@ const resources = {
       ...WAVE_GR3_I18N.fr,
       ...WAVE_GR4_I18N.fr,
       ...WAVE_GR5_I18N.fr,
+      ...WAVE_GR6_I18N.fr,
     }
   },
   es: {
@@ -1478,6 +1483,7 @@ const resources = {
       ...WAVE_GR3_I18N.es,
       ...WAVE_GR4_I18N.es,
       ...WAVE_GR5_I18N.es,
+      ...WAVE_GR6_I18N.es,
     }
   },
   ar: {
@@ -1768,6 +1774,7 @@ const resources = {
       ...WAVE_GR3_I18N.ar,
       ...WAVE_GR4_I18N.ar,
       ...WAVE_GR5_I18N.ar,
+      ...WAVE_GR6_I18N.ar,
     }
   },
   it: {
@@ -2058,6 +2065,7 @@ const resources = {
       ...WAVE_GR3_I18N.it,
       ...WAVE_GR4_I18N.it,
       ...WAVE_GR5_I18N.it,
+      ...WAVE_GR6_I18N.it,
     }
   },
   zh: {
@@ -2348,6 +2356,7 @@ const resources = {
       ...WAVE_GR3_I18N.zh,
       ...WAVE_GR4_I18N.zh,
       ...WAVE_GR5_I18N.zh,
+      ...WAVE_GR6_I18N.zh,
     }
   },
   ru: {
@@ -2638,6 +2647,7 @@ const resources = {
       ...WAVE_GR3_I18N.ru,
       ...WAVE_GR4_I18N.ru,
       ...WAVE_GR5_I18N.ru,
+      ...WAVE_GR6_I18N.ru,
     }
   },
   fa: {
@@ -2928,6 +2938,7 @@ const resources = {
       ...WAVE_GR3_I18N.fa,
       ...WAVE_GR4_I18N.fa,
       ...WAVE_GR5_I18N.fa,
+      ...WAVE_GR6_I18N.fa,
     }
   },
   ja: {
@@ -3218,6 +3229,7 @@ const resources = {
       ...WAVE_GR3_I18N.ja,
       ...WAVE_GR4_I18N.ja,
       ...WAVE_GR5_I18N.ja,
+      ...WAVE_GR6_I18N.ja,
     }
   },
   pt: {
@@ -3508,6 +3520,7 @@ const resources = {
       ...WAVE_GR3_I18N.pt,
       ...WAVE_GR4_I18N.pt,
       ...WAVE_GR5_I18N.pt,
+      ...WAVE_GR6_I18N.pt,
     }
   },
   nl: {
@@ -3798,6 +3811,7 @@ const resources = {
       ...WAVE_GR3_I18N.nl,
       ...WAVE_GR4_I18N.nl,
       ...WAVE_GR5_I18N.nl,
+      ...WAVE_GR6_I18N.nl,
     }
   }
 };
