@@ -787,6 +787,11 @@ function AppContent() {
         guideActionRef.current?.({ type: 'openAdvisorTool', id: 'doc_explainer', entryId: docMatch[1] });
         return;
       }
+      const caseMatch = /^case-([a-z0-9]+)-[a-z0-9]+$/i.exec(String(analysisId || ''));
+      if (caseMatch) {
+        guideActionRef.current?.({ type: 'openAdvisorTool', id: 'case_files', entryId: caseMatch[1] });
+        return;
+      }
       openReminderAnalysis(analysisId).catch(() => {});
     });
   }, [userId, openReminderAnalysis]);
@@ -4102,8 +4107,8 @@ function AppContent() {
         }}
         onPurchased={async () => {
           const capturedHook = paywallHookRef.current;
-          if (capturedHook === 'draft' || capturedHook === 'explain') {
-            // Advisor reopens the draft wizard / document explainer; stay on the advisor tab.
+          if (capturedHook === 'draft' || capturedHook === 'explain' || capturedHook === 'cases') {
+            // Advisor reopens the draft wizard / document explainer / case files; stay on the advisor tab.
             await refreshProfile();
             return;
           }

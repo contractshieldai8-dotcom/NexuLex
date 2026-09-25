@@ -23,6 +23,7 @@ function buildResources() {
     loadWave('i18n.wavejp2.js', 'WAVE_JP2_I18N'),
     loadWave('i18n.wavegd2.js', 'WAVE_GD2_I18N'),
     loadWave('i18n.wavelr1.js', 'WAVE_LR1_I18N'),
+    loadWave('i18n.wavelr2.js', 'WAVE_LR2_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {
@@ -116,6 +117,7 @@ const APP_FILES = [
   'services/scenarioRoadmap.js',
   'services/guidedDraft.js',
   'utils/documentExplain.js',
+  'utils/caseFiles.js',
 ];
 
 function loadApp(language = 'tr') {

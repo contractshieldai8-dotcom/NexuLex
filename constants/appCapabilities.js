@@ -4,7 +4,7 @@
 
 export const GUIDE_TABS = ['analyze', 'advisor', 'history', 'settings'];
 export const GUIDE_SETTINGS_SECTIONS = ['account', 'seats', 'support', 'security', 'language', 'privacy', 'delete'];
-export const GUIDE_ADVISOR_TOOLS = ['doc_explainer'];
+export const GUIDE_ADVISOR_TOOLS = ['doc_explainer', 'case_files'];
 export const GUIDE_ACTION_TYPES = [
   'openTab',
   'openCalculator',
@@ -34,6 +34,7 @@ export const GUIDE_CHANGELOG = [
   { id: 'cl_jurisdiction', titleKey: 'guideNewJurisdiction', date: '2026-09-25', workflowId: 'jurisdiction_currency' },
   { id: 'cl_guide', titleKey: 'guideNewGuide', date: '2026-09-25', workflowId: 'legal_advisor' },
   { id: 'cl_doc_explainer', titleKey: 'guideNewDocExplainer', date: '2026-09-26', workflowId: 'document_explainer' },
+  { id: 'cl_case_files', titleKey: 'guideNewCaseFiles', date: '2026-09-27', workflowId: 'case_files' },
 ];
 
 export function latestChangelog(count = 5) {
@@ -113,6 +114,20 @@ export const GUIDE_WORKFLOWS = [
       { bodyKey: 'guideStepExplain2', ctaKey: 'docExplainDeadlines' },
       { bodyKey: 'guideStepExplain3', ctaKey: 'docExplainRemind' },
       { bodyKey: 'guideStepExplain4', ctaKey: 'docExplainAskAdvisor' },
+    ],
+  },
+  {
+    id: 'case_files',
+    titleKey: 'guideFlowCasesTitle',
+    hintKey: 'guideFlowCasesHint',
+    introKey: 'guideFlowCasesIntro',
+    chipKey: 'guideChipCases',
+    tab: 'advisor',
+    steps: [
+      { bodyKey: 'guideStepCases1', ctaKey: 'caseCardTitle', action: { type: 'openAdvisorTool', id: 'case_files' } },
+      { bodyKey: 'guideStepCases2', ctaKey: 'caseAddEvent' },
+      { bodyKey: 'guideStepCases3', ctaKey: 'caseAddEvidence' },
+      { bodyKey: 'guideStepCases4', ctaKey: 'caseBrief' },
     ],
   },
   {

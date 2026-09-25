@@ -71,13 +71,15 @@ const waveGd2Src = fs.existsSync('i18n.wavegd2.js') ? fs.readFileSync('i18n.wave
 const waveGd2Match = waveGd2Src.match(/export const WAVE_GD2_I18N = ([\s\S]*);\s*$/);
 const waveLr1Src = fs.existsSync('i18n.wavelr1.js') ? fs.readFileSync('i18n.wavelr1.js', 'utf8') : '';
 const waveLr1Match = waveLr1Src.match(/export const WAVE_LR1_I18N = ([\s\S]*);\s*$/);
+const waveLr2Src = fs.existsSync('i18n.wavelr2.js') ? fs.readFileSync('i18n.wavelr2.js', 'utf8') : '';
+const waveLr2Match = waveLr2Src.match(/export const WAVE_LR2_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1 kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -96,6 +98,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_JP2_I18N = eval(`(${waveJp2Match[1]})`); // eslint-disable-line no-eval
   const WAVE_GD2_I18N = eval(`(${waveGd2Match[1]})`); // eslint-disable-line no-eval
   const WAVE_LR1_I18N = eval(`(${waveLr1Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_LR2_I18N = eval(`(${waveLr2Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -114,8 +117,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_JP2_I18N',
     'WAVE_GD2_I18N',
     'WAVE_LR1_I18N',
+    'WAVE_LR2_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -417,6 +421,32 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     }
   }
 
+  const waveLr2Base = Object.keys(WAVE_LR2_I18N.en || {});
+  if (Object.keys(WAVE_LR2_I18N).length !== 13) {
+    failed = true;
+    console.log(`WAVE_LR2 dil sayisi ${Object.keys(WAVE_LR2_I18N).length}, beklenen 13`);
+  }
+  for (const [lang, table] of Object.entries(WAVE_LR2_I18N)) {
+    const keys = Object.keys(table || {});
+    const missing = waveLr2Base.filter((key) => !keys.includes(key));
+    const extra = keys.filter((key) => !waveLr2Base.includes(key));
+    if (missing.length || extra.length) {
+      failed = true;
+      console.log(`WAVE_LR2 ${lang}: eksik=[${missing.join(', ')}] fazla=[${extra.join(', ')}]`);
+    }
+  }
+  if (waveLr2Base.length !== 99) {
+    failed = true;
+    console.log(`WAVE_LR2 key count ${waveLr2Base.length}, beklenen 99`);
+  }
+  for (const [name, wave] of Object.entries({ ...earlierWaves, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N })) {
+    const shadowed = waveLr2Base.filter((key) => Object.prototype.hasOwnProperty.call(wave.en || {}, key));
+    if (shadowed.length) {
+      failed = true;
+      console.log(`WAVE_LR2 shadows ${name}: ${shadowed.join(', ')}`);
+    }
+  }
+
   for (const lang of languages) {
     const keys = Object.keys(resources[lang].translation);
     const missing = baseKeys.filter((key) => !keys.includes(key));
@@ -441,9 +471,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 1347) {
+  if (languages.length !== 13 || baseKeys.length !== 1446) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1347`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1446`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -2844,6 +2874,7 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_JP2_I18N',
       'WAVE_GD2_I18N',
       'WAVE_LR1_I18N',
+      'WAVE_LR2_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -2851,7 +2882,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.waveux1.js', 'utf8').match(/export const WAVE_UX1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavejp2.js', 'utf8').match(/export const WAVE_JP2_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavegd2.js', 'utf8').match(/export const WAVE_GD2_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.wavelr1.js', 'utf8').match(/export const WAVE_LR1_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavelr1.js', 'utf8').match(/export const WAVE_LR1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavelr2.js', 'utf8').match(/export const WAVE_LR2_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -4251,7 +4283,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavelr1', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavelr1', 'wavelr2', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -4766,10 +4798,10 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/action\.type === 'openAdvisorTool'/.test(app)) lrFail('App must handle openAdvisorTool');
   if (!/\/\^doc-\(\[a-z0-9\]\+\)-\\d\+\$\/i/.test(app)) lrFail('document reminder taps must open the explainer, not an analysis');
   if (!/capturedHook === 'draft' \|\| capturedHook === 'explain'/.test(app)) lrFail('purchase from the explainer must stay on the advisor tab');
-  if (!/'explain'\]\);/.test(read('screens/PaywallScreen.js'))) lrFail('paywall hook copy for explain');
+  if (!/'explain'(\]|, 'cases'\])\);/.test(read('screens/PaywallScreen.js'))) lrFail('paywall hook copy for explain');
   if (!/guideAction\.type === 'openAdvisorTool' && guideAction\.id === 'doc_explainer'/.test(advisor)) lrFail('advisor must open the explainer from the guide');
   if (!/onNeedPaywall\?\.\('explain'\)/.test(advisor) || !/<DocumentExplainerSheet/.test(advisor) || !/t\('docExplainCardTitle'\)/.test(advisor)) lrFail('advisor entry card / sheet / paywall');
-  if (!/GUIDE_ADVISOR_TOOLS = \['doc_explainer'\]/.test(capSrc) || !/'openAdvisorTool'/.test(capSrc)) lrFail('guide action type');
+  if (!/GUIDE_ADVISOR_TOOLS = \['doc_explainer'/.test(capSrc) || !/'openAdvisorTool'/.test(capSrc)) lrFail('guide action type');
   if (!/id: 'document_explainer'[\s\S]{0,400}action: \{ type: 'openAdvisorTool', id: 'doc_explainer' \}/.test(capSrc)) lrFail('guide workflow must deep-link the explainer');
   if (!/'document_explain'\]/.test(read('services/aiReport.js'))) lrFail('aiReport feature id');
 
@@ -4779,6 +4811,112 @@ Ticaret Unvanı: Anadolu Bilişim
 
   if (lrOk) {
     console.log(`OK  WAVE LR.1 document explainer (${cases} fixtures): strict schema, free deadlines + Pro plan, reminders, advisor hand-off × 13`);
+  }
+}
+
+// WAVE LR.2 — Case files: device-local timeline + fingerprinted evidence, reminders, explainer import, Pro brief, 13 languages
+{
+  let cfOk = true;
+  const cfFail = (msg) => {
+    failed = true;
+    cfOk = false;
+    console.log(`WAVE LR.2 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const hub = read('components/CaseHubSheet.js');
+  const store = read('services/caseFileStore.js');
+  const util = read('utils/caseFiles.js');
+  const app = read('App.js');
+  const advisor = read('screens/LegalAdvisorScreen.js');
+  const explainer = read('components/DocumentExplainerSheet.js');
+  const capSrc = read('constants/appCapabilities.js');
+  const account = read('services/account.js');
+  let fixtures = 0;
+  try {
+    const { loadApp, LANGS } = require('./cb1-harness');
+    const { api } = loadApp('en');
+    fixtures = api.assertCaseFixtures().cases;
+    if (api.FREE_CASE_LIMIT !== 1) cfFail('free plan must allow exactly one case file');
+    if (api.CASE_AREAS.length !== 14 || api.CASE_AREAS.some((a) => !api.CASE_AREA_ICONS[a])) cfFail('every area of law needs an icon');
+    if (api.EVENT_KINDS.some((k) => !api.EVENT_KIND_ICONS[k])) cfFail('every event kind needs an icon');
+    const res = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
+    const keys = [...hub.matchAll(/t\('(case\w+|docExplain\w+)'/g), ...advisor.matchAll(/t\('(case\w+)'/g), ...explainer.matchAll(/t\('(case\w+)'/g)].map((m) => m[1]);
+    ['hookCasesTitle', 'hookCasesBody', 'guideNewCaseFiles', 'guideFlowCasesTitle', 'guideStepCases1', 'caseBriefHeader', 'caseBriefParties', 'caseBriefChronology', 'caseBriefUpcoming', 'caseBriefEvidenceList'].forEach((k) => keys.push(k));
+    api.CASE_AREAS.forEach((a) => keys.push(`caseArea_${a}`));
+    api.CASE_SIDES.forEach((s) => keys.push(`caseSide_${s}`));
+    api.CASE_STATUSES.forEach((s) => keys.push(`caseStatus_${s}`));
+    api.EVENT_KINDS.forEach((k) => keys.push(`caseKind_${k}`));
+    for (const L of LANGS) {
+      const missing = [...new Set(keys)].filter((key) => !res[L][key]);
+      if (missing.length) cfFail(`${L} missing: ${missing.join(', ')}`);
+      if (!/SHA-256/.test(res[L].caseFingerprintHint)) cfFail(`${L} fingerprint hint must name SHA-256`);
+      if (/%|guarantee|garanti|garantiert/i.test(res[L].hookCasesBody)) cfFail(`${L} paywall copy must not promise outcomes`);
+      if (!res[L].caseBriefDisclaimer.includes('NexuLex')) cfFail(`${L} brief disclaimer must name NexuLex`);
+    }
+    for (const L of ['en', 'tr', 'de']) {
+      if (!/not legal advice|hukuki danışmanlık değildir|keine Rechtsberatung/.test(res[L].caseBriefDisclaimer)) cfFail(`${L} brief disclaimer must say it is not legal advice`);
+      if (!/does not replace|yerini tutmaz|ersetzt aber keine/.test(res[L].caseFingerprintHint)) cfFail(`${L} fingerprint hint must not overclaim legal certification`);
+      if (!/(device|cihazda|Gerät)/.test(res[L].caseStorageNote) || !/(uninstall|kaldırdığınızda|Deinstallieren)/.test(res[L].caseStorageNote)) cfFail(`${L} storage note must say device-only and lost on uninstall`);
+    }
+    const tr = res.tr;
+    const brief = api.formatCaseBrief(
+      api.addEvent(api.createCase({ title: 'X', area: 'labor', side: 'claimant' }), { date: '2099-01-02', title: 'Duruşma', kind: 'hearing' }).item,
+      (k) => tr[k] || k,
+      { disclaimer: tr.caseBriefDisclaimer, today: '2026-09-25' }
+    );
+    if (!brief.endsWith(tr.caseBriefDisclaimer) || !brief.includes(tr.caseArea_labor) || !brief.includes(tr.caseBriefUpcoming)) cfFail('brief must be localized with the disclaimer last');
+  } catch (error) {
+    cfFail(`runtime: ${error.message}`);
+  }
+
+  // Pure model: explainer import never turns a period into a date; SHA-256 is self-contained
+  if (!/if \(!deadline\.date\) continue;/.test(util)) cfFail('only deadlines with a stated date may become alerts');
+  if (/require\(|from '/.test(util)) cfFail('utils/caseFiles.js must stay pure (no imports)');
+
+  // Sheet: BL.3, keyboard-safe fields, horizontal chips, gated creation + brief, no camera
+  if (!/<Pressable\s+style=\{StyleSheet\.absoluteFillObject\}[\s\S]{0,200}\/>\s*<View\s+style=\{\[\s*styles\.modalSheet/.test(hub)) cfFail('backdrop Pressable must stay a sibling of the sheet');
+  if (/onStartShouldSetResponder|FlatList/.test(hub)) cfFail('no onStartShouldSetResponder / nested virtualized list');
+  if (!/useKeyboardSafeSheet\(/.test(hub) || !/<KeyboardSafeSheet/.test(hub)) cfFail('hub must use KeyboardSafeSheet');
+  const inputs = (hub.match(/<TextInput/g) || []).length;
+  const fields = (hub.match(/\{\.\.\.sheet\.field\('/g) || []).length;
+  if (!inputs || inputs !== fields) cfFail(`every TextInput must spread sheet.field (inputs=${inputs}, fields=${fields})`);
+  if (!/<ScrollView horizontal/.test(hub)) cfFail('chips must scroll horizontally');
+  if (!/if \(!canCreateCase\(cases, isPro\)\) \{\s*needPaywall\(\);\s*return;/.test(hub)) cfFail('free case limit must open the paywall');
+  if (!/const shareBrief = async \(\) => \{\s*if \(!isPro\) \{\s*needPaywall\(\);/.test(hub)) cfFail('lawyer brief must be Pro');
+  if (!/scheduleCaseEventReminders\(/.test(hub) || !/cancelCaseReminders\(/.test(hub) || !/deleteEvidenceFiles\(/.test(hub)) cfFail('reminders and evidence files must follow deletes');
+  if (!/includeEvidence: false/.test(hub)) cfFail('advisor prompt must not carry evidence fingerprints');
+  if (!/t\('caseBriefDisclaimer'\)\}<\/Text>\s*<\/View>\s*\);\s*\};/.test(hub)) cfFail('disclaimer must be the last element of the case detail');
+  if (/launchCameraAsync/.test(hub)) cfFail('camera needs an iOS usage string that app.json does not declare');
+  if (!/maskDmyDateInput\(/.test(hub) || !/dmyToIso\(/.test(hub)) cfFail('event dates must be masked and validated');
+
+  // Store: device only, document directory, purged with the account
+  if (!/'@nexulex\/caseFiles'/.test(store)) cfFail('store key must use the @nexulex/ prefix (account purge)');
+  if (!/new Directory\(Paths\.document, EVIDENCE_DIR\)/.test(store) || /Paths\.cache/.test(store)) cfFail('evidence must live in the document directory, not the cache');
+  if (!/fingerprint: fingerprintBytes\(bytes\)/.test(store) || !/dest\.write\(bytes\)/.test(store)) cfFail('fingerprint must be computed from the exact bytes written');
+  if (!/MAX_EVIDENCE_BYTES/.test(store)) cfFail('evidence size must be capped');
+  if (!/`case-\$\{caseId\}-\$\{eventId\}`/.test(store) || !/scheduleTrapReminders\(/.test(store)) cfFail('case reminders must use the nexulex notification channel');
+  if (/supabase/.test(store) || /supabase/.test(hub)) cfFail('case files must stay on the device');
+  if (!/purgeEvidenceFiles\(\),\s*\]\);/.test(account) || !/from '\.\/caseFileStore'/.test(account)) cfFail('account deletion must delete evidence files');
+  if (!/export async function cancelAnalysisReminders/.test(read('services/notifications.js'))) cfFail('notifications must expose per-id cancel');
+
+  // Wiring
+  if (!/\/\^case-\(\[a-z0-9\]\+\)-\[a-z0-9\]\+\$\/i/.test(app) || !/id: 'case_files', entryId: caseMatch\[1\]/.test(app)) cfFail('case reminder taps must open the case file');
+  if (!/capturedHook === 'cases'/.test(app)) cfFail('purchase from case files must stay on the advisor tab');
+  if (!/'cases'\]\);/.test(read('screens/PaywallScreen.js'))) cfFail('paywall hook copy for cases');
+  if (!/guideAction\.type === 'openAdvisorTool' && guideAction\.id === 'case_files'/.test(advisor)) cfFail('advisor must open case files from the guide');
+  if (!/\}, \[guideAction, openDraft\]\);/.test(advisor)) cfFail('guide effect deps must stay [guideAction, openDraft]');
+  if (!/onNeedPaywall\?\.\('cases'\)/.test(advisor) || !/<CaseHubSheet/.test(advisor) || !/t\('caseCardTitle'\)/.test(advisor)) cfFail('advisor entry card / sheet / paywall');
+  if (!/pendingCaseReturnRef\.current = false;\s*setCaseHubOpen\(true\);/.test(advisor)) cfFail('case files must reopen after the paywall');
+  if (!/onAddToCase=\{openCaseImport\}/.test(advisor) || !/onAddToCase\(entry\.explanation\)/.test(explainer)) cfFail('explainer must hand documents to case files');
+  if (!/GUIDE_ADVISOR_TOOLS = \['doc_explainer', 'case_files'\]/.test(capSrc)) cfFail('guide advisor tools');
+  if (!/id: 'case_files'[\s\S]{0,400}action: \{ type: 'openAdvisorTool', id: 'case_files' \}/.test(capSrc) || !/id: 'cl_case_files'/.test(capSrc)) cfFail('guide workflow + changelog must deep-link case files');
+
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') cfFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) cfFail('dependency count changed');
+
+  if (cfOk) {
+    console.log(`OK  WAVE LR.2 case files (${fixtures} fixtures): timeline, SHA-256 evidence locker, reminders, explainer import, Pro brief × 13`);
   }
 }
 

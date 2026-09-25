@@ -27,6 +27,8 @@ import ScenarioWizardModal from '../components/ScenarioWizardModal';
 import CalculatorModal from '../components/CalculatorModal';
 import DraftWizardModal from '../components/DraftWizardModal';
 import DocumentExplainerSheet from '../components/DocumentExplainerSheet';
+import CaseHubSheet from '../components/CaseHubSheet';
+import { loadCases } from '../services/caseFileStore';
 import { DRAFT_CATALOG, resolveDraftVariant } from '../constants/draftTemplates';
 import VoiceMicButton from '../components/VoiceMicButton';
 import SpeakButton from '../components/SpeakButton';
@@ -68,6 +70,11 @@ export default function LegalAdvisorScreen({
   const [docExplainOpen, setDocExplainOpen] = useState(false);
   const [docExplainEntryId, setDocExplainEntryId] = useState(null);
   const pendingExplainReturnRef = useRef(false);
+  const [caseHubOpen, setCaseHubOpen] = useState(false);
+  const [caseOpenId, setCaseOpenId] = useState(null);
+  const [caseImport, setCaseImport] = useState(null);
+  const [caseCount, setCaseCount] = useState(0);
+  const pendingCaseReturnRef = useRef(false);
   const pendingDraftReturnRef = useRef(null);
   const paywallWasVisibleRef = useRef(paywallVisible);
 
@@ -112,6 +119,9 @@ export default function LegalAdvisorScreen({
     else if (guideAction.type === 'openAdvisorTool' && guideAction.id === 'doc_explainer') {
       setDocExplainEntryId(guideAction.entryId || null);
       setDocExplainOpen(true);
+    } else if (guideAction.type === 'openAdvisorTool' && guideAction.id === 'case_files') {
+      setCaseOpenId(guideAction.entryId || null);
+      setCaseHubOpen(true);
     }
   }, [guideAction, openDraft]);
 
@@ -120,6 +130,30 @@ export default function LegalAdvisorScreen({
     setDocExplainOpen(false);
     onNeedPaywall?.('explain');
   }, [onNeedPaywall]);
+
+  // WAVE LR.2 — case files (device-local).
+  useEffect(() => {
+    if (!isActive) return undefined;
+    let alive = true;
+    loadCases().then((list) => alive && setCaseCount(list.length));
+    return () => {
+      alive = false;
+    };
+  }, [isActive]);
+
+  const handleCasePaywall = useCallback(() => {
+    pendingCaseReturnRef.current = true;
+    setCaseHubOpen(false);
+    onNeedPaywall?.('cases');
+  }, [onNeedPaywall]);
+
+  const openCaseImport = useCallback((explanation) => {
+    setDocExplainOpen(false);
+    setCaseImport(explanation);
+    setCaseOpenId(null);
+    // iOS presents one modal at a time: open after the explainer finishes dismissing.
+    setTimeout(() => setCaseHubOpen(true), 400);
+  }, []);
 
   const handleDraftAnswers = useCallback((id, answers) => {
     setDraftAnswersById((prev) => ({ ...prev, [id]: answers }));
@@ -178,6 +212,22 @@ export default function LegalAdvisorScreen({
         if (!pendingExplainReturnRef.current) return;
         pendingExplainReturnRef.current = false;
         setDocExplainOpen(true);
+      }, 400);
+    });
+    return () => {
+      task?.cancel?.();
+      if (timer) clearTimeout(timer);
+    };
+  }, [isActive, paywallClosedTick, paywallVisible]);
+
+  useEffect(() => {
+    if (!paywallClosedTick || paywallVisible || !isActive || !pendingCaseReturnRef.current) return undefined;
+    let timer = null;
+    const task = InteractionManager.runAfterInteractions(() => {
+      timer = setTimeout(() => {
+        if (!pendingCaseReturnRef.current) return;
+        pendingCaseReturnRef.current = false;
+        setCaseHubOpen(true);
       }, 400);
     });
     return () => {
@@ -377,6 +427,38 @@ export default function LegalAdvisorScreen({
             <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>{t('docExplainCardTitle')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
               {t('docExplainCardHint')}
+            </Text>
+          </View>
+          <Ionicons name="chevron-forward" size={18} color={ACCENT} />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            setCaseImport(null);
+            setCaseOpenId(null);
+            setCaseHubOpen(true);
+          }}
+          accessibilityRole="button"
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 12,
+            borderWidth: 1,
+            borderColor: theme.borderColor,
+            backgroundColor: theme.cardBg,
+            borderRadius: 14,
+            padding: 14,
+            marginBottom: 8,
+          }}
+        >
+          <Ionicons name="folder-open-outline" size={26} color={ACCENT} />
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>
+              {t('caseCardTitle')}
+              {caseCount ? ` (${caseCount})` : ''}
+            </Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
+              {t('caseCardHint')}
             </Text>
           </View>
           <Ionicons name="chevron-forward" size={18} color={ACCENT} />
@@ -735,7 +817,29 @@ export default function LegalAdvisorScreen({
           setDocExplainOpen(false);
           setCalculatorId(id);
         }}
+        onAddToCase={openCaseImport}
         onClose={() => setDocExplainOpen(false)}
+      />
+
+      <CaseHubSheet
+        visible={caseHubOpen}
+        theme={theme}
+        country={country}
+        isPro={isPro}
+        openCaseId={caseOpenId}
+        importExplanation={caseImport}
+        onImportDone={() => setCaseImport(null)}
+        onNeedPaywall={handleCasePaywall}
+        onChanged={(list) => setCaseCount(list.length)}
+        onAskAdvisor={(prompt) => {
+          setCaseHubOpen(false);
+          setQuestion(String(prompt || '').trim());
+          showToast(t('caseAdvisorToast'), { type: 'info', duration: 1600 });
+        }}
+        onClose={() => {
+          setCaseHubOpen(false);
+          setCaseImport(null);
+        }}
       />
     </KeyboardAvoidingView>
   );

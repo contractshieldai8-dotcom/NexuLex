@@ -68,6 +68,7 @@ export default function DocumentExplainerSheet({
   onNeedPaywall,
   onAskAdvisor,
   onOpenCalculator,
+  onAddToCase,
   onClose,
 }) {
   const { t, i18n } = useTranslation();
@@ -443,6 +444,16 @@ export default function DocumentExplainerSheet({
             • {item}
           </Text>
         ))}
+
+        {onAddToCase ? (
+          <TouchableOpacity
+            style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center', marginTop: 16 }]}
+            onPress={() => onAddToCase(entry.explanation)}
+          >
+            <Ionicons name="folder-open-outline" size={16} color={ACCENT} />
+            <Text style={styles.secondaryBtnText}>{t('caseAddToCase')}</Text>
+          </TouchableOpacity>
+        ) : null}
 
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16, marginTop: 16, flexWrap: 'nowrap' }}>
           <TouchableOpacity onPress={handleAskAdvisor} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>

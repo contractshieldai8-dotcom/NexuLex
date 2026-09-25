@@ -10,6 +10,7 @@ import { cancelAllNexuLexNotifications } from './notifications';
 import { clearAnalysisCache } from './analysisCache';
 import { logOutPurchases } from './purchases';
 import { cleanStaleExportCache } from '../utils/fileAccess';
+import { purgeEvidenceFiles } from './caseFileStore';
 
 export const SUBSCRIPTION_MANAGE_URLS = {
   ios: 'https://apps.apple.com/account/subscriptions',
@@ -51,6 +52,7 @@ export async function purgeLocalAppData() {
     clearAppStorageKeys(),
     cleanStaleExportCache(0),
     logOutPurchases(),
+    purgeEvidenceFiles(),
   ]);
   return {
     notifications: notifications.status === 'fulfilled' ? notifications.value : 0,

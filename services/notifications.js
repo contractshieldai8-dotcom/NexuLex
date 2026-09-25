@@ -98,6 +98,11 @@ async function cancelForAnalysis(analysisId) {
   }
 }
 
+export async function cancelAnalysisReminders(analysisId) {
+  if (Platform.OS === 'web' || !analysisId) return;
+  await cancelForAnalysis(analysisId);
+}
+
 /** Cancels every scheduled NexuLex reminder (account deletion / full local purge). */
 export async function cancelAllNexuLexNotifications() {
   if (Platform.OS === 'web' || !Notifications?.getAllScheduledNotificationsAsync) return 0;
