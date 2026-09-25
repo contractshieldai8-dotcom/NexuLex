@@ -99,13 +99,15 @@ const waveMx1Src = fs.existsSync('i18n.wavemx1.js') ? fs.readFileSync('i18n.wave
 const waveMx1Match = waveMx1Src.match(/export const WAVE_MX1_I18N = ([\s\S]*);\s*$/);
 const waveJp3Src = fs.existsSync('i18n.wavejp3.js') ? fs.readFileSync('i18n.wavejp3.js', 'utf8') : '';
 const waveJp3Match = waveJp3Src.match(/export const WAVE_JP3_I18N = ([\s\S]*);\s*$/);
+const waveSt2Src = fs.existsSync('i18n.wavest2.js') ? fs.readFileSync('i18n.wavest2.js', 'utf8') : '';
+const waveSt2Match = waveSt2Src.match(/export const WAVE_ST2_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !waveGr6Match || !waveMx1Match || !waveJp3Match || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !waveGr6Match || !waveMx1Match || !waveJp3Match || !waveSt2Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5/GR6/MX1/JP3 kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5/GR6/MX1/JP3/ST2 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -138,6 +140,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_GR6_I18N = eval(`(${waveGr6Match[1]})`); // eslint-disable-line no-eval
   const WAVE_MX1_I18N = eval(`(${waveMx1Match[1]})`); // eslint-disable-line no-eval
   const WAVE_JP3_I18N = eval(`(${waveJp3Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_ST2_I18N = eval(`(${waveSt2Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -170,8 +173,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_GR6_I18N',
     'WAVE_MX1_I18N',
     'WAVE_JP3_I18N',
+    'WAVE_ST2_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -719,6 +723,11 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     failed = true;
     console.log(`WAVE_JP3 count langs=${Object.keys(WAVE_JP3_I18N).length} keys=${waveJp3Base.length}`);
   }
+  const waveSt2Base = Object.keys(WAVE_ST2_I18N.en || {});
+  if (Object.keys(WAVE_ST2_I18N).length !== 13 || waveSt2Base.length !== 8) {
+    failed = true;
+    console.log(`WAVE_ST2 count langs=${Object.keys(WAVE_ST2_I18N).length} keys=${waveSt2Base.length}`);
+  }
 
   for (const lang of languages) {
     const keys = Object.keys(resources[lang].translation);
@@ -744,9 +753,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 1980) {
+  if (languages.length !== 13 || baseKeys.length !== 1988) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1980`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1988`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -3161,6 +3170,7 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_GR6_I18N',
       'WAVE_MX1_I18N',
       'WAVE_JP3_I18N',
+      'WAVE_ST2_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -3182,7 +3192,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.wavegr5.js', 'utf8').match(/export const WAVE_GR5_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavegr6.js', 'utf8').match(/export const WAVE_GR6_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavemx1.js', 'utf8').match(/export const WAVE_MX1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.wavejp3.js', 'utf8').match(/export const WAVE_JP3_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavejp3.js', 'utf8').match(/export const WAVE_JP3_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavest2.js', 'utf8').match(/export const WAVE_ST2_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -4582,7 +4593,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavejp3', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavemx1', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'wavest2', 'waveux1', 'wavejp2', 'wavejp3', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavemx1', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -6413,6 +6424,72 @@ Ticaret Unvanı: Anadolu Bilişim
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) jpFail('dependency count changed');
   if (jpOk) {
     console.log(`OK  WAVE JP.3 country pack depth (${fixtures} fixtures): official sources × 13, TR identity frozen, no invented tables`);
+  }
+}
+
+// WAVE ST.2 — Settings trust surface: privacy, deletion does not cancel store sub, manage links ×13
+{
+  let st2Ok = true;
+  const st2Fail = (msg) => {
+    failed = true;
+    st2Ok = false;
+    console.log(`WAVE ST.2 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const LANGS = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+  let fixtures = 0;
+  try {
+    const { loadApp } = require('./cb1-harness');
+    ({ cases: fixtures } = loadApp('en').api.assertSettingsTrustFixtures());
+  } catch (error) {
+    st2Fail(`runtime: ${error.message}`);
+  }
+  const R = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
+  const keys = ['st2Title', 'st2Hint', 'st2Keep', 'st2Picker', 'st2Sub', 'st2Quota', 'st2WebDelete', 'st2Disclaimer'];
+  if (keys.length !== 8) st2Fail('eight copy keys');
+  for (const L of LANGS) {
+    const miss = keys.filter((k) => typeof R[L][k] !== 'string' || !R[L][k].trim());
+    if (miss.length) st2Fail(`${L} missing ${miss.join(', ')}`);
+    if (!/NexuLex/.test(R[L].st2Disclaimer || '')) st2Fail(`${L}.st2Disclaimer must name NexuLex`);
+    if (/anonymi|hashed|anonimleştir|garanti\b|guarantee|win rate|%/i.test(keys.map((k) => R[L][k] || '').join('\n'))) {
+      st2Fail(`${L} overclaim or banned token`);
+    }
+    if (L !== 'en') {
+      const same = keys.filter((k) => R[L][k] === R.en[k] && R.en[k].length >= 12);
+      if (same.length) st2Fail(`${L} identical to EN: ${same.join(', ')}`);
+    }
+  }
+  const app = read('App.js');
+  const trust = read('constants/settingsTrust.js');
+  const stI18n = read('i18n.wavest.js');
+  const privacy = read('web/privacy.html');
+  const listing = read('STORE_LISTING.md');
+  if (!/TRUST_URLS/.test(app) || !/st2Title/.test(app) || !/st2Disclaimer/.test(app)) st2Fail('settings privacy card must show the trust surface');
+  if (!/Linking\.openURL\(TRUST_URLS\.privacy \|\| 'https:\/\/nexulexai\.netlify\.app\/privacy\.html'\)\.catch\(/.test(app)) st2Fail('privacy URL must catch on the same line');
+  if (!/Linking\.openURL\(TRUST_URLS\.terms \|\| 'https:\/\/nexulexai\.netlify\.app\/terms\.html'\)\.catch\(/.test(app)) st2Fail('terms URL must catch on the same line');
+  if (!/Linking\.openURL\(TRUST_URLS\.deleteAccount \|\| 'https:\/\/nexulexai\.netlify\.app\/delete-account\.html'\)\.catch\(/.test(app)) st2Fail('web delete URL must catch on the same line');
+  if (!/t\('st2Disclaimer'\)\s*\}\s*<\/Text>\s*<\/View>/.test(app)) st2Fail('st2Disclaimer must be last in the privacy card');
+  for (const section of ['account', 'seats', 'support', 'security', 'language', 'privacy', 'delete']) {
+    if (!app.includes(`onSettingsSectionLayout('${section}')`)) st2Fail(`settings section anchor ${section}`);
+  }
+  if (/from '\.\/constants\/storeListing'/.test(app)) st2Fail('storeListing must stay out of the app bundle');
+  if (!stI18n.includes('"accountDeleteWarning": "Your data will be permanently deleted. An active App Store / Google Play subscription is NOT cancelled automatically."')) {
+    st2Fail('en.accountDeleteWarning copy must stay byte-identical');
+  }
+  if (!listing.includes("Selected by the user via the system picker. Sent to our server and AI provider solely to analyze the contract; analysis results are stored in the user's account until deleted by the user or upon account deletion. Never accessed in the background.")) {
+    st2Fail('Data Safety photo/document statement must stay');
+  }
+  if (!/device identifier and phone number used to claim the free quota are retained without any link to your account, solely to prevent repeated free-quota abuse/.test(privacy)) {
+    st2Fail('privacy.html free-quota sentence must stay');
+  }
+  if (/anonymi[sz]ed|hashed|anonimleştir|hashlen/i.test(privacy)) st2Fail('privacy.html must not claim anonymized quota');
+  if (!/deleteAccount\.html/.test(trust) && !/delete-account\.html/.test(trust)) st2Fail('trust fixtures must keep the public delete page');
+  if (!/openSubscriptionManagement/.test(app) || !/accountManageSubscription/.test(app)) st2Fail('store subscription management must stay');
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') st2Fail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) st2Fail('dependency count changed');
+  if (st2Ok) {
+    console.log(`OK  WAVE ST.2 settings trust surface (${fixtures} fixtures): privacy / deletion / store-sub × 13, ST.1 goldens frozen`);
   }
 }
 

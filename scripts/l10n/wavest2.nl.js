@@ -1,0 +1,11 @@
+// WAVE ST.2 — Vertrouwensvlak in instellingen (NL).
+module.exports = {
+  st2Title: 'Vertrouwen en beheer',
+  st2Hint: 'Wat NexuLex bewaart, wat op het apparaat blijft en hoe winkelabonnementen worden beheerd.',
+  st2Keep: 'Analyses en supportberichten blijven in je account tot je ze verwijdert.',
+  st2Picker: 'Fotos en pdfs kies je in de systeemkiezer. Ze worden niet op de achtergrond genomen.',
+  st2Sub: 'Het account verwijderen zegt een App Store- of Google Play-abonnement niet op. Beheer het in de winkel.',
+  st2Quota: 'Het apparaatrecord van het gratis quotum blijft na verwijderen ontkoppeld, alleen om herhaalde gratis claims te blokkeren.',
+  st2WebDelete: 'Verwijderen zonder de app',
+  st2Disclaimer: 'NexuLex is geen advocatenkantoor. Privacypaginas kunnen wijzigen; lees ze zelf.',
+};

@@ -139,6 +139,7 @@ import { useFeedback, FeedbackProvider } from './context/FeedbackContext';
 import { AdvisorChatProvider, useAdvisorChat } from './context/AdvisorChatContext';
 import { ReportAiButton } from './components/AiReportSheet';
 import { deleteAccountAndPurge, openSubscriptionManagement } from './services/account';
+import { TRUST_URLS } from './constants/settingsTrust';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LAST_ANALYSIS_KEY = '@nexulex/last_analysis_id';
@@ -4276,22 +4277,38 @@ function AppContent() {
                 style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
               >
                 <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 10 }]}>{t('privacyPolicy')}</Text>
+                <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, marginBottom: 6 }]}>{t('st2Title')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('st2Hint')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('st2Keep')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('st2Picker')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('st2Sub')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('st2Quota')}</Text>
                 <TouchableOpacity
                   style={[styles.secondaryBtn, { marginTop: 0 }]}
-                  onPress={() => Linking.openURL('https://nexulexai.netlify.app/privacy.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
+                  onPress={() => Linking.openURL(TRUST_URLS.privacy || 'https://nexulexai.netlify.app/privacy.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
                   activeOpacity={0.85}
                 >
                   <Text style={styles.secondaryBtnText}>{t('privacyPolicy')}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.secondaryBtn}
-                  onPress={() => Linking.openURL('https://nexulexai.netlify.app/terms.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
+                  onPress={() => Linking.openURL(TRUST_URLS.terms || 'https://nexulexai.netlify.app/terms.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
                   activeOpacity={0.85}
                 >
                   <Text style={styles.secondaryBtnText}>{t('termsOfUse')}</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.secondaryBtn}
+                  onPress={() => Linking.openURL(TRUST_URLS.deleteAccount || 'https://nexulexai.netlify.app/delete-account.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
+                  activeOpacity={0.85}
+                >
+                  <Text style={styles.secondaryBtnText}>{t('st2WebDelete')}</Text>
+                </TouchableOpacity>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10 }]}>
                   {t('disclaimerShort')}
+                </Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>
+                  {t('st2Disclaimer')}
                 </Text>
               </View>
 
