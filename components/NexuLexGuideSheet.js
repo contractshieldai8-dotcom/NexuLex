@@ -16,14 +16,48 @@ import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ACCENT, styles } from '../theme';
-import { GUIDE_FAQ_CHIPS, GUIDE_WORKFLOWS, matchLegalIntent } from '../constants/appCapabilities';
+import { GUIDE_FAQ_CHIPS, GUIDE_WORKFLOWS, latestChangelog, matchLegalIntent } from '../constants/appCapabilities';
+import { withAvailability } from '../constants/jurisdictionPacks';
+import { LEGAL_CALCULATORS, calculatorCopyKeys, getCalcPack } from '../constants/legalCalcRates';
+import { DRAFT_CATALOG, resolveDraftVariant } from '../constants/draftTemplates';
+import { LEGAL_SCENARIOS } from '../constants/legalScenarios';
+import { resolveJurisdiction } from '../constants/jurisdiction';
 import { useKeyboardSafeSheet } from './KeyboardSafeSheet';
 
 const WIN_H = Dimensions.get('window').height;
 const GUIDE_SHEET_MAX_HEIGHT = Math.round(WIN_H * 0.88);
 const GUIDE_LIST_MAX_HEIGHT = Math.round(WIN_H * 0.52);
+const WHATS_NEW = '__whats_new__';
+const ACTION_FOR_REGISTRY = { calculator: 'openCalculator', draft: 'openDraft', scenario: 'openScenario' };
 
-export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvisor }) {
+/** Registry items (with availability) that a guide workflow lists; 'none' is already dropped. */
+export function guideRegistryItems(registry, { country, language }) {
+  const ctx = { country, language };
+  if (registry === 'calculator') {
+    const pack = getCalcPack(country, language);
+    return withAvailability('calculator', LEGAL_CALCULATORS, ctx).map((row) => ({
+      ...row,
+      titleKey: calculatorCopyKeys(row.item.id, pack).titleKey,
+    }));
+  }
+  if (registry === 'draft') {
+    const jurisdiction = resolveJurisdiction(country, language);
+    return withAvailability('draft', DRAFT_CATALOG, ctx).map((row) => ({
+      ...row,
+      titleKey: (
+        resolveDraftVariant(row.item, jurisdiction) ||
+        resolveDraftVariant(row.item, 'TR') ||
+        resolveDraftVariant(row.item, null)
+      ).titleKey,
+    }));
+  }
+  if (registry === 'scenario') {
+    return withAvailability('scenario', LEGAL_SCENARIOS, ctx).map((row) => ({ ...row, titleKey: row.item.titleKey }));
+  }
+  return [];
+}
+
+export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvisor, onAction, country = 'auto' }) {
   const { t, i18n } = useTranslation();
   const insets = useSafeAreaInsets();
   const sheet = useKeyboardSafeSheet({
@@ -45,17 +79,28 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
     [query, i18n.language]
   );
 
+  const registryItems = useMemo(() => {
+    const ctx = { country, language: i18n.language };
+    return {
+      calculator: guideRegistryItems('calculator', ctx),
+      draft: guideRegistryItems('draft', ctx),
+      scenario: guideRegistryItems('scenario', ctx),
+    };
+  }, [country, i18n.language]);
+
   const workflows = useMemo(() => {
     const needle = String(query || '').trim().toLowerCase();
     if (!needle) return GUIDE_WORKFLOWS;
     return GUIDE_WORKFLOWS.filter((flow) => {
       const stepBodies = (flow.steps || []).map((step) => t(step.bodyKey));
+      const itemTitles = flow.registry ? (registryItems[flow.registry] || []).map((row) => t(row.titleKey)) : [];
       const hay = [
         t(flow.titleKey),
         t(flow.hintKey),
         t(flow.chipKey),
         flow.introKey ? t(flow.introKey) : '',
         ...stepBodies,
+        ...itemTitles,
       ]
         .join(' ')
         .toLowerCase();
@@ -64,26 +109,37 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
       );
       return hay.includes(needle) || faqHit;
     });
-  }, [query, t, i18n.language]);
+  }, [query, t, i18n.language, registryItems]);
 
   const active = GUIDE_WORKFLOWS.find((flow) => flow.id === activeId) || null;
+  const news = useMemo(() => latestChangelog(5), []);
 
   const listData = useMemo(() => {
     if (legalHit) return [];
+    if (activeId === WHATS_NEW) {
+      return news.map((entry) => ({ kind: 'news', key: entry.id, entry }));
+    }
     if (active) {
-      return (active.steps || []).map((step, index) => ({
+      const rows = (active.steps || []).map((step, index) => ({
         kind: 'step',
-        key: `${active.id}-${step.bodyKey}`,
+        key: `${active.id}-${step.bodyKey}-${index}`,
         step,
         index,
       }));
+      const items = active.registry ? registryItems[active.registry] || [] : [];
+      if (items.length) {
+        const availableCount = items.filter((row) => row.availability === 'available').length;
+        rows.push({ kind: 'itemsHeader', key: `${active.id}-items`, count: availableCount });
+        items.forEach((row) => rows.push({ kind: 'item', key: `${active.id}-${row.item.id}`, row, registry: active.registry }));
+      }
+      return rows;
     }
     return workflows.map((flow) => ({
       kind: 'flow',
       key: flow.id,
       flow,
     }));
-  }, [legalHit, active, workflows]);
+  }, [legalHit, activeId, active, workflows, registryItems, news]);
 
   const close = () => {
     setQuery('');
@@ -96,9 +152,16 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
     onOpenAdvisor?.();
   };
 
+  const runAction = (action) => {
+    if (!action) return;
+    close();
+    onAction?.(action);
+  };
+
   const renderItem = ({ item }) => {
-    if (item.kind === 'flow') {
-      const flow = item.flow;
+    if (item.kind === 'flow' || item.kind === 'news') {
+      const flow = item.kind === 'flow' ? item.flow : GUIDE_WORKFLOWS.find((f) => f.id === item.entry.workflowId);
+      if (!flow) return null;
       return (
         <TouchableOpacity
           onPress={() => setActiveId(flow.id)}
@@ -113,9 +176,11 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
           ]}
         >
           <View style={{ flex: 1 }}>
-            <Text style={[styles.modalOptionText, { color: theme.text }]}>{t(flow.titleKey)}</Text>
+            <Text style={[styles.modalOptionText, { color: theme.text }]}>
+              {item.kind === 'news' ? t(item.entry.titleKey) : t(flow.titleKey)}
+            </Text>
             <Text style={[styles.modalOptionHint, { color: theme.subText }]} numberOfLines={2}>
-              {t(flow.hintKey)}
+              {item.kind === 'news' ? `${item.entry.date} · ${t(flow.titleKey)}` : t(flow.hintKey)}
             </Text>
           </View>
           <Ionicons name="chevron-forward" size={16} color={theme.subText} />
@@ -123,7 +188,66 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
       );
     }
 
+    if (item.kind === 'itemsHeader') {
+      return (
+        <Text style={[styles.label, { color: theme.subText, marginTop: 4, marginBottom: 8 }]}>
+          {t('guideItemsHeader', { count: item.count })}
+        </Text>
+      );
+    }
+
+    if (item.kind === 'item') {
+      const { row, registry } = item;
+      const pending = row.availability === 'pending';
+      return (
+        <TouchableOpacity
+          onPress={() => runAction({ type: ACTION_FOR_REGISTRY[registry], id: row.item.id })}
+          activeOpacity={0.85}
+          accessibilityState={{ disabled: pending }}
+          style={[
+            styles.modalOption,
+            {
+              backgroundColor: theme.inputBg,
+              borderColor: theme.borderColor,
+              marginBottom: 8,
+              opacity: pending ? 0.55 : 1,
+            },
+          ]}
+        >
+          <Ionicons
+            name={pending ? 'lock-closed-outline' : row.item.icon || 'chevron-forward'}
+            size={16}
+            color={pending ? theme.subText : ACCENT}
+            style={{ marginRight: 8 }}
+          />
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.modalOptionText, { color: theme.text }]} numberOfLines={2}>
+              {t(row.titleKey)}
+            </Text>
+            {pending ? (
+              <Text style={[styles.modalOptionHint, { color: theme.subText }]}>{t('availPendingBadge')}</Text>
+            ) : null}
+          </View>
+          {row.universal ? (
+            <Ionicons name="globe-outline" size={14} color={theme.subText} accessibilityLabel={t('availUniversal')} />
+          ) : null}
+        </TouchableOpacity>
+      );
+    }
+
     const { step, index } = item;
+    const chipStyle = [
+      styles.statusChip,
+      {
+        alignSelf: 'flex-start',
+        backgroundColor: 'rgba(0, 245, 212, 0.12)',
+        borderWidth: 1,
+        borderColor: ACCENT,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 4,
+      },
+    ];
     return (
       <View
         style={[
@@ -135,21 +259,26 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
         <Text style={[styles.summaryText, { color: theme.text, marginBottom: 6 }]}>
           {t(step.bodyKey)}
         </Text>
-        <View
-          style={[
-            styles.statusChip,
-            {
-              alignSelf: 'flex-start',
-              backgroundColor: 'rgba(0, 245, 212, 0.12)',
-              borderWidth: 1,
-              borderColor: ACCENT,
-            },
-          ]}
-        >
-          <Text style={[styles.statusChipText, { color: ACCENT }]} numberOfLines={1}>
-            {t(step.ctaKey)}
-          </Text>
-        </View>
+        {step.action ? (
+          <TouchableOpacity
+            onPress={() => runAction(step.action)}
+            activeOpacity={0.85}
+            accessibilityRole="button"
+            accessibilityHint={t('guideStepGo')}
+            style={chipStyle}
+          >
+            <Text style={[styles.statusChipText, { color: ACCENT }]} numberOfLines={1}>
+              {t(step.ctaKey)}
+            </Text>
+            <Ionicons name="arrow-forward" size={12} color={ACCENT} />
+          </TouchableOpacity>
+        ) : (
+          <View style={chipStyle}>
+            <Text style={[styles.statusChipText, { color: ACCENT }]} numberOfLines={1}>
+              {t(step.ctaKey)}
+            </Text>
+          </View>
+        )}
       </View>
     );
   };
@@ -168,11 +297,13 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
         </Text>
       ) : null}
     </View>
+  ) : activeId === WHATS_NEW && !legalHit ? (
+    <Text style={[styles.takeawayTitle, { color: theme.text, marginBottom: 8 }]}>{t('guideWhatsNew')}</Text>
   ) : null;
 
-  const listFooter = active && !legalHit ? (
+  const listFooter = (active || activeId === WHATS_NEW) && !legalHit ? (
     <View style={{ paddingBottom: 8 }}>
-      {active.tab === 'advisor' ? (
+      {active?.tab === 'advisor' ? (
         <TouchableOpacity
           style={[styles.primaryButton, { backgroundColor: ACCENT, marginTop: 4 }]}
           onPress={openAdvisor}
@@ -186,6 +317,38 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
       </TouchableOpacity>
     </View>
   ) : null;
+
+  const chip = (key, label, selected, onPress, icon) => (
+    <TouchableOpacity
+      key={key}
+      onPress={onPress}
+      activeOpacity={0.85}
+      style={[
+        styles.typeChip,
+        selected && styles.typeChipActive,
+        {
+          flexShrink: 0,
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 4,
+          backgroundColor: selected ? 'rgba(0, 245, 212, 0.18)' : theme.inputBg,
+          borderColor: selected ? ACCENT : theme.borderColor,
+        },
+      ]}
+    >
+      {icon ? <Ionicons name={icon} size={12} color={selected ? ACCENT : theme.text} /> : null}
+      <Text
+        style={[
+          styles.typeChipText,
+          selected && styles.typeChipTextActive,
+          { color: selected ? ACCENT : theme.text },
+        ]}
+        numberOfLines={1}
+      >
+        {label}
+      </Text>
+    </TouchableOpacity>
+  );
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={close}>
@@ -240,7 +403,10 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
               placeholder={t('guideSearchPlaceholder')}
               placeholderTextColor={theme.subText}
               value={query}
-              onChangeText={setQuery}
+              onChangeText={(value) => {
+                setQuery(value);
+                if (value) setActiveId(null);
+              }}
               autoCapitalize="none"
               autoCorrect={false}
             />
@@ -286,36 +452,10 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
             contentContainerStyle={{ gap: 8, paddingRight: 8, alignItems: 'center' }}
             keyboardShouldPersistTaps="handled"
           >
-            {GUIDE_FAQ_CHIPS.map((faq) => {
-              const selected = activeId === faq.workflowId;
-              return (
-                <TouchableOpacity
-                  key={faq.id}
-                  onPress={() => setActiveId(faq.workflowId)}
-                  activeOpacity={0.85}
-                  style={[
-                    styles.typeChip,
-                    selected && styles.typeChipActive,
-                    {
-                      flexShrink: 0,
-                      backgroundColor: selected ? 'rgba(0, 245, 212, 0.18)' : theme.inputBg,
-                      borderColor: selected ? ACCENT : theme.borderColor,
-                    },
-                  ]}
-                >
-                  <Text
-                    style={[
-                      styles.typeChipText,
-                      selected && styles.typeChipTextActive,
-                      { color: selected ? ACCENT : theme.text },
-                    ]}
-                    numberOfLines={1}
-                  >
-                    {t(faq.chipKey)}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
+            {chip(WHATS_NEW, t('guideWhatsNew'), activeId === WHATS_NEW, () => setActiveId(WHATS_NEW), 'sparkles-outline')}
+            {GUIDE_FAQ_CHIPS.map((faq) =>
+              chip(faq.id, t(faq.chipKey), activeId === faq.workflowId, () => setActiveId(faq.workflowId))
+            )}
           </ScrollView>
 
           <ScrollView
@@ -326,36 +466,9 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
             contentContainerStyle={{ gap: 8, paddingRight: 8, alignItems: 'center' }}
             keyboardShouldPersistTaps="handled"
           >
-            {GUIDE_WORKFLOWS.map((flow) => {
-              const selected = activeId === flow.id;
-              return (
-                <TouchableOpacity
-                  key={flow.id}
-                  onPress={() => setActiveId(flow.id)}
-                  activeOpacity={0.85}
-                  style={[
-                    styles.typeChip,
-                    selected && styles.typeChipActive,
-                    {
-                      flexShrink: 0,
-                      backgroundColor: selected ? 'rgba(0, 245, 212, 0.14)' : theme.inputBg,
-                      borderColor: selected ? ACCENT : theme.borderColor,
-                    },
-                  ]}
-                >
-                  <Text
-                    style={[
-                      styles.typeChipText,
-                      selected && styles.typeChipTextActive,
-                      { color: selected ? ACCENT : theme.text },
-                    ]}
-                    numberOfLines={1}
-                  >
-                    {t(flow.chipKey)}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
+            {GUIDE_WORKFLOWS.map((flow) =>
+              chip(flow.id, t(flow.chipKey), activeId === flow.id, () => setActiveId(flow.id))
+            )}
           </ScrollView>
 
           <FlatList

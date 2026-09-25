@@ -67,12 +67,15 @@ const waveUx1Src = fs.existsSync('i18n.waveux1.js') ? fs.readFileSync('i18n.wave
 const waveUx1Match = waveUx1Src.match(/export const WAVE_UX1_I18N = ([\s\S]*);\s*$/);
 const waveJp2Src = fs.existsSync('i18n.wavejp2.js') ? fs.readFileSync('i18n.wavejp2.js', 'utf8') : '';
 const waveJp2Match = waveJp2Src.match(/export const WAVE_JP2_I18N = ([\s\S]*);\s*$/);
+const waveGd2Src = fs.existsSync('i18n.wavegd2.js') ? fs.readFileSync('i18n.wavegd2.js', 'utf8') : '';
+const waveGd2Match = waveGd2Src.match(/export const WAVE_GD2_I18N = ([\s\S]*);\s*$/);
+let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2 kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -89,6 +92,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_ST_I18N = eval(`(${waveStMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_UX1_I18N = eval(`(${waveUx1Match[1]})`); // eslint-disable-line no-eval
   const WAVE_JP2_I18N = eval(`(${waveJp2Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_GD2_I18N = eval(`(${waveGd2Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -105,8 +109,10 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_ST_I18N',
     'WAVE_UX1_I18N',
     'WAVE_JP2_I18N',
+    'WAVE_GD2_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N);
+  fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
 
@@ -355,6 +361,32 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     }
   }
 
+  const waveGd2Base = Object.keys(WAVE_GD2_I18N.en || {});
+  if (Object.keys(WAVE_GD2_I18N).length !== 13) {
+    failed = true;
+    console.log(`WAVE_GD2 dil sayisi ${Object.keys(WAVE_GD2_I18N).length}, beklenen 13`);
+  }
+  for (const [lang, table] of Object.entries(WAVE_GD2_I18N)) {
+    const keys = Object.keys(table || {});
+    const missing = waveGd2Base.filter((key) => !keys.includes(key));
+    const extra = keys.filter((key) => !waveGd2Base.includes(key));
+    if (missing.length || extra.length) {
+      failed = true;
+      console.log(`WAVE_GD2 ${lang}: eksik=[${missing.join(', ')}] fazla=[${extra.join(', ')}]`);
+    }
+  }
+  if (waveGd2Base.length !== 120) {
+    failed = true;
+    console.log(`WAVE_GD2 key count ${waveGd2Base.length}, beklenen 120`);
+  }
+  for (const [name, wave] of Object.entries({ ...earlierWaves, WAVE_JP2_I18N })) {
+    const shadowed = waveGd2Base.filter((key) => Object.prototype.hasOwnProperty.call(wave.en || {}, key));
+    if (shadowed.length) {
+      failed = true;
+      console.log(`WAVE_GD2 shadows ${name}: ${shadowed.join(', ')}`);
+    }
+  }
+
   for (const lang of languages) {
     const keys = Object.keys(resources[lang].translation);
     const missing = baseKeys.filter((key) => !keys.includes(key));
@@ -367,7 +399,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   // Interpolasyon yer tutucuları çeviride korunmalı.
-  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine', 'calcGrossSalary', 'calcCurrentRent', 'calcProposedRent', 'calcPrincipal', 'calcRatesAsOfPublic', 'draftInvalidDate', 'availPendingLine', 'calcAddedDays', 'calcAddedBusinessDays', 'calcAddedWeeks', 'calcAddedMonths', 'calcLabelInstallmentRow', 'calcProRataAmount', 'calcInstallmentTotalInput', 'calcPenaltyAmountInput', 'calcContractValueInput', 'draftU_termination_notice_body', 'draftU_deposit_return_request_body', 'draftU_repair_or_defect_notice_body', 'draftU_rent_increase_objection_body', 'draftU_unpaid_wages_request_body', 'draftU_personal_data_access_request_body', 'draftU_cancellation_request_body'];
+  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine', 'calcGrossSalary', 'calcCurrentRent', 'calcProposedRent', 'calcPrincipal', 'calcRatesAsOfPublic', 'draftInvalidDate', 'availPendingLine', 'calcAddedDays', 'calcAddedBusinessDays', 'calcAddedWeeks', 'calcAddedMonths', 'calcLabelInstallmentRow', 'calcProRataAmount', 'calcInstallmentTotalInput', 'calcPenaltyAmountInput', 'calcContractValueInput', 'draftU_termination_notice_body', 'draftU_deposit_return_request_body', 'draftU_repair_or_defect_notice_body', 'draftU_rent_increase_objection_body', 'draftU_unpaid_wages_request_body', 'draftU_personal_data_access_request_body', 'draftU_cancellation_request_body', 'guideItemsHeader'];
   for (const lang of languages) {
     for (const key of placeholderKeys) {
       const value = resources[lang].translation[key];
@@ -379,9 +411,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 1165) {
+  if (languages.length !== 13 || baseKeys.length !== 1285) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1165`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1285`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -2780,12 +2812,14 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_ST_I18N',
       'WAVE_UX1_I18N',
       'WAVE_JP2_I18N',
+      'WAVE_GD2_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavest.js', 'utf8').match(/export const WAVE_ST_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waveux1.js', 'utf8').match(/export const WAVE_UX1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.wavejp2.js', 'utf8').match(/export const WAVE_JP2_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavejp2.js', 'utf8').match(/export const WAVE_JP2_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavegd2.js', 'utf8').match(/export const WAVE_GD2_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -4185,7 +4219,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -4476,6 +4510,154 @@ Ticaret Unvanı: Anadolu Bilişim
 
   if (jpOk) {
     console.log(`OK  WAVE JP.2 registry (11 packs, official roots) + availability + 5 universal calculators + 7 universal letters × 13 (${fixtures} fixtures)`);
+  }
+}
+
+// WAVE GD.2 — Guide covers every feature, actionable steps, registry-driven lists, What's new, 8 FAQ
+{
+  let gdOk = true;
+  const gdFail = (msg) => {
+    failed = true;
+    gdOk = false;
+    console.log(`WAVE GD.2 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const capSrc = read('constants/appCapabilities.js');
+  const guideSrc = read('components/NexuLexGuideSheet.js');
+  const app = read('App.js');
+  const advisor = read('screens/LegalAdvisorScreen.js');
+  let flows = 0;
+  let actions = 0;
+  try {
+    const cap = new Function(`${capSrc.replace(/^export /gm, '')}\nreturn { GUIDE_TABS, GUIDE_SETTINGS_SECTIONS, GUIDE_ACTION_TYPES, GUIDE_FAQ_CHIPS, GUIDE_CHANGELOG, GUIDE_WORKFLOWS, latestChangelog };`)(); // eslint-disable-line no-new-func
+    const { loadApp, LANGS } = require('./cb1-harness');
+    const { api } = loadApp('tr');
+    const res = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
+    const REQUIRED = ['analyze_contract', 'diff_tool', 'export_report', 'legal_advisor', 'settings_and_lang', 'playbook_rules', 'party_side', 'tiered_offers', 'scenarios', 'calculators', 'documents', 'jurisdiction_currency', 'trap_calendar', 'share_brief', 'seats', 'history', 'voice', 'report_ai', 'account_privacy'];
+    const ids = cap.GUIDE_WORKFLOWS.map((f) => f.id);
+    const missingFlows = REQUIRED.filter((id) => !ids.includes(id));
+    if (missingFlows.length) gdFail(`missing workflows: ${missingFlows.join(', ')}`);
+    if (new Set(ids).size !== ids.length) gdFail('duplicate workflow ids');
+
+    const registries = {
+      calculator: api.LEGAL_CALCULATORS.map((x) => x.id),
+      draft: api.DRAFT_CATALOG.map((x) => x.id),
+      scenario: api.LEGAL_SCENARIOS.map((x) => x.id),
+    };
+    const actionRegistry = { openCalculator: 'calculator', openDraft: 'draft', openScenario: 'scenario' };
+    const reachableTabs = new Set();
+    const reachable = { calculator: new Set(), draft: new Set(), scenario: new Set() };
+    const keysToResolve = [];
+    const CTXS = [['TR', 'tr'], ['US', 'en'], ['DE', 'de'], ['auto', 'en'], ['GB', 'en']];
+
+    for (const flow of cap.GUIDE_WORKFLOWS) {
+      flows += 1;
+      if (!flow.introKey) gdFail(`${flow.id} needs an intro`);
+      if (!cap.GUIDE_TABS.includes(flow.tab)) gdFail(`${flow.id} tab ${flow.tab}`);
+      reachableTabs.add(flow.tab);
+      if (flow.steps.length < 3 || flow.steps.length > 7) gdFail(`${flow.id} needs 3–7 steps (${flow.steps.length})`);
+      keysToResolve.push(flow.titleKey, flow.hintKey, flow.introKey, flow.chipKey);
+      for (const step of flow.steps) {
+        keysToResolve.push(step.bodyKey, step.ctaKey);
+        if (!step.action) continue;
+        actions += 1;
+        const { type, id } = step.action;
+        if (!cap.GUIDE_ACTION_TYPES.includes(type)) gdFail(`${flow.id} unknown action ${type}`);
+        if (type === 'openTab') {
+          if (!cap.GUIDE_TABS.includes(id)) gdFail(`${flow.id} openTab ${id}`);
+          reachableTabs.add(id);
+        } else if (type === 'openSettingsSection') {
+          if (!cap.GUIDE_SETTINGS_SECTIONS.includes(id)) gdFail(`${flow.id} settings section ${id}`);
+          reachableTabs.add('settings');
+        } else if (actionRegistry[type]) {
+          if (!registries[actionRegistry[type]].includes(id)) gdFail(`${flow.id} ${type} id ${id} not in registry`);
+          reachable[actionRegistry[type]].add(id);
+        }
+      }
+      if (flow.registry) {
+        if (!registries[flow.registry]) gdFail(`${flow.id} registry ${flow.registry}`);
+        for (const [country, language] of CTXS) {
+          api.withAvailability(flow.registry, api[{ calculator: 'LEGAL_CALCULATORS', draft: 'DRAFT_CATALOG', scenario: 'LEGAL_SCENARIOS' }[flow.registry]], { country, language })
+            .forEach((row) => reachable[flow.registry].add(row.item.id));
+        }
+      }
+    }
+    for (const [registry, list] of Object.entries(registries)) {
+      const unreached = list.filter((id) => !reachable[registry].has(id));
+      if (unreached.length) gdFail(`${registry} not reachable from the guide: ${unreached.join(', ')}`);
+    }
+    for (const tab of cap.GUIDE_TABS) {
+      if (!reachableTabs.has(tab)) gdFail(`tab ${tab} not reachable from the guide`);
+    }
+    if (!['calculator', 'draft', 'scenario'].every((r) => cap.GUIDE_WORKFLOWS.some((f) => f.registry === r))) gdFail('calculators/documents/scenarios must be registry-driven');
+
+    // FAQ + What's new
+    const faqIds = cap.GUIDE_FAQ_CHIPS.map((f) => f.id).join();
+    if (faqIds !== 'faq_revise,faq_export,faq_diff,faq_currency,faq_locked,faq_documents,faq_delete,faq_report') gdFail(`FAQ set ${faqIds}`);
+    cap.GUIDE_FAQ_CHIPS.forEach((faq) => {
+      if (!ids.includes(faq.workflowId)) gdFail(`${faq.id} → unknown workflow`);
+      keysToResolve.push(faq.chipKey);
+    });
+    cap.GUIDE_CHANGELOG.forEach((entry) => {
+      if (!entry.id || !/^\d{4}-\d{2}-\d{2}$/.test(entry.date) || !ids.includes(entry.workflowId)) gdFail(`changelog ${entry.id}`);
+      keysToResolve.push(entry.titleKey);
+    });
+    const latest = cap.latestChangelog(5);
+    if (latest.length !== 5 || latest[0].id !== cap.GUIDE_CHANGELOG[cap.GUIDE_CHANGELOG.length - 1].id) gdFail('latestChangelog must return the newest five');
+    if (!cap.GUIDE_WORKFLOWS.some((f) => f.id === 'documents') || !cap.GUIDE_CHANGELOG.some((e) => e.workflowId === 'documents')) gdFail("What's new must reach Documents");
+
+    // Every key resolves natively in all 13 languages
+    keysToResolve.push('guideWhatsNew', 'guideItemsHeader', 'guideStepGo', 'guideNotAvailableHere', 'availPendingBadge', 'availPendingToast', 'availUniversal');
+    for (const L of LANGS) {
+      const missing = [...new Set(keysToResolve)].filter((key) => !res[L][key]);
+      if (missing.length) gdFail(`${L} missing guide keys: ${missing.slice(0, 8).join(', ')}`);
+    }
+
+    // DE+de lists only tools offered in DE
+    const deCalcs = api.withAvailability('calculator', api.LEGAL_CALCULATORS, { country: 'DE', language: 'de' }).map((r) => r.item.id);
+    if (deCalcs.includes('labor_severance') || !deCalcs.includes('deadline_date')) gdFail(`DE calculator list ${deCalcs}`);
+    const deDrafts = api.withAvailability('draft', api.DRAFT_CATALOG, { country: 'DE', language: 'de' }).map((r) => r.item.id);
+    if (deDrafts.includes('mediation_application') || !deDrafts.includes('termination_notice')) gdFail(`DE draft list ${deDrafts}`);
+  } catch (error) {
+    gdFail(`runtime: ${error.stack || error.message}`);
+  }
+
+  // App handlers for every action type
+  const handler = (app.match(/const handleGuideAction = useCallback\([\s\S]*?\n {2}\);/) || [''])[0];
+  if (!handler) gdFail('App.js handleGuideAction missing');
+  if (!/setGuideVisible\(false\)/.test(handler)) gdFail('guide must close before navigating');
+  if (!/action\.type === 'openTab'[\s\S]*setActiveTab\(action\.id\)/.test(handler)) gdFail('openTab handler');
+  if (!/action\.type === 'openSettingsSection'[\s\S]*setActiveTab\('settings'\)[\s\S]*setPendingSettingsSection/.test(handler)) gdFail('openSettingsSection handler');
+  if (!/const GUIDE_ITEM_TYPES = \{ openCalculator: 'calculator', openDraft: 'draft', openScenario: 'scenario' \};/.test(app)) gdFail('GUIDE_ITEM_TYPES map');
+  if (!/getAvailability\(itemType, action\.id/.test(handler) || !/availPendingToast/.test(handler) || !/guideNotAvailableHere/.test(handler)) gdFail('item actions must respect availability with a toast');
+  if (!/setActiveTab\('advisor'\)[\s\S]*setGuideAdvisorAction/.test(handler)) gdFail('item actions must switch to Advisor and forward');
+  if (!/onAction=\{handleGuideAction\}/.test(app) || !/country=\{advisorCountry\}/.test(app) || !/guideAction=\{guideAdvisorAction\}/.test(app)) gdFail('App wiring (onAction / country / guideAction)');
+  for (const section of ['account', 'seats', 'support', 'security', 'language', 'privacy', 'delete']) {
+    if (!app.includes(`onSettingsSectionLayout('${section}')`)) gdFail(`settings section anchor ${section}`);
+  }
+  if (!/scrollRef=\{settingsScrollRef\}/.test(app)) gdFail('settings scroll ref');
+  const advEffect = (advisor.match(/useEffect\(\(\) => \{\s*if \(!guideAction\?\.nonce\) return;[\s\S]*?\}, \[guideAction, openDraft\]\);/) || [''])[0];
+  if (!/openCalculator'\) setCalculatorId/.test(advEffect) || !/openScenario'\) setScenarioId/.test(advEffect) || !/openDraft'\) openDraft/.test(advEffect)) gdFail('LegalAdvisorScreen must handle openCalculator/openScenario/openDraft');
+
+  // Sheet: BL.3 pattern, registry lists, search depth
+  if (!/height:\s*GUIDE_LIST_MAX_HEIGHT/.test(guideSrc)) gdFail('guide list must keep a fixed height');
+  if (/onStartShouldSetResponder/.test(guideSrc)) gdFail('no onStartShouldSetResponder in the guide');
+  if (!/<Pressable\s+style=\{StyleSheet\.absoluteFillObject\}[\s\S]{0,200}\/>\s*<View\s+style=\{\[\s*styles\.modalSheet/.test(guideSrc)) gdFail('backdrop Pressable must stay a sibling of the sheet');
+  if (/flexWrap:\s*['"]wrap['"]/.test(guideSrc)) gdFail('chip rows must stay horizontal');
+  if (!/withAvailability\('calculator', LEGAL_CALCULATORS/.test(guideSrc) || !/withAvailability\('draft', DRAFT_CATALOG/.test(guideSrc) || !/withAvailability\('scenario', LEGAL_SCENARIOS/.test(guideSrc)) gdFail('guide lists must come from registries + availability');
+  if (!/ACTION_FOR_REGISTRY = \{ calculator: 'openCalculator', draft: 'openDraft', scenario: 'openScenario' \}/.test(guideSrc)) gdFail('guide item actions');
+  if (!/const runAction = \(action\) => \{[\s\S]{0,80}close\(\);[\s\S]{0,40}onAction\?\.\(action\);/.test(guideSrc)) gdFail('guide must close itself before running an action');
+  if (!/itemTitles/.test(guideSrc) || !/stepBodies/.test(guideSrc)) gdFail('search must match step bodies and registry item titles');
+  if (!/latestChangelog\(5\)/.test(guideSrc) || !/guideWhatsNew/.test(guideSrc)) gdFail("What's new chip");
+  if (!/availPendingBadge/.test(guideSrc) || !/lock-closed-outline/.test(guideSrc)) gdFail('pending items must render locked with the badge');
+
+  // Locks
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') gdFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) gdFail('dependency count changed');
+
+  if (gdOk) {
+    console.log(`OK  WAVE GD.2 guide covers ${flows} workflows, ${actions} actionable steps, registry lists + availability, What's new, 8 FAQ × 13`);
   }
 }
 

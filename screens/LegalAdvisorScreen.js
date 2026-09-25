@@ -46,6 +46,7 @@ export default function LegalAdvisorScreen({
   onNeedPaywall,
   paywallVisible = false,
   isActive = true,
+  guideAction = null,
 }) {
   const { t, i18n } = useTranslation();
   const listRef = useRef(null);
@@ -96,6 +97,15 @@ export default function LegalAdvisorScreen({
     setDraftOpenAtPreview(atPreview);
     setDraftOpen(true);
   }, []);
+
+  // WAVE GD.2 — guide deep link (App already checked availability and switched to this tab).
+  useEffect(() => {
+    if (!guideAction?.nonce) return;
+    listRef.current?.scrollToOffset?.({ offset: 0, animated: false });
+    if (guideAction.type === 'openCalculator') setCalculatorId(guideAction.id);
+    else if (guideAction.type === 'openScenario') setScenarioId(guideAction.id);
+    else if (guideAction.type === 'openDraft') openDraft(guideAction.id);
+  }, [guideAction, openDraft]);
 
   const handleDraftAnswers = useCallback((id, answers) => {
     setDraftAnswersById((prev) => ({ ...prev, [id]: answers }));

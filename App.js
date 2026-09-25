@@ -110,6 +110,7 @@ import {
 import DiffTool from './components/DiffTool';
 import ShieldDocumentCard from './components/ShieldDocumentCard';
 import NexuLexGuideSheet from './components/NexuLexGuideSheet';
+import { getAvailability } from './constants/jurisdictionPacks';
 import LifecycleChips from './components/LifecycleChips';
 import VoiceMicButton from './components/VoiceMicButton';
 import { shareIcsCalendar } from './utils/calendarExport';
@@ -125,6 +126,7 @@ import { deleteAccountAndPurge, openSubscriptionManagement } from './services/ac
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LAST_ANALYSIS_KEY = '@nexulex/last_analysis_id';
+const GUIDE_ITEM_TYPES = { openCalculator: 'calculator', openDraft: 'draft', openScenario: 'scenario' };
 
 // Analiz butonunda gösterilecek dinamik durum metinleri.
 const PROGRESS_LABELS = {
@@ -225,6 +227,52 @@ function AppContent() {
   const [analysisCountry, setAnalysisCountry] = useState('auto');
   const [reportLanguage, setReportLanguage] = useState('auto');
   const [advisorCountry, setAdvisorCountry] = useState('auto');
+  // WAVE GD.2 — guide deep links: advisor tool request + settings section anchor.
+  const [guideAdvisorAction, setGuideAdvisorAction] = useState(null);
+  const [pendingSettingsSection, setPendingSettingsSection] = useState(null);
+  const settingsScrollRef = useRef(null);
+  const settingsSectionYRef = useRef({});
+  const onSettingsSectionLayout = useCallback(
+    (id) => (event) => {
+      settingsSectionYRef.current[id] = event.nativeEvent.layout.y;
+    },
+    []
+  );
+  const handleGuideAction = useCallback(
+    (action) => {
+      if (!action?.type) return;
+      setGuideVisible(false);
+      if (action.type === 'openTab') {
+        setActiveTab(action.id);
+        return;
+      }
+      if (action.type === 'openSettingsSection') {
+        setActiveTab('settings');
+        setPendingSettingsSection({ id: action.id, nonce: Date.now() });
+        return;
+      }
+      const itemType = GUIDE_ITEM_TYPES[action.type];
+      if (!itemType) return;
+      const availability = getAvailability(itemType, action.id, { country: advisorCountry, language: i18n.language });
+      if (availability !== 'available') {
+        showToast(t(availability === 'pending' ? 'availPendingToast' : 'guideNotAvailableHere'), { type: 'info', duration: 2400 });
+        return;
+      }
+      setActiveTab('advisor');
+      setGuideAdvisorAction({ type: action.type, id: action.id, nonce: Date.now() });
+    },
+    [advisorCountry, i18n.language, showToast, t]
+  );
+  useEffect(() => {
+    if (activeTab !== 'settings' || !pendingSettingsSection) return undefined;
+    // Settings mounts on tab switch; give its sections one layout pass before scrolling.
+    const timer = setTimeout(() => {
+      const y = settingsSectionYRef.current[pendingSettingsSection.id];
+      if (typeof y === 'number') settingsScrollRef.current?.scrollTo({ y: Math.max(0, y - 12), animated: true });
+      setPendingSettingsSection(null);
+    }, 250);
+    return () => clearTimeout(timer);
+  }, [activeTab, pendingSettingsSection]);
   const [countrySheetVisible, setCountrySheetVisible] = useState(false);
   const [welcomeLangSheet, setWelcomeLangSheet] = useState(false);
   const [localeReady, setLocaleReady] = useState(false);
@@ -3653,6 +3701,7 @@ function AppContent() {
               onNeedPaywall={(hook) => openPaywall(hook || null, null)}
               paywallVisible={paywallVisible}
               isActive={activeTab === 'advisor'}
+              guideAction={guideAdvisorAction}
             />
           </View>
 
@@ -3692,8 +3741,11 @@ function AppContent() {
 
           {/* TAB 4: AYARLAR & DİL SEÇİMİ */}
           {activeTab === 'settings' && (
-            <KeyboardScreen contentContainerStyle={{ padding: 20 }}>
-              <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}>
+            <KeyboardScreen contentContainerStyle={{ padding: 20 }} scrollRef={settingsScrollRef}>
+              <View
+                onLayout={onSettingsSectionLayout('account')}
+                style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
+              >
                 <Text style={[styles.settingLabel, { color: theme.text }]}>{t('userInfo')}</Text>
                 <Text style={{ color: theme.subText, marginTop: 6, fontSize: 14 }}>{t('userEmail')}: {user.email}</Text>
 
@@ -3748,16 +3800,19 @@ function AppContent() {
                 )}
               </View>
 
-              <AdvisorSeatCard
-                theme={theme}
-                isPro={isPro}
-                onNeedPaywall={() => openPaywall('share')}
-                onOpenBrief={(snapshot) => setAdvisorSnapshot(snapshot)}
-              />
+              <View onLayout={onSettingsSectionLayout('seats')}>
+                <AdvisorSeatCard
+                  theme={theme}
+                  isPro={isPro}
+                  onNeedPaywall={() => openPaywall('share')}
+                  onOpenBrief={(snapshot) => setAdvisorSnapshot(snapshot)}
+                />
+              </View>
 
               {/* Destek ve Hata Bildirimi */}
               <TouchableOpacity
                 activeOpacity={0.8}
+                onLayout={onSettingsSectionLayout('support')}
                 onPress={() => setSupportVisible(true)}
                 style={[
                   styles.card,
@@ -3786,7 +3841,10 @@ function AppContent() {
                 <Ionicons name="chevron-forward" size={18} color={theme.subText} />
               </TouchableOpacity>
 
-              <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}>
+              <View
+                onLayout={onSettingsSectionLayout('security')}
+                style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
+              >
                 <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 10 }]}>{t('securitySettings')}</Text>
                 <TextInput
                   style={[
@@ -3834,7 +3892,10 @@ function AppContent() {
               </View>
 
               {/* Dil Seçim Alanı */}
-              <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 20 }]}>
+              <View
+                onLayout={onSettingsSectionLayout('language')}
+                style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 20 }]}
+              >
                 <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 12 }]}>{t('appLanguage')}</Text>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
                   {(APP_LANGUAGES || []).map((lang) => (
@@ -3860,7 +3921,10 @@ function AppContent() {
                 </Text>
               </View>
 
-              <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}>
+              <View
+                onLayout={onSettingsSectionLayout('privacy')}
+                style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
+              >
                 <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 10 }]}>{t('privacyPolicy')}</Text>
                 <TouchableOpacity
                   style={[styles.secondaryBtn, { marginTop: 0 }]}
@@ -3890,6 +3954,7 @@ function AppContent() {
 
               {/* Hesap silme — App Store 5.1.1(v) / Google Play */}
               <View
+                onLayout={onSettingsSectionLayout('delete')}
                 style={[
                   styles.card,
                   { backgroundColor: theme.cardBg, borderColor: DANGER, marginTop: 16, marginBottom: 24 },
@@ -4069,11 +4134,13 @@ function AppContent() {
       <NexuLexGuideSheet
         visible={guideVisible}
         theme={theme}
+        country={advisorCountry}
         onClose={() => setGuideVisible(false)}
         onOpenAdvisor={() => {
           setGuideVisible(false);
           setActiveTab('advisor');
         }}
+        onAction={handleGuideAction}
       />
 
       <Modal visible={Boolean(pendingShareCode)} animationType="slide" onRequestClose={() => setPendingShareCode('')}>
