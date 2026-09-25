@@ -17,6 +17,7 @@ import { ACCENT, styles } from '../theme';
 import { useFeedback } from '../context/FeedbackContext';
 import { footKeyForHook } from '../constants/paywallIntent';
 import { isAnnualPackage, isMonthlyPackage, pickAnnualCompare } from '../constants/annualHighlight';
+import { pickProfessionalCompare } from '../constants/professionalCompare';
 import {
   configurePurchases,
   fetchOfferings,
@@ -73,6 +74,7 @@ export default function PaywallScreen({
   };
   const [tier, setTier] = useState('pro');
   const [packages, setPackages] = useState([]);
+  const [peerPackages, setPeerPackages] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [loadingPlans, setLoadingPlans] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -117,16 +119,22 @@ export default function PaywallScreen({
 
     setLoadingPlans(true);
     setPackages([]);
+    setPeerPackages([]);
     setSelectedId(null);
     try {
       await configurePurchases(userId);
-      const offerings = await fetchOfferings(tier);
+      const [offerings, peer] = await Promise.all([
+        fetchOfferings(tier),
+        fetchOfferings(tier === 'professional' ? 'pro' : 'professional'),
+      ]);
       setPackages(offerings);
+      setPeerPackages(peer);
       // Varsayılan olarak en avantajlı paket seçili gelir.
       setSelectedId((offerings.find(isAnnualPackage) || offerings[0])?.identifier ?? null);
     } catch (error) {
       console.warn('Abonelik paketleri alınamadı:', error.message);
       setPackages([]);
+      setPeerPackages([]);
     } finally {
       setLoadingPlans(false);
     }
@@ -179,6 +187,10 @@ export default function PaywallScreen({
 
   const canPurchase = available && !loadingPlans && packages.length > 0 && !!selectedId && !owned;
   const annualCompare = pickAnnualCompare(packages);
+  const tierCompare = pickProfessionalCompare(
+    tier === 'professional' ? peerPackages : packages,
+    tier === 'professional' ? packages : peerPackages,
+  );
 
   const renderPlan = (pkg) => {
     const active = pkg.identifier === selectedId;
@@ -332,6 +344,27 @@ export default function PaywallScreen({
             {!loadingPlans && annualCompare ? (
               <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mxYearlyPick')}</Text>
             ) : null}
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Offering')}</Text>
+            {tierCompare ? (
+              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>
+                {t('mx2Delta', { percent: String(tierCompare.percent) })}
+              </Text>
+            ) : !loadingPlans && (packages.length > 0 || peerPackages.length > 0) ? (
+              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2NoDelta')}</Text>
+            ) : null}
+            {tierCompare && tierCompare.proPriceString && tierCompare.professionalPriceString ? (
+              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>
+                {t('mx2Prices', { plusPrice: tierCompare.professionalPriceString, proPrice: tierCompare.proPriceString })}
+              </Text>
+            ) : null}
+            {tier === 'professional' && annualCompare ? (
+              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Yearly')}</Text>
+            ) : null}
+            {tier === 'professional' && plan === 'pro' ? (
+              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Upgrade')}</Text>
+            ) : null}
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2FirstValue')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Disclaimer')}</Text>
 
             {loadingPlans ? (
               <View style={{ alignItems: 'center', paddingVertical: 20 }}>

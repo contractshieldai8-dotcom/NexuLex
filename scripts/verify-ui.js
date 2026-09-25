@@ -117,13 +117,15 @@ const waveGr8Src = fs.existsSync('i18n.wavegr8.js') ? fs.readFileSync('i18n.wave
 const waveGr8Match = waveGr8Src.match(/export const WAVE_GR8_I18N = ([\s\S]*);\s*$/);
 const waveUx4Src = fs.existsSync('i18n.waveux4.js') ? fs.readFileSync('i18n.waveux4.js', 'utf8') : '';
 const waveUx4Match = waveUx4Src.match(/export const WAVE_UX4_I18N = ([\s\S]*);\s*$/);
+const waveMx2Src = fs.existsSync('i18n.wavemx2.js') ? fs.readFileSync('i18n.wavemx2.js', 'utf8') : '';
+const waveMx2Match = waveMx2Src.match(/export const WAVE_MX2_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !waveGr6Match || !waveMx1Match || !waveJp3Match || !waveSt2Match || !waveUx2Match || !waveSt4Match || !waveGr7Match || !waveUx3Match || !waveSt6Match || !waveSt7Match || !waveGr8Match || !waveUx4Match || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !waveGr6Match || !waveMx1Match || !waveJp3Match || !waveSt2Match || !waveUx2Match || !waveSt4Match || !waveGr7Match || !waveUx3Match || !waveSt6Match || !waveSt7Match || !waveGr8Match || !waveUx4Match || !waveMx2Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5/GR6/MX1/JP3/ST2/UX2/ST4/GR7/UX3/ST6/ST7/GR8/UX4 kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5/GR6/MX1/JP3/ST2/UX2/ST4/GR7/UX3/ST6/ST7/GR8/UX4/MX2 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -165,6 +167,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_ST7_I18N = eval(`(${waveSt7Match[1]})`); // eslint-disable-line no-eval
   const WAVE_GR8_I18N = eval(`(${waveGr8Match[1]})`); // eslint-disable-line no-eval
   const WAVE_UX4_I18N = eval(`(${waveUx4Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_MX2_I18N = eval(`(${waveMx2Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -206,8 +209,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_ST7_I18N',
     'WAVE_GR8_I18N',
     'WAVE_UX4_I18N',
+    'WAVE_MX2_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -800,6 +804,11 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     failed = true;
     console.log(`WAVE_UX4 count langs=${Object.keys(WAVE_UX4_I18N).length} keys=${waveUx4Base.length}`);
   }
+  const waveMx2Base = Object.keys(WAVE_MX2_I18N.en || {});
+  if (Object.keys(WAVE_MX2_I18N).length !== 13 || waveMx2Base.length !== 8) {
+    failed = true;
+    console.log(`WAVE_MX2 count langs=${Object.keys(WAVE_MX2_I18N).length} keys=${waveMx2Base.length}`);
+  }
 
   for (const lang of languages) {
     const keys = Object.keys(resources[lang].translation);
@@ -813,7 +822,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   // Interpolasyon yer tutucuları çeviride korunmalı.
-  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine', 'calcGrossSalary', 'calcCurrentRent', 'calcProposedRent', 'calcPrincipal', 'calcRatesAsOfPublic', 'draftInvalidDate', 'availPendingLine', 'calcAddedDays', 'calcAddedBusinessDays', 'calcAddedWeeks', 'calcAddedMonths', 'calcLabelInstallmentRow', 'calcProRataAmount', 'calcInstallmentTotalInput', 'calcPenaltyAmountInput', 'calcContractValueInput', 'draftU_termination_notice_body', 'draftU_deposit_return_request_body', 'draftU_repair_or_defect_notice_body', 'draftU_rent_increase_objection_body', 'draftU_unpaid_wages_request_body', 'draftU_personal_data_access_request_body', 'draftU_cancellation_request_body', 'guideItemsHeader', 'docExplainPages', 'docExplainFreeLeft', 'docExplainPageLimit', 'docExplainDaysLeft', 'docExplainLockedTitle', 'docExplainRemindDone', 'askQuotaLeft', 'pgLinksFor', 'pgEmergency', 'pgAskTemplate', 'ptMaterialCount', 'ptQuotaLeft', 'ptRun', 'ptAddedToTimeline', 'lhFindTitle', 'lhMsgArea', 'lhMsgSummary', 'lhMsgParty', 'lhMsgDeadline', 'lhPacketPrepared', 'lhPacketJurisdiction', 'lhPacketUrgent', 'lhPacketUrgentToday', 'vlInviteBody', 'mxAnnualBadge', 'jp3HintStatutory', 'jp3Bodies', 'ux3Install', 'gr8Country'];
+  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine', 'calcGrossSalary', 'calcCurrentRent', 'calcProposedRent', 'calcPrincipal', 'calcRatesAsOfPublic', 'draftInvalidDate', 'availPendingLine', 'calcAddedDays', 'calcAddedBusinessDays', 'calcAddedWeeks', 'calcAddedMonths', 'calcLabelInstallmentRow', 'calcProRataAmount', 'calcInstallmentTotalInput', 'calcPenaltyAmountInput', 'calcContractValueInput', 'draftU_termination_notice_body', 'draftU_deposit_return_request_body', 'draftU_repair_or_defect_notice_body', 'draftU_rent_increase_objection_body', 'draftU_unpaid_wages_request_body', 'draftU_personal_data_access_request_body', 'draftU_cancellation_request_body', 'guideItemsHeader', 'docExplainPages', 'docExplainFreeLeft', 'docExplainPageLimit', 'docExplainDaysLeft', 'docExplainLockedTitle', 'docExplainRemindDone', 'askQuotaLeft', 'pgLinksFor', 'pgEmergency', 'pgAskTemplate', 'ptMaterialCount', 'ptQuotaLeft', 'ptRun', 'ptAddedToTimeline', 'lhFindTitle', 'lhMsgArea', 'lhMsgSummary', 'lhMsgParty', 'lhMsgDeadline', 'lhPacketPrepared', 'lhPacketJurisdiction', 'lhPacketUrgent', 'lhPacketUrgentToday', 'vlInviteBody', 'mxAnnualBadge', 'jp3HintStatutory', 'jp3Bodies', 'ux3Install', 'gr8Country', 'mx2Delta', 'mx2Prices'];
   for (const lang of languages) {
     for (const key of placeholderKeys) {
       const value = resources[lang].translation[key];
@@ -825,9 +834,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 2052) {
+  if (languages.length !== 13 || baseKeys.length !== 2060) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2052`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2060`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -3257,6 +3266,7 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_ST7_I18N',
       'WAVE_GR8_I18N',
       'WAVE_UX4_I18N',
+      'WAVE_MX2_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -3287,7 +3297,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.wavest6.js', 'utf8').match(/export const WAVE_ST6_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavest7.js', 'utf8').match(/export const WAVE_ST7_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavegr8.js', 'utf8').match(/export const WAVE_GR8_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.waveux4.js', 'utf8').match(/export const WAVE_UX4_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.waveux4.js', 'utf8').match(/export const WAVE_UX4_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavemx2.js', 'utf8').match(/export const WAVE_MX2_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -4687,7 +4698,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'wavest2', 'wavest4', 'wavest6', 'wavest7', 'waveux1', 'waveux2', 'waveux3', 'waveux4', 'wavejp2', 'wavejp3', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavegr7', 'wavegr8', 'wavemx1', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'wavest2', 'wavest4', 'wavest6', 'wavest7', 'waveux1', 'waveux2', 'waveux3', 'waveux4', 'wavejp2', 'wavejp3', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavegr7', 'wavegr8', 'wavemx1', 'wavemx2', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -7223,6 +7234,82 @@ Ticaret Unvanı: Anadolu Bilişim
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.4 advisor home honesty (${fixtures} fixtures): four jobs × 13, guides unlocked, GR.5 frozen`);
+  }
+}
+
+// WAVE MX.2 — honest Professional vs Pro store-price compare; MX.1 yearly goldens stay
+{
+  let mxOk = true;
+  const mxFail = (msg) => {
+    failed = true;
+    mxOk = false;
+    console.log(`WAVE MX.2 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const LANGS = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+  let fixtures = 0;
+  try {
+    const { loadApp } = require('./cb1-harness');
+    ({ cases: fixtures } = loadApp('en').api.assertProfessionalCompareFixtures());
+  } catch (error) {
+    mxFail(`runtime: ${error.message}`);
+  }
+  const R = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
+  const keys = ['mx2Delta', 'mx2Prices', 'mx2NoDelta', 'mx2Yearly', 'mx2Offering', 'mx2Upgrade', 'mx2FirstValue', 'mx2Disclaimer'];
+  if (keys.length !== 8) mxFail('eight copy keys');
+  for (const L of LANGS) {
+    const miss = keys.filter((k) => typeof R[L][k] !== 'string' || !R[L][k].trim());
+    if (miss.length) mxFail(`${L} missing ${miss.join(', ')}`);
+    if (!/\{\{percent\}\}/.test(R[L].mx2Delta || '')) mxFail(`${L}.mx2Delta needs {{percent}}`);
+    if (!/\{\{plusPrice\}\}/.test(R[L].mx2Prices || '') || !/\{\{proPrice\}\}/.test(R[L].mx2Prices || '')) {
+      mxFail(`${L}.mx2Prices needs {{plusPrice}} and {{proPrice}}`);
+    }
+    if (/%/.test(keys.map((k) => R[L][k]).join('\n'))) mxFail(`${L} must not hard-code a percent sign`);
+    if (!/NexuLex/.test(R[L].mx2Offering || '') || !/NexuLex/.test(R[L].mx2Disclaimer || '')) {
+      mxFail(`${L} offering/disclaimer must name NexuLex`);
+    }
+    if (L !== 'en') {
+      const same = keys.filter((k) => R[L][k] === R.en[k] && R.en[k].length >= 12);
+      if (same.length) mxFail(`${L} identical to EN: ${same.join(', ')}`);
+    }
+  }
+  const paywall = read('screens/PaywallScreen.js');
+  const purchases = read('services/purchases.js');
+  const model = read('constants/professionalCompare.js');
+  const mx1 = read('i18n.wavemx1.js');
+  for (const key of keys) {
+    if (!paywall.includes(`t('${key}'`)) mxFail(`paywall must render ${key}`);
+  }
+  if (!/pickProfessionalCompare/.test(paywall) || !/fetchOfferings\(tier === 'professional' \? 'pro' : 'professional'\)/.test(paywall)) {
+    mxFail('paywall must compare the peer store offering');
+  }
+  if (!/pickAnnualCompare/.test(paywall) || !/t\('mxAnnualBadge'/.test(paywall) || !/t\('mxFirstValue'\)/.test(paywall)) {
+    mxFail('MX.1 yearly compare must stay on the paywall');
+  }
+  if (!/t\('planUpgradeNote'\)/.test(paywall) || !/t\('planProfessionalUnavailable'\)/.test(paywall)) {
+    mxFail('Professional upgrade and unavailable copy must stay');
+  }
+  if (paywall.lastIndexOf("t('disclaimerCounsel')") < paywall.lastIndexOf("t('mx2Disclaimer')")) {
+    mxFail('paywall disclaimer must stay last');
+  }
+  if (!/price: pkg\.product\.price/.test(purchases) || !/currencyCode: pkg\.product\.currencyCode/.test(purchases)) {
+    mxFail('offerings must pass the store price and currency');
+  }
+  if (!/percent < 1 \|\| percent > 400/.test(model) || !/mixed currency is not compared/.test(model)) {
+    mxFail('Professional extra must stay inside a sane band and skip mixed currency');
+  }
+  if (/40\s*%|save 40|yüzde 40/i.test(paywall + model)) mxFail('no hardcoded marketing percent');
+  if (!mx1.includes('"mxAnnualBadge": "{{percent}} less than twelve monthly payments"')
+    || !mx1.includes('"mxFirstValue": "Your first scan, first questions and first case file stay on the free plan."')) {
+    mxFail('en MX.1 copy must stay byte-identical');
+  }
+  if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) mxFail('guides must stay unlocked');
+  if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) mxFail('store listing must stay out of the app');
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') mxFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) mxFail('dependency count changed');
+  if (mxOk) {
+    console.log(`OK  WAVE MX.2 Professional compare (${fixtures} fixtures): store-price Pro vs Professional × 13, MX.1 frozen`);
   }
 }
 
