@@ -72,7 +72,9 @@ export function buildDraft(templateId, answers = {}, options = {}) {
   (template.questions || []).forEach((q) => {
     const label = rawKey(q.labelKey, locale);
     labels[q.id] = label;
-    const value = cleanAnswer(answers?.[q.id]);
+    const raw = cleanAnswer(answers?.[q.id]);
+    const option = q.type === 'choice' ? (q.options || []).find((o) => o.id === raw) : null;
+    const value = q.type === 'choice' ? (option ? rawKey(option.labelKey, locale).trim() : '') : raw;
     if (value) filled[q.id] = value;
     else missing.push({ id: q.id, label, required: !!q.required });
   });
@@ -94,6 +96,7 @@ export function buildDraft(templateId, answers = {}, options = {}) {
     missingRequired: missing.filter((m) => m.required).map((m) => m.id),
     answers: filled,
     generic: variant.generic,
+    universal: !!variant.universal,
     jurisdiction: variant.jurisdiction,
   };
   draft.text = formatDraftForSharing(draft, 'plain');

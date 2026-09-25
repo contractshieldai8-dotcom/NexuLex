@@ -65,12 +65,14 @@ const waveStSrc = fs.existsSync('i18n.wavest.js') ? fs.readFileSync('i18n.wavest
 const waveStMatch = waveStSrc.match(/export const WAVE_ST_I18N = ([\s\S]*);\s*$/);
 const waveUx1Src = fs.existsSync('i18n.waveux1.js') ? fs.readFileSync('i18n.waveux1.js', 'utf8') : '';
 const waveUx1Match = waveUx1Src.match(/export const WAVE_UX1_I18N = ([\s\S]*);\s*$/);
+const waveJp2Src = fs.existsSync('i18n.wavejp2.js') ? fs.readFileSync('i18n.wavejp2.js', 'utf8') : '';
+const waveJp2Match = waveJp2Src.match(/export const WAVE_JP2_I18N = ([\s\S]*);\s*$/);
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1 kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -86,6 +88,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_CB1_I18N = eval(`(${waveCb1Match[1]})`); // eslint-disable-line no-eval
   const WAVE_ST_I18N = eval(`(${waveStMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_UX1_I18N = eval(`(${waveUx1Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_JP2_I18N = eval(`(${waveJp2Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -101,8 +104,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_CB1_I18N',
     'WAVE_ST_I18N',
     'WAVE_UX1_I18N',
+    'WAVE_JP2_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N);
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
 
@@ -322,6 +326,35 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     console.log(`WAVE_UX1 key count ${waveUx1Base.length}, beklenen 14`);
   }
 
+  const waveJp2Langs = Object.keys(WAVE_JP2_I18N);
+  const waveJp2Base = Object.keys(WAVE_JP2_I18N.en || {});
+  if (waveJp2Langs.length !== 13) {
+    failed = true;
+    console.log(`WAVE_JP2 dil sayisi ${waveJp2Langs.length}, beklenen 13`);
+  }
+  for (const lang of waveJp2Langs) {
+    const keys = Object.keys(WAVE_JP2_I18N[lang] || {});
+    const missing = waveJp2Base.filter((key) => !keys.includes(key));
+    const extra = keys.filter((key) => !waveJp2Base.includes(key));
+    if (missing.length || extra.length) {
+      failed = true;
+      console.log(`WAVE_JP2 ${lang}: eksik=[${missing.join(', ')}] fazla=[${extra.join(', ')}]`);
+    }
+  }
+  if (waveJp2Base.length !== 120) {
+    failed = true;
+    console.log(`WAVE_JP2 key count ${waveJp2Base.length}, beklenen 120`);
+  }
+  // JP.2 keys are new: none may shadow a key from an earlier wave (TR byte-identity).
+  const earlierWaves = { WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N };
+  for (const [name, wave] of Object.entries(earlierWaves)) {
+    const shadowed = waveJp2Base.filter((key) => Object.prototype.hasOwnProperty.call(wave.en || {}, key));
+    if (shadowed.length) {
+      failed = true;
+      console.log(`WAVE_JP2 shadows ${name}: ${shadowed.join(', ')}`);
+    }
+  }
+
   for (const lang of languages) {
     const keys = Object.keys(resources[lang].translation);
     const missing = baseKeys.filter((key) => !keys.includes(key));
@@ -334,7 +367,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   // Interpolasyon yer tutucuları çeviride korunmalı.
-  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine', 'calcGrossSalary', 'calcCurrentRent', 'calcProposedRent', 'calcPrincipal', 'calcRatesAsOfPublic', 'draftInvalidDate'];
+  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine', 'calcGrossSalary', 'calcCurrentRent', 'calcProposedRent', 'calcPrincipal', 'calcRatesAsOfPublic', 'draftInvalidDate', 'availPendingLine', 'calcAddedDays', 'calcAddedBusinessDays', 'calcAddedWeeks', 'calcAddedMonths', 'calcLabelInstallmentRow', 'calcProRataAmount', 'calcInstallmentTotalInput', 'calcPenaltyAmountInput', 'calcContractValueInput', 'draftU_termination_notice_body', 'draftU_deposit_return_request_body', 'draftU_repair_or_defect_notice_body', 'draftU_rent_increase_objection_body', 'draftU_unpaid_wages_request_body', 'draftU_personal_data_access_request_body', 'draftU_cancellation_request_body'];
   for (const lang of languages) {
     for (const key of placeholderKeys) {
       const value = resources[lang].translation[key];
@@ -346,9 +379,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 1045) {
+  if (languages.length !== 13 || baseKeys.length !== 1165) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1045`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1165`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -2746,11 +2779,13 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_CB1_I18N',
       'WAVE_ST_I18N',
       'WAVE_UX1_I18N',
+      'WAVE_JP2_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavest.js', 'utf8').match(/export const WAVE_ST_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.waveux1.js', 'utf8').match(/export const WAVE_UX1_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.waveux1.js', 'utf8').match(/export const WAVE_UX1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavejp2.js', 'utf8').match(/export const WAVE_JP2_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -3309,7 +3344,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/buildDraftPreview/.test(modalSrc) || !/isPro/.test(modalSrc) || !/onNeedPaywall/.test(modalSrc)) {
     ccFail('Free preview / Pro gate yok');
   }
-  if (!/DRAFT_TEMPLATES|listDraftTemplatesFor/.test(advisorCc) || !/DraftWizardModal/.test(advisorCc) || !/draftSectionTitle/.test(advisorCc)) {
+  if (!/DRAFT_TEMPLATES|DRAFT_CATALOG|listDraftTemplatesFor/.test(advisorCc) || !/DraftWizardModal/.test(advisorCc) || !/draftSectionTitle/.test(advisorCc)) {
     ccFail('LegalAdvisor "Belge Hazırla" chips yok');
   }
   if (!/isPro=\{!lockPremium\}/.test(appSrc) || !/onNeedPaywall=\{\((hook)?\) => openPaywall\(/.test(appSrc)) {
@@ -3481,7 +3516,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/buildRoadmap\(/.test(scenarioModalCb1) || !/scenarioGenericBanner|roadmap\.banner/.test(scenarioModalCb1)) {
     cb1Fail('ScenarioWizardModal must use buildRoadmap + generic banner');
   }
-  if (!/draftGenericBanner/.test(draftModalCb1) || !/listDraftTemplatesFor/.test(draftModalCb1)) {
+  if (!/draftGenericBanner/.test(draftModalCb1) || !/listDraftTemplatesFor|listDraftCatalogFor/.test(draftModalCb1)) {
     cb1Fail('DraftWizardModal must filter by jurisdiction + show generic banner');
   }
   if (!/draftAnswersById/.test(advisorSrcCb1) || !/paywallVisible/.test(advisorSrcCb1) || !/paywallVisible=\{paywallVisible\}/.test(appSrc)) {
@@ -3688,8 +3723,12 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/const headerElement = useMemo\(/.test(advisor)) cb1aFail('headerElement must be a useMemo stable element');
   if (/ListHeaderComponent=\{\s*\(/.test(advisor)) cb1aFail('ListHeaderComponent must not be an inline component');
   const headerBlock = (advisor.match(/const headerElement = useMemo\([\s\S]*?\n  \);/) || [''])[0];
+  // JP.2: the chip rows render availability-filtered views of the registries (pinned in the JP.2 block).
+  const headerAliases = { LEGAL_SCENARIOS: 'scenarioItems', LEGAL_CALCULATORS: 'calculatorItems' };
   for (const needle of ['RecentChatsList', 'scenarioSectionTitle', 'calcSectionTitle', 'draftSectionTitle', 'SelectorField', 'LEGAL_SCENARIOS', 'LEGAL_CALCULATORS', 'offeredDrafts']) {
-    if (!headerBlock.includes(needle)) cb1aFail(`header must contain ${needle}`);
+    if (!headerBlock.includes(needle) && !(headerAliases[needle] && headerBlock.includes(headerAliases[needle]))) {
+      cb1aFail(`header must contain ${needle}`);
+    }
   }
   const depsMatch = headerBlock.match(/\),\s*\[([^\]]*)\]\s*\);$/);
   const deps = depsMatch ? depsMatch[1] : '';
@@ -4146,7 +4185,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -4216,6 +4255,227 @@ Ticaret Unvanı: Anadolu Bilişim
 
   if (l10nOk) {
     console.log(`OK  WAVE L10N.1 no EN-identical copy in ${AUDITED.length} wave files (${audited} strings) + RTL punctuation`);
+  }
+}
+
+// WAVE JP.2 — Jurisdiction registry, universal calculators, universal letters, availability UI
+{
+  let jpOk = true;
+  const jpFail = (msg) => {
+    failed = true;
+    jpOk = false;
+    console.log(`WAVE JP.2 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const ROOTS = {
+    TR: 'https://www.mevzuat.gov.tr',
+    DE: 'https://www.gesetze-im-internet.de',
+    GB: 'https://www.legislation.gov.uk',
+    US: 'https://www.law.cornell.edu',
+    FR: 'https://www.legifrance.gouv.fr',
+    ES: 'https://www.boe.es',
+    IT: 'https://www.normattiva.it',
+    NL: 'https://wetten.overheid.nl',
+    AE: 'https://uaelegislation.gov.ae',
+    SA: 'https://laws.boe.gov.sa',
+    EU: 'https://eur-lex.europa.eu',
+  };
+  const BANNED = /\b(TBK|TKHK|BGB|GDPR|KVKK|UCC|Art\.|§|m\.\s?\d+|Section\s\d+)\b/i;
+  let fixtures = 0;
+  try {
+    const { loadApp, LANGS } = require('./cb1-harness');
+    const { api, t } = loadApp('tr');
+
+    // P0 registry
+    const packs = api.JURISDICTION_PACKS;
+    if (Object.keys(packs).sort().join() !== Object.keys(ROOTS).sort().join()) jpFail('pack set must be TR/DE/GB/US/FR/ES/IT/NL/AE/SA/EU');
+    for (const [code, p] of Object.entries(packs)) {
+      if (p.code !== code) jpFail(`${code}.code`);
+      for (const field of ['enabled', 'verified', 'asOfDate', 'reviewer', 'sources', 'calculators', 'scenarios', 'drafts']) {
+        if (!(field in p)) jpFail(`${code} missing ${field}`);
+      }
+      if (p.reviewer !== null) jpFail(`${code}.reviewer must stay null until a real review`);
+      if (code === 'TR') {
+        if (p.enabled !== true || p.verified !== false) jpFail('TR must be enabled + unverified');
+      } else if (p.enabled !== false || p.calculators.length || p.scenarios.length || p.drafts.length) {
+        jpFail(`${code} must be disabled with empty lists`);
+      }
+      if (!p.sources.length) jpFail(`${code} needs an official source`);
+      p.sources.forEach((s) => {
+        if (!String(s.url).startsWith(ROOTS[code])) jpFail(`${code} source ${s.url} is not under ${ROOTS[code]}`);
+        if (!s.labelKey) jpFail(`${code} source labelKey`);
+      });
+    }
+    if (api.EU_MEMBERS.join() !== 'DE,FR,ES,IT,NL') jpFail('EU_MEMBERS');
+    if (api.applicablePacks('DE').map((p) => p.code).join() !== 'DE,EU' || api.applicablePacks('US').map((p) => p.code).join() !== 'US') jpFail('EU pack must apply to members only');
+
+    // P0 availability
+    const av = (type, id, country, language, extra = {}) => api.getAvailability(type, id, { country, language, ...extra });
+    for (const id of api.UNIVERSAL_CALCULATOR_IDS) {
+      for (const [c, l] of [['US', 'en'], ['DE', 'de'], ['auto', 'en'], ['TR', 'tr']]) {
+        fixtures += 1;
+        if (av('calculator', id, c, l) !== 'available') jpFail(`universal ${id} must be available for ${c}+${l}`);
+      }
+    }
+    for (const id of api.UNIVERSAL_DRAFT_IDS) {
+      for (const [c, l] of [['US', 'en'], ['DE', 'de'], ['auto', 'en'], ['TR', 'tr']]) {
+        fixtures += 1;
+        if (av('draft', id, c, l) !== 'available') jpFail(`universal draft ${id} must be available for ${c}+${l}`);
+      }
+    }
+    if (av('calculator', 'labor_severance', 'TR', 'tr') !== 'available') jpFail('TR severance must be available in TR');
+    if (av('calculator', 'labor_severance', 'US', 'en') !== 'none') jpFail('TR severance must be none in US');
+    if (av('calculator', 'labor_severance', 'auto', 'tr') !== 'available') jpFail('auto+tr must resolve to the TR pack');
+    if (av('draft', 'mediation_application', 'DE', 'de') !== 'none') jpFail('mediation_application must stay TR-only');
+    if (av('scenario', 'labor_exit', 'US', 'en') !== 'available') jpFail('scenarios stay available everywhere');
+    const fixturePacks = { ...packs, DE: { ...packs.DE, calculators: ['de_fixture_calc'], drafts: ['mediation_application'] } };
+    if (av('calculator', 'de_fixture_calc', 'DE', 'de', { packs: fixturePacks }) !== 'pending') jpFail('DE-listed fixture id must be pending');
+    if (av('draft', 'mediation_application', 'DE', 'de', { packs: fixturePacks }) !== 'pending') jpFail('DE-listed TR-only draft must be pending');
+    if (av('calculator', 'de_fixture_calc', 'US', 'en', { packs: fixturePacks }) !== 'none') jpFail('DE fixture must be none outside DE');
+    const ordered = api.withAvailability('draft', api.DRAFT_CATALOG, { country: 'DE', language: 'de', packs: fixturePacks });
+    const firstPending = ordered.findIndex((r) => r.availability === 'pending');
+    if (firstPending < 0 || ordered.slice(firstPending).some((r) => r.availability !== 'pending')) jpFail('available items must precede pending ones');
+    if (ordered.some((r) => r.availability === 'none')) jpFail("withAvailability must drop 'none'");
+    fixtures += 8;
+
+    // P1 calculators
+    const dl = api.calculateDeadlineDate({ startDate: '2026-01-30', amount: 1, unit: 'months', country: 'US', language: 'en' });
+    if (dl.meta.endDate !== '2026-02-28') jpFail(`2026-01-30 + 1 month = ${dl.meta.endDate}, expected 2026-02-28`);
+    const bd = api.calculateDeadlineDate({ startDate: '2026-09-25', amount: 3, unit: 'days', businessDays: true, country: 'DE', language: 'de' });
+    if (bd.meta.endDate !== '2026-09-30') jpFail(`Fri 2026-09-25 + 3 business days = ${bd.meta.endDate}, expected 2026-09-30`);
+    const bd2 = api.calculateDeadlineDate({ startDate: '2026-09-26', amount: 1, unit: 'days', businessDays: true, country: 'DE', language: 'de' });
+    if (bd2.meta.endDate !== '2026-09-28') jpFail('business days must skip the weekend');
+    const wk = api.calculateDeadlineDate({ startDate: '2026-01-01', amount: 2, unit: 'weeks', country: 'US', language: 'en' });
+    if (wk.meta.endDate !== '2026-01-15') jpFail('weeks');
+    if (!/Montag/.test(api.calculateDeadlineDate({ startDate: '2026-09-28', amount: 0, unit: 'days', country: 'DE', language: 'de' }).totalText)) jpFail('weekday must follow the app language');
+    if (!api.calculateDeadlineDate({ startDate: '2026-02-31', amount: 1, unit: 'days' }).invalid) jpFail('invalid date must be rejected');
+    const pr = api.calculateProRata({ amount: 3000, daysUsed: 10, daysInPeriod: 30, country: 'US', language: 'en' });
+    if (pr.totalAmount !== 1000 || pr.currency !== 'USD') jpFail(`pro_rata 3000×10/30 = ${pr.totalAmount} ${pr.currency}`);
+    const pd = api.calculatePercentChange({ mode: 'diff', oldValue: 1000, newValue: 1200, country: 'auto', language: 'en' });
+    const pa = api.calculatePercentChange({ mode: 'apply', oldValue: 1000, percent: 15, country: 'auto', language: 'en' });
+    if (Math.abs(pd.meta.percent - 20) > 1e-9 || pa.meta.newValue !== 1150) jpFail('percent_change modes');
+    for (const [total, count, interval] of [[1000, 3, 'monthly'], [12000, 7, 'weekly'], [99.99, 4, 'monthly']]) {
+      const plan = api.calculateInstallmentPlan({ total, count, firstDate: '2026-01-31', interval, country: 'GB', language: 'en' });
+      const rows = plan.breakdown.filter((r) => r.labelKey === 'calcLabelInstallmentRow');
+      const cents = rows.reduce((s, r) => s + Math.round(r.amount * 100), 0);
+      if (rows.length !== count || cents !== Math.round(total * 100)) jpFail(`installments ${total}/${count} sum ${cents / 100}`);
+      fixtures += 1;
+    }
+    const plan = api.calculateInstallmentPlan({ total: 1000, count: 3, firstDate: '2026-01-31', interval: 'monthly', country: 'GB', language: 'en' });
+    if (plan.breakdown.filter((r) => r.labelParams).map((r) => r.labelParams.date).join() !== '2026-01-31,2026-02-28,2026-03-31') jpFail('monthly installments must clamp to month end');
+    const pen = api.calculatePenaltyRatio({ penalty: 5000, contractValue: 20000, country: 'US', language: 'en' });
+    if (pen.meta.ratio !== 25) jpFail('penalty_ratio');
+    fixtures += 10;
+
+    // Share order + disclaimer last, all langs; universal share text never cites law
+    for (const L of LANGS) {
+      const tr = t(L);
+      for (const r of [
+        api.calculateDeadlineDate({ startDate: '2026-01-30', amount: 1, unit: 'months', country: 'auto', language: L }),
+        api.calculateProRata({ amount: 3000, daysUsed: 10, daysInPeriod: 30, country: 'DE', language: L }),
+        api.calculatePercentChange({ mode: 'diff', oldValue: 1000, newValue: 1200, country: 'auto', language: L }),
+        api.calculateInstallmentPlan({ total: 1000, count: 3, firstDate: '2026-01-31', interval: 'monthly', country: 'GB', language: L }),
+        api.calculatePenaltyRatio({ penalty: 5000, contractValue: 20000, country: 'US', language: L }),
+      ]) {
+        const text = api.formatCalculationForSharing(r, 'plain', tr);
+        const lines = text.split('\n');
+        if (lines[lines.length - 1] !== tr('calcDisclaimer')) jpFail(`${L}/${r.calculatorId} disclaimer must be last`);
+        const foot = text.indexOf(tr(r.statutoryFootnoteKey));
+        const total = text.lastIndexOf(`${tr(r.totalLabelKey || 'calcEstimatedNet')}:`);
+        if (foot < 0 || total < 0 || total > foot) jpFail(`${L}/${r.calculatorId} order must be breakdown → total → footnote`);
+        if (BANNED.test(text)) jpFail(`${L}/${r.calculatorId} share text cites law`);
+        if (/\{\{|calc[A-Z]\w+/.test(text)) jpFail(`${L}/${r.calculatorId} unresolved key/placeholder`);
+        fixtures += 1;
+      }
+    }
+
+    // P2 universal letters
+    if (api.UNIVERSAL_DRAFT_IDS.join() !== 'termination_notice,deposit_return_request,repair_or_defect_notice,rent_increase_objection,unpaid_wages_request,personal_data_access_request,cancellation_request') jpFail('universal draft ids');
+    for (const tpl of api.UNIVERSAL_DRAFT_TEMPLATES) {
+      if (tpl.questions.length < 5 || tpl.questions.length > 7) jpFail(`${tpl.id} needs 5–7 questions`);
+      if (!tpl.questions.some((q) => q.required)) jpFail(`${tpl.id} needs required questions`);
+      if (tpl.jurisdictions.length || Object.keys(tpl.packs).length) jpFail(`${tpl.id} must not carry country variants`);
+    }
+    const term = api.getDraftTemplateById('termination_notice');
+    const ct = term.questions.find((q) => q.id === 'contractType');
+    if (!ct || ct.type !== 'choice' || ct.options.map((o) => o.id).join() !== 'lease,service,employment,other') jpFail('termination type selector');
+    const res = require('./cb1-harness').buildResources();
+    for (const L of LANGS) {
+      const tr = t(L);
+      for (const tpl of api.UNIVERSAL_DRAFT_TEMPLATES) {
+        const raw = res[L][`draftU_${tpl.id}_body`] || '';
+        const placeholders = [...new Set([...raw.matchAll(/\{\{\s*(\w+)\s*\}\}/g)].map((m) => m[1]))].sort();
+        const ids = tpl.questions.map((q) => q.id).sort();
+        if (placeholders.join() !== ids.join()) jpFail(`${L}.${tpl.id} placeholders [${placeholders}] ≠ questions [${ids}]`);
+        const empty = api.buildDraft(tpl.id, {}, { country: 'US', language: L });
+        const full = api.buildDraft(tpl.id, Object.fromEntries(tpl.questions.map((q) => [q.id, q.type === 'choice' ? q.options[0].id : 'X'])), { country: 'DE', language: L });
+        for (const d of [empty, full]) {
+          if (!d || !d.universal) {
+            jpFail(`${L}.${tpl.id} must build as universal`);
+            continue;
+          }
+          const lines = d.text.split('\n');
+          if (lines[lines.length - 1] !== tr('draftDisclaimer')) jpFail(`${L}.${tpl.id} disclaimer must be last`);
+          if (BANNED.test(d.text)) jpFail(`${L}.${tpl.id} cites law: ${d.text.match(BANNED)[0]}`);
+          if (!/\[ [^\]]+ \]/.test(d.text)) jpFail(`${L}.${tpl.id} must keep [ … ] blanks`);
+          if (/\{\{/.test(d.text)) jpFail(`${L}.${tpl.id} unresolved placeholder`);
+        }
+        if (empty && empty.missingRequired.length !== tpl.questions.filter((q) => q.required).length) jpFail(`${L}.${tpl.id} required flags`);
+        if (full && full.missing.length) jpFail(`${L}.${tpl.id} full answers still missing`);
+        if (empty) {
+          const preview = api.buildDraftPreview(empty);
+          const previewLines = preview.text.split('\n');
+          if (!preview.truncated || previewLines.length > api.DRAFT_FREE_PREVIEW_LINES + 6 || previewLines[previewLines.length - 1] !== tr('draftDisclaimer')) {
+            jpFail(`${L}.${tpl.id} free preview must stop at ${api.DRAFT_FREE_PREVIEW_LINES} body lines with the disclaimer last`);
+          }
+        }
+        fixtures += 1;
+      }
+      const choice = api.buildDraft('termination_notice', { contractType: 'lease' }, { country: 'US', language: L });
+      if (!choice.body.includes(tr('draftOptContractLease'))) jpFail(`${L} choice answer must print the localized option label`);
+      if (L === 'en' && /(continue|keep) (paying|to pay)/i.test(res.en.draftU_rent_increase_objection_body || '')) jpFail('rent objection must not promise to keep paying');
+    }
+    if (!/\bcopy\b/.test(res.en.draftU_personal_data_access_request_body) || !/purposes/.test(res.en.draftU_personal_data_access_request_body) || !/recipients/.test(res.en.draftU_personal_data_access_request_body) || !/kept/.test(res.en.draftU_personal_data_access_request_body)) {
+      jpFail('data access letter must ask for copy + purposes + recipients + retention');
+    }
+    if (/withdraw|statutory|by law/i.test(res.en.draftU_cancellation_request_body)) jpFail('cancellation letter must not claim a statutory withdrawal right');
+    // Legacy letters keep their jurisdiction behaviour
+    if (api.listDraftTemplatesFor({ country: 'US', language: 'en' }).length !== 2 || api.listDraftTemplatesFor({ country: 'TR', language: 'tr' }).length !== 3) jpFail('legacy draft lists changed');
+    const catUs = api.listDraftCatalogFor({ country: 'US', language: 'en' }).map((x) => x.template.id);
+    if (catUs.includes('mediation_application') || catUs.length !== 9) jpFail(`US catalog ${catUs}`);
+  } catch (error) {
+    jpFail(`runtime: ${error.stack || error.message}`);
+  }
+
+  // P3 UI wiring
+  const advisor = read('screens/LegalAdvisorScreen.js');
+  if (!/withAvailability\('scenario', LEGAL_SCENARIOS/.test(advisor) || !/withAvailability\('calculator', LEGAL_CALCULATORS/.test(advisor) || !/withAvailability\('draft', DRAFT_CATALOG/.test(advisor)) {
+    jpFail('advisor lists must come from withAvailability(registry)');
+  }
+  for (const key of ['availPendingToast', 'availPendingLine', 'availPendingBadge', 'availUniversal', 'globe-outline', 'lock-closed-outline']) {
+    if (!advisor.includes(key)) jpFail(`advisor missing ${key}`);
+  }
+  if (!/scenarioItems\.filter\(\(row\) => row\.availability === 'available'\)\.length/.test(advisor) || !/calculatorItems\.filter/.test(advisor) || !/offeredDrafts\.filter/.test(advisor)) jpFail('section headers must show available counts');
+  const calcModal = read('components/CalculatorModal.js');
+  for (const fn of ['calculateDeadlineDate', 'calculateProRata', 'calculatePercentChange', 'calculateInstallmentPlan', 'calculatePenaltyRatio']) {
+    if (!calcModal.includes(`${fn}(`)) jpFail(`CalculatorModal must call ${fn}`);
+  }
+  if (!/meta\.usesMoney !== false/.test(calcModal) || !/totalLabelKey/.test(calcModal) || !/row\.labelParams/.test(calcModal) || !/<Switch/.test(calcModal)) jpFail('CalculatorModal universal rendering');
+  const tagCount = (calcModal.match(/<TextInput\b/g) || []).length;
+  const fieldCount = (calcModal.match(/\{\.\.\.sheet\.field\(/g) || []).length;
+  if (tagCount !== fieldCount) jpFail(`every calculator TextInput must register with KeyboardSafeSheet (${fieldCount}/${tagCount})`);
+  const draftModal = read('components/DraftWizardModal.js');
+  if (!/listDraftCatalogFor/.test(draftModal) || !/q\.type === 'choice'/.test(draftModal) || !/draftUniversalBanner/.test(draftModal)) jpFail('DraftWizardModal universal wiring');
+  if (/fetch\(|supabase|temperature/.test(read('constants/jurisdictionPacks.js') + read('utils/legalCalculators.js') + read('constants/draftTemplates.js'))) jpFail('no network / temperature in registry, calculators or drafts');
+
+  // Locks
+  const pkg = JSON.parse(read('package.json'));
+  if (Object.keys(pkg.dependencies || {}).length !== 35) jpFail(`dependency count changed (${Object.keys(pkg.dependencies || {}).length})`);
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') jpFail('analyze-contract SHA256 changed');
+
+  if (jpOk) {
+    console.log(`OK  WAVE JP.2 registry (11 packs, official roots) + availability + 5 universal calculators + 7 universal letters × 13 (${fixtures} fixtures)`);
   }
 }
 

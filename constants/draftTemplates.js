@@ -82,8 +82,107 @@ export const DRAFT_TEMPLATES = [
   },
 ];
 
+/**
+ * JP.2 — Universal letters: one neutral structure (parties / facts / request / deadline / signature),
+ * offered in every country. No statutes, no institutions, no country-specific variants until a pack is verified.
+ * `choice` questions store an option id; the letter shows that option's label.
+ */
+const universal = (id, icon, questions) => ({
+  id,
+  titleKey: `draftU_${id}_title`,
+  descriptionKey: `draftU_${id}_desc`,
+  icon,
+  universal: true,
+  jurisdictions: [],
+  packs: {},
+  generic: { bodyTemplateKey: `draftU_${id}_body` },
+  disclaimerKey: DRAFT_DISCLAIMER_KEY,
+  questions,
+});
+
+const Q = {
+  from: { id: 'from', labelKey: 'draftQFrom', type: 'text', required: true },
+  to: { id: 'to', labelKey: 'draftQTo', type: 'text', required: true },
+};
+
+export const UNIVERSAL_DRAFT_TEMPLATES = [
+  universal('termination_notice', 'exit-outline', [
+    Q.from,
+    Q.to,
+    {
+      id: 'contractType',
+      labelKey: 'draftQContractType',
+      type: 'choice',
+      required: true,
+      options: [
+        { id: 'lease', labelKey: 'draftOptContractLease' },
+        { id: 'service', labelKey: 'draftOptContractService' },
+        { id: 'employment', labelKey: 'draftOptContractEmployment' },
+        { id: 'other', labelKey: 'draftOptContractOther' },
+      ],
+    },
+    { id: 'contractRef', labelKey: 'draftQContractRef', type: 'text', required: true },
+    { id: 'endDate', labelKey: 'draftQEndDate', type: 'date', required: true },
+    { id: 'reason', labelKey: 'draftQReasonOptional', type: 'multiline', required: false },
+  ]),
+  universal('deposit_return_request', 'wallet-outline', [
+    Q.from,
+    Q.to,
+    { id: 'property', labelKey: 'draftQProperty', type: 'text', required: true },
+    { id: 'depositAmount', labelKey: 'draftQDepositAmount', type: 'text', required: true },
+    { id: 'handoverDate', labelKey: 'draftQHandoverDate', type: 'date', required: true },
+    { id: 'paymentDetails', labelKey: 'draftQPaymentDetails', type: 'text', required: false },
+    { id: 'deadlineDays', labelKey: 'draftQDeadlineDays', type: 'number', required: false },
+  ]),
+  universal('repair_or_defect_notice', 'construct-outline', [
+    Q.from,
+    Q.to,
+    { id: 'item', labelKey: 'draftQDefectItem', type: 'text', required: true },
+    { id: 'problem', labelKey: 'draftQProblem', type: 'multiline', required: true },
+    { id: 'noticedDate', labelKey: 'draftQNoticedDate', type: 'date', required: false },
+    { id: 'deadlineDays', labelKey: 'draftQReplyDays', type: 'number', required: false },
+  ]),
+  universal('rent_increase_objection', 'home-outline', [
+    Q.from,
+    Q.to,
+    { id: 'property', labelKey: 'draftQProperty', type: 'text', required: true },
+    { id: 'currentRent', labelKey: 'draftQCurrentRent', type: 'text', required: true },
+    { id: 'proposedRent', labelKey: 'draftQProposedRent', type: 'text', required: true },
+    { id: 'noticeDate', labelKey: 'draftQIncreaseNoticeDate', type: 'date', required: false },
+    { id: 'counterOffer', labelKey: 'draftQCounterOffer', type: 'text', required: false },
+  ]),
+  universal('unpaid_wages_request', 'cash-outline', [
+    Q.from,
+    Q.to,
+    { id: 'period', labelKey: 'draftQWagePeriod', type: 'text', required: true },
+    { id: 'unpaidAmount', labelKey: 'draftQUnpaidAmount', type: 'text', required: true },
+    { id: 'details', labelKey: 'draftQWageDetails', type: 'multiline', required: true },
+    { id: 'deadlineDays', labelKey: 'draftQDeadlineDays', type: 'number', required: false },
+  ]),
+  universal('personal_data_access_request', 'shield-checkmark-outline', [
+    Q.from,
+    { id: 'to', labelKey: 'draftQDataHolder', type: 'text', required: true },
+    { id: 'accountRef', labelKey: 'draftQAccountRef', type: 'text', required: true },
+    { id: 'replyTo', labelKey: 'draftQReplyTo', type: 'text', required: true },
+    { id: 'scope', labelKey: 'draftQDataScope', type: 'multiline', required: false },
+  ]),
+  universal('cancellation_request', 'close-circle-outline', [
+    Q.from,
+    Q.to,
+    { id: 'contractRef', labelKey: 'draftQOrderRef', type: 'text', required: true },
+    { id: 'purchaseDate', labelKey: 'draftQPurchaseDate', type: 'date', required: false },
+    { id: 'cancelDate', labelKey: 'draftQCancelDate', type: 'date', required: true },
+    { id: 'request', labelKey: 'draftQCancelRequest', type: 'text', required: false },
+  ]),
+];
+
+export const UNIVERSAL_DRAFT_IDS = UNIVERSAL_DRAFT_TEMPLATES.map((item) => item.id);
+
+/** Every template the app knows (legacy jurisdiction-aware + universal). */
+export const DRAFT_CATALOG = [...DRAFT_TEMPLATES, ...UNIVERSAL_DRAFT_TEMPLATES];
+
 export function getDraftTemplateById(id) {
-  return DRAFT_TEMPLATES.find((item) => item.id === id) || null;
+  return DRAFT_CATALOG.find((item) => item.id === id) || null;
 }
 
 /**
@@ -109,6 +208,7 @@ export function resolveDraftVariant(template, jurisdiction) {
   if (!template.generic) return null;
   return {
     generic: true,
+    universal: !!template.universal,
     jurisdiction: jurisdiction || null,
     titleKey: template.generic.titleKey || template.titleKey,
     descriptionKey: template.generic.descriptionKey || template.descriptionKey,
@@ -126,6 +226,15 @@ export function listDraftTemplatesFor({ country, language } = {}) {
   const jurisdiction = resolveJurisdiction(country, language);
   return DRAFT_TEMPLATES.map((template) => ({ template, variant: resolveDraftVariant(template, jurisdiction) }))
     .filter((item) => !!item.variant);
+}
+
+/** Legacy offer list followed by the universal letters (same shape). */
+export function listDraftCatalogFor({ country, language } = {}) {
+  const jurisdiction = resolveJurisdiction(country, language);
+  return [
+    ...listDraftTemplatesFor({ country, language }),
+    ...UNIVERSAL_DRAFT_TEMPLATES.map((template) => ({ template, variant: resolveDraftVariant(template, jurisdiction) })),
+  ];
 }
 
 /**

@@ -19,11 +19,17 @@ import { ACCENT, DANGER, styles } from '../theme';
 import { LEGAL_CALCULATORS, calculatorCopyKeys, isCalculatorAvailable } from '../constants/legalCalcRates';
 import {
   buildCalcAdvisorPrompt,
+  calculateDeadlineDate,
+  calculateInstallmentPlan,
   calculateLegalInterest,
+  calculatePenaltyRatio,
+  calculatePercentChange,
+  calculateProRata,
   calculateRentIncrease,
   calculateSeverance,
   currencyLabel,
   formatCalculationForSharing,
+  formatIsoDate,
   formatMoney,
   parseIsoDate,
   resolveCalcContext,
@@ -36,6 +42,16 @@ const WIN_H = Dimensions.get('window').height;
 const SHEET_MAX = Math.round(WIN_H * 0.9);
 
 const toNumber = (value) => Number(String(value ?? '').replace(',', '.'));
+
+const todayIso = () => {
+  const now = new Date();
+  return formatIsoDate(new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())));
+};
+
+const daysInCurrentMonth = () => {
+  const now = new Date();
+  return String(new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate());
+};
 
 export default function CalculatorModal({
   visible,
@@ -77,6 +93,23 @@ export default function CalculatorModal({
   const [endDate, setEndDate] = useState('2026-01-01');
   const [interestType, setInterestType] = useState('legal');
   const [userRate, setUserRate] = useState('');
+  const [deadlineStart, setDeadlineStart] = useState(todayIso);
+  const [deadlineAmount, setDeadlineAmount] = useState('14');
+  const [deadlineUnit, setDeadlineUnit] = useState('days');
+  const [businessDays, setBusinessDays] = useState(false);
+  const [proRataAmount, setProRataAmount] = useState('3000');
+  const [daysUsed, setDaysUsed] = useState('10');
+  const [daysInPeriod, setDaysInPeriod] = useState(daysInCurrentMonth);
+  const [percentMode, setPercentMode] = useState('diff');
+  const [oldValue, setOldValue] = useState('1000');
+  const [newValue, setNewValue] = useState('1200');
+  const [percentValue, setPercentValue] = useState('10');
+  const [installmentTotal, setInstallmentTotal] = useState('12000');
+  const [installmentCount, setInstallmentCount] = useState('6');
+  const [firstDate, setFirstDate] = useState(todayIso);
+  const [installmentInterval, setInstallmentInterval] = useState('monthly');
+  const [penaltyAmount, setPenaltyAmount] = useState('5000');
+  const [contractValue, setContractValue] = useState('100000');
   const [result, setResult] = useState(null);
   const [dateError, setDateError] = useState(false);
   const hasResultRef = useRef(false);
@@ -89,10 +122,13 @@ export default function CalculatorModal({
   }, [visible, calculatorId]);
 
   const datesValid = () => {
+    if (calculatorId === 'deadline_date') return !!parseIsoDate(deadlineStart);
+    if (calculatorId === 'installment_plan') return !!parseIsoDate(firstDate);
     const start = parseIsoDate(startDate);
     const end = parseIsoDate(endDate);
     return !!start && !!end && end.getTime() >= start.getTime();
   };
+  const needsDates = ['legal_interest', 'deadline_date', 'installment_plan'].includes(calculatorId);
 
   const compute = () => {
     const ctxArgs = { country, language };
@@ -123,18 +159,60 @@ export default function CalculatorModal({
         ...ctxArgs,
       });
     }
+    if (calculatorId === 'deadline_date') {
+      return calculateDeadlineDate({
+        startDate: deadlineStart,
+        amount: toNumber(deadlineAmount),
+        unit: deadlineUnit,
+        businessDays,
+        ...ctxArgs,
+      });
+    }
+    if (calculatorId === 'pro_rata') {
+      return calculateProRata({
+        amount: toNumber(proRataAmount),
+        daysUsed: toNumber(daysUsed),
+        daysInPeriod: toNumber(daysInPeriod),
+        ...ctxArgs,
+      });
+    }
+    if (calculatorId === 'percent_change') {
+      return calculatePercentChange({
+        mode: percentMode,
+        oldValue: toNumber(oldValue),
+        newValue: toNumber(newValue),
+        percent: toNumber(percentValue),
+        ...ctxArgs,
+      });
+    }
+    if (calculatorId === 'installment_plan') {
+      return calculateInstallmentPlan({
+        total: toNumber(installmentTotal),
+        count: toNumber(installmentCount),
+        firstDate,
+        interval: installmentInterval,
+        ...ctxArgs,
+      });
+    }
+    if (calculatorId === 'penalty_ratio') {
+      return calculatePenaltyRatio({
+        penalty: toNumber(penaltyAmount),
+        contractValue: toNumber(contractValue),
+        ...ctxArgs,
+      });
+    }
     return null;
   };
 
   const runCalculate = () => {
-    if (calculatorId === 'legal_interest' && !datesValid()) {
+    if (needsDates && !datesValid()) {
       setDateError(true);
       setResult(null);
       return;
     }
     setDateError(false);
     const next = compute();
-    setResult(next && !next.unavailable ? next : null);
+    setResult(next && !next.unavailable && !next.invalid ? next : null);
   };
 
   const onDateChange = (setter) => (value) => {
@@ -147,7 +225,7 @@ export default function CalculatorModal({
   useEffect(() => {
     if (!hasResultRef.current) return;
     const next = compute();
-    setResult(next && !next.unavailable ? next : null);
+    setResult(next && !next.unavailable && !next.invalid ? next : null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [country, language]);
 
@@ -185,6 +263,65 @@ export default function CalculatorModal({
       marginBottom: 10,
     },
   ];
+
+  const numberField = (key, label, value, setter) => (
+    <>
+      <Text style={[styles.label, { color: theme.subText }]}>{label}</Text>
+      <TextInput
+        {...sheet.field(key)}
+        style={inputStyle}
+        keyboardType="decimal-pad"
+        value={value}
+        onChangeText={setter}
+        placeholderTextColor={theme.subText}
+      />
+    </>
+  );
+
+  const dateField = (key, label, value, setter) => (
+    <>
+      <Text style={[styles.label, { color: theme.subText }]}>{label}</Text>
+      <TextInput
+        {...sheet.field(key)}
+        style={[inputStyle, dateError && !parseIsoDate(value) && { borderColor: DANGER }]}
+        value={value}
+        onChangeText={onDateChange(setter)}
+        placeholder="YYYY-MM-DD"
+        placeholderTextColor={theme.subText}
+        keyboardType="number-pad"
+        maxLength={10}
+        autoCapitalize="none"
+      />
+    </>
+  );
+
+  const choiceChips = (options, value, onChange) => (
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
+      {options.map((opt) => {
+        const active = value === opt.id;
+        return (
+          <TouchableOpacity
+            key={opt.id}
+            onPress={() => onChange(opt.id)}
+            accessibilityRole="button"
+            accessibilityState={{ selected: active }}
+            style={[
+              styles.offerTierChip,
+              { borderColor: active ? ACCENT : theme.borderColor, backgroundColor: active ? `${ACCENT}22` : theme.cardBg },
+            ]}
+          >
+            <Text style={[styles.offerTierChipText, { color: active ? ACCENT : theme.subText }]}>{t(opt.labelKey)}</Text>
+          </TouchableOpacity>
+        );
+      })}
+    </View>
+  );
+
+  const rowValue = (row) => {
+    if (row.textKey) return t(row.textKey, row.textParams);
+    if (row.text != null) return row.text;
+    return formatMoney(row.amount, row.currency, displayLocale);
+  };
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
@@ -238,6 +375,17 @@ export default function CalculatorModal({
                   </Text>
                 </View>
               ) : null}
+              {meta.universal ? (
+                <View
+                  style={[
+                    styles.offerTierChip,
+                    { borderColor: theme.borderColor, backgroundColor: theme.cardBg, flexDirection: 'row', alignItems: 'center', gap: 4 },
+                  ]}
+                >
+                  <Ionicons name="globe-outline" size={12} color={theme.subText} />
+                  <Text style={[styles.offerTierChipText, { color: theme.subText }]}>{t('availUniversal')}</Text>
+                </View>
+              ) : null}
             </View>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
               {t(copyKeys.descriptionKey)}
@@ -258,7 +406,7 @@ export default function CalculatorModal({
                 </Text>
               )
             ) : null}
-            {available && !ctx.currency ? (
+            {available && !ctx.currency && meta.usesMoney !== false ? (
               <Text style={[styles.sectionHint, { color: DANGER, marginBottom: 12 }]}>
                 {t('calcCurrencyUnset')}
               </Text>
@@ -449,6 +597,80 @@ export default function CalculatorModal({
               </>
             ) : null}
 
+            {calculatorId === 'deadline_date' ? (
+              <>
+                {dateField('deadlineStart', t('calcStartDate'), deadlineStart, setDeadlineStart)}
+                {numberField('deadlineAmount', t('calcDeadlineAmount'), deadlineAmount, setDeadlineAmount)}
+                {choiceChips(
+                  [
+                    { id: 'days', labelKey: 'calcUnitDays' },
+                    { id: 'weeks', labelKey: 'calcUnitWeeks' },
+                    { id: 'months', labelKey: 'calcUnitMonths' },
+                  ],
+                  deadlineUnit,
+                  setDeadlineUnit
+                )}
+                {deadlineUnit === 'days' ? (
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                    <Text style={[styles.settingLabel, { color: theme.text, flex: 1 }]}>{t('calcBusinessDays')}</Text>
+                    <Switch value={businessDays} onValueChange={setBusinessDays} trackColor={{ true: ACCENT }} />
+                  </View>
+                ) : null}
+              </>
+            ) : null}
+
+            {calculatorId === 'pro_rata' ? (
+              <>
+                {numberField('proRataAmount', moneyLabel('calcProRataAmount'), proRataAmount, setProRataAmount)}
+                {numberField('daysUsed', t('calcProRataDaysUsed'), daysUsed, setDaysUsed)}
+                {numberField('daysInPeriod', t('calcProRataDaysInPeriod'), daysInPeriod, setDaysInPeriod)}
+              </>
+            ) : null}
+
+            {calculatorId === 'percent_change' ? (
+              <>
+                {choiceChips(
+                  [
+                    { id: 'diff', labelKey: 'calcPercentModeDiff' },
+                    { id: 'apply', labelKey: 'calcPercentModeApply' },
+                  ],
+                  percentMode,
+                  setPercentMode
+                )}
+                {numberField('oldValue', t('calcPercentOld'), oldValue, setOldValue)}
+                {percentMode === 'diff'
+                  ? numberField('newValue', t('calcPercentNew'), newValue, setNewValue)
+                  : numberField('percentValue', t('calcPercentRate'), percentValue, setPercentValue)}
+              </>
+            ) : null}
+
+            {calculatorId === 'installment_plan' ? (
+              <>
+                {numberField('installmentTotal', moneyLabel('calcInstallmentTotalInput'), installmentTotal, setInstallmentTotal)}
+                {numberField('installmentCount', t('calcInstallmentCount'), installmentCount, setInstallmentCount)}
+                {dateField('firstDate', t('calcInstallmentFirstDate'), firstDate, setFirstDate)}
+                {choiceChips(
+                  [
+                    { id: 'monthly', labelKey: 'calcIntervalMonthly' },
+                    { id: 'weekly', labelKey: 'calcIntervalWeekly' },
+                  ],
+                  installmentInterval,
+                  setInstallmentInterval
+                )}
+              </>
+            ) : null}
+
+            {calculatorId === 'penalty_ratio' ? (
+              <>
+                {numberField('penaltyAmount', moneyLabel('calcPenaltyAmountInput'), penaltyAmount, setPenaltyAmount)}
+                {numberField('contractValue', moneyLabel('calcContractValueInput'), contractValue, setContractValue)}
+              </>
+            ) : null}
+
+            {dateError && calculatorId !== 'legal_interest' ? (
+              <Text style={[styles.sectionHint, { color: DANGER, marginTop: -4, marginBottom: 10 }]}>{t('calcInvalidDateSingle')}</Text>
+            ) : null}
+
             {available ? (
               <TouchableOpacity style={styles.primaryButton} onPress={runCalculate} activeOpacity={0.85}>
                 <Text style={styles.primaryButtonText}>{t('calcCalculate')}</Text>
@@ -471,11 +693,9 @@ export default function CalculatorModal({
                     }}
                   >
                     <Text style={[styles.sectionHint, { color: theme.subText, flex: 1, marginBottom: 0 }]}>
-                      {t(row.labelKey)}
+                      {t(row.labelKey, row.labelParams)}
                     </Text>
-                    <Text style={[styles.settingLabel, { color: theme.text }]}>
-                      {formatMoney(row.amount, row.currency, displayLocale)}
-                    </Text>
+                    <Text style={[styles.settingLabel, { color: theme.text }]}>{rowValue(row)}</Text>
                   </View>
                 ))}
 
@@ -487,7 +707,8 @@ export default function CalculatorModal({
                 >
                   <Ionicons name="calculator-outline" size={16} color={ACCENT} />
                   <Text style={[styles.previewBannerText, { color: theme.text }]}>
-                    {t('calcEstimatedNet')}: {formatMoney(result.totalAmount, result.currency, displayLocale)}
+                    {t(result.totalLabelKey || 'calcEstimatedNet')}:{' '}
+                    {result.totalText != null ? result.totalText : formatMoney(result.totalAmount, result.currency, displayLocale)}
                   </Text>
                 </View>
 

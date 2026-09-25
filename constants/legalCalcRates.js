@@ -79,7 +79,10 @@ export function resolveCurrency(country, language) {
   return GENERIC_CURRENCY_BY_COUNTRY[String(country).toUpperCase()] || null;
 }
 
-export const CALCULATOR_IDS = ['labor_severance', 'rent_cap', 'legal_interest'];
+/** JP.2 — pure arithmetic tools with no statutory values; offered in every country. */
+export const UNIVERSAL_CALCULATOR_IDS = ['deadline_date', 'pro_rata', 'percent_change', 'installment_plan', 'penalty_ratio'];
+
+export const CALCULATOR_IDS = ['labor_severance', 'rent_cap', 'legal_interest', ...UNIVERSAL_CALCULATOR_IDS];
 
 export const LEGAL_CALCULATORS = [
   {
@@ -104,7 +107,48 @@ export const LEGAL_CALCULATORS = [
     genericDescriptionKey: 'calcInterestDescGeneric',
     icon: 'trending-up-outline',
   },
+  {
+    id: 'deadline_date',
+    titleKey: 'calcDeadlineTitle',
+    descriptionKey: 'calcDeadlineDesc',
+    icon: 'calendar-outline',
+    universal: true,
+    usesMoney: false,
+  },
+  {
+    id: 'pro_rata',
+    titleKey: 'calcProRataTitle',
+    descriptionKey: 'calcProRataDesc',
+    icon: 'pie-chart-outline',
+    universal: true,
+  },
+  {
+    id: 'percent_change',
+    titleKey: 'calcPercentTitle',
+    descriptionKey: 'calcPercentDesc',
+    icon: 'stats-chart-outline',
+    universal: true,
+    usesMoney: false,
+  },
+  {
+    id: 'installment_plan',
+    titleKey: 'calcInstallmentTitle',
+    descriptionKey: 'calcInstallmentDesc',
+    icon: 'list-outline',
+    universal: true,
+  },
+  {
+    id: 'penalty_ratio',
+    titleKey: 'calcPenaltyTitle',
+    descriptionKey: 'calcPenaltyDesc',
+    icon: 'alert-circle-outline',
+    universal: true,
+  },
 ];
+
+export function getCalculatorMeta(calculatorId) {
+  return LEGAL_CALCULATORS.find((item) => item.id === calculatorId) || null;
+}
 
 /** Statutory calculators carry a pack entry; generic mode must not show country-specific copy (e.g. TÜFE). */
 export function isCalculatorStatutory(calculatorId, pack) {

@@ -19,17 +19,14 @@ import { useTranslation } from 'react-i18next';
 import { ACCENT, styles } from '../theme';
 import { JURISDICTIONS } from '../constants/options';
 import { LEGAL_SCENARIOS } from '../constants/legalScenarios';
-import {
-  LEGAL_CALCULATORS,
-  calculatorCopyKeys,
-  getCalcPack,
-  isCalculatorAvailable,
-} from '../constants/legalCalcRates';
+import { LEGAL_CALCULATORS, calculatorCopyKeys, getCalcPack } from '../constants/legalCalcRates';
+import { withAvailability } from '../constants/jurisdictionPacks';
+import { resolveJurisdiction } from '../constants/jurisdiction';
 import { OptionSheet, SelectorField } from '../components/OptionSelector';
 import ScenarioWizardModal from '../components/ScenarioWizardModal';
 import CalculatorModal from '../components/CalculatorModal';
 import DraftWizardModal from '../components/DraftWizardModal';
-import { listDraftTemplatesFor } from '../constants/draftTemplates';
+import { DRAFT_CATALOG, resolveDraftVariant } from '../constants/draftTemplates';
 import VoiceMicButton from '../components/VoiceMicButton';
 import SpeakButton from '../components/SpeakButton';
 import RecentChatsList from '../components/RecentChatsList';
@@ -70,9 +67,28 @@ export default function LegalAdvisorScreen({
   const paywallWasVisibleRef = useRef(paywallVisible);
 
   const calcPack = useMemo(() => getCalcPack(country, i18n.language), [country, i18n.language]);
-  const offeredDrafts = useMemo(
-    () => listDraftTemplatesFor({ country, language: i18n.language }),
-    [country, i18n.language]
+  const availCtx = useMemo(() => ({ country, language: i18n.language }), [country, i18n.language]);
+  const scenarioItems = useMemo(() => withAvailability('scenario', LEGAL_SCENARIOS, availCtx), [availCtx]);
+  const calculatorItems = useMemo(() => withAvailability('calculator', LEGAL_CALCULATORS, availCtx), [availCtx]);
+  const offeredDrafts = useMemo(() => {
+    const jurisdiction = resolveJurisdiction(country, i18n.language);
+    return withAvailability('draft', DRAFT_CATALOG, availCtx).map(({ item, availability, universal }) => ({
+      template: item,
+      variant:
+        resolveDraftVariant(item, jurisdiction) || resolveDraftVariant(item, 'TR') || resolveDraftVariant(item, null),
+      availability,
+      universal,
+    }));
+  }, [availCtx, country, i18n.language]);
+  const pendingCountryLabel = useMemo(() => {
+    const code = resolveJurisdiction(country, i18n.language);
+    const match = JURISDICTIONS.find((item) => item.code === code);
+    return match ? t(match.labelKey) : code || '';
+  }, [country, i18n.language, t]);
+
+  const showPendingToast = useCallback(
+    () => showToast(t('availPendingToast'), { type: 'info', duration: 2400 }),
+    [showToast, t]
   );
 
   const openDraft = useCallback((id = null, { atPreview = false } = {}) => {
@@ -300,7 +316,7 @@ export default function LegalAdvisorScreen({
         <RecentChatsList theme={theme} compact />
 
         <Text style={[styles.label, { color: theme.subText, marginTop: 8 }]}>
-          {t('scenarioSectionTitle')}
+          {t('scenarioSectionTitle')} · {scenarioItems.filter((row) => row.availability === 'available').length}
         </Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
           {t('scenarioSectionHint')}
@@ -311,12 +327,14 @@ export default function LegalAdvisorScreen({
           contentContainerStyle={{ gap: 8, paddingBottom: 6 }}
           style={{ marginBottom: 8 }}
         >
-          {(LEGAL_SCENARIOS || []).map((item) => (
+          {scenarioItems.map(({ item, availability }) => (
             <TouchableOpacity
               key={item.id}
               activeOpacity={0.85}
-              onPress={() => setScenarioId(item.id)}
+              onPress={() => (availability === 'pending' ? showPendingToast() : setScenarioId(item.id))}
+              accessibilityState={{ disabled: availability === 'pending' }}
               style={{
+                opacity: availability === 'pending' ? 0.55 : 1,
                 borderWidth: 1,
                 borderColor: theme.borderColor,
                 backgroundColor: theme.cardBg,
@@ -344,29 +362,30 @@ export default function LegalAdvisorScreen({
         </ScrollView>
 
         <Text style={[styles.label, { color: theme.subText, marginTop: 4 }]}>
-          {t('calcSectionTitle')}
+          {t('calcSectionTitle')} · {calculatorItems.filter((row) => row.availability === 'available').length}
         </Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
           {t('calcSectionHint')}
         </Text>
+        {calculatorItems.some((row) => row.availability === 'pending') ? (
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: -4, marginBottom: 8 }]}>
+            {t('availPendingLine', { country: pendingCountryLabel })}
+          </Text>
+        ) : null}
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ gap: 8, paddingBottom: 6 }}
           style={{ marginBottom: 8 }}
         >
-          {(LEGAL_CALCULATORS || []).map((item) => {
-            const locked = !isCalculatorAvailable(item.id, calcPack);
+          {calculatorItems.map(({ item, availability, universal }) => {
+            const locked = availability === 'pending';
             const copy = calculatorCopyKeys(item.id, calcPack);
             return (
               <TouchableOpacity
                 key={item.id}
                 activeOpacity={0.85}
-                onPress={() =>
-                  locked
-                    ? showToast(t('calcNotAvailableForCountry'), { type: 'info', duration: 2200 })
-                    : setCalculatorId(item.id)
-                }
+                onPress={() => (locked ? showPendingToast() : setCalculatorId(item.id))}
                 accessibilityState={{ disabled: locked }}
                 style={{
                   borderWidth: 1,
@@ -392,9 +411,12 @@ export default function LegalAdvisorScreen({
                   >
                     {t(copy.titleKey)}
                   </Text>
+                  {universal ? (
+                    <Ionicons name="globe-outline" size={12} color={theme.subText} accessibilityLabel={t('availUniversal')} />
+                  ) : null}
                 </View>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]} numberOfLines={2}>
-                  {t(locked ? 'calcNotAvailableForCountry' : copy.descriptionKey)}
+                  {t(locked ? 'availPendingBadge' : copy.descriptionKey)}
                 </Text>
               </TouchableOpacity>
             );
@@ -402,20 +424,28 @@ export default function LegalAdvisorScreen({
         </ScrollView>
 
         <Text style={[styles.label, { color: theme.subText, marginTop: 4 }]}>
-          {t('draftSectionTitle')}
+          {t('draftSectionTitle')} · {offeredDrafts.filter((row) => row.availability === 'available').length}
         </Text>
+        {offeredDrafts.some((row) => row.availability === 'pending') ? (
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
+            {t('availPendingLine', { country: pendingCountryLabel })}
+          </Text>
+        ) : null}
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ gap: 8, paddingBottom: 6 }}
           style={{ marginBottom: 8 }}
         >
-          {offeredDrafts.map(({ template: item, variant }) => (
+          {offeredDrafts.map(({ template: item, variant, availability, universal }) => (
             <TouchableOpacity
               key={item.id}
               activeOpacity={0.85}
-              onPress={() => openDraft(item.id)}
+              onPress={() => (availability === 'pending' ? showPendingToast() : openDraft(item.id))}
+              accessibilityState={{ disabled: availability === 'pending' }}
+              accessibilityHint={availability === 'pending' ? t('availPendingBadge') : undefined}
               style={{
+                opacity: availability === 'pending' ? 0.55 : 1,
                 flexDirection: 'row',
                 alignItems: 'center',
                 gap: 6,
@@ -428,13 +458,20 @@ export default function LegalAdvisorScreen({
                 maxWidth: 220,
               }}
             >
-              <Ionicons name={item.icon || 'document-text-outline'} size={16} color={ACCENT} />
+              <Ionicons
+                name={availability === 'pending' ? 'lock-closed-outline' : item.icon || 'document-text-outline'}
+                size={16}
+                color={availability === 'pending' ? theme.subText : ACCENT}
+              />
               <Text
-                style={[styles.settingLabel, { color: theme.text, fontSize: 13 }]}
+                style={[styles.settingLabel, { color: theme.text, fontSize: 13, flexShrink: 1 }]}
                 numberOfLines={1}
               >
                 {t(variant.titleKey)}
               </Text>
+              {universal ? (
+                <Ionicons name="globe-outline" size={12} color={theme.subText} accessibilityLabel={t('availUniversal')} />
+              ) : null}
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -452,7 +489,21 @@ export default function LegalAdvisorScreen({
         </View>
       </View>
     ),
-    [calcPack, handleClear, i18n.language, offeredDrafts, openDraft, selectedCountry, sending, showToast, t, theme]
+    [
+      calcPack,
+      calculatorItems,
+      handleClear,
+      i18n.language,
+      offeredDrafts,
+      openDraft,
+      pendingCountryLabel,
+      scenarioItems,
+      selectedCountry,
+      sending,
+      showPendingToast,
+      t,
+      theme,
+    ]
   );
 
   return (

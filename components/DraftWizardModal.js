@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { ACCENT, DANGER, styles } from '../theme';
 import {
   getDraftTemplateById,
-  listDraftTemplatesFor,
+  listDraftCatalogFor,
   resolveDraftVariant,
 } from '../constants/draftTemplates';
 import { resolveJurisdiction } from '../constants/jurisdiction';
@@ -66,7 +66,7 @@ export default function DraftWizardModal({
   const language = i18n.language;
   const draftCtx = useMemo(() => ({ country, language }), [country, language]);
   const jurisdiction = resolveJurisdiction(country, language);
-  const offered = useMemo(() => listDraftTemplatesFor(draftCtx), [draftCtx]);
+  const offered = useMemo(() => listDraftCatalogFor(draftCtx), [draftCtx]);
 
   const [templateId, setTemplateId] = useState(presetTemplateId);
   const [draft, setDraft] = useState(null);
@@ -266,7 +266,7 @@ export default function DraftWizardModal({
               >
                 <Ionicons name="globe-outline" size={16} color={ACCENT} />
                 <Text style={[styles.previewBannerText, { color: theme.text }]}>
-                  {t('draftGenericBanner')}
+                  {t(variant.universal ? 'draftUniversalBanner' : 'draftGenericBanner')}
                 </Text>
               </View>
             ) : null}
@@ -287,9 +287,12 @@ export default function DraftWizardModal({
                   >
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                       <Ionicons name={item.icon} size={16} color={ACCENT} />
-                      <Text style={[styles.secondaryBtnText, { textAlign: 'left' }]}>
+                      <Text style={[styles.secondaryBtnText, { textAlign: 'left', flexShrink: 1 }]}>
                         {t(itemVariant.titleKey)}
                       </Text>
+                      {itemVariant.universal ? (
+                        <Ionicons name="globe-outline" size={12} color={theme.subText} accessibilityLabel={t('availUniversal')} />
+                      ) : null}
                     </View>
                     <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
                       {t(itemVariant.descriptionKey)}
@@ -305,6 +308,40 @@ export default function DraftWizardModal({
                 {template.questions.map((q) => {
                   const value = answers[q.id] || '';
                   const badDate = q.type === 'date' && !isPlausibleDmyDate(value);
+                  if (q.type === 'choice') {
+                    return (
+                      <View key={q.id} style={{ marginBottom: 12 }}>
+                        <Text style={[styles.label, { color: theme.subText }]}>
+                          {t(q.labelKey)}
+                          {q.required ? ' *' : ''}
+                        </Text>
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+                          {(q.options || []).map((opt) => {
+                            const active = value === opt.id;
+                            return (
+                              <TouchableOpacity
+                                key={opt.id}
+                                onPress={() => setAnswers((prev) => ({ ...prev, [q.id]: opt.id }))}
+                                accessibilityRole="button"
+                                accessibilityState={{ selected: active }}
+                                style={[
+                                  styles.offerTierChip,
+                                  {
+                                    borderColor: active ? ACCENT : theme.borderColor,
+                                    backgroundColor: active ? `${ACCENT}22` : theme.cardBg,
+                                  },
+                                ]}
+                              >
+                                <Text style={[styles.offerTierChipText, { color: active ? ACCENT : theme.subText }]}>
+                                  {t(opt.labelKey)}
+                                </Text>
+                              </TouchableOpacity>
+                            );
+                          })}
+                        </View>
+                      </View>
+                    );
+                  }
                   return (
                     <View key={q.id} style={{ marginBottom: 12 }}>
                       <Text style={[styles.label, { color: theme.subText }]}>

@@ -4,8 +4,8 @@
  * with user-entered rates. Currency is passed in and never defaults to TRY.
  */
 
-import { getCalcPack, resolveCurrency } from '../constants/legalCalcRates';
-import { resolveJurisdiction } from '../constants/jurisdiction';
+import { getCalcPack, getCalculatorMeta, resolveCurrency } from '../constants/legalCalcRates';
+import { normalizeLanguage, resolveJurisdiction } from '../constants/jurisdiction';
 
 const round2 = (n) => Math.round((Number(n) + Number.EPSILON) * 100) / 100;
 
@@ -241,6 +241,203 @@ export function calculateLegalInterest({
   };
 }
 
+// ---------------------------------------------------------------------------
+// JP.2 — Universal calculators (no statutory values, identical in every country).
+// Non-money rows carry a ready `text` (or a `textKey` translated at render time).
+// ---------------------------------------------------------------------------
+
+const DAY_MS = 86400000;
+const MAX_DEADLINE_AMOUNT = 3650;
+const MAX_INSTALLMENTS = 120;
+
+export function formatIsoDate(date) {
+  if (!date) return '';
+  const y = date.getUTCFullYear();
+  const m = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const d = String(date.getUTCDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+function daysInMonth(year, monthIndex) {
+  return new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
+}
+
+const addDays = (date, n) => new Date(date.getTime() + n * DAY_MS);
+
+/** Calendar months; a day that does not exist in the target month clamps to its last day (01-30 + 1 → 02-28). */
+export function addMonthsClamped(date, n) {
+  const total = date.getUTCMonth() + n;
+  const year = date.getUTCFullYear() + Math.floor(total / 12);
+  const month = ((total % 12) + 12) % 12;
+  return new Date(Date.UTC(year, month, Math.min(date.getUTCDate(), daysInMonth(year, month))));
+}
+
+const isWeekend = (date) => date.getUTCDay() === 0 || date.getUTCDay() === 6;
+
+function addBusinessDays(date, n) {
+  let out = date;
+  let left = n;
+  while (left > 0) {
+    out = addDays(out, 1);
+    if (!isWeekend(out)) left -= 1;
+  }
+  return out;
+}
+
+export function weekdayName(date, language) {
+  if (!date) return '';
+  try {
+    return new Intl.DateTimeFormat(normalizeLanguage(language) || 'en', { weekday: 'long', timeZone: 'UTC' }).format(date);
+  } catch (_error) {
+    return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][date.getUTCDay()];
+  }
+}
+
+/** Turkish writes the sign before the number (%12,5); other languages after (12.5%). */
+export function formatPercentText(value, language, { signed = false } = {}) {
+  const n = round2(value);
+  const sign = n < 0 ? '-' : signed && n > 0 ? '+' : '';
+  const body = Math.abs(n).toFixed(2);
+  return normalizeLanguage(language) === 'tr' ? `${sign}%${body}` : `${sign}${body}%`;
+}
+
+const clampInt = (value, min, max) => Math.min(max, Math.max(min, Math.floor(Number(value) || 0)));
+
+function universalResult(calculatorId, ctx, extra) {
+  return {
+    calculatorId,
+    jurisdiction: ctx.jurisdiction,
+    currency: ctx.currency,
+    mode: 'universal',
+    disclaimerKey: 'calcDisclaimer',
+    ...extra,
+  };
+}
+
+/** Deadline: start + N days / weeks / months, or N business days (Sat/Sun skipped; public holidays NOT known). */
+export function calculateDeadlineDate({ startDate, amount, unit = 'days', businessDays = false, ...ctxInput } = {}) {
+  const ctx = resolveCalcContext(ctxInput);
+  const start = parseIsoDate(startDate);
+  if (!start) return { calculatorId: 'deadline_date', invalid: true, reasonKey: 'calcInvalidDate' };
+  const n = clampInt(amount, 0, MAX_DEADLINE_AMOUNT);
+  const kind = unit === 'weeks' || unit === 'months' ? unit : 'days';
+  const business = kind === 'days' && !!businessDays;
+  const end =
+    kind === 'months' ? addMonthsClamped(start, n) : kind === 'weeks' ? addDays(start, n * 7) : business ? addBusinessDays(start, n) : addDays(start, n);
+  const addedKey = business ? 'calcAddedBusinessDays' : kind === 'months' ? 'calcAddedMonths' : kind === 'weeks' ? 'calcAddedWeeks' : 'calcAddedDays';
+  const endIso = formatIsoDate(end);
+  const weekday = weekdayName(end, ctxInput.language);
+  return universalResult('deadline_date', ctx, {
+    breakdown: [
+      { labelKey: 'calcLabelStartDate', text: `${formatIsoDate(start)} · ${weekdayName(start, ctxInput.language)}` },
+      { labelKey: 'calcLabelAdded', textKey: addedKey, textParams: { count: n } },
+      { labelKey: 'calcLabelEndDate', text: endIso },
+      { labelKey: 'calcLabelWeekday', text: weekday },
+    ],
+    totalAmount: null,
+    totalLabelKey: 'calcLabelEndDate',
+    totalText: `${endIso} · ${weekday}`,
+    statutoryFootnoteKey: 'calcFootnoteDeadline',
+    meta: { endDate: endIso, unit: kind, amount: n, businessDays: business, endsOnWeekend: isWeekend(end) },
+  });
+}
+
+/** Pro-rata: amount per period × (days used / days in the period). */
+export function calculateProRata({ amount, daysUsed, daysInPeriod, ...ctxInput } = {}) {
+  const ctx = resolveCalcContext(ctxInput);
+  const line = makeLine(ctx.currency);
+  const base = Math.max(0, Number(amount) || 0);
+  const period = clampInt(daysInPeriod, 0, 366);
+  const used = Math.min(period, clampInt(daysUsed, 0, 366));
+  const share = period > 0 ? (base * used) / period : 0;
+  return universalResult('pro_rata', ctx, {
+    breakdown: [
+      line('calcLabelPeriodAmount', base),
+      { labelKey: 'calcLabelDaysUsed', amount: used, currency: 'DAY' },
+      { labelKey: 'calcLabelDaysInPeriod', amount: period, currency: 'DAY' },
+      line('calcLabelProRata', share),
+    ],
+    totalAmount: round2(share),
+    totalLabelKey: 'calcLabelProRata',
+    statutoryFootnoteKey: 'calcFootnoteProRata',
+    meta: { daysUsed: used, daysInPeriod: period },
+  });
+}
+
+/** Mode 'diff': old + new → % change. Mode 'apply': old + % → new value. Plain numbers (no currency). */
+export function calculatePercentChange({ mode = 'diff', oldValue, newValue, percent, ...ctxInput } = {}) {
+  const ctx = resolveCalcContext(ctxInput);
+  const lang = ctxInput.language;
+  const oldN = Number(oldValue) || 0;
+  const apply = mode === 'apply';
+  const pct = apply ? Number(percent) || 0 : oldN !== 0 ? (((Number(newValue) || 0) - oldN) / Math.abs(oldN)) * 100 : 0;
+  const newN = apply ? oldN * (1 + pct / 100) : Number(newValue) || 0;
+  const pctText = formatPercentText(pct, lang, { signed: true });
+  const plain = (labelKey, value) => ({ labelKey, amount: round2(value), currency: null });
+  return universalResult('percent_change', { ...ctx, currency: null }, {
+    breakdown: [
+      plain('calcLabelOldValue', oldN),
+      plain('calcLabelNewValue', newN),
+      plain('calcLabelChangeAbs', newN - oldN),
+      { labelKey: 'calcLabelChangePct', text: pctText },
+    ],
+    totalAmount: apply ? round2(newN) : null,
+    totalLabelKey: apply ? 'calcLabelNewValue' : 'calcLabelChangePct',
+    ...(apply ? {} : { totalText: pctText }),
+    statutoryFootnoteKey: 'calcFootnotePercent',
+    meta: { mode: apply ? 'apply' : 'diff', percent: round2(pct), newValue: round2(newN), oldZero: !apply && oldN === 0 },
+  });
+}
+
+/** Equal installments; the last one absorbs rounding so the rows always add up to the total. */
+export function calculateInstallmentPlan({ total, count, firstDate, interval = 'monthly', ...ctxInput } = {}) {
+  const ctx = resolveCalcContext(ctxInput);
+  const first = parseIsoDate(firstDate);
+  if (!first) return { calculatorId: 'installment_plan', invalid: true, reasonKey: 'calcInvalidDate' };
+  const line = makeLine(ctx.currency);
+  const amount = round2(Math.max(0, Number(total) || 0));
+  const n = clampInt(count, 1, MAX_INSTALLMENTS);
+  const weekly = interval === 'weekly';
+  const cents = Math.round(amount * 100);
+  const baseCents = Math.floor(cents / n);
+  const rows = [];
+  for (let i = 0; i < n; i += 1) {
+    const due = weekly ? addDays(first, i * 7) : addMonthsClamped(first, i);
+    const rowCents = i === n - 1 ? cents - baseCents * (n - 1) : baseCents;
+    rows.push({
+      labelKey: 'calcLabelInstallmentRow',
+      labelParams: { n: i + 1, date: formatIsoDate(due) },
+      amount: rowCents / 100,
+      currency: ctx.currency || null,
+    });
+  }
+  return universalResult('installment_plan', ctx, {
+    breakdown: [line('calcLabelInstallmentTotal', amount), { labelKey: 'calcLabelInstallmentCount', amount: n, currency: 'DAY' }, ...rows],
+    totalAmount: amount,
+    totalLabelKey: 'calcLabelInstallmentTotal',
+    statutoryFootnoteKey: 'calcFootnoteInstallment',
+    meta: { count: n, interval: weekly ? 'weekly' : 'monthly', lastDate: rows[rows.length - 1].labelParams.date },
+  });
+}
+
+/** Penalty ÷ contract value → %. Neutral: no "excessive" / "unenforceable" judgement. */
+export function calculatePenaltyRatio({ penalty, contractValue, ...ctxInput } = {}) {
+  const ctx = resolveCalcContext(ctxInput);
+  const line = makeLine(ctx.currency);
+  const p = Math.max(0, Number(penalty) || 0);
+  const v = Math.max(0, Number(contractValue) || 0);
+  const ratio = v > 0 ? (p / v) * 100 : 0;
+  const ratioText = formatPercentText(ratio, ctxInput.language);
+  return universalResult('penalty_ratio', ctx, {
+    breakdown: [line('calcLabelPenalty', p), line('calcLabelContractValue', v), { labelKey: 'calcLabelPenaltyRatio', text: ratioText }],
+    totalAmount: null,
+    totalLabelKey: 'calcLabelPenaltyRatio',
+    totalText: ratioText,
+    statutoryFootnoteKey: 'calcFootnotePenalty',
+    meta: { ratio: round2(ratio), contractValueZero: v === 0 },
+  });
+}
+
 const shareAmount = (amount, currency) => {
   const n = Number(amount) || 0;
   const sign = n < 0 ? '-' : '';
@@ -251,7 +448,7 @@ const shareAmount = (amount, currency) => {
  * Share/copy text: breakdown → total → footnote → asOf (statutory only) → jurisdiction → disclaimer LAST.
  */
 export function formatCalculationForSharing(result, format = 'plain', t = (k) => k) {
-  if (!result || typeof result !== 'object' || result.unavailable) return '';
+  if (!result || typeof result !== 'object' || result.unavailable || result.invalid) return '';
   const lines = [];
   const generic = result.mode === 'generic';
   const titleKey =
@@ -261,12 +458,16 @@ export function formatCalculationForSharing(result, format = 'plain', t = (k) =>
         ? generic ? 'calcRentTitleGeneric' : 'calcRentTitle'
         : result.calculatorId === 'legal_interest'
           ? generic ? 'calcInterestTitleGeneric' : 'calcInterestTitle'
-          : 'calcSectionTitle';
+          : getCalculatorMeta(result.calculatorId)?.titleKey || 'calcSectionTitle';
   lines.push(String(t(titleKey) || '').trim());
   lines.push('');
 
   (result.breakdown || []).forEach((row) => {
-    const label = t(row.labelKey);
+    const label = row.labelParams ? t(row.labelKey, row.labelParams) : t(row.labelKey);
+    if (row.textKey || row.text != null) {
+      lines.push(`${label}: ${row.textKey ? t(row.textKey, row.textParams) : row.text}`);
+      return;
+    }
     const amt = Number(row.amount);
     if (row.currency === 'DAY') {
       lines.push(`${label}: ${Math.round(amt)}`);
@@ -280,7 +481,8 @@ export function formatCalculationForSharing(result, format = 'plain', t = (k) =>
   });
 
   lines.push('');
-  lines.push(`${t('calcEstimatedNet')}: ${shareAmount(result.totalAmount, result.currency)}`);
+  const totalValue = result.totalText != null ? result.totalText : shareAmount(result.totalAmount, result.currency);
+  lines.push(`${t(result.totalLabelKey || 'calcEstimatedNet')}: ${totalValue}`);
   lines.push('');
 
   const footnote = String(t(result.statutoryFootnoteKey) || '').trim();

@@ -20,6 +20,7 @@ function buildResources() {
     loadWave('i18n.wavecc.js', 'WAVE_CC_I18N'),
     loadWave('i18n.wavecb1.js', 'WAVE_CB1_I18N'),
     loadWave('i18n.waveux1.js', 'WAVE_UX1_I18N'),
+    loadWave('i18n.wavejp2.js', 'WAVE_JP2_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {
@@ -109,6 +110,7 @@ const APP_FILES = [
   'utils/legalCalculators.js',
   'constants/legalScenarios.js',
   'constants/draftTemplates.js',
+  'constants/jurisdictionPacks.js',
   'services/scenarioRoadmap.js',
   'services/guidedDraft.js',
 ];
