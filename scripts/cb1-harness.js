@@ -19,6 +19,7 @@ function buildResources() {
     loadWave('i18n.wavecb.js', 'WAVE_CB_I18N'),
     loadWave('i18n.wavecc.js', 'WAVE_CC_I18N'),
     loadWave('i18n.wavecb1.js', 'WAVE_CB1_I18N'),
+    loadWave('i18n.waveux1.js', 'WAVE_UX1_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {

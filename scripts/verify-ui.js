@@ -63,12 +63,14 @@ const waveCb1Src = fs.readFileSync('i18n.wavecb1.js', 'utf8');
 const waveCb1Match = waveCb1Src.match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/);
 const waveStSrc = fs.existsSync('i18n.wavest.js') ? fs.readFileSync('i18n.wavest.js', 'utf8') : '';
 const waveStMatch = waveStSrc.match(/export const WAVE_ST_I18N = ([\s\S]*);\s*$/);
+const waveUx1Src = fs.existsSync('i18n.waveux1.js') ? fs.readFileSync('i18n.waveux1.js', 'utf8') : '';
+const waveUx1Match = waveUx1Src.match(/export const WAVE_UX1_I18N = ([\s\S]*);\s*$/);
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -83,6 +85,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_CC_I18N = eval(`(${waveCcMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_CB1_I18N = eval(`(${waveCb1Match[1]})`); // eslint-disable-line no-eval
   const WAVE_ST_I18N = eval(`(${waveStMatch[1]})`); // eslint-disable-line no-eval
+  const WAVE_UX1_I18N = eval(`(${waveUx1Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -97,8 +100,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_CC_I18N',
     'WAVE_CB1_I18N',
     'WAVE_ST_I18N',
+    'WAVE_UX1_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N);
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
 
@@ -298,6 +302,26 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     console.log(`WAVE_ST key count ${waveStBase.length}, beklenen 26`);
   }
 
+  const waveUx1Langs = Object.keys(WAVE_UX1_I18N);
+  const waveUx1Base = Object.keys(WAVE_UX1_I18N.en || {});
+  if (waveUx1Langs.length !== 13) {
+    failed = true;
+    console.log(`WAVE_UX1 dil sayisi ${waveUx1Langs.length}, beklenen 13`);
+  }
+  for (const lang of waveUx1Langs) {
+    const keys = Object.keys(WAVE_UX1_I18N[lang] || {});
+    const missing = waveUx1Base.filter((key) => !keys.includes(key));
+    const extra = keys.filter((key) => !waveUx1Base.includes(key));
+    if (missing.length || extra.length) {
+      failed = true;
+      console.log(`WAVE_UX1 ${lang}: eksik=[${missing.join(', ')}] fazla=[${extra.join(', ')}]`);
+    }
+  }
+  if (waveUx1Base.length !== 14) {
+    failed = true;
+    console.log(`WAVE_UX1 key count ${waveUx1Base.length}, beklenen 14`);
+  }
+
   for (const lang of languages) {
     const keys = Object.keys(resources[lang].translation);
     const missing = baseKeys.filter((key) => !keys.includes(key));
@@ -310,7 +334,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   // Interpolasyon yer tutucuları çeviride korunmalı.
-  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine'];
+  const placeholderKeys = ['clauseCountLabel', 'imagesSelected', 'clauseItem', 'freeAnalysesLeft', 'deadlineDaysLeft', 'lockedMoreFlags', 'lockedMoreClauses', 'remindersScheduled', 'detectedTypeHint', 'signPickedCount', 'pdfSavedTo', 'localeWelcomeBody', 'shieldStrip', 'shieldBanner', 'shieldSkipped', 'shieldSkipUnmatched', 'shareOsMessage', 'shareExpires', 'seatOsMessage', 'seatOsHousehold', 'partyShieldActive', 'partyFlipCta', 'paywallPartyContext', 'calcAsOfNotice', 'calcJurisdictionLine', 'calcGrossSalary', 'calcCurrentRent', 'calcProposedRent', 'calcPrincipal', 'calcRatesAsOfPublic', 'draftInvalidDate'];
   for (const lang of languages) {
     for (const key of placeholderKeys) {
       const value = resources[lang].translation[key];
@@ -322,9 +346,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 1031) {
+  if (languages.length !== 13 || baseKeys.length !== 1045) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1031`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 1045`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -2721,10 +2745,12 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_CC_I18N',
       'WAVE_CB1_I18N',
       'WAVE_ST_I18N',
+      'WAVE_UX1_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.wavest.js', 'utf8').match(/export const WAVE_ST_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavest.js', 'utf8').match(/export const WAVE_ST_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.waveux1.js', 'utf8').match(/export const WAVE_UX1_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -3264,7 +3290,7 @@ Ticaret Unvanı: Anadolu Bilişim
       modalSrc
     ) ||
     !/sibling/.test(modalSrc) ||
-    !/<ScrollView/.test(modalSrc)
+    !/<ScrollView|<KeyboardSafeSheet/.test(modalSrc)
   ) {
     ccFail('DraftWizardModal BL.3 sibling backdrop yok');
   }
@@ -3962,6 +3988,152 @@ Ticaret Unvanı: Anadolu Bilişim
 
   if (st1Ok) {
     console.log('OK  WAVE ST.1 permission minimization + delete-account verify_jwt + RevenueCat logout on deletion');
+  }
+}
+
+// WAVE UX.1 — Keyboard-safe sheets, currency-true labels, release-clean copy
+{
+  let ux1Ok = true;
+  const ux1Fail = (msg) => {
+    failed = true;
+    ux1Ok = false;
+    console.log(`WAVE UX.1 ${msg}`);
+  };
+  const read = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
+
+  // Keyboard-safe sheets
+  const hook = read('hooks/useKeyboardInset.js');
+  const kss = read('components/KeyboardSafeSheet.js');
+  if (!/keyboardWillShow/.test(hook) || !/keyboardDidShow/.test(hook) || !/keyboardWillHide/.test(hook) || !/keyboardDidHide/.test(hook)) {
+    ux1Fail('useKeyboardInset must listen to iOS will* and Android did* events');
+  }
+  if (!/export function useKeyboardSafeSheet/.test(kss) || !/measureLayout\(/.test(kss) || !/scrollTo\(\{ y: Math\.max\(0, y - FIELD_TOP_GAP\)/.test(kss)) {
+    ux1Fail('KeyboardSafeSheet must scroll the focused field into view via measureLayout');
+  }
+  if (!/keyboardShouldPersistTaps="handled"/.test(kss) || !/'interactive' : 'on-drag'/.test(kss)) ux1Fail('KeyboardSafeSheet scroll props');
+  if (!/returnKeyType: isLast \? 'done' : 'next'/.test(kss) || !/focusNext\(key\)/.test(kss)) ux1Fail('Next/Done field chaining missing');
+  if (!/NO_EVENT_FALLBACK_MS/.test(kss) || !/estimatedPad/.test(kss)) ux1Fail('Android modal no-event fallback missing');
+  if (/<Pressable|TouchableWithoutFeedback/.test(kss)) ux1Fail('KeyboardSafeSheet must not own a backdrop (BL.3 stays in the modal)');
+
+  const sheetFiles = ['components/CalculatorModal.js', 'components/DraftWizardModal.js', 'components/ScenarioWizardModal.js', 'components/AiReportSheet.js'];
+  for (const file of sheetFiles) {
+    const src = read(file);
+    if (!/<KeyboardSafeSheet\b/.test(src) || !/useKeyboardSafeSheet\(/.test(src) || !/sheet\.sheetStyle/.test(src)) ux1Fail(`${file} must use KeyboardSafeSheet + sheetStyle`);
+    if (/KeyboardAvoidingView/.test(src)) ux1Fail(`${file} must not stack KeyboardAvoidingView on top of the sheet inset`);
+    if (/<ScrollView\b/.test(src)) ux1Fail(`${file} scroll body must be KeyboardSafeSheet`);
+    if (!/<Pressable\s+style=\{StyleSheet\.absoluteFillObject\}[\s\S]*?\/>\s*<View\s+style=\{\[\s*styles\.modalSheet/.test(src)) ux1Fail(`${file} BL.3 sibling backdrop regress`);
+    const inputs = src.match(/<TextInput\b[\s\S]*?\/>/g) || [];
+    if (inputs.some((tag) => !/\{\.\.\.sheet\.field\(/.test(tag))) ux1Fail(`${file} every TextInput must register via sheet.field()`);
+  }
+  for (const file of ['components/SearchableSheet.js', 'components/NexuLexGuideSheet.js']) {
+    if (!/sheet\.sheetStyle/.test(read(file))) ux1Fail(`${file} must lift above the keyboard (sheetStyle)`);
+  }
+
+  // Advisor keyboard follow
+  const advisor = read('screens/LegalAdvisorScreen.js');
+  const kbBlock = (advisor.match(/Keyboard\.addListener\('keyboardDidShow'[\s\S]*?\}\);/) || [''])[0];
+  if (!kbBlock || !/count === 0\) return;/.test(kbBlock) || !/scrollToEnd\(\{ animated: true \}\)/.test(kbBlock) || !/!active/.test(kbBlock)) {
+    ux1Fail('LegalAdvisor must scrollToEnd on keyboard show when messages exist (active tab only)');
+  }
+
+  // Calculator copy
+  const calcModal = read('components/CalculatorModal.js');
+  if (!/moneyLabel\('calcGrossSalary'\)/.test(calcModal) || !/moneyLabel\('calcCurrentRent'\)/.test(calcModal) || !/moneyLabel\('calcProposedRent'\)/.test(calcModal) || !/moneyLabel\('calcPrincipal'\)/.test(calcModal)) {
+    ux1Fail('money labels must interpolate the resolved currency');
+  }
+  if (!/t\(`\$\{key\}NoCur`\)/.test(calcModal) || !/currencyLabel\(ctx\.currency, language\)/.test(calcModal)) ux1Fail('NoCur fallback / currencyLabel missing');
+  if (!/ctx\.jurisdiction \|\| t\('calcJurisdictionGeneric'\)/.test(calcModal) || /'—'/.test(calcModal)) ux1Fail("badge must read 'Genel' instead of '—'");
+  if (!/calculatorCopyKeys\(/.test(calcModal) || !/calcIndexRateGeneric/.test(calcModal)) ux1Fail('generic rent title/desc/index label missing');
+  if (!/calculatorCopyKeys\(item\.id, calcPack\)/.test(advisor)) ux1Fail('advisor chips must follow statutory/generic copy');
+  const sourceNoteUses = calcModal.split('sourceNoteKey').length - 1;
+  if (sourceNoteUses !== 1 || !/__DEV__ \? \([\s\S]{0,400}ctx\.pack\.sourceNoteKey[\s\S]{0,400}calcRatesAsOfPublic/.test(calcModal)) {
+    ux1Fail('calcRateTableSourceNote must render only behind __DEV__; production shows calcRatesAsOfPublic');
+  }
+  if (!/maskIsoDateInput/.test(calcModal) || !/calcInvalidDate/.test(calcModal) || !/datesValid\(\)/.test(calcModal)) ux1Fail('calculator date mask + validation missing');
+  const draftModal = read('components/DraftWizardModal.js');
+  if (!/maskDmyDateInput/.test(draftModal) || !/draftInvalidDate/.test(draftModal)) ux1Fail('draft date mask + validation missing');
+
+  // Settings password
+  const app = read('App.js');
+  if (!/const passwordLongEnough = newPassword\.trim\(\)\.length >= 6;/.test(app) || !/disabled=\{updatingPassword \|\| !passwordLongEnough\}/.test(app)) {
+    ux1Fail('password update must stay disabled below 6 characters');
+  }
+
+  try {
+    const { loadApp, LANGS, buildResources } = require('./cb1-harness');
+    const { api, t } = loadApp('tr');
+    const res = buildResources();
+
+    for (const L of LANGS) {
+      for (const [key, value] of Object.entries(res[L])) {
+        if (/^calc/.test(key) && /\(TL\)|\(TRY\)|（TRY）|（TL）/.test(value)) ux1Fail(`${L}.${key} hard-codes a currency`);
+      }
+      for (const key of ['calcGrossSalary', 'calcCurrentRent', 'calcProposedRent', 'calcPrincipal']) {
+        if (!/\{\{currency\}\}/.test(res[L][key] || '')) ux1Fail(`${L}.${key} must use {{currency}}`);
+        if (!res[L][`${key}NoCur`] || /\{\{|\(|（/.test(res[L][`${key}NoCur`])) ux1Fail(`${L}.${key}NoCur must be a plain label`);
+      }
+      for (const key of ['calcRentTitleGeneric', 'calcRentDescGeneric', 'calcIndexRateGeneric', 'calcLabelMaxAllowedGeneric', 'calcInterestTitleGeneric', 'calcInterestDescGeneric', 'calcFootnoteGenericRent', 'calcFootnoteGenericInterest']) {
+        if (/TÜFE|TUFE|Türkiye|TL\b/.test(res[L][key] || '')) ux1Fail(`${L}.${key} must be jurisdiction-neutral`);
+      }
+      if (!res[L].calcJurisdictionGeneric || /—/.test(res[L].calcJurisdictionGeneric)) ux1Fail(`${L}.calcJurisdictionGeneric`);
+      if (/\bP0\b|placeholder|yer tutucu|Platzhalter|TODO/i.test(res[L].calcRatesAsOfPublic || 'x P0')) ux1Fail(`${L}.calcRatesAsOfPublic must be release copy`);
+
+      // Generic rent + interest share text: no TÜFE, no TRY, badge fallback not '—', disclaimer last.
+      const rentUs = api.calculateRentIncrease({ currentRent: 1000, proposedRent: 1100, indexRate: 5, country: 'US', language: L });
+      const intAuto = api.calculateLegalInterest({ principal: 1000, startDate: '2025-01-01', endDate: '2026-01-01', userRate: 5, country: 'auto', language: L });
+      for (const r of [rentUs, ...(L === 'tr' ? [] : [intAuto])]) {
+        const text = api.formatCalculationForSharing(r, 'plain', t(L));
+        const lines = text.split('\n');
+        if (/TÜFE|\bTRY\b/.test(text)) ux1Fail(`${L}/${r.calculatorId} generic share leaks TÜFE/TRY`);
+        if (/: — ·|· — ·/.test(text) && !r.jurisdiction) ux1Fail(`${L}/${r.calculatorId} generic share shows '—' jurisdiction`);
+        if (lines[lines.length - 1] !== t(L)('calcDisclaimer')) ux1Fail(`${L}/${r.calculatorId} disclaimer must stay last`);
+      }
+    }
+    if (api.currencyLabel('TRY', 'tr') !== 'TL' || api.currencyLabel('TRY', 'en') !== 'TRY' || api.currencyLabel('EUR', 'de') !== 'EUR' || api.currencyLabel(null, 'de') !== '') {
+      ux1Fail('currencyLabel mapping');
+    }
+    const copyTr = api.calculatorCopyKeys('rent_cap', api.getCalcPack('TR', 'tr'));
+    const copyDe = api.calculatorCopyKeys('rent_cap', api.getCalcPack('DE', 'de'));
+    if (copyTr.titleKey !== 'calcRentTitle' || copyDe.titleKey !== 'calcRentTitleGeneric' || copyDe.descriptionKey !== 'calcRentDescGeneric') ux1Fail('calculatorCopyKeys statutory/generic');
+    if (api.calculatorCopyKeys('labor_severance', null).titleKey !== 'calcSeveranceTitle') ux1Fail('severance copy must stay statutory');
+  } catch (error) {
+    ux1Fail(`runtime: ${error.message}`);
+  }
+
+  // Date masks (pure)
+  try {
+    const src = read('utils/dateInput.js').replace(/^export /gm, '');
+    const api = new Function(`${src}\nreturn { maskIsoDateInput, maskDmyDateInput, isPlausibleDmyDate };`)();
+    const cases = [
+      [api.maskIsoDateInput('20250131'), '2025-01-31'],
+      [api.maskIsoDateInput('2025-0'), '2025-0'],
+      [api.maskIsoDateInput('2025-'), '2025'],
+      [api.maskIsoDateInput('2025-01-31x9'), '2025-01-31'],
+      [api.maskDmyDateInput('01082026'), '01.08.2026'],
+      [api.maskDmyDateInput('01.08.2026'), '01.08.2026'],
+      [api.maskDmyDateInput('1 Ağustos 2026'), '1 Ağustos 2026'],
+    ];
+    cases.forEach(([got, want]) => {
+      if (got !== want) ux1Fail(`date mask ${JSON.stringify(got)} ≠ ${JSON.stringify(want)}`);
+    });
+    if (!api.isPlausibleDmyDate('') || !api.isPlausibleDmyDate('01.08.2026') || api.isPlausibleDmyDate('31.02.2026') || api.isPlausibleDmyDate('01.08.20')) {
+      ux1Fail('isPlausibleDmyDate');
+    }
+  } catch (error) {
+    ux1Fail(`dateInput runtime: ${error.message}`);
+  }
+
+  // Locks
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') ux1Fail('analyze-contract SHA256 changed');
+  try {
+    if (JSON.parse(read('app.json')).expo?.android?.softwareKeyboardLayoutMode !== 'pan') ux1Fail('app.json keyboard mode must not change');
+  } catch {
+    ux1Fail('app.json parse');
+  }
+
+  if (ux1Ok) {
+    console.log('OK  WAVE UX.1 keyboard-safe sheets + currency-true labels + release-clean copy (N=14 → 13×1045)');
   }
 }
 

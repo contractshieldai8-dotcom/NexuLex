@@ -92,15 +92,34 @@ export const LEGAL_CALCULATORS = [
     id: 'rent_cap',
     titleKey: 'calcRentTitle',
     descriptionKey: 'calcRentDesc',
+    genericTitleKey: 'calcRentTitleGeneric',
+    genericDescriptionKey: 'calcRentDescGeneric',
     icon: 'home-outline',
   },
   {
     id: 'legal_interest',
     titleKey: 'calcInterestTitle',
     descriptionKey: 'calcInterestDesc',
+    genericTitleKey: 'calcInterestTitleGeneric',
+    genericDescriptionKey: 'calcInterestDescGeneric',
     icon: 'trending-up-outline',
   },
 ];
+
+/** Statutory calculators carry a pack entry; generic mode must not show country-specific copy (e.g. TÜFE). */
+export function isCalculatorStatutory(calculatorId, pack) {
+  return !!pack?.calculators?.[calculatorId];
+}
+
+export function calculatorCopyKeys(calculatorId, pack) {
+  const meta = LEGAL_CALCULATORS.find((item) => item.id === calculatorId);
+  if (!meta) return null;
+  const generic = !isCalculatorStatutory(calculatorId, pack) && meta.genericTitleKey;
+  return {
+    titleKey: generic ? meta.genericTitleKey : meta.titleKey,
+    descriptionKey: generic ? meta.genericDescriptionKey : meta.descriptionKey,
+  };
+}
 
 /** labor_severance has no generic mode; rent/interest fall back to user-entered rates. */
 export function isCalculatorAvailable(calculatorId, pack) {

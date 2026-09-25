@@ -2,11 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
-  KeyboardAvoidingView,
   Modal,
   Platform,
   Pressable,
-  ScrollView,
   Share,
   StyleSheet,
   Text,
@@ -17,7 +15,6 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import { useTranslation } from 'react-i18next';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ACCENT, DANGER, styles } from '../theme';
 import {
@@ -39,12 +36,14 @@ import { shareShieldDocx } from '../utils/redlineExport';
 import { describeError } from '../utils/errors';
 import { useFeedback } from '../context/FeedbackContext';
 import { ReportAiButton } from './AiReportSheet';
+import KeyboardSafeSheet, { useKeyboardSafeSheet } from './KeyboardSafeSheet';
+import { isPlausibleDmyDate, maskDmyDateInput } from '../utils/dateInput';
 
 const WIN_H = Dimensions.get('window').height;
 const SHEET_MAX = Math.round(WIN_H * 0.92);
 
 function keyboardFor(type) {
-  if (type === 'number') return Platform.OS === 'ios' ? 'numbers-and-punctuation' : 'default';
+  if (type === 'number' || type === 'date') return Platform.OS === 'ios' ? 'numbers-and-punctuation' : 'default';
   return 'default';
 }
 
@@ -62,7 +61,7 @@ export default function DraftWizardModal({
   onClose,
 }) {
   const { t, i18n } = useTranslation();
-  const insets = useSafeAreaInsets();
+  const sheet = useKeyboardSafeSheet({ maxHeight: SHEET_MAX });
   const { showToast } = useFeedback();
   const language = i18n.language;
   const draftCtx = useMemo(() => ({ country, language }), [country, language]);
@@ -221,262 +220,270 @@ export default function DraftWizardModal({
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      >
-        <View style={styles.modalOverlay}>
-          {/* BL.3: backdrop Pressable is sibling of sheet — not a wrapping parent. */}
-          <Pressable
-            style={StyleSheet.absoluteFillObject}
-            onPress={onClose}
-            accessibilityRole="button"
-            accessibilityLabel={t('draftClose')}
-          />
-          <View
-            style={[
-              styles.modalSheet,
-              {
-                backgroundColor: theme.cardBg,
-                borderColor: theme.borderColor,
-                maxHeight: SHEET_MAX,
-                paddingBottom: Math.max(insets.bottom, 0) + 16,
-              },
-            ]}
-          >
-            <View style={styles.modalHandle} />
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-              <Ionicons name={headerIcon} size={20} color={ACCENT} />
-              <Text
-                style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]}
-                numberOfLines={2}
-              >
-                {headerTitle}
-              </Text>
-              <TouchableOpacity onPress={onClose} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
-                <Ionicons name="close" size={22} color={theme.subText} />
-              </TouchableOpacity>
-            </View>
-
-            <ScrollView
-              style={{ maxHeight: Math.round(WIN_H * 0.7) }}
-              contentContainerStyle={{ paddingBottom: 12 }}
-              keyboardShouldPersistTaps="handled"
-              showsVerticalScrollIndicator={false}
+      <View style={styles.modalOverlay}>
+        {/* BL.3: backdrop Pressable is sibling of sheet — not a wrapping parent. */}
+        <Pressable
+          style={StyleSheet.absoluteFillObject}
+          onPress={onClose}
+          accessibilityRole="button"
+          accessibilityLabel={t('draftClose')}
+        />
+        <View
+          style={[
+            styles.modalSheet,
+            {
+              backgroundColor: theme.cardBg,
+              borderColor: theme.borderColor,
+            },
+            sheet.sheetStyle,
+          ]}
+        >
+          <View style={styles.modalHandle} />
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+            <Ionicons name={headerIcon} size={20} color={ACCENT} />
+            <Text
+              style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]}
+              numberOfLines={2}
             >
-              {variant?.generic ? (
-                <View
-                  style={[
-                    styles.previewBanner,
-                    { backgroundColor: theme.cardBg, borderColor: ACCENT, marginBottom: 12 },
-                  ]}
-                >
-                  <Ionicons name="globe-outline" size={16} color={ACCENT} />
-                  <Text style={[styles.previewBannerText, { color: theme.text }]}>
-                    {t('draftGenericBanner')}
-                  </Text>
-                </View>
-              ) : null}
-              {!template || !variant ? (
-                <>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
-                    {t('draftSectionHint')}
-                  </Text>
-                  {offered.map(({ template: item, variant: itemVariant }) => (
-                    <TouchableOpacity
-                      key={item.id}
-                      activeOpacity={0.85}
-                      onPress={() => setTemplateId(item.id)}
-                      style={[
-                        styles.secondaryBtn,
-                        { marginTop: 8, alignItems: 'flex-start', paddingHorizontal: 14 },
-                      ]}
-                    >
-                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                        <Ionicons name={item.icon} size={16} color={ACCENT} />
-                        <Text style={[styles.secondaryBtnText, { textAlign: 'left' }]}>
-                          {t(itemVariant.titleKey)}
-                        </Text>
-                      </View>
-                      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
-                        {t(itemVariant.descriptionKey)}
+              {headerTitle}
+            </Text>
+            <TouchableOpacity onPress={onClose} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+              <Ionicons name="close" size={22} color={theme.subText} />
+            </TouchableOpacity>
+          </View>
+
+          <KeyboardSafeSheet
+            controller={sheet}
+            style={{ maxHeight: Math.round(WIN_H * 0.7) }}
+            contentContainerStyle={{ paddingBottom: 12 }}
+          >
+            {variant?.generic ? (
+              <View
+                style={[
+                  styles.previewBanner,
+                  { backgroundColor: theme.cardBg, borderColor: ACCENT, marginBottom: 12 },
+                ]}
+              >
+                <Ionicons name="globe-outline" size={16} color={ACCENT} />
+                <Text style={[styles.previewBannerText, { color: theme.text }]}>
+                  {t('draftGenericBanner')}
+                </Text>
+              </View>
+            ) : null}
+            {!template || !variant ? (
+              <>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
+                  {t('draftSectionHint')}
+                </Text>
+                {offered.map(({ template: item, variant: itemVariant }) => (
+                  <TouchableOpacity
+                    key={item.id}
+                    activeOpacity={0.85}
+                    onPress={() => setTemplateId(item.id)}
+                    style={[
+                      styles.secondaryBtn,
+                      { marginTop: 8, alignItems: 'flex-start', paddingHorizontal: 14 },
+                    ]}
+                  >
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                      <Ionicons name={item.icon} size={16} color={ACCENT} />
+                      <Text style={[styles.secondaryBtnText, { textAlign: 'left' }]}>
+                        {t(itemVariant.titleKey)}
                       </Text>
-                    </TouchableOpacity>
-                  ))}
-                </>
-              ) : !draft ? (
-                <>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
-                    {t(variant.descriptionKey)}
-                  </Text>
-                  {template.questions.map((q) => (
+                    </View>
+                    <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
+                      {t(itemVariant.descriptionKey)}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </>
+            ) : !draft ? (
+              <>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
+                  {t(variant.descriptionKey)}
+                </Text>
+                {template.questions.map((q) => {
+                  const value = answers[q.id] || '';
+                  const badDate = q.type === 'date' && !isPlausibleDmyDate(value);
+                  return (
                     <View key={q.id} style={{ marginBottom: 12 }}>
                       <Text style={[styles.label, { color: theme.subText }]}>
                         {t(q.labelKey)}
                         {q.required ? ' *' : ''}
                       </Text>
                       <TextInput
+                        {...sheet.field(q.id, { multiline: q.type === 'multiline' })}
                         style={[
                           styles.chatInput,
                           {
                             backgroundColor: theme.inputBg,
                             color: theme.text,
-                            borderColor: theme.borderColor,
+                            borderColor: badDate ? DANGER : theme.borderColor,
                             minHeight: q.type === 'multiline' ? 80 : 44,
                             textAlignVertical: q.type === 'multiline' ? 'top' : 'center',
                           },
                         ]}
-                        value={answers[q.id] || ''}
-                        onChangeText={(value) => setAnswers((prev) => ({ ...prev, [q.id]: value }))}
+                        value={value}
+                        onChangeText={(next) =>
+                          setAnswers((prev) => ({
+                            ...prev,
+                            [q.id]: q.type === 'date' ? maskDmyDateInput(next) : next,
+                          }))
+                        }
                         placeholder={q.type === 'date' ? t('draftDatePlaceholder') : ''}
                         placeholderTextColor={theme.subText}
                         keyboardType={keyboardFor(q.type)}
                         multiline={q.type === 'multiline'}
                       />
+                      {badDate ? (
+                        <Text style={[styles.sectionHint, { color: DANGER, marginTop: 4, marginBottom: 0 }]}>
+                          {t('draftInvalidDate', { format: t('draftDatePlaceholder') })}
+                        </Text>
+                      ) : null}
                     </View>
-                  ))}
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
-                    {t('draftBlankHint')}
-                  </Text>
-                  <TouchableOpacity style={styles.primaryButton} onPress={handleGenerate}>
-                    <Text style={styles.primaryButtonText}>{t('draftGenerate')}</Text>
+                  );
+                })}
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
+                  {t('draftBlankHint')}
+                </Text>
+                <TouchableOpacity style={styles.primaryButton} onPress={handleGenerate}>
+                  <Text style={styles.primaryButtonText}>{t('draftGenerate')}</Text>
+                </TouchableOpacity>
+                {Object.keys(answers).length ? (
+                  <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={handleReset}>
+                    <Text style={styles.secondaryBtnText}>{t('draftResetAnswers')}</Text>
                   </TouchableOpacity>
-                  {Object.keys(answers).length ? (
-                    <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={handleReset}>
-                      <Text style={styles.secondaryBtnText}>{t('draftResetAnswers')}</Text>
-                    </TouchableOpacity>
-                  ) : null}
-                </>
-              ) : (
-                <>
-                  {missingRequiredLabels.length ? (
-                    <View
-                      style={{
-                        borderWidth: 1,
-                        borderColor: DANGER,
-                        backgroundColor: 'rgba(255,59,92,0.08)',
-                        borderRadius: 10,
-                        padding: 10,
-                        marginBottom: 12,
-                      }}
-                    >
-                      <Text style={[styles.sectionHint, { color: theme.text, marginBottom: 0 }]}>
-                        {t('draftMissingWarning')} {missingRequiredLabels.join(', ')}
-                      </Text>
-                    </View>
-                  ) : null}
-
+                ) : null}
+              </>
+            ) : (
+              <>
+                {missingRequiredLabels.length ? (
                   <View
                     style={{
                       borderWidth: 1,
-                      borderColor: theme.borderColor,
+                      borderColor: DANGER,
+                      backgroundColor: 'rgba(255,59,92,0.08)',
+                      borderRadius: 10,
+                      padding: 10,
+                      marginBottom: 12,
+                    }}
+                  >
+                    <Text style={[styles.sectionHint, { color: theme.text, marginBottom: 0 }]}>
+                      {t('draftMissingWarning')} {missingRequiredLabels.join(', ')}
+                    </Text>
+                  </View>
+                ) : null}
+
+                <View
+                  style={{
+                    borderWidth: 1,
+                    borderColor: theme.borderColor,
+                    borderRadius: 10,
+                    padding: 12,
+                    marginBottom: 12,
+                  }}
+                >
+                  {draft.improved ? (
+                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 6 }}>
+                      <ReportAiButton
+                        theme={theme}
+                        featureId="draft_polish"
+                        targetId={draft.templateId}
+                        country={country}
+                        context={draft.body}
+                        showLabel
+                      />
+                    </View>
+                  ) : null}
+                  <Text selectable style={[styles.bubbleText, { color: theme.text }]}>
+                    {isPro ? formatDraftForSharing(draft, 'plain') : preview?.text}
+                  </Text>
+                </View>
+
+                {!isPro ? (
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      borderColor: ACCENT,
                       borderRadius: 10,
                       padding: 12,
                       marginBottom: 12,
                     }}
                   >
-                    {draft.improved ? (
-                      <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 6 }}>
-                        <ReportAiButton
-                          theme={theme}
-                          featureId="draft_polish"
-                          targetId={draft.templateId}
-                          country={country}
-                          context={draft.body}
-                          showLabel
-                        />
-                      </View>
-                    ) : null}
-                    <Text selectable style={[styles.bubbleText, { color: theme.text }]}>
-                      {isPro ? formatDraftForSharing(draft, 'plain') : preview?.text}
+                    <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 4 }]}>
+                      🔒 {t('draftProLockTitle')}
                     </Text>
-                  </View>
-
-                  {!isPro ? (
-                    <View
-                      style={{
-                        borderWidth: 1,
-                        borderColor: ACCENT,
-                        borderRadius: 10,
-                        padding: 12,
-                        marginBottom: 12,
-                      }}
-                    >
-                      <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 4 }]}>
-                        🔒 {t('draftProLockTitle')}
-                      </Text>
-                      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
-                        {t('draftProLockBody')}
-                      </Text>
-                      <TouchableOpacity style={styles.primaryButton} onPress={() => onNeedPaywall?.(templateId)}>
-                        <Text style={styles.primaryButtonText}>{t('draftUnlockCta')}</Text>
-                      </TouchableOpacity>
-                    </View>
-                  ) : null}
-
-                  <TouchableOpacity
-                    style={[styles.primaryButton, exporting && styles.buttonDisabled]}
-                    onPress={handleDocx}
-                    disabled={exporting}
-                  >
-                    {exporting ? (
-                      <ActivityIndicator color="#080C14" size="small" />
-                    ) : (
-                      <Text style={styles.primaryButtonText}>
-                        {isPro ? '' : '🔒 '}
-                        {t('draftExportDocx')}
-                      </Text>
-                    )}
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.secondaryBtn} onPress={handleCopy}>
-                    <Text style={styles.secondaryBtnText}>
-                      {isPro ? '' : '🔒 '}
-                      {t('draftCopy')}
+                    <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
+                      {t('draftProLockBody')}
                     </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={handleShare}>
-                    <Text style={styles.secondaryBtnText}>
-                      {isPro ? '' : '🔒 '}
-                      {t('draftShare')}
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[styles.secondaryBtn, { marginTop: 8 }, improving && styles.buttonDisabled]}
-                    onPress={handleImprove}
-                    disabled={improving}
-                  >
-                    {improving ? (
-                      <ActivityIndicator color={ACCENT} size="small" />
-                    ) : (
-                      <Text style={styles.secondaryBtnText}>
-                        {isPro ? '' : '🔒 '}
-                        {t('draftImprove')}
-                      </Text>
-                    )}
-                  </TouchableOpacity>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 0 }]}>
-                    {t('draftImproveHint')}
-                  </Text>
-                  {draft.improved && originalDraft ? (
-                    <TouchableOpacity
-                      style={[styles.secondaryBtn, { marginTop: 8 }]}
-                      onPress={() => setDraft(originalDraft)}
-                    >
-                      <Text style={styles.secondaryBtnText}>{t('draftRevert')}</Text>
+                    <TouchableOpacity style={styles.primaryButton} onPress={() => onNeedPaywall?.(templateId)}>
+                      <Text style={styles.primaryButtonText}>{t('draftUnlockCta')}</Text>
                     </TouchableOpacity>
-                  ) : null}
-                </>
-              )}
-            </ScrollView>
+                  </View>
+                ) : null}
 
-            <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={goBack}>
-              <Text style={styles.secondaryBtnText}>
-                {draft || (template && !presetTemplateId) ? t('draftBack') : t('draftClose')}
-              </Text>
-            </TouchableOpacity>
-          </View>
+                <TouchableOpacity
+                  style={[styles.primaryButton, exporting && styles.buttonDisabled]}
+                  onPress={handleDocx}
+                  disabled={exporting}
+                >
+                  {exporting ? (
+                    <ActivityIndicator color="#080C14" size="small" />
+                  ) : (
+                    <Text style={styles.primaryButtonText}>
+                      {isPro ? '' : '🔒 '}
+                      {t('draftExportDocx')}
+                    </Text>
+                  )}
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.secondaryBtn} onPress={handleCopy}>
+                  <Text style={styles.secondaryBtnText}>
+                    {isPro ? '' : '🔒 '}
+                    {t('draftCopy')}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={handleShare}>
+                  <Text style={styles.secondaryBtnText}>
+                    {isPro ? '' : '🔒 '}
+                    {t('draftShare')}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.secondaryBtn, { marginTop: 8 }, improving && styles.buttonDisabled]}
+                  onPress={handleImprove}
+                  disabled={improving}
+                >
+                  {improving ? (
+                    <ActivityIndicator color={ACCENT} size="small" />
+                  ) : (
+                    <Text style={styles.secondaryBtnText}>
+                      {isPro ? '' : '🔒 '}
+                      {t('draftImprove')}
+                    </Text>
+                  )}
+                </TouchableOpacity>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 0 }]}>
+                  {t('draftImproveHint')}
+                </Text>
+                {draft.improved && originalDraft ? (
+                  <TouchableOpacity
+                    style={[styles.secondaryBtn, { marginTop: 8 }]}
+                    onPress={() => setDraft(originalDraft)}
+                  >
+                    <Text style={styles.secondaryBtnText}>{t('draftRevert')}</Text>
+                  </TouchableOpacity>
+                ) : null}
+              </>
+            )}
+          </KeyboardSafeSheet>
+
+          <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={goBack}>
+            <Text style={styles.secondaryBtnText}>
+              {draft || (template && !presetTemplateId) ? t('draftBack') : t('draftClose')}
+            </Text>
+          </TouchableOpacity>
         </View>
-      </KeyboardAvoidingView>
+      </View>
     </Modal>
   );
 }

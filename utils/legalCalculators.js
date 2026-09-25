@@ -54,6 +54,13 @@ export function resolveCalcContext({ pack, currency, country, language } = {}) {
   return { pack: resolvedPack, currency: resolvedCurrency, jurisdiction: jurisdiction || null };
 }
 
+/** Short currency tag for field labels: Turkish UI keeps the familiar "TL"; others use the ISO code. */
+export function currencyLabel(currency, language) {
+  if (!currency) return '';
+  if (currency === 'TRY' && String(language || '').slice(0, 2).toLowerCase() === 'tr') return 'TL';
+  return currency;
+}
+
 /** UI display: Intl currency when known, plain number when currency is unset. */
 export function formatMoney(amount, currency, locale) {
   const n = Number(amount) || 0;
@@ -152,7 +159,7 @@ export function calculateRentIncrease({
   const breakdown = [
     line('calcLabelCurrentRent', current),
     line('calcLabelProposedRent', proposed),
-    line('calcLabelMaxAllowed', maxAllowed),
+    line(statutory ? 'calcLabelMaxAllowed' : 'calcLabelMaxAllowedGeneric', maxAllowed),
     line('calcLabelDifference', difference),
   ];
 
@@ -246,13 +253,14 @@ const shareAmount = (amount, currency) => {
 export function formatCalculationForSharing(result, format = 'plain', t = (k) => k) {
   if (!result || typeof result !== 'object' || result.unavailable) return '';
   const lines = [];
+  const generic = result.mode === 'generic';
   const titleKey =
     result.calculatorId === 'labor_severance'
       ? 'calcSeveranceTitle'
       : result.calculatorId === 'rent_cap'
-        ? 'calcRentTitle'
+        ? generic ? 'calcRentTitleGeneric' : 'calcRentTitle'
         : result.calculatorId === 'legal_interest'
-          ? 'calcInterestTitle'
+          ? generic ? 'calcInterestTitleGeneric' : 'calcInterestTitle'
           : 'calcSectionTitle';
   lines.push(String(t(titleKey) || '').trim());
   lines.push('');
@@ -289,7 +297,7 @@ export function formatCalculationForSharing(result, format = 'plain', t = (k) =>
 
   const jurisdictionLine = String(
     t('calcJurisdictionLine', {
-      jurisdiction: result.jurisdiction || '—',
+      jurisdiction: result.jurisdiction || t('calcJurisdictionGeneric'),
       currency: result.currency || '—',
     }) || ''
   ).trim();

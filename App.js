@@ -1398,8 +1398,9 @@ function AppContent() {
     }
   };
 
+  const passwordLongEnough = newPassword.trim().length >= 6;
   const handleUpdatePassword = async () => {
-    if (!newPassword.trim() || newPassword.length < 6) {
+    if (!passwordLongEnough) {
       Alert.alert(t('warningTitle'), t('minPasswordLength'));
       return;
     }
@@ -3802,10 +3803,16 @@ function AppContent() {
                   value={newPassword}
                   onChangeText={setNewPassword}
                 />
-                <TouchableOpacity 
-                  style={[styles.secondaryBtn, updatingPassword && styles.buttonDisabled]}
+                {newPassword.length > 0 && !passwordLongEnough ? (
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>
+                    {t('minPasswordLength')}
+                  </Text>
+                ) : null}
+                <TouchableOpacity
+                  style={[styles.secondaryBtn, (updatingPassword || !passwordLongEnough) && styles.buttonDisabled]}
                   onPress={handleUpdatePassword}
-                  disabled={updatingPassword}
+                  disabled={updatingPassword || !passwordLongEnough}
+                  accessibilityState={{ disabled: updatingPassword || !passwordLongEnough }}
                 >
                   {updatingPassword ? (
                     <ActivityIndicator color="#00F5D4" />

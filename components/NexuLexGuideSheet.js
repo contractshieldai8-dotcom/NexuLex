@@ -17,6 +17,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ACCENT, styles } from '../theme';
 import { GUIDE_FAQ_CHIPS, GUIDE_WORKFLOWS, matchLegalIntent } from '../constants/appCapabilities';
+import { useKeyboardSafeSheet } from './KeyboardSafeSheet';
 
 const WIN_H = Dimensions.get('window').height;
 const GUIDE_SHEET_MAX_HEIGHT = Math.round(WIN_H * 0.88);
@@ -25,6 +26,10 @@ const GUIDE_LIST_MAX_HEIGHT = Math.round(WIN_H * 0.52);
 export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvisor }) {
   const { t, i18n } = useTranslation();
   const insets = useSafeAreaInsets();
+  const sheet = useKeyboardSafeSheet({
+    maxHeight: GUIDE_SHEET_MAX_HEIGHT,
+    bottomPadding: Math.max(insets.bottom, 0) + 16,
+  });
   const [query, setQuery] = useState('');
   const [activeId, setActiveId] = useState(null);
 
@@ -198,10 +203,9 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
             {
               backgroundColor: theme.cardBg,
               borderColor: theme.borderColor,
-              maxHeight: GUIDE_SHEET_MAX_HEIGHT,
               flexDirection: 'column',
-              paddingBottom: Math.max(insets.bottom, 0) + 16,
             },
+            sheet.sheetStyle,
           ]}
         >
           <View style={styles.modalHandle} />

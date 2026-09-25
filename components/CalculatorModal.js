@@ -3,7 +3,6 @@ import {
   Dimensions,
   Modal,
   Pressable,
-  ScrollView,
   Share,
   StyleSheet,
   Switch,
@@ -15,20 +14,23 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import { useTranslation } from 'react-i18next';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ACCENT, DANGER, styles } from '../theme';
-import { LEGAL_CALCULATORS, isCalculatorAvailable } from '../constants/legalCalcRates';
+import { LEGAL_CALCULATORS, calculatorCopyKeys, isCalculatorAvailable } from '../constants/legalCalcRates';
 import {
   buildCalcAdvisorPrompt,
   calculateLegalInterest,
   calculateRentIncrease,
   calculateSeverance,
+  currencyLabel,
   formatCalculationForSharing,
   formatMoney,
+  parseIsoDate,
   resolveCalcContext,
 } from '../utils/legalCalculators';
+import { maskIsoDateInput } from '../utils/dateInput';
 import { useFeedback } from '../context/FeedbackContext';
+import KeyboardSafeSheet, { useKeyboardSafeSheet } from './KeyboardSafeSheet';
 
 const WIN_H = Dimensions.get('window').height;
 const SHEET_MAX = Math.round(WIN_H * 0.9);
@@ -52,12 +54,16 @@ export default function CalculatorModal({
       ? available
       : !!ctx.pack?.calculators?.[calculatorId];
   const displayLocale = ctx.pack?.locale || language;
-  const insets = useSafeAreaInsets();
+  const sheet = useKeyboardSafeSheet({ maxHeight: SHEET_MAX });
   const { showToast } = useFeedback();
   const meta = useMemo(
     () => (LEGAL_CALCULATORS || []).find((item) => item.id === calculatorId) || null,
     [calculatorId]
   );
+  const copyKeys = calculatorCopyKeys(calculatorId, ctx.pack);
+  const currencyTag = currencyLabel(ctx.currency, language);
+  const moneyLabel = (key) => (currencyTag ? t(key, { currency: currencyTag }) : t(`${key}NoCur`));
+  const badgeText = [ctx.jurisdiction || t('calcJurisdictionGeneric'), ctx.currency].filter(Boolean).join(' · ');
 
   const [grossSalary, setGrossSalary] = useState('50000');
   const [workMonths, setWorkMonths] = useState('36');
@@ -72,11 +78,21 @@ export default function CalculatorModal({
   const [interestType, setInterestType] = useState('legal');
   const [userRate, setUserRate] = useState('');
   const [result, setResult] = useState(null);
+  const [dateError, setDateError] = useState(false);
   const hasResultRef = useRef(false);
 
   useEffect(() => {
-    if (!visible) setResult(null);
+    if (!visible) {
+      setResult(null);
+      setDateError(false);
+    }
   }, [visible, calculatorId]);
+
+  const datesValid = () => {
+    const start = parseIsoDate(startDate);
+    const end = parseIsoDate(endDate);
+    return !!start && !!end && end.getTime() >= start.getTime();
+  };
 
   const compute = () => {
     const ctxArgs = { country, language };
@@ -111,8 +127,19 @@ export default function CalculatorModal({
   };
 
   const runCalculate = () => {
+    if (calculatorId === 'legal_interest' && !datesValid()) {
+      setDateError(true);
+      setResult(null);
+      return;
+    }
+    setDateError(false);
     const next = compute();
     setResult(next && !next.unavailable ? next : null);
+  };
+
+  const onDateChange = (setter) => (value) => {
+    setter(maskIsoDateInput(value));
+    if (dateError) setDateError(false);
   };
 
   hasResultRef.current = !!result;
@@ -175,33 +202,29 @@ export default function CalculatorModal({
             {
               backgroundColor: theme.cardBg,
               borderColor: theme.borderColor,
-              maxHeight: SHEET_MAX,
-              paddingBottom: Math.max(insets.bottom, 0) + 16,
             },
+            sheet.sheetStyle,
           ]}
         >
           <View style={styles.modalHandle} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
             <Ionicons name={meta.icon || 'calculator-outline'} size={20} color={ACCENT} />
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
-              {t(meta.titleKey)}
+              {t(copyKeys.titleKey)}
             </Text>
             <TouchableOpacity onPress={onClose} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
               <Ionicons name="close" size={22} color={theme.subText} />
             </TouchableOpacity>
           </View>
 
-          <ScrollView
+          <KeyboardSafeSheet
+            controller={sheet}
             style={{ maxHeight: Math.round(WIN_H * 0.68) }}
             contentContainerStyle={{ paddingBottom: 12 }}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
           >
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
               <View style={[styles.offerTierChip, { borderColor: theme.borderColor, backgroundColor: theme.cardBg }]}>
-                <Text style={[styles.offerTierChipText, { color: theme.text }]}>
-                  {`${ctx.jurisdiction || '—'} · ${ctx.currency || '—'}`}
-                </Text>
+                <Text style={[styles.offerTierChipText, { color: theme.text }]}>{badgeText}</Text>
               </View>
               {available ? (
                 <View
@@ -217,17 +240,23 @@ export default function CalculatorModal({
               ) : null}
             </View>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
-              {t(meta.descriptionKey)}
+              {t(copyKeys.descriptionKey)}
             </Text>
             {statutory && ctx.pack ? (
-              <>
-                <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 12 }]}>
-                  {t('calcAsOfNotice', { date: ctx.pack.asOfDate })}
+              __DEV__ ? (
+                <>
+                  <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 12 }]}>
+                    {t('calcAsOfNotice', { date: ctx.pack.asOfDate })}
+                  </Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 14 }]}>
+                    {t(ctx.pack.sourceNoteKey)}
+                  </Text>
+                </>
+              ) : (
+                <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 14 }]}>
+                  {t('calcRatesAsOfPublic', { date: ctx.pack.asOfDate })}
                 </Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 14 }]}>
-                  {t(ctx.pack.sourceNoteKey)}
-                </Text>
-              </>
+              )
             ) : null}
             {available && !ctx.currency ? (
               <Text style={[styles.sectionHint, { color: DANGER, marginBottom: 12 }]}>
@@ -251,8 +280,9 @@ export default function CalculatorModal({
 
             {calculatorId === 'labor_severance' && available ? (
               <>
-                <Text style={[styles.label, { color: theme.subText }]}>{t('calcGrossSalary')}</Text>
+                <Text style={[styles.label, { color: theme.subText }]}>{moneyLabel('calcGrossSalary')}</Text>
                 <TextInput
+                  {...sheet.field('grossSalary')}
                   style={inputStyle}
                   keyboardType="decimal-pad"
                   value={grossSalary}
@@ -261,6 +291,7 @@ export default function CalculatorModal({
                 />
                 <Text style={[styles.label, { color: theme.subText }]}>{t('calcWorkMonths')}</Text>
                 <TextInput
+                  {...sheet.field('workMonths')}
                   style={inputStyle}
                   keyboardType="decimal-pad"
                   value={workMonths}
@@ -289,16 +320,18 @@ export default function CalculatorModal({
 
             {calculatorId === 'rent_cap' ? (
               <>
-                <Text style={[styles.label, { color: theme.subText }]}>{t('calcCurrentRent')}</Text>
+                <Text style={[styles.label, { color: theme.subText }]}>{moneyLabel('calcCurrentRent')}</Text>
                 <TextInput
+                  {...sheet.field('currentRent')}
                   style={inputStyle}
                   keyboardType="decimal-pad"
                   value={currentRent}
                   onChangeText={setCurrentRent}
                   placeholderTextColor={theme.subText}
                 />
-                <Text style={[styles.label, { color: theme.subText }]}>{t('calcProposedRent')}</Text>
+                <Text style={[styles.label, { color: theme.subText }]}>{moneyLabel('calcProposedRent')}</Text>
                 <TextInput
+                  {...sheet.field('proposedRent')}
                   style={inputStyle}
                   keyboardType="decimal-pad"
                   value={proposedRent}
@@ -306,9 +339,10 @@ export default function CalculatorModal({
                   placeholderTextColor={theme.subText}
                 />
                 <Text style={[styles.label, { color: theme.subText }]}>
-                  {t(statutory ? ctx.pack.calculators.rent_cap.indexLabelKey : 'calcUserRate')}
+                  {t(statutory ? ctx.pack.calculators.rent_cap.indexLabelKey : 'calcIndexRateGeneric')}
                 </Text>
                 <TextInput
+                  {...sheet.field('indexRate')}
                   style={inputStyle}
                   keyboardType="decimal-pad"
                   value={tufeRate}
@@ -333,8 +367,9 @@ export default function CalculatorModal({
 
             {calculatorId === 'legal_interest' ? (
               <>
-                <Text style={[styles.label, { color: theme.subText }]}>{t('calcPrincipal')}</Text>
+                <Text style={[styles.label, { color: theme.subText }]}>{moneyLabel('calcPrincipal')}</Text>
                 <TextInput
+                  {...sheet.field('principal')}
                   style={inputStyle}
                   keyboardType="decimal-pad"
                   value={principal}
@@ -343,26 +378,38 @@ export default function CalculatorModal({
                 />
                 <Text style={[styles.label, { color: theme.subText }]}>{t('calcStartDate')}</Text>
                 <TextInput
-                  style={inputStyle}
+                  {...sheet.field('startDate')}
+                  style={[inputStyle, dateError && !parseIsoDate(startDate) && { borderColor: DANGER }]}
                   value={startDate}
-                  onChangeText={setStartDate}
+                  onChangeText={onDateChange(setStartDate)}
                   placeholder="YYYY-MM-DD"
                   placeholderTextColor={theme.subText}
+                  keyboardType="number-pad"
+                  maxLength={10}
                   autoCapitalize="none"
                 />
                 <Text style={[styles.label, { color: theme.subText }]}>{t('calcEndDate')}</Text>
                 <TextInput
-                  style={inputStyle}
+                  {...sheet.field('endDate')}
+                  style={[inputStyle, dateError && { borderColor: DANGER }]}
                   value={endDate}
-                  onChangeText={setEndDate}
+                  onChangeText={onDateChange(setEndDate)}
                   placeholder="YYYY-MM-DD"
                   placeholderTextColor={theme.subText}
+                  keyboardType="number-pad"
+                  maxLength={10}
                   autoCapitalize="none"
                 />
+                {dateError ? (
+                  <Text style={[styles.sectionHint, { color: DANGER, marginTop: -4, marginBottom: 10 }]}>
+                    {t('calcInvalidDate')}
+                  </Text>
+                ) : null}
                 {!statutory ? (
                   <>
                     <Text style={[styles.label, { color: theme.subText }]}>{t('calcUserRate')}</Text>
                     <TextInput
+                      {...sheet.field('userRate')}
                       style={inputStyle}
                       keyboardType="decimal-pad"
                       value={userRate}
@@ -477,7 +524,7 @@ export default function CalculatorModal({
                 </TouchableOpacity>
               </View>
             ) : null}
-          </ScrollView>
+          </KeyboardSafeSheet>
         </View>
       </View>
     </Modal>

@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import {
+  Dimensions,
   FlatList,
   Modal,
   Text,
@@ -11,6 +12,9 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ACCENT, styles } from '../theme';
+import { useKeyboardSafeSheet } from './KeyboardSafeSheet';
+
+const SHEET_MAX = Math.round(Dimensions.get('window').height * 0.85);
 
 // Bayrak + arama destekli alttan açılır seçici.
 // options: [{ code, label, hint, flag, keywords }]
@@ -27,6 +31,7 @@ export default function SearchableSheet({
   onClose,
 }) {
   const insets = useSafeAreaInsets();
+  const sheet = useKeyboardSafeSheet({ maxHeight: SHEET_MAX, bottomPadding: Math.max(insets.bottom, 0) + 16 });
   const [query, setQuery] = useState('');
 
   const filtered = useMemo(() => {
@@ -95,9 +100,8 @@ export default function SearchableSheet({
                 {
                   backgroundColor: theme.cardBg,
                   borderColor: theme.borderColor,
-                  maxHeight: '85%',
-                  paddingBottom: Math.max(insets.bottom, 0) + 16,
                 },
+                sheet.sheetStyle,
               ]}
             >
               <View style={styles.modalHandle} />

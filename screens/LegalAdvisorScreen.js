@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   FlatList,
   InteractionManager,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -18,7 +19,12 @@ import { useTranslation } from 'react-i18next';
 import { ACCENT, styles } from '../theme';
 import { JURISDICTIONS } from '../constants/options';
 import { LEGAL_SCENARIOS } from '../constants/legalScenarios';
-import { LEGAL_CALCULATORS, getCalcPack, isCalculatorAvailable } from '../constants/legalCalcRates';
+import {
+  LEGAL_CALCULATORS,
+  calculatorCopyKeys,
+  getCalcPack,
+  isCalculatorAvailable,
+} from '../constants/legalCalcRates';
 import { OptionSheet, SelectorField } from '../components/OptionSelector';
 import ScenarioWizardModal from '../components/ScenarioWizardModal';
 import CalculatorModal from '../components/CalculatorModal';
@@ -141,6 +147,18 @@ export default function LegalAdvisorScreen({
   useEffect(() => {
     if (messages.length > 0) scrollToEnd();
   }, [messages.length, scrollToEnd, sending]);
+
+  // Typing: keep the latest bubble (incl. the welcome bubble) right above the input. Mount/empty chat stays put.
+  const keyboardFollowRef = useRef({ count: messages.length, active: isActive });
+  keyboardFollowRef.current = { count: messages.length, active: isActive };
+  useEffect(() => {
+    const sub = Keyboard.addListener('keyboardDidShow', () => {
+      const { count, active } = keyboardFollowRef.current;
+      if (!active || count === 0) return;
+      requestAnimationFrame(() => listRef.current?.scrollToEnd({ animated: true }));
+    });
+    return () => sub.remove();
+  }, []);
 
   const handleSend = useCallback(async () => {
     const trimmed = question.trim();
@@ -339,6 +357,7 @@ export default function LegalAdvisorScreen({
         >
           {(LEGAL_CALCULATORS || []).map((item) => {
             const locked = !isCalculatorAvailable(item.id, calcPack);
+            const copy = calculatorCopyKeys(item.id, calcPack);
             return (
               <TouchableOpacity
                 key={item.id}
@@ -371,11 +390,11 @@ export default function LegalAdvisorScreen({
                     style={[styles.settingLabel, { color: theme.text, fontSize: 13, flex: 1 }]}
                     numberOfLines={2}
                   >
-                    {t(item.titleKey)}
+                    {t(copy.titleKey)}
                   </Text>
                 </View>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]} numberOfLines={2}>
-                  {t(locked ? 'calcNotAvailableForCountry' : item.descriptionKey)}
+                  {t(locked ? 'calcNotAvailableForCountry' : copy.descriptionKey)}
                 </Text>
               </TouchableOpacity>
             );

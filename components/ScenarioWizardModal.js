@@ -3,7 +3,6 @@ import {
   Dimensions,
   Modal,
   Pressable,
-  ScrollView,
   Share,
   StyleSheet,
   Text,
@@ -13,7 +12,6 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import { useTranslation } from 'react-i18next';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ACCENT, DANGER, styles } from '../theme';
 import { getScenarioById } from '../constants/legalScenarios';
@@ -25,6 +23,7 @@ import {
   formatRoadmapForSharing,
 } from '../services/scenarioRoadmap';
 import { useFeedback } from '../context/FeedbackContext';
+import KeyboardSafeSheet, { useKeyboardSafeSheet } from './KeyboardSafeSheet';
 
 const WIN_H = Dimensions.get('window').height;
 const SHEET_MAX = Math.round(WIN_H * 0.9);
@@ -39,7 +38,7 @@ export default function ScenarioWizardModal({
   onOpenDraft,
 }) {
   const { t, i18n } = useTranslation();
-  const insets = useSafeAreaInsets();
+  const sheet = useKeyboardSafeSheet({ maxHeight: SHEET_MAX });
   const { showToast } = useFeedback();
   const scenario = useMemo(() => getScenarioById(scenarioId), [scenarioId]);
 
@@ -134,9 +133,8 @@ export default function ScenarioWizardModal({
             {
               backgroundColor: theme.cardBg,
               borderColor: theme.borderColor,
-              maxHeight: SHEET_MAX,
-              paddingBottom: Math.max(insets.bottom, 0) + 16,
             },
+            sheet.sheetStyle,
           ]}
         >
           <View style={styles.modalHandle} />
@@ -150,11 +148,10 @@ export default function ScenarioWizardModal({
             </TouchableOpacity>
           </View>
 
-          <ScrollView
+          <KeyboardSafeSheet
+            controller={sheet}
             style={{ maxHeight: Math.round(WIN_H * 0.68) }}
             contentContainerStyle={{ paddingBottom: 12 }}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
           >
             {!isResult ? (
               <>
@@ -293,7 +290,7 @@ export default function ScenarioWizardModal({
                 ) : null}
               </>
             )}
-          </ScrollView>
+          </KeyboardSafeSheet>
 
           <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={goBack}>
             <Text style={styles.secondaryBtnText}>
