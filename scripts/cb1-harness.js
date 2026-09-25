@@ -33,6 +33,7 @@ function buildResources() {
     loadWave('i18n.wavegr2.js', 'WAVE_GR2_I18N'),
     loadWave('i18n.wavegr3.js', 'WAVE_GR3_I18N'),
     loadWave('i18n.wavegr4.js', 'WAVE_GR4_I18N'),
+    loadWave('i18n.wavegr5.js', 'WAVE_GR5_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {
@@ -136,6 +137,7 @@ const APP_FILES = [
   'constants/sessionResume.js',
   'constants/shareLoop.js',
   'constants/paywallIntent.js',
+  'constants/advisorHome.js',
 ];
 
 function loadApp(language = 'tr') {

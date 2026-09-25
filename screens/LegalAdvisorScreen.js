@@ -33,6 +33,7 @@ import ProcessGuideSheet from '../components/ProcessGuideSheet';
 import ProToolsSheet from '../components/ProToolsSheet';
 import LawyerHandoffSheet from '../components/LawyerHandoffSheet';
 import { PROCESS_GUIDES } from '../constants/processGuides';
+import { ADVISOR_HOME_JOBS } from '../constants/advisorHome';
 import { loadCases } from '../services/caseFileStore';
 import { DRAFT_CATALOG, resolveDraftVariant } from '../constants/draftTemplates';
 import VoiceMicButton from '../components/VoiceMicButton';
@@ -115,6 +116,21 @@ export default function LegalAdvisorScreen({
     const match = JURISDICTIONS.find((item) => item.code === code);
     return match ? t(match.labelKey) : code || '';
   }, [country, i18n.language, t]);
+
+  const openHomeJob = useCallback((open) => {
+    if (open === 'ask') setAskOpen(true);
+    else if (open === 'guides') {
+      setGuideOpenId(null);
+      setGuidesOpen(true);
+    } else if (open === 'case') {
+      setCaseImport(null);
+      setCaseOpenId(null);
+      setCaseHubOpen(true);
+    } else if (open === 'lawyer') {
+      setLawyerSeed(null);
+      setLawyerOpen(true);
+    }
+  }, []);
 
   const showPendingToast = useCallback(
     () => showToast(t('availPendingToast'), { type: 'info', duration: 2400 }),
@@ -529,6 +545,39 @@ export default function LegalAdvisorScreen({
           </TouchableOpacity>
         </View>
 
+        <Text style={[styles.label, { color: theme.subText, marginTop: 10, marginBottom: 4 }]}>{t('ahTitle')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
+          {t('ahHint')} {pendingCountryLabel}
+        </Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingBottom: 4 }}>
+          {ADVISOR_HOME_JOBS.map((item) => (
+            <TouchableOpacity
+              key={item.id}
+              onPress={() => openHomeJob(item.open)}
+              accessibilityRole="button"
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 6,
+                paddingHorizontal: 12,
+                paddingVertical: 8,
+                borderRadius: 16,
+                borderWidth: 1,
+                borderColor: theme.borderColor,
+                backgroundColor: theme.cardBg,
+              }}
+            >
+              <Ionicons name={item.icon} size={14} color={ACCENT} />
+              <Text style={{ color: theme.text, fontSize: 13, fontWeight: '600' }}>{t(item.titleKey)}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+        {messages.length <= 1 ? (
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 4 }]}>
+            {t('ahEmptyLead')} {t('ahEmptyTail')}
+          </Text>
+        ) : null}
+
         <TouchableOpacity
           activeOpacity={0.85}
           onPress={() => setAskOpen(true)}
@@ -889,11 +938,15 @@ export default function LegalAdvisorScreen({
     [
       calcPack,
       calculatorItems,
+      caseCount,
       handleClear,
       i18n.language,
+      messages.length,
       offeredDrafts,
       openDraft,
+      openHomeJob,
       pendingCountryLabel,
+      plan,
       scenarioItems,
       selectedCountry,
       sending,
