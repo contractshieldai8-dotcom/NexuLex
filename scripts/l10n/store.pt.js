@@ -11,7 +11,7 @@ O assistente acrescenta perguntas jurídicas do seu país, guias de procedimento
 Relatórios em 13 idiomas. As calculadoras legais (indenização, reajuste de aluguel, juros legais) usam tabelas da Turquia (em 1 de janeiro de 2026; confira os valores oficiais). Noutros países funcionam em modo genérico com a taxa que você informa. Cenários e rascunhos são específicos da Turquia; nos demais, passos genéricos e um formato de carta genérico. Rascunhos são modelos; não há previsão de vitória nem garantia de aceitação judicial.
 
 Informação jurídica geral, não aconselhamento jurídico / representação por advogado.`,
-  keywords: 'contrato,aluguel,trabalho,NDA,SaaS,cláusula,advogado,risco,prazo,consumo',
+  keywords: 'contrato,aluguel,trabalho,NDA,SaaS,cláusula,advogado,risco,prazo,consumo,inquilino,assinatura',
   whatsNew: 'Encontrar advogado: diretórios oficiais, primeira mensagem e dossiê Pro. Bancada Professional, guias de procedimentos e perguntas jurídicas. A NexuLex continua sem recomendar nenhum advogado.',
   shot_analyze: 'Texto, PDF ou fotos — país e parte',
   shot_decision: 'Assinar, negociar ou recuar — com motivos',

@@ -21,10 +21,11 @@ for (const lang of langs) {
   tables[lang] = load(lang);
 }
 
-const { assertStoreListing, SCREENSHOT_IDS } = require('./cb1-harness').loadApp('en').api;
+const { assertStoreListing, assertStoreAso, SCREENSHOT_IDS } = require('./cb1-harness').loadApp('en').api;
 let result;
 try {
   result = assertStoreListing(tables);
+  result.aso = assertStoreAso(tables).cases;
 } catch (error) {
   console.error(error.message);
   process.exit(1);
@@ -99,4 +100,4 @@ EN: The original trap wording is not sent to the AI again; the shield draft is.
 `;
 
 fs.writeFileSync(listingPath, `${head}${tail}`, 'utf8');
-console.log('Wrote store/listings ×', langs.length, 'fixtures=', result.cases);
+console.log('Wrote store/listings ×', langs.length, 'fixtures=', result.cases, 'aso=', result.aso);

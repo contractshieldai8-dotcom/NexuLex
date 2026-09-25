@@ -11,7 +11,7 @@ Il consulente aggiunge domande giuridiche per il tuo paese, guide alle procedure
 Report disponibili in 13 lingue. I calcolatori legali (indennità, aumento del canone, interessi legali) usano tabelle turche (al 1° gennaio 2026; verifica i valori ufficiali). Negli altri paesi funzionano in modalità generica con il tasso che inserisci tu. Scenari e bozze sono specifici per la Turchia; altrove passaggi generici e un formato di lettera generico. Le bozze sono modelli; nessuna previsione di vittoria né garanzia di accoglimento in tribunale.
 
 Informazione legale generale, non consulenza legale / rappresentanza di un avvocato.`,
-  keywords: 'contratto,locazione,lavoro,NDA,SaaS,clausola,avvocato,rischio,scadenza,consumo',
+  keywords: 'contratto,locazione,lavoro,NDA,SaaS,clausola,avvocato,rischio,scadenza,consumo,inquilino,firma',
   whatsNew: 'Trova un avvocato: albi ufficiali, primo messaggio e fascicolo Pro. Banco Professional, guide alle procedure e domande giuridiche. NexuLex non raccomanda ancora alcun avvocato.',
   shot_analyze: 'Testo, PDF o foto — paese e parte',
   shot_decision: 'Firma, tratta o rinuncia — con motivi',

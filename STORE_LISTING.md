@@ -171,19 +171,19 @@ Algemene juridische informatie, geen juridisch advies / vertegenwoordiging door 
 
 ## Anahtar sözcükler
 
-TR: sözleşme,kira,iş,NDA,SaaS,tuzak,avukat,danışman,tüketici,cezai şart
-EN: contract,lease,NDA,employment,risk,clause,advisor,lawyer,rent,SaaS
-DE: Vertrag,Miete,Arbeitsvertrag,NDA,SaaS,AGB,Anwalt,Frist,Risiko,DSGVO
-FR: contrat,bail,travail,NDA,SaaS,clause,avocat,risque,loyer,échéance
-ES: contrato,alquiler,trabajo,NDA,SaaS,cláusula,abogado,riesgo,plazo,consumo
-AR: عقد,إيجار,عمل,سرية,شرط,محام,مخاطر,موعد,مستهلك,جزاء
-IT: contratto,locazione,lavoro,NDA,SaaS,clausola,avvocato,rischio,scadenza,consumo
-ZH: 合同,租赁,劳动,保密,条款,律师,风险,期限,消费,违约金
-RU: договор,аренда,труд,NDA,SaaS,оговорка,адвокат,риск,срок,потребитель
-FA: قرارداد,اجاره,کار,محرمانگی,بند,وکیل,ریسک,مهلت,مصرف,جریمه
-JA: 契約,賃貸,雇用,NDA,SaaS,条項,弁護士,リスク,期日,消費者
-PT: contrato,aluguel,trabalho,NDA,SaaS,cláusula,advogado,risco,prazo,consumo
-NL: contract,huur,arbeid,NDA,SaaS,clausule,advocaat,risico,termijn,consument
+TR: sözleşme,kira,iş,NDA,SaaS,tuzak,avukat,danışman,tüketici,cezaişart,işçi,imza,süre,taraf
+EN: contract,lease,NDA,employment,risk,clause,advisor,lawyer,rent,SaaS,tenant,deadline,signature
+DE: Vertrag,Miete,Arbeitsvertrag,NDA,SaaS,AGB,Anwalt,Frist,Risiko,DSGVO,Mieter,Unterschrift,Klausel
+FR: contrat,bail,travail,NDA,SaaS,clause,avocat,risque,loyer,échéance,locataire,signature,délai
+ES: contrato,alquiler,trabajo,NDA,SaaS,cláusula,abogado,riesgo,plazo,consumo,inquilino,firma,aviso
+AR: عقد,إيجار,عمل,سرية,شرط,محام,مخاطر,موعد,مستهلك,جزاء,توقيع,مستأجر,مهلة,طرف
+IT: contratto,locazione,lavoro,NDA,SaaS,clausola,avvocato,rischio,scadenza,consumo,inquilino,firma
+ZH: 合同,租赁,劳动,保密,条款,律师,风险,期限,消费,违约金,签名,租客,通知,雇主,审查,截止日期,劳动争议,租赁合同,律师名录,立场选择
+RU: договор,аренда,труд,NDA,SaaS,оговорка,адвокат,риск,срок,потребитель,подпись,арендатор
+FA: قرارداد,اجاره,کار,محرمانگی,بند,وکیل,ریسک,مهلت,مصرف,جریمه,امضا,مستأجر,اخطار,طرف
+JA: 契約,賃貸,雇用,NDA,SaaS,条項,弁護士,リスク,期日,消費者,署名,借主,通知,当事者,契約審査,期限管理,労働契約,賃貸借,弁護士名簿
+PT: contrato,aluguel,trabalho,NDA,SaaS,cláusula,advogado,risco,prazo,consumo,inquilino,assinatura
+NL: contract,huur,arbeid,NDA,SaaS,clausule,advocaat,risico,termijn,consument,huurder,handtekening
 
 ## Ekran görüntüsü sırası
 

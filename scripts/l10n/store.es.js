@@ -11,7 +11,7 @@ El asesor añade preguntas jurídicas de tu país, guías de trámites, expedien
 Informes en 13 idiomas. Las calculadoras legales (indemnización, aumento de renta, interés legal) usan tablas de Turquía (a 1 de enero de 2026; verifica los valores oficiales). En otros países funcionan en modo genérico con la tasa que introduces. Escenarios y borradores son específicos de Turquía; en otros países, pasos genéricos y un formato de carta genérico. Los borradores son plantillas; no hay predicción de ganar ni garantía de aceptación judicial.
 
 Información jurídica general, no asesoramiento jurídico / representación por abogado.`,
-  keywords: 'contrato,alquiler,trabajo,NDA,SaaS,cláusula,abogado,riesgo,plazo,consumo',
+  keywords: 'contrato,alquiler,trabajo,NDA,SaaS,cláusula,abogado,riesgo,plazo,consumo,inquilino,firma,aviso',
   whatsNew: 'Encontrar abogado: directorios oficiales, primer mensaje y dosier Pro. Mesa Professional, guías de trámites y preguntas jurídicas. NexuLex sigue sin recomendar a ningún abogado.',
   shot_analyze: 'Texto, PDF o fotos — país y parte',
   shot_decision: 'Firmar, negociar o retirarte — con motivos',

@@ -11,7 +11,7 @@ The advisor adds legal questions for your country, step-by-step process guides, 
 Reports are available in 13 languages. Statutory calculators (severance, rent increase, legal interest) use Turkish tables (dated 1 January 2026; check current official values). In other countries the calculators run in a generic mode where you enter the rate. Scenarios and drafts are Türkiye-specific; elsewhere you get generic steps and a generic letter format. Drafts are templates; there is no prediction of winning and no guarantee of acceptance by a court.
 
 General legal information, not legal advice / lawyer representation.`,
-  keywords: 'contract,lease,NDA,employment,risk,clause,advisor,lawyer,rent,SaaS',
+  keywords: 'contract,lease,NDA,employment,risk,clause,advisor,lawyer,rent,SaaS,tenant,deadline,signature',
   whatsNew: 'Find a lawyer: official bar and legal-aid directories, a first message and a Pro case packet. Professional workbench, process guides and legal Q&A. NexuLex still does not recommend any lawyer.',
   shot_analyze: 'Paste, PDF or photos — pick country and side',
   shot_decision: 'Sign, negotiate or walk away — with reasons',

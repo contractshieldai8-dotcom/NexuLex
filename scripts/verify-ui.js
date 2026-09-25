@@ -6112,5 +6112,53 @@ Ticaret Unvanı: Anadolu Bilişim
   if (grOk) console.log(`OK  WAVE GR.5 advisor home (${fixtures} fixtures): 4 jobs × 13, guides and lawyer on the main screen`);
 }
 
+// WAVE REL.2 — ASO keyword fill + screenshot captions 22–48 × 13; listing stays out of the app
+{
+  let relOk = true;
+  const relFail = (msg) => {
+    failed = true;
+    relOk = false;
+    console.log(`WAVE REL.2 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const LANGS = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+  let fixtures = 0;
+  try {
+    const { loadApp } = require('./cb1-harness');
+    const { api } = loadApp('en');
+    const tables = Object.fromEntries(LANGS.map((L) => [L, require(`./l10n/store.${L}.js`)]));
+    ({ cases: fixtures } = api.assertStoreAso(tables));
+    if (!api.STORE_CHECKLIST.some((item) => item.id === 'screenshot_order') || !api.STORE_CHECKLIST.some((item) => item.id === 'aso_keywords_fill')) {
+      relFail('checklist must cover screenshot order and keyword fill');
+    }
+    if (api.STORE_CHECKLIST.length < 16) relFail('launch checklist must keep REL.1 rows plus ASO rows');
+    for (const L of LANGS) {
+      const file = `store/listings/${L}.json`;
+      if (!fs.existsSync(file)) {
+        relFail(`${file} missing — run node scripts/gen-store-listings.js`);
+        continue;
+      }
+      const json = JSON.parse(read(file));
+      if (json.apple.keywords !== tables[L].keywords) relFail(`${L} keywords drifted`);
+      for (const id of api.SCREENSHOT_IDS) {
+        if (json.screenshots?.[id] !== tables[L][`shot_${id}`]) relFail(`${L} shot_${id} drifted`);
+      }
+    }
+    const listing = read('STORE_LISTING.md');
+    if (!/## Ekran görüntüsü sırası/.test(listing)) relFail('STORE_LISTING.md must keep the screenshot order');
+    if (!/Selected by the user via the system picker/.test(listing)) relFail('Data Safety photo-picker sentence must stay');
+    if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) relFail('store listing must not be imported by the app');
+  } catch (error) {
+    relFail(`runtime: ${error.message}`);
+  }
+
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') relFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) relFail('dependency count changed');
+
+  if (relOk) {
+    console.log(`OK  WAVE REL.2 store ASO (${fixtures} fixtures): keyword fill 70–100 and screenshot captions 22–48 × ${LANGS.length}, listing not in the app bundle`);
+  }
+}
 
 process.exit(failed ? 1 : 0);

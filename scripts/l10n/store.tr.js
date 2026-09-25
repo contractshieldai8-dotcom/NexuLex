@@ -11,7 +11,7 @@ Danışman; ülkenize göre hukuki sorular, adım adım süreç rehberleri, ciha
 Raporlar 13 dilde alınabilir. Kanuni hesaplayıcılar (kıdem, kira artışı, yasal faiz) Türkiye tablolarıyla çalışır (1 Ocak 2026; güncel resmî değerleri kontrol edin). Diğer ülkelerde hesaplayıcılar genel modda çalışır ve oranı siz girersiniz. Senaryolar ve taslaklar Türkiye’ye özgüdür; diğer ülkelerde genel adımlar ve genel mektup formatı sunulur. Taslaklar şablondur; kazanma olasılığı veya mahkemede kabul garantisi verilmez.
 
 NexuLex bir hukuk bürosu değildir. Bu hukuki danışmanlık değildir ve NexuLex sizi temsil etmez. NexuLex hiçbir avukatı önermez.`,
-  keywords: 'sözleşme,kira,iş,NDA,SaaS,tuzak,avukat,danışman,tüketici,cezai şart',
+  keywords: 'sözleşme,kira,iş,NDA,SaaS,tuzak,avukat,danışman,tüketici,cezaişart,işçi,imza,süre,taraf',
   whatsNew: 'Avukat bul: resmî baro ve adli yardım rehberleri, ilk mesaj ve Pro dosya paketi. Professional çalışma masası, süreç rehberleri ve hukuki soru-cevap. NexuLex hâlâ hiçbir avukatı önermez.',
   shot_analyze: 'Yapıştır, PDF veya foto — ülke ve taraf seç',
   shot_decision: 'İmzala, müzakere et veya vazgeç — gerekçeli',

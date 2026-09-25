@@ -11,7 +11,7 @@ Der Berater ergänzt Rechtsfragen für Ihr Land, Schritt-für-Schritt-Leitfäden
 Berichte gibt es in 13 Sprachen. Gesetzliche Rechner (Abfindung, Mieterhöhung, gesetzliche Zinsen) nutzen türkische Tabellen (Stand 1. Januar 2026; aktuelle amtliche Werte prüfen). In anderen Ländern laufen die Rechner im allgemeinen Modus, den Satz geben Sie selbst ein. Szenarien und Entwürfe sind Türkei-spezifisch; anderswo allgemeine Schritte und ein allgemeines Briefformat. Entwürfe sind Vorlagen; keine Erfolgsprognose, keine Garantie der Annahme durch ein Gericht.
 
 Allgemeine rechtliche Information, keine Rechtsberatung / anwaltliche Vertretung.`,
-  keywords: 'Vertrag,Miete,Arbeitsvertrag,NDA,SaaS,AGB,Anwalt,Frist,Risiko,DSGVO',
+  keywords: 'Vertrag,Miete,Arbeitsvertrag,NDA,SaaS,AGB,Anwalt,Frist,Risiko,DSGVO,Mieter,Unterschrift,Klausel',
   whatsNew: 'Anwalt finden: offizielle Kammer- und Rechtshilfeverzeichnisse, erste Nachricht und Pro-Fallmappe. Professional-Werkbank, Verfahrensleitfäden und Rechtsfragen. NexuLex empfiehlt weiterhin keine Anwälte.',
   shot_analyze: 'Text, PDF oder Foto — Land und Partei',
   shot_decision: 'Unterschreiben, verhandeln oder gehen',

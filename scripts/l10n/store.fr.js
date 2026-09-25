@@ -11,7 +11,7 @@ Le conseiller ajoute des questions juridiques pour votre pays, des guides de pro
 Rapports disponibles en 13 langues. Les calculateurs légaux (indemnité, hausse de loyer, intérêt légal) utilisent des tables turques (au 1er janvier 2026 ; vérifiez les valeurs officielles). Dans les autres pays, ils fonctionnent en mode générique avec un taux que vous saisissez. Scénarios et modèles sont propres à la Turquie ; ailleurs, étapes génériques et format de lettre générique. Les modèles restent des modèles ; aucune prédiction de succès ni garantie d’acceptation par un tribunal.
 
 Information juridique générale, pas un conseil juridique / une représentation par un avocat.`,
-  keywords: 'contrat,bail,travail,NDA,SaaS,clause,avocat,risque,loyer,échéance',
+  keywords: 'contrat,bail,travail,NDA,SaaS,clause,avocat,risque,loyer,échéance,locataire,signature,délai',
   whatsNew: 'Trouver un avocat : annuaires officiels, premier message et dossier Pro. Atelier Professional, guides de procédure et questions juridiques. NexuLex ne recommande toujours aucun avocat.',
   shot_analyze: 'Texte, PDF ou photos — pays et partie',
   shot_decision: 'Signer, négocier ou renoncer — motivé',

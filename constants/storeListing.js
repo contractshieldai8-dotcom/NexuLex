@@ -56,6 +56,8 @@ export const STORE_CHECKLIST = [
   { id: 'category', store: 'both', need: 'Primary category: Productivity; secondary: Business' },
   { id: 'ai_disclosure', store: 'play', need: 'Mark AI-generated content and keep the in-app report action' },
   { id: 'no_win_percent', store: 'both', need: 'Listing never states a win %, court representation or a recommended lawyer' },
+  { id: 'screenshot_order', store: 'both', need: 'Seven screenshots in SCREENSHOT_IDS order: analyze, decision, advisor, cases, guides, lawyer, languages' },
+  { id: 'aso_keywords_fill', store: 'appstore', need: 'Apple keywords use most of the 100-character budget, no app name, comma-separated, no spaces around commas' },
 ];
 
 const len = (value) => [...String(value || '')].length;
@@ -118,4 +120,30 @@ export function assertStoreListing(tables) {
   check(/hukuki danışmanlık değildir|hukuki tavsiye/.test(tables.tr.description), 'TR names that this is not legal advice');
   check(/avukat önermez|hiçbir avukatı önermez/.test(tables.tr.description), 'TR says NexuLex does not recommend a lawyer');
   return { cases, langs: STORE_LANGS.length, shots: SCREENSHOT_IDS.length, checks: STORE_CHECKLIST.length };
+}
+
+/** WAVE REL.2 — ASO fill and screenshot caption tightness. Listing still stays out of the app bundle. */
+export function assertStoreAso(tables) {
+  let cases = 0;
+  const check = (cond, msg) => {
+    cases += 1;
+    if (!cond) throw new Error(`storeAso: ${msg}`);
+  };
+  check(STORE_CHECKLIST.some((item) => item.id === 'screenshot_order'), 'checklist covers screenshot order');
+  check(STORE_CHECKLIST.some((item) => item.id === 'aso_keywords_fill'), 'checklist covers keyword fill');
+  for (const lang of STORE_LANGS) {
+    const row = tables[lang];
+    const kw = String(row?.keywords || '');
+    const kwLen = len(kw);
+    check(kwLen >= 70 && kwLen <= STORE_LIMITS.keywords, `${lang} keywords fill ${kwLen}`);
+    const parts = kw.split(',').map((part) => part.trim()).filter(Boolean);
+    check(parts.length >= 8 && new Set(parts).size === parts.length, `${lang} unique keyword tokens`);
+    check(!parts.some((part) => /nexulex/i.test(part)), `${lang} keywords must not include the app name`);
+    check(!/\s/.test(kw.replace(/,/g, '')), `${lang} keywords must not contain spaces`);
+    for (const id of SCREENSHOT_IDS) {
+      const n = len(row[`shot_${id}`]);
+      check(n >= 22 && n <= STORE_LIMITS.screenshot, `${lang} shot_${id} length ${n}`);
+    }
+  }
+  return { cases };
 }

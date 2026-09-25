@@ -11,7 +11,7 @@ De adviseur voegt juridische vragen voor uw land toe, stapsgewijze procedurehulp
 Rapporten in 13 talen. Wettelijke rekenhulpen (ontslagvergoeding, huurverhoging, wettelijke rente) gebruiken Turkse tabellen (per 1 januari 2026; controleer de actuele officiële waarden). In andere landen werken ze in een algemene modus waarin u het tarief zelf invult. Scenario’s en concepten zijn specifiek voor Turkije; elders algemene stappen en een algemeen briefformaat. Concepten zijn sjablonen; geen voorspelling van winst en geen garantie op aanvaarding door een rechter.
 
 Algemene juridische informatie, geen juridisch advies / vertegenwoordiging door een advocaat.`,
-  keywords: 'contract,huur,arbeid,NDA,SaaS,clausule,advocaat,risico,termijn,consument',
+  keywords: 'contract,huur,arbeid,NDA,SaaS,clausule,advocaat,risico,termijn,consument,huurder,handtekening',
   whatsNew: 'Advocaat vinden: officiële gidsen, eerste bericht en Pro-dossiermap. Professional-werkbank, procedurehulp en juridische vragen. NexuLex beveelt nog steeds geen advocaat aan.',
   shot_analyze: 'Tekst, PDF of foto’s — land en partij',
   shot_decision: 'Teken, onderhandel of stap weg',
