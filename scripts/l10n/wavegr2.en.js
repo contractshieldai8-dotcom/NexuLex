@@ -1,0 +1,21 @@
+// WAVE GR.2 — Second-session resume (EN master). No digits.
+module.exports = {
+  rsTitle: 'Pick up where you left off',
+  rsHint: 'Your last case and question stay on this phone. Nothing is sent until you ask or analyze.',
+  rsDraft: 'Unfinished contract',
+  rsDraftHint: 'The text you pasted is still here. Open Analyze to finish the scan.',
+  rsCase: 'Open your last case file',
+  rsCaseHint: 'Dates, notes and evidence fingerprints are waiting on this phone.',
+  rsAsk: 'Return to your last question',
+  rsAskHint: 'Open the saved answer and the official sources you can check.',
+  rsAnalysis: 'Open your last report',
+  rsAnalysisHint: 'The latest scan is ready on Analyze, including dates and risky clauses.',
+  rsSkip: 'Not now',
+  rsDisclaimer: 'NexuLex is not a law firm. This is not legal advice and NexuLex does not represent you.',
+  rsHomeDraft: 'You left a contract unfinished',
+  rsHomeDraftHint: 'Your pasted text is still on this phone. Continue, or hide this reminder.',
+  rsHomeContinue: 'Continue',
+  rsHomeDismiss: 'Hide for now',
+  rsFileAgain: 'Pick the PDF again. The file name was kept; the file itself was not stored.',
+  rsMissing: 'That item is no longer on this phone.',
+};

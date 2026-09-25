@@ -66,6 +66,10 @@ import {
   suggestJurisdiction,
 } from './utils/locale';
 import { FIRST_INTENTS, actionForIntent } from './constants/firstIntent';
+import { collectResumeItems, shouldOfferResumeSheet, actionForResume } from './constants/sessionResume';
+import { loadResumeDraft, saveResumeDraft, clearResumeDraft, isUsableDraft } from './utils/sessionResume';
+import { loadCases } from './services/caseFileStore';
+import { loadSavedAnswers } from './services/legalAsk';
 import { mergeDeadlines, loadUpcomingDeadlines, sortDeadlines, kindLabelKey, nextAnniversary, parseIsoDate } from './utils/deadlines';
 import {
   APP_LANGUAGES,
@@ -114,6 +118,7 @@ import DiffTool from './components/DiffTool';
 import ShieldDocumentCard from './components/ShieldDocumentCard';
 import NexuLexGuideSheet from './components/NexuLexGuideSheet';
 import FirstIntentSheet from './components/FirstIntentSheet';
+import ResumeSessionSheet from './components/ResumeSessionSheet';
 import { getAvailability } from './constants/jurisdictionPacks';
 import LifecycleChips from './components/LifecycleChips';
 import VoiceMicButton from './components/VoiceMicButton';
@@ -321,6 +326,12 @@ function AppContent() {
   const [welcomeLangSheet, setWelcomeLangSheet] = useState(false);
   const [intentOpen, setIntentOpen] = useState(false);
   const [localeOnboardTick, setLocaleOnboardTick] = useState(0);
+  const [resumeOpen, setResumeOpen] = useState(false);
+  const [resumeItems, setResumeItems] = useState([]);
+  const [resumeDraft, setResumeDraft] = useState(null);
+  const [resumeReady, setResumeReady] = useState(false);
+  const [resumeBannerHidden, setResumeBannerHidden] = useState(false);
+  const resumeOfferedRef = useRef(false);
   const [localeReady, setLocaleReady] = useState(false);
   const [authBootstrapped, setAuthBootstrapped] = useState(false);
   const [reportLangSheetVisible, setReportLangSheetVisible] = useState(false);
@@ -561,6 +572,7 @@ function AppContent() {
     if (!uid) return;
     if (pendingShareCodeRef.current) return;
     if (resultRef.current) return;
+    if (isUsableDraft(await loadResumeDraft())) return;
     try {
       const initialUrl = await Linking.getInitialURL().catch(() => null);
       if (parseShareCode(initialUrl) || pendingShareCodeRef.current) return;
@@ -580,6 +592,46 @@ function AppContent() {
       /* soğuk açılış sessiz */
     }
   }, [rememberLastAnalysisId]);
+
+  const applyResume = useCallback(
+    (item) => {
+      const action = actionForResume(item);
+      if (!action) return;
+      if (item.kind === 'draft') {
+        if (resumeDraft?.text) {
+          setContractText((prev) => (String(prev || '').trim() ? prev : resumeDraft.text));
+        }
+        setActiveTab('analyze');
+        setWorkspaceMode('analyze');
+        if (resumeDraft?.fileName) showToast(t('rsFileAgain'), { type: 'info' });
+        return;
+      }
+      if (item.kind === 'analysis') {
+        restoreLastShield(userId).catch(() => {});
+        setActiveTab('analyze');
+        setWorkspaceMode('analyze');
+        return;
+      }
+      handleGuideAction(action);
+    },
+    [handleGuideAction, restoreLastShield, resumeDraft, showToast, t, userId]
+  );
+
+  const runResume = useCallback(
+    (item, { fromSheet = false } = {}) => {
+      if (fromSheet) {
+        setResumeOpen(false);
+        setTimeout(() => applyResume(item), 400);
+        return;
+      }
+      applyResume(item);
+    },
+    [applyResume]
+  );
+
+  const skipResume = useCallback(() => {
+    setResumeOpen(false);
+  }, []);
 
   const openReminderAnalysis = useCallback(
     async (analysisId) => {
@@ -792,6 +844,69 @@ function AppContent() {
       cancelled = true;
     };
   }, [userId, localeReady, localeOnboardTick]);
+
+  useEffect(() => {
+    if (!userId) {
+      setResumeDraft(null);
+      setResumeReady(false);
+      setResumeBannerHidden(false);
+      setResumeOpen(false);
+      setResumeItems([]);
+      resumeOfferedRef.current = false;
+      return undefined;
+    }
+    let cancelled = false;
+    loadResumeDraft().then((draft) => {
+      if (cancelled) return;
+      if (isUsableDraft(draft)) {
+        setResumeDraft(draft);
+        setContractText((prev) => (String(prev || '').trim() ? prev : draft.text || prev));
+      }
+      setResumeReady(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [userId]);
+
+  useEffect(() => {
+    if (!userId || !resumeReady) return undefined;
+    if (result) {
+      clearResumeDraft();
+      setResumeDraft(null);
+      return undefined;
+    }
+    const timer = setTimeout(() => {
+      saveResumeDraft({ text: contractText, fileName: selectedFile?.name || '' }).then((next) => {
+        setResumeDraft(next);
+      });
+    }, 600);
+    return () => clearTimeout(timer);
+  }, [userId, resumeReady, result, contractText, selectedFile]);
+
+  useEffect(() => {
+    if (!userId || !localeReady || intentOpen) return undefined;
+    let cancelled = false;
+    const offerResume = async () => {
+      if (resumeOfferedRef.current) return;
+      if (!(await isLocaleOnboarded()) || !(await isIntentOnboarded())) return;
+      const draft = await loadResumeDraft();
+      const cases = await loadCases();
+      const answers = await loadSavedAnswers();
+      const lastAnalysisId = String((await AsyncStorage.getItem(LAST_ANALYSIS_KEY)) || '').trim();
+      const lastCase = [...cases].sort((a, b) => String(b.updatedAt || '').localeCompare(String(a.updatedAt || '')))[0] || null;
+      const lastAsk = answers[0] || null;
+      const items = collectResumeItems({ draft, lastCase, lastAsk, lastAnalysisId });
+      if (cancelled || !shouldOfferResumeSheet(items)) return;
+      resumeOfferedRef.current = true;
+      setResumeItems(items);
+      setResumeOpen(true);
+    };
+    offerResume().catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [userId, localeReady, localeOnboardTick, intentOpen]);
 
   // Girişte ve satın alma sonrasında profili/kotayı yeniden okur.
   const refreshProfile = useCallback(async () => {
@@ -3577,6 +3692,37 @@ function AppContent() {
               <View>
               {!result ? (
                 <View style={{ marginBottom: 12 }}>
+                  {isUsableDraft(resumeDraft) && !resumeBannerHidden ? (
+                    <View
+                      style={{
+                        marginBottom: 12,
+                        padding: 12,
+                        borderRadius: 14,
+                        borderWidth: 1,
+                        borderColor: theme.borderColor,
+                        backgroundColor: theme.cardBg,
+                      }}
+                    >
+                      <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>{t('rsHomeDraft')}</Text>
+                      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 10 }]}>{t('rsHomeDraftHint')}</Text>
+                      <View style={{ flexDirection: 'row', gap: 8 }}>
+                        <TouchableOpacity
+                          onPress={() => runResume({ kind: 'draft', icon: 'document-text-outline' })}
+                          accessibilityRole="button"
+                          style={[styles.secondaryBtn, { flex: 1, marginTop: 0 }]}
+                        >
+                          <Text style={styles.secondaryBtnText}>{t('rsHomeContinue')}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() => setResumeBannerHidden(true)}
+                          accessibilityRole="button"
+                          style={[styles.secondaryBtn, { flex: 1, marginTop: 0 }]}
+                        >
+                          <Text style={styles.secondaryBtnText}>{t('rsHomeDismiss')}</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  ) : null}
                   <Text style={[styles.label, { color: theme.subText, marginBottom: 8 }]}>{t('fiHomeTitle')}</Text>
                   <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingVertical: 2 }}>
                     {FIRST_INTENTS.map((item) => (
@@ -4274,6 +4420,15 @@ function AppContent() {
         onPick={(id) => runFirstIntent(id, { fromSheet: true })}
         onSkip={skipFirstIntent}
         onClose={skipFirstIntent}
+      />
+
+      <ResumeSessionSheet
+        visible={resumeOpen}
+        theme={theme}
+        items={resumeItems}
+        onPick={(item) => runResume(item, { fromSheet: true })}
+        onSkip={skipResume}
+        onClose={skipResume}
       />
 
       <NexuLexGuideSheet

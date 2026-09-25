@@ -30,6 +30,7 @@ function buildResources() {
     loadWave('i18n.wavelr6.js', 'WAVE_LR6_I18N'),
     loadWave('i18n.waveqa1.js', 'WAVE_QA1_I18N'),
     loadWave('i18n.wavegr1.js', 'WAVE_GR1_I18N'),
+    loadWave('i18n.wavegr2.js', 'WAVE_GR2_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {
@@ -130,6 +131,7 @@ const APP_FILES = [
   'utils/plan.js',
   'constants/storeListing.js',
   'constants/firstIntent.js',
+  'constants/sessionResume.js',
 ];
 
 function loadApp(language = 'tr') {
