@@ -6557,4 +6557,46 @@ Ticaret Unvanı: Anadolu Bilişim
   }
 }
 
+// WAVE ST.3 — privacy / delete web pages × 13; photo Data Safety sentence stays locked
+{
+  let st3Ok = true;
+  const st3Fail = (msg) => {
+    failed = true;
+    st3Ok = false;
+    console.log(`WAVE ST.3 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  let fixtures = 0;
+  try {
+    const { assertLegalWebPages } = require('./legalWebAssert');
+    ({ cases: fixtures } = assertLegalWebPages(read('web/privacy.html'), read('web/delete-account.html'), read('STORE_LISTING.md')));
+  } catch (error) {
+    st3Fail(`runtime: ${error.message}`);
+  }
+  const privacy = read('web/privacy.html');
+  const del = read('web/delete-account.html');
+  const listing = read('STORE_LISTING.md');
+  if (!/data-lang="ja"/.test(privacy) || !/data-lang="nl"/.test(del)) st3Fail('all 13 language buttons must be present');
+  if (!/URLSearchParams\(location\.search\)/.test(privacy) || !/URLSearchParams\(location\.search\)/.test(del)) {
+    st3Fail('pages must honor ?lang= for the locale switcher');
+  }
+  if (!listing.includes("Selected by the user via the system picker. Sent to our server and AI provider solely to analyze the contract; analysis results are stored in the user's account until deleted by the user or upon account deletion. Never accessed in the background.")) {
+    st3Fail('Data Safety photo-picker sentence must stay');
+  }
+  if (!/does not recommend, rank or refer lawyers/.test(read('web/terms.html')) || !/avukat önermez, sıralamaz/.test(read('web/terms.html'))) {
+    st3Fail('terms.html lawyer sentence must stay');
+  }
+  if (!/delete-account\.html/.test(read('scripts/publish-brief-web.js')) || !/privacy\.html/.test(read('scripts/publish-brief-web.js'))) {
+    st3Fail('publish-brief-web must still copy privacy and delete-account');
+  }
+  if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) st3Fail('store listing must stay out of the app');
+  if (/anonymi[sz]ed|hashed|anonimleştir|hashlen/i.test(privacy + del)) st3Fail('web pages must not claim anonymized quota');
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') st3Fail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) st3Fail('dependency count changed');
+  if (st3Ok) {
+    console.log(`OK  WAVE ST.3 privacy and delete pages (${fixtures} fixtures): 13 locales, ST.1 photo/quota goldens frozen`);
+  }
+}
+
 process.exit(failed ? 1 : 0);
