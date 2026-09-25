@@ -140,6 +140,7 @@ import { AdvisorChatProvider, useAdvisorChat } from './context/AdvisorChatContex
 import { ReportAiButton } from './components/AiReportSheet';
 import { deleteAccountAndPurge, openSubscriptionManagement } from './services/account';
 import { TRUST_URLS } from './constants/settingsTrust';
+import { corridorMessage } from './constants/localeCorridor';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LAST_ANALYSIS_KEY = '@nexulex/last_analysis_id';
@@ -864,7 +865,7 @@ function AppContent() {
 
       const choice = await showModal({
         title: i18n.t('localeWelcomeTitle'),
-        message: i18n.t('localeWelcomeBody', { language: languageLabel, country: countryLabel }),
+        message: corridorMessage((key, opts) => i18n.t(key, opts), { language: languageLabel, country: countryLabel }),
         cancelLabel: false,
         actions,
       });
