@@ -14,20 +14,53 @@ h1{font-size:22px;font-weight:700;line-height:1.3;margin:8px 0 12px}
 .body{color:#CBD5E1;margin:0 0 12px}
 .code{color:#00F5D4;font-weight:700;letter-spacing:0.08em;font-size:20px;margin:12px 0 18px}
 .cta{display:flex;flex-direction:column;gap:10px;margin-top:22px;width:100%}
-.cta a{display:block;box-sizing:border-box;width:100%;text-align:center;text-decoration:none;border-radius:12px;padding:14px 16px;font-weight:600;min-height:48px;line-height:20px;background:#00F5D4;color:#080C14}
+.cta a{display:block;box-sizing:border-box;width:100%;text-align:center;text-decoration:none;border-radius:12px;padding:14px 16px;font-weight:600;min-height:48px;line-height:20px}
+.cta a.primary{background:#00F5D4;color:#080C14}
+.cta a.store{background:transparent;border:1px solid #00F5D4;color:#00F5D4}
+.note{color:#94A3B8;font-size:14px;margin:4px 0 0}
+.legal{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0 16px}
+.legal a{color:#00F5D4;font-size:14px}
+.disclaimer{color:#94A3B8;font-size:13px;margin:18px 0 0}
+.lang{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.lang button{background:transparent;border:1px solid #1E293B;color:#94A3B8;border-radius:8px;padding:8px 12px;font-weight:600}
+.lang button.active{border-color:#00F5D4;color:#00F5D4}
 .hidden{display:none}
+[dir=rtl]{text-align:right}
 </style>
 </head>
 <body>
 <main>
 <p class="accent">NexuLex AI</p>
+<nav class="lang" id="langs">
+<button type="button" data-lang="tr">TR</button>
+<button type="button" data-lang="en">EN</button>
+<button type="button" data-lang="de">DE</button>
+<button type="button" data-lang="fr">FR</button>
+<button type="button" data-lang="es">ES</button>
+<button type="button" data-lang="ar">AR</button>
+<button type="button" data-lang="it">IT</button>
+<button type="button" data-lang="zh">ZH</button>
+<button type="button" data-lang="ru">RU</button>
+<button type="button" data-lang="fa">FA</button>
+<button type="button" data-lang="ja">JA</button>
+<button type="button" data-lang="pt">PT</button>
+<button type="button" data-lang="nl">NL</button>
+</nav>
 <h1 id="title"></h1>
 <p id="pitch" class="pitch"></p>
 <p id="body" class="body"></p>
 <p id="code-line" class="code hidden"></p>
 <div class="cta">
-<a id="open-app" href="nexulex://share/"></a>
+<a id="open-app" class="primary" href="nexulex://share/"></a>
+<a id="play-store" class="store hidden" href="__PLAY_STORE_HREF__" rel="noopener"></a>
+<p id="app-store-note" class="note"></p>
 </div>
+<nav class="legal">
+<a id="privacy-link" href="privacy.html"></a>
+<a id="terms-link" href="terms.html"></a>
+<a id="delete-link" href="delete-account.html"></a>
+</nav>
+<p id="disclaimer" class="disclaimer"></p>
 </main>
 <script>
 (function () {
@@ -54,19 +87,19 @@ h1{font-size:22px;font-weight:700;line-height:1.3;margin:8px 0 12px}
     nl: 'Een extra paar ogen. Het origineel blijft privé. 2 gratis scans. Geen advocaat.'
   };
   var BODY = {
-    tr: 'Play kaydı henüz yayında değil. Kullandığınız NexuLex AI uygulamasını açın veya yükleyin; ardından 8 karakterlik kodu yapıştırın.',
-    en: 'The Play listing is not live yet. Install or open the NexuLex AI app you already use, then paste the 8-character code.',
-    de: 'Der Play-Eintrag ist noch nicht live. Installieren oder öffnen Sie die NexuLex-AI-App, die Sie bereits nutzen, und fügen Sie dann den 8-Zeichen-Code ein.',
-    fr: 'La fiche Play n’est pas encore en ligne. Installez ou ouvrez l’app NexuLex AI que vous utilisez déjà, puis collez le code à 8 caractères.',
-    es: 'La ficha de Play aún no está publicada. Instala o abre la app NexuLex AI que ya usas y pega el código de 8 caracteres.',
-    ar: 'قائمة Play ليست متاحة بعد. ثبّت أو افتح تطبيق NexuLex AI الذي تستخدمه ثم الصق الرمز المكوّن من 8 أحرف.',
-    it: 'La scheda Play non è ancora online. Installa o apri l’app NexuLex AI che già usi, poi incolla il codice di 8 caratteri.',
-    zh: 'Play 上架尚未上线。请安装或打开你已在使用的 NexuLex AI 应用，然后粘贴 8 位代码。',
-    ru: 'Страница Play ещё не опубликована. Установите или откройте приложение NexuLex AI, которым вы уже пользуетесь, затем вставьте 8-символьный код.',
-    fa: 'فهرست Play هنوز منتشر نشده. برنامه NexuLex AI را که از قبل استفاده می‌کنید نصب یا باز کنید؛ سپس کد ۸ نویسه‌ای را بچسبانید.',
-    ja: 'Playの掲載はまだ公開されていません。利用中のNexuLex AIアプリをインストールまたは開き、8文字のコードを貼り付けてください。',
-    pt: 'A ficha da Play ainda não está publicada. Instale ou abra a app NexuLex AI que já usa e cole o código de 8 caracteres.',
-    nl: 'De Play-vermelding is nog niet live. Installeer of open de NexuLex AI-app die je al gebruikt en plak daarna de 8-tekencode.'
+    tr: 'Google Play düğmesi yalnızca liste yayındaysa görünür. App Store listesi henüz canlı değil; bir Apple uygulama numarası yok. Kullandığınız NexuLex AI uygulamasını açın, ardından 8 karakterlik kodu yapıştırın.',
+    en: 'The Google Play button appears only when the listing is published. The App Store listing is not live yet and there is no Apple app number. Open the NexuLex AI app you already use, then paste the 8-character code.',
+    de: 'Die Google-Play-Schaltflaeche erscheint nur, wenn der Eintrag veroeffentlicht ist. Der App-Store-Eintrag ist noch nicht live und es gibt keine Apple-App-Nummer. Oeffnen Sie die NexuLex-AI-App, die Sie bereits nutzen, und fuegen Sie den 8-Zeichen-Code ein.',
+    fr: 'Le bouton Google Play n apparait que si la fiche est publiee. La fiche App Store n est pas encore en ligne et il n y a pas de numero d app Apple. Ouvrez l app NexuLex AI que vous utilisez deja, puis collez le code a 8 caracteres.',
+    es: 'El boton de Google Play solo aparece cuando la ficha esta publicada. La ficha de App Store aun no esta activa y no hay numero de app de Apple. Abra la app NexuLex AI que ya usa y pegue el codigo de 8 caracteres.',
+    ar: 'زر Google Play يظهر فقط عندما تُنشر القائمة. قائمة App Store ليست متاحة بعد ولا يوجد رقم تطبيق Apple. افتح تطبيق NexuLex AI الذي تستخدمه ثم الصق الرمز المكوّن من 8 أحرف.',
+    it: 'Il pulsante Google Play compare solo quando la scheda e pubblicata. La scheda App Store non e ancora online e non c e un numero app Apple. Apri l app NexuLex AI che gia usi, poi incolla il codice di 8 caratteri.',
+    zh: 'Google Play 按钮仅在列表上线后显示。App Store 列表尚未上线，也没有 Apple 应用编号。打开你已在使用的 NexuLex AI 应用，然后粘贴 8 位代码。',
+    ru: 'Кнопка Google Play появляется только если карточка опубликована. Карточки App Store ещё нет, и номера приложения Apple нет. Откройте приложение NexuLex AI, которым вы уже пользуетесь, затем вставьте 8-символьный код.',
+    fa: 'دکمه Google Play فقط وقتی فهرست منتشر شده باشد دیده می‌شود. فهرست App Store هنوز زنده نیست و شماره برنامه اپل نیست. برنامه NexuLex AI را که از قبل استفاده می‌کنید باز کنید؛ سپس کد ۸ نویسه‌ای را بچسبانید.',
+    ja: 'Google Play ボタンは掲載が公開されているときだけ出ます。App Store 掲載はまだ公開されておらず、Apple のアプリ番号もありません。利用中の NexuLex AI アプリを開き、8文字のコードを貼り付けてください。',
+    pt: 'O botao da Google Play so aparece quando a ficha estiver publicada. A ficha da App Store ainda nao esta ativa e nao ha numero de app da Apple. Abra a app NexuLex AI que ja usa e cole o codigo de 8 caracteres.',
+    nl: 'De Google Play-knop verschijnt alleen als de fiche gepubliceerd is. De App Store-fiche is nog niet live en er is geen Apple-appnummer. Open de NexuLex AI-app die je al gebruikt en plak daarna de 8-tekencode.'
   };
   var CODE_LINE = {
     tr: 'Kodunuz: ',
@@ -98,39 +131,148 @@ h1{font-size:22px;font-weight:700;line-height:1.3;margin:8px 0 12px}
     pt: 'Abrir no NexuLex',
     nl: 'Openen in NexuLex'
   };
+  var PLAY = {
+    tr: 'Google Play’de aç',
+    en: 'Open on Google Play',
+    de: 'In Google Play oeffnen',
+    fr: 'Ouvrir sur Google Play',
+    es: 'Abrir en Google Play',
+    ar: 'افتح في Google Play',
+    it: 'Apri su Google Play',
+    zh: '在 Google Play 中打开',
+    ru: 'Открыть в Google Play',
+    fa: 'باز کردن در Google Play',
+    ja: 'Google Play で開く',
+    pt: 'Abrir na Google Play',
+    nl: 'Openen in Google Play'
+  };
+  var APPSTORE = {
+    tr: 'App Store listesi henüz canlı değil. Açılacak bir Apple uygulama numarası yok.',
+    en: 'The App Store listing is not live yet. There is no Apple app number to open.',
+    de: 'Der App-Store-Eintrag ist noch nicht live. Es gibt keine Apple-App-Nummer zum Oeffnen.',
+    fr: 'La fiche App Store n est pas encore en ligne. Il n y a pas de numero d app Apple a ouvrir.',
+    es: 'La ficha de App Store aun no esta activa. No hay numero de app de Apple que abrir.',
+    ar: 'قائمة App Store ليست متاحة بعد. ولا يوجد رقم تطبيق Apple لفتحه.',
+    it: 'La scheda App Store non e ancora online. Non c e un numero app Apple da aprire.',
+    zh: 'App Store 列表尚未上线。没有可打开的 Apple 应用编号。',
+    ru: 'Карточки App Store ещё нет. Номера приложения Apple, который можно открыть, нет.',
+    fa: 'فهرست App Store هنوز زنده نیست. شماره برنامه اپلی برای بازکردن نیست.',
+    ja: 'App Store 掲載はまだ公開されていません。開く Apple のアプリ番号はありません。',
+    pt: 'A ficha da App Store ainda nao esta ativa. Nao ha numero de app da Apple para abrir.',
+    nl: 'De App Store-fiche is nog niet live. Er is geen Apple-appnummer om te openen.'
+  };
+  var PRIVACY = {
+    tr: 'Gizlilik', en: 'Privacy', de: 'Datenschutz', fr: 'Confidentialite', es: 'Privacidad',
+    ar: 'الخصوصية', it: 'Privacy', zh: '隐私', ru: 'Конфиденциальность', fa: 'حریم خصوصی',
+    ja: 'プライバシー', pt: 'Privacidade', nl: 'Privacy'
+  };
+  var TERMS = {
+    tr: 'Kullanim kosullari', en: 'Terms of use', de: 'Nutzungsbedingungen', fr: 'Conditions d utilisation', es: 'Terminos de uso',
+    ar: 'شروط الاستخدام', it: 'Termini di utilizzo', zh: '使用条款', ru: 'Условия использования', fa: 'شرایط استفاده',
+    ja: '利用規約', pt: 'Termos de utilizacao', nl: 'Gebruiksvoorwaarden'
+  };
+  var DELETE = {
+    tr: 'Hesabi sil', en: 'Delete account', de: 'Konto loeschen', fr: 'Supprimer le compte', es: 'Eliminar cuenta',
+    ar: 'حذف الحساب', it: 'Elimina account', zh: '删除账户', ru: 'Удалить аккаунт', fa: 'حذف حساب',
+    ja: 'アカウント削除', pt: 'Eliminar conta', nl: 'Account verwijderen'
+  };
+  var DISCLAIMER = {
+    tr: 'NexuLex bir hukuk bürosu değildir. Bu hukuki tavsiye değildir ve NexuLex sizi temsil etmez.',
+    en: 'NexuLex is not a law firm. This is not legal advice and NexuLex does not represent you.',
+    de: 'NexuLex ist keine Kanzlei. Dies ist keine Rechtsberatung und NexuLex vertritt Sie nicht.',
+    fr: 'NexuLex n est pas un cabinet. Ceci n est pas un conseil juridique et NexuLex ne vous represente pas.',
+    es: 'NexuLex no es un bufete. Esto no es asesoramiento juridico y NexuLex no te representa.',
+    ar: 'NexuLex ليس مكتب محاماة. هذه ليست استشارة قانونية ولا يمثّلك NexuLex.',
+    it: 'NexuLex non e uno studio. Questa non e consulenza legale e NexuLex non ti rappresenta.',
+    zh: 'NexuLex 不是律师事务所。这不是法律意见，NexuLex 也不代理你。',
+    ru: 'NexuLex не адвокатское бюро. Это не юридическая консультация, и NexuLex вас не представляет.',
+    fa: 'NexuLex دفتر وکالت نیست. این مشاورهٔ حقوقی نیست و NexuLex نمایندهٔ شما نیست.',
+    ja: 'NexuLex は法律事務所ではありません。法的助言ではなく、NexuLex はあなたを代理しません。',
+    pt: 'A NexuLex nao e um escritorio. Isto nao e aconselhamento juridico e a NexuLex nao o representa.',
+    nl: 'NexuLex is geen advocatenkantoor. Dit is geen juridisch advies en NexuLex vertegenwoordigt u niet.'
+  };
 
   function setText(id, value) {
     var node = document.getElementById(id);
     if (node) node.textContent = value == null ? '' : String(value);
   }
 
-  var params = new URLSearchParams(location.search);
-  var requested = String(params.get('lang') || '').slice(0, 2).toLowerCase();
-  var htmlLang = String(document.documentElement.lang || 'tr').slice(0, 2).toLowerCase();
-  var locale = LANGS.indexOf(requested) >= 0 ? requested : (LANGS.indexOf(htmlLang) >= 0 ? htmlLang : 'tr');
-  var rtl = locale === 'ar' || locale === 'fa';
-  document.documentElement.lang = locale;
-  document.documentElement.dir = rtl ? 'rtl' : 'ltr';
-
-  var code = String(params.get('code') || '').trim().toUpperCase();
-  var hasCode = CODE_RE.test(code);
-
-  setText('title', TITLE[locale] || TITLE.tr);
-  setText('pitch', PITCH[locale] || PITCH.tr);
-  setText('body', BODY[locale] || BODY.tr);
-
-  var codeLine = document.getElementById('code-line');
-  if (hasCode) {
-    codeLine.textContent = (CODE_LINE[locale] || CODE_LINE.tr) + code;
-    codeLine.classList.remove('hidden');
-  } else {
-    codeLine.textContent = '';
-    codeLine.classList.add('hidden');
+  function pickLocale() {
+    var params = new URLSearchParams(location.search);
+    var requested = String(params.get('lang') || '').slice(0, 2).toLowerCase();
+    var htmlLang = String(document.documentElement.lang || 'tr').slice(0, 2).toLowerCase();
+    return LANGS.indexOf(requested) >= 0 ? requested : (LANGS.indexOf(htmlLang) >= 0 ? htmlLang : 'tr');
   }
 
-  var openApp = document.getElementById('open-app');
-  openApp.textContent = OPEN[locale] || OPEN.tr;
-  openApp.href = hasCode ? 'nexulex://share/' + encodeURIComponent(code) : 'nexulex://share/';
+  function applyPlay(locale) {
+    var play = document.getElementById('play-store');
+    var href = play.getAttribute('href') || '';
+    play.classList.add('hidden');
+    if (href.indexOf('https://') !== 0 || href.indexOf('__') >= 0) return;
+    try {
+      var parsed = new URL(href);
+      var host = parsed.hostname.toLowerCase();
+      if (host !== 'play.google.com' && host.slice(-16) !== '.play.google.com') return;
+      parsed.searchParams.set('hl', locale);
+      play.href = parsed.toString();
+      play.textContent = PLAY[locale] || PLAY.en;
+      play.classList.remove('hidden');
+    } catch (err) {
+      /* keep hidden when the baked href is not a live Play listing */
+    }
+  }
+
+  function apply(locale) {
+    var rtl = locale === 'ar' || locale === 'fa';
+    document.documentElement.lang = locale;
+    document.documentElement.dir = rtl ? 'rtl' : 'ltr';
+
+    var params = new URLSearchParams(location.search);
+    var code = String(params.get('code') || '').trim().toUpperCase();
+    var hasCode = CODE_RE.test(code);
+
+    setText('title', TITLE[locale] || TITLE.tr);
+    setText('pitch', PITCH[locale] || PITCH.tr);
+    setText('body', BODY[locale] || BODY.tr);
+    setText('app-store-note', APPSTORE[locale] || APPSTORE.en);
+    setText('privacy-link', PRIVACY[locale] || PRIVACY.en);
+    setText('terms-link', TERMS[locale] || TERMS.en);
+    setText('delete-link', DELETE[locale] || DELETE.en);
+    setText('disclaimer', DISCLAIMER[locale] || DISCLAIMER.en);
+
+    var codeLine = document.getElementById('code-line');
+    if (hasCode) {
+      codeLine.textContent = (CODE_LINE[locale] || CODE_LINE.tr) + code;
+      codeLine.classList.remove('hidden');
+    } else {
+      codeLine.textContent = '';
+      codeLine.classList.add('hidden');
+    }
+
+    var openApp = document.getElementById('open-app');
+    openApp.textContent = OPEN[locale] || OPEN.tr;
+    openApp.href = hasCode ? 'nexulex://share/' + encodeURIComponent(code) : 'nexulex://share/';
+    applyPlay(locale);
+
+    var buttons = document.querySelectorAll('#langs button');
+    for (var i = 0; i < buttons.length; i += 1) {
+      buttons[i].classList.toggle('active', buttons[i].getAttribute('data-lang') === locale);
+    }
+  }
+
+  var locale = pickLocale();
+  apply(locale);
+
+  document.getElementById('langs').addEventListener('click', function (event) {
+    var btn = event.target.closest('button[data-lang]');
+    if (!btn) return;
+    var next = btn.getAttribute('data-lang');
+    if (LANGS.indexOf(next) < 0) return;
+    var url = new URL(location.href);
+    url.searchParams.set('lang', next);
+    history.replaceState({}, '', url);
+    apply(next);
+  });
 })();
 </script>
 </body>

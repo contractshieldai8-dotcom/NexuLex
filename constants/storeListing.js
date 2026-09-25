@@ -61,6 +61,7 @@ export const STORE_CHECKLIST = [
   { id: 'promo_fill', store: 'appstore', need: 'Apple promotional text uses most of the 170-character budget and names no recommended lawyer' },
   { id: 'whats_new_fill', store: 'both', need: 'What\'s New names official directories, Professional work aids and that NexuLex recommends no lawyer' },
   { id: 'screenshot_brief', store: 'both', need: 'Shoot seven frames in SCREENSHOT_IDS order using the localized brief; never overlay a win rate, a named lawyer or a ready-for-court claim' },
+  { id: 'get_landing', store: 'both', need: 'Public get.html ships 13 languages and a Play button only when EXPO_PUBLIC_PLAY_STORE_URL is a live listing; never invent an Apple app id' },
 ];
 
 const len = (value) => [...String(value || '')].length;

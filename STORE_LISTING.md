@@ -532,6 +532,10 @@ NexuLex is geen advocatenkantoor. Deze beelden zijn productdemo, geen juridisch 
 TR: Orijinal tuzak metni AI’ya ikinci kez gitmez; kalkan taslağı gider.
 EN: The original trap wording is not sent to the AI again; the shield draft is.
 
+## get.html iniş
+
+Davet ve iOS puanı `https://nexulexai.netlify.app/get.html` adresine gider. Sayfa 13 dil taşır (`?lang=`). Google Play düğmesi yalnızca `EXPO_PUBLIC_PLAY_STORE_URL` canlı bir `play.google.com` adresi olduğunda yayın betiğiyle eklenir. Kaynak dosyaya Play details yolu gömülmez. App Store sayısal uygulama kimliği uydurulmaz; iOS metni bunu açıkça söyler. Kullanıcı `node scripts/publish-brief-web.js` çalıştırıp Netlify’e `web/dist/get.html` yükler.
+
 ## Gizlilik cümlesi (mağaza)
 
 NexuLex AI bir avukat değildir. Sözleşme metnini risk taraması için işler; hukuki tavsiye veya avukat–müvekkil ilişkisi doğurmaz. Metinler analiz için güvenli kanal üzerinden işlenir.

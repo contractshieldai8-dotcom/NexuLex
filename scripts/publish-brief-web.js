@@ -31,6 +31,7 @@ function isLivePlayStoreUrl(value) {
 
 const playStoreUrl = String(process.env.EXPO_PUBLIC_PLAY_STORE_URL || '').trim();
 const getAppHref = isLivePlayStoreUrl(playStoreUrl) ? playStoreUrl : 'get.html';
+const playStoreHref = isLivePlayStoreUrl(playStoreUrl) ? playStoreUrl : '#';
 
 const sourcePath = path.join(__dirname, '..', 'web', 'brief.html');
 const getSourcePath = path.join(__dirname, '..', 'web', 'get.html');
@@ -54,9 +55,24 @@ if (/supabase\.co/i.test(getAppHref) || !String(getAppHref || '').trim()) {
   process.exit(1);
 }
 
+let getHtml = fs.readFileSync(getSourcePath, 'utf8');
+if (!getHtml.includes('__PLAY_STORE_HREF__')) {
+  console.error('get.html missing PLAY placeholder');
+  process.exit(1);
+}
+if (/play\.google\.com\/store\/apps\/details/.test(getHtml) || /apps\.apple\.com\/app\/id\d+/.test(getHtml)) {
+  console.error('get.html must not hardcode a store details URL');
+  process.exit(1);
+}
+if (/supabase\.co/i.test(playStoreHref)) {
+  console.error('PLAY href invalid');
+  process.exit(1);
+}
+getHtml = getHtml.split('__PLAY_STORE_HREF__').join(playStoreHref);
+
 fs.mkdirSync(distDir, { recursive: true });
 fs.writeFileSync(distPath, html, { encoding: 'utf8' });
-fs.copyFileSync(getSourcePath, getDistPath);
+fs.writeFileSync(getDistPath, getHtml, { encoding: 'utf8' });
 fs.copyFileSync(privacySourcePath, privacyDistPath);
 fs.copyFileSync(termsSourcePath, termsDistPath);
 fs.copyFileSync(deleteSourcePath, deleteDistPath);

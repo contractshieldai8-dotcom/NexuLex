@@ -1639,6 +1639,9 @@ if (getHtml) {
   } else if (/play\.google\.com\/store\/apps\/details/.test(getHtml)) {
     failed = true;
     console.log('web/get.html hardcoded Play URL');
+  } else if (!/__PLAY_STORE_HREF__/.test(getHtml)) {
+    failed = true;
+    console.log('web/get.html PLAY placeholder yok');
   } else {
     console.log('OK  web/get.html landing');
   }
@@ -1654,6 +1657,9 @@ if (!/__GET_APP_HREF__/.test(publishSrc)) {
 } else if (!/EXPO_PUBLIC_PLAY_STORE_URL/.test(publishSrc) || !/play\.google\.com/.test(publishSrc)) {
   failed = true;
   console.log('publish-brief-web.js Play URL resolution yok');
+} else if (!/__PLAY_STORE_HREF__/.test(publishSrc) || !/playStoreHref/.test(publishSrc)) {
+  failed = true;
+  console.log('publish-brief-web.js get.html Play bake yok');
 } else {
   console.log('OK  publish-brief-web GET_APP');
 }
@@ -6818,6 +6824,56 @@ Ticaret Unvanı: Anadolu Bilişim
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) grFail('dependency count changed');
   if (grOk) {
     console.log(`OK  WAVE GR.7 country-aware rate (${fixtures} fixtures): Play hl/gl, get.html?lang=, no Apple id × 13`);
+  }
+}
+
+// WAVE REL.5 — get.html 13-lang landing + honest store links; no invented Apple id
+{
+  let relOk = true;
+  const relFail = (msg) => {
+    failed = true;
+    relOk = false;
+    console.log(`WAVE REL.5 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  let fixtures = 0;
+  try {
+    const { assertGetLanding } = require('./getLandingAssert');
+    ({ cases: fixtures } = assertGetLanding(read('web/get.html')));
+  } catch (error) {
+    relFail(`runtime: ${error.message}`);
+  }
+  const getHtml = read('web/get.html');
+  const publish = read('scripts/publish-brief-web.js');
+  const listing = read('STORE_LISTING.md');
+  if (!/data-lang="nl"/.test(getHtml) || !/URLSearchParams\(location\.search\)/.test(getHtml)) {
+    relFail('get.html must keep 13 language buttons and honor ?lang=');
+  }
+  if (!/__PLAY_STORE_HREF__/.test(getHtml) || !/playStoreHref/.test(publish)) {
+    relFail('Play href must be baked at publish time');
+  }
+  if (/play\.google\.com\/store\/apps\/details/.test(getHtml) || /apps\.apple\.com\/app\/id\d+/.test(getHtml)) {
+    relFail('source get.html must not hardcode store details URLs');
+  }
+  if (!/## get\.html iniş/.test(listing) || !/EXPO_PUBLIC_PLAY_STORE_URL/.test(listing)) {
+    relFail('STORE_LISTING.md must document the get.html bake');
+  }
+  try {
+    const { loadApp } = require('./cb1-harness');
+    const { api } = loadApp('en');
+    if (!api.STORE_CHECKLIST.some((item) => item.id === 'get_landing')) relFail('checklist must cover the get.html landing');
+    if (api.STORE_CHECKLIST.length < 20) relFail('launch checklist must keep REL.1–REL.4 rows plus get.html');
+    if (!api.STORE_CHECKLIST.some((item) => item.id === 'screenshot_brief')) relFail('shoot brief row must stay');
+  } catch (error) {
+    relFail(`checklist: ${error.message}`);
+  }
+  if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) relFail('store listing must stay out of the app');
+  if (/contract_text/.test(getHtml) || !/nexulex:\/\//.test(getHtml)) relFail('deep link stays; no contract leak');
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') relFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) relFail('dependency count changed');
+  if (relOk) {
+    console.log(`OK  WAVE REL.5 get.html landing (${fixtures} fixtures): 13 languages, Play bake-only, no Apple id`);
   }
 }
 
