@@ -3,7 +3,9 @@ import {
   ActivityIndicator,
   Modal,
   Platform,
+  Pressable,
   Share,
+  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -197,6 +199,13 @@ export default function ShareBriefSheet({
   return (
     <Modal visible={visible} animationType="slide" transparent onRequestClose={close}>
       <View style={styles.modalOverlay}>
+        {/* BL.3: backdrop Pressable is sibling of sheet — not a wrapping parent. */}
+        <Pressable
+          style={StyleSheet.absoluteFillObject}
+          onPress={close}
+          accessibilityRole="button"
+          accessibilityLabel={t('closeButton')}
+        />
         <View
           style={[
             styles.modalSheet,

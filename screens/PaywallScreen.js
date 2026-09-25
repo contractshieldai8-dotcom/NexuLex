@@ -14,6 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
 import { ACCENT, styles } from '../theme';
+import { useFeedback } from '../context/FeedbackContext';
 import {
   configurePurchases,
   fetchOfferings,
@@ -67,6 +68,10 @@ export default function PaywallScreen({
   onPurchased,
 }) {
   const { t } = useTranslation();
+  const { showToast } = useFeedback();
+  const openLegal = (url) => {
+    Linking.openURL(url).catch(() => showToast(t('askLinkFailed'), { type: 'error' }));
+  };
   const [tier, setTier] = useState('pro');
   const [packages, setPackages] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
@@ -368,12 +373,12 @@ export default function PaywallScreen({
             </TouchableOpacity>
 
             <View style={{ marginTop: 16, alignItems: 'center', gap: 8 }}>
-              <TouchableOpacity onPress={() => Linking.openURL(PRIVACY_URL)} activeOpacity={0.85}>
+              <TouchableOpacity onPress={() => openLegal(PRIVACY_URL)} activeOpacity={0.85}>
                 <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 0 }]}>
                   {t('privacyPolicy')}
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => Linking.openURL(TERMS_URL)} activeOpacity={0.85}>
+              <TouchableOpacity onPress={() => openLegal(TERMS_URL)} activeOpacity={0.85}>
                 <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 0 }]}>
                   {t('termsOfUse')}
                 </Text>

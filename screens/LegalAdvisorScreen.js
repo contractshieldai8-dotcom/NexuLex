@@ -1014,7 +1014,7 @@ export default function LegalAdvisorScreen({
         }}
         onOpenDraft={(id) => {
           setScenarioId(null);
-          openDraft(id);
+          setTimeout(() => openDraft(id), 400);
         }}
       />
 
@@ -1061,7 +1061,7 @@ export default function LegalAdvisorScreen({
         }}
         onOpenCalculator={(id) => {
           setDocExplainOpen(false);
-          setCalculatorId(id);
+          setTimeout(() => setCalculatorId(id), 400);
         }}
         onAddToCase={openCaseImport}
         onClose={() => setDocExplainOpen(false)}
@@ -1106,7 +1106,7 @@ export default function LegalAdvisorScreen({
         }}
         onOpenCalculator={(id) => {
           setAskOpen(false);
-          setCalculatorId(id);
+          setTimeout(() => setCalculatorId(id), 400);
         }}
         onFindLawyer={openLawyerFrom}
         onClose={() => {
@@ -1124,7 +1124,7 @@ export default function LegalAdvisorScreen({
         onStartCase={openCaseFromGuide}
         onOpenCalculator={(id) => {
           setGuidesOpen(false);
-          setCalculatorId(id);
+          setTimeout(() => setCalculatorId(id), 400);
         }}
         onFindLawyer={openLawyerFrom}
         onClose={() => setGuidesOpen(false)}

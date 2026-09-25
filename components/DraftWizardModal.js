@@ -16,7 +16,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, DANGER, styles } from '../theme';
+import { ACCENT, DANGER, alignStart, styles } from '../theme';
 import {
   getDraftTemplateById,
   listDraftCatalogFor,
@@ -287,7 +287,7 @@ export default function DraftWizardModal({
                   >
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                       <Ionicons name={item.icon} size={16} color={ACCENT} />
-                      <Text style={[styles.secondaryBtnText, { textAlign: 'left', flexShrink: 1 }]}>
+                      <Text style={[styles.secondaryBtnText, { textAlign: alignStart, flexShrink: 1 }]}>
                         {t(itemVariant.titleKey)}
                       </Text>
                       {itemVariant.universal ? (

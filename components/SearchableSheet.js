@@ -3,15 +3,16 @@ import {
   Dimensions,
   FlatList,
   Modal,
+  Pressable,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ACCENT, styles } from '../theme';
+import { ACCENT, alignStart, styles } from '../theme';
 import { useKeyboardSafeSheet } from './KeyboardSafeSheet';
 
 const SHEET_MAX = Math.round(Dimensions.get('window').height * 0.85);
@@ -91,70 +92,74 @@ export default function SearchableSheet({
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={close}>
-      <TouchableWithoutFeedback onPress={close}>
-        <View style={styles.modalOverlay}>
-          <TouchableWithoutFeedback onPress={() => {}}>
-            <View
-              style={[
-                styles.modalSheet,
-                {
-                  backgroundColor: theme.cardBg,
-                  borderColor: theme.borderColor,
-                },
-                sheet.sheetStyle,
-              ]}
-            >
-              <View style={styles.modalHandle} />
-              <Text style={[styles.modalTitle, { color: theme.text }]}>{title}</Text>
+      <View style={styles.modalOverlay}>
+        {/* BL.3: backdrop Pressable is sibling of sheet — not a wrapping parent. */}
+        <Pressable
+          style={StyleSheet.absoluteFillObject}
+          onPress={close}
+          accessibilityRole="button"
+          accessibilityLabel={closeLabel}
+        />
+        <View
+          style={[
+            styles.modalSheet,
+            {
+              backgroundColor: theme.cardBg,
+              borderColor: theme.borderColor,
+            },
+            sheet.sheetStyle,
+          ]}
+        >
+          <View style={styles.modalHandle} />
+          <Text style={[styles.modalTitle, { color: theme.text }]}>{title}</Text>
 
-              <View
-                style={[
-                  styles.searchRow,
-                  { backgroundColor: theme.inputBg, borderColor: theme.borderColor },
-                ]}
+          <View
+            style={[
+              styles.searchRow,
+              { backgroundColor: theme.inputBg, borderColor: theme.borderColor },
+            ]}
+          >
+            <Ionicons name="search" size={16} color={theme.subText} />
+            <TextInput
+              {...sheet.field('search')}
+              style={[styles.searchInput, { color: theme.text, textAlign: alignStart }]}
+              placeholder={searchPlaceholder}
+              placeholderTextColor={theme.subText}
+              value={query}
+              onChangeText={setQuery}
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+            {query ? (
+              <TouchableOpacity
+                onPress={() => setQuery('')}
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
               >
-                <Ionicons name="search" size={16} color={theme.subText} />
-                <TextInput
-                  style={[styles.searchInput, { color: theme.text, writingDirection: 'ltr', textAlign: 'left' }]}
-                  placeholder={searchPlaceholder}
-                  placeholderTextColor={theme.subText}
-                  value={query}
-                  onChangeText={setQuery}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                />
-                {query ? (
-                  <TouchableOpacity
-                    onPress={() => setQuery('')}
-                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                  >
-                    <Ionicons name="close-circle" size={16} color={theme.subText} />
-                  </TouchableOpacity>
-                ) : null}
-              </View>
-
-              <FlatList
-                data={filtered}
-                keyExtractor={(item) => item.code}
-                renderItem={renderOption}
-                keyboardShouldPersistTaps="handled"
-                showsVerticalScrollIndicator={false}
-                ListEmptyComponent={
-                  <Text
-                    style={[styles.sectionHint, { color: theme.subText, textAlign: 'center', marginTop: 16 }]}
-                  >
-                    {emptyLabel}
-                  </Text>
-                }
-              />
-
-              <TouchableOpacity style={styles.secondaryBtn} onPress={close}>
-                <Text style={styles.secondaryBtnText}>{closeLabel}</Text>
+                <Ionicons name="close-circle" size={16} color={theme.subText} />
               </TouchableOpacity>
-            </View>
-          </TouchableWithoutFeedback>
+            ) : null}
+          </View>
+
+          <FlatList
+            data={filtered}
+            keyExtractor={(item) => item.code}
+            renderItem={renderOption}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+            ListEmptyComponent={
+              <Text
+                style={[styles.sectionHint, { color: theme.subText, textAlign: 'center', marginTop: 16 }]}
+              >
+                {emptyLabel}
+              </Text>
+            }
+          />
+
+          <TouchableOpacity style={styles.secondaryBtn} onPress={close}>
+            <Text style={styles.secondaryBtnText}>{closeLabel}</Text>
+          </TouchableOpacity>
         </View>
-      </TouchableWithoutFeedback>
+      </View>
     </Modal>
   );
 }

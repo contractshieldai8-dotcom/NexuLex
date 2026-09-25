@@ -81,13 +81,15 @@ const waveLr5Src = fs.existsSync('i18n.wavelr5.js') ? fs.readFileSync('i18n.wave
 const waveLr5Match = waveLr5Src.match(/export const WAVE_LR5_I18N = ([\s\S]*);\s*$/);
 const waveLr6Src = fs.existsSync('i18n.wavelr6.js') ? fs.readFileSync('i18n.wavelr6.js', 'utf8') : '';
 const waveLr6Match = waveLr6Src.match(/export const WAVE_LR6_I18N = ([\s\S]*);\s*$/);
+const waveQa1Src = fs.existsSync('i18n.waveqa1.js') ? fs.readFileSync('i18n.waveqa1.js', 'utf8') : '';
+const waveQa1Match = waveQa1Src.match(/export const WAVE_QA1_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6 kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -111,6 +113,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_LR4_I18N = eval(`(${waveLr4Match[1]})`); // eslint-disable-line no-eval
   const WAVE_LR5_I18N = eval(`(${waveLr5Match[1]})`); // eslint-disable-line no-eval
   const WAVE_LR6_I18N = eval(`(${waveLr6Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_QA1_I18N = eval(`(${waveQa1Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -134,8 +137,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_LR4_I18N',
     'WAVE_LR5_I18N',
     'WAVE_LR6_I18N',
+    'WAVE_QA1_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -2999,6 +3003,7 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_LR4_I18N',
       'WAVE_LR5_I18N',
       'WAVE_LR6_I18N',
+      'WAVE_QA1_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -3011,7 +3016,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.wavelr3.js', 'utf8').match(/export const WAVE_LR3_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavelr4.js', 'utf8').match(/export const WAVE_LR4_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavelr5.js', 'utf8').match(/export const WAVE_LR5_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.wavelr6.js', 'utf8').match(/export const WAVE_LR6_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavelr6.js', 'utf8').match(/export const WAVE_LR6_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.waveqa1.js', 'utf8').match(/export const WAVE_QA1_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -3981,7 +3987,7 @@ Ticaret Unvanı: Anadolu Bilişim
 
   // CB.1a paywall return
   if (!/onNeedPaywall\?\.\('draft'\)/.test(advisor)) cb1aFail("draft paywall must call onNeedPaywall('draft')");
-  if (!/onNeedPaywall=\{\(hook\) => openPaywall\(hook \|\| null, null\)\}/.test(app)) cb1aFail('App advisor onNeedPaywall must forward hook');
+  if (!/onNeedPaywall=\{\(hook\) => (setTimeout\(\(\) => )?openPaywall\(hook \|\| null, null\)/.test(app)) cb1aFail('App advisor onNeedPaywall must forward hook');
   if (!/isActive=\{activeTab === 'advisor'\}/.test(app)) cb1aFail("App must pass isActive={activeTab === 'advisor'}");
   const purchased = (app.match(/onPurchased=\{async \(\) => \{[\s\S]*?\n        \}\}/) || [''])[0];
   const guardIdx = purchased.search(/capturedHook === 'draft'/);
@@ -4411,7 +4417,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'waveux1', 'wavejp2', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -5498,6 +5504,132 @@ Ticaret Unvanı: Anadolu Bilişim
 
   if (lhOk) {
     console.log(`OK  WAVE LR.6 lawyer hand-off (${fixtures} fixtures): ${countries} jurisdictions, ${bodies} official bodies, no lawyer list, packet Pro-gated, on-device × 13`);
+  }
+}
+
+// WAVE QA.1 — app-wide audit: every locale native, every used key resolves, every modal closable, no stacked modals
+{
+  let qaOk = true;
+  const qaFail = (msg) => {
+    failed = true;
+    qaOk = false;
+    console.log(`WAVE QA.1 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const LANGS = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+  const R = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
+  const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((d) => {
+    const p = `${dir}/${d.name}`;
+    if (d.isDirectory()) return walk(p);
+    return /\.(js|jsx)$/.test(d.name) ? [p] : [];
+  });
+  const files = ['App.js', ...['screens', 'components', 'utils', 'services', 'constants', 'hooks', 'context'].filter((d) => fs.existsSync(d)).flatMap(walk)];
+  const code = Object.fromEntries(files.map((f) => [f, read(f)]));
+
+  // 1. Every key the code names resolves in all 13 languages.
+  const used = new Map();
+  for (const [f, s] of Object.entries(code)) {
+    for (const m of s.matchAll(/\bt\(\s*['"]([A-Za-z][\w.]*)['"]/g)) used.set(m[1], f);
+    for (const m of s.matchAll(/\b\w*Key:\s*['"]([A-Za-z]\w*)['"]/g)) used.set(m[1], f);
+  }
+  for (const [key, f] of used) {
+    const miss = LANGS.filter((L) => R[L][key] === undefined);
+    if (miss.length) qaFail(`${key} (${f}) missing in ${miss.join(',')}`);
+  }
+
+  // 2. No locale still shows the English sentence.
+  const SAME_OK = new Set(['fr.clauseItem', 'fr.clauseCountLabel']);
+  const brandOnly = (value) => value.replace(/\{\{\w+\}\}/g, '').replace(/\b(NexuLex(?: AI)?|PDF|Pro|SaaS|NDA|IBAN|GDPR|KVKK|RevenueCat)\b/gi, '').replace(/[^\p{L}]/gu, '').length < 4;
+  let leftovers = 0;
+  for (const L of LANGS.filter((x) => x !== 'en')) {
+    for (const [key, value] of Object.entries(R.en)) {
+      if (typeof value !== 'string' || value.length < 12 || R[L][key] !== value || brandOnly(value) || SAME_OK.has(`${L}.${key}`)) continue;
+      leftovers += 1;
+      if (leftovers <= 20) qaFail(`${L}.${key} still shows the English text`);
+    }
+  }
+  const qa1 = eval(`(${read('i18n.waveqa1.js').match(/export const WAVE_QA1_I18N = ([\s\S]*);\s*$/)[1]})`); // eslint-disable-line no-eval
+  for (const L of LANGS.filter((x) => x !== 'tr' && x !== 'en')) {
+    const shortSame = ['voiceListening', 'legalStatusValid', 'diffWorsened', 'diffImproved', 'diffWinnerMixed', 'diffRedline'].filter((key) => R[L][key] === R.en[key]);
+    if (shortSame.length) qaFail(`${L} short labels still English: ${shortSame.join(', ')}`);
+    if (Object.keys(qa1[L] || {}).length < 37) qaFail(`${L} QA.1 overrides incomplete`);
+  }
+  if (Object.keys(qa1.tr).length || Object.keys(qa1.en).length) qaFail('QA.1 must not touch TR / EN');
+
+  // 3. Placeholders identical to EN in every language; RTL rules everywhere.
+  const phOf = (v) => (String(v).match(/\{\{\s*\w+\s*\}\}/g) || []).map((x) => x.replace(/\s/g, '')).sort().join();
+  let phBad = 0;
+  for (const [key, value] of Object.entries(R.en)) {
+    if (typeof value !== 'string') continue;
+    for (const L of LANGS) {
+      if (typeof R[L][key] === 'string' && phOf(R[L][key]) !== phOf(value) && (phBad += 1) <= 10) qaFail(`${L}.${key} placeholders differ from EN`);
+    }
+  }
+  for (const L of ['ar', 'fa']) {
+    const bad = Object.entries(R[L]).filter(([, v]) => typeof v === 'string' && (/→/.test(v) || /[\u0600-\u06FF][^?]*\?(\s|$)/.test(v)));
+    if (bad.length) qaFail(`${L} RTL copy must use ؟ and no arrows: ${bad.slice(0, 10).map(([k]) => k).join(', ')}`);
+  }
+
+  // 4. Modals: Android back closes every one; bottom sheets use the BL.3 sibling backdrop.
+  let modals = 0;
+  for (const [f, s] of Object.entries(code)) {
+    for (const m of s.matchAll(/<Modal\b[^>]*>/g)) {
+      modals += 1;
+      if (!/onRequestClose=/.test(m[0])) qaFail(`${f} Modal without onRequestClose`);
+    }
+    if (/<Modal\b/.test(s) && /styles\.modalSheet/.test(s)) {
+      if (!/<Pressable\s+style=\{StyleSheet\.absoluteFillObject\}/.test(s)) qaFail(`${f} bottom sheet needs the BL.3 sibling backdrop`);
+      if (/<TouchableWithoutFeedback[^>]*onPress=\{\(\) => \{\}\}/.test(s)) qaFail(`${f} must not wrap the sheet in a touch-swallowing backdrop`);
+    }
+  }
+
+  // 5. Links never throw when no app can open them.
+  for (const [f, s] of Object.entries(code)) {
+    s.split('\n').forEach((line, i) => {
+      if (/Linking\.openURL\(/.test(line) && !/\.catch\(|await /.test(line)) qaFail(`${f}:${i + 1} openURL without catch`);
+    });
+  }
+
+  // 6. One modal at a time: sheets close, then the next modal opens after the dismissal.
+  const advisor = code['screens/LegalAdvisorScreen.js'];
+  const stacked = advisor.match(/set\w+Open\(false\);\s*(set\w+Open\(true\)|setCalculatorId\(|openDraft\()/g) || [];
+  if (stacked.length || /setScenarioId\(null\);\s*openDraft\(/.test(advisor)) qaFail(`advisor opens a modal while another dismisses: ${stacked.join(' | ')}`);
+  const app = code['App.js'];
+  if (!/onNeedPaywall=\{\(hook\) => setTimeout\(\(\) => openPaywall\(hook \|\| null, null\), 400\)\}/.test(app)) qaFail('advisor paywall must open after the sheet dismisses');
+  if (!/pendingShareReturnRef\.current = shareSheetAnalysis;\s*setShareSheetAnalysis\(null\);\s*setTimeout\(\(\) => openPaywall\(hook \|\| 'share'\), 400\);/.test(app)) qaFail('share-sheet paywall must open after the sheet dismisses');
+  if (!/pendingShareReturnRef\.current = null;\s*setShareSheetAnalysis\(snap\);/.test(app) || !/capturedHook === 'share'/.test(app)) qaFail('share paywall must reopen the sheet and stay on the current tab');
+
+  // 7. Advisor: every Pro-gated sheet has a paywall return; hand-offs wait 400ms.
+  const RETURNS = [
+    ['pendingDraftReturnRef', 'openDraft'],
+    ['pendingExplainReturnRef', 'setDocExplainOpen'],
+    ['pendingCaseReturnRef', 'setCaseHubOpen'],
+    ['pendingAskReturnRef', 'setAskOpen'],
+    ['pendingProReturnRef', 'setProToolsOpen'],
+    ['pendingLawyerReturnRef', 'setLawyerOpen'],
+  ];
+  for (const [ref, open] of RETURNS) {
+    if (!new RegExp(`${ref}\\.current = false;\\s*${open}\\(`).test(advisor) && !new RegExp(`${ref}\\.current = null;\\s*${open}\\(`).test(advisor)) {
+      qaFail(`advisor ${ref} must reopen ${open}`);
+    }
+  }
+  if ((advisor.match(/setTimeout\(\(\) => (set\w+Open\(true\)|setCalculatorId\(|openDraft\()/g) || []).length < 7) qaFail('advisor hand-offs must wait for the source sheet to dismiss');
+
+  // 8. RTL: no forced LTR in user-facing text; search/diff/draft use alignStart.
+  const uiFiles = Object.entries(code).filter(([f]) => /^(App\.js|screens\/|components\/)/.test(f));
+  for (const [f, s] of uiFiles) {
+    if (/writingDirection:\s*'ltr'/.test(s)) qaFail(`${f} must not force LTR writingDirection`);
+    if (/textAlign:\s*'left'/.test(s)) qaFail(`${f} must use alignStart instead of textAlign left`);
+  }
+  if (!/\{\.\.\.sheet\.field\('search'\)\}/.test(code['components/SearchableSheet.js'])) qaFail('country / language search must be keyboard-safe');
+  if (!/Linking\.openURL\(url\)\.catch\(\(\) => showToast\(t\('askLinkFailed'\)/.test(code['screens/PaywallScreen.js'])) qaFail('paywall legal links must toast on failure');
+
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') qaFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) qaFail('dependency count changed');
+
+  if (qaOk) {
+    console.log(`OK  WAVE QA.1 app-wide audit: ${used.size} keys resolve × 13, no English leftovers, placeholders + RTL clean, ${modals} modals closable, paywall returns, no stacked modals`);
   }
 }
 

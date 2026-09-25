@@ -14,7 +14,7 @@ import * as Clipboard from 'expo-clipboard';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 
-import { ACCENT, DANGER, SUCCESS, WARNING, styles } from '../theme';
+import { ACCENT, DANGER, SUCCESS, WARNING, alignStart, styles } from '../theme';
 import { playbookItemById } from '../constants/playbooks';
 import { compareContractVersions, reviseContractDraft } from '../services/ai';
 import { describeError } from '../utils/errors';
@@ -441,7 +441,7 @@ export default function DiffTool({
         {renderLights()}
         <DraftToolbar theme={theme} onCopy={handleCopy} onShare={handleShare} view={view} onView={setView} />
         {result.summary ? (
-          <Text style={[styles.summaryText, { color: theme.text, textAlign: 'left' }]}>
+          <Text style={[styles.summaryText, { color: theme.text, textAlign: alignStart }]}>
             {safeDisplayText(result.summary)}
           </Text>
         ) : null}

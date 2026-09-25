@@ -49,7 +49,7 @@ import { createAuthRedirectUrl } from './utils/authRedirects';
 import { parseShareCode, SHARE_CODE_RE } from './utils/shareSnapshot';
 import { readOwnedFile, writeOwnedBase64, isExpoGoUri, trySaveBase64ViaSaf } from './utils/fileAccess';
 import { paginatePlainBody } from './utils/exportPlain';
-import { darkTheme, lightTheme, getRiskColor, badgeLabelStyle, styles, ACCENT, DANGER, WARNING } from './theme';
+import { darkTheme, lightTheme, getRiskColor, badgeLabelStyle, styles, ACCENT, DANGER, WARNING, alignStart } from './theme';
 import { normalizeAnalysis, getKeyTakeaways, escapeHtml, applyFreePreview, toDecisionCardPayload, pickPaywallHook, hasHiddenCosts, integrityHasWarnings, safeDisplayText, ensureTrapCalendar, FROST_TRAP_DATES, legalStatusKey, legalStatusEmoji, meaningfulRedFlags, buildAdvisorAnalysisContext, userSignConditions, isBillableAnalysis, isAcceptableAnalysis, isPlaceholderText, buildLocalRadarPreview, pickCounterOffer, countOfferTiers, buildReadyToSendMessage } from './utils/analysis';
 import { describeError } from './utils/errors';
 import { loadStoredLanguage, setAppLanguage } from './utils/language';
@@ -326,12 +326,36 @@ function AppContent() {
   const signedContentHeightRef = useRef(0);
   const signedScrollTimerRef = useRef(null);
   const paywallHookRef = useRef(null);
+  const pendingShareReturnRef = useRef(null);
+  const paywallWasVisibleRef = useRef(false);
+  const [paywallClosedTick, setPaywallClosedTick] = useState(0);
   const openPaywall = (hook = null, context = null) => {
     setPaywallHook(hook);
     setPaywallContext(context || null);
     setPaywallVisible(true);
     paywallHookRef.current = hook;
   };
+  useEffect(() => {
+    const wasVisible = paywallWasVisibleRef.current;
+    paywallWasVisibleRef.current = paywallVisible;
+    if (wasVisible && !paywallVisible) setPaywallClosedTick((n) => n + 1);
+  }, [paywallVisible]);
+  useEffect(() => {
+    if (!paywallClosedTick || paywallVisible || !pendingShareReturnRef.current) return undefined;
+    const snap = pendingShareReturnRef.current;
+    let timer = null;
+    const task = InteractionManager.runAfterInteractions(() => {
+      timer = setTimeout(() => {
+        if (pendingShareReturnRef.current !== snap) return;
+        pendingShareReturnRef.current = null;
+        setShareSheetAnalysis(snap);
+      }, 400);
+    });
+    return () => {
+      task?.cancel?.();
+      if (timer) clearTimeout(timer);
+    };
+  }, [paywallClosedTick, paywallVisible]);
   const [supportVisible, setSupportVisible] = useState(false);
   const [resendingVerification, setResendingVerification] = useState(false);
 
@@ -2407,7 +2431,7 @@ function AppContent() {
           <Text style={[styles.jurisdictionRow, { color: theme.subText }]}>{clash.clauseRef}</Text>
         ) : null}
         {clash.effect ? (
-          <Text style={[styles.summaryText, { color: theme.text, textAlign: 'left', marginBottom: 0 }]}>
+          <Text style={[styles.summaryText, { color: theme.text, textAlign: alignStart, marginBottom: 0 }]}>
             {safeDisplayText(clash.effect)}
           </Text>
         ) : null}
@@ -3726,7 +3750,8 @@ function AppContent() {
               })}
               isPro={!lockPremium}
               plan={plan}
-              onNeedPaywall={(hook) => openPaywall(hook || null, null)}
+              // Advisor sheets close before asking; iOS presents one modal at a time.
+              onNeedPaywall={(hook) => setTimeout(() => openPaywall(hook || null, null), 400)}
               paywallVisible={paywallVisible}
               isActive={activeTab === 'advisor'}
               guideAction={guideAdvisorAction}
@@ -3957,14 +3982,14 @@ function AppContent() {
                 <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 10 }]}>{t('privacyPolicy')}</Text>
                 <TouchableOpacity
                   style={[styles.secondaryBtn, { marginTop: 0 }]}
-                  onPress={() => Linking.openURL('https://nexulexai.netlify.app/privacy.html')}
+                  onPress={() => Linking.openURL('https://nexulexai.netlify.app/privacy.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
                   activeOpacity={0.85}
                 >
                   <Text style={styles.secondaryBtnText}>{t('privacyPolicy')}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.secondaryBtn}
-                  onPress={() => Linking.openURL('https://nexulexai.netlify.app/terms.html')}
+                  onPress={() => Linking.openURL('https://nexulexai.netlify.app/terms.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
                   activeOpacity={0.85}
                 >
                   <Text style={styles.secondaryBtnText}>{t('termsOfUse')}</Text>
@@ -4026,7 +4051,7 @@ function AppContent() {
       )}
 
       {/* GEÇMİŞ DETAY MODALI */}
-      <Modal visible={modalVisible} animationType="slide" transparent={false}>
+      <Modal visible={modalVisible} animationType="slide" transparent={false} onRequestClose={() => setModalVisible(false)}>
         <SafeAreaView style={{ flex: 1, backgroundColor: theme.bg, padding: 20 }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
             <Text style={{ color: theme.text, fontSize: 20, fontWeight: 'bold' }}>{t('analysisDetail')}</Text>
@@ -4120,8 +4145,8 @@ function AppContent() {
         }}
         onPurchased={async () => {
           const capturedHook = paywallHookRef.current;
-          if (capturedHook === 'draft' || capturedHook === 'explain' || capturedHook === 'cases' || capturedHook === 'ask' || capturedHook === 'professional' || capturedHook === 'lawyer') {
-            // Advisor reopens the draft wizard / document explainer / case files / legal Q&A / Professional workbench / lawyer hand-off; stay on the advisor tab.
+          if (capturedHook === 'draft' || capturedHook === 'explain' || capturedHook === 'cases' || capturedHook === 'ask' || capturedHook === 'professional' || capturedHook === 'lawyer' || capturedHook === 'share') {
+            // Advisor / share sheets reopen themselves; stay on the tab the user was already on.
             await refreshProfile();
             return;
           }
@@ -4144,8 +4169,9 @@ function AppContent() {
         isPro={isPro}
         onClose={() => setShareSheetAnalysis(null)}
         onNeedPaywall={(hook) => {
+          pendingShareReturnRef.current = shareSheetAnalysis;
           setShareSheetAnalysis(null);
-          openPaywall(hook || 'share');
+          setTimeout(() => openPaywall(hook || 'share'), 400);
         }}
         onOpenCode={(code) => setPendingShareCode(code)}
         onEnsureSaved={async () => {

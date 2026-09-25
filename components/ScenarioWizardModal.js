@@ -13,7 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, DANGER, styles } from '../theme';
+import { ACCENT, DANGER, alignStart, styles } from '../theme';
 import { getScenarioById } from '../constants/legalScenarios';
 import { draftForScenario } from '../constants/draftTemplates';
 import { resolveJurisdiction } from '../constants/jurisdiction';
@@ -182,7 +182,7 @@ export default function ScenarioWizardModal({
                           },
                         ]}
                       >
-                        <Text style={[styles.secondaryBtnText, { textAlign: 'left' }]}>
+                        <Text style={[styles.secondaryBtnText, { textAlign: alignStart }]}>
                           {t(opt.labelKey)}
                         </Text>
                       </TouchableOpacity>
