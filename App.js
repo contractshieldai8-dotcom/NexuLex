@@ -3357,6 +3357,17 @@ function AppContent() {
         )}
 
         {locked ? null : renderGlossary(analysis)}
+
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 12, marginBottom: 0 }]}>{t('ux20Preview')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
+          {t('ux20Country', { country: t(getJurisdiction(analysis.country || analysisCountry).labelKey) })}
+        </Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Score')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Pdf')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Share')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Guides')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20NoWin')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>{t('ux20Disclaimer')}</Text>
       </View>
     );
   };
@@ -3833,6 +3844,7 @@ function AppContent() {
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Disclaimer')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux15Once')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux17Get')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Preview')}</Text>
                 </View>
               ) : null}
               <View style={{ flexDirection: 'row', gap: 10, marginBottom: 12 }}>
