@@ -20,6 +20,7 @@ import { lifecycleChipStyle } from '../components/LifecycleChips';
 import { supabase } from '../services/supabase';
 import RiskGauge from '../components/RiskGauge';
 import RecentChatsList from '../components/RecentChatsList';
+import HonestyFold from '../components/HonestyFold';
 import { useAdvisorChat } from '../context/AdvisorChatContext';
 import { writeOwnedUtf8 } from '../utils/fileAccess';
 import {
@@ -324,19 +325,32 @@ export default function HistoryScreen({
     );
   };
 
+  const listData = loading || history.length === 0 ? [] : visible;
+
   return (
     <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 20 }}>
+      <FlatList
+        style={{ flex: 1 }}
+        data={listData}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderItem}
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ paddingBottom: 30, flexGrow: 1 }}
+        ListHeaderComponent={
+          <View>
       <Text style={[styles.sectionHeader, { color: theme.text, marginBottom: 8 }]}>
         {t('historyTitle')}
       </Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Cloud')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Delete')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Share')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Preview')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Chat')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21NoWin')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Guides')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux21Disclaimer')}</Text>
+      <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Cloud')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Delete')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Share')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Preview')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Chat')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21NoWin')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Guides')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux21Disclaimer')}</Text>
+      </HonestyFold>
 
       <RecentChatsList theme={theme} compact onOpen={() => onOpenChat?.()} />
 
@@ -395,9 +409,11 @@ export default function HistoryScreen({
           <Text style={styles.secondaryBtnText}>{t('ux23Export')}</Text>
         )}
       </TouchableOpacity>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 6 }]}>{t('ux23Register')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux23Guides')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux23Disclaimer')}</Text>
+      <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 6 }]}>{t('ux23Register')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux23Guides')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux23Disclaimer')}</Text>
+      </HonestyFold>
 
       <TouchableOpacity
         style={[styles.secondaryBtn, { marginTop: 0 }]}
@@ -413,7 +429,9 @@ export default function HistoryScreen({
       >
         <Text style={styles.secondaryBtnText}>{t('ux26Compare')}</Text>
       </TouchableOpacity>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 6 }]}>{t('ux26Pick')}</Text>
+      {compareOn ? (
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 6 }]}>{t('ux26Pick')}</Text>
+      ) : null}
       <TouchableOpacity
         style={[styles.secondaryBtn, { marginTop: 0 }, picked.length !== 2 && styles.buttonDisabled]}
         onPress={startCompare}
@@ -423,30 +441,29 @@ export default function HistoryScreen({
       >
         <Text style={styles.secondaryBtnText}>{t('ux26Ready')}</Text>
       </TouchableOpacity>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 6 }]}>{t('ux26Local')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux26NoWin')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux26Guides')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux26Disclaimer')}</Text>
-
-      {loading ? (
-        <ActivityIndicator color="#00F5D4" size="large" style={{ marginTop: 40 }} />
-      ) : history.length === 0 ? (
-        sessions.length ? null : (
-          <TouchableOpacity onPress={() => onOpenAnalyze?.()} accessibilityRole="button">
-            <Text style={{ color: theme.subText, textAlign: 'center', marginTop: 40 }}>{t('noHistory')}</Text>
-            <Text style={{ color: ACCENT, textAlign: 'center', marginTop: 8 }}>{t('ux23Empty')}</Text>
-          </TouchableOpacity>
-        )
-      ) : visible.length === 0 ? (
-        <Text style={{ color: theme.subText, textAlign: 'center', marginTop: 24 }}>{t('ux23Empty')}</Text>
-      ) : (
-        <FlatList
-          data={visible}
-          keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={{ paddingBottom: 30 }}
-          renderItem={renderItem}
-        />
-      )}
+      <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 6 }]}>{t('ux26Local')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux26NoWin')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux26Guides')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux26Disclaimer')}</Text>
+      </HonestyFold>
+          </View>
+        }
+        ListEmptyComponent={
+          loading ? (
+            <ActivityIndicator color="#00F5D4" size="large" style={{ marginTop: 40 }} />
+          ) : history.length === 0 ? (
+            sessions.length ? null : (
+              <TouchableOpacity onPress={() => onOpenAnalyze?.()} accessibilityRole="button">
+                <Text style={{ color: theme.subText, textAlign: 'center', marginTop: 40 }}>{t('noHistory')}</Text>
+                <Text style={{ color: ACCENT, textAlign: 'center', marginTop: 8 }}>{t('ux23Empty')}</Text>
+              </TouchableOpacity>
+            )
+          ) : (
+            <Text style={{ color: theme.subText, textAlign: 'center', marginTop: 24 }}>{t('ux23Empty')}</Text>
+          )
+        }
+      />
     </View>
   );
 }

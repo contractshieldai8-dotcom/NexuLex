@@ -12,7 +12,6 @@ import {
   Image,
   Modal,
   InteractionManager,
-  findNodeHandle,
   Platform,
   Keyboard,
   I18nManager,
@@ -121,6 +120,7 @@ import {
   ClauseNavigator,
 } from './components/AnalysisLayers';
 import DiffTool from './components/DiffTool';
+import HonestyFold from './components/HonestyFold';
 import ShieldDocumentCard from './components/ShieldDocumentCard';
 import NexuLexGuideSheet from './components/NexuLexGuideSheet';
 import FirstIntentSheet from './components/FirstIntentSheet';
@@ -771,28 +771,32 @@ function AppContent() {
     };
 
     const runMeasure = () => {
-      const node = findNodeHandle(analyzeContentRef.current);
-      if (!sentinel || !node || typeof sentinel.measureLayout !== 'function') {
+      const relative = analyzeContentRef.current;
+      if (!sentinel || !relative || typeof sentinel.measureLayout !== 'function') {
         finishWithStored();
         return;
       }
       let retried = false;
       const attempt = () => {
-        sentinel.measureLayout(
-          node,
-          (_x, y) => {
-            scroll.scrollTo({ y: Math.max(0, y - 12), animated: true });
-            pendingSignedScrollRef.current = false;
-          },
-          () => {
-            if (!retried) {
-              retried = true;
-              attempt();
-              return;
+        try {
+          sentinel.measureLayout(
+            relative,
+            (_x, y) => {
+              scroll.scrollTo({ y: Math.max(0, y - 12), animated: true });
+              pendingSignedScrollRef.current = false;
+            },
+            () => {
+              if (!retried) {
+                retried = true;
+                attempt();
+                return;
+              }
+              finishWithStored();
             }
-            finishWithStored();
-          }
-        );
+          );
+        } catch {
+          finishWithStored();
+        }
       };
       attempt();
     };
@@ -3379,16 +3383,18 @@ function AppContent() {
 
         {locked ? null : renderGlossary(analysis)}
 
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 12, marginBottom: 0 }]}>{t('ux20Preview')}</Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
-          {t('ux20Country', { country: t(getJurisdiction(analysis.country || analysisCountry).labelKey) })}
-        </Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Score')}</Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Pdf')}</Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Share')}</Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Guides')}</Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20NoWin')}</Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>{t('ux20Disclaimer')}</Text>
+        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Preview')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
+            {t('ux20Country', { country: t(getJurisdiction(analysis.country || analysisCountry).labelKey) })}
+          </Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Score')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Pdf')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Share')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Guides')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20NoWin')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>{t('ux20Disclaimer')}</Text>
+        </HonestyFold>
       </View>
     );
   };
@@ -3583,6 +3589,7 @@ function AppContent() {
               )}
 
               {result && workspaceMode === 'analyze' ? (
+                <>
                 <View
                   style={{
                     borderWidth: 1,
@@ -3590,90 +3597,97 @@ function AppContent() {
                     backgroundColor: theme.cardBg,
                     borderRadius: 14,
                     padding: 14,
-                    marginBottom: 12,
+                    marginBottom: 8,
+                    gap: 8,
                   }}
                 >
                   <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>{t('ux24Dock')}</Text>
-                  <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingVertical: 8 }}>
-                    <TouchableOpacity
-                      onPress={scrollToSignedReport}
-                      accessibilityRole="button"
-                      accessibilityLabel={t('ux24Report')}
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: 6,
-                        paddingHorizontal: 12,
-                        paddingVertical: 8,
-                        borderRadius: 16,
-                        borderWidth: 1,
-                        borderColor: ACCENT,
-                        backgroundColor: `${ACCENT}14`,
-                      }}
-                    >
-                      <Ionicons name="document-text-outline" size={14} color={ACCENT} />
-                      <Text style={{ color: theme.text, fontSize: 13, fontWeight: '600' }}>{t('ux24Report')}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={() => setAnalyzeSetupOpen((open) => !open)}
-                      accessibilityRole="button"
-                      accessibilityLabel={analyzeSetupOpen ? t('ux24Collapse') : t('ux24Expand')}
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: 6,
-                        paddingHorizontal: 12,
-                        paddingVertical: 8,
-                        borderRadius: 16,
-                        borderWidth: 1,
-                        borderColor: theme.borderColor,
-                      }}
-                    >
-                      <Ionicons name={analyzeSetupOpen ? 'chevron-up-outline' : 'chevron-down-outline'} size={14} color={ACCENT} />
-                      <Text style={{ color: theme.text, fontSize: 13, fontWeight: '600' }}>
-                        {analyzeSetupOpen ? t('ux24Collapse') : t('ux24Expand')}
-                      </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={() => setAnalyzeSetupOpen(true)}
-                      accessibilityRole="button"
-                      accessibilityLabel={t('ux24New')}
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: 6,
-                        paddingHorizontal: 12,
-                        paddingVertical: 8,
-                        borderRadius: 16,
-                        borderWidth: 1,
-                        borderColor: theme.borderColor,
-                      }}
-                    >
-                      <Ionicons name="add-circle-outline" size={14} color={ACCENT} />
-                      <Text style={{ color: theme.text, fontSize: 13, fontWeight: '600' }}>{t('ux24New')}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={() => runFirstIntent('guides')}
-                      accessibilityRole="button"
-                      accessibilityLabel={t('ux24Guides')}
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: 6,
-                        paddingHorizontal: 12,
-                        paddingVertical: 8,
-                        borderRadius: 16,
-                        borderWidth: 1,
-                        borderColor: theme.borderColor,
-                      }}
-                    >
-                      <Ionicons name="map-outline" size={14} color={ACCENT} />
-                      <Text style={{ color: theme.text, fontSize: 13, fontWeight: '600' }}>{t('ux24Guides')}</Text>
-                    </TouchableOpacity>
-                  </ScrollView>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 2, marginBottom: 0 }]}>{t('ux24Setup')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 0 }]}>{t('ux24Disclaimer')}</Text>
+                  <TouchableOpacity
+                    onPress={scrollToSignedReport}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('ux24Report')}
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 8,
+                      paddingHorizontal: 12,
+                      paddingVertical: 12,
+                      borderRadius: 12,
+                      borderWidth: 1,
+                      borderColor: ACCENT,
+                      backgroundColor: `${ACCENT}14`,
+                    }}
+                  >
+                    <Ionicons name="document-text-outline" size={18} color={ACCENT} />
+                    <Text style={{ color: theme.text, fontSize: 15, fontWeight: '700', flex: 1 }}>{t('ux24Report')}</Text>
+                    <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={16} color={ACCENT} />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setAnalyzeSetupOpen(true);
+                      analyzeScrollRef.current?.scrollTo?.({ y: 0, animated: true });
+                    }}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('ux24New')}
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 8,
+                      paddingHorizontal: 12,
+                      paddingVertical: 12,
+                      borderRadius: 12,
+                      borderWidth: 1,
+                      borderColor: theme.borderColor,
+                    }}
+                  >
+                    <Ionicons name="add-circle-outline" size={18} color={ACCENT} />
+                    <Text style={{ color: theme.text, fontSize: 15, fontWeight: '600', flex: 1 }}>{t('ux24New')}</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => runFirstIntent('guides')}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('ux24Guides')}
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 8,
+                      paddingHorizontal: 12,
+                      paddingVertical: 12,
+                      borderRadius: 12,
+                      borderWidth: 1,
+                      borderColor: theme.borderColor,
+                    }}
+                  >
+                    <Ionicons name="map-outline" size={18} color={ACCENT} />
+                    <Text style={{ color: theme.text, fontSize: 15, fontWeight: '600', flex: 1 }}>{t('ux24Guides')}</Text>
+                  </TouchableOpacity>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux24Disclaimer')}</Text>
                 </View>
+                <TouchableOpacity
+                  onPress={() => setAnalyzeSetupOpen((open) => !open)}
+                  accessibilityRole="button"
+                  accessibilityState={{ expanded: analyzeSetupOpen }}
+                  accessibilityLabel={analyzeSetupOpen ? t('ux24Collapse') : t('ux24Expand')}
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 8,
+                    marginBottom: 8,
+                    paddingHorizontal: 14,
+                    paddingVertical: 12,
+                    borderRadius: 12,
+                    borderWidth: 1,
+                    borderColor: ACCENT,
+                    backgroundColor: theme.cardBg,
+                  }}
+                >
+                  <Ionicons name={analyzeSetupOpen ? 'chevron-up' : 'chevron-down'} size={18} color={ACCENT} />
+                  <Text style={{ color: theme.text, fontSize: 15, fontWeight: '700', flex: 1 }}>
+                    {analyzeSetupOpen ? t('ux24Collapse') : t('ux24Expand')}
+                  </Text>
+                </TouchableOpacity>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux24Setup')}</Text>
+                </>
               ) : null}
 
               {/* Ülke Mevzuatı ve Rapor Dili Seçicileri */}
@@ -3950,20 +3964,22 @@ function AppContent() {
                     ))}
                   </ScrollView>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 0 }]}>{t('fiHomeHint')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux19Guides')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 0 }]}>
-                    {t('ux5Country', { country: selectedCountryOption.label })}
-                  </Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Lang')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Scan')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Free')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Guides')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Lawyer')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5NoWin')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Disclaimer')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux15Once')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux17Get')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Preview')}</Text>
+                  <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                    <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux19Guides')}</Text>
+                    <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 0 }]}>
+                      {t('ux5Country', { country: selectedCountryOption.label })}
+                    </Text>
+                    <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Lang')}</Text>
+                    <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Scan')}</Text>
+                    <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Free')}</Text>
+                    <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Guides')}</Text>
+                    <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Lawyer')}</Text>
+                    <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5NoWin')}</Text>
+                    <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Disclaimer')}</Text>
+                    <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux15Once')}</Text>
+                    <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux17Get')}</Text>
+                    <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Preview')}</Text>
+                  </HonestyFold>
                 </View>
               ) : null}
               {!collapseIngest ? (
@@ -4274,19 +4290,21 @@ function AppContent() {
                     </Text>
                   </View>
                 )}
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('st8Plan')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Store')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Quota')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
-                  {t('st8Ask', {
-                    freeAsk: String(PLAN_LIMITS.free.askDaily),
-                    proAsk: String(PLAN_LIMITS.pro.askDaily),
-                    professionalAsk: String(PLAN_LIMITS.professional.askDaily),
-                  })}
-                </Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Tools')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8First')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Restore')}</Text>
+                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Plan')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Store')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Quota')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
+                    {t('st8Ask', {
+                      freeAsk: String(PLAN_LIMITS.free.askDaily),
+                      proAsk: String(PLAN_LIMITS.pro.askDaily),
+                      professionalAsk: String(PLAN_LIMITS.professional.askDaily),
+                    })}
+                  </Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Tools')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8First')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Restore')}</Text>
+                </HonestyFold>
 
                 {!emailVerified && (
                   <>
@@ -4331,9 +4349,11 @@ function AppContent() {
                   onNeedPaywall={(hook) => openPaywall(hook === 'professional' ? 'professional' : 'share')}
                   onOpenBrief={(snapshot) => setAdvisorSnapshot(snapshot)}
                 />
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8 }]}>{t('st4Seats')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st4SeatsHint')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st4Plan')}</Text>
+                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st4Seats')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st4SeatsHint')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st4Plan')}</Text>
+                </HonestyFold>
               </View>
 
               {/* Destek ve Hata Bildirimi */}
@@ -4358,29 +4378,27 @@ function AppContent() {
                   <Text style={[styles.settingLabel, { color: theme.text }]} numberOfLines={1}>
                     {t('supportTitle')}
                   </Text>
-                  <Text
-                    style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}
-                    numberOfLines={2}
-                  >
-                    {t('st4SupportHint')}
-                  </Text>
-                  <Text
-                    style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}
-                    numberOfLines={3}
-                  >
-                    {t('st4Support')}
-                  </Text>
                 </View>
                 <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={theme.subText} />
               </TouchableOpacity>
+              <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
+                  {t('st4SupportHint')}
+                </Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
+                  {t('st4Support')}
+                </Text>
+              </HonestyFold>
 
               <View
                 onLayout={onSettingsSectionLayout('security')}
                 style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
               >
                 <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 10 }]}>{t('securitySettings')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('st4Security')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('st4SecurityHint')}</Text>
+                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('st4Security')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('st4SecurityHint')}</Text>
+                </HonestyFold>
                 <TextInput
                   style={[
                     styles.input,
@@ -4435,8 +4453,10 @@ function AppContent() {
                 style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 20 }]}
               >
                 <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 8 }]}>{t('appLanguage')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('st6Lang')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('st6LangHint')}</Text>
+                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st6Lang')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st6LangHint')}</Text>
+                </HonestyFold>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
                   {(APP_LANGUAGES || []).map((lang) => (
                     <TouchableOpacity 
@@ -4453,11 +4473,15 @@ function AppContent() {
                     </TouchableOpacity>
                   ))}
                 </View>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 12, marginBottom: 8 }]}>{t('st6Rtl')}</Text>
+                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st6Rtl')}</Text>
+                </HonestyFold>
                 <Text style={[styles.settingLabel, { color: theme.text, marginTop: 8, marginBottom: 4 }]}>
                   {t('analysisCountryLabel')}
                 </Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('st6Country')}</Text>
+                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('st6Country')}</Text>
+                </HonestyFold>
                 <TouchableOpacity
                   onPress={() => setCountrySheetVisible(true)}
                   accessibilityRole="button"
@@ -4469,9 +4493,11 @@ function AppContent() {
                   </Text>
                   <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={theme.subText} />
                 </TouchableOpacity>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8 }]}>{t('st6CountryHint')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st6Generic')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st6Corridor')}</Text>
+                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st6CountryHint')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st6Generic')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st6Corridor')}</Text>
+                </HonestyFold>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>
                   {t('st6Disclaimer')}
                 </Text>
@@ -4483,11 +4509,13 @@ function AppContent() {
               >
                 <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 10 }]}>{t('privacyPolicy')}</Text>
                 <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, marginBottom: 6 }]}>{t('st2Title')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('st2Hint')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('st2Keep')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('st2Picker')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('st2Sub')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('st2Quota')}</Text>
+                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Hint')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Keep')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Picker')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Sub')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Quota')}</Text>
+                </HonestyFold>
                 <TouchableOpacity
                   style={[styles.secondaryBtn, { marginTop: 0 }]}
                   onPress={() => Linking.openURL(TRUST_URLS.privacy || 'https://nexulexai.netlify.app/privacy.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
@@ -4511,12 +4539,14 @@ function AppContent() {
                 >
                   <Text style={styles.secondaryBtnText}>{t('st2WebDelete')}</Text>
                 </TouchableOpacity>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Delete')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Lang')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Binding')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Store')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Offline')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Note')}</Text>
+                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st7Delete')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Lang')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Binding')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Store')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Offline')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Note')}</Text>
+                </HonestyFold>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10 }]}>
                   {t('disclaimerShort')}
                 </Text>
@@ -4544,14 +4574,16 @@ function AppContent() {
                 <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>
                   {t('accountDeleteHint')}
                 </Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>{t('st9Analyses')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Device')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Sub')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Web')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Store')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Restore')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Guides')}</Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 8 }]}>{t('st9Disclaimer')}</Text>
+                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Analyses')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Device')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Sub')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Web')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Store')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Restore')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Guides')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 8 }]}>{t('st9Disclaimer')}</Text>
+                </HonestyFold>
                 <TouchableOpacity
                   style={[
                     styles.secondaryBtn,

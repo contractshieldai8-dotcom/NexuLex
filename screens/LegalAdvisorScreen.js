@@ -43,6 +43,7 @@ import VoiceMicButton from '../components/VoiceMicButton';
 import SpeakButton from '../components/SpeakButton';
 import RecentChatsList from '../components/RecentChatsList';
 import { ReportAiButton } from '../components/AiReportSheet';
+import HonestyFold from '../components/HonestyFold';
 import { askLegalAdvisor } from '../services/ai';
 import { nextMessageId } from '../services/advisorChat';
 import { describeError } from '../utils/errors';
@@ -576,14 +577,16 @@ export default function LegalAdvisorScreen({
             </TouchableOpacity>
           ))}
         </ScrollView>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8 }]}>{t('ux4Ask')}</Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Guides')}</Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Case')}</Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Lawyer')}</Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Country')}</Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Free')}</Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4NoPay')}</Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 4 }]}>{t('ux4Disclaimer')}</Text>
+        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Ask')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Guides')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Case')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Lawyer')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Country')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Free')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4NoPay')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 4 }]}>{t('ux4Disclaimer')}</Text>
+        </HonestyFold>
         <View
           style={{
             borderWidth: 1,
@@ -655,12 +658,14 @@ export default function LegalAdvisorScreen({
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
               {t('askCardHint')}
             </Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
-              {t('ux8Server')}
-            </Text>
           </View>
           <Ionicons name="chevron-forward" size={18} color={ACCENT} />
         </TouchableOpacity>
+        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
+            {t('ux8Server')}
+          </Text>
+        </HonestyFold>
 
         <TouchableOpacity
           activeOpacity={0.85}
@@ -687,12 +692,12 @@ export default function LegalAdvisorScreen({
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
               {t('docExplainCardHint')}
             </Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
-              {t('ux9Deadlines')}
-            </Text>
           </View>
           <Ionicons name="chevron-forward" size={18} color={ACCENT} />
         </TouchableOpacity>
+        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('ux9Deadlines')}</Text>
+        </HonestyFold>
 
         <TouchableOpacity
           onPress={() => {
@@ -722,12 +727,12 @@ export default function LegalAdvisorScreen({
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
               {t('caseCardHint')}
             </Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
-              {t('ux7OnDevice')}
-            </Text>
           </View>
           <Ionicons name="chevron-forward" size={18} color={ACCENT} />
         </TouchableOpacity>
+        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('ux7OnDevice')}</Text>
+        </HonestyFold>
 
         <TouchableOpacity
           onPress={() => {
@@ -755,12 +760,14 @@ export default function LegalAdvisorScreen({
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
               {t('pgCardHint')}
             </Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
-              {t('ux10Free', { guides: String(PROCESS_GUIDES.length) })}
-            </Text>
           </View>
           <Ionicons name="chevron-forward" size={18} color={ACCENT} />
         </TouchableOpacity>
+        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>
+            {t('ux10Free', { guides: String(PROCESS_GUIDES.length) })}
+          </Text>
+        </HonestyFold>
 
         <TouchableOpacity
           onPress={() => {
@@ -788,9 +795,6 @@ export default function LegalAdvisorScreen({
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
               {t('ptCardHint')}
             </Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
-              {t('ux14Plan')}
-            </Text>
           </View>
           {plan === 'professional' ? (
             <Ionicons name="chevron-forward" size={18} color={ACCENT} />
@@ -798,6 +802,9 @@ export default function LegalAdvisorScreen({
             <Text style={{ color: ACCENT, fontSize: 11, fontWeight: '800' }}>{t('planProfessionalBadge')}</Text>
           )}
         </TouchableOpacity>
+        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('ux14Plan')}</Text>
+        </HonestyFold>
 
         <TouchableOpacity
           onPress={() => {
@@ -825,12 +832,12 @@ export default function LegalAdvisorScreen({
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
               {t('lhCardHint')}
             </Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
-              {t('ux6NoList')}
-            </Text>
           </View>
           <Ionicons name="chevron-forward" size={18} color={ACCENT} />
         </TouchableOpacity>
+        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('ux6NoList')}</Text>
+        </HonestyFold>
 
         <RecentChatsList theme={theme} compact />
 
@@ -840,9 +847,11 @@ export default function LegalAdvisorScreen({
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
           {t('scenarioSectionHint')}
         </Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: -4, marginBottom: 8 }]}>
-          {t('ux16Local')}
-        </Text>
+        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 0, marginBottom: 0 }]}>
+            {t('ux16Local')}
+          </Text>
+        </HonestyFold>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -889,9 +898,11 @@ export default function LegalAdvisorScreen({
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
           {t('calcSectionHint')}
         </Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: -4, marginBottom: 8 }]}>
-          {t('ux12Table')}
-        </Text>
+        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 0, marginBottom: 0 }]}>
+            {t('ux12Table')}
+          </Text>
+        </HonestyFold>
         {calculatorItems.some((row) => row.availability === 'pending') ? (
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: -4, marginBottom: 8 }]}>
             {t('availPendingLine', { country: pendingCountryLabel })}
@@ -951,9 +962,11 @@ export default function LegalAdvisorScreen({
         <Text style={[styles.label, { color: theme.subText, marginTop: 4 }]}>
           {t('draftSectionTitle')} · {offeredDrafts.filter((row) => row.availability === 'available').length}
         </Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
-          {t('ux13Preview', { previewLines: String(DRAFT_FREE_PREVIEW_LINES) })}
-        </Text>
+        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>
+            {t('ux13Preview', { previewLines: String(DRAFT_FREE_PREVIEW_LINES) })}
+          </Text>
+        </HonestyFold>
         {offeredDrafts.some((row) => row.availability === 'pending') ? (
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
             {t('availPendingLine', { country: pendingCountryLabel })}

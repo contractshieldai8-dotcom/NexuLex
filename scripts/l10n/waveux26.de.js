@@ -1,11 +1,11 @@
-// WAVE UX.26 — Zwei Verlaufsscans vergleichen (DE).
+// WAVE UX.26 — Zwei Scans vergleichen (DE).
 module.exports = {
   ux26Compare: 'Zwei gespeicherte Scans vergleichen',
-  ux26Pick: 'Tippen Sie zwei Zeilen. Der aeltere Text bleibt links.',
-  ux26Ready: 'Das vorhandene Vergleichswerkzeug oeffnen',
-  ux26Need: 'Waehlen Sie zwei Zeilen, die den Quelltext noch haben.',
-  ux26Local: 'NexuLex vergleicht auf diesem Telefon. Fuer diesen Schritt wird nichts Neues hochgeladen.',
+  ux26Pick: 'Tippen Sie zwei Zeilen. Der ältere Text bleibt links.',
+  ux26Ready: 'Das vorhandene Vergleichswerkzeug öffnen',
+  ux26Need: 'Wählen Sie zwei Zeilen, die den Quelltext noch haben.',
+  ux26Local: 'NexuLex vergleicht auf diesem Telefon. Für diesen Schritt wird nichts Neues hochgeladen.',
   ux26NoWin: 'Ein Vergleich ist kein Gerichtsergebnis und kein Gewinnanspruch.',
-  ux26Guides: 'Schritt-fuer-Schritt-Leitfaeden bleiben in jedem Fall offen.',
+  ux26Guides: 'Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.',
   ux26Disclaimer: 'NexuLex ist keine Kanzlei. Ein Vergleich ist ein Produktwerkzeug, kein Anwalt.',
 };

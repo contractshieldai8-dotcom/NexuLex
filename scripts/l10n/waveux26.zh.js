@@ -1,4 +1,4 @@
-// WAVE UX.26 — 对比两次历史扫描（ZH）。
+// WAVE UX.26 — 对比两次扫描（ZH）。
 module.exports = {
   ux26Compare: '对比两次已保存的扫描',
   ux26Pick: '点两行。较旧的文本留在左侧。',

@@ -1,11 +1,11 @@
-// WAVE UX.24 — Cais de acoes da analise (PT).
+// WAVE UX.24 — Próximos passos (PT).
 module.exports = {
-  ux24Dock: 'NexuLex mantem os proximos passos no topo apos esta analise.',
-  ux24Setup: 'Pais, parte e ficheiros ficam sob Ajuste da analise.',
-  ux24Expand: 'Mostrar o ajuste da analise',
-  ux24Collapse: 'Ocultar o ajuste e ficar no relatorio',
-  ux24New: 'Iniciar outra analise neste ajuste',
-  ux24Report: 'Saltar para o cartao de decisao',
-  ux24Guides: 'Os guias passo a passo ficam abertos em qualquer caso.',
-  ux24Disclaimer: 'NexuLex nao e um escritorio. Um cais e um atalho de produto, nao um advogado.',
+  ux24Dock: 'NexuLex · Próximos passos',
+  ux24Setup: 'País, parte e ficheiros ficam no ajuste da análise.',
+  ux24Expand: 'Mostrar o ajuste da análise',
+  ux24Collapse: 'Ocultar o ajuste da análise',
+  ux24New: 'Iniciar uma análise nova',
+  ux24Report: 'Abrir o cartão de decisão',
+  ux24Guides: 'Guias passo a passo',
+  ux24Disclaimer: 'A NexuLex não é um escritório. Estes atalhos são uma ferramenta de produto, não um advogado.',
 };

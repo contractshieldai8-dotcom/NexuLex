@@ -2,14 +2,14 @@
 
 export const WAVE_UX26_I18N = {
   "tr": {
-    "ux26Compare": "Iki kayitli taramayi karsilastir",
-    "ux26Pick": "Iki satira dokun. Eski metin solda kalir.",
-    "ux26Ready": "Mevcut karsilastirma aracini ac",
-    "ux26Need": "Kaynak metni duran iki satir sec.",
-    "ux26Local": "NexuLex bu telefonda karsilastirir. Bu adim icin yeni bir yukleme yoktur.",
-    "ux26NoWin": "Karsilastirma mahkeme sonucu veya kazanim iddiasi degildir.",
-    "ux26Guides": "Adim adim rehberler her durumda acik kalir.",
-    "ux26Disclaimer": "NexuLex bir hukuk burosu degildir. Karsilastirma urun aracidir, avukat degildir."
+    "ux26Compare": "İki kayıtlı taramayı karşılaştır",
+    "ux26Pick": "İki satıra dokunun. Daha eski metin solda kalır.",
+    "ux26Ready": "Mevcut karşılaştırma aracını aç",
+    "ux26Need": "Kaynak metni duran iki satır seçin.",
+    "ux26Local": "NexuLex bu telefonda karşılaştırır. Bu adım için yeni bir yükleme yoktur.",
+    "ux26NoWin": "Karşılaştırma bir mahkeme sonucu veya kazanım iddiası değildir.",
+    "ux26Guides": "Adım adım rehberler her durumda açık kalır.",
+    "ux26Disclaimer": "NexuLex bir hukuk bürosu değildir. Karşılaştırma bir ürün aracıdır, avukat değildir."
   },
   "en": {
     "ux26Compare": "Compare two saved scans",
@@ -23,33 +23,33 @@ export const WAVE_UX26_I18N = {
   },
   "de": {
     "ux26Compare": "Zwei gespeicherte Scans vergleichen",
-    "ux26Pick": "Tippen Sie zwei Zeilen. Der aeltere Text bleibt links.",
-    "ux26Ready": "Das vorhandene Vergleichswerkzeug oeffnen",
-    "ux26Need": "Waehlen Sie zwei Zeilen, die den Quelltext noch haben.",
-    "ux26Local": "NexuLex vergleicht auf diesem Telefon. Fuer diesen Schritt wird nichts Neues hochgeladen.",
+    "ux26Pick": "Tippen Sie zwei Zeilen. Der ältere Text bleibt links.",
+    "ux26Ready": "Das vorhandene Vergleichswerkzeug öffnen",
+    "ux26Need": "Wählen Sie zwei Zeilen, die den Quelltext noch haben.",
+    "ux26Local": "NexuLex vergleicht auf diesem Telefon. Für diesen Schritt wird nichts Neues hochgeladen.",
     "ux26NoWin": "Ein Vergleich ist kein Gerichtsergebnis und kein Gewinnanspruch.",
-    "ux26Guides": "Schritt-fuer-Schritt-Leitfaeden bleiben in jedem Fall offen.",
+    "ux26Guides": "Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.",
     "ux26Disclaimer": "NexuLex ist keine Kanzlei. Ein Vergleich ist ein Produktwerkzeug, kein Anwalt."
   },
   "fr": {
-    "ux26Compare": "Comparer deux analyses enregistrees",
-    "ux26Pick": "Touchez deux lignes. Le texte plus ancien reste a gauche.",
-    "ux26Ready": "Ouvrir l outil de comparaison existant",
+    "ux26Compare": "Comparer deux analyses enregistrées",
+    "ux26Pick": "Touchez deux lignes. Le texte plus ancien reste à gauche.",
+    "ux26Ready": "Ouvrir l’outil de comparaison existant",
     "ux26Need": "Choisissez deux lignes qui ont encore le texte source.",
-    "ux26Local": "NexuLex compare sur ce telephone. Rien de nouveau n est envoye pour cette etape.",
-    "ux26NoWin": "Une comparaison n est pas un verdict ni une promesse de gain.",
-    "ux26Guides": "Les guides pas a pas restent ouverts dans tous les cas.",
-    "ux26Disclaimer": "NexuLex n est pas un cabinet. Une comparaison est un outil produit, pas un avocat."
+    "ux26Local": "NexuLex compare sur ce téléphone. Rien de nouveau n’est envoyé pour cette étape.",
+    "ux26NoWin": "Une comparaison n’est pas un verdict ni une promesse de gain.",
+    "ux26Guides": "Les guides pas à pas restent ouverts dans tous les cas.",
+    "ux26Disclaimer": "NexuLex n’est pas un cabinet. Une comparaison est un outil produit, pas un avocat."
   },
   "es": {
-    "ux26Compare": "Comparar dos analisis guardados",
-    "ux26Pick": "Toque dos filas. El texto mas antiguo queda a la izquierda.",
-    "ux26Ready": "Abrir la herramienta de comparacion existente",
-    "ux26Need": "Elija dos filas que aun tengan el texto fuente.",
-    "ux26Local": "NexuLex compara en este telefono. No se sube nada nuevo en este paso.",
-    "ux26NoWin": "Una comparacion no es un fallo judicial ni una promesa de victoria.",
-    "ux26Guides": "Las guias paso a paso siguen abiertas en cualquier caso.",
-    "ux26Disclaimer": "NexuLex no es un despacho. Una comparacion es una herramienta de producto, no un abogado."
+    "ux26Compare": "Comparar dos análisis guardados",
+    "ux26Pick": "Toque dos filas. El texto más antiguo queda a la izquierda.",
+    "ux26Ready": "Abrir la herramienta de comparación existente",
+    "ux26Need": "Elija dos filas que aún tengan el texto fuente.",
+    "ux26Local": "NexuLex compara en este teléfono. No se sube nada nuevo en este paso.",
+    "ux26NoWin": "Una comparación no es un fallo judicial ni una promesa de victoria.",
+    "ux26Guides": "Las guías paso a paso siguen abiertas en cualquier caso.",
+    "ux26Disclaimer": "NexuLex no es un despacho. Una comparación es una herramienta de producto, no un abogado."
   },
   "ar": {
     "ux26Compare": "قارن فحصين محفوظين",
@@ -63,13 +63,13 @@ export const WAVE_UX26_I18N = {
   },
   "it": {
     "ux26Compare": "Confronta due scansioni salvate",
-    "ux26Pick": "Tocca due righe. Il testo piu vecchio resta a sinistra.",
+    "ux26Pick": "Tocca due righe. Il testo più vecchio resta a sinistra.",
     "ux26Ready": "Apri lo strumento di confronto esistente",
     "ux26Need": "Scegli due righe che hanno ancora il testo originale.",
     "ux26Local": "NexuLex confronta su questo telefono. Nulla di nuovo viene inviato in questo passo.",
-    "ux26NoWin": "Un confronto non e un esito di tribunale ne una promessa di vittoria.",
+    "ux26NoWin": "Un confronto non è un esito di tribunale né una promessa di vittoria.",
     "ux26Guides": "Le guide passo passo restano aperte in ogni caso.",
-    "ux26Disclaimer": "NexuLex non e uno studio legale. Un confronto e uno strumento di prodotto, non un avvocato."
+    "ux26Disclaimer": "NexuLex non è uno studio legale. Un confronto è uno strumento di prodotto, non un avvocato."
   },
   "zh": {
     "ux26Compare": "对比两次已保存的扫描",
@@ -113,20 +113,20 @@ export const WAVE_UX26_I18N = {
   },
   "pt": {
     "ux26Compare": "Comparar dois exames guardados",
-    "ux26Pick": "Toque em duas linhas. O texto mais antigo fica a esquerda.",
-    "ux26Ready": "Abrir a ferramenta de comparacao existente",
+    "ux26Pick": "Toque em duas linhas. O texto mais antigo fica à esquerda.",
+    "ux26Ready": "Abrir a ferramenta de comparação existente",
     "ux26Need": "Escolha duas linhas que ainda tenham o texto fonte.",
-    "ux26Local": "A NexuLex compara neste telefone. Nada de novo e enviado neste passo.",
-    "ux26NoWin": "Uma comparacao nao e um desfecho de tribunal nem uma promessa de vitoria.",
+    "ux26Local": "A NexuLex compara neste telefone. Nada de novo é enviado neste passo.",
+    "ux26NoWin": "Uma comparação não é um desfecho de tribunal nem uma promessa de vitória.",
     "ux26Guides": "Os guias passo a passo ficam abertos em qualquer caso.",
-    "ux26Disclaimer": "A NexuLex nao e um escritorio. Uma comparacao e uma ferramenta de produto, nao um advogado."
+    "ux26Disclaimer": "A NexuLex não é um escritório. Uma comparação é uma ferramenta de produto, não um advogado."
   },
   "nl": {
     "ux26Compare": "Vergelijk twee opgeslagen scans",
     "ux26Pick": "Tik op twee rijen. De oudere tekst blijft links.",
     "ux26Ready": "Open de bestaande vergelijktool",
     "ux26Need": "Kies twee rijen die de brontekst nog hebben.",
-    "ux26Local": "NexuLex vergelijkt op deze telefoon. Voor deze stap wordt niets nieuws geupload.",
+    "ux26Local": "NexuLex vergelijkt op deze telefoon. Voor deze stap wordt niets nieuws geüpload.",
     "ux26NoWin": "Een vergelijking is geen rechterlijke uitkomst en geen winstclaim.",
     "ux26Guides": "Stapsgewijze gidsen blijven in elk geval open.",
     "ux26Disclaimer": "NexuLex is geen advocatenkantoor. Een vergelijking is een producttool, geen advocaat."

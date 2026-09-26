@@ -1,11 +1,11 @@
-// WAVE UX.24 — Analiz eylem rihtimi (TR).
+// WAVE UX.24 — Analiz sonraki adımlar (TR).
 module.exports = {
-  ux24Dock: 'NexuLex bu taramadan sonra sonraki adimlari ustte tutar.',
-  ux24Setup: 'Ulke, taraf ve dosyalar Tarama kurulumu altinda kalir.',
-  ux24Expand: 'Tarama kurulumunu yeniden goster',
-  ux24Collapse: 'Kurulumu gizle ve raporda kal',
-  ux24New: 'Bu kurulumdan yeni bir tarama baslat',
-  ux24Report: 'Karar kartina atla',
-  ux24Guides: 'Adim adim rehberler her durumda acik kalir.',
-  ux24Disclaimer: 'NexuLex bir hukuk burosu degildir. Rihtim urun kisayoludur, avukat degildir.',
+  ux24Dock: 'NexuLex · Sonraki adımlar',
+  ux24Setup: 'Ülke, taraf ve dosyalar tarama kurulumunda kalır.',
+  ux24Expand: 'Tarama kurulumunu göster',
+  ux24Collapse: 'Tarama kurulumunu gizle',
+  ux24New: 'Yeni bir tarama başlat',
+  ux24Report: 'Karar kartına git',
+  ux24Guides: 'Adım adım rehberler',
+  ux24Disclaimer: 'NexuLex bir hukuk bürosu değildir. Bu kısayollar ürün aracıdır, avukat değildir.',
 };

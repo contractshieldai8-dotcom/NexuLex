@@ -165,13 +165,15 @@ const waveUx24Src = fs.existsSync('i18n.waveux24.js') ? fs.readFileSync('i18n.wa
 const waveUx24Match = waveUx24Src.match(/export const WAVE_UX24_I18N = ([\s\S]*);\s*$/);
 const waveUx26Src = fs.existsSync('i18n.waveux26.js') ? fs.readFileSync('i18n.waveux26.js', 'utf8') : '';
 const waveUx26Match = waveUx26Src.match(/export const WAVE_UX26_I18N = ([\s\S]*);\s*$/);
+const waveUx27Src = fs.existsSync('i18n.waveux27.js') ? fs.readFileSync('i18n.waveux27.js', 'utf8') : '';
+const waveUx27Match = waveUx27Src.match(/export const WAVE_UX27_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !waveGr6Match || !waveMx1Match || !waveJp3Match || !waveSt2Match || !waveUx2Match || !waveSt4Match || !waveGr7Match || !waveUx3Match || !waveSt6Match || !waveSt7Match || !waveGr8Match || !waveUx4Match || !waveMx2Match || !waveSt8Match || !waveUx5Match || !waveUx6Match || !waveUx7Match || !waveUx8Match || !waveUx9Match || !waveUx10Match || !waveUx11Match || !waveUx12Match || !waveUx13Match || !waveUx14Match || !waveUx15Match || !waveUx16Match || !waveUx17Match || !waveUx18Match || !waveUx19Match || !waveUx20Match || !waveUx21Match || !waveSt9Match || !waveUx22Match || !waveUx23Match || !waveUx24Match || !waveUx26Match || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !waveGr6Match || !waveMx1Match || !waveJp3Match || !waveSt2Match || !waveUx2Match || !waveSt4Match || !waveGr7Match || !waveUx3Match || !waveSt6Match || !waveSt7Match || !waveGr8Match || !waveUx4Match || !waveMx2Match || !waveSt8Match || !waveUx5Match || !waveUx6Match || !waveUx7Match || !waveUx8Match || !waveUx9Match || !waveUx10Match || !waveUx11Match || !waveUx12Match || !waveUx13Match || !waveUx14Match || !waveUx15Match || !waveUx16Match || !waveUx17Match || !waveUx18Match || !waveUx19Match || !waveUx20Match || !waveUx21Match || !waveSt9Match || !waveUx22Match || !waveUx23Match || !waveUx24Match || !waveUx26Match || !waveUx27Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5/GR6/MX1/JP3/ST2/UX2/ST4/GR7/UX3/ST6/ST7/GR8/UX4/MX2/ST8/UX5/UX6/UX7/UX8/UX9/UX10/UX11/UX12/UX13/UX14/UX15/UX16/UX17/UX18/UX19/UX20/UX21/ST9/UX22/UX23/UX24/UX26 kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5/GR6/MX1/JP3/ST2/UX2/ST4/GR7/UX3/ST6/ST7/GR8/UX4/MX2/ST8/UX5/UX6/UX7/UX8/UX9/UX10/UX11/UX12/UX13/UX14/UX15/UX16/UX17/UX18/UX19/UX20/UX21/ST9/UX22/UX23/UX24/UX26/UX27 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -237,6 +239,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_UX23_I18N = eval(`(${waveUx23Match[1]})`); // eslint-disable-line no-eval
   const WAVE_UX24_I18N = eval(`(${waveUx24Match[1]})`); // eslint-disable-line no-eval
   const WAVE_UX26_I18N = eval(`(${waveUx26Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_UX27_I18N = eval(`(${waveUx27Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -302,8 +305,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_UX23_I18N',
     'WAVE_UX24_I18N',
     'WAVE_UX26_I18N',
+    'WAVE_UX27_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N, WAVE_ST8_I18N, WAVE_UX5_I18N, WAVE_UX6_I18N, WAVE_UX7_I18N, WAVE_UX8_I18N, WAVE_UX9_I18N, WAVE_UX10_I18N, WAVE_UX11_I18N, WAVE_UX12_I18N, WAVE_UX13_I18N, WAVE_UX14_I18N, WAVE_UX15_I18N, WAVE_UX16_I18N, WAVE_UX17_I18N, WAVE_UX18_I18N, WAVE_UX19_I18N, WAVE_UX20_I18N, WAVE_UX21_I18N, WAVE_ST9_I18N, WAVE_UX22_I18N, WAVE_UX23_I18N, WAVE_UX24_I18N, WAVE_UX26_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N, WAVE_ST8_I18N, WAVE_UX5_I18N, WAVE_UX6_I18N, WAVE_UX7_I18N, WAVE_UX8_I18N, WAVE_UX9_I18N, WAVE_UX10_I18N, WAVE_UX11_I18N, WAVE_UX12_I18N, WAVE_UX13_I18N, WAVE_UX14_I18N, WAVE_UX15_I18N, WAVE_UX16_I18N, WAVE_UX17_I18N, WAVE_UX18_I18N, WAVE_UX19_I18N, WAVE_UX20_I18N, WAVE_UX21_I18N, WAVE_ST9_I18N, WAVE_UX22_I18N, WAVE_UX23_I18N, WAVE_UX24_I18N, WAVE_UX26_I18N, WAVE_UX27_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -1016,6 +1020,11 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     failed = true;
     console.log(`WAVE_UX26 count langs=${Object.keys(WAVE_UX26_I18N).length} keys=${waveUx26Base.length}`);
   }
+  const waveUx27Base = Object.keys(WAVE_UX27_I18N.en || {});
+  if (Object.keys(WAVE_UX27_I18N).length !== 13 || waveUx27Base.length !== 13) {
+    failed = true;
+    console.log(`WAVE_UX27 count langs=${Object.keys(WAVE_UX27_I18N).length} keys=${waveUx27Base.length}`);
+  }
 
   for (const lang of languages) {
     const keys = Object.keys(resources[lang].translation);
@@ -1041,9 +1050,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 2244) {
+  if (languages.length !== 13 || baseKeys.length !== 2257) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2244`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2257`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -3497,6 +3506,7 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_UX23_I18N',
       'WAVE_UX24_I18N',
       'WAVE_UX26_I18N',
+      'WAVE_UX27_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -3551,7 +3561,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.waveux22.js', 'utf8').match(/export const WAVE_UX22_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waveux23.js', 'utf8').match(/export const WAVE_UX23_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waveux24.js', 'utf8').match(/export const WAVE_UX24_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.waveux26.js', 'utf8').match(/export const WAVE_UX26_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.waveux26.js', 'utf8').match(/export const WAVE_UX26_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.waveux27.js', 'utf8').match(/export const WAVE_UX27_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -4951,7 +4962,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'wavest2', 'wavest4', 'wavest6', 'wavest7', 'wavest8', 'wavest9', 'waveux1', 'waveux2', 'waveux3', 'waveux4', 'waveux5', 'waveux6', 'waveux7', 'waveux8', 'waveux9', 'waveux10', 'waveux11', 'waveux12', 'waveux13', 'waveux14', 'waveux15', 'waveux16', 'waveux17', 'waveux18', 'waveux19', 'waveux20', 'waveux21', 'waveux22', 'waveux23', 'waveux24', 'waveux26', 'wavejp2', 'wavejp3', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavegr7', 'wavegr8', 'wavemx1', 'wavemx2', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'wavest2', 'wavest4', 'wavest6', 'wavest7', 'wavest8', 'wavest9', 'waveux1', 'waveux2', 'waveux3', 'waveux4', 'waveux5', 'waveux6', 'waveux7', 'waveux8', 'waveux9', 'waveux10', 'waveux11', 'waveux12', 'waveux13', 'waveux14', 'waveux15', 'waveux16', 'waveux17', 'waveux18', 'waveux19', 'waveux20', 'waveux21', 'waveux22', 'waveux23', 'waveux24', 'waveux26', 'waveux27', 'wavejp2', 'wavejp3', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavegr7', 'wavegr8', 'wavemx1', 'wavemx2', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -8946,6 +8957,58 @@ Ticaret Unvanı: Anadolu Bilişim
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.26 history pair compare (${fixtures} fixtures): DiffTool × 13, no contract export`);
+  }
+}
+
+// WAVE UX.27 — folded notes, dock layout, history scroll, guide links × 13
+{
+  let uxOk = true;
+  const uxFail = (msg) => {
+    failed = true;
+    uxOk = false;
+    console.log(`WAVE UX.27 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const LANGS = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+  const R = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
+  const keys = ['foldShow', 'foldHide', 'guideStepHistorySearch', 'guideStepHistoryExport', 'guideStepHistoryCompare', 'guideFlowDockTitle', 'guideFlowDockHint', 'guideFlowDockIntro', 'guideChipDock', 'guideStepDockReport', 'guideStepDockSetup', 'guideStepDockGuides', 'guideNewDock'];
+  for (const L of LANGS) {
+    const miss = keys.filter((k) => typeof R[L][k] !== 'string' || !R[L][k].trim());
+    if (miss.length) uxFail(`${L} missing ${miss.join(', ')}`);
+    if (!/NexuLex/.test(R[L].guideFlowDockIntro || '') || !/NexuLex/.test(R[L].guideNewDock || '')) uxFail(`${L} guide intro/news must name NexuLex`);
+    if (L !== 'en') {
+      const same = keys.filter((k) => R[L][k] === R.en[k] && R.en[k].length >= 12);
+      if (same.length) uxFail(`${L} identical to EN: ${same.join(', ')}`);
+    }
+  }
+  const app = read('App.js');
+  const history = read('screens/HistoryScreen.js');
+  const advisor = read('screens/LegalAdvisorScreen.js');
+  const cap = read('constants/appCapabilities.js');
+  const fold = read('components/HonestyFold.js');
+  if (!app.includes("t('foldShow')") || !history.includes("t('foldShow')") || !advisor.includes("t('foldShow')")) {
+    uxFail('folded notes must cover analyze, history and advisor');
+  }
+  if (!fold.includes('chevron-down') || !fold.includes('useState(false)')) uxFail('notes must start closed behind a chevron');
+  if (!history.includes('ListHeaderComponent') || !/style=\{\{ flex: 1 \}\}/.test(history)) {
+    uxFail('history list must scroll its own header');
+  }
+  if (!app.includes('analyzeContentRef.current') || app.includes('findNodeHandle')) {
+    uxFail('decision-card scroll must measure against the content ref');
+  }
+  if (app.lastIndexOf("t('ux24Expand')") < app.lastIndexOf("t('ux24Disclaimer')")) {
+    uxFail('scan setup control must sit under the next-steps card');
+  }
+  if (!cap.includes("id: 'scan_dock'") || !cap.includes('guideStepHistoryCompare') || !cap.includes('guideStepHistorySearch') || !cap.includes('guideStepHistoryExport')) {
+    uxFail('guide must point at the scan dock and history search, export and compare');
+  }
+  if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
+  if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) uxFail('store listing must stay out of the app');
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) uxFail('dependency count changed');
+  if (uxOk) {
+    console.log('OK  WAVE UX.27 folded notes + guide links: dock, history scroll, measureLayout × 13');
   }
 }
 

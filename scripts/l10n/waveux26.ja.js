@@ -1,4 +1,4 @@
-// WAVE UX.26 — 履歴の2件を比較 (JA).
+// WAVE UX.26 — 履歴の比較 (JA).
 module.exports = {
   ux26Compare: '保存した確認を二つ比較する',
   ux26Pick: '二行をタップします。古い本文は左に残ります。',
