@@ -255,6 +255,15 @@ export default function LawyerHandoffSheet({
         <Ionicons name="shield-checkmark-outline" size={16} color={WARNING} />
         <Text style={[bodyText, { flex: 1 }]}>{t('lhNoReferral')}</Text>
       </View>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>{t('ux6NoList')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
+        {t('ux6Country', { country: countryLabel || '—' })}
+      </Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux6OnDevice')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux6IntroFree')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux6Packet')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux6NoWin')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 8 }]}>{t('ux6Check')}</Text>
 
       {sectionTitle('lhFindTitle', 'ribbon-outline', { country: countryLabel || '—' })}
       {!jurisdiction ? (
@@ -343,6 +352,7 @@ export default function LawyerHandoffSheet({
       {actionBtn('document-outline', 'lhSharePdf', sharePacketPdf, { primary: isPro, locked: !isPro })}
       {actionBtn('copy-outline', 'lhCopyPacket', copyPacket, { locked: !isPro })}
 
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('ux6Disclaimer')}</Text>
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 14 }]}>{t('lhDisclaimer')}</Text>
     </View>
   );

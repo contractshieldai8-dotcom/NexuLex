@@ -810,6 +810,9 @@ export default function LegalAdvisorScreen({
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
               {t('lhCardHint')}
             </Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
+              {t('ux6NoList')}
+            </Text>
           </View>
           <Ionicons name="chevron-forward" size={18} color={ACCENT} />
         </TouchableOpacity>
