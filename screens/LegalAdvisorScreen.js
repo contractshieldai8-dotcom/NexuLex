@@ -584,7 +584,7 @@ export default function LegalAdvisorScreen({
         <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Free')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4NoPay')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 4 }]}>{t('ux4Disclaimer')}</Text>
-        <View>
+        <View
           style={{
             borderWidth: 1,
             borderColor: theme.borderColor,

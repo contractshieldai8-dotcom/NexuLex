@@ -68,6 +68,7 @@ function buildResources() {
     loadWave('i18n.wavest9.js', 'WAVE_ST9_I18N'),
     loadWave('i18n.waveux22.js', 'WAVE_UX22_I18N'),
     loadWave('i18n.waveux23.js', 'WAVE_UX23_I18N'),
+    loadWave('i18n.waveux24.js', 'WAVE_UX24_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {
@@ -182,6 +183,7 @@ const APP_FILES = [
   'constants/draftLocale.js',
   'constants/proToolsLocale.js',
   'constants/analyzeHomeLocale.js',
+  'constants/analyzeDockLocale.js',
   'constants/advisorHome.js',
   'constants/advisorHomeLocale.js',
   'constants/scanSuccess.js',

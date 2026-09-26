@@ -67,6 +67,7 @@ import {
   suggestJurisdiction,
 } from './utils/locale';
 import { FIRST_INTENTS, actionForIntent } from './constants/firstIntent';
+import { shouldCollapseAnalyzeIngest } from './constants/analyzeDockLocale';
 import { jobForScanSuccess } from './constants/scanSuccess';
 import { collectResumeItems, shouldOfferResumeSheet, actionForResume } from './constants/sessionResume';
 import { loadResumeDraft, saveResumeDraft, clearResumeDraft, isUsableDraft } from './utils/sessionResume';
@@ -356,6 +357,8 @@ function AppContent() {
   const partySectionYRef = useRef(0);
   const [upcomingDeadlines, setUpcomingDeadlines] = useState([]);
   const [workspaceMode, setWorkspaceMode] = useState('analyze');
+  const [analyzeSetupOpen, setAnalyzeSetupOpen] = useState(true);
+  const lastDockResultIdRef = useRef(null);
   const [typeLocked, setTypeLocked] = useState(false);
   const [detectedTypeHint, setDetectedTypeHint] = useState('');
   const [signedShieldCount, setSignedShieldCount] = useState(0);
@@ -401,6 +404,23 @@ function AppContent() {
     paywallWasVisibleRef.current = paywallVisible;
     if (wasVisible && !paywallVisible) setPaywallClosedTick((n) => n + 1);
   }, [paywallVisible]);
+  useEffect(() => {
+    const id = result ? (result.id || 'current') : null;
+    if (id && id !== lastDockResultIdRef.current && !loading) {
+      lastDockResultIdRef.current = id;
+      setAnalyzeSetupOpen(false);
+    }
+    if (!id) {
+      lastDockResultIdRef.current = null;
+      setAnalyzeSetupOpen(true);
+    }
+  }, [result, loading]);
+  const collapseIngest = shouldCollapseAnalyzeIngest({
+    hasResult: Boolean(result),
+    setupOpen: analyzeSetupOpen,
+    loading,
+    workspaceMode,
+  });
   useEffect(() => {
     if (!paywallClosedTick || paywallVisible || !pendingShareReturnRef.current) return undefined;
     const snap = pendingShareReturnRef.current;
@@ -3561,7 +3581,103 @@ function AppContent() {
                 </View>
               )}
 
+              {result && workspaceMode === 'analyze' ? (
+                <View
+                  style={{
+                    borderWidth: 1,
+                    borderColor: theme.borderColor,
+                    backgroundColor: theme.cardBg,
+                    borderRadius: 14,
+                    padding: 14,
+                    marginBottom: 12,
+                  }}
+                >
+                  <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>{t('ux24Dock')}</Text>
+                  <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingVertical: 8 }}>
+                    <TouchableOpacity
+                      onPress={scrollToSignedReport}
+                      accessibilityRole="button"
+                      accessibilityLabel={t('ux24Report')}
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 6,
+                        paddingHorizontal: 12,
+                        paddingVertical: 8,
+                        borderRadius: 16,
+                        borderWidth: 1,
+                        borderColor: ACCENT,
+                        backgroundColor: `${ACCENT}14`,
+                      }}
+                    >
+                      <Ionicons name="document-text-outline" size={14} color={ACCENT} />
+                      <Text style={{ color: theme.text, fontSize: 13, fontWeight: '600' }}>{t('ux24Report')}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => setAnalyzeSetupOpen((open) => !open)}
+                      accessibilityRole="button"
+                      accessibilityLabel={analyzeSetupOpen ? t('ux24Collapse') : t('ux24Expand')}
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 6,
+                        paddingHorizontal: 12,
+                        paddingVertical: 8,
+                        borderRadius: 16,
+                        borderWidth: 1,
+                        borderColor: theme.borderColor,
+                      }}
+                    >
+                      <Ionicons name={analyzeSetupOpen ? 'chevron-up-outline' : 'chevron-down-outline'} size={14} color={ACCENT} />
+                      <Text style={{ color: theme.text, fontSize: 13, fontWeight: '600' }}>
+                        {analyzeSetupOpen ? t('ux24Collapse') : t('ux24Expand')}
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => setAnalyzeSetupOpen(true)}
+                      accessibilityRole="button"
+                      accessibilityLabel={t('ux24New')}
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 6,
+                        paddingHorizontal: 12,
+                        paddingVertical: 8,
+                        borderRadius: 16,
+                        borderWidth: 1,
+                        borderColor: theme.borderColor,
+                      }}
+                    >
+                      <Ionicons name="add-circle-outline" size={14} color={ACCENT} />
+                      <Text style={{ color: theme.text, fontSize: 13, fontWeight: '600' }}>{t('ux24New')}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => runFirstIntent('guides')}
+                      accessibilityRole="button"
+                      accessibilityLabel={t('ux24Guides')}
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 6,
+                        paddingHorizontal: 12,
+                        paddingVertical: 8,
+                        borderRadius: 16,
+                        borderWidth: 1,
+                        borderColor: theme.borderColor,
+                      }}
+                    >
+                      <Ionicons name="map-outline" size={14} color={ACCENT} />
+                      <Text style={{ color: theme.text, fontSize: 13, fontWeight: '600' }}>{t('ux24Guides')}</Text>
+                    </TouchableOpacity>
+                  </ScrollView>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 2, marginBottom: 0 }]}>{t('ux24Setup')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 0 }]}>{t('ux24Disclaimer')}</Text>
+                </View>
+              ) : null}
+
               {/* Ülke Mevzuatı ve Rapor Dili Seçicileri */}
+              {!collapseIngest ? (
+              <>
               <SelectorField
                 theme={theme}
                 icon="globe-outline"
@@ -3690,6 +3806,8 @@ function AppContent() {
                 <Text style={[styles.sectionHint, { color: theme.subText }]}>
                   {t('detectedTypeHint', { type: t(detectedTypeHint) })}
                 </Text>
+              ) : null}
+              </>
               ) : null}
 
               <View style={styles.modeToggleRow}>
@@ -3847,6 +3965,8 @@ function AppContent() {
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Preview')}</Text>
                 </View>
               ) : null}
+              {!collapseIngest ? (
+              <>
               <View style={{ flexDirection: 'row', gap: 10, marginBottom: 12 }}>
                 <ContractAnalyzer
                   disabled={loading}
@@ -3967,6 +4087,8 @@ function AppContent() {
 
               {/* Dinamik Analiz İlerleme Kartı */}
               {loading && <AnalysisProgress theme={theme} step={progressStep} />}
+              </>
+              ) : null}
 
               {!loading && signedShieldCount > 0 ? (
                 <TouchableOpacity onPress={() => openSignedStrip().catch(() => {})} activeOpacity={0.85}>
