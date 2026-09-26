@@ -365,6 +365,14 @@ export default function PaywallScreen({
             ) : null}
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2FirstValue')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Disclaimer')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Store')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11First')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Guides')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Yearly')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Peer')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Restore')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11NoCourt')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Disclaimer')}</Text>
 
             {loadingPlans ? (
               <View style={{ alignItems: 'center', paddingVertical: 20 }}>
@@ -439,6 +447,14 @@ export default function PaywallScreen({
                   {t('termsOfUse')}
                 </Text>
               </TouchableOpacity>
+              <Text
+                style={[
+                  styles.sectionHint,
+                  { color: theme.subText, textAlign: 'center', marginTop: 4, marginBottom: 0 },
+                ]}
+              >
+                {t('ux11Disclaimer')}
+              </Text>
               <Text
                 style={[
                   styles.sectionHint,
