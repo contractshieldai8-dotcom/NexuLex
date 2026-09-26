@@ -218,9 +218,17 @@ export default function ShareBriefSheet({
         >
           <View style={styles.modalHandle} />
           <Text style={[styles.modalTitle, { color: theme.text }]}>{t('shareBriefTitle')}</Text>
-          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
             {t('shareBriefHint')}
           </Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux22Brief')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux22Code')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux22Expire')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux22Leak')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux22Audience')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux22Pro')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux22Guides')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux22Disclaimer')}</Text>
 
           {!minted ? (
             <>
@@ -370,6 +378,7 @@ export default function ShareBriefSheet({
           <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={close}>
             <Text style={styles.secondaryBtnText}>{t('closeButton')}</Text>
           </TouchableOpacity>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('ux22Disclaimer')}</Text>
         </View>
       </View>
     </Modal>
