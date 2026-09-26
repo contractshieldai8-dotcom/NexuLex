@@ -22,6 +22,7 @@ import { PRO_TOOL_ERROR_CODES, fetchProToolQuota, runProTool } from '../services
 import { loadCases, noteEvidence, saveCases } from '../services/caseFileStore';
 import { CASE_AREAS, CASE_AREA_ICONS, addEvent, addEvidence } from '../utils/caseFiles';
 import {
+  PLAN_LIMITS,
   PRO_MATERIAL_MAX,
   PRO_MATERIAL_MIN,
   PRO_POSITION_MAX,
@@ -318,6 +319,16 @@ export default function ProToolsSheet({
           {t('ptQuotaLeft', { count: quota.remaining, total: quota.limit })}
         </Text>
       ) : null}
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>
+        {t('ux14Quota', { toolsDaily: String(PLAN_LIMITS.professional.toolsDaily) })}
+      </Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux14Server')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux14Plan')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux14Material')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux14Sources')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux14NoAdvice')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux14Device')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 12 }]}>{t('ux14Disclaimer')}</Text>
     </View>
   );
 
@@ -473,7 +484,8 @@ export default function ProToolsSheet({
         <ReportAiButton theme={theme} featureId="pro_tools" targetId={runId} country={country} context={fullText()} />
       </View>
 
-      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 14 }]}>{t('ptDisclaimer')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 14, marginBottom: 0 }]}>{t('ux14Disclaimer')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('ptDisclaimer')}</Text>
     </View>
   );
 
