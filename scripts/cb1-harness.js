@@ -69,6 +69,7 @@ function buildResources() {
     loadWave('i18n.waveux22.js', 'WAVE_UX22_I18N'),
     loadWave('i18n.waveux23.js', 'WAVE_UX23_I18N'),
     loadWave('i18n.waveux24.js', 'WAVE_UX24_I18N'),
+    loadWave('i18n.waveux26.js', 'WAVE_UX26_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {
@@ -198,6 +199,8 @@ const APP_FILES = [
   'utils/lifecycle.js',
   'utils/historyRegister.js',
   'constants/historyOpsLocale.js',
+  'utils/historyCompare.js',
+  'constants/historyCompareLocale.js',
   'constants/annualHighlight.js',
   'constants/professionalCompare.js',
   'constants/settingsTrust.js',

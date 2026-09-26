@@ -48,6 +48,7 @@ import ResetPasswordScreen from './screens/ResetPasswordScreen';
 import { AUTH_LINK_RESULTS, handleAuthDeepLink } from './utils/authLinks';
 import { createAuthRedirectUrl } from './utils/authRedirects';
 import { parseShareCode, SHARE_CODE_RE } from './utils/shareSnapshot';
+import { buildHistoryCompareSeed } from './utils/historyCompare';
 import { readOwnedFile, writeOwnedBase64, isExpoGoUri, trySaveBase64ViaSaf } from './utils/fileAccess';
 import { paginatePlainBody } from './utils/exportPlain';
 import { darkTheme, lightTheme, getRiskColor, badgeLabelStyle, styles, ACCENT, DANGER, WARNING, alignStart } from './theme';
@@ -4217,6 +4218,13 @@ function AppContent() {
                 formatDate={formatDate}
                 onOpenChat={() => setActiveTab('advisor')}
                 onOpenAnalyze={() => setActiveTab('analyze')}
+                onComparePair={(left, right) => {
+                  const seed = buildHistoryCompareSeed(left, right);
+                  if (!seed.original || !seed.revised) return;
+                  setDiffSeed(seed);
+                  setWorkspaceMode('diff');
+                  setActiveTab('analyze');
+                }}
                 onOpenItem={(item) => {
                   setSelectedHistoryItem(item);
                   setModalVisible(true);

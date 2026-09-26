@@ -28,6 +28,7 @@ import {
   filterHistoryRows,
   formatHistoryRegisterCsv,
 } from '../utils/historyRegister';
+import { canCompareHistoryPair, toggleHistoryComparePick } from '../utils/historyCompare';
 
 function historyRadarMeta(item, normalized) {
   const radar = normalized?.contractRadar || {};
@@ -93,6 +94,7 @@ export default function HistoryScreen({
   onDeleted,
   onOpenChat,
   onOpenAnalyze,
+  onComparePair,
   getRiskLabel,
   formatDate,
   onLifecyclePress,
@@ -105,6 +107,8 @@ export default function HistoryScreen({
   const [risk, setRisk] = useState('all');
   const [lifecycle, setLifecycle] = useState('all');
   const [exporting, setExporting] = useState(false);
+  const [compareOn, setCompareOn] = useState(false);
+  const [picked, setPicked] = useState([]);
 
   const visible = useMemo(
     () =>
@@ -186,10 +190,21 @@ export default function HistoryScreen({
     }
   }, [exporting, t, visible]);
 
+  const startCompare = useCallback(() => {
+    const left = history.find((row) => String(row.id) === String(picked[0]));
+    const right = history.find((row) => String(row.id) === String(picked[1]));
+    if (!canCompareHistoryPair(left, right)) {
+      Alert.alert(t('errorTitle'), t('ux26Need'));
+      return;
+    }
+    onComparePair?.(left, right);
+  }, [history, onComparePair, picked, t]);
+
   const renderItem = ({ item }) => {
     const normalized = normalizeAnalysis(item);
     const isDeleting = deletingId === item.id;
     const meta = historyRadarMeta(item, normalized);
+    const selected = compareOn && picked.includes(String(item.id));
 
     return (
       <TouchableOpacity
@@ -197,11 +212,17 @@ export default function HistoryScreen({
           styles.historyCard,
           {
             backgroundColor: theme.cardBg,
-            borderColor: theme.borderColor,
+            borderColor: selected ? ACCENT : theme.borderColor,
             opacity: isDeleting ? 0.5 : 1,
           },
         ]}
-        onPress={() => onOpenItem(item)}
+        onPress={() => {
+          if (compareOn) {
+            setPicked((prev) => toggleHistoryComparePick(prev, item.id));
+            return;
+          }
+          onOpenItem(item);
+        }}
         disabled={isDeleting}
       >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -212,6 +233,7 @@ export default function HistoryScreen({
             {t('scoreText')}: {item.score}/100 · {getRiskLabel(item.overall_risk)}
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+            {selected ? <Ionicons name="checkmark-circle" size={16} color={ACCENT} /> : null}
             <TouchableOpacity
               onPress={() => onLifecyclePress?.(item)}
               activeOpacity={0.85}
@@ -376,6 +398,35 @@ export default function HistoryScreen({
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 6 }]}>{t('ux23Register')}</Text>
       <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux23Guides')}</Text>
       <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux23Disclaimer')}</Text>
+
+      <TouchableOpacity
+        style={[styles.secondaryBtn, { marginTop: 0 }]}
+        onPress={() => {
+          setCompareOn((on) => {
+            if (on) setPicked([]);
+            return !on;
+          });
+        }}
+        accessibilityRole="button"
+        accessibilityState={{ selected: compareOn }}
+        accessibilityLabel={t('ux26Compare')}
+      >
+        <Text style={styles.secondaryBtnText}>{t('ux26Compare')}</Text>
+      </TouchableOpacity>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 6 }]}>{t('ux26Pick')}</Text>
+      <TouchableOpacity
+        style={[styles.secondaryBtn, { marginTop: 0 }, picked.length !== 2 && styles.buttonDisabled]}
+        onPress={startCompare}
+        disabled={picked.length !== 2}
+        accessibilityRole="button"
+        accessibilityLabel={t('ux26Ready')}
+      >
+        <Text style={styles.secondaryBtnText}>{t('ux26Ready')}</Text>
+      </TouchableOpacity>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 6 }]}>{t('ux26Local')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux26NoWin')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux26Guides')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux26Disclaimer')}</Text>
 
       {loading ? (
         <ActivityIndicator color="#00F5D4" size="large" style={{ marginTop: 40 }} />
