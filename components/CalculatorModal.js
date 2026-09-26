@@ -390,6 +390,18 @@ export default function CalculatorModal({
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
               {t(copyKeys.descriptionKey)}
             </Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>
+              {t('ux12Table')}
+            </Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>
+              {t('ux12Country', { country: ctx.jurisdiction || country })}
+            </Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('ux12NoAdvice')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('ux12Official')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('ux12NoWin')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('ux12Device')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('ux12Free')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux12Disclaimer')}</Text>
             {statutory && ctx.pack ? (
               __DEV__ ? (
                 <>
@@ -730,6 +742,9 @@ export default function CalculatorModal({
                   </Text>
                 </View>
 
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
+                  {t('ux12Disclaimer')}
+                </Text>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
                   {t(result.disclaimerKey || 'calcDisclaimer')}
                 </Text>
