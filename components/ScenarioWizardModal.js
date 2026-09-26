@@ -14,7 +14,7 @@ import * as Clipboard from 'expo-clipboard';
 import { useTranslation } from 'react-i18next';
 
 import { ACCENT, DANGER, alignStart, styles } from '../theme';
-import { getScenarioById } from '../constants/legalScenarios';
+import { LEGAL_SCENARIOS, getScenarioById } from '../constants/legalScenarios';
 import { draftForScenario } from '../constants/draftTemplates';
 import { resolveJurisdiction } from '../constants/jurisdiction';
 import {
@@ -158,6 +158,18 @@ export default function ScenarioWizardModal({
                 <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
                   {t(scenario.descriptionKey)}
                 </Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 0, marginBottom: 0 }]}>{t('ux16Local')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
+                  {t('ux16Country', { country: jurisdiction || country })}
+                </Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
+                  {t('ux16Count', { scenarios: String(LEGAL_SCENARIOS.length) })}
+                </Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux16NoWin')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux16NoAdvice')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux16Device')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux16Guides')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 12 }]}>{t('ux16Disclaimer')}</Text>
                 <Text style={[styles.label, { color: theme.subText }]}>
                   {stepIndex + 1}/{questions.length}
                 </Text>
@@ -267,6 +279,7 @@ export default function ScenarioWizardModal({
                   </Text>
                 </View>
 
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux16Disclaimer')}</Text>
                 <Text style={[styles.chatDisclaimer, { color: theme.subText, marginBottom: 12 }]}>
                   {roadmap.disclaimer}
                 </Text>

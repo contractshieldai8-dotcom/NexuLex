@@ -840,6 +840,9 @@ export default function LegalAdvisorScreen({
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
           {t('scenarioSectionHint')}
         </Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: -4, marginBottom: 8 }]}>
+          {t('ux16Local')}
+        </Text>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}

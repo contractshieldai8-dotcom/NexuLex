@@ -1,0 +1,11 @@
+// WAVE UX.16 — Szenario-Roadmap ehrlich (DE).
+module.exports = {
+  ux16Local: 'Die Karte ist eine lokale Tabelle. Kein Netz. NexuLex ruft fuer diesen Weg kein Modell auf.',
+  ux16Country: 'Die Schritte folgen {{country}}. Ausserhalb eines gepackten Landes kommen allgemeine Schritte.',
+  ux16Count: '{{scenarios}} Szenariotypen. Ihre Antworten waehlen einen gespeicherten Zweig, keine lebende Gerichtsakte.',
+  ux16NoWin: 'Keine erfundene Gewinnchance und kein erfundener Gerichtsfall.',
+  ux16NoAdvice: 'Ein Korridor von Schritten. Keine Beratung fuer Ihre Akte und keine Vertretung.',
+  ux16Device: 'Die Antworten bleiben auf diesem Telefon, bis Sie die Karte kopieren oder teilen.',
+  ux16Guides: 'Schritt-fuer-Schritt-Leitfaeden bleiben in jedem Fall offen.',
+  ux16Disclaimer: 'NexuLex ist keine Kanzlei. Eine lokale Karte ist ein Produktwerkzeug, kein Anwalt.',
+};
