@@ -21,6 +21,7 @@ import { ASK_ERROR_CODES, askLegalQuestion, fetchLegalAskQuota, loadSavedAnswers
 import { loadCases, saveCases } from '../services/caseFileStore';
 import { CASE_AREAS, CASE_AREA_ICONS, addEvent, formatCaseBrief, todayIso } from '../utils/caseFiles';
 import { ASK_AUDIENCES, ASK_FACTS_MAX, ASK_QUESTION_MAX, ASK_QUESTION_MIN, formatAnswerText, officialPortal } from '../utils/legalAnswer';
+import { PLAN_LIMITS } from '../utils/plan';
 import { describeError } from '../utils/errors';
 import { useFeedback } from '../context/FeedbackContext';
 import { ReportAiButton } from './AiReportSheet';
@@ -259,6 +260,20 @@ export default function LegalAskSheet({
           {t('askQuotaLeft', { count: quota.remaining, total: quota.limit })}
         </Text>
       ) : null}
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>
+        {t('ux8Quota', {
+          freeAsk: String(PLAN_LIMITS.free.askDaily),
+          proAsk: String(PLAN_LIMITS.pro.askDaily),
+          professionalAsk: String(PLAN_LIMITS.professional.askDaily),
+        })}
+      </Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux8Server')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux8Country')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux8NoAdvice')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux8Sources')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux8NoEvidence')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux8Device')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux8Disclaimer')}</Text>
       {saved.length ? (
         <>
           <Text style={[styles.label, { color: theme.subText, marginTop: 12 }]}>{t('askRecent')}</Text>
@@ -396,6 +411,7 @@ export default function LegalAskSheet({
           <ReportAiButton theme={theme} featureId="legal_ask" targetId={entry.id} country={country} context={shareText()} />
         </View>
 
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('ux8Disclaimer')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 14 }]}>{t('askDisclaimer')}</Text>
       </View>
     );
