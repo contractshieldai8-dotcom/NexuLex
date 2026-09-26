@@ -1,14 +1,16 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
   FlatList,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
+import * as Sharing from 'expo-sharing';
 
 import { DANGER, ACCENT, getRiskColor, styles } from '../theme';
 import { typeKeyFromCategory } from '../constants/options';
@@ -19,6 +21,13 @@ import { supabase } from '../services/supabase';
 import RiskGauge from '../components/RiskGauge';
 import RecentChatsList from '../components/RecentChatsList';
 import { useAdvisorChat } from '../context/AdvisorChatContext';
+import { writeOwnedUtf8 } from '../utils/fileAccess';
+import {
+  HISTORY_LIFECYCLE_FILTERS,
+  HISTORY_RISK_FILTERS,
+  filterHistoryRows,
+  formatHistoryRegisterCsv,
+} from '../utils/historyRegister';
 
 function historyRadarMeta(item, normalized) {
   const radar = normalized?.contractRadar || {};
@@ -52,6 +61,29 @@ function historyRadarMeta(item, normalized) {
   };
 }
 
+function FilterChip({ label, active, theme, onPress }) {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.85}
+      accessibilityRole="button"
+      accessibilityState={{ selected: active }}
+      style={{
+        borderWidth: 1,
+        borderColor: active ? ACCENT : theme.borderColor,
+        backgroundColor: active ? 'rgba(0, 245, 212, 0.12)' : theme.cardBg,
+        borderRadius: 14,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        marginRight: 6,
+        marginBottom: 6,
+      }}
+    >
+      <Text style={{ color: active ? ACCENT : theme.text, fontSize: 12, fontWeight: '600' }}>{label}</Text>
+    </TouchableOpacity>
+  );
+}
+
 // Geçmiş analizler: kart açma + sağ alt köşede minimal silme ikonu.
 export default function HistoryScreen({
   theme,
@@ -60,6 +92,7 @@ export default function HistoryScreen({
   onOpenItem,
   onDeleted,
   onOpenChat,
+  onOpenAnalyze,
   getRiskLabel,
   formatDate,
   onLifecyclePress,
@@ -68,6 +101,24 @@ export default function HistoryScreen({
   const { t } = useTranslation();
   const { sessions } = useAdvisorChat();
   const [deletingId, setDeletingId] = useState(null);
+  const [query, setQuery] = useState('');
+  const [risk, setRisk] = useState('all');
+  const [lifecycle, setLifecycle] = useState('all');
+  const [exporting, setExporting] = useState(false);
+
+  const visible = useMemo(
+    () =>
+      filterHistoryRows(history, {
+        query,
+        risk,
+        lifecycle,
+        extra: (item) => {
+          const meta = historyRadarMeta(item, normalizeAnalysis(item));
+          return `${meta.parties} ${t(meta.typeKey)} ${meta.notice}`;
+        },
+      }),
+    [history, query, risk, lifecycle, t]
+  );
 
   const deleteAnalysis = useCallback(
     async (item) => {
@@ -98,6 +149,42 @@ export default function HistoryScreen({
     },
     [deleteAnalysis, t]
   );
+
+  const exportRegister = useCallback(async () => {
+    if (!visible.length || exporting) return;
+    setExporting(true);
+    try {
+      const rows = visible.map((item) => {
+        const meta = historyRadarMeta(item, normalizeAnalysis(item));
+        return {
+          id: item.id,
+          created_at: item.created_at,
+          score: item.score,
+          overall_risk: item.overall_risk,
+          lifecycle: item.lifecycle,
+          contract_category: item.contract_category || item.contractCategory,
+          parties: meta.parties,
+          summary: item.summary,
+        };
+      });
+      const csv = formatHistoryRegisterCsv(rows);
+      const uri = await writeOwnedUtf8(csv, 'nexulex-history-register.csv');
+      if (!uri || !(await Sharing.isAvailableAsync())) {
+        Alert.alert(t('errorTitle'), t('shareUnavailable'));
+        return;
+      }
+      await Sharing.shareAsync(uri, {
+        mimeType: 'text/csv',
+        dialogTitle: t('ux23Export'),
+        UTI: 'public.comma-separated-values-text',
+      });
+    } catch (error) {
+      console.warn('history register export', error);
+      Alert.alert(t('errorTitle'), t('shareUnavailable'));
+    } finally {
+      setExporting(false);
+    }
+  }, [exporting, t, visible]);
 
   const renderItem = ({ item }) => {
     const normalized = normalizeAnalysis(item);
@@ -231,17 +318,79 @@ export default function HistoryScreen({
 
       <RecentChatsList theme={theme} compact onOpen={() => onOpenChat?.()} />
 
+      <TextInput
+        value={query}
+        onChangeText={setQuery}
+        placeholder={t('ux23Search')}
+        placeholderTextColor={theme.subText}
+        accessibilityLabel={t('ux23Search')}
+        style={[
+          styles.input,
+          {
+            backgroundColor: theme.inputBg,
+            color: theme.text,
+            borderColor: theme.borderColor,
+            marginTop: 8,
+            marginBottom: 8,
+          },
+        ]}
+      />
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+        {HISTORY_RISK_FILTERS.map((code) => (
+          <FilterChip
+            key={`risk-${code}`}
+            theme={theme}
+            active={risk === code}
+            label={code === 'all' ? t('ux23Filter') : getRiskLabel(code)}
+            onPress={() => setRisk(code)}
+          />
+        ))}
+      </View>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+        {HISTORY_LIFECYCLE_FILTERS.map((code) => (
+          <FilterChip
+            key={`life-${code}`}
+            theme={theme}
+            active={lifecycle === code}
+            label={code === 'all' ? t('ux23Filter') : t(lifecycleLabelKey(code))}
+            onPress={() => setLifecycle(code)}
+          />
+        ))}
+      </View>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 6 }]}>
+        {t('ux23Count', { visible: String(visible.length), total: String(history.length) })}
+      </Text>
+      <TouchableOpacity
+        style={[styles.secondaryBtn, { marginTop: 0 }, (!visible.length || exporting) && styles.buttonDisabled]}
+        onPress={() => exportRegister().catch(() => {})}
+        disabled={!visible.length || exporting}
+        accessibilityRole="button"
+        accessibilityLabel={t('ux23Export')}
+      >
+        {exporting ? (
+          <ActivityIndicator color={ACCENT} />
+        ) : (
+          <Text style={styles.secondaryBtnText}>{t('ux23Export')}</Text>
+        )}
+      </TouchableOpacity>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 6 }]}>{t('ux23Register')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux23Guides')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux23Disclaimer')}</Text>
+
       {loading ? (
         <ActivityIndicator color="#00F5D4" size="large" style={{ marginTop: 40 }} />
       ) : history.length === 0 ? (
         sessions.length ? null : (
-          <Text style={{ color: theme.subText, textAlign: 'center', marginTop: 40 }}>
-            {t('noHistory')}
-          </Text>
+          <TouchableOpacity onPress={() => onOpenAnalyze?.()} accessibilityRole="button">
+            <Text style={{ color: theme.subText, textAlign: 'center', marginTop: 40 }}>{t('noHistory')}</Text>
+            <Text style={{ color: ACCENT, textAlign: 'center', marginTop: 8 }}>{t('ux23Empty')}</Text>
+          </TouchableOpacity>
         )
+      ) : visible.length === 0 ? (
+        <Text style={{ color: theme.subText, textAlign: 'center', marginTop: 24 }}>{t('ux23Empty')}</Text>
       ) : (
         <FlatList
-          data={history}
+          data={visible}
           keyExtractor={(item) => item.id.toString()}
           contentContainerStyle={{ paddingBottom: 30 }}
           renderItem={renderItem}

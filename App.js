@@ -4094,6 +4094,7 @@ function AppContent() {
                 getRiskLabel={getRiskLabel}
                 formatDate={formatDate}
                 onOpenChat={() => setActiveTab('advisor')}
+                onOpenAnalyze={() => setActiveTab('analyze')}
                 onOpenItem={(item) => {
                   setSelectedHistoryItem(item);
                   setModalVisible(true);
