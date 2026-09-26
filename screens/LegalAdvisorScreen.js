@@ -38,7 +38,7 @@ import { PROCESS_GUIDES } from '../constants/processGuides';
 import { packDepthFor } from '../constants/packDepth';
 import { ADVISOR_HOME_JOBS } from '../constants/advisorHome';
 import { loadCases } from '../services/caseFileStore';
-import { DRAFT_CATALOG, resolveDraftVariant } from '../constants/draftTemplates';
+import { DRAFT_CATALOG, DRAFT_FREE_PREVIEW_LINES, resolveDraftVariant } from '../constants/draftTemplates';
 import VoiceMicButton from '../components/VoiceMicButton';
 import SpeakButton from '../components/SpeakButton';
 import RecentChatsList from '../components/RecentChatsList';
@@ -944,6 +944,9 @@ export default function LegalAdvisorScreen({
 
         <Text style={[styles.label, { color: theme.subText, marginTop: 4 }]}>
           {t('draftSectionTitle')} · {offeredDrafts.filter((row) => row.availability === 'available').length}
+        </Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
+          {t('ux13Preview', { previewLines: String(DRAFT_FREE_PREVIEW_LINES) })}
         </Text>
         {offeredDrafts.some((row) => row.availability === 'pending') ? (
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>

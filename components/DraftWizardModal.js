@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 
 import { ACCENT, DANGER, alignStart, styles } from '../theme';
 import {
+  DRAFT_FREE_PREVIEW_LINES,
   getDraftTemplateById,
   listDraftCatalogFor,
   resolveDraftVariant,
@@ -275,6 +276,18 @@ export default function DraftWizardModal({
                 <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
                   {t('draftSectionHint')}
                 </Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 0, marginBottom: 0 }]}>
+                  {t('ux13Preview', { previewLines: String(DRAFT_FREE_PREVIEW_LINES) })}
+                </Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux13Blank')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
+                  {t('ux13Country', { country: jurisdiction })}
+                </Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux13NoAdvice')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux13Send')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux13Device')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux13NoWin')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 12 }]}>{t('ux13Disclaimer')}</Text>
                 {offered.map(({ template: item, variant: itemVariant }) => (
                   <TouchableOpacity
                     key={item.id}
@@ -510,6 +523,9 @@ export default function DraftWizardModal({
                     <Text style={styles.secondaryBtnText}>{t('draftRevert')}</Text>
                   </TouchableOpacity>
                 ) : null}
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 12, marginBottom: 0 }]}>
+                  {t('ux13Disclaimer')}
+                </Text>
               </>
             )}
           </KeyboardSafeSheet>
