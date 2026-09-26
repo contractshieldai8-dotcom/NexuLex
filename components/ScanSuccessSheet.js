@@ -45,6 +45,14 @@ export default function ScanSuccessSheet({ visible, theme, countryLabel, onPick,
 
           <KeyboardSafeSheet controller={sheet} style={{ maxHeight: Math.round(WIN_H * 0.7) }} contentContainerStyle={{ paddingBottom: 12 }}>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ssHint')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux15Once')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux15Country', { country: countryLabel })}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux15Free')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux15Jobs')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux15Invite')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux15Pause')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux15Guides')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux15Disclaimer')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('gr8Country', { country: countryLabel })}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('gr8Lang')}</Text>
             <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, marginBottom: 8 }]}>{t('ssLead')}</Text>
@@ -84,6 +92,7 @@ export default function ScanSuccessSheet({ visible, theme, countryLabel, onPick,
             <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('gr8NoWin')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('gr8Note')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('ssTail')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('ux15Disclaimer')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 14 }]}>{t('ssDisclaimer')}</Text>
           </KeyboardSafeSheet>
         </View>
