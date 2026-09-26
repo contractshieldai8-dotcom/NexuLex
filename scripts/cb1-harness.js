@@ -64,6 +64,7 @@ function buildResources() {
     loadWave('i18n.waveux18.js', 'WAVE_UX18_I18N'),
     loadWave('i18n.waveux19.js', 'WAVE_UX19_I18N'),
     loadWave('i18n.waveux20.js', 'WAVE_UX20_I18N'),
+    loadWave('i18n.waveux21.js', 'WAVE_UX21_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {
@@ -188,6 +189,7 @@ const APP_FILES = [
   'constants/resumeLocale.js',
   'constants/intentLocale.js',
   'constants/analysisReportLocale.js',
+  'constants/historyLocale.js',
   'constants/annualHighlight.js',
   'constants/professionalCompare.js',
   'constants/settingsTrust.js',

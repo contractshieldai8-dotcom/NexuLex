@@ -217,9 +217,17 @@ export default function HistoryScreen({
 
   return (
     <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 20 }}>
-      <Text style={[styles.sectionHeader, { color: theme.text, marginBottom: 16 }]}>
+      <Text style={[styles.sectionHeader, { color: theme.text, marginBottom: 8 }]}>
         {t('historyTitle')}
       </Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Cloud')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Delete')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Share')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Preview')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Chat')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21NoWin')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Guides')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux21Disclaimer')}</Text>
 
       <RecentChatsList theme={theme} compact onOpen={() => onOpenChat?.()} />
 
