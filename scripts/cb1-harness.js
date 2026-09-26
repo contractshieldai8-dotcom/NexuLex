@@ -53,6 +53,7 @@ function buildResources() {
     loadWave('i18n.waveux7.js', 'WAVE_UX7_I18N'),
     loadWave('i18n.waveux8.js', 'WAVE_UX8_I18N'),
     loadWave('i18n.waveux9.js', 'WAVE_UX9_I18N'),
+    loadWave('i18n.waveux10.js', 'WAVE_UX10_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {
@@ -161,6 +162,7 @@ const APP_FILES = [
   'constants/caseHubLocale.js',
   'constants/legalAskLocale.js',
   'constants/documentExplainLocale.js',
+  'constants/processGuideLocale.js',
   'constants/analyzeHomeLocale.js',
   'constants/advisorHome.js',
   'constants/advisorHomeLocale.js',

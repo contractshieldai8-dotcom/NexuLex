@@ -27,6 +27,7 @@ import {
   getGuide,
   guidesInGroup,
   officialLinksFor,
+  PROCESS_GUIDES,
   searchGuides,
 } from '../constants/processGuides';
 import { useFeedback } from '../context/FeedbackContext';
@@ -127,6 +128,18 @@ export default function ProcessGuideSheet({
   const renderList = () => (
     <View>
       <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('pgHint')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 0, marginBottom: 0 }]}>
+        {t('ux10Free', { guides: String(PROCESS_GUIDES.length) })}
+      </Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
+        {t('ux10Country', { country: countryLabel })}
+      </Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux10NoAdvice')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux10Deadlines')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux10Sources')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux10NoList')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux10Device')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 10 }]}>{t('ux10Disclaimer')}</Text>
       <TextInput
         {...sheet.field('pgSearch')}
         style={[
@@ -285,6 +298,7 @@ export default function ProcessGuideSheet({
         <Text style={styles.secondaryBtnText}>{t('pgShare')}</Text>
       </TouchableOpacity>
 
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('ux10Disclaimer')}</Text>
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 14 }]}>{t('pgDisclaimer')}</Text>
     </View>
   );
