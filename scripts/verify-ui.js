@@ -155,13 +155,15 @@ const waveUx20Src = fs.existsSync('i18n.waveux20.js') ? fs.readFileSync('i18n.wa
 const waveUx20Match = waveUx20Src.match(/export const WAVE_UX20_I18N = ([\s\S]*);\s*$/);
 const waveUx21Src = fs.existsSync('i18n.waveux21.js') ? fs.readFileSync('i18n.waveux21.js', 'utf8') : '';
 const waveUx21Match = waveUx21Src.match(/export const WAVE_UX21_I18N = ([\s\S]*);\s*$/);
+const waveSt9Src = fs.existsSync('i18n.wavest9.js') ? fs.readFileSync('i18n.wavest9.js', 'utf8') : '';
+const waveSt9Match = waveSt9Src.match(/export const WAVE_ST9_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !waveGr6Match || !waveMx1Match || !waveJp3Match || !waveSt2Match || !waveUx2Match || !waveSt4Match || !waveGr7Match || !waveUx3Match || !waveSt6Match || !waveSt7Match || !waveGr8Match || !waveUx4Match || !waveMx2Match || !waveSt8Match || !waveUx5Match || !waveUx6Match || !waveUx7Match || !waveUx8Match || !waveUx9Match || !waveUx10Match || !waveUx11Match || !waveUx12Match || !waveUx13Match || !waveUx14Match || !waveUx15Match || !waveUx16Match || !waveUx17Match || !waveUx18Match || !waveUx19Match || !waveUx20Match || !waveUx21Match || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !waveGr6Match || !waveMx1Match || !waveJp3Match || !waveSt2Match || !waveUx2Match || !waveSt4Match || !waveGr7Match || !waveUx3Match || !waveSt6Match || !waveSt7Match || !waveGr8Match || !waveUx4Match || !waveMx2Match || !waveSt8Match || !waveUx5Match || !waveUx6Match || !waveUx7Match || !waveUx8Match || !waveUx9Match || !waveUx10Match || !waveUx11Match || !waveUx12Match || !waveUx13Match || !waveUx14Match || !waveUx15Match || !waveUx16Match || !waveUx17Match || !waveUx18Match || !waveUx19Match || !waveUx20Match || !waveUx21Match || !waveSt9Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5/GR6/MX1/JP3/ST2/UX2/ST4/GR7/UX3/ST6/ST7/GR8/UX4/MX2/ST8/UX5/UX6/UX7/UX8/UX9/UX10/UX11/UX12/UX13/UX14/UX15/UX16/UX17/UX18/UX19/UX20/UX21 kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5/GR6/MX1/JP3/ST2/UX2/ST4/GR7/UX3/ST6/ST7/GR8/UX4/MX2/ST8/UX5/UX6/UX7/UX8/UX9/UX10/UX11/UX12/UX13/UX14/UX15/UX16/UX17/UX18/UX19/UX20/UX21/ST9 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -222,6 +224,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_UX19_I18N = eval(`(${waveUx19Match[1]})`); // eslint-disable-line no-eval
   const WAVE_UX20_I18N = eval(`(${waveUx20Match[1]})`); // eslint-disable-line no-eval
   const WAVE_UX21_I18N = eval(`(${waveUx21Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_ST9_I18N = eval(`(${waveSt9Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -282,8 +285,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_UX19_I18N',
     'WAVE_UX20_I18N',
     'WAVE_UX21_I18N',
+    'WAVE_ST9_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N, WAVE_ST8_I18N, WAVE_UX5_I18N, WAVE_UX6_I18N, WAVE_UX7_I18N, WAVE_UX8_I18N, WAVE_UX9_I18N, WAVE_UX10_I18N, WAVE_UX11_I18N, WAVE_UX12_I18N, WAVE_UX13_I18N, WAVE_UX14_I18N, WAVE_UX15_I18N, WAVE_UX16_I18N, WAVE_UX17_I18N, WAVE_UX18_I18N, WAVE_UX19_I18N, WAVE_UX20_I18N, WAVE_UX21_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N, WAVE_ST8_I18N, WAVE_UX5_I18N, WAVE_UX6_I18N, WAVE_UX7_I18N, WAVE_UX8_I18N, WAVE_UX9_I18N, WAVE_UX10_I18N, WAVE_UX11_I18N, WAVE_UX12_I18N, WAVE_UX13_I18N, WAVE_UX14_I18N, WAVE_UX15_I18N, WAVE_UX16_I18N, WAVE_UX17_I18N, WAVE_UX18_I18N, WAVE_UX19_I18N, WAVE_UX20_I18N, WAVE_UX21_I18N, WAVE_ST9_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -971,6 +975,11 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     failed = true;
     console.log(`WAVE_UX21 count langs=${Object.keys(WAVE_UX21_I18N).length} keys=${waveUx21Base.length}`);
   }
+  const waveSt9Base = Object.keys(WAVE_ST9_I18N.en || {});
+  if (Object.keys(WAVE_ST9_I18N).length !== 13 || waveSt9Base.length !== 8) {
+    failed = true;
+    console.log(`WAVE_ST9 count langs=${Object.keys(WAVE_ST9_I18N).length} keys=${waveSt9Base.length}`);
+  }
 
   for (const lang of languages) {
     const keys = Object.keys(resources[lang].translation);
@@ -996,9 +1005,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 2204) {
+  if (languages.length !== 13 || baseKeys.length !== 2212) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2204`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2212`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -3447,6 +3456,7 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_UX19_I18N',
       'WAVE_UX20_I18N',
       'WAVE_UX21_I18N',
+      'WAVE_ST9_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -3496,7 +3506,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.waveux18.js', 'utf8').match(/export const WAVE_UX18_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waveux19.js', 'utf8').match(/export const WAVE_UX19_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waveux20.js', 'utf8').match(/export const WAVE_UX20_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.waveux21.js', 'utf8').match(/export const WAVE_UX21_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.waveux21.js', 'utf8').match(/export const WAVE_UX21_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavest9.js', 'utf8').match(/export const WAVE_ST9_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -4896,7 +4907,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'wavest2', 'wavest4', 'wavest6', 'wavest7', 'wavest8', 'waveux1', 'waveux2', 'waveux3', 'waveux4', 'waveux5', 'waveux6', 'waveux7', 'waveux8', 'waveux9', 'waveux10', 'waveux11', 'waveux12', 'waveux13', 'waveux14', 'waveux15', 'waveux16', 'waveux17', 'waveux18', 'waveux19', 'waveux20', 'waveux21', 'wavejp2', 'wavejp3', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavegr7', 'wavegr8', 'wavemx1', 'wavemx2', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'wavest2', 'wavest4', 'wavest6', 'wavest7', 'wavest8', 'wavest9', 'waveux1', 'waveux2', 'waveux3', 'waveux4', 'waveux5', 'waveux6', 'waveux7', 'waveux8', 'waveux9', 'waveux10', 'waveux11', 'waveux12', 'waveux13', 'waveux14', 'waveux15', 'waveux16', 'waveux17', 'waveux18', 'waveux19', 'waveux20', 'waveux21', 'wavejp2', 'wavejp3', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavegr7', 'wavegr8', 'wavemx1', 'wavemx2', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -8580,6 +8591,70 @@ Ticaret Unvanı: Anadolu Bilişim
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.21 history-list honesty (${fixtures} fixtures): cloud delete × 13, historyTitle frozen`);
+  }
+}
+
+// WAVE ST.9 — settings delete / retention honesty × 13; seven anchors + ST.1 warning frozen
+{
+  let stOk = true;
+  const stFail = (msg) => {
+    failed = true;
+    stOk = false;
+    console.log(`WAVE ST.9 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const LANGS = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+  let fixtures = 0;
+  try {
+    const { loadApp } = require('./cb1-harness');
+    ({ cases: fixtures } = loadApp('en').api.assertSettingsDeleteFixtures());
+  } catch (error) {
+    stFail(`runtime: ${error.message}`);
+  }
+  const R = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
+  const keys = ['st9Analyses', 'st9Device', 'st9Sub', 'st9Web', 'st9Store', 'st9Restore', 'st9Guides', 'st9Disclaimer'];
+  for (const L of LANGS) {
+    const miss = keys.filter((k) => typeof R[L][k] !== 'string' || !R[L][k].trim());
+    if (miss.length) stFail(`${L} missing ${miss.join(', ')}`);
+    if (!/NexuLex/.test(R[L].st9Web || '') || !/NexuLex/.test(R[L].st9Disclaimer || '')) stFail(`${L} web/disclaimer must name NexuLex`);
+    if (L !== 'en') {
+      const same = keys.filter((k) => R[L][k] === R.en[k] && R.en[k].length >= 12);
+      if (same.length) stFail(`${L} identical to EN: ${same.join(', ')}`);
+    }
+  }
+  const app = read('App.js');
+  const deleteCard = app.slice(app.indexOf("onSettingsSectionLayout('delete')"), app.indexOf('GEÇMİŞ DETAY MODALI'));
+  for (const key of keys) {
+    if (!deleteCard.includes(`t('${key}'`)) stFail(`delete card must render ${key}`);
+  }
+  if (deleteCard.lastIndexOf("t('st9Disclaimer')") < deleteCard.lastIndexOf("t('st9Guides')")) {
+    stFail('st9Disclaimer must stay last in the delete card');
+  }
+  if (!deleteCard.includes("t('accountDeleteTitle')") || !deleteCard.includes("t('accountDeleteHint')") || !deleteCard.includes("t('accountManageSubscription')")) {
+    stFail('ST.1 delete title, hint and store-manage must stay');
+  }
+  for (const section of ['account', 'seats', 'support', 'security', 'language', 'privacy', 'delete']) {
+    if (!app.includes(`onSettingsSectionLayout('${section}')`)) stFail(`settings section anchor ${section}`);
+  }
+  if (!read('i18n.wavest.js').includes('"accountDeleteWarning": "Your data will be permanently deleted. An active App Store / Google Play subscription is NOT cancelled automatically."')) {
+    stFail('en.accountDeleteWarning copy must stay byte-identical');
+  }
+  if (!read('services/account.js').includes("DEVICE_PREF_KEYS = new Set(['@nexulex/language', '@nexulex/rtlWanted'])")) {
+    stFail('device prefs must stay language and rtl only');
+  }
+  if (!/Linking\.openURL\(TRUST_URLS\.deleteAccount \|\| 'https:\/\/nexulexai\.netlify\.app\/delete-account\.html'\)\.catch\(/.test(app)) {
+    stFail('web delete openURL must stay on the same line');
+  }
+  if (app.lastIndexOf("t('st2Disclaimer')") < app.lastIndexOf("t('disclaimerShort')") && app.indexOf("t('st2Disclaimer')") < 0) {
+    stFail('st2Disclaimer must stay in privacy');
+  }
+  if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) stFail('guides must stay unlocked');
+  if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) stFail('store listing must stay out of the app');
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') stFail('analyze-contract SHA256 changed');
+  if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 35) stFail('dependency count changed');
+  if (stOk) {
+    console.log(`OK  WAVE ST.9 settings delete honesty (${fixtures} fixtures): seven anchors × 13, ST.1 warning frozen`);
   }
 }
 

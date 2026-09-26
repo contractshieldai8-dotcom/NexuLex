@@ -65,6 +65,7 @@ function buildResources() {
     loadWave('i18n.waveux19.js', 'WAVE_UX19_I18N'),
     loadWave('i18n.waveux20.js', 'WAVE_UX20_I18N'),
     loadWave('i18n.waveux21.js', 'WAVE_UX21_I18N'),
+    loadWave('i18n.wavest9.js', 'WAVE_ST9_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {
@@ -199,6 +200,7 @@ const APP_FILES = [
   'constants/settingsLocale.js',
   'constants/settingsShortcuts.js',
   'constants/settingsPlan.js',
+  'constants/settingsDeleteLocale.js',
 ];
 
 function loadApp(language = 'tr') {

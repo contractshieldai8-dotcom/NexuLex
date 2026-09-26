@@ -4413,6 +4413,14 @@ function AppContent() {
                 <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>
                   {t('accountDeleteHint')}
                 </Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>{t('st9Analyses')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Device')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Sub')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Web')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Store')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Restore')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Guides')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 8 }]}>{t('st9Disclaimer')}</Text>
                 <TouchableOpacity
                   style={[
                     styles.secondaryBtn,
