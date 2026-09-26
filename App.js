@@ -3776,7 +3776,8 @@ function AppContent() {
                       }}
                     >
                       <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>{t('rsHomeDraft')}</Text>
-                      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 10 }]}>{t('rsHomeDraftHint')}</Text>
+                      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('rsHomeDraftHint')}</Text>
+                      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 10 }]}>{t('ux18Device')}</Text>
                       <View style={{ flexDirection: 'row', gap: 8 }}>
                         <TouchableOpacity
                           onPress={() => runResume({ kind: 'draft', icon: 'document-text-outline' })}

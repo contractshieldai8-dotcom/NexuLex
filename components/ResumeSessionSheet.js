@@ -46,6 +46,14 @@ export default function ResumeSessionSheet({ visible, theme, items = [], onPick,
 
           <KeyboardSafeSheet controller={sheet} style={{ maxHeight: Math.round(WIN_H * 0.7) }} contentContainerStyle={{ paddingBottom: 12 }}>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('rsHint')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux18Device')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux18Draft')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux18Corridor')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux18NoNet')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux18Jobs')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux18NoWin')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux18Guides')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux18Disclaimer')}</Text>
             {items.map((item) => (
               <TouchableOpacity
                 key={item.kind}
@@ -74,6 +82,7 @@ export default function ResumeSessionSheet({ visible, theme, items = [], onPick,
             <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={onSkip}>
               <Text style={styles.secondaryBtnText}>{t('rsSkip')}</Text>
             </TouchableOpacity>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('ux18Disclaimer')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 14 }]}>{t('rsDisclaimer')}</Text>
           </KeyboardSafeSheet>
         </View>
