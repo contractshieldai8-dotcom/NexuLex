@@ -288,6 +288,16 @@ export default function DocumentExplainerSheet({
           {t('docExplainFreeLeft', { count: freeLeft, total: FREE_EXPLAINS_PER_MONTH })}
         </Text>
       ) : null}
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>
+        {t('ux9Free', { freeExplains: String(FREE_EXPLAINS_PER_MONTH) })}
+      </Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux9Deadlines')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux9Pro')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux9Country')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux9Verify')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux9Device')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux9NoAdvice')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux9Disclaimer')}</Text>
       {saved.length ? (
         <>
           <Text style={[styles.label, { color: theme.subText, marginTop: 12 }]}>{t('docExplainRecent')}</Text>
@@ -474,6 +484,7 @@ export default function DocumentExplainerSheet({
           />
         </View>
 
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('ux9Disclaimer')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 14 }]}>{t('docExplainDisclaimer')}</Text>
       </View>
     );
