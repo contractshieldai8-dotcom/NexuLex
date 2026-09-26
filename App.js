@@ -3820,6 +3820,7 @@ function AppContent() {
                     ))}
                   </ScrollView>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 0 }]}>{t('fiHomeHint')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux19Guides')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 0 }]}>
                     {t('ux5Country', { country: selectedCountryOption.label })}
                   </Text>

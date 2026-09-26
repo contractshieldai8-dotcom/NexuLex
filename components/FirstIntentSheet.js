@@ -49,6 +49,16 @@ export default function FirstIntentSheet({ visible, theme, onPick, onSkip, onClo
 
           <KeyboardSafeSheet controller={sheet} style={{ maxHeight: Math.round(WIN_H * 0.7) }} contentContainerStyle={{ paddingBottom: 12 }}>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('fiHint')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
+              {t('ux19Paths', { paths: String(FIRST_INTENTS.length) })}
+            </Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux19Guides')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux19Free')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux19Lawyer')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux19NoWin')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux19Device')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux19Corridor')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux19Disclaimer')}</Text>
             {FIRST_INTENTS.map((item) => (
               <TouchableOpacity
                 key={item.id}
@@ -77,6 +87,7 @@ export default function FirstIntentSheet({ visible, theme, onPick, onSkip, onClo
             <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={onSkip}>
               <Text style={styles.secondaryBtnText}>{t('fiSkip')}</Text>
             </TouchableOpacity>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('ux19Disclaimer')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 14 }]}>{t('fiDisclaimer')}</Text>
           </KeyboardSafeSheet>
         </View>
