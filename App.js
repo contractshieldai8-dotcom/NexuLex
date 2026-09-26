@@ -3830,6 +3830,7 @@ function AppContent() {
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5NoWin')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux5Disclaimer')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux15Once')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux17Get')}</Text>
                 </View>
               ) : null}
               <View style={{ flexDirection: 'row', gap: 10, marginBottom: 12 }}>

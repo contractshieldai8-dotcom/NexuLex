@@ -60,6 +60,7 @@ function buildResources() {
     loadWave('i18n.waveux14.js', 'WAVE_UX14_I18N'),
     loadWave('i18n.waveux15.js', 'WAVE_UX15_I18N'),
     loadWave('i18n.waveux16.js', 'WAVE_UX16_I18N'),
+    loadWave('i18n.waveux17.js', 'WAVE_UX17_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {
@@ -180,6 +181,7 @@ const APP_FILES = [
   'constants/scanSuccessLocale.js',
   'constants/firstScanLocale.js',
   'constants/scenarioLocale.js',
+  'constants/shareInviteLocale.js',
   'constants/annualHighlight.js',
   'constants/professionalCompare.js',
   'constants/settingsTrust.js',

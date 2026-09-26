@@ -78,6 +78,14 @@ export default function ShareLoopSheet({ visible, theme, country, onDone, onClos
 
           <KeyboardSafeSheet controller={sheet} style={{ maxHeight: Math.round(WIN_H * 0.7) }} contentContainerStyle={{ paddingBottom: 12 }}>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('vlHint')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux17Get')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux17NoReport')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux17Once')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux17NoWin')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux17Store')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux17Device')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux17Guides')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux17Disclaimer')}</Text>
             <View
               style={{
                 borderWidth: 1,
@@ -119,6 +127,7 @@ export default function ShareLoopSheet({ visible, theme, country, onDone, onClos
             <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 4 }]} onPress={onClose}>
               <Text style={styles.secondaryBtnText}>{t('vlSkip')}</Text>
             </TouchableOpacity>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('ux17Disclaimer')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 14 }]}>{t('vlDisclaimer')}</Text>
           </KeyboardSafeSheet>
         </View>
