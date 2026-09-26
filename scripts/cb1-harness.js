@@ -50,6 +50,7 @@ function buildResources() {
     loadWave('i18n.wavest8.js', 'WAVE_ST8_I18N'),
     loadWave('i18n.waveux5.js', 'WAVE_UX5_I18N'),
     loadWave('i18n.waveux6.js', 'WAVE_UX6_I18N'),
+    loadWave('i18n.waveux7.js', 'WAVE_UX7_I18N'),
   ].filter(Boolean);
   const res = {};
   for (const L of LANGS) {
@@ -155,6 +156,7 @@ const APP_FILES = [
   'constants/shareLoop.js',
   'constants/paywallIntent.js',
   'constants/lawyerHandoffLocale.js',
+  'constants/caseHubLocale.js',
   'constants/analyzeHomeLocale.js',
   'constants/advisorHome.js',
   'constants/advisorHomeLocale.js',

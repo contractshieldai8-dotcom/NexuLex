@@ -448,6 +448,14 @@ export default function CaseHubSheet({
         <Ionicons name="lock-closed-outline" size={13} color={theme.subText} />
         <Text style={[styles.sectionHint, { color: theme.subText, flex: 1, marginBottom: 0 }]}>{t('caseStorageNote')}</Text>
       </View>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>{t('ux7OnDevice')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux7NoContract')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux7Free')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux7Evidence')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux7Brief')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux7NoWin')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux7Share')}</Text>
+      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux7Disclaimer')}</Text>
     </View>
   );
 
@@ -582,6 +590,7 @@ export default function CaseHubSheet({
         </TouchableOpacity>
 
         <View style={{ marginTop: 18 }}>{linkBtn('trash-outline', 'caseDelete', confirmDeleteCase, DANGER)}</View>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('ux7Disclaimer')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 14 }]}>{t('caseBriefDisclaimer')}</Text>
       </View>
     );
