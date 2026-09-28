@@ -1,8 +1,9 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
   FlatList,
+  Pressable,
   Text,
   TextInput,
   TouchableOpacity,
@@ -62,16 +63,19 @@ function historyRadarMeta(item, normalized) {
   };
 }
 
-const filterLabel = {
+const filterFace = {
   includeFontPadding: false,
   textAlignVertical: 'center',
+  fontSize: 12,
+  fontWeight: '600',
+  lineHeight: 16,
 };
 
 const SHORT_RISK_KEY = { RED: 'ux30High', YELLOW: 'ux30Mid', GREEN: 'ux30Low' };
 
-function FilterMenu({ theme, open, active, label, options, onToggle, onPick }) {
+function FilterButton({ theme, open, active, label, onToggle, buttonRef }) {
   return (
-    <View style={{ flex: 1, minWidth: 0, zIndex: open ? 4 : 0 }}>
+    <View ref={buttonRef} collapsable={false} style={{ flex: 1, minWidth: 0 }}>
       <TouchableOpacity
         onPress={onToggle}
         activeOpacity={0.85}
@@ -89,42 +93,11 @@ function FilterMenu({ theme, open, active, label, options, onToggle, onPick }) {
           paddingHorizontal: 10,
         }}
       >
-        <Text numberOfLines={1} style={[{ flex: 1, color: active || open ? ACCENT : theme.text, fontSize: 12, fontWeight: '600' }, filterLabel]}>
+        <Text numberOfLines={1} style={[{ flex: 1, color: active || open ? ACCENT : theme.text }, filterFace]}>
           {label}
         </Text>
         <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={14} color={active || open ? ACCENT : theme.subText} />
       </TouchableOpacity>
-      {open ? (
-        <View
-          style={{
-            position: 'absolute',
-            top: 44,
-            left: 0,
-            right: 0,
-            borderWidth: 1,
-            borderColor: theme.borderColor,
-            backgroundColor: theme.cardBg,
-            borderRadius: 12,
-            overflow: 'hidden',
-            zIndex: 6,
-            elevation: 8,
-          }}
-        >
-          {options.map((option) => (
-            <TouchableOpacity
-              key={option.code}
-              onPress={() => onPick(option.code)}
-              accessibilityRole="button"
-              accessibilityState={{ selected: option.selected }}
-              style={{ paddingHorizontal: 10, paddingVertical: 10 }}
-            >
-              <Text numberOfLines={1} style={[{ color: option.selected ? ACCENT : theme.text, fontSize: 13, fontWeight: '600' }, filterLabel]}>
-                {option.label}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      ) : null}
     </View>
   );
 }
@@ -151,6 +124,41 @@ export default function HistoryScreen({
   const [lifecycle, setLifecycle] = useState('all');
   const [exporting, setExporting] = useState(false);
   const [openMenu, setOpenMenu] = useState(null);
+  const [menuBox, setMenuBox] = useState(null);
+  const rootRef = useRef(null);
+  const riskBtnRef = useRef(null);
+  const lifeBtnRef = useRef(null);
+
+  const closeMenu = useCallback(() => {
+    setOpenMenu(null);
+    setMenuBox(null);
+  }, []);
+
+  const toggleMenu = useCallback((which) => {
+    if (openMenu === which) {
+      setOpenMenu(null);
+      setMenuBox(null);
+      return;
+    }
+    const btn = which === 'risk' ? riskBtnRef.current : lifeBtnRef.current;
+    const root = rootRef.current;
+    if (!btn || !root || typeof btn.measureLayout !== 'function') {
+      setOpenMenu(null);
+      setMenuBox(null);
+      return;
+    }
+    btn.measureLayout(
+      root,
+      (x, y, width, height) => {
+        setMenuBox({ top: y + height + 4, left: x, width });
+        setOpenMenu(which);
+      },
+      () => {
+        setMenuBox(null);
+        setOpenMenu(null);
+      }
+    );
+  }, [openMenu]);
 
   const visible = useMemo(
     () =>
@@ -354,19 +362,22 @@ export default function HistoryScreen({
   const lifeChoices = HISTORY_LIFECYCLE_FILTERS.filter((code) => code !== 'all');
   const riskMenuLabel = risk === 'all' ? t('ux30Risk') : t(SHORT_RISK_KEY[risk] || 'ux30Risk');
   const lifeMenuLabel = lifecycle === 'all' ? t('ux30Life') : t(lifecycleLabelKey(lifecycle));
+  const menuOptions = openMenu === 'risk'
+    ? riskChoices.map((code) => ({
+        code,
+        label: t(SHORT_RISK_KEY[code]),
+        selected: risk === code,
+      }))
+    : openMenu === 'life'
+      ? lifeChoices.map((code) => ({
+          code,
+          label: t(lifecycleLabelKey(code)),
+          selected: lifecycle === code,
+        }))
+      : [];
 
-  return (
-    <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 4 }}>
-      <FlatList
-        style={{ flex: 1 }}
-        data={listData}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={renderItem}
-        keyboardShouldPersistTaps="handled"
-        removeClippedSubviews={false}
-        contentContainerStyle={{ paddingBottom: 30 }}
-        ListHeaderComponent={
-          <View>
+  const listHeader = useMemo(() => (
+    <View>
       <Text style={[styles.sectionHeader, { color: theme.text, marginBottom: 8 }]}>
         {t('historyTitle')}
       </Text>
@@ -381,7 +392,7 @@ export default function HistoryScreen({
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux21Disclaimer')}</Text>
       </HonestyFold>
 
-      <RecentChatsList theme={theme} compact onOpen={() => onOpenChat?.()} />
+      <RecentChatsList theme={theme} compact pinTitle onOpen={() => onOpenChat?.()} />
 
       <View style={{ marginTop: 8, marginBottom: 8 }}>
         <TextInput
@@ -413,18 +424,20 @@ export default function HistoryScreen({
               lineHeight: 48,
               color: theme.subText,
               fontSize: 14,
+              includeFontPadding: false,
+              textAlignVertical: 'center',
             }}
           >
             {t('ux23Search')}
           </Text>
         )}
       </View>
-      <View style={{ flexDirection: 'row', alignItems: 'center', height: 40, gap: 6, zIndex: 3 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', height: 40, gap: 6 }}>
         <TouchableOpacity
           onPress={() => {
             setRisk('all');
             setLifecycle('all');
-            setOpenMenu(null);
+            closeMenu();
           }}
           accessibilityRole="button"
           accessibilityState={{ selected: risk === 'all' && lifecycle === 'all' }}
@@ -432,7 +445,8 @@ export default function HistoryScreen({
             flex: 1.15,
             minWidth: 0,
             height: 40,
-            justifyContent: 'center',
+            flexDirection: 'row',
+            alignItems: 'center',
             borderWidth: 1,
             borderColor: risk === 'all' && lifecycle === 'all' ? ACCENT : theme.borderColor,
             backgroundColor: risk === 'all' && lifecycle === 'all' ? 'rgba(0, 245, 212, 0.12)' : theme.cardBg,
@@ -440,41 +454,25 @@ export default function HistoryScreen({
             paddingHorizontal: 10,
           }}
         >
-          <Text numberOfLines={1} style={[{ color: risk === 'all' && lifecycle === 'all' ? ACCENT : theme.text, fontSize: 12, fontWeight: '700' }, filterLabel]}>
+          <Text numberOfLines={1} style={[{ flex: 1, color: risk === 'all' && lifecycle === 'all' ? ACCENT : theme.text }, filterFace]}>
             {t('ux23Filter')}
           </Text>
         </TouchableOpacity>
-        <FilterMenu
+        <FilterButton
           theme={theme}
+          buttonRef={riskBtnRef}
           open={openMenu === 'risk'}
           active={risk !== 'all'}
           label={riskMenuLabel}
-          onToggle={() => setOpenMenu((current) => (current === 'risk' ? null : 'risk'))}
-          onPick={(code) => {
-            setRisk(code);
-            setOpenMenu(null);
-          }}
-          options={riskChoices.map((code) => ({
-            code,
-            label: t(SHORT_RISK_KEY[code]),
-            selected: risk === code,
-          }))}
+          onToggle={() => toggleMenu('risk')}
         />
-        <FilterMenu
+        <FilterButton
           theme={theme}
+          buttonRef={lifeBtnRef}
           open={openMenu === 'life'}
           active={lifecycle !== 'all'}
           label={lifeMenuLabel}
-          onToggle={() => setOpenMenu((current) => (current === 'life' ? null : 'life'))}
-          onPick={(code) => {
-            setLifecycle(code);
-            setOpenMenu(null);
-          }}
-          options={lifeChoices.map((code) => ({
-            code,
-            label: t(lifecycleLabelKey(code)),
-            selected: lifecycle === code,
-          }))}
+          onToggle={() => toggleMenu('life')}
         />
       </View>
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 6 }]}>
@@ -499,8 +497,38 @@ export default function HistoryScreen({
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux23Guides')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux23Disclaimer')}</Text>
       </HonestyFold>
-          </View>
-        }
+    </View>
+  ), [
+    closeMenu,
+    exportRegister,
+    exporting,
+    history.length,
+    lifeMenuLabel,
+    lifecycle,
+    onOpenChat,
+    openMenu,
+    query,
+    risk,
+    riskMenuLabel,
+    t,
+    theme,
+    toggleMenu,
+    visible.length,
+  ]);
+
+  return (
+    <View ref={rootRef} collapsable={false} style={{ flex: 1 }}>
+      <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 4 }}>
+      <FlatList
+        style={{ flex: 1 }}
+        data={listData}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderItem}
+        keyboardShouldPersistTaps="handled"
+        removeClippedSubviews={false}
+        onScrollBeginDrag={closeMenu}
+        contentContainerStyle={{ paddingBottom: 30 }}
+        ListHeaderComponent={listHeader}
         ListEmptyComponent={
           showFirstSpinner ? (
             <ActivityIndicator color="#00F5D4" size="large" style={{ marginTop: 40 }} />
@@ -516,6 +544,54 @@ export default function HistoryScreen({
           )
         }
       />
+      </View>
+      {openMenu && menuBox ? (
+        <Pressable
+          onPress={closeMenu}
+          accessible={false}
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 20, elevation: 11 }}
+        />
+      ) : null}
+      {openMenu && menuBox ? (
+        <View
+          style={{
+            position: 'absolute',
+            top: menuBox.top,
+            left: menuBox.left,
+            width: menuBox.width,
+            zIndex: 30,
+            elevation: 12,
+            borderWidth: 1,
+            borderColor: theme.borderColor,
+            backgroundColor: theme.cardBg,
+            borderRadius: 12,
+            overflow: 'hidden',
+          }}
+        >
+          {menuOptions.map((option) => (
+            <TouchableOpacity
+              key={option.code}
+              onPress={() => {
+                if (openMenu === 'risk') setRisk(option.code);
+                else setLifecycle(option.code);
+                closeMenu();
+              }}
+              accessibilityRole="button"
+              accessibilityState={{ selected: option.selected }}
+              style={{
+                height: 40,
+                paddingHorizontal: 10,
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <Text numberOfLines={1} style={[{ flex: 1, color: option.selected ? ACCENT : theme.text }, filterFace]}>
+                {option.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      ) : null}
     </View>
   );
 }

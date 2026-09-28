@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { ACCENT, DANGER, styles } from '../theme';
 import { useAdvisorChat } from '../context/AdvisorChatContext';
 
-export default function RecentChatsList({ theme, compact = false, onOpen }) {
+export default function RecentChatsList({ theme, compact = false, onOpen, pinTitle = false }) {
   const { t } = useTranslation();
   const { sessions, openSession, sessionTitle, deleteSession } = useAdvisorChat();
   const items = (sessions || []).slice(0, 5);
@@ -23,6 +23,15 @@ export default function RecentChatsList({ theme, compact = false, onOpen }) {
   };
 
   if (!items.length) {
+    if (compact && pinTitle) {
+      return (
+        <View style={{ marginBottom: 8 }}>
+          <Text style={[styles.takeawayTitle, { color: theme.text, marginBottom: 0 }]}>
+            {t('recentChatsTitle')}
+          </Text>
+        </View>
+      );
+    }
     if (compact) return null;
     return (
       <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>

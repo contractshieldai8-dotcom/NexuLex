@@ -359,7 +359,6 @@ function AppContent() {
   const [upcomingDeadlines, setUpcomingDeadlines] = useState([]);
   const [workspaceMode, setWorkspaceMode] = useState('analyze');
   const [analyzeSetupOpen, setAnalyzeSetupOpen] = useState(true);
-  const lastDockResultIdRef = useRef(null);
   const [typeLocked, setTypeLocked] = useState(false);
   const [detectedTypeHint, setDetectedTypeHint] = useState('');
   const [signedShieldCount, setSignedShieldCount] = useState(0);
@@ -405,17 +404,6 @@ function AppContent() {
     paywallWasVisibleRef.current = paywallVisible;
     if (wasVisible && !paywallVisible) setPaywallClosedTick((n) => n + 1);
   }, [paywallVisible]);
-  useEffect(() => {
-    const id = result ? (result.id || 'current') : null;
-    if (id && id !== lastDockResultIdRef.current && !loading) {
-      lastDockResultIdRef.current = id;
-      setAnalyzeSetupOpen(false);
-    }
-    if (!id) {
-      lastDockResultIdRef.current = null;
-      setAnalyzeSetupOpen(true);
-    }
-  }, [result, loading]);
   const collapseIngest = shouldCollapseAnalyzeIngest({
     hasResult: Boolean(result),
     setupOpen: analyzeSetupOpen,

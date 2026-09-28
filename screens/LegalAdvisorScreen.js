@@ -537,18 +537,9 @@ export default function LegalAdvisorScreen({
   const headerElement = useMemo(
     () => (
       <View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 4 }}>
-          <Text style={[styles.sectionHeader, { color: theme.text, flex: 1, marginBottom: 0 }]}>
-            {t('advisorTitle')}
-          </Text>
-          <TouchableOpacity
-            onPress={handleClear}
-            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-            accessibilityLabel={t('advisorClearChat')}
-          >
-            <Ionicons name="trash-outline" size={18} color={theme.subText} />
-          </TouchableOpacity>
-        </View>
+        <Text style={[styles.sectionHeader, { color: theme.text, marginBottom: 4 }]}>
+          {t('advisorTitle')}
+        </Text>
 
         <Text style={[styles.label, { color: theme.subText, marginTop: 10, marginBottom: 4 }]}>{t('ahTitle')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
@@ -1027,6 +1018,16 @@ export default function LegalAdvisorScreen({
             onPress={() => setCountrySheet(true)}
             disabled={sending}
           />
+          <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginTop: 4 }}>
+            <TouchableOpacity
+              onPress={handleClear}
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+              accessibilityRole="button"
+              accessibilityLabel={t('advisorClearChat')}
+            >
+              <Ionicons name="trash-outline" size={18} color={theme.subText} />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     ),
