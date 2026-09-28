@@ -1,11 +1,9 @@
 import React from 'react';
 import {
   findNodeHandle,
-  Keyboard,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 
@@ -42,6 +40,7 @@ export default function KeyboardScreen({
   onContentSizeChange,
   onScroll,
   contentFlexGrow,
+  keyboardInsets = true,
 }) {
   const grow = contentFlexGrow === 0 ? 0 : 1;
   return (
@@ -55,17 +54,15 @@ export default function KeyboardScreen({
         contentContainerStyle={[{ flexGrow: grow }, contentContainerStyle]}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
-        automaticallyAdjustKeyboardInsets
+        automaticallyAdjustKeyboardInsets={keyboardInsets !== false}
         showsVerticalScrollIndicator={false}
         onContentSizeChange={onContentSizeChange}
         onScroll={onScroll}
         scrollEventThrottle={16}
       >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <View ref={containerRef} collapsable={false}>
-            {children}
-          </View>
-        </TouchableWithoutFeedback>
+        <View ref={containerRef} collapsable={false}>
+          {children}
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );

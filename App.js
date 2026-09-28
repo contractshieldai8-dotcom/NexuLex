@@ -387,6 +387,7 @@ function AppContent() {
   const reportAnchorRef = useRef(null);
   const reportYRef = useRef(0);
   const scrollOffsetRef = useRef(0);
+  const signedStripHRef = useRef(0);
   const pendingSignedScrollRef = useRef(false);
   const signedScrollTriesRef = useRef(0);
   const signedContentHeightRef = useRef(0);
@@ -406,6 +407,9 @@ function AppContent() {
     paywallWasVisibleRef.current = paywallVisible;
     if (wasVisible && !paywallVisible) setPaywallClosedTick((n) => n + 1);
   }, [paywallVisible]);
+  useEffect(() => {
+    if (signedShieldCount === 0) signedStripHRef.current = 0;
+  }, [signedShieldCount]);
   const collapseIngest = shouldCollapseAnalyzeIngest({
     hasResult: Boolean(result),
     setupOpen: analyzeSetupOpen,
@@ -3524,6 +3528,7 @@ function AppContent() {
               containerRef={analyzeContentRef}
               contentContainerStyle={styles.scrollContent}
               contentFlexGrow={activeResult ? 0 : 1}
+              keyboardInsets={!(activeResult && collapseIngest)}
               onScroll={(event) => {
                 scrollOffsetRef.current = Number(event?.nativeEvent?.contentOffset?.y) || 0;
               }}
@@ -4140,7 +4145,19 @@ function AppContent() {
               ) : null}
 
               {!loading && signedShieldCount > 0 ? (
-                <TouchableOpacity onPress={() => openSignedStrip().catch(() => {})} activeOpacity={0.85}>
+                <TouchableOpacity
+                  onPress={() => openSignedStrip().catch(() => {})}
+                  activeOpacity={0.85}
+                  onLayout={(event) => {
+                    const next = Number(event?.nativeEvent?.layout?.height) || 0;
+                    const prev = signedStripHRef.current;
+                    signedStripHRef.current = next;
+                    if (next <= prev || pendingSignedScrollRef.current) return;
+                    const y = Number(scrollOffsetRef.current) || 0;
+                    if (y <= 8) return;
+                    analyzeScrollRef.current?.scrollTo?.({ y: y + (next - prev), animated: false });
+                  }}
+                >
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>
                     {t('shieldStrip', {
                       count: signedShieldCount,

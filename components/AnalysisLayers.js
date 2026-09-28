@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import * as Clipboard from 'expo-clipboard';
@@ -583,7 +583,7 @@ export function VoiceBriefButton({ theme, analysis, lang }) {
   return (
     <View style={{ alignSelf: 'stretch' }}>
       <TouchableOpacity
-        style={[styles.voiceBriefBtn, { borderColor: theme.borderColor }]}
+        style={[styles.voiceBriefBtn, { borderColor: theme.borderColor, minHeight: 44 }]}
         onPress={() => {
           handlePress().catch(() => {
             setSpeaking(false);
@@ -596,46 +596,46 @@ export function VoiceBriefButton({ theme, analysis, lang }) {
         accessibilityState={{ busy: speaking }}
         accessibilityLabel={speaking ? t('stopBriefing') : t('listenBriefing')}
       >
-        {speaking ? (
-          <ActivityIndicator size="small" color={ACCENT} />
-        ) : (
-          <Ionicons name="volume-high-outline" size={16} color={ACCENT} />
-        )}
+        <View style={{ width: 16, height: 16, alignItems: 'center', justifyContent: 'center' }}>
+          <Ionicons name={speaking ? 'stop-circle' : 'volume-high-outline'} size={16} color={ACCENT} />
+        </View>
         <Text style={styles.decisionShareText}>
           {speaking ? t('stopBriefing') : t('listenBriefing')}
         </Text>
-        {speaking ? (
-          <Text style={[styles.deadlineMeta, { color: ACCENT, marginLeft: 4 }]}>
-            {formatElapsed(elapsedSec)}
-          </Text>
-        ) : null}
+        <Text
+          style={[
+            styles.deadlineMeta,
+            { color: ACCENT, marginLeft: 4, minWidth: 42, opacity: speaking ? 1 : 0 },
+          ]}
+        >
+          {formatElapsed(elapsedSec)}
+        </Text>
       </TouchableOpacity>
-      {speaking ? (
+      <View
+        style={[
+          styles.gaugeTrack,
+          {
+            backgroundColor: theme.inputBg,
+            marginTop: 10,
+            marginBottom: 14,
+            height: 4,
+            borderRadius: 999,
+            opacity: speaking ? 1 : 0,
+          },
+        ]}
+      >
         <View
           style={[
-            styles.gaugeTrack,
+            styles.gaugeFill,
             {
-              backgroundColor: theme.inputBg,
-              marginTop: 10,
-              marginBottom: 14,
+              width: `${Math.min(100, 12 + (elapsedSec % 20) * 4)}%`,
+              backgroundColor: ACCENT,
               height: 4,
               borderRadius: 999,
             },
           ]}
-        >
-          <View
-            style={[
-              styles.gaugeFill,
-              {
-                width: `${Math.min(100, 12 + (elapsedSec % 20) * 4)}%`,
-                backgroundColor: ACCENT,
-                height: 4,
-                borderRadius: 999,
-              },
-            ]}
-          />
-        </View>
-      ) : null}
+        />
+      </View>
     </View>
   );
 }

@@ -9091,4 +9091,34 @@ Ticaret Unvanı: Anadolu Bilişim
   if (uxOk) console.log('OK  WAVE UX.32 cold-start analyze: one screen, no empty-home flash');
 }
 
+// WAVE UX.33 — analyze taps must not jump the report; dock/signed-strip navigation stays
+{
+  let uxOk = true;
+  const uxFail = (msg) => {
+    failed = true;
+    uxOk = false;
+    console.log(`WAVE UX.33 ${msg}`);
+  };
+  const app = fs.readFileSync('App.js', 'utf8');
+  const kb = fs.readFileSync('components/KeyboardScreen.js', 'utf8');
+  const layers = fs.readFileSync('components/AnalysisLayers.js', 'utf8');
+  if (/TouchableWithoutFeedback/.test(kb)) uxFail('taps must not dismiss the keyboard through a page-wide wrapper');
+  if (!/keyboardInsets=\{!\(activeResult && collapseIngest\)\}/.test(app)) {
+    uxFail('result workspace must not auto-adjust keyboard insets');
+  }
+  if (!/opacity: speaking \? 1 : 0/.test(layers) || !layers.includes('listenBriefing')) {
+    uxFail('listen control must keep its height while speaking');
+  }
+  if (!app.includes('signedStripHRef') || !/openSignedStrip\(\)\.catch/.test(app)) {
+    uxFail('signing must not shove the report; the signed strip still opens on purpose');
+  }
+  if (!app.includes('pendingSignedScrollRef') || !/contentFlexGrow=\{activeResult \? 0 : 1\}/.test(app)) {
+    uxFail('signed-scroll goldens must stay');
+  }
+  if (!/handleAnalyzeText[\s\S]{0,600}Keyboard\.dismiss/.test(app)) {
+    uxFail('analyze still dismisses the keyboard when a scan starts');
+  }
+  if (uxOk) console.log('OK  WAVE UX.33 analyze taps stay put: listen, sign, no wrapper dismiss');
+}
+
 process.exit(failed ? 1 : 0);
