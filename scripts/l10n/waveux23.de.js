@@ -1,6 +1,6 @@
 // WAVE UX.23 — Verlauf-Kommandozentrale (DE).
 module.exports = {
-  ux23Search: 'Suchen Sie Parteien, Typ oder Kurztext. Die Suche bleibt auf diesem Telefon.',
+  ux23Search: 'Parteien, Art oder Kurztext suchen',
   ux23Filter: 'Alle gespeicherten Zeilen',
   ux23Export: 'Sichtbares Register exportieren',
   ux23Register: 'Ein NexuLex Register sind Daten, Punkte und Parteien. Es enthaelt nie den Vertragstext.',

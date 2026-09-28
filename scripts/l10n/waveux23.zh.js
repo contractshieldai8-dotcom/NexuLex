@@ -1,6 +1,6 @@
 // WAVE UX.23 — 历史指挥中心（ZH）。
 module.exports = {
-  ux23Search: '搜索当事方、类型或摘要。查询留在这台手机上。',
+  ux23Search: '搜索当事方、类型或摘要',
   ux23Filter: '全部已保存的行',
   ux23Export: '导出可见登记表',
   ux23Register: 'NexuLex 登记表是日期、分数和当事方。绝不包含合同正文。',

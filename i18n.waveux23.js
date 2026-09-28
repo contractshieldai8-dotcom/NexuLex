@@ -2,7 +2,7 @@
 
 export const WAVE_UX23_I18N = {
   "tr": {
-    "ux23Search": "Tarafları, türü veya özeti arayın. Sorgu bu telefonda kalır.",
+    "ux23Search": "Tarafları, türü veya özeti arayın",
     "ux23Filter": "Tüm kayıtlı satırlar",
     "ux23Export": "Görünen kayıt defterini dışa aktar",
     "ux23Register": "NexuLex kayıt defteri tarih, puan ve taraflardır. Sözleşme metnini asla içermez.",
@@ -12,7 +12,7 @@ export const WAVE_UX23_I18N = {
     "ux23Disclaimer": "NexuLex bir hukuk bürosu değildir. Geçmiş kayıt defteri ürün dosyasıdır, avukat değildir."
   },
   "en": {
-    "ux23Search": "Search parties, type or summary. The query stays on this phone.",
+    "ux23Search": "Search parties, type or summary",
     "ux23Filter": "All saved rows",
     "ux23Export": "Export the visible register",
     "ux23Register": "A NexuLex register is dates, scores and parties. It never includes the contract text.",
@@ -22,7 +22,7 @@ export const WAVE_UX23_I18N = {
     "ux23Disclaimer": "NexuLex is not a law firm. A history register is a product file, not a lawyer."
   },
   "de": {
-    "ux23Search": "Suchen Sie Parteien, Typ oder Kurztext. Die Suche bleibt auf diesem Telefon.",
+    "ux23Search": "Parteien, Art oder Kurztext suchen",
     "ux23Filter": "Alle gespeicherten Zeilen",
     "ux23Export": "Sichtbares Register exportieren",
     "ux23Register": "Ein NexuLex Register sind Daten, Punkte und Parteien. Es enthaelt nie den Vertragstext.",
@@ -32,7 +32,7 @@ export const WAVE_UX23_I18N = {
     "ux23Disclaimer": "NexuLex ist keine Kanzlei. Ein Verlaufsregister ist eine Produktdatei, kein Anwalt."
   },
   "fr": {
-    "ux23Search": "Cherchez parties, type ou resume. La requete reste sur ce telephone.",
+    "ux23Search": "Cherchez les parties, le type ou le résumé",
     "ux23Filter": "Toutes les lignes sauvees",
     "ux23Export": "Exporter le registre visible",
     "ux23Register": "Un registre NexuLex ce sont dates, scores et parties. Il n inclut jamais le texte du contrat.",
@@ -42,7 +42,7 @@ export const WAVE_UX23_I18N = {
     "ux23Disclaimer": "NexuLex n est pas un cabinet. Un registre d historique est un fichier produit, pas un avocat."
   },
   "es": {
-    "ux23Search": "Busque partes, tipo o resumen. La consulta se queda en este telefono.",
+    "ux23Search": "Busque partes, tipo o resumen",
     "ux23Filter": "Todas las filas guardadas",
     "ux23Export": "Exportar el registro visible",
     "ux23Register": "Un registro NexuLex son fechas, puntuaciones y partes. Nunca incluye el texto del contrato.",
@@ -52,7 +52,7 @@ export const WAVE_UX23_I18N = {
     "ux23Disclaimer": "NexuLex no es un bufete. Un registro de historial es un archivo de producto, no un abogado."
   },
   "ar": {
-    "ux23Search": "ابحث عن الأطراف أو النوع أو الملخص. ويبقى الاستعلام على هذا الهاتف.",
+    "ux23Search": "ابحث عن الأطراف أو النوع أو الملخص",
     "ux23Filter": "كل الصفوف المحفوظة",
     "ux23Export": "صدّر السجل الظاهر",
     "ux23Register": "سجل NexuLex تواريخ ودرجات وأطراف. ولا يتضمن نص العقد أبدا.",
@@ -62,7 +62,7 @@ export const WAVE_UX23_I18N = {
     "ux23Disclaimer": "NexuLex ليس مكتب محاماة. وسجل التاريخ ملف منتج وليس محاميا."
   },
   "it": {
-    "ux23Search": "Cerca parti, tipo o riepilogo. La query resta su questo telefono.",
+    "ux23Search": "Cerca parti, tipo o riepilogo",
     "ux23Filter": "Tutte le righe salvate",
     "ux23Export": "Esporta il registro visibile",
     "ux23Register": "Un registro NexuLex sono date, punteggi e parti. Non include mai il testo del contratto.",
@@ -72,7 +72,7 @@ export const WAVE_UX23_I18N = {
     "ux23Disclaimer": "NexuLex non e uno studio. Un registro di cronologia e un file di prodotto, non un avvocato."
   },
   "zh": {
-    "ux23Search": "搜索当事方、类型或摘要。查询留在这台手机上。",
+    "ux23Search": "搜索当事方、类型或摘要",
     "ux23Filter": "全部已保存的行",
     "ux23Export": "导出可见登记表",
     "ux23Register": "NexuLex 登记表是日期、分数和当事方。绝不包含合同正文。",
@@ -82,7 +82,7 @@ export const WAVE_UX23_I18N = {
     "ux23Disclaimer": "NexuLex 不是律师事务所。历史登记表是产品文件，不是律师。"
   },
   "ru": {
-    "ux23Search": "Ищите стороны, тип или краткое. Запрос остаётся на этом телефоне.",
+    "ux23Search": "Ищите стороны, тип или краткое содержание",
     "ux23Filter": "Все сохранённые строки",
     "ux23Export": "Экспортировать видимый реестр",
     "ux23Register": "Реестр NexuLex — даты, оценки и стороны. Текст договора туда не входит.",
@@ -92,7 +92,7 @@ export const WAVE_UX23_I18N = {
     "ux23Disclaimer": "NexuLex не юридическая фирма. Реестр истории — файл продукта, не адвокат."
   },
   "fa": {
-    "ux23Search": "طرف‌ها، نوع یا خلاصه را بجویید. جستجو روی این تلفن می‌ماند.",
+    "ux23Search": "طرف‌ها، نوع یا خلاصه را بجویید",
     "ux23Filter": "همه ردیف‌های ذخیره‌شده",
     "ux23Export": "دفتر ثبت نمایان را بیرون ببرید",
     "ux23Register": "دفتر ثبت NexuLex تاریخ، امتیاز و طرف است. متن قرارداد هرگز داخل نیست.",
@@ -102,7 +102,7 @@ export const WAVE_UX23_I18N = {
     "ux23Disclaimer": "NexuLex دفتر وکالت نیست. دفتر ثبت تاریخچه پرونده محصول است، نه وکیل."
   },
   "ja": {
-    "ux23Search": "当事者、種類、要約を検索します。問い合わせはこの電話に残ります。",
+    "ux23Search": "当事者、種類、要約を検索します",
     "ux23Filter": "保存した行の全部",
     "ux23Export": "見えている台帳を書き出す",
     "ux23Register": "NexuLex の台帳は日付、点数、当事者です。契約本文は入りません。",
@@ -112,7 +112,7 @@ export const WAVE_UX23_I18N = {
     "ux23Disclaimer": "NexuLex は法律事務所ではありません。履歴の台帳は製品ファイルであり、弁護士ではありません。"
   },
   "pt": {
-    "ux23Search": "Pesquise partes, tipo ou resumo. A consulta fica neste telefone.",
+    "ux23Search": "Pesquise partes, tipo ou resumo",
     "ux23Filter": "Todas as linhas guardadas",
     "ux23Export": "Exportar o registo visivel",
     "ux23Register": "Um registo NexuLex sao datas, pontuacoes e partes. Nunca inclui o texto do contrato.",
@@ -122,7 +122,7 @@ export const WAVE_UX23_I18N = {
     "ux23Disclaimer": "A NexuLex nao e um escritorio. Um registo de historico e um ficheiro de produto, nao um advogado."
   },
   "nl": {
-    "ux23Search": "Zoek partijen, type of samenvatting. De zoekopdracht blijft op deze telefoon.",
+    "ux23Search": "Zoek partijen, type of samenvatting",
     "ux23Filter": "Alle opgeslagen rijen",
     "ux23Export": "Zichtbaar register exporteren",
     "ux23Register": "Een NexuLex-register is datums, scores en partijen. De contracttekst zit er nooit in.",

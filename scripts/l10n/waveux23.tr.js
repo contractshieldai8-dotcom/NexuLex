@@ -1,6 +1,6 @@
 // WAVE UX.23 — Geçmiş komuta merkezi (TR).
 module.exports = {
-  ux23Search: 'Tarafları, türü veya özeti arayın. Sorgu bu telefonda kalır.',
+  ux23Search: 'Tarafları, türü veya özeti arayın',
   ux23Filter: 'Tüm kayıtlı satırlar',
   ux23Export: 'Görünen kayıt defterini dışa aktar',
   ux23Register: 'NexuLex kayıt defteri tarih, puan ve taraflardır. Sözleşme metnini asla içermez.',

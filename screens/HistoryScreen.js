@@ -62,6 +62,13 @@ function historyRadarMeta(item, normalized) {
   };
 }
 
+const filterLabel = {
+  includeFontPadding: false,
+  textAlignVertical: 'center',
+};
+
+const SHORT_RISK_KEY = { RED: 'ux30High', YELLOW: 'ux30Mid', GREEN: 'ux30Low' };
+
 function FilterMenu({ theme, open, active, label, options, onToggle, onPick }) {
   return (
     <View style={{ flex: 1, minWidth: 0, zIndex: open ? 4 : 0 }}>
@@ -82,7 +89,7 @@ function FilterMenu({ theme, open, active, label, options, onToggle, onPick }) {
           paddingHorizontal: 10,
         }}
       >
-        <Text numberOfLines={1} style={{ flex: 1, color: active || open ? ACCENT : theme.text, fontSize: 12, fontWeight: '600' }}>
+        <Text numberOfLines={1} style={[{ flex: 1, color: active || open ? ACCENT : theme.text, fontSize: 12, fontWeight: '600' }, filterLabel]}>
           {label}
         </Text>
         <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={14} color={active || open ? ACCENT : theme.subText} />
@@ -111,7 +118,7 @@ function FilterMenu({ theme, open, active, label, options, onToggle, onPick }) {
               accessibilityState={{ selected: option.selected }}
               style={{ paddingHorizontal: 10, paddingVertical: 10 }}
             >
-              <Text numberOfLines={1} style={{ color: option.selected ? ACCENT : theme.text, fontSize: 13, fontWeight: '600' }}>
+              <Text numberOfLines={1} style={[{ color: option.selected ? ACCENT : theme.text, fontSize: 13, fontWeight: '600' }, filterLabel]}>
                 {option.label}
               </Text>
             </TouchableOpacity>
@@ -345,12 +352,8 @@ export default function HistoryScreen({
   const showFirstSpinner = loading && history.length === 0;
   const riskChoices = HISTORY_RISK_FILTERS.filter((code) => code !== 'all');
   const lifeChoices = HISTORY_LIFECYCLE_FILTERS.filter((code) => code !== 'all');
-  const riskMenuLabel = risk === 'all'
-    ? riskChoices.map((code) => getRiskLabel(code)).join(' · ')
-    : getRiskLabel(risk);
-  const lifeMenuLabel = lifecycle === 'all'
-    ? lifeChoices.map((code) => t(lifecycleLabelKey(code))).join(' · ')
-    : t(lifecycleLabelKey(lifecycle));
+  const riskMenuLabel = risk === 'all' ? t('ux30Risk') : t(SHORT_RISK_KEY[risk] || 'ux30Risk');
+  const lifeMenuLabel = lifecycle === 'all' ? t('ux30Life') : t(lifecycleLabelKey(lifecycle));
 
   return (
     <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 4 }}>
@@ -416,7 +419,7 @@ export default function HistoryScreen({
           </Text>
         )}
       </View>
-      <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 6, zIndex: 3 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', height: 40, gap: 6, zIndex: 3 }}>
         <TouchableOpacity
           onPress={() => {
             setRisk('all');
@@ -437,7 +440,7 @@ export default function HistoryScreen({
             paddingHorizontal: 10,
           }}
         >
-          <Text numberOfLines={1} style={{ color: risk === 'all' && lifecycle === 'all' ? ACCENT : theme.text, fontSize: 12, fontWeight: '700' }}>
+          <Text numberOfLines={1} style={[{ color: risk === 'all' && lifecycle === 'all' ? ACCENT : theme.text, fontSize: 12, fontWeight: '700' }, filterLabel]}>
             {t('ux23Filter')}
           </Text>
         </TouchableOpacity>
@@ -453,7 +456,7 @@ export default function HistoryScreen({
           }}
           options={riskChoices.map((code) => ({
             code,
-            label: getRiskLabel(code),
+            label: t(SHORT_RISK_KEY[code]),
             selected: risk === code,
           }))}
         />
@@ -492,6 +495,7 @@ export default function HistoryScreen({
       </TouchableOpacity>
       <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
         <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 6 }]}>{t('ux23Register')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux30Query')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux23Guides')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux23Disclaimer')}</Text>
       </HonestyFold>

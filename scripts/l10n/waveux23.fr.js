@@ -1,6 +1,6 @@
 // WAVE UX.23 — Centre de commande historique (FR).
 module.exports = {
-  ux23Search: 'Cherchez parties, type ou resume. La requete reste sur ce telephone.',
+  ux23Search: 'Cherchez les parties, le type ou le résumé',
   ux23Filter: 'Toutes les lignes sauvees',
   ux23Export: 'Exporter le registre visible',
   ux23Register: 'Un registre NexuLex ce sont dates, scores et parties. Il n inclut jamais le texte du contrat.',

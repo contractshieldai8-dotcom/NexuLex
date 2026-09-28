@@ -1,6 +1,6 @@
 // WAVE UX.23 — Geschiedenis-commandocentrum (NL).
 module.exports = {
-  ux23Search: 'Zoek partijen, type of samenvatting. De zoekopdracht blijft op deze telefoon.',
+  ux23Search: 'Zoek partijen, type of samenvatting',
   ux23Filter: 'Alle opgeslagen rijen',
   ux23Export: 'Zichtbaar register exporteren',
   ux23Register: 'Een NexuLex-register is datums, scores en partijen. De contracttekst zit er nooit in.',

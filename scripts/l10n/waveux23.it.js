@@ -1,6 +1,6 @@
 // WAVE UX.23 — Centro di comando cronologia (IT).
 module.exports = {
-  ux23Search: 'Cerca parti, tipo o riepilogo. La query resta su questo telefono.',
+  ux23Search: 'Cerca parti, tipo o riepilogo',
   ux23Filter: 'Tutte le righe salvate',
   ux23Export: 'Esporta il registro visibile',
   ux23Register: 'Un registro NexuLex sono date, punteggi e parti. Non include mai il testo del contratto.',

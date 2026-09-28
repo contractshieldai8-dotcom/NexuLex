@@ -1,6 +1,6 @@
 // WAVE UX.23 — Centro de comando do historico (PT).
 module.exports = {
-  ux23Search: 'Pesquise partes, tipo ou resumo. A consulta fica neste telefone.',
+  ux23Search: 'Pesquise partes, tipo ou resumo',
   ux23Filter: 'Todas as linhas guardadas',
   ux23Export: 'Exportar o registo visivel',
   ux23Register: 'Um registo NexuLex sao datas, pontuacoes e partes. Nunca inclui o texto do contrato.',

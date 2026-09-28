@@ -1,6 +1,6 @@
 // WAVE UX.23 — History command center (EN master). {{visible}} {{total}} only.
 module.exports = {
-  ux23Search: 'Search parties, type or summary. The query stays on this phone.',
+  ux23Search: 'Search parties, type or summary',
   ux23Filter: 'All saved rows',
   ux23Export: 'Export the visible register',
   ux23Register: 'A NexuLex register is dates, scores and parties. It never includes the contract text.',
