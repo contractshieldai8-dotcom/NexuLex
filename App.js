@@ -1101,15 +1101,22 @@ function AppContent() {
   const quotaEnforced = !!profile;
   const lockPremium = quotaEnforced && !isPro;
 
-  // Geçmiş Analizleri Çekme
+  // Geçmiş Analizleri Çekme. İlk yüklemede döner; sonraki sekme açılışları listeyi boşaltmaz.
+  const historyLoadedRef = useRef(false);
+  const historyUserRef = useRef(null);
   useEffect(() => {
     if (user && activeTab === 'history') {
+      if (historyUserRef.current !== user.id) {
+        historyUserRef.current = user.id;
+        historyLoadedRef.current = false;
+      }
       fetchHistory();
     }
   }, [user, activeTab]);
 
   const fetchHistory = async () => {
-    setLoadingHistory(true);
+    const first = !historyLoadedRef.current;
+    if (first) setLoadingHistory(true);
     try {
       const { data, error } = await supabase
         .from('analyses')
@@ -1118,11 +1125,12 @@ function AppContent() {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
+      historyLoadedRef.current = true;
       setHistory((data || []).map(sanitizeAnalysisRow));
     } catch (err) {
       console.log('Geçmiş hatası:', err.message);
     } finally {
-      setLoadingHistory(false);
+      if (first) setLoadingHistory(false);
     }
   };
 
@@ -3486,7 +3494,13 @@ function AppContent() {
       ) : (
         <View style={{ flex: 1 }}>
           {/* TAB 1: ANALİZ EKRANI */}
-          {activeTab === 'analyze' && (
+          <View
+            style={{
+              flex: activeTab === 'analyze' ? 1 : 0,
+              display: activeTab === 'analyze' ? 'flex' : 'none',
+            }}
+            pointerEvents={activeTab === 'analyze' ? 'auto' : 'none'}
+          >
             <KeyboardScreen
               scrollRef={analyzeScrollRef}
               containerRef={analyzeContentRef}
@@ -4194,7 +4208,7 @@ function AppContent() {
               </View>
               ) : null}
             </KeyboardScreen>
-          )}
+          </View>
 
           {/* TAB 2: HUKUK DANIŞMANI — sekme değişince unmount olmasın */}
           <View
@@ -4223,8 +4237,13 @@ function AppContent() {
           </View>
 
           {/* TAB 3: GEÇMİŞ */}
-          {activeTab === 'history' && (
-            <View style={{ flex: 1 }}>
+          <View
+            style={{
+              flex: activeTab === 'history' ? 1 : 0,
+              display: activeTab === 'history' ? 'flex' : 'none',
+            }}
+            pointerEvents={activeTab === 'history' ? 'auto' : 'none'}
+          >
               <View style={{ paddingHorizontal: 20, paddingTop: 12 }}>{renderShareCodeEntry()}</View>
               <HistoryScreen
                 theme={theme}
@@ -4261,11 +4280,16 @@ function AppContent() {
                     .catch(() => {});
                 }}
               />
-            </View>
-          )}
+          </View>
 
           {/* TAB 4: AYARLAR & DİL SEÇİMİ */}
-          {activeTab === 'settings' && (
+          <View
+            style={{
+              flex: activeTab === 'settings' ? 1 : 0,
+              display: activeTab === 'settings' ? 'flex' : 'none',
+            }}
+            pointerEvents={activeTab === 'settings' ? 'auto' : 'none'}
+          >
             <KeyboardScreen contentContainerStyle={{ padding: 20 }} scrollRef={settingsScrollRef}>
               <View
                 onLayout={onSettingsSectionLayout('account')}
@@ -4606,7 +4630,7 @@ function AppContent() {
                 </TouchableOpacity>
               </View>
             </KeyboardScreen>
-          )}
+          </View>
         </View>
       )}
 

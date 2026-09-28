@@ -29,7 +29,6 @@ import {
   filterHistoryRows,
   formatHistoryRegisterCsv,
 } from '../utils/historyRegister';
-import { canCompareHistoryPair, toggleHistoryComparePick } from '../utils/historyCompare';
 
 function historyRadarMeta(item, normalized) {
   const radar = normalized?.contractRadar || {};
@@ -63,26 +62,63 @@ function historyRadarMeta(item, normalized) {
   };
 }
 
-function FilterChip({ label, active, theme, onPress }) {
+function FilterMenu({ theme, open, active, label, options, onToggle, onPick }) {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      activeOpacity={0.85}
-      accessibilityRole="button"
-      accessibilityState={{ selected: active }}
-      style={{
-        borderWidth: 1,
-        borderColor: active ? ACCENT : theme.borderColor,
-        backgroundColor: active ? 'rgba(0, 245, 212, 0.12)' : theme.cardBg,
-        borderRadius: 14,
-        paddingHorizontal: 10,
-        paddingVertical: 6,
-        marginRight: 6,
-        marginBottom: 6,
-      }}
-    >
-      <Text style={{ color: active ? ACCENT : theme.text, fontSize: 12, fontWeight: '600' }}>{label}</Text>
-    </TouchableOpacity>
+    <View style={{ flex: 1, minWidth: 0, zIndex: open ? 4 : 0 }}>
+      <TouchableOpacity
+        onPress={onToggle}
+        activeOpacity={0.85}
+        accessibilityRole="button"
+        accessibilityState={{ expanded: open }}
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 4,
+          height: 40,
+          borderWidth: 1,
+          borderColor: active || open ? ACCENT : theme.borderColor,
+          backgroundColor: active ? 'rgba(0, 245, 212, 0.12)' : theme.cardBg,
+          borderRadius: 12,
+          paddingHorizontal: 10,
+        }}
+      >
+        <Text numberOfLines={1} style={{ flex: 1, color: active || open ? ACCENT : theme.text, fontSize: 12, fontWeight: '600' }}>
+          {label}
+        </Text>
+        <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={14} color={active || open ? ACCENT : theme.subText} />
+      </TouchableOpacity>
+      {open ? (
+        <View
+          style={{
+            position: 'absolute',
+            top: 44,
+            left: 0,
+            right: 0,
+            borderWidth: 1,
+            borderColor: theme.borderColor,
+            backgroundColor: theme.cardBg,
+            borderRadius: 12,
+            overflow: 'hidden',
+            zIndex: 6,
+            elevation: 8,
+          }}
+        >
+          {options.map((option) => (
+            <TouchableOpacity
+              key={option.code}
+              onPress={() => onPick(option.code)}
+              accessibilityRole="button"
+              accessibilityState={{ selected: option.selected }}
+              style={{ paddingHorizontal: 10, paddingVertical: 10 }}
+            >
+              <Text numberOfLines={1} style={{ color: option.selected ? ACCENT : theme.text, fontSize: 13, fontWeight: '600' }}>
+                {option.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      ) : null}
+    </View>
   );
 }
 
@@ -95,7 +131,6 @@ export default function HistoryScreen({
   onDeleted,
   onOpenChat,
   onOpenAnalyze,
-  onComparePair,
   getRiskLabel,
   formatDate,
   onLifecyclePress,
@@ -108,8 +143,7 @@ export default function HistoryScreen({
   const [risk, setRisk] = useState('all');
   const [lifecycle, setLifecycle] = useState('all');
   const [exporting, setExporting] = useState(false);
-  const [compareOn, setCompareOn] = useState(false);
-  const [picked, setPicked] = useState([]);
+  const [openMenu, setOpenMenu] = useState(null);
 
   const visible = useMemo(
     () =>
@@ -191,21 +225,10 @@ export default function HistoryScreen({
     }
   }, [exporting, t, visible]);
 
-  const startCompare = useCallback(() => {
-    const left = history.find((row) => String(row.id) === String(picked[0]));
-    const right = history.find((row) => String(row.id) === String(picked[1]));
-    if (!canCompareHistoryPair(left, right)) {
-      Alert.alert(t('errorTitle'), t('ux26Need'));
-      return;
-    }
-    onComparePair?.(left, right);
-  }, [history, onComparePair, picked, t]);
-
   const renderItem = ({ item }) => {
     const normalized = normalizeAnalysis(item);
     const isDeleting = deletingId === item.id;
     const meta = historyRadarMeta(item, normalized);
-    const selected = compareOn && picked.includes(String(item.id));
 
     return (
       <TouchableOpacity
@@ -213,17 +236,11 @@ export default function HistoryScreen({
           styles.historyCard,
           {
             backgroundColor: theme.cardBg,
-            borderColor: selected ? ACCENT : theme.borderColor,
+            borderColor: theme.borderColor,
             opacity: isDeleting ? 0.5 : 1,
           },
         ]}
-        onPress={() => {
-          if (compareOn) {
-            setPicked((prev) => toggleHistoryComparePick(prev, item.id));
-            return;
-          }
-          onOpenItem(item);
-        }}
+        onPress={() => onOpenItem(item)}
         disabled={isDeleting}
       >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -234,7 +251,6 @@ export default function HistoryScreen({
             {t('scoreText')}: {item.score}/100 · {getRiskLabel(item.overall_risk)}
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-            {selected ? <Ionicons name="checkmark-circle" size={16} color={ACCENT} /> : null}
             <TouchableOpacity
               onPress={() => onLifecyclePress?.(item)}
               activeOpacity={0.85}
@@ -325,17 +341,27 @@ export default function HistoryScreen({
     );
   };
 
-  const listData = loading || history.length === 0 ? [] : visible;
+  const listData = history.length === 0 ? [] : visible;
+  const showFirstSpinner = loading && history.length === 0;
+  const riskChoices = HISTORY_RISK_FILTERS.filter((code) => code !== 'all');
+  const lifeChoices = HISTORY_LIFECYCLE_FILTERS.filter((code) => code !== 'all');
+  const riskMenuLabel = risk === 'all'
+    ? riskChoices.map((code) => getRiskLabel(code)).join(' · ')
+    : getRiskLabel(risk);
+  const lifeMenuLabel = lifecycle === 'all'
+    ? lifeChoices.map((code) => t(lifecycleLabelKey(code))).join(' · ')
+    : t(lifecycleLabelKey(lifecycle));
 
   return (
-    <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 20 }}>
+    <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 4 }}>
       <FlatList
         style={{ flex: 1 }}
         data={listData}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{ paddingBottom: 30, flexGrow: 1 }}
+        removeClippedSubviews={false}
+        contentContainerStyle={{ paddingBottom: 30 }}
         ListHeaderComponent={
           <View>
       <Text style={[styles.sectionHeader, { color: theme.text, marginBottom: 8 }]}>
@@ -354,44 +380,99 @@ export default function HistoryScreen({
 
       <RecentChatsList theme={theme} compact onOpen={() => onOpenChat?.()} />
 
-      <TextInput
-        value={query}
-        onChangeText={setQuery}
-        placeholder={t('ux23Search')}
-        placeholderTextColor={theme.subText}
-        accessibilityLabel={t('ux23Search')}
-        style={[
-          styles.input,
-          {
-            backgroundColor: theme.inputBg,
-            color: theme.text,
-            borderColor: theme.borderColor,
-            marginTop: 8,
-            marginBottom: 8,
-          },
-        ]}
-      />
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-        {HISTORY_RISK_FILTERS.map((code) => (
-          <FilterChip
-            key={`risk-${code}`}
-            theme={theme}
-            active={risk === code}
-            label={code === 'all' ? t('ux23Filter') : getRiskLabel(code)}
-            onPress={() => setRisk(code)}
-          />
-        ))}
+      <View style={{ marginTop: 8, marginBottom: 8 }}>
+        <TextInput
+          value={query}
+          onChangeText={setQuery}
+          placeholder=""
+          accessibilityLabel={t('ux23Search')}
+          style={[
+            styles.input,
+            {
+              backgroundColor: theme.inputBg,
+              color: theme.text,
+              borderColor: theme.borderColor,
+              marginTop: 0,
+              marginBottom: 0,
+            },
+          ]}
+        />
+        {query ? null : (
+          <Text
+            pointerEvents="none"
+            numberOfLines={1}
+            style={{
+              position: 'absolute',
+              left: 12,
+              right: 12,
+              top: 0,
+              height: 48,
+              lineHeight: 48,
+              color: theme.subText,
+              fontSize: 14,
+            }}
+          >
+            {t('ux23Search')}
+          </Text>
+        )}
       </View>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-        {HISTORY_LIFECYCLE_FILTERS.map((code) => (
-          <FilterChip
-            key={`life-${code}`}
-            theme={theme}
-            active={lifecycle === code}
-            label={code === 'all' ? t('ux23Filter') : t(lifecycleLabelKey(code))}
-            onPress={() => setLifecycle(code)}
-          />
-        ))}
+      <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 6, zIndex: 3 }}>
+        <TouchableOpacity
+          onPress={() => {
+            setRisk('all');
+            setLifecycle('all');
+            setOpenMenu(null);
+          }}
+          accessibilityRole="button"
+          accessibilityState={{ selected: risk === 'all' && lifecycle === 'all' }}
+          style={{
+            flex: 1.15,
+            minWidth: 0,
+            height: 40,
+            justifyContent: 'center',
+            borderWidth: 1,
+            borderColor: risk === 'all' && lifecycle === 'all' ? ACCENT : theme.borderColor,
+            backgroundColor: risk === 'all' && lifecycle === 'all' ? 'rgba(0, 245, 212, 0.12)' : theme.cardBg,
+            borderRadius: 12,
+            paddingHorizontal: 10,
+          }}
+        >
+          <Text numberOfLines={1} style={{ color: risk === 'all' && lifecycle === 'all' ? ACCENT : theme.text, fontSize: 12, fontWeight: '700' }}>
+            {t('ux23Filter')}
+          </Text>
+        </TouchableOpacity>
+        <FilterMenu
+          theme={theme}
+          open={openMenu === 'risk'}
+          active={risk !== 'all'}
+          label={riskMenuLabel}
+          onToggle={() => setOpenMenu((current) => (current === 'risk' ? null : 'risk'))}
+          onPick={(code) => {
+            setRisk(code);
+            setOpenMenu(null);
+          }}
+          options={riskChoices.map((code) => ({
+            code,
+            label: getRiskLabel(code),
+            selected: risk === code,
+          }))}
+        />
+        <FilterMenu
+          theme={theme}
+          open={openMenu === 'life'}
+          active={lifecycle !== 'all'}
+          label={lifeMenuLabel}
+          onToggle={() => setOpenMenu((current) => (current === 'life' ? null : 'life'))}
+          onPick={(code) => {
+            setLifecycle(code);
+            setOpenMenu(null);
+          }}
+          options={lifeChoices.map((code) => ({
+            code,
+            label: t(lifecycleLabelKey(code)),
+            selected: lifecycle === code,
+          }))}
+        />
       </View>
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 6 }]}>
         {t('ux23Count', { visible: String(visible.length), total: String(history.length) })}
@@ -414,43 +495,10 @@ export default function HistoryScreen({
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux23Guides')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux23Disclaimer')}</Text>
       </HonestyFold>
-
-      <TouchableOpacity
-        style={[styles.secondaryBtn, { marginTop: 0 }]}
-        onPress={() => {
-          setCompareOn((on) => {
-            if (on) setPicked([]);
-            return !on;
-          });
-        }}
-        accessibilityRole="button"
-        accessibilityState={{ selected: compareOn }}
-        accessibilityLabel={t('ux26Compare')}
-      >
-        <Text style={styles.secondaryBtnText}>{t('ux26Compare')}</Text>
-      </TouchableOpacity>
-      {compareOn ? (
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 6 }]}>{t('ux26Pick')}</Text>
-      ) : null}
-      <TouchableOpacity
-        style={[styles.secondaryBtn, { marginTop: 0 }, picked.length !== 2 && styles.buttonDisabled]}
-        onPress={startCompare}
-        disabled={picked.length !== 2}
-        accessibilityRole="button"
-        accessibilityLabel={t('ux26Ready')}
-      >
-        <Text style={styles.secondaryBtnText}>{t('ux26Ready')}</Text>
-      </TouchableOpacity>
-      <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 6 }]}>{t('ux26Local')}</Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux26NoWin')}</Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux26Guides')}</Text>
-        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux26Disclaimer')}</Text>
-      </HonestyFold>
           </View>
         }
         ListEmptyComponent={
-          loading ? (
+          showFirstSpinner ? (
             <ActivityIndicator color="#00F5D4" size="large" style={{ marginTop: 40 }} />
           ) : history.length === 0 ? (
             sessions.length ? null : (

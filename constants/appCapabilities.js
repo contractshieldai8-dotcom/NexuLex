@@ -350,7 +350,6 @@ export const GUIDE_WORKFLOWS = [
       { bodyKey: 'guideStepHistory3', ctaKey: 'guideCtaDelete' },
       { bodyKey: 'guideStepHistorySearch', ctaKey: 'ux23Search', action: { type: 'openTab', id: 'history' } },
       { bodyKey: 'guideStepHistoryExport', ctaKey: 'ux23Export' },
-      { bodyKey: 'guideStepHistoryCompare', ctaKey: 'ux26Compare', action: { type: 'openTab', id: 'history' } },
     ],
   },
   {

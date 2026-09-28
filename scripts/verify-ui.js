@@ -8928,14 +8928,8 @@ Ticaret Unvanı: Anadolu Bilişim
   const history = read('screens/HistoryScreen.js');
   const app = read('App.js');
   const compare = read('utils/historyCompare.js');
-  for (const key of keys) {
-    if (!history.includes(`t('${key}'`)) uxFail(`history screen must render ${key}`);
-  }
-  if (history.lastIndexOf("t('ux26Disclaimer')") < history.lastIndexOf("t('ux26Guides')")) {
-    uxFail('ux26Disclaimer must stay last on the compare block');
-  }
-  if (!history.includes('toggleHistoryComparePick') || !history.includes('canCompareHistoryPair') || !history.includes('compareOn')) {
-    uxFail('pair pick must stay on history');
+  if (history.includes("t('ux26Compare')") || history.includes("t('ux26Ready')") || history.includes('compareOn')) {
+    uxFail('history register must not show the retired pair-compare buttons');
   }
   if (!history.includes("t('ux21Cloud')") || !history.includes("t('ux23Export')") || !history.includes("t('historyTitle')")) {
     uxFail('UX.21 honesty, UX.23 register and historyTitle must stay');
@@ -9011,8 +9005,11 @@ Ticaret Unvanı: Anadolu Bilişim
   if (app.lastIndexOf("t('ux24Expand')") < app.lastIndexOf("t('ux24Disclaimer')")) {
     uxFail('scan setup control must sit under the next-steps card');
   }
-  if (!cap.includes("id: 'scan_dock'") || !cap.includes('guideStepHistoryCompare') || !cap.includes('guideStepHistorySearch') || !cap.includes('guideStepHistoryExport')) {
-    uxFail('guide must point at the scan dock and history search, export and compare');
+  if (!cap.includes("id: 'scan_dock'") || !cap.includes('guideStepHistorySearch') || !cap.includes('guideStepHistoryExport')) {
+    uxFail('guide must point at the scan dock and history search and export');
+  }
+  if (cap.includes('guideStepHistoryCompare')) {
+    uxFail('guide must not send people to the retired history compare buttons');
   }
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) uxFail('store listing must stay out of the app');
