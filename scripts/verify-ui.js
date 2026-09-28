@@ -9055,6 +9055,9 @@ Ticaret Unvanı: Anadolu Bilişim
   if (/flexDirection: 'row', alignItems: 'center', height: 40[\s\S]{0,400}overflow: 'hidden'/.test(history)) {
     uxFail('the filter row must not clip the menu');
   }
+  if (!history.includes('measureInWindow') || history.includes('measureLayout')) {
+    uxFail('filter menus must sit under the on-screen button, not the list content offset');
+  }
   if (uxOk) console.log('OK  WAVE UX.30 short history filters: 6 keys × 13, query stays in notes');
 }
 

@@ -142,22 +142,29 @@ export default function HistoryScreen({
     }
     const btn = which === 'risk' ? riskBtnRef.current : lifeBtnRef.current;
     const root = rootRef.current;
-    if (!btn || !root || typeof btn.measureLayout !== 'function') {
+    if (!btn || !root || typeof btn.measureInWindow !== 'function' || typeof root.measureInWindow !== 'function') {
       setOpenMenu(null);
       setMenuBox(null);
       return;
     }
-    btn.measureLayout(
-      root,
-      (x, y, width, height) => {
-        setMenuBox({ top: y + height + 4, left: x, width });
-        setOpenMenu(which);
-      },
-      () => {
-        setMenuBox(null);
-        setOpenMenu(null);
-      }
-    );
+    const place = () => {
+      root.measureInWindow((rx, ry) => {
+        btn.measureInWindow((x, y, width, height) => {
+          if (!width || !height) {
+            setMenuBox(null);
+            setOpenMenu(null);
+            return;
+          }
+          setMenuBox({
+            top: Math.round(y - ry + height + 4),
+            left: Math.round(x - rx),
+            width: Math.round(width),
+          });
+          setOpenMenu(which);
+        });
+      });
+    };
+    requestAnimationFrame(place);
   }, [openMenu]);
 
   const visible = useMemo(
@@ -566,6 +573,10 @@ export default function HistoryScreen({
             backgroundColor: theme.cardBg,
             borderRadius: 12,
             overflow: 'hidden',
+            shadowColor: '#000',
+            shadowOpacity: 0.28,
+            shadowRadius: 10,
+            shadowOffset: { width: 0, height: 4 },
           }}
         >
           {menuOptions.map((option) => (
