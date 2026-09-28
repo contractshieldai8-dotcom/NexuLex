@@ -1,5 +1,6 @@
 // WAVE UX.27 — Notizen einklappen (DE).
 module.exports = {
+  foldLabel: 'Hinweise',
   foldShow: 'Diese Hinweise zeigen',
   foldHide: 'Diese Hinweise ausblenden',
   guideStepHistorySearch: 'Suchen Sie gespeicherte Zeilen auf diesem Telefon. Die Suche bleibt hier.',

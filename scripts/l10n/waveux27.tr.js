@@ -1,5 +1,6 @@
 // WAVE UX.27 — Katlanan notlar + rehber bağlantıları (TR).
 module.exports = {
+  foldLabel: 'Notlar',
   foldShow: 'Bu notları göster',
   foldHide: 'Bu notları gizle',
   guideStepHistorySearch: 'Kayıtlı satırları bu telefonda arayın. Sorgu burada kalır.',

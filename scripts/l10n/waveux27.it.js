@@ -1,5 +1,6 @@
 // WAVE UX.27 — Note richiudibili (IT).
 module.exports = {
+  foldLabel: 'Note',
   foldShow: 'Mostra queste note',
   foldHide: 'Nascondi queste note',
   guideStepHistorySearch: 'Cerca le righe salvate su questo telefono. La query resta qui.',

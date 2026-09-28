@@ -1,5 +1,6 @@
 // WAVE UX.27 — Notes repliées (FR).
 module.exports = {
+  foldLabel: 'Notes',
   foldShow: 'Afficher ces notes',
   foldHide: 'Masquer ces notes',
   guideStepHistorySearch: 'Cherchez les lignes enregistrées sur ce téléphone. La requête reste ici.',

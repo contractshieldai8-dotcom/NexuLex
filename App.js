@@ -3383,7 +3383,7 @@ function AppContent() {
 
         {locked ? null : renderGlossary(analysis)}
 
-        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+        <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux20Preview')}</Text>
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
             {t('ux20Country', { country: t(getJurisdiction(analysis.country || analysisCountry).labelKey) })}
@@ -3964,7 +3964,7 @@ function AppContent() {
                     ))}
                   </ScrollView>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 0 }]}>{t('fiHomeHint')}</Text>
-                  <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                  <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
                     <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux19Guides')}</Text>
                     <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 0 }]}>
                       {t('ux5Country', { country: selectedCountryOption.label })}
@@ -4290,7 +4290,7 @@ function AppContent() {
                     </Text>
                   </View>
                 )}
-                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Plan')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Store')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Quota')}</Text>
@@ -4349,7 +4349,7 @@ function AppContent() {
                   onNeedPaywall={(hook) => openPaywall(hook === 'professional' ? 'professional' : 'share')}
                   onOpenBrief={(snapshot) => setAdvisorSnapshot(snapshot)}
                 />
-                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st4Seats')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st4SeatsHint')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st4Plan')}</Text>
@@ -4381,7 +4381,7 @@ function AppContent() {
                 </View>
                 <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={theme.subText} />
               </TouchableOpacity>
-              <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+              <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
                   {t('st4SupportHint')}
                 </Text>
@@ -4395,7 +4395,7 @@ function AppContent() {
                 style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
               >
                 <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 10 }]}>{t('securitySettings')}</Text>
-                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('st4Security')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('st4SecurityHint')}</Text>
                 </HonestyFold>
@@ -4453,10 +4453,6 @@ function AppContent() {
                 style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 20 }]}
               >
                 <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 8 }]}>{t('appLanguage')}</Text>
-                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st6Lang')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st6LangHint')}</Text>
-                </HonestyFold>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
                   {(APP_LANGUAGES || []).map((lang) => (
                     <TouchableOpacity 
@@ -4473,15 +4469,9 @@ function AppContent() {
                     </TouchableOpacity>
                   ))}
                 </View>
-                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st6Rtl')}</Text>
-                </HonestyFold>
                 <Text style={[styles.settingLabel, { color: theme.text, marginTop: 8, marginBottom: 4 }]}>
                   {t('analysisCountryLabel')}
                 </Text>
-                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('st6Country')}</Text>
-                </HonestyFold>
                 <TouchableOpacity
                   onPress={() => setCountrySheetVisible(true)}
                   accessibilityRole="button"
@@ -4493,7 +4483,11 @@ function AppContent() {
                   </Text>
                   <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={theme.subText} />
                 </TouchableOpacity>
-                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st6Lang')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st6LangHint')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st6Rtl')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('st6Country')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st6CountryHint')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st6Generic')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st6Corridor')}</Text>
@@ -4509,7 +4503,7 @@ function AppContent() {
               >
                 <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 10 }]}>{t('privacyPolicy')}</Text>
                 <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, marginBottom: 6 }]}>{t('st2Title')}</Text>
-                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Hint')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Keep')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Picker')}</Text>
@@ -4539,7 +4533,7 @@ function AppContent() {
                 >
                   <Text style={styles.secondaryBtnText}>{t('st2WebDelete')}</Text>
                 </TouchableOpacity>
-                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st7Delete')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Lang')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Binding')}</Text>
@@ -4574,7 +4568,7 @@ function AppContent() {
                 <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>
                   {t('accountDeleteHint')}
                 </Text>
-                <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Analyses')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Device')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Sub')}</Text>
@@ -4582,8 +4576,8 @@ function AppContent() {
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Store')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Restore')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Guides')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 8 }]}>{t('st9Disclaimer')}</Text>
                 </HonestyFold>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 8 }]}>{t('st9Disclaimer')}</Text>
                 <TouchableOpacity
                   style={[
                     styles.secondaryBtn,

@@ -1,5 +1,6 @@
 // WAVE UX.27 — 可折叠说明（ZH）。
 module.exports = {
+  foldLabel: '说明',
   foldShow: '显示这些说明',
   foldHide: '隐藏这些说明',
   guideStepHistorySearch: '在这台手机上搜索已保存的行。查询留在这里。',

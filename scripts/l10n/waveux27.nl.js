@@ -1,5 +1,6 @@
 // WAVE UX.27 — Inklapbare notities (NL).
 module.exports = {
+  foldLabel: 'Notities',
   foldShow: 'Toon deze notities',
   foldHide: 'Verberg deze notities',
   guideStepHistorySearch: 'Zoek opgeslagen rijen op deze telefoon. De zoekopdracht blijft hier.',

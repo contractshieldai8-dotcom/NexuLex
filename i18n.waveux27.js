@@ -2,6 +2,7 @@
 
 export const WAVE_UX27_I18N = {
   "tr": {
+    "foldLabel": "Notlar",
     "foldShow": "Bu notları göster",
     "foldHide": "Bu notları gizle",
     "guideStepHistorySearch": "Kayıtlı satırları bu telefonda arayın. Sorgu burada kalır.",
@@ -17,6 +18,7 @@ export const WAVE_UX27_I18N = {
     "guideNewDock": "NexuLex sonraki adımlar, geçmiş arama ve karşılaştırma"
   },
   "en": {
+    "foldLabel": "Notes",
     "foldShow": "Show these notes",
     "foldHide": "Hide these notes",
     "guideStepHistorySearch": "Search saved rows on this phone. The query stays here.",
@@ -32,6 +34,7 @@ export const WAVE_UX27_I18N = {
     "guideNewDock": "NexuLex next steps, history search and compare"
   },
   "de": {
+    "foldLabel": "Hinweise",
     "foldShow": "Diese Hinweise zeigen",
     "foldHide": "Diese Hinweise ausblenden",
     "guideStepHistorySearch": "Suchen Sie gespeicherte Zeilen auf diesem Telefon. Die Suche bleibt hier.",
@@ -47,6 +50,7 @@ export const WAVE_UX27_I18N = {
     "guideNewDock": "NexuLex nächste Schritte, Verlaufssuche und Vergleich"
   },
   "fr": {
+    "foldLabel": "Notes",
     "foldShow": "Afficher ces notes",
     "foldHide": "Masquer ces notes",
     "guideStepHistorySearch": "Cherchez les lignes enregistrées sur ce téléphone. La requête reste ici.",
@@ -62,6 +66,7 @@ export const WAVE_UX27_I18N = {
     "guideNewDock": "NexuLex étapes suivantes, recherche d’historique et comparaison"
   },
   "es": {
+    "foldLabel": "Notas",
     "foldShow": "Mostrar estas notas",
     "foldHide": "Ocultar estas notas",
     "guideStepHistorySearch": "Busque las filas guardadas en este teléfono. La consulta se queda aquí.",
@@ -77,6 +82,7 @@ export const WAVE_UX27_I18N = {
     "guideNewDock": "NexuLex siguientes pasos, búsqueda del historial y comparación"
   },
   "ar": {
+    "foldLabel": "ملاحظات",
     "foldShow": "أظهر هذه الملاحظات",
     "foldHide": "أخفِ هذه الملاحظات",
     "guideStepHistorySearch": "ابحث في الصفوف المحفوظة على هذا الهاتف. ويبقى الاستعلام هنا.",
@@ -92,6 +98,7 @@ export const WAVE_UX27_I18N = {
     "guideNewDock": "NexuLex الخطوات التالية وبحث السجل والمقارنة"
   },
   "it": {
+    "foldLabel": "Note",
     "foldShow": "Mostra queste note",
     "foldHide": "Nascondi queste note",
     "guideStepHistorySearch": "Cerca le righe salvate su questo telefono. La query resta qui.",
@@ -107,6 +114,7 @@ export const WAVE_UX27_I18N = {
     "guideNewDock": "NexuLex passi successivi, ricerca nella cronologia e confronto"
   },
   "zh": {
+    "foldLabel": "说明",
     "foldShow": "显示这些说明",
     "foldHide": "隐藏这些说明",
     "guideStepHistorySearch": "在这台手机上搜索已保存的行。查询留在这里。",
@@ -122,6 +130,7 @@ export const WAVE_UX27_I18N = {
     "guideNewDock": "NexuLex 下一步、历史搜索与对比"
   },
   "ru": {
+    "foldLabel": "Заметки",
     "foldShow": "Показать эти заметки",
     "foldHide": "Скрыть эти заметки",
     "guideStepHistorySearch": "Ищите сохранённые строки на этом телефоне. Запрос остаётся здесь.",
@@ -137,6 +146,7 @@ export const WAVE_UX27_I18N = {
     "guideNewDock": "NexuLex следующие шаги, поиск по истории и сравнение"
   },
   "fa": {
+    "foldLabel": "یادداشت",
     "foldShow": "این یادداشت‌ها را نشان بده",
     "foldHide": "این یادداشت‌ها را پنهان کن",
     "guideStepHistorySearch": "ردیف‌های ذخیره‌شده را روی این تلفن بجویید. جستجو همین‌جا می‌ماند.",
@@ -152,6 +162,7 @@ export const WAVE_UX27_I18N = {
     "guideNewDock": "NexuLex گام‌های بعد، جستجوی تاریخچه و مقایسه"
   },
   "ja": {
+    "foldLabel": "注記",
     "foldShow": "この注記を表示する",
     "foldHide": "この注記を隠す",
     "guideStepHistorySearch": "保存した行をこの電話で検索します。問い合わせはここに残ります。",
@@ -167,6 +178,7 @@ export const WAVE_UX27_I18N = {
     "guideNewDock": "NexuLex の次の手順、履歴検索、比較"
   },
   "pt": {
+    "foldLabel": "Notas",
     "foldShow": "Mostrar estas notas",
     "foldHide": "Ocultar estas notas",
     "guideStepHistorySearch": "Pesquise as linhas guardadas neste telefone. A consulta fica aqui.",
@@ -182,6 +194,7 @@ export const WAVE_UX27_I18N = {
     "guideNewDock": "NexuLex próximos passos, pesquisa do histórico e comparação"
   },
   "nl": {
+    "foldLabel": "Notities",
     "foldShow": "Toon deze notities",
     "foldHide": "Verberg deze notities",
     "guideStepHistorySearch": "Zoek opgeslagen rijen op deze telefoon. De zoekopdracht blijft hier.",

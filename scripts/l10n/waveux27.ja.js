@@ -1,5 +1,6 @@
 // WAVE UX.27 — 折りたたみ注記 (JA).
 module.exports = {
+  foldLabel: '注記',
   foldShow: 'この注記を表示する',
   foldHide: 'この注記を隠す',
   guideStepHistorySearch: '保存した行をこの電話で検索します。問い合わせはここに残ります。',

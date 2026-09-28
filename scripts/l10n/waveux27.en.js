@@ -1,5 +1,6 @@
 // WAVE UX.27 — Folded notes + guide links (EN master).
 module.exports = {
+  foldLabel: 'Notes',
   foldShow: 'Show these notes',
   foldHide: 'Hide these notes',
   guideStepHistorySearch: 'Search saved rows on this phone. The query stays here.',

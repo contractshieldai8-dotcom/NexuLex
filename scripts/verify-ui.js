@@ -1021,7 +1021,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     console.log(`WAVE_UX26 count langs=${Object.keys(WAVE_UX26_I18N).length} keys=${waveUx26Base.length}`);
   }
   const waveUx27Base = Object.keys(WAVE_UX27_I18N.en || {});
-  if (Object.keys(WAVE_UX27_I18N).length !== 13 || waveUx27Base.length !== 13) {
+  if (Object.keys(WAVE_UX27_I18N).length !== 13 || waveUx27Base.length !== 14) {
     failed = true;
     console.log(`WAVE_UX27 count langs=${Object.keys(WAVE_UX27_I18N).length} keys=${waveUx27Base.length}`);
   }
@@ -1050,9 +1050,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 2257) {
+  if (languages.length !== 13 || baseKeys.length !== 2258) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2257`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2258`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -8971,7 +8971,7 @@ Ticaret Unvanı: Anadolu Bilişim
   const read = (p) => fs.readFileSync(p, 'utf8');
   const LANGS = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
   const R = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
-  const keys = ['foldShow', 'foldHide', 'guideStepHistorySearch', 'guideStepHistoryExport', 'guideStepHistoryCompare', 'guideFlowDockTitle', 'guideFlowDockHint', 'guideFlowDockIntro', 'guideChipDock', 'guideStepDockReport', 'guideStepDockSetup', 'guideStepDockGuides', 'guideNewDock'];
+  const keys = ['foldLabel', 'foldShow', 'foldHide', 'guideStepHistorySearch', 'guideStepHistoryExport', 'guideStepHistoryCompare', 'guideFlowDockTitle', 'guideFlowDockHint', 'guideFlowDockIntro', 'guideChipDock', 'guideStepDockReport', 'guideStepDockSetup', 'guideStepDockGuides', 'guideNewDock'];
   for (const L of LANGS) {
     const miss = keys.filter((k) => typeof R[L][k] !== 'string' || !R[L][k].trim());
     if (miss.length) uxFail(`${L} missing ${miss.join(', ')}`);
@@ -8989,7 +8989,19 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!app.includes("t('foldShow')") || !history.includes("t('foldShow')") || !advisor.includes("t('foldShow')")) {
     uxFail('folded notes must cover analyze, history and advisor');
   }
-  if (!fold.includes('chevron-down') || !fold.includes('useState(false)')) uxFail('notes must start closed behind a chevron');
+  if (!app.includes("t('foldLabel')") || !history.includes("t('foldLabel')") || !advisor.includes("t('foldLabel')")) {
+    uxFail('the visible note control must use the short label');
+  }
+  if (!fold.includes('chevron-down') || !fold.includes('useState(false)') || !fold.includes('{label || showLabel}')) {
+    uxFail('notes must start closed behind a short chevron label');
+  }
+  if (advisor.indexOf("t('ux4Disclaimer')") > advisor.indexOf("t('ux4Ask')")) {
+    uxFail('advisor law-firm line must stay visible above the notes');
+  }
+  const deleteCard = app.slice(app.indexOf("onSettingsSectionLayout('delete')"));
+  if (deleteCard.indexOf("t('st9Disclaimer')") < deleteCard.indexOf('</HonestyFold>')) {
+    uxFail('delete warning must stay visible above the delete button');
+  }
   if (!history.includes('ListHeaderComponent') || !/style=\{\{ flex: 1 \}\}/.test(history)) {
     uxFail('history list must scroll its own header');
   }

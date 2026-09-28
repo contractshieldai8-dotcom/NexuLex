@@ -341,7 +341,7 @@ export default function HistoryScreen({
       <Text style={[styles.sectionHeader, { color: theme.text, marginBottom: 8 }]}>
         {t('historyTitle')}
       </Text>
-      <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+      <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Cloud')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Delete')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Share')}</Text>
@@ -409,7 +409,7 @@ export default function HistoryScreen({
           <Text style={styles.secondaryBtnText}>{t('ux23Export')}</Text>
         )}
       </TouchableOpacity>
-      <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+      <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
         <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 6 }]}>{t('ux23Register')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux23Guides')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux23Disclaimer')}</Text>
@@ -441,7 +441,7 @@ export default function HistoryScreen({
       >
         <Text style={styles.secondaryBtnText}>{t('ux26Ready')}</Text>
       </TouchableOpacity>
-      <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+      <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
         <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 6 }]}>{t('ux26Local')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux26NoWin')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux26Guides')}</Text>

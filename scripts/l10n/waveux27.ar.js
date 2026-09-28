@@ -1,5 +1,6 @@
 // WAVE UX.27 — ملاحظات قابلة للطي (AR).
 module.exports = {
+  foldLabel: 'ملاحظات',
   foldShow: 'أظهر هذه الملاحظات',
   foldHide: 'أخفِ هذه الملاحظات',
   guideStepHistorySearch: 'ابحث في الصفوف المحفوظة على هذا الهاتف. ويبقى الاستعلام هنا.',

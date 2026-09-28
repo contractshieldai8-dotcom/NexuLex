@@ -1,5 +1,6 @@
 // WAVE UX.27 — Notas plegadas (ES).
 module.exports = {
+  foldLabel: 'Notas',
   foldShow: 'Mostrar estas notas',
   foldHide: 'Ocultar estas notas',
   guideStepHistorySearch: 'Busque las filas guardadas en este teléfono. La consulta se queda aquí.',

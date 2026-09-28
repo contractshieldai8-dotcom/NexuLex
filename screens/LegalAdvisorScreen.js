@@ -577,7 +577,8 @@ export default function LegalAdvisorScreen({
             </TouchableOpacity>
           ))}
         </ScrollView>
-        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>{t('ux4Disclaimer')}</Text>
+        <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Ask')}</Text>
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Guides')}</Text>
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Case')}</Text>
@@ -585,7 +586,6 @@ export default function LegalAdvisorScreen({
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Country')}</Text>
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Free')}</Text>
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4NoPay')}</Text>
-          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 4 }]}>{t('ux4Disclaimer')}</Text>
         </HonestyFold>
         <View
           style={{
@@ -661,7 +661,7 @@ export default function LegalAdvisorScreen({
           </View>
           <Ionicons name="chevron-forward" size={18} color={ACCENT} />
         </TouchableOpacity>
-        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+        <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
             {t('ux8Server')}
           </Text>
@@ -695,7 +695,7 @@ export default function LegalAdvisorScreen({
           </View>
           <Ionicons name="chevron-forward" size={18} color={ACCENT} />
         </TouchableOpacity>
-        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+        <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('ux9Deadlines')}</Text>
         </HonestyFold>
 
@@ -730,7 +730,7 @@ export default function LegalAdvisorScreen({
           </View>
           <Ionicons name="chevron-forward" size={18} color={ACCENT} />
         </TouchableOpacity>
-        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+        <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('ux7OnDevice')}</Text>
         </HonestyFold>
 
@@ -763,7 +763,7 @@ export default function LegalAdvisorScreen({
           </View>
           <Ionicons name="chevron-forward" size={18} color={ACCENT} />
         </TouchableOpacity>
-        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+        <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>
             {t('ux10Free', { guides: String(PROCESS_GUIDES.length) })}
           </Text>
@@ -802,7 +802,7 @@ export default function LegalAdvisorScreen({
             <Text style={{ color: ACCENT, fontSize: 11, fontWeight: '800' }}>{t('planProfessionalBadge')}</Text>
           )}
         </TouchableOpacity>
-        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+        <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('ux14Plan')}</Text>
         </HonestyFold>
 
@@ -835,7 +835,7 @@ export default function LegalAdvisorScreen({
           </View>
           <Ionicons name="chevron-forward" size={18} color={ACCENT} />
         </TouchableOpacity>
-        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+        <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('ux6NoList')}</Text>
         </HonestyFold>
 
@@ -847,7 +847,7 @@ export default function LegalAdvisorScreen({
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
           {t('scenarioSectionHint')}
         </Text>
-        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+        <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 0, marginBottom: 0 }]}>
             {t('ux16Local')}
           </Text>
@@ -898,7 +898,7 @@ export default function LegalAdvisorScreen({
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
           {t('calcSectionHint')}
         </Text>
-        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+        <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 0, marginBottom: 0 }]}>
             {t('ux12Table')}
           </Text>
@@ -962,7 +962,7 @@ export default function LegalAdvisorScreen({
         <Text style={[styles.label, { color: theme.subText, marginTop: 4 }]}>
           {t('draftSectionTitle')} · {offeredDrafts.filter((row) => row.availability === 'available').length}
         </Text>
-        <HonestyFold theme={theme} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+        <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>
             {t('ux13Preview', { previewLines: String(DRAFT_FREE_PREVIEW_LINES) })}
           </Text>

@@ -1,5 +1,6 @@
 // WAVE UX.27 — Notas recolhíveis (PT).
 module.exports = {
+  foldLabel: 'Notas',
   foldShow: 'Mostrar estas notas',
   foldHide: 'Ocultar estas notas',
   guideStepHistorySearch: 'Pesquise as linhas guardadas neste telefone. A consulta fica aqui.',
