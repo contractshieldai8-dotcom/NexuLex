@@ -359,6 +359,8 @@ function AppContent() {
   const [upcomingDeadlines, setUpcomingDeadlines] = useState([]);
   const [workspaceMode, setWorkspaceMode] = useState('analyze');
   const [analyzeSetupOpen, setAnalyzeSetupOpen] = useState(true);
+  const [shieldRestoreReady, setShieldRestoreReady] = useState(false);
+  const [holdSplashForShield, setHoldSplashForShield] = useState(true);
   const [typeLocked, setTypeLocked] = useState(false);
   const [detectedTypeHint, setDetectedTypeHint] = useState('');
   const [signedShieldCount, setSignedShieldCount] = useState(0);
@@ -523,10 +525,15 @@ function AppContent() {
     return () => subscription.unsubscribe();
   }, []);
 
-  const appReady = localeReady && authBootstrapped;
+  const appReady = localeReady && authBootstrapped && (!holdSplashForShield || shieldRestoreReady);
   useEffect(() => {
     if (appReady) SplashScreen.hideAsync().catch(() => {});
   }, [appReady]);
+  useEffect(() => {
+    if (localeReady && authBootstrapped && shieldRestoreReady && holdSplashForShield) {
+      setHoldSplashForShield(false);
+    }
+  }, [localeReady, authBootstrapped, shieldRestoreReady, holdSplashForShield]);
 
   // Kayıtlı dil, taraf ve hukuk koridorunu açılışta geri yükler.
   useEffect(() => {
@@ -567,6 +574,7 @@ function AppContent() {
   }, []);
 
   const userId = user?.id;
+  const holdAnalyzeHome = Boolean(userId && !shieldRestoreReady && !result);
 
   useEffect(() => {
     pendingShareCodeRef.current = pendingShareCode;
@@ -609,6 +617,7 @@ function AppContent() {
       if (pendingShareCodeRef.current || resultRef.current || userIdRef.current !== uid) return;
       const decorated = sanitizeAnalysisRow(data);
       setResult(decorated);
+      setAnalyzeSetupOpen(false);
       if (decorated?.id) rememberLastAnalysisId(decorated.id);
     } catch {
       /* soğuk açılış sessiz */
@@ -731,6 +740,7 @@ function AppContent() {
         }
         if (userIdRef.current !== userId) return;
         setResult(sanitizeAnalysisRow(data));
+        setAnalyzeSetupOpen(false);
         rememberLastAnalysisId(id);
         setActiveTab('analyze');
         setModalVisible(false);
@@ -846,6 +856,7 @@ function AppContent() {
     setActiveTab('analyze');
     setWorkspaceMode('analyze');
     setResult(decorated);
+    setAnalyzeSetupOpen(false);
     if (decorated?.id) rememberLastAnalysisId(decorated.id);
     if (same) showToast(t('shieldResumeHint'), { type: 'info' });
     pendingSignedScrollRef.current = true;
@@ -1031,6 +1042,7 @@ function AppContent() {
       setUpcomingDeadlines([]);
       setSignedShieldCount(0);
       setResult(null);
+      setAnalyzeSetupOpen(true);
       setSelectedHistoryItem(null);
       if (hadUserRef.current) {
         rememberLastAnalysisId('').catch(() => {});
@@ -1053,7 +1065,6 @@ function AppContent() {
       setResult(null);
       resultRef.current = null;
     }
-    restoreLastShield(userId).catch(() => {});
     // WAVE LR.5: once per sign-in the server re-checks the store plan (renewals, expiries, upgrades).
     syncEntitlement()
       .then((synced) => (synced ? fetchProfile() : null))
@@ -1063,6 +1074,24 @@ function AppContent() {
       .catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
+
+  useEffect(() => {
+    if (!authBootstrapped) return undefined;
+    if (!userId) {
+      setShieldRestoreReady(true);
+      return undefined;
+    }
+    let cancelled = false;
+    setShieldRestoreReady(false);
+    restoreLastShield(userId)
+      .catch(() => {})
+      .finally(() => {
+        if (!cancelled) setShieldRestoreReady(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [userId, authBootstrapped, restoreLastShield]);
 
   useEffect(() => {
     if (!userId) return undefined;
@@ -2063,6 +2092,7 @@ function AppContent() {
       }
       setOfferTiers({});
       setResult({ ...decorated, id: analysisId });
+      setAnalyzeSetupOpen(false);
       if (isAcceptableAnalysis(decorated, pasted || sourceText)) maybeOfferShareLoop();
       if (analysisId) rememberLastAnalysisId(analysisId);
       const detectedCategory = decorated.detected_contract_category || decorated.detectedContractCategory;
@@ -3693,7 +3723,7 @@ function AppContent() {
               ) : null}
 
               {/* Ülke Mevzuatı ve Rapor Dili Seçicileri */}
-              {!collapseIngest ? (
+              {!holdAnalyzeHome && !collapseIngest ? (
               <>
               <SelectorField
                 theme={theme}
@@ -3908,7 +3938,7 @@ function AppContent() {
 
               {workspaceMode === 'analyze' ? (
               <View>
-              {!result ? (
+              {!result && !holdAnalyzeHome ? (
                 <View style={{ marginBottom: 12 }}>
                   {isUsableDraft(resumeDraft) && !resumeBannerHidden ? (
                     <View
@@ -3984,7 +4014,7 @@ function AppContent() {
                   </HonestyFold>
                 </View>
               ) : null}
-              {!collapseIngest ? (
+              {!holdAnalyzeHome && !collapseIngest ? (
               <>
               <View style={{ flexDirection: 'row', gap: 10, marginBottom: 12 }}>
                 <ContractAnalyzer
@@ -4127,7 +4157,7 @@ function AppContent() {
                 </TouchableOpacity>
               ) : null}
 
-              {!loading && upcomingDeadlines.length > 0 && !activeResult ? (
+              {!loading && upcomingDeadlines.length > 0 && !activeResult && !holdAnalyzeHome ? (
                 <DeadlineRadar
                   theme={theme}
                   compact
@@ -4136,7 +4166,7 @@ function AppContent() {
                 />
               ) : null}
 
-              {!loading && renderShareCodeEntry()}
+              {!loading && !holdAnalyzeHome && renderShareCodeEntry()}
 
               {activeResult ? (
                 <>
@@ -4162,6 +4192,7 @@ function AppContent() {
                     <TouchableOpacity
                       onPress={() => {
                         setResult(null);
+                        setAnalyzeSetupOpen(true);
                         rememberLastAnalysisId('').catch(() => {});
                       }}
                       activeOpacity={0.85}
@@ -4258,7 +4289,12 @@ function AppContent() {
                 }}
                 onDeleted={(id) => {
                   setHistory((prev) => prev.filter((row) => row.id !== id));
-                  setResult((prev) => (prev?.id === id ? null : prev));
+                  if (String(resultRef.current?.id) === String(id)) {
+                    setResult(null);
+                    setAnalyzeSetupOpen(true);
+                  } else {
+                    setResult((prev) => (prev?.id === id ? null : prev));
+                  }
                   setSelectedHistoryItem((prev) => (prev?.id === id ? null : prev));
                   AsyncStorage.getItem(LAST_ANALYSIS_KEY)
                     .then((stored) => {

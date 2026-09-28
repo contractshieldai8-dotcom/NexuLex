@@ -6305,7 +6305,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/\[userId, localeReady, localeOnboardTick\]/.test(app)) grFail('intent effect must depend on the locale tick');
   if (!/const offerCorridor = async \(\) => \{/.test(app) || !/localeWelcomeTitle/.test(app)) grFail('locale corridor dialog must stay');
 
-  if (!/\{!result \? \(/.test(app) || !/FIRST_INTENTS\.map\(\(item\) => \(/.test(app)) grFail('home chips only on empty analyze');
+  if (!/\{!result(?: && !holdAnalyzeHome)? \? \(/.test(app) || !/FIRST_INTENTS\.map\(\(item\) => \(/.test(app)) grFail('home chips only on empty analyze');
   if (!/onPick=\{\(id\) => runFirstIntent\(id, \{ fromSheet: true \}\)\}/.test(app)) grFail('sheet pick must delay the route');
   if (!/if \(fromSheet\) \{\s*setIntentOpen\(false\);\s*setTimeout\(\(\) => applyFirstIntent\(id\), 400\);/.test(app)) grFail('sheet-to-route must wait 400ms');
   if (!/markIntentOnboarded\(\);\s*setIntentOpen\(false\);/.test(app)) grFail('skip must still mark onboarded');
@@ -6377,7 +6377,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/if \(!\(await isLocaleOnboarded\(\)\) \|\| !\(await isIntentOnboarded\(\)\)\) return;/.test(app)) grFail('resume sheet only after locale and intent');
   if (!/shouldOfferResumeSheet\(items\)/.test(app)) grFail('sheet only when a case or question exists');
   if (!/const offerCorridor = async \(\) => \{/.test(app) || !/isIntentOnboarded/.test(app)) grFail('locale corridor and first-intent must stay');
-  if (!/FIRST_INTENTS\.map\(\(item\) => \(/.test(app) || !/\{!result \? \(/.test(app)) grFail('home chips on empty analyze must stay');
+  if (!/FIRST_INTENTS\.map\(\(item\) => \(/.test(app) || !/\{!result(?: && !holdAnalyzeHome)? \? \(/.test(app)) grFail('home chips on empty analyze must stay');
   if (!/if \(fromSheet\) \{\s*setResumeOpen\(false\);\s*setTimeout\(\(\) => applyResume\(item\), 400\);/.test(app)) grFail('sheet-to-route must wait 400ms');
   if (!/<FirstIntentSheet[\s\S]+<ResumeSessionSheet[\s\S]+<NexuLexGuideSheet/.test(app)) grFail('resume sheet sits between intent and guide');
   if (!/isUsableDraft\(resumeDraft\) && !resumeBannerHidden/.test(app)) grFail('home banner only for an unfinished draft');
@@ -7694,7 +7694,7 @@ Ticaret Unvanı: Anadolu Bilişim
   for (const key of keys) {
     if (!app.includes(`t('${key}'`)) uxFail(`empty analyze must render ${key}`);
   }
-  if (!/\{!result \? \(/.test(app) || !/FIRST_INTENTS\.map\(\(item\) => \(/.test(app)) uxFail('home chips only on empty analyze');
+  if (!/\{!result(?: && !holdAnalyzeHome)? \? \(/.test(app) || !/FIRST_INTENTS\.map\(\(item\) => \(/.test(app)) uxFail('home chips only on empty analyze');
   if (!/t\('fiHomeTitle'\)/.test(app) || !/t\('fiHomeHint'\)/.test(app) || !/runFirstIntent\(item\.id\)/.test(app)) {
     uxFail('GR.1 title, hint and chip runner must stay');
   }
@@ -9059,6 +9059,36 @@ Ticaret Unvanı: Anadolu Bilişim
     uxFail('filter menus must sit under the on-screen button, not the list content offset');
   }
   if (uxOk) console.log('OK  WAVE UX.30 short history filters: 6 keys × 13, query stays in notes');
+}
+
+// WAVE UX.32 — cold-start analyze is one screen: result workspace or empty home, never both
+{
+  let uxOk = true;
+  const uxFail = (msg) => {
+    failed = true;
+    uxOk = false;
+    console.log(`WAVE UX.32 ${msg}`);
+  };
+  const app = fs.readFileSync('App.js', 'utf8');
+  if (!/appReady = localeReady && authBootstrapped && \(!holdSplashForShield \|\| shieldRestoreReady\)/.test(app)) {
+    uxFail('splash must wait for the last analysis before the first analyze paint');
+  }
+  if (!app.includes('holdAnalyzeHome') || !app.includes('shieldRestoreReady')) {
+    uxFail('empty home must not paint while the last analysis is still loading');
+  }
+  if (!/setResult\(decorated\);\s*setAnalyzeSetupOpen\(false\)/.test(app)) {
+    uxFail('restoring a result must close setup in the same turn');
+  }
+  if (/useEffect\(\s*\(\)\s*=>\s*\{[\s\S]*?setAnalyzeSetupOpen\(false\)[\s\S]*?\},\s*\[result, loading\]\)/.test(app)) {
+    uxFail('setup must not auto-toggle from a result effect');
+  }
+  if (!app.includes("t('clearLastAnalysis')") || !app.includes('setAnalyzeSetupOpen(true)')) {
+    uxFail('clearing the last result must return to open setup');
+  }
+  if (!app.includes('shouldCollapseAnalyzeIngest') || !/contentFlexGrow=\{activeResult \? 0 : 1\}/.test(app)) {
+    uxFail('ingest collapse and signed-scroll flexGrow must stay');
+  }
+  if (uxOk) console.log('OK  WAVE UX.32 cold-start analyze: one screen, no empty-home flash');
 }
 
 process.exit(failed ? 1 : 0);
