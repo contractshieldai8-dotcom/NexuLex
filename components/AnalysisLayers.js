@@ -735,6 +735,7 @@ export function ClauseNavigator({ theme, clauses = [], renderCard, contentRef, o
   };
 
   const chooseFilter = (code) => {
+    if (code === filter) return;
     measureRow((contentY) => {
       if (contentY == null) {
         setFilter(code);
@@ -746,17 +747,22 @@ export function ClauseNavigator({ theme, clauses = [], renderCard, contentRef, o
     });
   };
 
-  const settleFilterRow = () => {
-    if (!pinWaitRef.current) return;
-    requestAnimationFrame(() => {
-      if (!pinWaitRef.current) return;
+  useEffect(() => {
+    if (!pinWaitRef.current) return undefined;
+    let cancelled = false;
+    const settle = () => {
+      if (cancelled || !pinWaitRef.current) return;
       measureRow((contentY) => {
-        if (!pinWaitRef.current || contentY == null) return;
+        if (cancelled || !pinWaitRef.current || contentY == null) return;
         pinWaitRef.current = false;
         onClausePin?.({ phase: 'settle', contentY });
       });
-    });
-  };
+    };
+    requestAnimationFrame(() => requestAnimationFrame(settle));
+    return () => {
+      cancelled = true;
+    };
+  }, [filter, visible.length, onClausePin]);
 
   if (!items.length) {
     return (
@@ -773,7 +779,6 @@ export function ClauseNavigator({ theme, clauses = [], renderCard, contentRef, o
       <View
         ref={rowRef}
         collapsable={false}
-        onLayout={settleFilterRow}
         style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}
       >
         {['ALL', 'RED', 'YELLOW', 'GREEN'].map((code) => {

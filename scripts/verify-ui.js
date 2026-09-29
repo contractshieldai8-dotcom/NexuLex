@@ -9162,22 +9162,29 @@ Ticaret Unvanı: Anadolu Bilişim
   const history = fs.readFileSync('screens/HistoryScreen.js', 'utf8');
   const stripAt = app.indexOf('signedStripHRef.current = next');
   const strip = app.slice(stripAt, stripAt + 420);
-  if (!strip.includes('y + (next - prev)') || strip.includes('next <= prev')) {
+  if (!strip.includes('(next - prev)') || strip.includes('next <= prev')) {
     uxFail('shield strip must compensate grow and shrink');
   }
-  if (!app.includes('y - h')) uxFail('shield strip collapse must subtract the cached height');
+  if (!app.includes('stripScrollHoldRef') || !app.includes('baseY - h')) {
+    uxFail('shield strip collapse must subtract the cached height');
+  }
   const tierAt = app.indexOf('const setOfferTier');
   const tierFn = app.slice(tierAt, app.indexOf('const onCounterOfferLayout'));
   if (tierFn.includes('requestAnimationFrame') || !app.includes('offerScrollLockRef')) {
     uxFail('offer tier must restore scroll from the counter-text layout, not from setOfferTier');
   }
-  if (!app.includes('onCounterOfferLayout')) uxFail('counter-offer text must report layout');
+  if (!app.includes('onCounterOfferLayout') || !app.includes('lock.itemId')) {
+    uxFail('counter-offer text must report layout per clause id');
+  }
   const signedAt = app.indexOf('const scrollToSignedReport');
   if (app.slice(signedAt, signedAt + 1200).includes('measureInWindow')) {
     uxFail('clause filter measurement must stay away from the decision-card scroll');
   }
   if (!layers.includes('measureLayout') || !layers.includes('onClausePin')) {
     uxFail('clause filter row must be measured against the report content');
+  }
+  if (!/pinWaitRef\.current[\s\S]{0,400}visible\.length/.test(layers)) {
+    uxFail('clause filter settle must run after the filtered list relayouts');
   }
   const histFetch = app.slice(app.indexOf('historyLoadedRef'), app.indexOf('const fetchHistory'));
   if (histFetch.includes("activeTab === 'history'") || !histFetch.includes('fetchHistory()')) {
@@ -9194,14 +9201,39 @@ Ticaret Unvanı: Anadolu Bilişim
   if (/flex:\s*1[,}\s]/.test(allRows) || !/height:\s*40/.test(allRows)) {
     uxFail('all-rows label must be 40px tall without flex');
   }
-  const rowAt = history.indexOf("flexDirection: 'row', alignItems: 'center', height: 40");
-  if (rowAt < 0 || history.slice(rowAt, rowAt + 400).includes("overflow: 'hidden'")) {
+  const rowAt = history.indexOf("height: 40, gap: 6");
+  const rowSlice = rowAt >= 0 ? history.slice(rowAt - 80, rowAt + 200) : '';
+  if (rowAt < 0 || rowSlice.includes("overflow: 'hidden'")) {
     uxFail('history filter row must stay unclipped');
   }
   if (!/pendingSignedScrollRef\.current/.test(app) || !/contentFlexGrow=\{activeResult \? 0 : 1\}/.test(app)) {
     uxFail('signed-scroll goldens must stay');
   }
   if (uxOk) console.log('OK  WAVE UX.35 scroll anchors + history header');
+}
+
+// WAVE UX.36 — tighten scroll anchors on device-real layout paths
+{
+  let uxOk = true;
+  const uxFail = (msg) => {
+    failed = true;
+    uxOk = false;
+    console.log(`WAVE UX.36 ${msg}`);
+  };
+  const app = fs.readFileSync('App.js', 'utf8');
+  const history = fs.readFileSync('screens/HistoryScreen.js', 'utf8');
+  if (!app.includes('stripScrollHoldRef') || !app.includes('signedShieldCountRef')) {
+    uxFail('lifecycle strip scroll must capture y before count changes');
+  }
+  if (!app.includes('lock.itemId') || !app.includes('cur.seq !== seq')) {
+    uxFail('offer tier scroll lock must be scoped per clause and sequenced');
+  }
+  const histFetch = app.slice(app.indexOf('historyLoadedRef'), app.indexOf('const fetchHistory'));
+  if (histFetch.includes('activeTab')) uxFail('history fetch must not rerun on every tab switch');
+  if (!history.includes("justifyContent: 'center'")) {
+    uxFail('all-rows filter row must center its label on Android');
+  }
+  if (uxOk) console.log('OK  WAVE UX.36 scroll anchor follow-up');
 }
 
 process.exit(failed ? 1 : 0);

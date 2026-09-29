@@ -438,7 +438,7 @@ export default function HistoryScreen({
           </Text>
         )}
       </View>
-      <View style={{ flexDirection: 'row', alignItems: 'center', height: 40, gap: 6 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40, gap: 6 }}>
         <TouchableOpacity
           onPress={() => {
             setRisk('all');
@@ -453,6 +453,7 @@ export default function HistoryScreen({
             height: 40,
             flexDirection: 'row',
             alignItems: 'center',
+            justifyContent: 'center',
             borderWidth: 1,
             borderColor: risk === 'all' && lifecycle === 'all' ? ACCENT : theme.borderColor,
             backgroundColor: risk === 'all' && lifecycle === 'all' ? 'rgba(0, 245, 212, 0.12)' : theme.cardBg,
