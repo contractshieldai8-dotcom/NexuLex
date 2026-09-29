@@ -9149,4 +9149,59 @@ Ticaret Unvanı: Anadolu Bilişim
   if (uxOk) console.log('OK  WAVE UX.34 listen alignment + shield scroll hold');
 }
 
+// WAVE UX.35 — lifecycle, offer tier, and clause filter keep their scroll anchor
+{
+  let uxOk = true;
+  const uxFail = (msg) => {
+    failed = true;
+    uxOk = false;
+    console.log(`WAVE UX.35 ${msg}`);
+  };
+  const app = fs.readFileSync('App.js', 'utf8');
+  const layers = fs.readFileSync('components/AnalysisLayers.js', 'utf8');
+  const history = fs.readFileSync('screens/HistoryScreen.js', 'utf8');
+  const stripAt = app.indexOf('signedStripHRef.current = next');
+  const strip = app.slice(stripAt, stripAt + 420);
+  if (!strip.includes('y + (next - prev)') || strip.includes('next <= prev')) {
+    uxFail('shield strip must compensate grow and shrink');
+  }
+  if (!app.includes('y - h')) uxFail('shield strip collapse must subtract the cached height');
+  const tierAt = app.indexOf('const setOfferTier');
+  const tierFn = app.slice(tierAt, app.indexOf('const onCounterOfferLayout'));
+  if (tierFn.includes('requestAnimationFrame') || !app.includes('offerScrollLockRef')) {
+    uxFail('offer tier must restore scroll from the counter-text layout, not from setOfferTier');
+  }
+  if (!app.includes('onCounterOfferLayout')) uxFail('counter-offer text must report layout');
+  const signedAt = app.indexOf('const scrollToSignedReport');
+  if (app.slice(signedAt, signedAt + 1200).includes('measureInWindow')) {
+    uxFail('clause filter measurement must stay away from the decision-card scroll');
+  }
+  if (!layers.includes('measureLayout') || !layers.includes('onClausePin')) {
+    uxFail('clause filter row must be measured against the report content');
+  }
+  const histFetch = app.slice(app.indexOf('historyLoadedRef'), app.indexOf('const fetchHistory'));
+  if (histFetch.includes("activeTab === 'history'") || !histFetch.includes('fetchHistory()')) {
+    uxFail('history must load when the session is known, not only on the history tab');
+  }
+  if (app.includes('setHistory([])')) uxFail('history refresh must not empty the list');
+  const titleAt = history.indexOf("t('historyTitle')");
+  const chatsAt = history.indexOf('<RecentChatsList');
+  const foldAt = history.indexOf('<HonestyFold');
+  if (!(titleAt >= 0 && titleAt < chatsAt && chatsAt < foldAt)) {
+    uxFail('recent chats must sit under the history title and above the notes fold');
+  }
+  const allRows = history.slice(history.indexOf("t('ux23Filter')") - 160, history.indexOf("t('ux23Filter')"));
+  if (/flex:\s*1[,}\s]/.test(allRows) || !/height:\s*40/.test(allRows)) {
+    uxFail('all-rows label must be 40px tall without flex');
+  }
+  const rowAt = history.indexOf("flexDirection: 'row', alignItems: 'center', height: 40");
+  if (rowAt < 0 || history.slice(rowAt, rowAt + 400).includes("overflow: 'hidden'")) {
+    uxFail('history filter row must stay unclipped');
+  }
+  if (!/pendingSignedScrollRef\.current/.test(app) || !/contentFlexGrow=\{activeResult \? 0 : 1\}/.test(app)) {
+    uxFail('signed-scroll goldens must stay');
+  }
+  if (uxOk) console.log('OK  WAVE UX.35 scroll anchors + history header');
+}
+
 process.exit(failed ? 1 : 0);

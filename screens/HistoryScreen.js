@@ -388,6 +388,7 @@ export default function HistoryScreen({
       <Text style={[styles.sectionHeader, { color: theme.text, marginBottom: 8 }]}>
         {t('historyTitle')}
       </Text>
+      <RecentChatsList theme={theme} compact pinTitle onOpen={() => onOpenChat?.()} />
       <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Cloud')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Delete')}</Text>
@@ -398,8 +399,6 @@ export default function HistoryScreen({
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux21Guides')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux21Disclaimer')}</Text>
       </HonestyFold>
-
-      <RecentChatsList theme={theme} compact pinTitle onOpen={() => onOpenChat?.()} />
 
       <View style={{ marginTop: 8, marginBottom: 8 }}>
         <TextInput
@@ -461,7 +460,7 @@ export default function HistoryScreen({
             paddingHorizontal: 10,
           }}
         >
-          <Text numberOfLines={1} style={[{ flex: 1, color: risk === 'all' && lifecycle === 'all' ? ACCENT : theme.text }, filterFace]}>
+          <Text numberOfLines={1} style={[{ height: 40, color: risk === 'all' && lifecycle === 'all' ? ACCENT : theme.text }, filterFace]}>
             {t('ux23Filter')}
           </Text>
         </TouchableOpacity>

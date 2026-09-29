@@ -39,6 +39,7 @@ export default function KeyboardScreen({
   containerRef,
   onContentSizeChange,
   onScroll,
+  onScrollLayout,
   contentFlexGrow,
   keyboardInsets = true,
 }) {
@@ -58,6 +59,9 @@ export default function KeyboardScreen({
         showsVerticalScrollIndicator={false}
         onContentSizeChange={onContentSizeChange}
         onScroll={onScroll}
+        onLayout={(event) => {
+          onScrollLayout?.(Number(event?.nativeEvent?.layout?.height) || 0);
+        }}
         scrollEventThrottle={16}
       >
         <View ref={containerRef} collapsable={false}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
@@ -698,9 +698,11 @@ export function RiskSummary({ theme, clauses = [], redFlags = [] }) {
   );
 }
 
-export function ClauseNavigator({ theme, clauses = [], renderCard }) {
+export function ClauseNavigator({ theme, clauses = [], renderCard, contentRef, onClausePin }) {
   const { t } = useTranslation();
   const [filter, setFilter] = useState('ALL');
+  const rowRef = useRef(null);
+  const pinWaitRef = useRef(false);
   const items = Array.isArray(clauses) ? clauses : [];
   const clauseSignature = items
     .map((item) => item?.clauseTitle || item?.issue || '')
@@ -714,6 +716,48 @@ export function ClauseNavigator({ theme, clauses = [], renderCard }) {
     ? items
     : items.filter((item) => String(item.riskLevel || '').toUpperCase() === filter);
 
+  const measureRow = (done) => {
+    const row = rowRef.current;
+    const relative = contentRef?.current;
+    if (!row || !relative || typeof row.measureLayout !== 'function') {
+      done(null);
+      return;
+    }
+    try {
+      row.measureLayout(
+        relative,
+        (_x, y) => done(Number(y) || 0),
+        () => done(null)
+      );
+    } catch {
+      done(null);
+    }
+  };
+
+  const chooseFilter = (code) => {
+    measureRow((contentY) => {
+      if (contentY == null) {
+        setFilter(code);
+        return;
+      }
+      pinWaitRef.current = true;
+      onClausePin?.({ phase: 'start', contentY });
+      setFilter(code);
+    });
+  };
+
+  const settleFilterRow = () => {
+    if (!pinWaitRef.current) return;
+    requestAnimationFrame(() => {
+      if (!pinWaitRef.current) return;
+      measureRow((contentY) => {
+        if (!pinWaitRef.current || contentY == null) return;
+        pinWaitRef.current = false;
+        onClausePin?.({ phase: 'settle', contentY });
+      });
+    });
+  };
+
   if (!items.length) {
     return (
       <View style={[styles.deadlineRow, { borderColor: theme.borderColor }]}>
@@ -726,14 +770,19 @@ export function ClauseNavigator({ theme, clauses = [], renderCard }) {
 
   return (
     <View>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
+      <View
+        ref={rowRef}
+        collapsable={false}
+        onLayout={settleFilterRow}
+        style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}
+      >
         {['ALL', 'RED', 'YELLOW', 'GREEN'].map((code) => {
           const active = filter === code;
           const label = code === 'ALL' ? t('clauseFilterAll') : code === 'RED' ? t('riskHigh') : code === 'YELLOW' ? t('riskMedium') : t('riskLow');
           return (
             <TouchableOpacity
               key={code}
-              onPress={() => setFilter(code)}
+              onPress={() => chooseFilter(code)}
               style={[
                 styles.statusChip,
                 {

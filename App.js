@@ -389,6 +389,12 @@ function AppContent() {
   const scrollOffsetRef = useRef(0);
   const shieldScrollLockRef = useRef(null);
   const signedStripHRef = useRef(0);
+  const offerScrollLockRef = useRef(null);
+  const clausePinRef = useRef(null);
+  const clausePadScrollRef = useRef(null);
+  const analyzeViewportHRef = useRef(0);
+  const analyzeContentHRef = useRef(0);
+  const [clauseFilterPad, setClauseFilterPad] = useState(0);
   const pendingSignedScrollRef = useRef(false);
   const signedScrollTriesRef = useRef(0);
   const signedContentHeightRef = useRef(0);
@@ -409,8 +415,54 @@ function AppContent() {
     if (wasVisible && !paywallVisible) setPaywallClosedTick((n) => n + 1);
   }, [paywallVisible]);
   useEffect(() => {
-    if (signedShieldCount === 0) signedStripHRef.current = 0;
+    if (signedShieldCount !== 0) return;
+    const h = Number(signedStripHRef.current) || 0;
+    signedStripHRef.current = 0;
+    if (!h || pendingSignedScrollRef.current) return;
+    const y = Number(scrollOffsetRef.current) || 0;
+    analyzeScrollRef.current?.scrollTo?.({ y: Math.max(0, y - h), animated: false });
   }, [signedShieldCount]);
+
+  const settleClausePin = () => {
+    const pin = clausePinRef.current;
+    if (!pin || pin.contentY == null || pendingSignedScrollRef.current) return;
+    const desired = Math.max(0, pin.contentY - pin.anchor);
+    const viewport = analyzeViewportHRef.current || 0;
+    const contentH = analyzeContentHRef.current || 0;
+    if (!viewport || !contentH) return;
+    if (pin.heightAtStart > 0 && contentH === pin.heightAtStart && !pin.deferred) {
+      clausePinRef.current = { ...pin, deferred: true };
+      requestAnimationFrame(() => settleClausePin());
+      return;
+    }
+    const maxScroll = Math.max(0, contentH - viewport);
+    clausePinRef.current = null;
+    if (desired > maxScroll + 1) {
+      clausePadScrollRef.current = desired;
+      setClauseFilterPad((prev) => prev + Math.ceil(desired - maxScroll + 24));
+      return;
+    }
+    clausePadScrollRef.current = null;
+    if (clauseFilterPad !== 0) setClauseFilterPad(0);
+    analyzeScrollRef.current?.scrollTo?.({ y: desired, animated: false });
+  };
+
+  const onClausePin = (event) => {
+    if (pendingSignedScrollRef.current) return;
+    if (event?.phase === 'start') {
+      const scrollY = Number(scrollOffsetRef.current) || 0;
+      clausePinRef.current = {
+        anchor: event.contentY - scrollY,
+        contentY: null,
+        heightAtStart: analyzeContentHRef.current || 0,
+        deferred: false,
+      };
+      return;
+    }
+    if (!clausePinRef.current) return;
+    clausePinRef.current = { ...clausePinRef.current, contentY: event.contentY };
+    settleClausePin();
+  };
   const collapseIngest = shouldCollapseAnalyzeIngest({
     hasResult: Boolean(result),
     setupOpen: analyzeSetupOpen,
@@ -1123,17 +1175,16 @@ function AppContent() {
   const quotaEnforced = !!profile;
   const lockPremium = quotaEnforced && !isPro;
 
-  // Geçmiş Analizleri Çekme. İlk yüklemede döner; sonraki sekme açılışları listeyi boşaltmaz.
+  // Geçmiş, oturum belli olur olmaz gelir. Yenileme satırları silmez.
   const historyLoadedRef = useRef(false);
   const historyUserRef = useRef(null);
   useEffect(() => {
-    if (user && activeTab === 'history') {
-      if (historyUserRef.current !== user.id) {
-        historyUserRef.current = user.id;
-        historyLoadedRef.current = false;
-      }
-      fetchHistory();
+    if (!user) return;
+    if (historyUserRef.current !== user.id) {
+      historyUserRef.current = user.id;
+      historyLoadedRef.current = false;
     }
+    fetchHistory();
   }, [user, activeTab]);
 
   const fetchHistory = async () => {
@@ -1276,7 +1327,22 @@ function AppContent() {
   };
 
   const setOfferTier = (itemId, tier) => {
+    const current = offerTiers[itemId] || 'balanced';
+    if (current === tier) return;
+    if (!pendingSignedScrollRef.current) {
+      offerScrollLockRef.current = Number(scrollOffsetRef.current) || 0;
+    }
     setOfferTiers((prev) => ({ ...prev, [itemId]: tier }));
+  };
+
+  const onCounterOfferLayout = () => {
+    const y = offerScrollLockRef.current;
+    if (y == null || pendingSignedScrollRef.current) return;
+    requestAnimationFrame(() => {
+      if (pendingSignedScrollRef.current || offerScrollLockRef.current == null) return;
+      analyzeScrollRef.current?.scrollTo?.({ y: offerScrollLockRef.current, animated: false });
+      offerScrollLockRef.current = null;
+    });
   };
 
   const renderOfferTierChips = (item, itemId) => {
@@ -2799,7 +2865,9 @@ function AppContent() {
                     </TouchableOpacity>
                   </View>
                   {renderOfferTierChips(flag, flagId)}
-                  <Text style={styles.counterText}>{safeDisplayText(offer)}</Text>
+                  <View onLayout={onCounterOfferLayout}>
+                    <Text style={styles.counterText}>{safeDisplayText(offer)}</Text>
+                  </View>
                 </View>
               );
             })()}
@@ -2962,7 +3030,9 @@ function AppContent() {
                 </TouchableOpacity>
               </View>
               {renderOfferTierChips(item, clauseId)}
-              <Text style={styles.counterText}>{safeDisplayText(offer)}</Text>
+              <View onLayout={onCounterOfferLayout}>
+                <Text style={styles.counterText}>{safeDisplayText(offer)}</Text>
+              </View>
             </View>
           );
         })()}
@@ -3410,6 +3480,8 @@ function AppContent() {
             <ClauseNavigator
               theme={theme}
               clauses={analysis?.clauses || []}
+              contentRef={analyzeContentRef}
+              onClausePin={onClausePin}
               renderCard={(item, index) => renderClauseCard(item, index, keyPrefix)}
             />
           </>
@@ -3540,13 +3612,29 @@ function AppContent() {
             <KeyboardScreen
               scrollRef={analyzeScrollRef}
               containerRef={analyzeContentRef}
-              contentContainerStyle={styles.scrollContent}
+              contentContainerStyle={[
+                styles.scrollContent,
+                clauseFilterPad > 0 ? { paddingBottom: 20 + clauseFilterPad } : null,
+              ]}
               contentFlexGrow={activeResult ? 0 : 1}
               keyboardInsets={!(activeResult && collapseIngest)}
+              onScrollLayout={(height) => {
+                analyzeViewportHRef.current = height;
+              }}
               onScroll={(event) => {
                 scrollOffsetRef.current = Number(event?.nativeEvent?.contentOffset?.y) || 0;
               }}
               onContentSizeChange={(_width, height) => {
+                analyzeContentHRef.current = Number(height) || 0;
+                if (clausePinRef.current?.contentY != null) settleClausePin();
+                else if (clausePadScrollRef.current != null) {
+                  const y = clausePadScrollRef.current;
+                  clausePadScrollRef.current = null;
+                  requestAnimationFrame(() => {
+                    if (pendingSignedScrollRef.current) return;
+                    analyzeScrollRef.current?.scrollTo?.({ y, animated: false });
+                  });
+                }
                 if (!pendingSignedScrollRef.current) return;
                 const next = Number(height) || 0;
                 const prev = signedContentHeightRef.current;
@@ -4166,10 +4254,9 @@ function AppContent() {
                     const next = Number(event?.nativeEvent?.layout?.height) || 0;
                     const prev = signedStripHRef.current;
                     signedStripHRef.current = next;
-                    if (next <= prev || pendingSignedScrollRef.current) return;
+                    if (next === prev || pendingSignedScrollRef.current) return;
                     const y = Number(scrollOffsetRef.current) || 0;
-                    if (y <= 8) return;
-                    analyzeScrollRef.current?.scrollTo?.({ y: y + (next - prev), animated: false });
+                    analyzeScrollRef.current?.scrollTo?.({ y: Math.max(0, y + (next - prev)), animated: false });
                   }}
                 >
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>
