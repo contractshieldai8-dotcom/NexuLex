@@ -387,6 +387,7 @@ function AppContent() {
   const reportAnchorRef = useRef(null);
   const reportYRef = useRef(0);
   const scrollOffsetRef = useRef(0);
+  const shieldScrollLockRef = useRef(null);
   const signedStripHRef = useRef(0);
   const pendingSignedScrollRef = useRef(false);
   const signedScrollTriesRef = useRef(0);
@@ -3174,6 +3175,19 @@ function AppContent() {
             setModalVisible(false);
           }}
           onShareBrief={() => openShareBrief(fullRaw || analysis)}
+          onBeforePreview={() => {
+            if (pendingSignedScrollRef.current) return;
+            shieldScrollLockRef.current = Number(scrollOffsetRef.current) || 0;
+          }}
+          onPreviewLayout={() => {
+            const y = shieldScrollLockRef.current;
+            if (y == null || pendingSignedScrollRef.current) return;
+            requestAnimationFrame(() => {
+              if (pendingSignedScrollRef.current || shieldScrollLockRef.current == null) return;
+              analyzeScrollRef.current?.scrollTo?.({ y: shieldScrollLockRef.current, animated: false });
+              shieldScrollLockRef.current = null;
+            });
+          }}
           placeSkipped={
             lockPremium
               ? undefined

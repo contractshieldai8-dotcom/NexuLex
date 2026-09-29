@@ -9121,4 +9121,32 @@ Ticaret Unvanı: Anadolu Bilişim
   if (uxOk) console.log('OK  WAVE UX.33 analyze taps stay put: listen, sign, no wrapper dismiss');
 }
 
+// WAVE UX.34 — listen label stays centered; shield preview keeps the current scroll offset
+{
+  let uxOk = true;
+  const uxFail = (msg) => {
+    failed = true;
+    uxOk = false;
+    console.log(`WAVE UX.34 ${msg}`);
+  };
+  const app = fs.readFileSync('App.js', 'utf8');
+  const layers = fs.readFileSync('components/AnalysisLayers.js', 'utf8');
+  const shield = fs.readFileSync('components/ShieldDocumentCard.js', 'utf8');
+  const listenText = layers.slice(layers.indexOf('styles.decisionShareText'), layers.indexOf('styles.decisionShareText') + 280);
+  if (!/lineHeight: 16/.test(listenText) || !/includeFontPadding: false/.test(listenText) || !/textAlignVertical: 'center'/.test(listenText)) {
+    uxFail('listen label alignment must stay inline on that button');
+  }
+  if (!/position: 'absolute'/.test(layers) || !/opacity: speaking \? 1 : 0/.test(layers)) {
+    uxFail('listen duration must sit out of the row and stay hidden while idle');
+  }
+  if (layers.includes("decisionShareText:") ) uxFail('shared decisionShareText must not move into the listen component');
+  if (!app.includes('shieldScrollLockRef') || !shield.includes('onPreviewLayout') || !shield.includes('onBeforePreview?.()')) {
+    uxFail('shield preview must restore scroll after it lays out');
+  }
+  if (!/pendingSignedScrollRef\.current/.test(app) || !/contentFlexGrow=\{activeResult \? 0 : 1\}/.test(app)) {
+    uxFail('signed-scroll goldens must stay');
+  }
+  if (uxOk) console.log('OK  WAVE UX.34 listen alignment + shield scroll hold');
+}
+
 process.exit(failed ? 1 : 0);

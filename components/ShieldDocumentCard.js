@@ -37,6 +37,8 @@ export default function ShieldDocumentCard({
   onOpenDiff,
   placeSkipped,
   onShareBrief,
+  onBeforePreview,
+  onPreviewLayout,
   offerTierById = null,
   preferredTier = 'balanced',
 }) {
@@ -175,6 +177,7 @@ export default function ShieldDocumentCard({
       lastMaddeNo(source) > lastMaddeNo(doc.text) ||
       (source.length > String(doc.text || '').length + 80 && tailIsMidWord(doc.text));
     // Toast only when source is incomplete — truncated patches may skip without blocking Apply.
+    onBeforePreview?.();
     setStitched({ ...doc, cut: sourceCut || ateTail });
     if (sourceCut) {
       showToast(t('errExtractTruncated'), { type: 'warning' });
@@ -222,6 +225,7 @@ export default function ShieldDocumentCard({
           }
         }
         const nextDoc = { ...doc, text: nextText, skipped: still };
+        onBeforePreview?.();
         setStitched(nextDoc);
         persistIfReady(nextDoc);
       } finally {
@@ -410,7 +414,7 @@ export default function ShieldDocumentCard({
       </View>
 
       {stitched?.text ? (
-        <View style={{ marginTop: 12 }}>
+        <View style={{ marginTop: 12 }} onLayout={() => onPreviewLayout?.()}>
           {(stitched.skipped || []).filter((item) => item.reason === 'not_found').length ? (
             <Text style={[styles.sectionHint, { color: WARNING }]}>
               {t('shieldSkipUnmatched', {

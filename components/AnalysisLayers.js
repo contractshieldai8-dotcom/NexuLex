@@ -583,7 +583,17 @@ export function VoiceBriefButton({ theme, analysis, lang }) {
   return (
     <View style={{ alignSelf: 'stretch' }}>
       <TouchableOpacity
-        style={[styles.voiceBriefBtn, { borderColor: theme.borderColor, minHeight: 44 }]}
+        style={[
+          styles.voiceBriefBtn,
+          {
+            borderColor: theme.borderColor,
+            minHeight: 44,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+          },
+        ]}
         onPress={() => {
           handlePress().catch(() => {
             setSpeaking(false);
@@ -599,14 +609,30 @@ export function VoiceBriefButton({ theme, analysis, lang }) {
         <View style={{ width: 16, height: 16, alignItems: 'center', justifyContent: 'center' }}>
           <Ionicons name={speaking ? 'stop-circle' : 'volume-high-outline'} size={16} color={ACCENT} />
         </View>
-        <Text style={styles.decisionShareText}>
+        <Text
+          style={[
+            styles.decisionShareText,
+            {
+              lineHeight: 16,
+              includeFontPadding: false,
+              textAlignVertical: 'center',
+            },
+          ]}
+        >
           {speaking ? t('stopBriefing') : t('listenBriefing')}
         </Text>
         <Text
-          style={[
-            styles.deadlineMeta,
-            { color: ACCENT, marginLeft: 4, minWidth: 42, opacity: speaking ? 1 : 0 },
-          ]}
+          pointerEvents="none"
+          style={{
+            position: 'absolute',
+            right: 12,
+            color: ACCENT,
+            fontSize: 12,
+            lineHeight: 16,
+            includeFontPadding: false,
+            textAlignVertical: 'center',
+            opacity: speaking ? 1 : 0,
+          }}
         >
           {formatElapsed(elapsedSec)}
         </Text>
