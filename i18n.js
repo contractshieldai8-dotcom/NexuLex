@@ -66,6 +66,7 @@ import { WAVE_UX24_I18N } from './i18n.waveux24';
 import { WAVE_UX26_I18N } from './i18n.waveux26';
 import { WAVE_UX27_I18N } from './i18n.waveux27';
 import { WAVE_UX30_I18N } from './i18n.waveux30';
+import { WAVE_UX38_I18N } from './i18n.waveux38';
 
 const resources = {
   tr: {
@@ -394,6 +395,7 @@ const resources = {
       ...WAVE_UX26_I18N.tr,
       ...WAVE_UX27_I18N.tr,
       ...WAVE_UX30_I18N.tr,
+      ...WAVE_UX38_I18N.tr,
     }
   },
   en: {
@@ -722,6 +724,7 @@ const resources = {
       ...WAVE_UX26_I18N.en,
       ...WAVE_UX27_I18N.en,
       ...WAVE_UX30_I18N.en,
+      ...WAVE_UX38_I18N.en,
     }
   },
   de: {
@@ -1050,6 +1053,7 @@ const resources = {
       ...WAVE_UX26_I18N.de,
       ...WAVE_UX27_I18N.de,
       ...WAVE_UX30_I18N.de,
+      ...WAVE_UX38_I18N.de,
     }
   },
   fr: {
@@ -1378,6 +1382,7 @@ const resources = {
       ...WAVE_UX26_I18N.fr,
       ...WAVE_UX27_I18N.fr,
       ...WAVE_UX30_I18N.fr,
+      ...WAVE_UX38_I18N.fr,
     }
   },
   es: {
@@ -1706,6 +1711,7 @@ const resources = {
       ...WAVE_UX26_I18N.es,
       ...WAVE_UX27_I18N.es,
       ...WAVE_UX30_I18N.es,
+      ...WAVE_UX38_I18N.es,
     }
   },
   ar: {
@@ -2034,6 +2040,7 @@ const resources = {
       ...WAVE_UX26_I18N.ar,
       ...WAVE_UX27_I18N.ar,
       ...WAVE_UX30_I18N.ar,
+      ...WAVE_UX38_I18N.ar,
     }
   },
   it: {
@@ -2362,6 +2369,7 @@ const resources = {
       ...WAVE_UX26_I18N.it,
       ...WAVE_UX27_I18N.it,
       ...WAVE_UX30_I18N.it,
+      ...WAVE_UX38_I18N.it,
     }
   },
   zh: {
@@ -2690,6 +2698,7 @@ const resources = {
       ...WAVE_UX26_I18N.zh,
       ...WAVE_UX27_I18N.zh,
       ...WAVE_UX30_I18N.zh,
+      ...WAVE_UX38_I18N.zh,
     }
   },
   ru: {
@@ -3018,6 +3027,7 @@ const resources = {
       ...WAVE_UX26_I18N.ru,
       ...WAVE_UX27_I18N.ru,
       ...WAVE_UX30_I18N.ru,
+      ...WAVE_UX38_I18N.ru,
     }
   },
   fa: {
@@ -3346,6 +3356,7 @@ const resources = {
       ...WAVE_UX26_I18N.fa,
       ...WAVE_UX27_I18N.fa,
       ...WAVE_UX30_I18N.fa,
+      ...WAVE_UX38_I18N.fa,
     }
   },
   ja: {
@@ -3674,6 +3685,7 @@ const resources = {
       ...WAVE_UX26_I18N.ja,
       ...WAVE_UX27_I18N.ja,
       ...WAVE_UX30_I18N.ja,
+      ...WAVE_UX38_I18N.ja,
     }
   },
   pt: {
@@ -4002,6 +4014,7 @@ const resources = {
       ...WAVE_UX26_I18N.pt,
       ...WAVE_UX27_I18N.pt,
       ...WAVE_UX30_I18N.pt,
+      ...WAVE_UX38_I18N.pt,
     }
   },
   nl: {
@@ -4330,6 +4343,7 @@ const resources = {
       ...WAVE_UX26_I18N.nl,
       ...WAVE_UX27_I18N.nl,
       ...WAVE_UX30_I18N.nl,
+      ...WAVE_UX38_I18N.nl,
     }
   }
 };

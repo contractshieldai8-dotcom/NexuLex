@@ -40,6 +40,8 @@ export const GUIDE_CHANGELOG = [
   { id: 'cl_professional', titleKey: 'guideNewProfessional', date: '2026-09-30', workflowId: 'pro_tools' },
   { id: 'cl_lawyer_handoff', titleKey: 'guideNewLawyer', date: '2026-10-01', workflowId: 'lawyer_handoff' },
   { id: 'cl_scan_dock', titleKey: 'guideNewDock', date: '2026-10-02', workflowId: 'scan_dock' },
+  { id: 'cl_history_filters', titleKey: 'guideNewHistoryFilters', date: '2026-10-03', workflowId: 'history' },
+  { id: 'cl_signed_scan', titleKey: 'guideNewSignedScan', date: '2026-10-04', workflowId: 'scan_dock' },
 ];
 
 export function latestChangelog(count = 5) {
@@ -349,6 +351,8 @@ export const GUIDE_WORKFLOWS = [
       { bodyKey: 'guideStepHistory2', ctaKey: 'guideCtaStatus' },
       { bodyKey: 'guideStepHistory3', ctaKey: 'guideCtaDelete' },
       { bodyKey: 'guideStepHistorySearch', ctaKey: 'ux23Search', action: { type: 'openTab', id: 'history' } },
+      { bodyKey: 'guideStepHistoryRisk', ctaKey: 'ux30Risk', action: { type: 'openTab', id: 'history' } },
+      { bodyKey: 'guideStepHistoryRegister', ctaKey: 'ux23Filter', action: { type: 'openTab', id: 'history' } },
       { bodyKey: 'guideStepHistoryExport', ctaKey: 'ux23Export' },
     ],
   },
@@ -362,6 +366,8 @@ export const GUIDE_WORKFLOWS = [
     steps: [
       { bodyKey: 'guideStepDockReport', ctaKey: 'ux24Report', action: { type: 'openTab', id: 'analyze' } },
       { bodyKey: 'guideStepDockSetup', ctaKey: 'ux24Expand' },
+      { bodyKey: 'guideStepDockSigned', ctaKey: 'lifecycleSigned', action: { type: 'openTab', id: 'analyze' } },
+      { bodyKey: 'guideStepDockNew', ctaKey: 'ux24New', action: { type: 'openTab', id: 'analyze' } },
       { bodyKey: 'guideStepDockGuides', ctaKey: 'ux24Guides' },
     ],
   },
