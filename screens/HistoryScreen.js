@@ -384,7 +384,7 @@ export default function HistoryScreen({
       : [];
 
   const listHeader = useMemo(() => (
-    <View>
+    <View key="history-chrome" collapsable={false}>
       <Text style={[styles.sectionHeader, { color: theme.text, marginBottom: 8 }]}>
         {t('historyTitle')}
       </Text>

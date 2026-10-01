@@ -8,8 +8,8 @@ import { useAdvisorChat } from '../context/AdvisorChatContext';
 
 export default function RecentChatsList({ theme, compact = false, onOpen, pinTitle = false }) {
   const { t } = useTranslation();
-  const { sessions, openSession, sessionTitle, deleteSession } = useAdvisorChat();
-  const items = (sessions || []).slice(0, 5);
+  const { sessions, openSession, sessionTitle, deleteSession, hydrated } = useAdvisorChat();
+  const items = hydrated ? (sessions || []).slice(0, 5) : [];
 
   const confirmDelete = (session) => {
     Alert.alert(t('deleteChatTitle'), t('deleteChatMessage'), [

@@ -420,19 +420,24 @@ function AppContent() {
     signedShieldCountRef.current = signedShieldCount;
   }, [signedShieldCount]);
 
+  const openReportSigned = normalizeLifecycle(result?.lifecycle) === 'signed';
+  const showAnalyzeStrip = !loading && (openReportSigned || (!result && signedShieldCount > 0));
   useEffect(() => {
-    if (signedShieldCount !== 0) return;
+    if (showAnalyzeStrip) return;
     const hold = stripScrollHoldRef.current;
     const h = hold?.mode === 'unmount' ? Number(hold.h) || 0 : Number(signedStripHRef.current) || 0;
     signedStripHRef.current = 0;
-    if (!h || pendingSignedScrollRef.current) return;
+    if (!h || pendingSignedScrollRef.current) {
+      if (hold?.mode === 'unmount') stripScrollHoldRef.current = null;
+      return;
+    }
     const baseY = hold?.y != null ? Number(hold.y) || 0 : Number(scrollOffsetRef.current) || 0;
     requestAnimationFrame(() => {
       if (pendingSignedScrollRef.current) return;
       analyzeScrollRef.current?.scrollTo?.({ y: Math.max(0, baseY - h), animated: false });
       if (stripScrollHoldRef.current?.mode === 'unmount') stripScrollHoldRef.current = null;
     });
-  }, [signedShieldCount]);
+  }, [showAnalyzeStrip]);
 
   const settleClausePin = useCallback(() => {
     const pin = clausePinRef.current;
@@ -443,19 +448,15 @@ function AppContent() {
     if (!viewport || !contentH) return;
     if (pin.heightAtStart > 0 && contentH === pin.heightAtStart && !pin.deferred) {
       clausePinRef.current = { ...pin, deferred: true };
-      requestAnimationFrame(() => settleClausePin());
       return;
     }
     const maxScroll = Math.max(0, contentH - viewport);
+    const rowTop = Math.max(0, pin.contentY);
     clausePinRef.current = null;
-    if (desired > maxScroll + 1) {
-      clausePadScrollRef.current = desired;
-      setClauseFilterPad(Math.ceil(desired - maxScroll + 24));
-      return;
-    }
     clausePadScrollRef.current = null;
     setClauseFilterPad(0);
-    analyzeScrollRef.current?.scrollTo?.({ y: desired, animated: false });
+    const y = desired <= maxScroll + 1 ? desired : Math.min(rowTop, maxScroll);
+    analyzeScrollRef.current?.scrollTo?.({ y, animated: false });
   }, []);
 
   const onClausePin = useCallback((event) => {
@@ -595,7 +596,15 @@ function AppContent() {
 
   const appReady = localeReady && authBootstrapped && (!holdSplashForShield || shieldRestoreReady);
   useEffect(() => {
-    if (appReady) SplashScreen.hideAsync().catch(() => {});
+    if (appReady) {
+      const outer = requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (appReady) SplashScreen.hideAsync().catch(() => {});
+        });
+      });
+      return () => cancelAnimationFrame(outer);
+    }
+    return undefined;
   }, [appReady]);
   useEffect(() => {
     if (localeReady && authBootstrapped && shieldRestoreReady && holdSplashForShield) {
@@ -1211,7 +1220,16 @@ function AppContent() {
 
       if (error) throw error;
       historyLoadedRef.current = true;
-      setHistory((data || []).map(sanitizeAnalysisRow));
+      const nextRows = (data || []).map(sanitizeAnalysisRow);
+      setHistory((prev) => {
+        if (
+          prev.length === nextRows.length
+          && prev.every((row, index) => row?.id === nextRows[index]?.id && row?.lifecycle === nextRows[index]?.lifecycle && row?.score === nextRows[index]?.score)
+        ) {
+          return prev;
+        }
+        return nextRows;
+      });
     } catch (err) {
       console.log('Geçmiş hatası:', err.message);
     } finally {
@@ -1338,29 +1356,67 @@ function AppContent() {
     setCopiedKey(`${keyPrefix}-counter-${index}`);
   };
 
+  const offerRowRefs = useRef({});
+
   const setOfferTier = (itemId, tier) => {
     const current = offerTiers[itemId] || 'balanced';
     if (current === tier) return;
-    if (!pendingSignedScrollRef.current) {
-      const seq = (offerScrollLockRef.current?.seq || 0) + 1;
-      offerScrollLockRef.current = {
-        itemId,
-        y: Number(scrollOffsetRef.current) || 0,
-        seq,
-      };
+    const commit = (anchor) => {
+      if (!pendingSignedScrollRef.current) {
+        const seq = (offerScrollLockRef.current?.seq || 0) + 1;
+        offerScrollLockRef.current = { itemId, seq, anchor };
+      }
+      setOfferTiers((prev) => ({ ...prev, [itemId]: tier }));
+    };
+    const row = offerRowRefs.current[itemId];
+    const relative = analyzeContentRef.current;
+    if (pendingSignedScrollRef.current || !row || !relative || typeof row.measureLayout !== 'function') {
+      commit(null);
+      return;
     }
-    setOfferTiers((prev) => ({ ...prev, [itemId]: tier }));
+    try {
+      row.measureLayout(
+        relative,
+        (_x, y) => {
+          const scrollY = Number(scrollOffsetRef.current) || 0;
+          commit((Number(y) || 0) - scrollY);
+        },
+        () => commit(null)
+      );
+    } catch {
+      commit(null);
+    }
   };
 
   const onCounterOfferLayout = (itemId) => {
     const lock = offerScrollLockRef.current;
     if (!lock || lock.itemId !== itemId || pendingSignedScrollRef.current) return;
-    const { y, seq } = lock;
+    const { seq, anchor } = lock;
     requestAnimationFrame(() => {
-      const cur = offerScrollLockRef.current;
-      if (pendingSignedScrollRef.current || !cur || cur.seq !== seq || cur.itemId !== itemId) return;
-      analyzeScrollRef.current?.scrollTo?.({ y, animated: false });
-      if (offerScrollLockRef.current?.seq === seq) offerScrollLockRef.current = null;
+      requestAnimationFrame(() => {
+        const cur = offerScrollLockRef.current;
+        if (pendingSignedScrollRef.current || !cur || cur.seq !== seq || cur.itemId !== itemId) return;
+        const row = offerRowRefs.current[itemId];
+        const relative = analyzeContentRef.current;
+        const finish = (y) => {
+          if (offerScrollLockRef.current?.seq !== seq) return;
+          analyzeScrollRef.current?.scrollTo?.({ y: Math.max(0, y), animated: false });
+          offerScrollLockRef.current = null;
+        };
+        if (anchor == null || !row || !relative || typeof row.measureLayout !== 'function') {
+          finish(Number(scrollOffsetRef.current) || 0);
+          return;
+        }
+        try {
+          row.measureLayout(
+            relative,
+            (_x, y) => finish((Number(y) || 0) - anchor),
+            () => finish(Number(scrollOffsetRef.current) || 0)
+          );
+        } catch {
+          finish(Number(scrollOffsetRef.current) || 0);
+        }
+      });
     });
   };
 
@@ -1375,7 +1431,13 @@ function AppContent() {
     ].filter((chip) => String(offers[chip.id] || '').trim());
     if (chips.length < 2) return null;
     return (
-      <View style={styles.offerTierRow}>
+      <View
+        ref={(node) => {
+          offerRowRefs.current[itemId] = node;
+        }}
+        collapsable={false}
+        style={styles.offerTierRow}
+      >
         {chips.map((chip) => {
           const selected = active === chip.id;
           return (
@@ -1621,7 +1683,7 @@ function AppContent() {
     }
     // Stale last-analysis result blocks BA live preview — invalidate when text diverges.
     const prior = String(result?.contract_text || result?.contractText || '').trim();
-    if (result && trimmedNext.length >= 90 && trimmedNext !== prior) {
+    if (analyzeSetupOpen && result && trimmedNext.length >= 90 && trimmedNext !== prior) {
       setResult(null);
     }
     if (typeLocked) return;
@@ -1809,14 +1871,15 @@ function AppContent() {
       return;
     }
     applyLocalAnalysisPatch(row, { lifecycle });
-    const countNow = signedShieldCountRef.current;
-    const stripMounts = lifecycle === 'signed' && previous !== 'signed' && countNow === 0;
-    const stripUnmounts = previous === 'signed' && lifecycle !== 'signed' && countNow === 1;
-    if (!pendingSignedScrollRef.current && (stripMounts || stripUnmounts)) {
+    const openId = String(resultRef.current?.id || '');
+    const viewingThis = openId ? openId === String(row.id) : Boolean(resultRef.current);
+    const signedNow = lifecycle === 'signed';
+    const signedBefore = previous === 'signed';
+    if (!pendingSignedScrollRef.current && viewingThis && signedNow !== signedBefore) {
       stripScrollHoldRef.current = {
         y: Number(scrollOffsetRef.current) || 0,
         h: Number(signedStripHRef.current) || 0,
-        mode: stripUnmounts ? 'unmount' : 'mount',
+        mode: signedNow ? 'mount' : 'unmount',
       };
     }
     if (lifecycle === 'signed') {
@@ -4275,7 +4338,7 @@ function AppContent() {
               </>
               ) : null}
 
-              {!loading && signedShieldCount > 0 ? (
+              {showAnalyzeStrip ? (
                 <TouchableOpacity
                   onPress={() => openSignedStrip().catch(() => {})}
                   activeOpacity={0.85}
@@ -4285,11 +4348,8 @@ function AppContent() {
                     signedStripHRef.current = next;
                     if (next === prev || pendingSignedScrollRef.current) return;
                     const hold = stripScrollHoldRef.current;
-                    const baseY = hold?.y != null ? Number(hold.y) || 0 : Number(scrollOffsetRef.current) || 0;
-                    analyzeScrollRef.current?.scrollTo?.({
-                      y: Math.max(0, baseY + (next - prev)),
-                      animated: false,
-                    });
+                    const baseY = hold ? Number(hold.y) || 0 : Number(scrollOffsetRef.current) || 0;
+                    if (hold || baseY > 8) analyzeScrollRef.current?.scrollTo?.({ y: Math.max(0, baseY + (next - prev)), animated: false });
                     if (hold?.mode === 'mount') stripScrollHoldRef.current = null;
                   }}
                 >

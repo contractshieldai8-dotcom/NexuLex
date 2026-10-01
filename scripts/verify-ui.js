@@ -9236,4 +9236,37 @@ Ticaret Unvanı: Anadolu Bilişim
   if (uxOk) console.log('OK  WAVE UX.36 scroll anchor follow-up');
 }
 
+// WAVE UX.37 — report-scoped shield strip, chip anchor, filter clamp, splash after first frame
+{
+  let uxOk = true;
+  const uxFail = (msg) => {
+    failed = true;
+    uxOk = false;
+    console.log(`WAVE UX.37 ${msg}`);
+  };
+  const app = fs.readFileSync('App.js', 'utf8');
+  const analysis = fs.readFileSync('utils/analysis.js', 'utf8');
+  if (!app.includes('showAnalyzeStrip') || !app.includes("normalizeLifecycle(result?.lifecycle) === 'signed'")) {
+    uxFail('shield strip must follow the open report lifecycle');
+  }
+  if (!/if\s*\(\s*appReady\s*\)\s*SplashScreen\.hideAsync/.test(app)) {
+    uxFail('splash must still hide when the app is ready');
+  }
+  if (!/backgroundColor:\s*'#000000'/.test(app)) uxFail('ready underlay must stay');
+  if (!app.includes('offerRowRefs') || !app.includes('cur.seq !== seq')) {
+    uxFail('offer chips must anchor the measured row');
+  }
+  const tierAt = app.indexOf('const setOfferTier');
+  const tierFn = app.slice(tierAt, app.indexOf('const onCounterOfferLayout'));
+  if (tierFn.includes('requestAnimationFrame')) uxFail('offer tier setter must not schedule a frame');
+  if (!analysis.includes('kiraya veren') || !analysis.includes('kiracı') || !analysis.includes('looksLikePartyValue')) {
+    uxFail('party extract must recognize lease roles');
+  }
+  if (!/analyzeSetupOpen && result && trimmedNext\.length >= 90/.test(app)) {
+    uxFail('paste may clear the report only while setup is open');
+  }
+  if (app.includes('setHistory([])')) uxFail('history refresh must not empty the list');
+  if (uxOk) console.log('OK  WAVE UX.37 scroll, splash, and party extract');
+}
+
 process.exit(failed ? 1 : 0);

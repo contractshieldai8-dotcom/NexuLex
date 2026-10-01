@@ -1054,6 +1054,16 @@ export function looksLikeCompanyName(line) {
   return true;
 }
 
+function looksLikePartyValue(line) {
+  if (looksLikeCompanyName(line)) return true;
+  const raw = String(line || '').replace(/\s+/g, ' ').trim();
+  if (raw.length < 5 || raw.length > 80) return false;
+  if (/[.!?;:]/.test(raw)) return false;
+  const words = raw.split(/\s+/).filter(Boolean);
+  if (words.length < 2 || words.length > 5) return false;
+  return words.every((word) => /^[A-Za-zÇĞİÖŞÜçğıöşüÄÖÜäöü][A-Za-zÇĞİÖŞÜçğıöşüÄÖÜäöü.''-]*$/.test(word));
+}
+
 function matchRoleHeading(foldedLine, labels) {
   for (const lab of labels) {
     const re = new RegExp(
@@ -1081,10 +1091,15 @@ export function extractRadarPartiesFromText(source) {
   // Longer labels first so "hizmet sağlayıcı" / "lisans veren" win over partials.
   const supplierLabels = [
     'hizmet sağlayıcı',
+    'kiraya veren',
     'lisans veren',
+    'ev sahibi',
     'franchisor',
+    'kiralayan',
     'yüklenici',
     'contractor',
+    'landlord',
+    'lessor',
     'vendor',
     'tedarikçi',
     'satıcı',
@@ -1093,9 +1108,16 @@ export function extractRadarPartiesFromText(source) {
     'hizmet alan',
     'lisans alan',
     'franchisee',
+    'çalışan',
     'işveren',
     'müşteri',
+    'kiracı',
+    'kiraci',
+    'kıracı',
+    'tenant',
+    'employee',
     'alıcı',
+    'işçi',
     'customer',
   ];
 
@@ -1108,7 +1130,7 @@ export function extractRadarPartiesFromText(source) {
       if (hit.rest) {
         // Same-line name after colon — person or company ("İşveren: Ahmet Demir")
         const same = String(lines[i].split(/[:：]/).slice(1).join(':') || '').trim();
-        if (same && looksLikeCompanyName(same)) return same.replace(/\s+/g, ' ').slice(0, 90);
+        if (same && looksLikePartyValue(same)) return same.replace(/\s+/g, ' ').slice(0, 90);
       }
 
       for (let j = i + 1; j < Math.min(i + 6, lines.length); j += 1) {
