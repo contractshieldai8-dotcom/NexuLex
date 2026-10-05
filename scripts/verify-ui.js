@@ -1,4 +1,4 @@
-﻿// Geliştirme yardımcı betiği: theme.js içinde arayüzün beklediği stil
+// Geliştirme yardımcı betiği: theme.js içinde arayüzün beklediği stil
 // anahtarlarının ve i18n dil paritesinin eksiksiz olduğunu doğrular.
 // Kullanım: node scripts/verify-ui.js
 
@@ -175,11 +175,13 @@ const waveUx39Src = fs.existsSync('i18n.waveux39.js') ? fs.readFileSync('i18n.wa
 const waveUx39Match = waveUx39Src.match(/export const WAVE_UX39_I18N = ([\s\S]*);\s*$/);
 const waveLg1Src = fs.existsSync('i18n.wavelg1.js') ? fs.readFileSync('i18n.wavelg1.js', 'utf8') : '';
 const waveLg1Match = waveLg1Src.match(/export const WAVE_LG1_I18N = ([\s\S]*);\s*$/);
+const waveD1Src = fs.existsSync('i18n.waved1.js') ? fs.readFileSync('i18n.waved1.js', 'utf8') : '';
+const waveD1Match = waveD1Src.match(/export const WAVE_D1_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !waveGr6Match || !waveMx1Match || !waveJp3Match || !waveSt2Match || !waveUx2Match || !waveSt4Match || !waveGr7Match || !waveUx3Match || !waveSt6Match || !waveSt7Match || !waveGr8Match || !waveUx4Match || !waveMx2Match || !waveSt8Match || !waveUx5Match || !waveUx6Match || !waveUx7Match || !waveUx8Match || !waveUx9Match || !waveUx10Match || !waveUx11Match || !waveUx12Match || !waveUx13Match || !waveUx14Match || !waveUx15Match || !waveUx16Match || !waveUx17Match || !waveUx18Match || !waveUx19Match || !waveUx20Match || !waveUx21Match || !waveSt9Match || !waveUx22Match || !waveUx23Match || !waveUx24Match || !waveUx26Match || !waveUx27Match || !waveUx30Match || !waveUx38Match || !waveUx39Match || !waveLg1Match || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !waveGr6Match || !waveMx1Match || !waveJp3Match || !waveSt2Match || !waveUx2Match || !waveSt4Match || !waveGr7Match || !waveUx3Match || !waveSt6Match || !waveSt7Match || !waveGr8Match || !waveUx4Match || !waveMx2Match || !waveSt8Match || !waveUx5Match || !waveUx6Match || !waveUx7Match || !waveUx8Match || !waveUx9Match || !waveUx10Match || !waveUx11Match || !waveUx12Match || !waveUx13Match || !waveUx14Match || !waveUx15Match || !waveUx16Match || !waveUx17Match || !waveUx18Match || !waveUx19Match || !waveUx20Match || !waveUx21Match || !waveSt9Match || !waveUx22Match || !waveUx23Match || !waveUx24Match || !waveUx26Match || !waveUx27Match || !waveUx30Match || !waveUx38Match || !waveUx39Match || !waveLg1Match || !waveD1Match || !match) {
   failed = true;
   console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5/GR6/MX1/JP3/ST2/UX2/ST4/GR7/UX3/ST6/ST7/GR8/UX4/MX2/ST8/UX5/UX6/UX7/UX8/UX9/UX10/UX11/UX12/UX13/UX14/UX15/UX16/UX17/UX18/UX19/UX20/UX21/ST9/UX22/UX23/UX24/UX26/UX27/UX30/UX38/UX39 kaynak blogu ayristirilamadi.');
 } else {
@@ -252,6 +254,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_UX38_I18N = eval(`(${waveUx38Match[1]})`); // eslint-disable-line no-eval
   const WAVE_UX39_I18N = eval(`(${waveUx39Match[1]})`); // eslint-disable-line no-eval
 const WAVE_LG1_I18N = eval(`(${waveLg1Match[1]})`); // eslint-disable-line no-eval
+const WAVE_D1_I18N = eval(`(${waveD1Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -322,8 +325,9 @@ const WAVE_LG1_I18N = eval(`(${waveLg1Match[1]})`); // eslint-disable-line no-ev
     'WAVE_UX38_I18N',
     'WAVE_UX39_I18N',
     'WAVE_LG1_I18N',
+    'WAVE_D1_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N, WAVE_ST8_I18N, WAVE_UX5_I18N, WAVE_UX6_I18N, WAVE_UX7_I18N, WAVE_UX8_I18N, WAVE_UX9_I18N, WAVE_UX10_I18N, WAVE_UX11_I18N, WAVE_UX12_I18N, WAVE_UX13_I18N, WAVE_UX14_I18N, WAVE_UX15_I18N, WAVE_UX16_I18N, WAVE_UX17_I18N, WAVE_UX18_I18N, WAVE_UX19_I18N, WAVE_UX20_I18N, WAVE_UX21_I18N, WAVE_ST9_I18N, WAVE_UX22_I18N, WAVE_UX23_I18N, WAVE_UX24_I18N, WAVE_UX26_I18N, WAVE_UX27_I18N, WAVE_UX30_I18N, WAVE_UX38_I18N, WAVE_UX39_I18N, WAVE_LG1_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N, WAVE_ST8_I18N, WAVE_UX5_I18N, WAVE_UX6_I18N, WAVE_UX7_I18N, WAVE_UX8_I18N, WAVE_UX9_I18N, WAVE_UX10_I18N, WAVE_UX11_I18N, WAVE_UX12_I18N, WAVE_UX13_I18N, WAVE_UX14_I18N, WAVE_UX15_I18N, WAVE_UX16_I18N, WAVE_UX17_I18N, WAVE_UX18_I18N, WAVE_UX19_I18N, WAVE_UX20_I18N, WAVE_UX21_I18N, WAVE_ST9_I18N, WAVE_UX22_I18N, WAVE_UX23_I18N, WAVE_UX24_I18N, WAVE_UX26_I18N, WAVE_UX27_I18N, WAVE_UX30_I18N, WAVE_UX38_I18N, WAVE_UX39_I18N, WAVE_LG1_I18N, WAVE_D1_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -1071,9 +1075,9 @@ const WAVE_LG1_I18N = eval(`(${waveLg1Match[1]})`); // eslint-disable-line no-ev
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 2276) {
+  if (languages.length !== 13 || baseKeys.length !== 2278) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2276`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2278`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -3532,6 +3536,7 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_UX38_I18N',
       'WAVE_UX39_I18N',
       'WAVE_LG1_I18N',
+      'WAVE_D1_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -3591,7 +3596,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.waveux30.js', 'utf8').match(/export const WAVE_UX30_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waveux38.js', 'utf8').match(/export const WAVE_UX38_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waveux39.js', 'utf8').match(/export const WAVE_UX39_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.wavelg1.js', 'utf8').match(/export const WAVE_LG1_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavelg1.js', 'utf8').match(/export const WAVE_LG1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.waved1.js', 'utf8').match(/export const WAVE_D1_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -4991,7 +4997,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'wavest2', 'wavest4', 'wavest6', 'wavest7', 'wavest8', 'wavest9', 'waveux1', 'waveux2', 'waveux3', 'waveux4', 'waveux5', 'waveux6', 'waveux7', 'waveux8', 'waveux9', 'waveux10', 'waveux11', 'waveux12', 'waveux13', 'waveux14', 'waveux15', 'waveux16', 'waveux17', 'waveux18', 'waveux19', 'waveux20', 'waveux21', 'waveux22', 'waveux23', 'waveux24', 'waveux26', 'waveux27', 'waveux30', 'waveux38', 'waveux39', 'wavelg1', 'wavejp2', 'wavejp3', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavegr7', 'wavegr8', 'wavemx1', 'wavemx2', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'wavest2', 'wavest4', 'wavest6', 'wavest7', 'wavest8', 'wavest9', 'waveux1', 'waveux2', 'waveux3', 'waveux4', 'waveux5', 'waveux6', 'waveux7', 'waveux8', 'waveux9', 'waveux10', 'waveux11', 'waveux12', 'waveux13', 'waveux14', 'waveux15', 'waveux16', 'waveux17', 'waveux18', 'waveux19', 'waveux20', 'waveux21', 'waveux22', 'waveux23', 'waveux24', 'waveux26', 'waveux27', 'waveux30', 'waveux38', 'waveux39', 'wavelg1', 'waved1', 'wavejp2', 'wavejp3', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavegr7', 'wavegr8', 'wavemx1', 'wavemx2', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -9473,4 +9479,30 @@ Ticaret Unvanı: Anadolu Bilişim
   if (ok) console.log('OK  WAVE C legal compliance: paywall auto-renew disclosure x13, privacy/terms sections x13, web pages in sync');
 }
 
+// WAVE D.1: paywall conversion clarity (plans + CTA above the fine print, store-only monthly equivalent and trial).
+{
+  let ok = true;
+  const dFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE D.1: ${m}`); };
+  const rd = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
+  const pw = rd('screens/PaywallScreen.js');
+  const pos = (needle) => pw.indexOf(needle);
+  const plans = pos('(packages || []).map(renderPlan)');
+  const cta = pos("t('paywallCta')");
+  const fine = pos("t('mxFirstValue')");
+  const legal = pos('openLegal(PRIVACY_URL)');
+  if (plans < 0 || cta < 0 || fine < 0 || legal < 0) dFail('paywall anchors missing');
+  else if (!(plans < cta && cta < fine && fine < legal)) dFail('order must be plans, CTA, fine print, legal links');
+  if (!/pkg\.pricePerMonthString/.test(pw) || !/pkg\.hasFreeTrial/.test(pw)) dFail('plan card must use store monthly equivalent and trial flag');
+  const pur = rd('services/purchases.js');
+  if (!/pricePerMonthString: pkg\.product\.pricePerMonthString \|\| null/.test(pur)) dFail('purchases must expose store monthly price, never compute one');
+  if (!/Number\(intro\.price\) === 0/.test(pur)) dFail('free trial only when the store reports a zero-price intro phase');
+  if (/\bfree trial\b|7[- ]day|3[- ]day/i.test(rd('screens/PaywallScreen.js').replace(/\/\*[\s\S]*?\*\//g, ''))) dFail('paywall must not hard-code trial claims');
+  const d1 = rd('i18n.waved1.js');
+  for (const L of ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl']) {
+    const m = d1.match(new RegExp(`"${L}": \\{\\s*"wd1PerMonth": "([^"]+)",\\s*"wd1Trial": "([^"]+)"`));
+    if (!m || !/\{\{price\}\}/.test(m[1]) || !/\{\{price\}\}/.test(m[2])) dFail(`${L} wd1 keys / {{price}} placeholder`);
+  }
+  if ((rd('i18n.js').match(/WAVE_D1_I18N\.\w+,/g) || []).length !== 13) dFail('i18n.js must merge WAVE_D1_I18N for all 13 languages');
+  if (ok) console.log('OK  WAVE D.1 paywall: plans + CTA above fine print, store-only monthly equivalent + trial, 2 keys x 13');
+}
 process.exit(failed ? 1 : 0);

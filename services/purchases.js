@@ -100,8 +100,20 @@ export async function fetchOfferings(tier = 'pro') {
     price: pkg.product.price,
     currencyCode: pkg.product.currencyCode,
     period: pkg.product.subscriptionPeriod,
+    // Store-computed monthly equivalent (null when the store does not provide it).
+    pricePerMonthString: pkg.product.pricePerMonthString || null,
+    // True only when the store itself reports a zero-price introductory phase.
+    hasFreeTrial: hasFreeTrial(pkg.product),
     raw: pkg,
   }));
+}
+
+// A free trial exists only if the store reports an intro/free-trial phase with a price of 0.
+export function hasFreeTrial(product) {
+  const free = product?.defaultOption?.freePhase;
+  if (free) return true;
+  const intro = product?.introPrice;
+  return Boolean(intro) && Number(intro.price) === 0;
 }
 
 const planFromCustomerInfo = (customerInfo) =>

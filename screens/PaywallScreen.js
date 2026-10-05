@@ -225,6 +225,12 @@ export default function PaywallScreen({
           {monthly ? (
             <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('mxMonthlyNote')}</Text>
           ) : null}
+          {yearly && pkg.pricePerMonthString ? (
+            <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('wd1PerMonth', { price: pkg.pricePerMonthString })}</Text>
+          ) : null}
+          {active && pkg.hasFreeTrial ? (
+            <Text style={[styles.sectionHint, { color: ACCENT, marginTop: 4, marginBottom: 0 }]}>{t('wd1Trial', { price: pkg.priceString })}</Text>
+          ) : null}
         </View>
 
         <Text style={[styles.planPrice, { color: active ? ACCENT : theme.text }]}>
@@ -337,42 +343,6 @@ export default function PaywallScreen({
 
             <View style={{ marginBottom: 16 }} />
 
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mxFirstValue')}</Text>
-            {!loadingPlans && packages.length > 0 && !annualCompare ? (
-              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mxNoCompare')}</Text>
-            ) : null}
-            {!loadingPlans && annualCompare ? (
-              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mxYearlyPick')}</Text>
-            ) : null}
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Offering')}</Text>
-            {tierCompare ? (
-              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>
-                {t('mx2Delta', { percent: String(tierCompare.percent) })}
-              </Text>
-            ) : !loadingPlans && (packages.length > 0 || peerPackages.length > 0) ? (
-              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2NoDelta')}</Text>
-            ) : null}
-            {tierCompare && tierCompare.proPriceString && tierCompare.professionalPriceString ? (
-              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>
-                {t('mx2Prices', { plusPrice: tierCompare.professionalPriceString, proPrice: tierCompare.proPriceString })}
-              </Text>
-            ) : null}
-            {tier === 'professional' && annualCompare ? (
-              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Yearly')}</Text>
-            ) : null}
-            {tier === 'professional' && plan === 'pro' ? (
-              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Upgrade')}</Text>
-            ) : null}
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2FirstValue')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Disclaimer')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Store')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11First')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Guides')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Yearly')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Peer')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Restore')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11NoCourt')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Disclaimer')}</Text>
 
             {loadingPlans ? (
               <View style={{ alignItems: 'center', paddingVertical: 20 }}>
@@ -443,6 +413,46 @@ export default function PaywallScreen({
             <TouchableOpacity style={styles.secondaryBtn} onPress={onClose}>
               <Text style={styles.secondaryBtnText}>{t('paywallLater')}</Text>
             </TouchableOpacity>
+
+            {/* Explanatory fine print sits below the purchase controls so plans and the CTA stay above the fold. */}
+            <View style={{ marginTop: 16 }}>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mxFirstValue')}</Text>
+            {!loadingPlans && packages.length > 0 && !annualCompare ? (
+              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mxNoCompare')}</Text>
+            ) : null}
+            {!loadingPlans && annualCompare ? (
+              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mxYearlyPick')}</Text>
+            ) : null}
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Offering')}</Text>
+            {tierCompare ? (
+              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>
+                {t('mx2Delta', { percent: String(tierCompare.percent) })}
+              </Text>
+            ) : !loadingPlans && (packages.length > 0 || peerPackages.length > 0) ? (
+              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2NoDelta')}</Text>
+            ) : null}
+            {tierCompare && tierCompare.proPriceString && tierCompare.professionalPriceString ? (
+              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>
+                {t('mx2Prices', { plusPrice: tierCompare.professionalPriceString, proPrice: tierCompare.proPriceString })}
+              </Text>
+            ) : null}
+            {tier === 'professional' && annualCompare ? (
+              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Yearly')}</Text>
+            ) : null}
+            {tier === 'professional' && plan === 'pro' ? (
+              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Upgrade')}</Text>
+            ) : null}
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2FirstValue')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Disclaimer')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Store')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11First')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Guides')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Yearly')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Peer')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Restore')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11NoCourt')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Disclaimer')}</Text>
+            </View>
 
             <View style={{ marginTop: 16, alignItems: 'center', gap: 8 }}>
               <TouchableOpacity onPress={() => openLegal(PRIVACY_URL)} activeOpacity={0.85}>
