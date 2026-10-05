@@ -7,23 +7,31 @@ import * as Clipboard from 'expo-clipboard';
 import { ACCENT, styles } from '../theme';
 import { useFeedback } from '../context/FeedbackContext';
 import { buildInvitePayload, inviteUrl, rateUrl } from '../constants/shareLoop';
+import { formatCode, withInviteCode } from '../utils/referralCore';
+import { track } from '../services/telemetry';
 import KeyboardSafeSheet, { useKeyboardSafeSheet } from './KeyboardSafeSheet';
 
 const WIN_H = Dimensions.get('window').height;
 const SHEET_MAX = Math.round(WIN_H * 0.92);
 
-export default function ShareLoopSheet({ visible, theme, country, onDone, onClose }) {
+export default function ShareLoopSheet({ visible, theme, country, referralCode, onDone, onClose }) {
   const { t, i18n } = useTranslation();
   const { showToast } = useFeedback();
   const sheet = useKeyboardSafeSheet({ maxHeight: SHEET_MAX });
   const [busy, setBusy] = useState(false);
-  const payload = useMemo(() => buildInvitePayload(t, inviteUrl(i18n.language)), [t, i18n.language]);
+  // WAVE J: when signed in, the invite also carries the user's invite code (never any contract data).
+  const payload = useMemo(() => {
+    const base = buildInvitePayload(t, inviteUrl(i18n.language));
+    if (!referralCode) return base;
+    return { ...base, message: withInviteCode(base.message, t('refInviteLine', { code: formatCode(referralCode) })) };
+  }, [t, i18n.language, referralCode]);
 
   const shareInvite = async () => {
     if (busy) return;
     setBusy(true);
     try {
       await Share.share({ message: payload.message });
+      track('invite_shared', { source: 'sheet' });
       onDone?.();
     } catch {
       onClose?.();
@@ -36,6 +44,7 @@ export default function ShareLoopSheet({ visible, theme, country, onDone, onClos
     try {
       await Clipboard.setStringAsync(payload.message);
       showToast(t('vlCopied'), { type: 'success' });
+      track('invite_shared', { source: 'copy' });
       onDone?.();
     } catch {
       showToast(t('vlShareFailed'), { type: 'error' });

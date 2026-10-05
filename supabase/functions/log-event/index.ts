@@ -27,6 +27,8 @@ const EVENTS = new Set([
   'first_value',
   'reminder_set',
   'nudge_toggle',
+  'invite_shared',
+  'referral_redeem',
 ]);
 
 const PROP_KEYS = new Set([

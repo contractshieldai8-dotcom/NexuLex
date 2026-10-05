@@ -19,6 +19,8 @@ export const EVENTS = [
   'first_value',
   'reminder_set',
   'nudge_toggle',
+  'invite_shared',
+  'referral_redeem',
 ];
 
 export const PROP_KEYS = [

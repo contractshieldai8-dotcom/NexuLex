@@ -1075,9 +1075,9 @@ const WAVE_D1_I18N = eval(`(${waveD1Match[1]})`); // eslint-disable-line no-eval
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 2303) {
+  if (languages.length !== 13 || baseKeys.length !== 2320) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2303`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2320`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -9765,5 +9765,78 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/value=\{nudgesOn\}[\s\S]{0,200}accessibilityLabel=\{t\('nudgeSettingTitle'\)\}/.test(app)) iFail('settings switch needs a label');
   if (!/track\('reminder_set'/.test(app) || !/track\('nudge_toggle'/.test(app)) iFail('retention events');
   if (ok) console.log('OK  WAVE I retention: 30/7/1/0-day reminders, iOS 64 cap guard, 2 opt-in check-ins (no permission prompt, own channel), 10 keys x 13');
+}
+// WAVE J: growth. "Give 1, get 1" invite codes: server-enforced, zero contract data, 13 languages.
+{
+  let ok = true;
+  const jFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE J: ${m}`); };
+  const rd = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
+  const rc = require('../utils/referralCore.js');
+  // Pure helpers
+  if (rc.normalizeCode(' abcd-2345 ') !== 'ABCD2345' || rc.normalizeCode(null) !== '') jFail('normalizeCode strips separators and case');
+  if (!rc.isValidCode('abcd-2345') || rc.isValidCode('ABCD234') || rc.isValidCode('ABCDI234') || rc.isValidCode('ABCDO234') || rc.isValidCode('ABCD1234')) jFail('codes are 8 chars without I, L, O, 0, 1');
+  if (rc.formatCode('ABCD2345') !== 'ABCD-2345' || rc.formatCode('abc') !== 'ABC') jFail('formatCode');
+  const errs = { INVALID_CODE: 'refErrInvalid', SELF_REFERRAL: 'refErrSelf', ALREADY_REDEEMED: 'refErrUsed', CODE_WINDOW_CLOSED: 'refErrOld', EMAIL_NOT_VERIFIED: 'refErrVerify', SAME_DEVICE: 'refErrDevice', DEVICE_USED: 'refErrDevice' };
+  Object.keys(errs).forEach((code) => { if (rc.referralErrorKey(`rpc failed: ${code}`) !== errs[code]) jFail(`error ${code} maps to ${errs[code]}`); });
+  if (rc.referralErrorKey('boom') !== 'refErrGeneric' || rc.referralErrorKey(undefined) !== 'refErrGeneric') jFail('unknown errors map to the generic message');
+  const parsed = rc.parseReferral({ code: 'abcd2345', rewards: 99, cap: 5, redeemed: 1 });
+  if (!parsed || parsed.code !== 'ABCD2345' || parsed.rewards !== 5 || !parsed.redeemed) jFail('parseReferral clamps and normalizes');
+  if (rc.parseReferral(null) !== null || rc.parseReferral({ code: 'nope' }) !== null) jFail('parseReferral rejects bad data');
+  const sl = require('../constants/shareLoop.js');
+  const base = sl.buildInvitePayload((k, o) => `Try NexuLex ${o.url}`, sl.SHARE_LOOP_GET_URL);
+  const withCode = rc.withInviteCode(base.message, 'Code ABCD-2345');
+  if (!withCode.startsWith(base.message) || !withCode.endsWith('Code ABCD-2345') || rc.withInviteCode(base.message, '') !== base.message) jFail('withInviteCode only appends');
+  if (sl.inviteLeaksAnalysis(withCode, { contract_text: 'Secret lease clause about deposit return timing', id: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee' })) jFail('invite with code must not carry contract data');
+  // SQL
+  const sql = rd('supabase/migrations/20261005180000_referrals.sql');
+  if (!sql) jFail('referrals migration is missing');
+  if (!/alphabet|ABCDEFGHJKMNPQRSTUVWXYZ23456789/.test(sql) || !sql.includes(`'${rc.CODE_ALPHABET}'`) || !sql.includes('[A-HJKMNP-Z2-9]{8}')) jFail('SQL alphabet and length must match referralCore');
+  if (!/alter table public\.referral_codes enable row level security/.test(sql) || !/alter table public\.referral_redemptions enable row level security/.test(sql)) jFail('both tables need RLS');
+  if (/create policy/i.test(sql)) jFail('no direct policies: access only through the two functions');
+  ['get_my_referral()', 'redeem_referral(text)'].forEach((fn) => {
+    if (!sql.includes(`revoke all on function public.${fn} from public`) || !sql.includes(`grant execute on function public.${fn} to authenticated`)) jFail(`${fn} grants`);
+  });
+  if ((sql.match(/security definer\s+set search_path = public/g) || []).length !== 2) jFail('both functions are SECURITY DEFINER with a fixed search_path');
+  ['NOT_AUTHENTICATED', 'EMAIL_NOT_VERIFIED', 'CODE_WINDOW_CLOSED', 'ALREADY_REDEEMED', 'INVALID_CODE', 'SELF_REFERRAL', 'SAME_DEVICE', 'DEVICE_USED'].forEach((c) => {
+    if (!sql.includes(`raise exception '${c}'`)) jFail(`${c} must be enforced server side`);
+  });
+  if (!/referral_redemptions_referee_key[\s\S]{0,120}referee_id/.test(sql) || !/referral_redemptions_device_key[\s\S]{0,120}referee_device/.test(sql)) jFail('one redemption per account and per device');
+  if (!/referrer_id uuid references auth\.users \(id\) on delete set null/.test(sql) || !/user_id uuid primary key references auth\.users \(id\) on delete cascade/.test(sql)) jFail('account deletion removes the code and keeps the device record anonymous');
+  if (!/v_rewards < 5/.test(sql) || !/interval '7 days'/.test(sql)) jFail('inviter reward cap (5) and 7-day window');
+  // Telemetry parity
+  const evCore = rd('utils/telemetryCore.js');
+  const evFn = rd('supabase/functions/log-event/index.ts');
+  ['invite_shared', 'referral_redeem'].forEach((e) => {
+    if (!evCore.includes(`'${e}'`) || !evFn.includes(`'${e}'`)) jFail(`${e} must be allow-listed in both telemetryCore and log-event`);
+  });
+  // i18n
+  const i18nSrc = rd('i18n.js');
+  const refKeys = ['refCardTitle', 'refCardHint', 'refMyCode', 'refShare', 'refInviteLine', 'refEarned', 'refHaveCode', 'refCodePlaceholder', 'refRedeem', 'refOk', 'refErrInvalid', 'refErrSelf', 'refErrUsed', 'refErrOld', 'refErrVerify', 'refErrDevice', 'refErrGeneric'];
+  refKeys.forEach((k) => {
+    const rows = [...i18nSrc.matchAll(new RegExp(`^\\s+${k}: (".*"),$`, 'gm'))].map((m) => m[1]);
+    if (rows.length !== 13) jFail(`${k} must exist in 13 languages`);
+    if (new Set(rows).size < 12) jFail(`${k} looks untranslated`);
+    const need = { refCardHint: ['{{cap}}'], refInviteLine: ['{{code}}'], refEarned: ['{{n}}', '{{cap}}'] }[k] || [];
+    if (rows.some((r) => need.some((n) => !r.includes(n)))) jFail(`${k} must keep ${need.join(' + ')} in every language`);
+    if (rows.some((r) => /win rate|%|guarantee|garanti/i.test(r))) jFail(`${k} must not promise outcomes`);
+  });
+  // Services and wiring
+  const svc = rd('services/referral.js');
+  if (!/rpc\('get_my_referral'\)/.test(svc) || !/rpc\('redeem_referral', \{ p_code: normalizeCode\(rawCode\) \}\)/.test(svc) || !/isValidCode\(rawCode\)/.test(svc)) jFail('referral service calls only the two functions and validates first');
+  if (/\.from\('referral_/.test(svc)) jFail('the app must never read the referral tables directly');
+  const app = rd('App.js');
+  if (!/fetchMyReferral\(\)\.then[\s\S]{0,120}setReferral\(next\)/.test(app) || !/activeTab !== 'settings' && !shareLoopOpen\) return undefined/.test(app)) jFail('the code is fetched lazily (settings or invite sheet), never on startup');
+  if (!/track\('invite_shared', \{ source: 'settings' \}\)/.test(app) || !/track\('referral_redeem', \{ ok: true \}\)/.test(app) || !/track\('referral_redeem', \{ ok: false, code: outcome\.key \}\)/.test(app)) jFail('events must report outcomes, never the invite code');
+  if (/track\('referral_redeem'[^)]*(refCodeInput|referral\.code)/.test(app)) jFail('an invite code must never be sent to telemetry');
+  if (!/\{userId \? \(\s*<View[\s\S]{0,700}t\('refCardTitle'\)/.test(app)) jFail('the invite card is for signed-in users only');
+  if (!/referral && !referral\.redeemed \? \(/.test(app) || !/accessibilityLabel=\{t\('refHaveCode'\)\}/.test(app)) jFail('code entry hides after use and is labelled');
+  if (!/referralCode=\{referral\?\.code\}/.test(app)) jFail('the invite sheet receives the code');
+  const sheet = rd('components/ShareLoopSheet.js');
+  if (!/withInviteCode\(base\.message, t\('refInviteLine'/.test(sheet) || !/track\('invite_shared', \{ source: 'sheet' \}\)/.test(sheet)) jFail('the invite sheet appends the code and reports the share');
+  if (/analysis|contract_text|result\b/.test((sheet.match(/const payload = useMemo[\s\S]*?\[t, i18n\.language, referralCode\]\);/) || [''])[0])) jFail('invite payload must not touch analysis data');
+  // Rewards must never be tied to reviews or ratings (App Store 5.6.1 / Play policy)
+  const storeFn = (sheet.match(/const openStore = \(\) => \{[\s\S]*?\r?\n  \};/) || [''])[0];
+  if (!storeFn || /free_analyses|referral|reward|redeem|setProfile/i.test(storeFn) || /submitReferralCode = async[\s\S]{0,1400}(rateUrl|requestReview|StoreReview)/.test(app)) jFail('no reward may be linked to rating the app');
+  if (ok) console.log('OK  WAVE J growth: give-1-get-1 invite codes (server-enforced: verified e-mail, 7 days, one per account and device, cap 5), zero contract data, 2 events, 17 keys x 13');
 }
 process.exit(failed ? 1 : 0);

@@ -16,6 +16,7 @@ import {
   Keyboard,
   I18nManager,
   AppState,
+  Share,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as DocumentPicker from 'expo-document-picker';
@@ -142,6 +143,9 @@ import {
   askTelemetryConsentOnce,
   trackFirstValue,
 } from './services/telemetry';
+import { fetchMyReferral, redeemReferral } from './services/referral';
+import { formatCode, isValidCode, withInviteCode } from './utils/referralCore';
+import { buildInvitePayload, inviteUrl } from './constants/shareLoop';
 import { readSampleDone, markSampleDone } from './services/activation';
 import { isSampleText, sampleIsFree, shouldOfferSample } from './utils/activationCore';
 import { scheduleTrapReminders, subscribeReminderOpens, ensureReminderPermissions } from './services/notifications';
@@ -731,6 +735,63 @@ function AppContent() {
 
   const userId = user?.id;
   const holdAnalyzeHome = Boolean(userId && !shieldRestoreReady && !result);
+
+  // WAVE J: invite code ("give 1, get 1"). Loaded lazily; the server owns every rule.
+  const [referral, setReferral] = useState(null);
+  const [refCodeInput, setRefCodeInput] = useState('');
+  const [refBusy, setRefBusy] = useState(false);
+  useEffect(() => {
+    if (!userId) {
+      setReferral(null);
+      return undefined;
+    }
+    if (activeTab !== 'settings' && !shareLoopOpen) return undefined;
+    let cancelled = false;
+    fetchMyReferral().then((next) => {
+      if (!cancelled && next) setReferral(next);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [userId, activeTab, shareLoopOpen]);
+  const shareReferralCode = async () => {
+    if (!referral?.code) return;
+    try {
+      const base = buildInvitePayload(t, inviteUrl(i18n.language));
+      const message = withInviteCode(base.message, t('refInviteLine', { code: formatCode(referral.code) }));
+      await Share.share({ message });
+      track('invite_shared', { source: 'settings' });
+    } catch {
+      /* the user closed the share sheet */
+    }
+  };
+  const submitReferralCode = async () => {
+    if (refBusy) return;
+    if (!isValidCode(refCodeInput)) {
+      showToast(t('refErrInvalid'), { type: 'error' });
+      return;
+    }
+    setRefBusy(true);
+    try {
+      const outcome = await redeemReferral(refCodeInput);
+      if (outcome.ok) {
+        track('referral_redeem', { ok: true });
+        showToast(t('refOk'), { type: 'success' });
+        setRefCodeInput('');
+        setReferral((prev) => (prev ? { ...prev, redeemed: true } : prev));
+        if (typeof outcome.left === 'number') {
+          setProfile((prev) => (prev ? { ...prev, free_analyses_left: outcome.left } : prev));
+        } else {
+          fetchProfile().then((fresh) => fresh && setProfile(fresh));
+        }
+      } else {
+        track('referral_redeem', { ok: false, code: outcome.key });
+        showToast(t(outcome.key), { type: 'error', duration: 4200 });
+      }
+    } finally {
+      setRefBusy(false);
+    }
+  };
 
   useEffect(() => {
     pendingShareCodeRef.current = pendingShareCode;
@@ -4888,6 +4949,68 @@ function AppContent() {
                 <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('nudgeSettingHint')}</Text>
               </View>
 
+              {userId ? (
+                <View
+                  style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
+                >
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                    <Ionicons name="gift-outline" size={18} color="#00F5D4" />
+                    <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, flex: 1 }]}>{t('refCardTitle')}</Text>
+                  </View>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>
+                    {t('refCardHint', { cap: referral?.cap ?? 5 })}
+                  </Text>
+                  {referral?.code ? (
+                    <>
+                      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 2 }]}>{t('refMyCode')}</Text>
+                      <Text
+                        selectable
+                        style={{ color: theme.text, fontSize: 24, fontWeight: '700', letterSpacing: 3, marginBottom: 8 }}
+                        accessibilityLabel={`${t('refMyCode')}: ${formatCode(referral.code).split('').join(' ')}`}
+                      >
+                        {formatCode(referral.code)}
+                      </Text>
+                      <TouchableOpacity
+                        style={[styles.secondaryBtn, { marginTop: 0, marginBottom: 6 }]}
+                        onPress={shareReferralCode}
+                        activeOpacity={0.85}
+                        accessibilityRole="button"
+                      >
+                        <Text style={styles.secondaryBtnText}>{t('refShare')}</Text>
+                      </TouchableOpacity>
+                      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
+                        {t('refEarned', { n: referral.rewards, cap: referral.cap })}
+                      </Text>
+                    </>
+                  ) : null}
+                  {referral && !referral.redeemed ? (
+                    <>
+                      <Text style={[styles.settingLabel, { color: theme.text, fontSize: 14, marginBottom: 6 }]}>{t('refHaveCode')}</Text>
+                      <TextInput
+                        style={[styles.input, { backgroundColor: theme.inputBg, color: theme.text, borderColor: theme.borderColor, letterSpacing: 2 }]}
+                        placeholder={t('refCodePlaceholder')}
+                        placeholderTextColor={theme.subText}
+                        value={refCodeInput}
+                        onChangeText={(text) => setRefCodeInput(text.toUpperCase())}
+                        autoCapitalize="characters"
+                        autoCorrect={false}
+                        maxLength={12}
+                        accessibilityLabel={t('refHaveCode')}
+                      />
+                      <TouchableOpacity
+                        style={[styles.secondaryBtn, { marginTop: 0, opacity: refBusy ? 0.6 : 1 }]}
+                        onPress={submitReferralCode}
+                        disabled={refBusy}
+                        activeOpacity={0.85}
+                        accessibilityRole="button"
+                      >
+                        <Text style={styles.secondaryBtnText}>{t('refRedeem')}</Text>
+                      </TouchableOpacity>
+                    </>
+                  ) : null}
+                </View>
+              ) : null}
+
               <View
                 onLayout={onSettingsSectionLayout('privacy')}
                 style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
@@ -5177,6 +5300,7 @@ function AppContent() {
         visible={shareLoopOpen}
         theme={theme}
         country={analysisCountry}
+        referralCode={referral?.code}
         onDone={closeShareLoop}
         onClose={closeShareLoop}
       />
