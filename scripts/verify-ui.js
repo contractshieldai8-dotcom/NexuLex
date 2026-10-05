@@ -1075,9 +1075,9 @@ const WAVE_D1_I18N = eval(`(${waveD1Match[1]})`); // eslint-disable-line no-eval
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 2293) {
+  if (languages.length !== 13 || baseKeys.length !== 2303) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2293`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2303`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -9712,5 +9712,58 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/export async function trackFirstValue/.test(tel) || !/FIRST_VALUE_KEY/.test(tel) || !/MAX_FIRST_VALUE_MS/.test(tel) || !/isTelemetryEnabled\(\)\) return;[\s\S]{0,120}FIRST_VALUE_KEY/.test(tel)) hFail('trackFirstValue must be once-only, consent-aware and capped');
   if (/contract_text|contractText|sourceText/.test((tel.match(/export async function trackFirstValue[\s\S]*?\n\}/) || [''])[0])) hFail('first_value must carry no contract text');
   if (ok) console.log('OK  WAVE H activation: sample chip (13 samples, overlay, free once, never picks a side), first_value event, 4 keys x 13');
+}
+// WAVE I: retention. Reminders arrive 30 / 7 / 1 days before and on the day; two opt-in check-ins after an absence.
+{
+  let ok = true;
+  const iFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE I: ${m}`); };
+  const rd = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
+  const rl = require('../utils/reminderLead.js');
+  const now = new Date(2026, 9, 5, 12, 0, 0).getTime();
+  const due = (days, label = 'Notice') => ({ when: new Date(2026, 9, 5 + days, 9, 0, 0), label, kind: 'deadline' });
+  const far = rl.expandLeadReminders([due(40)], { now });
+  if (far.length !== 4 || far.map((x) => x.lead).join() !== '30,7,1,0') iFail('a deadline 40 days away needs 4 reminders (30, 7, 1, 0)');
+  if (far.some((x) => x.when.getHours() !== 9 || x.when.getMinutes() !== 0)) iFail('reminders are at 09:00 local');
+  if (far.some((x, i) => i && far[i - 1].when.getTime() > x.when.getTime())) iFail('reminders are sorted by time');
+  const near = rl.expandLeadReminders([due(3)], { now });
+  if (near.map((x) => x.lead).sort().join() !== '0,1') iFail('a deadline in 3 days only gets the 1-day and same-day reminders');
+  if (rl.expandLeadReminders([due(-2)], { now }).length !== 0) iFail('past deadlines must not be scheduled');
+  if (rl.expandLeadReminders([due(40), due(40)], { now }).length !== 4) iFail('identical deadlines must be de-duplicated');
+  if (rl.expandLeadReminders(Array.from({ length: 30 }, (_, i) => due(60 + i, `L${i}`)), { now }).length !== rl.MAX_PER_ANALYSIS) iFail('one analysis is capped');
+  if (rl.expandLeadReminders([{ when: 'x', label: 'y' }, null], { now }).length !== 0) iFail('bad items are ignored, never thrown');
+  if (rl.leadDaysFor(0).length !== 4 || rl.leadDaysFor(rl.MAX_PENDING_SOFT + 1).join() !== '1,0') iFail('crowded schedules fall back to 1-day + same-day (iOS keeps 64)');
+  if (rl.leadKey(7) !== 'remLead7' || rl.leadKey(0) !== 'remLead0') iFail('leadKey');
+  const nd = rl.nudgeDates(now);
+  if (nd.length !== 2 || nd[0].days !== 3 || nd[1].days !== 10 || nd.some((n) => n.when.getHours() !== 18)) iFail('check-ins: day 3 and day 10 at 18:00, never more than two');
+  // 13 languages
+  const i18nSrc = rd('i18n.js');
+  for (const k of ['remLead30', 'remLead7', 'remLead1', 'remLead0', 'nudgeBody3', 'nudgeBody10', 'nudgeSettingTitle', 'nudgeSettingHint', 'nudgeDenied', 'nudgeAskYes']) {
+    if ((i18nSrc.match(new RegExp(`^\\s+${k}: `, 'gm')) || []).length !== 13) iFail(`${k} must exist in 13 languages`);
+  }
+  for (const k of ['remLead30', 'remLead7', 'remLead1', 'remLead0']) {
+    const rows = [...i18nSrc.matchAll(new RegExp(`^\\s+${k}: (".*"),$`, 'gm'))].map((m) => m[1]);
+    if (rows.length !== 13 || rows.some((r) => !r.includes('{{label}}'))) iFail(`${k} must keep {{label}} in every language`);
+    if (new Set(rows).size < 12) iFail(`${k} looks untranslated`);
+  }
+  // Service
+  const svc = rd('services/notifications.js');
+  if (!/expandLeadReminders\(deadlines, \{ leads: leadDaysFor\(pending\) \}\)/.test(svc) || !/bodyFor\(item\.lead, item\.label\)/.test(svc)) iFail('scheduleTrapReminders must expand lead steps and localize the body');
+  const nudgeFn = (svc.match(/export async function scheduleComebackNudges[\s\S]*?\r?\n\}\r?\n/) || [''])[0];
+  if (!nudgeFn || /ensureReminderPermissions|requestPermissionsAsync/.test(nudgeFn) || !/hasReminderPermission\(\)/.test(nudgeFn)) iFail('check-ins must never ask for permission');
+  if (!/sound: false/.test(nudgeFn) || !/NUDGE_CHANNEL_ID/.test(nudgeFn) || !/nudgeDates\(\)/.test(nudgeFn)) iFail('check-ins are silent, on their own channel');
+  if (!/NUDGE_PREFIX = `\$\{ID_PREFIX\}:nudge:`/.test(svc) || !/cancelAllNexuLexNotifications[\s\S]{0,400}startsWith\(ID_PREFIX\)/.test(svc)) iFail('account deletion must also remove check-ins');
+  const ret = rd('services/retention.js');
+  if (!/getItem\(NUDGES_ON_KEY\)\) === '1'/.test(ret) || !/@nexulex\/nudgesOn/.test(ret)) iFail('check-ins are off until the user opts in');
+  // App wiring
+  const app = rd('App.js');
+  const calls = (app.match(/scheduleTrapReminders\(\{/g) || []).length;
+  const bodies = (app.match(/bodyFor: reminderBody/g) || []).length;
+  if (calls < 3 || calls !== bodies) iFail(`every scheduleTrapReminders call must pass bodyFor (${bodies}/${calls})`);
+  if (!/AppState\.addEventListener\('change', \(state\) => \{\s*if \(state === 'active'\) syncNudges\(\);/.test(app)) iFail('check-ins re-arm when the app returns to the foreground');
+  if (!/const offerNudgesOnce = async \(\) => \{[\s\S]{0,260}readNudgeAsked\(\)[\s\S]{0,200}markNudgeAsked\(\)/.test(app) || !/setTimeout\(\(\) => offerNudgesOnce\(\), 1800\)/.test(app)) iFail('the check-in offer is one-time and follows a successful reminder setup');
+  if (!/const granted = await ensureReminderPermissions\(\);[\s\S]{0,120}nudgeDenied/.test(app)) iFail('turning check-ins on asks for permission and explains a refusal');
+  if (!/value=\{nudgesOn\}[\s\S]{0,200}accessibilityLabel=\{t\('nudgeSettingTitle'\)\}/.test(app)) iFail('settings switch needs a label');
+  if (!/track\('reminder_set'/.test(app) || !/track\('nudge_toggle'/.test(app)) iFail('retention events');
+  if (ok) console.log('OK  WAVE I retention: 30/7/1/0-day reminders, iOS 64 cap guard, 2 opt-in check-ins (no permission prompt, own channel), 10 keys x 13');
 }
 process.exit(failed ? 1 : 0);

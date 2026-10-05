@@ -25,6 +25,8 @@ const EVENTS = new Set([
   'consent_choice',
   'sample_loaded',
   'first_value',
+  'reminder_set',
+  'nudge_toggle',
 ]);
 
 const PROP_KEYS = new Set([

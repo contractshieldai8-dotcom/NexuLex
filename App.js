@@ -15,6 +15,7 @@ import {
   Platform,
   Keyboard,
   I18nManager,
+  AppState,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as DocumentPicker from 'expo-document-picker';
@@ -143,7 +144,15 @@ import {
 } from './services/telemetry';
 import { readSampleDone, markSampleDone } from './services/activation';
 import { isSampleText, sampleIsFree, shouldOfferSample } from './utils/activationCore';
-import { scheduleTrapReminders, subscribeReminderOpens } from './services/notifications';
+import { scheduleTrapReminders, subscribeReminderOpens, ensureReminderPermissions } from './services/notifications';
+import {
+  readNudgesEnabled,
+  setNudgesEnabled,
+  readNudgeAsked,
+  markNudgeAsked,
+  syncComebackNudges,
+} from './services/retention';
+import { leadKey } from './utils/reminderLead';
 import { LIFECYCLES, lifecycleLabelKey, normalizeLifecycle } from './utils/lifecycle';
 import { resolveSourceText } from './utils/shieldDocument';
 import { PLAN_LIMITS, planOf } from './utils/plan';
@@ -619,6 +628,59 @@ function AppContent() {
       alive = false;
     };
   }, []);
+  // WAVE I: deadline reminders say how far away the date is; two optional check-ins after a long absence.
+  const reminderBody = (lead, label) => t(leadKey(lead), { label });
+  const [nudgesOn, setNudgesOn] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    readNudgesEnabled().then((on) => {
+      if (alive) setNudgesOn(on);
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+  const syncNudges = useCallback(
+    () => syncComebackNudges({ bodies: { 3: t('nudgeBody3'), 10: t('nudgeBody10') }, title: 'NexuLex AI' }),
+    [t]
+  );
+  useEffect(() => {
+    if (appReady !== true) return undefined;
+    syncNudges();
+    const sub = AppState.addEventListener('change', (state) => {
+      if (state === 'active') syncNudges();
+    });
+    return () => sub?.remove?.();
+  }, [appReady, syncNudges]);
+  const toggleNudges = async (enabled) => {
+    if (enabled) {
+      const granted = await ensureReminderPermissions();
+      if (!granted) {
+        showToast(t('nudgeDenied'), { type: 'info', duration: 4200 });
+        return;
+      }
+    }
+    setNudgesOn(enabled);
+    await setNudgesEnabled(enabled);
+    track('nudge_toggle', { ok: enabled });
+    syncNudges();
+  };
+  // One-time offer right after the user has set up a deadline reminder (the moment they care most).
+  const offerNudgesOnce = async () => {
+    try {
+      if (nudgesOn || (await readNudgeAsked())) return;
+      await markNudgeAsked();
+      const choice = await showModal({
+        title: t('nudgeSettingTitle'),
+        message: t('nudgeSettingHint'),
+        confirmLabel: t('nudgeAskYes'),
+        cancelLabel: t('telNotNow'),
+      });
+      if (choice === 'confirm') await toggleNudges(true);
+    } catch {
+      /* never block the reminder flow */
+    }
+  };
   const [telemetryOn, setTelemetryOn] = useState(() => isTelemetryEnabled());
   useEffect(() => {
     if (activeTab === 'settings') setTelemetryOn(isTelemetryEnabled());
@@ -1726,7 +1788,9 @@ function AppContent() {
         events: analysis.contractEvents,
         title: t('upcomingDeadlinesTitle'),
         prompt: true,
+        bodyFor: reminderBody,
       });
+      track('reminder_set', { count: outcome.scheduled || 0, ok: !outcome.denied && !outcome.unavailable });
       const hasDurationBadge = (dates || []).some((item) => String(item?.badge || '').trim());
       const allDummy = (dates || []).every((item) => {
         if (String(item?.badge || '').trim()) return false;
@@ -1756,6 +1820,7 @@ function AppContent() {
       }
       if (outcome.scheduled > 0) {
         showToast(t('remindersSetupSuccess'), { type: 'success' });
+        setTimeout(() => offerNudgesOnce(), 1800);
       } else {
         toastUnscheduled();
       }
@@ -1811,6 +1876,7 @@ function AppContent() {
       events,
       title: t('upcomingDeadlinesTitle'),
       prompt: true,
+      bodyFor: reminderBody,
     });
     if (outcome.unavailable || outcome.denied) {
       const choice = await showModal({
@@ -2368,6 +2434,7 @@ function AppContent() {
           dates: trapDates,
           title: t('upcomingDeadlinesTitle'),
           prompt: false,
+          bodyFor: reminderBody,
         }).catch(() => {});
         setUpcomingDeadlines(await loadUpcomingDeadlines(user.id));
       }
@@ -4804,6 +4871,21 @@ function AppContent() {
                 <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>
                   {t('st6Disclaimer')}
                 </Text>
+              </View>
+
+              <View
+                style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
+              >
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 4 }}>
+                  <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, flex: 1 }]}>{t('nudgeSettingTitle')}</Text>
+                  <Switch
+                    value={nudgesOn}
+                    onValueChange={toggleNudges}
+                    thumbColor={nudgesOn ? '#00F5D4' : '#f4f3f4'}
+                    accessibilityLabel={t('nudgeSettingTitle')}
+                  />
+                </View>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('nudgeSettingHint')}</Text>
               </View>
 
               <View

@@ -17,6 +17,8 @@ export const EVENTS = [
   'consent_choice',
   'sample_loaded',
   'first_value',
+  'reminder_set',
+  'nudge_toggle',
 ];
 
 export const PROP_KEYS = [

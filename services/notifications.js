@@ -3,10 +3,13 @@
 
 import { Platform } from 'react-native';
 import { reminderItems } from '../utils/trapExtract';
+import { expandLeadReminders, leadDaysFor, nudgeDates } from '../utils/reminderLead';
 import { hasNotificationsNative } from './nativeAvailability';
 
 const CHANNEL_ID = 'trap-calendar';
+const NUDGE_CHANNEL_ID = 'comeback';
 const ID_PREFIX = 'nexulex';
+const NUDGE_PREFIX = `${ID_PREFIX}:nudge:`;
 
 function loadNotifications() {
   if (Platform.OS === 'web' || !hasNotificationsNative()) return null;
@@ -45,6 +48,28 @@ async function ensureAndroidChannel() {
   } catch (error) {
     console.log('Bildirim kanalı atlandı:', error?.message);
   }
+  try {
+    // Separate, quieter channel so people can mute check-ins without losing deadline reminders.
+    await Notifications.setNotificationChannelAsync(NUDGE_CHANNEL_ID, {
+      name: 'Check-in reminders',
+      importance: Notifications.AndroidImportance?.DEFAULT ?? 3,
+    });
+  } catch (error) {
+    console.log('Hatırlatma kanalı atlandı:', error?.message);
+  }
+}
+
+async function countOurPending(exceptPrefix = '') {
+  if (!Notifications?.getAllScheduledNotificationsAsync) return 0;
+  try {
+    const existing = await Notifications.getAllScheduledNotificationsAsync();
+    return (existing || []).filter((item) => {
+      const id = String(item.identifier || '');
+      return id.startsWith(ID_PREFIX) && !(exceptPrefix && id.startsWith(exceptPrefix));
+    }).length;
+  } catch {
+    return 0;
+  }
 }
 
 export async function hasReminderPermission() {
@@ -71,6 +96,13 @@ export async function ensureReminderPermissions() {
     console.log('Bildirim izni atlandı:', error.message);
     return false;
   }
+}
+
+function shortHash(text) {
+  let hash = 5381;
+  const raw = String(text || '');
+  for (let i = 0; i < raw.length; i += 1) hash = ((hash << 5) + hash + raw.charCodeAt(i)) | 0;
+  return (hash >>> 0).toString(36);
 }
 
 function fallbackFireDate() {
@@ -123,6 +155,7 @@ export async function scheduleTrapReminders({
   dates = [],
   title = 'NexuLex AI',
   prompt = false,
+  bodyFor = null,
 } = {}) {
   if (Platform.OS === 'web' || !hasNotificationsNative() || !Notifications?.scheduleNotificationAsync) {
     return { scheduled: 0, denied: false, unavailable: true };
@@ -132,24 +165,37 @@ export async function scheduleTrapReminders({
     const granted = prompt ? await ensureReminderPermissions() : await hasReminderPermission();
     if (!granted) return { scheduled: 0, denied: true };
 
-    const items = reminderItems(events, dates);
-    if (!items.length) {
+    const deadlines = reminderItems(events, dates);
+    if (!deadlines.length) {
       return { scheduled: 0, denied: false, unavailable: false };
     }
 
     await ensureAndroidChannel();
     await cancelForAnalysis(analysisId);
 
+    // WAVE I: 30 / 7 / 1 days before and on the day (fewer steps when many reminders are already pending).
+    const pending = await countOurPending();
+    const items = expandLeadReminders(deadlines, { leads: leadDaysFor(pending) });
+    if (!items.length) {
+      return { scheduled: 0, denied: false, unavailable: false };
+    }
+
     let scheduled = 0;
     for (const item of items) {
-      const identifier = `${ID_PREFIX}:${analysisId || 'local'}:${item.kind}:${item.when.toISOString()}`;
+      const identifier = `${ID_PREFIX}:${analysisId || 'local'}:${item.kind}:${item.when.toISOString()}:${item.lead}:${shortHash(item.label)}`;
+      let body = item.label;
+      try {
+        if (typeof bodyFor === 'function') body = String(bodyFor(item.lead, item.label) || item.label);
+      } catch {
+        body = item.label;
+      }
       try {
         await Notifications.scheduleNotificationAsync({
           identifier,
           content: {
             title,
-            body: item.label,
-            data: { analysisId: analysisId || null, kind: item.kind },
+            body,
+            data: { analysisId: analysisId || null, kind: item.kind, lead: item.lead },
             sound: true,
           },
           trigger: {
@@ -167,6 +213,58 @@ export async function scheduleTrapReminders({
     return { scheduled, denied: false, unavailable: false };
   } catch (error) {
     console.log('Hatırlatıcı altyapısı atlandı:', error?.message);
+    return { scheduled: 0, denied: true, unavailable: !hasNotificationsNative() };
+  }
+}
+
+/** Removes the pending check-in nudges (kept separate from deadline reminders). */
+export async function cancelComebackNudges() {
+  if (Platform.OS === 'web' || !Notifications?.getAllScheduledNotificationsAsync) return 0;
+  try {
+    const existing = await Notifications.getAllScheduledNotificationsAsync();
+    const ours = (existing || []).filter((item) => String(item.identifier || '').startsWith(NUDGE_PREFIX));
+    await Promise.all(ours.map((item) => Notifications.cancelScheduledNotificationAsync(item.identifier)));
+    return ours.length;
+  } catch (error) {
+    console.log('Check-in hatırlatmaları iptal edilemedi:', error?.message);
+    return 0;
+  }
+}
+
+/**
+ * WAVE I: two quiet check-ins (3 and 10 days after the last visit). Never asks for permission: it only
+ * schedules when the user already allowed notifications. Every visit re-arms them, so people who keep
+ * using the app never see one. bodies: { 3: string, 10: string }.
+ */
+export async function scheduleComebackNudges({ bodies = {}, title = 'NexuLex AI' } = {}) {
+  if (Platform.OS === 'web' || !hasNotificationsNative() || !Notifications?.scheduleNotificationAsync) {
+    return { scheduled: 0, denied: false, unavailable: true };
+  }
+  try {
+    await cancelComebackNudges();
+    if (!(await hasReminderPermission())) return { scheduled: 0, denied: true };
+    let scheduled = 0;
+    for (const nudge of nudgeDates()) {
+      const body = String(bodies[nudge.days] || '').trim();
+      if (!body) continue;
+      try {
+        await Notifications.scheduleNotificationAsync({
+          identifier: `${NUDGE_PREFIX}${nudge.days}`,
+          content: { title, body, data: { kind: 'nudge', days: nudge.days }, sound: false },
+          trigger: {
+            type: Notifications.SchedulableTriggerInputTypes?.DATE || 'date',
+            date: nudge.when,
+            channelId: NUDGE_CHANNEL_ID,
+          },
+        });
+        scheduled += 1;
+      } catch (error) {
+        console.log('Check-in zamanlanamadı:', error?.message);
+      }
+    }
+    return { scheduled, denied: false, unavailable: false };
+  } catch (error) {
+    console.log('Check-in altyapısı atlandı:', error?.message);
     return { scheduled: 0, denied: true, unavailable: !hasNotificationsNative() };
   }
 }
