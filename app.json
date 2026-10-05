@@ -13,7 +13,7 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#000000"
+      "backgroundColor": "#0A0F1D"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -41,6 +41,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
+        "monochromeImage": "./assets/adaptive-mono.png",
         "backgroundColor": "#02091d"
       },
       "package": "com.nexulex.ai",
@@ -182,7 +183,7 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#000000",
+          "backgroundColor": "#0A0F1D",
           "android": {
             "image": "./assets/splash-icon.png",
             "imageWidth": 200,

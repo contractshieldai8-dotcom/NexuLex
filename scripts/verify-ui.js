@@ -1521,7 +1521,7 @@ const appJsonSrc = fs.readFileSync('app.json', 'utf8');
 if (!/preventAutoHideAsync/.test(indexSrc) || !/expo-splash-screen/.test(indexSrc)) {
   failed = true;
   console.log('index.js splash preventAutoHide yok');
-} else if (!/"expo-splash-screen"/.test(appJsonSrc) || !/"backgroundColor":\s*"#000000"/.test(appJsonSrc)) {
+} else if (!/"expo-splash-screen"/.test(appJsonSrc) || !/"backgroundColor":\s*"#0A0F1D"/.test(appJsonSrc)) {
   failed = true;
   console.log('app.json splash plugin yok');
 } else if (!/"android"\s*:\s*\{[\s\S]*?splash-icon\.png[\s\S]*?"imageWidth":\s*200/.test(appJsonSrc)) {
@@ -1542,7 +1542,7 @@ if (!/preventAutoHideAsync/.test(indexSrc) || !/expo-splash-screen/.test(indexSr
 } else if (/require\(['"]\.\/assets\/splash\.png['"]\)/.test(appSrc) || /splashSource/.test(appSrc) || /splashHiddenRef/.test(appSrc)) {
   failed = true;
   console.log('App.js JS Image splash / splashHiddenRef kalmis');
-} else if (!/if\s*\(\s*!appReady\s*\)\s*\{?\s*return\s*<View style=\{\{\s*flex:\s*1,\s*backgroundColor:\s*'#000000'\s*\}\}\s*\/>/.test(appSrc)) {
+} else if (!/if\s*\(\s*!appReady\s*\)\s*\{?\s*return\s*<View style=\{\{\s*flex:\s*1,\s*backgroundColor:\s*SPLASH_BG\s*\}\}\s*\/>/.test(appSrc)) {
   failed = true;
   console.log('App.js !appReady black underlay yok');
 } else if (!/useEffect\(\s*\(\)\s*=>\s*\{[\s\S]*?if\s*\(\s*appReady\s*\)\s*SplashScreen\.hideAsync/.test(appSrc)) {
@@ -9282,7 +9282,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/if\s*\(\s*appReady\s*\)\s*SplashScreen\.hideAsync/.test(app)) {
     uxFail('splash must still hide when the app is ready');
   }
-  if (!/backgroundColor:\s*'#000000'/.test(app)) uxFail('ready underlay must stay');
+  if (!/backgroundColor:\s*SPLASH_BG/.test(app) || !/const SPLASH_BG = '#0A0F1D'/.test(app)) uxFail('ready underlay must stay');
   if (app.includes('offerRowRefs')) {
     uxFail('offer chips must not measure rows');
   }
@@ -9525,5 +9525,39 @@ Ticaret Unvanı: Anadolu Bilişim
   const wavee = rd('i18n.wavee.js');
   if ((wavee.match(/shareLimitFree:/g) || []).length !== 13) dFail('shareLimitFree must exist in 13 languages');
   if (ok) console.log('OK  WAVE D.2 share funnel: free brief reachable, server cap enforced, paywall only on SHARE_LIMIT');
+}
+// WAVE E: launch, welcome and empty-state polish + brand assets.
+{
+  let ok = true;
+  const eFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE E: ${m}`); };
+  const rd = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
+  const png = (p) => {
+    const b = fs.existsSync(p) ? fs.readFileSync(p) : Buffer.alloc(0);
+    if (b.length < 33 || b.readUInt32BE(0) !== 0x89504e47) return null;
+    return { w: b.readUInt32BE(16), h: b.readUInt32BE(20), colorType: b[25], size: b.length };
+  };
+  const icon = png('assets/icon.png');
+  if (!icon || icon.w !== 1024 || icon.h !== 1024) eFail('icon.png must be 1024x1024');
+  else if (icon.colorType === 6 || icon.colorType === 4) eFail('icon.png must have no alpha channel (App Store rejects it)');
+  const fg = png('assets/adaptive-icon.png');
+  if (!fg || fg.w !== 1024 || fg.colorType !== 6) eFail('adaptive-icon.png must be a 1024 RGBA foreground');
+  if (fs.existsSync('assets/icon.png') && fs.existsSync('assets/adaptive-icon.png') && fs.readFileSync('assets/icon.png').equals(fs.readFileSync('assets/adaptive-icon.png'))) eFail('adaptive foreground must not be a copy of the opaque icon');
+  const mono = png('assets/adaptive-mono.png');
+  if (!mono || mono.w !== 1024 || mono.colorType !== 6) eFail('adaptive-mono.png must be a 1024 RGBA silhouette');
+  const mark = png('assets/brand-mark.png');
+  if (!mark || mark.w !== 256 || mark.colorType !== 6) eFail('brand-mark.png must be a 256 RGBA mark');
+  const appJson = JSON.parse(rd('app.json'));
+  const ex = appJson.expo || {};
+  if (ex.android?.adaptiveIcon?.monochromeImage !== './assets/adaptive-mono.png') eFail('app.json needs android.adaptiveIcon.monochromeImage');
+  const splashPlugin = (ex.plugins || []).find((p) => Array.isArray(p) && p[0] === 'expo-splash-screen');
+  if (ex.splash?.backgroundColor !== '#0A0F1D' || splashPlugin?.[1]?.backgroundColor !== '#0A0F1D') eFail('splash background must match the app navy (#0A0F1D) in both places');
+  const app = rd('App.js');
+  if (!/const SPLASH_BG = '#0A0F1D'/.test(app) || !/backgroundColor: SPLASH_BG/.test(app)) eFail('boot view must use the splash colour');
+  if ((app.match(/source=\{BRAND_MARK\}/g) || []).length < 2) eFail('brand mark must show in the header and on the signed-out welcome');
+  const hist = rd('screens/HistoryScreen.js');
+  const empty = hist.slice(hist.indexOf('ListEmptyComponent'));
+  if (!/folder-open-outline[\s\S]{0,400}t\('noHistory'\)[\s\S]{0,500}t\('tabAnalyze'\)/.test(empty)) eFail('empty history needs icon, message and an Analyze action');
+  if (/t\('noHistory'\)[\s\S]{0,300}t\('ux23Empty'\)[\s\S]{0,60}<\/TouchableOpacity>/.test(empty)) eFail('empty history must not show the "no row matches" filter text');
+  if (ok) console.log('OK  WAVE E brand + launch: icon opaque, adaptive + monochrome, splash colour = app, mark in header/welcome, empty history action');
 }
 process.exit(failed ? 1 : 0);

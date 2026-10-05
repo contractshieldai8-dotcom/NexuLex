@@ -541,10 +541,19 @@ export default function HistoryScreen({
             <ActivityIndicator color="#00F5D4" size="large" style={{ marginTop: 40 }} />
           ) : history.length === 0 ? (
             sessions.length ? null : (
-              <TouchableOpacity onPress={() => onOpenAnalyze?.()} accessibilityRole="button">
-                <Text style={{ color: theme.subText, textAlign: 'center', marginTop: 40 }}>{t('noHistory')}</Text>
-                <Text style={{ color: ACCENT, textAlign: 'center', marginTop: 8 }}>{t('ux23Empty')}</Text>
-              </TouchableOpacity>
+              // E.3: nothing saved yet - one calm message and one clear next step (ux23Empty is for empty filters only).
+              <View style={{ alignItems: 'center', marginTop: 48, paddingHorizontal: 12 }}>
+                <Ionicons name="folder-open-outline" size={44} color={theme.subText} />
+                <Text style={{ color: theme.subText, textAlign: 'center', marginTop: 12, lineHeight: 20 }}>{t('noHistory')}</Text>
+                <TouchableOpacity
+                  onPress={() => onOpenAnalyze?.()}
+                  accessibilityRole="button"
+                  activeOpacity={0.85}
+                  style={[styles.secondaryBtn, { marginTop: 16, alignSelf: 'center', paddingHorizontal: 24, borderColor: ACCENT }]}
+                >
+                  <Text style={[styles.secondaryBtnText, { color: ACCENT }]}>{t('tabAnalyze')}</Text>
+                </TouchableOpacity>
+              </View>
             )
           ) : (
             <Text style={{ color: theme.subText, textAlign: 'center', marginTop: 24 }}>{t('ux23Empty')}</Text>

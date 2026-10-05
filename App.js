@@ -3541,8 +3541,9 @@ function AppContent() {
     );
   };
 
+  // Same colour as the native splash so the hand-off to the app has no flash.
   if (!appReady) {
-    return <View style={{ flex: 1, backgroundColor: '#000000' }} />;
+    return <View style={{ flex: 1, backgroundColor: SPLASH_BG }} />;
   }
 
   return (
@@ -3552,9 +3553,12 @@ function AppContent() {
       {/* Üst Başlık — opaque sticky so scroll content cannot bleed under tabs */}
       <View style={[styles.topHeader, { backgroundColor: theme.bg, zIndex: 20, elevation: 20 }]}>
         <View style={styles.brandRow}>
-          <Text style={[styles.title, { color: theme.text }]}>
-            NEXULEX <Text style={{ color: '#00F5D4' }}>AI</Text>
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1 }}>
+            <Image source={BRAND_MARK} style={{ width: 26, height: 26, marginRight: 8 }} resizeMode="contain" accessible={false} />
+            <Text style={[styles.title, { color: theme.text }]}>
+              NEXULEX <Text style={{ color: '#00F5D4' }}>AI</Text>
+            </Text>
+          </View>
           {user ? (
             <TouchableOpacity
               onPress={() => setGuideVisible(true)}
@@ -3597,6 +3601,9 @@ function AppContent() {
 
       {!user ? (
         <KeyboardScreen contentContainerStyle={{ padding: 20 }}>
+          <View style={{ alignItems: 'center', marginBottom: 16 }}>
+            <Image source={BRAND_MARK} style={{ width: 84, height: 84 }} resizeMode="contain" accessible={false} />
+          </View>
           {forgotPasswordMode ? (
             <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor }]}>
               <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 12 }]}>{t('forgotPasswordTitle')}</Text>
@@ -4992,6 +4999,9 @@ function AppContent() {
     </SafeAreaView>
   );
 }
+
+const BRAND_MARK = require('./assets/brand-mark.png');
+const SPLASH_BG = '#0A0F1D'; // keep in sync with app.json splash.backgroundColor
 
 export default function App() {
   return (
