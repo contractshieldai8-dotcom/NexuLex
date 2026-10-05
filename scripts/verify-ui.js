@@ -171,13 +171,15 @@ const waveUx30Src = fs.existsSync('i18n.waveux30.js') ? fs.readFileSync('i18n.wa
 const waveUx30Match = waveUx30Src.match(/export const WAVE_UX30_I18N = ([\s\S]*);\s*$/);
 const waveUx38Src = fs.existsSync('i18n.waveux38.js') ? fs.readFileSync('i18n.waveux38.js', 'utf8') : '';
 const waveUx38Match = waveUx38Src.match(/export const WAVE_UX38_I18N = ([\s\S]*);\s*$/);
+const waveUx39Src = fs.existsSync('i18n.waveux39.js') ? fs.readFileSync('i18n.waveux39.js', 'utf8') : '';
+const waveUx39Match = waveUx39Src.match(/export const WAVE_UX39_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
-if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !waveGr6Match || !waveMx1Match || !waveJp3Match || !waveSt2Match || !waveUx2Match || !waveSt4Match || !waveGr7Match || !waveUx3Match || !waveSt6Match || !waveSt7Match || !waveGr8Match || !waveUx4Match || !waveMx2Match || !waveSt8Match || !waveUx5Match || !waveUx6Match || !waveUx7Match || !waveUx8Match || !waveUx9Match || !waveUx10Match || !waveUx11Match || !waveUx12Match || !waveUx13Match || !waveUx14Match || !waveUx15Match || !waveUx16Match || !waveUx17Match || !waveUx18Match || !waveUx19Match || !waveUx20Match || !waveUx21Match || !waveSt9Match || !waveUx22Match || !waveUx23Match || !waveUx24Match || !waveUx26Match || !waveUx27Match || !waveUx30Match || !waveUx38Match || !match) {
+if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !waveGr6Match || !waveMx1Match || !waveJp3Match || !waveSt2Match || !waveUx2Match || !waveSt4Match || !waveGr7Match || !waveUx3Match || !waveSt6Match || !waveSt7Match || !waveGr8Match || !waveUx4Match || !waveMx2Match || !waveSt8Match || !waveUx5Match || !waveUx6Match || !waveUx7Match || !waveUx8Match || !waveUx9Match || !waveUx10Match || !waveUx11Match || !waveUx12Match || !waveUx13Match || !waveUx14Match || !waveUx15Match || !waveUx16Match || !waveUx17Match || !waveUx18Match || !waveUx19Match || !waveUx20Match || !waveUx21Match || !waveSt9Match || !waveUx22Match || !waveUx23Match || !waveUx24Match || !waveUx26Match || !waveUx27Match || !waveUx30Match || !waveUx38Match || !waveUx39Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5/GR6/MX1/JP3/ST2/UX2/ST4/GR7/UX3/ST6/ST7/GR8/UX4/MX2/ST8/UX5/UX6/UX7/UX8/UX9/UX10/UX11/UX12/UX13/UX14/UX15/UX16/UX17/UX18/UX19/UX20/UX21/ST9/UX22/UX23/UX24/UX26/UX27/UX30/UX38 kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5/GR6/MX1/JP3/ST2/UX2/ST4/GR7/UX3/ST6/ST7/GR8/UX4/MX2/ST8/UX5/UX6/UX7/UX8/UX9/UX10/UX11/UX12/UX13/UX14/UX15/UX16/UX17/UX18/UX19/UX20/UX21/ST9/UX22/UX23/UX24/UX26/UX27/UX30/UX38/UX39 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -246,6 +248,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_UX27_I18N = eval(`(${waveUx27Match[1]})`); // eslint-disable-line no-eval
   const WAVE_UX30_I18N = eval(`(${waveUx30Match[1]})`); // eslint-disable-line no-eval
   const WAVE_UX38_I18N = eval(`(${waveUx38Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_UX39_I18N = eval(`(${waveUx39Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -314,8 +317,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
     'WAVE_UX27_I18N',
     'WAVE_UX30_I18N',
     'WAVE_UX38_I18N',
+    'WAVE_UX39_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N, WAVE_ST8_I18N, WAVE_UX5_I18N, WAVE_UX6_I18N, WAVE_UX7_I18N, WAVE_UX8_I18N, WAVE_UX9_I18N, WAVE_UX10_I18N, WAVE_UX11_I18N, WAVE_UX12_I18N, WAVE_UX13_I18N, WAVE_UX14_I18N, WAVE_UX15_I18N, WAVE_UX16_I18N, WAVE_UX17_I18N, WAVE_UX18_I18N, WAVE_UX19_I18N, WAVE_UX20_I18N, WAVE_UX21_I18N, WAVE_ST9_I18N, WAVE_UX22_I18N, WAVE_UX23_I18N, WAVE_UX24_I18N, WAVE_UX26_I18N, WAVE_UX27_I18N, WAVE_UX30_I18N, WAVE_UX38_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N, WAVE_ST8_I18N, WAVE_UX5_I18N, WAVE_UX6_I18N, WAVE_UX7_I18N, WAVE_UX8_I18N, WAVE_UX9_I18N, WAVE_UX10_I18N, WAVE_UX11_I18N, WAVE_UX12_I18N, WAVE_UX13_I18N, WAVE_UX14_I18N, WAVE_UX15_I18N, WAVE_UX16_I18N, WAVE_UX17_I18N, WAVE_UX18_I18N, WAVE_UX19_I18N, WAVE_UX20_I18N, WAVE_UX21_I18N, WAVE_ST9_I18N, WAVE_UX22_I18N, WAVE_UX23_I18N, WAVE_UX24_I18N, WAVE_UX26_I18N, WAVE_UX27_I18N, WAVE_UX30_I18N, WAVE_UX38_I18N, WAVE_UX39_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -1063,9 +1067,9 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 2270) {
+  if (languages.length !== 13 || baseKeys.length !== 2275) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2270`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2275`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -1364,11 +1368,11 @@ if (!/empty-edge-text/.test(aiProxySrc) || !/AI_ERROR_CODES\.PARSE/.test(aiProxy
 const optionsSrc = fs.readFileSync('constants/options.js', 'utf8');
 const jurBlock = optionsSrc.match(/export const JURISDICTIONS = \[([\s\S]*?)\];/);
 const jurCodes = jurBlock ? jurBlock[1].match(/code: '[^']+'/g) || [] : [];
-if (jurCodes.length !== 15) {
+if (jurCodes.length !== 20) {
   failed = true;
-  console.log(`JURISDICTIONS satir sayisi ${jurCodes.length}, beklenen 15 (auto+14)`);
+  console.log(`JURISDICTIONS satir sayisi ${jurCodes.length}, beklenen 20 (auto+19)`);
 } else {
-  console.log('OK  JURISDICTIONS 15 satir (auto+14)');
+  console.log('OK  JURISDICTIONS 20 satir (auto+19)');
 }
 
 const appSrc = fs.readFileSync('App.js', 'utf8');
@@ -3522,6 +3526,7 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_UX27_I18N',
       'WAVE_UX30_I18N',
       'WAVE_UX38_I18N',
+      'WAVE_UX39_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -3579,7 +3584,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.waveux26.js', 'utf8').match(/export const WAVE_UX26_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waveux27.js', 'utf8').match(/export const WAVE_UX27_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waveux30.js', 'utf8').match(/export const WAVE_UX30_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.waveux38.js', 'utf8').match(/export const WAVE_UX38_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.waveux38.js', 'utf8').match(/export const WAVE_UX38_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.waveux39.js', 'utf8').match(/export const WAVE_UX39_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -4979,7 +4985,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'wavest2', 'wavest4', 'wavest6', 'wavest7', 'wavest8', 'wavest9', 'waveux1', 'waveux2', 'waveux3', 'waveux4', 'waveux5', 'waveux6', 'waveux7', 'waveux8', 'waveux9', 'waveux10', 'waveux11', 'waveux12', 'waveux13', 'waveux14', 'waveux15', 'waveux16', 'waveux17', 'waveux18', 'waveux19', 'waveux20', 'waveux21', 'waveux22', 'waveux23', 'waveux24', 'waveux26', 'waveux27', 'waveux30', 'waveux38', 'wavejp2', 'wavejp3', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavegr7', 'wavegr8', 'wavemx1', 'wavemx2', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'wavest2', 'wavest4', 'wavest6', 'wavest7', 'wavest8', 'wavest9', 'waveux1', 'waveux2', 'waveux3', 'waveux4', 'waveux5', 'waveux6', 'waveux7', 'waveux8', 'waveux9', 'waveux10', 'waveux11', 'waveux12', 'waveux13', 'waveux14', 'waveux15', 'waveux16', 'waveux17', 'waveux18', 'waveux19', 'waveux20', 'waveux21', 'waveux22', 'waveux23', 'waveux24', 'waveux26', 'waveux27', 'waveux30', 'waveux38', 'waveux39', 'wavejp2', 'wavejp3', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavegr7', 'wavegr8', 'wavemx1', 'wavemx2', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -5073,6 +5079,11 @@ Ticaret Unvanı: Anadolu Bilişim
     AE: 'https://uaelegislation.gov.ae',
     SA: 'https://laws.boe.gov.sa',
     EU: 'https://eur-lex.europa.eu',
+    IN: 'https://indiacode.nic.in',
+    CA: 'https://laws-lois.justice.gc.ca',
+    AU: 'https://www.legislation.gov.au',
+    AT: 'https://www.ris.bka.gv.at',
+    CH: 'https://www.fedlex.admin.ch',
   };
   const BANNED = /\b(TBK|TKHK|BGB|GDPR|KVKK|UCC|Art\.|§|m\.\s?\d+|Section\s\d+)\b/i;
   let fixtures = 0;
@@ -5082,7 +5093,7 @@ Ticaret Unvanı: Anadolu Bilişim
 
     // P0 registry
     const packs = api.JURISDICTION_PACKS;
-    if (Object.keys(packs).sort().join() !== Object.keys(ROOTS).sort().join()) jpFail('pack set must be TR/DE/GB/US/FR/ES/IT/NL/AE/SA/EU');
+    if (Object.keys(packs).sort().join() !== Object.keys(ROOTS).sort().join()) jpFail('pack set must be TR/DE/GB/US/FR/ES/IT/NL/AE/SA/EU/IN/CA/AU/AT/CH');
     for (const [code, p] of Object.entries(packs)) {
       if (p.code !== code) jpFail(`${code}.code`);
       for (const field of ['enabled', 'verified', 'asOfDate', 'reviewer', 'sources', 'calculators', 'scenarios', 'drafts']) {
@@ -5100,7 +5111,7 @@ Ticaret Unvanı: Anadolu Bilişim
         if (!s.labelKey) jpFail(`${code} source labelKey`);
       });
     }
-    if (api.EU_MEMBERS.join() !== 'DE,FR,ES,IT,NL') jpFail('EU_MEMBERS');
+    if (api.EU_MEMBERS.join() !== 'DE,FR,ES,IT,NL,AT') jpFail('EU_MEMBERS');
     if (api.applicablePacks('DE').map((p) => p.code).join() !== 'DE,EU' || api.applicablePacks('US').map((p) => p.code).join() !== 'US') jpFail('EU pack must apply to members only');
 
     // P0 availability
@@ -5269,7 +5280,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') jpFail('analyze-contract SHA256 changed');
 
   if (jpOk) {
-    console.log(`OK  WAVE JP.2 registry (11 packs, official roots) + availability + 5 universal calculators + 7 universal letters × 13 (${fixtures} fixtures)`);
+    console.log(`OK  WAVE JP.2 registry (16 packs, official roots) + availability + 5 universal calculators + 7 universal letters × 13 (${fixtures} fixtures)`);
   }
 }
 
@@ -9300,6 +9311,62 @@ Ticaret Unvanı: Anadolu Bilişim
   const faq = cap.slice(cap.indexOf('GUIDE_FAQ_CHIPS'), cap.indexOf('GUIDE_CHANGELOG'));
   if (!faq.includes('faq_report')) uxFail('FAQ ids must stay');
   if (uxOk) console.log('OK  WAVE UX.38 guide steps for history filters and signed scan');
+}
+
+// WAVE UX.39 — India, Canada, Australia, Austria, Switzerland: legal profiles, selector, official sources, 13-language labels
+{
+  let uxOk = true;
+  const uxFail = (msg) => {
+    failed = true;
+    uxOk = false;
+    console.log(`WAVE UX.39 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const NEW = {
+    IN: ['indiacode.nic.in'],
+    CA: ['laws-lois.justice.gc.ca'],
+    AU: ['legislation.gov.au'],
+    AT: ['ris.bka.gv.at'],
+    CH: ['fedlex.admin.ch'],
+  };
+  const options = read('constants/options.js');
+  const ai = read('services/ai.js');
+  const answer = read('utils/legalAnswer.js');
+  const askFn = read('supabase/functions/legal-ask/index.ts');
+  const toolsFn = read('supabase/functions/pro-tools/index.ts');
+  const packs = read('constants/jurisdictionPacks.js');
+  const profileBlock = (ai.match(/const JURISDICTION_PROFILES = \{([\s\S]*?)\n\};/) || [])[1] || '';
+  const wave = eval(`(${read('i18n.waveux39.js').match(/export const WAVE_UX39_I18N = ([\s\S]*);\s*$/)[1]})`); // eslint-disable-line no-eval
+  const langs = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+
+  if ((options.match(/export const APP_LANGUAGES = \[([\s\S]*?)\n\];/)[1].match(/code: '/g) || []).length !== 13) uxFail('the language set must stay at 13');
+  if (Object.keys(wave).sort().join() !== [...langs].sort().join()) uxFail('wave must carry exactly the 13 languages');
+
+  for (const code of Object.keys(NEW)) {
+    const key = `country${code}`;
+    if (!new RegExp(`\\{ code: '${code}', labelKey: '${key}', hint: '[^']+' \\}`).test(options)) uxFail(`${code} must be selectable in JURISDICTIONS`);
+    const profile = (profileBlock.match(new RegExp(`\\n  ${code}: '([^\\n]*)',`)) || [])[1] || '';
+    if (profile.length < 200) uxFail(`${code} needs a real legal profile`);
+    if (!/never invent one/.test(profile) || !/risk label, never as a final ruling/.test(profile)) uxFail(`${code} profile must forbid invented numbers and final rulings`);
+    if (/\b(void|invalid|null and void|you will win|guarantee)\b/i.test(profile)) uxFail(`${code} profile must not contain verdict wording`);
+    for (const domain of NEW[code]) {
+      const rowOf = (src, re) => (src.match(re) || [])[1] || '';
+      const client = rowOf(answer, new RegExp(`\\n  ${code}: \\{ portal: '[^']+', domains: \\[([^\\]]*)\\]`));
+      const ask = rowOf(askFn, new RegExp(`\\n  ${code}: \\{ name: [^\\n]*domains: \\[([^\\]]*)\\]`));
+      const tools = rowOf(toolsFn, new RegExp(`\\n  ${code}: \\{ name: [^\\n]*domains: \\[([^\\]]*)\\]`));
+      if (!client.includes(`'${domain}'`)) uxFail(`${code} client allowlist must list ${domain}`);
+      if (client.replace(/\s+/g, '') !== ask.replace(/\s+/g, '') || ask !== tools) uxFail(`${code} allowlist must match across app, legal-ask and pro-tools`);
+    }
+    if (!new RegExp(`\\n  ${code}: pack\\('${code}'\\),`).test(packs)) uxFail(`${code} pack stub must stay disabled and empty`);
+    for (const lang of langs) {
+      if (typeof wave[lang]?.[key] !== 'string' || !wave[lang][key].trim()) uxFail(`${lang}.${key} missing`);
+    }
+  }
+  if (!/EU_MEMBERS = \['DE', 'FR', 'ES', 'IT', 'NL', 'PT', 'AT'\]/.test(answer)) uxFail('Austria is an EU member in the source allowlist');
+  if (!/IN: 'INR'/.test(read('constants/legalCalcRates.js')) || !/CH: 'CHF'/.test(read('constants/legalCalcRates.js'))) uxFail('currency map must cover the new countries');
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (uxOk) console.log('OK  WAVE UX.39 IN / CA / AU / AT / CH: selector, profiles, official sources, disabled packs, labels × 13');
 }
 
 process.exit(failed ? 1 : 0);

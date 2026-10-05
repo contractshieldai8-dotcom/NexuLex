@@ -21,10 +21,15 @@ export const OFFICIAL_SOURCE_ROOTS = {
   AE: 'https://uaelegislation.gov.ae',
   SA: 'https://laws.boe.gov.sa',
   EU: 'https://eur-lex.europa.eu',
+  IN: 'https://indiacode.nic.in',
+  CA: 'https://laws-lois.justice.gc.ca',
+  AU: 'https://www.legislation.gov.au',
+  AT: 'https://www.ris.bka.gv.at',
+  CH: 'https://www.fedlex.admin.ch',
 };
 
 /** The EU pack applies on top of these member jurisdictions. */
-export const EU_MEMBERS = ['DE', 'FR', 'ES', 'IT', 'NL'];
+export const EU_MEMBERS = ['DE', 'FR', 'ES', 'IT', 'NL', 'AT'];
 
 const pack = (code, overrides = {}) => ({
   code,
@@ -58,6 +63,11 @@ export const JURISDICTION_PACKS = {
   AE: pack('AE'),
   SA: pack('SA'),
   EU: pack('EU'),
+  IN: pack('IN'),
+  CA: pack('CA'),
+  AU: pack('AU'),
+  AT: pack('AT'),
+  CH: pack('CH'),
 };
 
 const LIST_KEY = { calculator: 'calculators', draft: 'drafts', scenario: 'scenarios' };

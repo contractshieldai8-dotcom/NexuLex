@@ -27,8 +27,13 @@ export const OFFICIAL_SOURCES = {
   JP: { portal: 'https://elaws.e-gov.go.jp', domains: ['elaws.e-gov.go.jp', 'e-gov.go.jp', 'courts.go.jp', 'moj.go.jp', '*.go.jp'] },
   PT: { portal: 'https://diariodarepublica.pt', domains: ['diariodarepublica.pt', 'dre.pt', '*.gov.pt'] },
   BR: { portal: 'https://www.planalto.gov.br', domains: ['planalto.gov.br', '*.gov.br', '*.jus.br'] },
+  IN: { portal: 'https://indiacode.nic.in', domains: ['indiacode.nic.in', 'legislative.gov.in', 'egazette.gov.in', 'sci.gov.in', '*.gov.in'] },
+  CA: { portal: 'https://laws-lois.justice.gc.ca', domains: ['laws-lois.justice.gc.ca', 'justice.gc.ca', 'canada.ca', 'scc-csc.ca', 'legisquebec.gouv.qc.ca', 'ontario.ca', 'gov.bc.ca', '*.gc.ca'] },
+  AU: { portal: 'https://www.legislation.gov.au', domains: ['legislation.gov.au', 'hcourt.gov.au', 'ag.gov.au', 'accc.gov.au', 'fairwork.gov.au', '*.gov.au'] },
+  AT: { portal: 'https://www.ris.bka.gv.at', domains: ['ris.bka.gv.at', 'justiz.gv.at', 'oesterreich.gv.at', '*.gv.at'] },
+  CH: { portal: 'https://www.fedlex.admin.ch', domains: ['fedlex.admin.ch', 'bger.ch', 'admin.ch', 'ch.ch'] },
 };
-const EU_MEMBERS = ['DE', 'FR', 'ES', 'IT', 'NL', 'PT'];
+const EU_MEMBERS = ['DE', 'FR', 'ES', 'IT', 'NL', 'PT', 'AT'];
 
 const clean = (value, max = 600) =>
   String(value ?? '')

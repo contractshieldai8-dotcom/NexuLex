@@ -50,6 +50,11 @@ export const GENERIC_CURRENCY_BY_COUNTRY = {
   JP: 'JPY',
   RU: 'RUB',
   IR: 'IRR',
+  IN: 'INR',
+  CA: 'CAD',
+  AU: 'AUD',
+  AT: 'EUR',
+  CH: 'CHF',
 };
 
 /** 'auto' country only. 'en' is intentionally unmapped (US / GB / others are ambiguous). */

@@ -56,6 +56,11 @@ const OFFICIAL_DOMAINS: Record<string, { name: string; domains: string[] }> = {
   JP: { name: 'Japan', domains: ['elaws.e-gov.go.jp', 'e-gov.go.jp', 'courts.go.jp', 'moj.go.jp', '*.go.jp'] },
   PT: { name: 'Portugal', domains: ['diariodarepublica.pt', 'dre.pt', '*.gov.pt'] },
   BR: { name: 'Brazil', domains: ['planalto.gov.br', '*.gov.br', '*.jus.br'] },
+  IN: { name: 'India', domains: ['indiacode.nic.in', 'legislative.gov.in', 'egazette.gov.in', 'sci.gov.in', '*.gov.in'] },
+  CA: { name: 'Canada (federal and provincial)', domains: ['laws-lois.justice.gc.ca', 'justice.gc.ca', 'canada.ca', 'scc-csc.ca', 'legisquebec.gouv.qc.ca', 'ontario.ca', 'gov.bc.ca', '*.gc.ca'] },
+  AU: { name: 'Australia (federal and state)', domains: ['legislation.gov.au', 'hcourt.gov.au', 'ag.gov.au', 'accc.gov.au', 'fairwork.gov.au', '*.gov.au'] },
+  AT: { name: 'Austria', domains: ['ris.bka.gv.at', 'justiz.gv.at', 'oesterreich.gv.at', '*.gv.at'] },
+  CH: { name: 'Switzerland', domains: ['fedlex.admin.ch', 'bger.ch', 'admin.ch', 'ch.ch'] },
 };
 
 const corsHeaders = {

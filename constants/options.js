@@ -17,6 +17,11 @@ export const JURISDICTIONS = [
   { code: 'CN', labelKey: 'countryCN', hint: '民法典 · 劳动合同法' },
   { code: 'RU', labelKey: 'countryRU', hint: 'Гражданский кодекс РФ · ТК РФ' },
   { code: 'IR', labelKey: 'countryIR', hint: 'قانون مدنی · قانون کار' },
+  { code: 'IN', labelKey: 'countryIN', hint: 'Indian Contract Act 1872 · Stamp Act · IT Act' },
+  { code: 'CA', labelKey: 'countryCA', hint: 'Common Law · Code civil du Québec' },
+  { code: 'AU', labelKey: 'countryAU', hint: 'Common Law · ACL · Unfair Contract Terms' },
+  { code: 'AT', labelKey: 'countryAT', hint: 'ABGB · KSchG · UGB' },
+  { code: 'CH', labelKey: 'countryCH', hint: 'OR · ZGB · UWG' },
 ];
 
 // Uygulama arayüzü ve rapor dilleri (i18n kodlarıyla birebir aynı).
