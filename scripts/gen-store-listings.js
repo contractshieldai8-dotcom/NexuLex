@@ -155,5 +155,9 @@ EN: The original trap wording is not sent to the AI again; the shield draft is.
 
 `;
 
-fs.writeFileSync(listingPath, `${head}${tail}`, 'utf8');
+// WAVE L: keep the hand-written get.html section (it lives between the brief and the privacy sentence).
+const getMatch = prev.match(/## get\.html ini[^\n]*\n[\s\S]*?(?=\n## )/);
+const getBlock = getMatch ? `${getMatch[0].trimEnd()}\n\n` : '';
+
+fs.writeFileSync(listingPath, `${head}${getBlock}${tail}`, 'utf8');
 console.log('Wrote store/listings ×', langs.length, 'briefs ×', langs.length, 'fixtures=', result.cases, 'aso=', result.aso, 'promo=', result.promo, 'brief=', result.brief);

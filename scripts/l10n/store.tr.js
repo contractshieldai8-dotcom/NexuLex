@@ -12,7 +12,7 @@ Raporlar 13 dilde alınabilir. Kanuni hesaplayıcılar (kıdem, kira artışı, 
 
 NexuLex bir hukuk bürosu değildir. Bu hukuki danışmanlık değildir ve NexuLex sizi temsil etmez. NexuLex hiçbir avukatı önermez.`,
   keywords: 'sözleşme,kira,iş,NDA,SaaS,tuzak,avukat,danışman,tüketici,cezaişart,işçi,imza,süre,taraf',
-  whatsNew: 'Avukat bulun: resmî baro ve adli yardım rehberleri, ilk temas mesajı ve dışa aktarılabilen Pro dosya paketi. Danışman ülkenize göre soru-cevap, adım adım süreç rehberleri ve yalnızca cihazdaki dosyaları ekler. Professional çalışma masası kronoloji, uyuşmazlık listesi ve araştırma notunu ücretli planda iş yardımcısı olarak sunar. On üç dil, tek dürüst uyarı. NexuLex hâlâ hiçbir avukatı önermez, sıralamaz ve yönlendirmez. Bu hukuki danışmanlık değildir.',
+  whatsNew: 'Yeni: tek dokunuşla örnek sözleşmeyi deneyin, imzadan önce isteğe bağlı sessiz hatırlatmalar açın, davet kodunuzla bir arkadaşınızı çağırın; ikinize de bir ek ücretsiz analiz verilir. Anonim kullanım raporlarını Ayarlar’dan kapatabilirsiniz. Avukat bulun: resmî baro ve adli yardım rehberleri, ilk temas mesajı ve dışa aktarılabilen Pro dosya paketi. Danışman ülkenize göre soru-cevap, adım adım süreç rehberleri ve yalnızca cihazdaki dosyaları ekler. Professional çalışma masası kronoloji, uyuşmazlık listesi ve araştırma notunu ücretli planda iş yardımcısı olarak sunar. On üç dil, tek dürüst uyarı. NexuLex hâlâ hiçbir avukatı önermez, sıralamaz ve yönlendirmez. Bu hukuki danışmanlık değildir.',
   shot_analyze: 'Yapıştır, PDF veya foto — ülke ve taraf seç',
   shot_decision: 'İmzala, müzakere et veya vazgeç — gerekçeli',
   shot_advisor: 'Ülkene sor — kontrol edebileceğin kaynaklar',

@@ -9879,4 +9879,53 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/onLayout=\{onSettingsSectionLayout\('invite'\)\}/.test(app)) kFail('the invite card must register its scroll anchor');
   if (ok) console.log('OK  WAVE K invited-friend offer: once per install, only new verified accounts inside the 7-day window, no stacking, scrolls to the code field, 2 keys x 13');
 }
+// WAVE L: store declarations (Data Safety / App Privacy) and release notes match what the app really does.
+{
+  let ok = true;
+  const lFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE L: ${m}`); };
+  const rd = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
+  const listing = rd('STORE_LISTING.md').replace(/\r\n/g, '\n');
+  const safety = (listing.split(/\n## /).find((s) => s.startsWith('Data Safety & App Privacy')) || '');
+  if (!safety) lFail('Data Safety section missing');
+  [
+    ['anonymous install ID', /Identifiers — Device or other IDs: anonymous install ID[^\n]*180 gün/],
+    ['app interactions', /App activity — App interactions[^\n]*asla gönderilmez/],
+    ['crash logs', /App info and performance — Crash logs/],
+    ['referral', /Referral \(invite code\)[^\n]*bağsız kalır/],
+    ['user id covers referral', /Identifiers — User ID[^\n]*davet kodu eşlemesi/],
+    ['form guidance', /Form beyanı \(Wave L\)[^\n]*Not used for tracking[^\n]*Analytics/],
+    ['regional consent', /Türkiye, Brezilya, Hindistan, Güney Kore ve Güney Afrika/],
+    ['quiet reminders are local', /en fazla iki sessiz[^\n]*push gönderilmez/],
+  ].forEach(([name, re]) => { if (!re.test(safety)) lFail(`Data Safety must declare: ${name}`); });
+  if (!/## get\.html ini/.test(listing)) lFail('the get.html section must survive regeneration');
+  if (!/getBlock/.test(rd('scripts/gen-store-listings.js'))) lFail('the generator must keep the get.html section');
+  // The declaration says "no tracking, no push server, no PII in events": prove it from the code.
+  const pkg = JSON.parse(rd('package.json'));
+  const deps = Object.keys({ ...(pkg.dependencies || {}), ...(pkg.devDependencies || {}) });
+  if (deps.some((d) => /tracking-transparency|advertising|adjust|appsflyer|facebook|firebase-analytics|amplitude|mixpanel/i.test(d))) lFail('a tracking/advertising SDK was added: update the store declaration first');
+  const appCfg = `${rd('app.json')}${rd('app.config.js')}`;
+  if (/NSUserTrackingUsageDescription|AD_ID/.test(appCfg)) lFail('tracking permission present but the store declaration says no tracking');
+  const tele = require('../utils/telemetryCore.js');
+  const bad = tele.PROP_KEYS.filter((k) => /mail|phone|text|contract|user|uid|invite|token|name|body/i.test(k));
+  if (bad.length) lFail(`telemetry props must stay free of PII keys: ${bad.join(', ')}`);
+  const fnSrc = rd('supabase/functions/log-event/index.ts');
+  tele.EVENTS.forEach((e) => { if (!fnSrc.includes(`'${e}'`)) lFail(`log-event allowlist missing ${e}`); });
+  // Release notes: all 13 listing JSONs carry the new sentence and stay inside the store limits.
+  const langs = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+  const seen = new Set();
+  langs.forEach((L) => {
+    let row;
+    try { row = JSON.parse(rd(`store/listings/${L}.json`)); } catch { lFail(`${L} listing JSON unreadable`); return; }
+    const news = row?.apple?.whatsNew || '';
+    const len = [...news].length;
+    if (len < 260 || len > 1200) lFail(`${L} whatsNew length ${len}`);
+    if (!/NexuLex/.test(news)) lFail(`${L} whatsNew must name NexuLex`);
+    const head = news.split(/[.。]/)[0];
+    if (seen.has(head)) lFail(`${L} whatsNew opener duplicates another language`);
+    seen.add(head);
+    if (/\b\d{1,3}\s?%/.test(news)) lFail(`${L} whatsNew must not quote a percentage`);
+  });
+  if (!/invite a friend with your code/.test(JSON.parse(rd('store/listings/en.json')).apple.whatsNew)) lFail('EN release notes must mention the invite code');
+  if (ok) console.log('OK  WAVE L store truth: Data Safety / App Privacy cover analytics + referral, no tracking SDK or PII props, release notes x 13, get.html section preserved');
+}
 process.exit(failed ? 1 : 0);

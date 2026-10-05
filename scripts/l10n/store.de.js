@@ -12,7 +12,7 @@ Berichte gibt es in 13 Sprachen. Gesetzliche Rechner (Abfindung, Mieterhöhung, 
 
 Allgemeine rechtliche Information, keine Rechtsberatung / anwaltliche Vertretung.`,
   keywords: 'Vertrag,Miete,Arbeitsvertrag,NDA,SaaS,AGB,Anwalt,Frist,Risiko,DSGVO,Mieter,Unterschrift,Klausel',
-  whatsNew: 'Anwalt finden über amtliche Kammer- und Rechtshilfeverzeichnisse, eine erste Nachricht schreiben und eine Pro-Fallmappe exportieren. Der Berater hält Landesfragen, Schritt-für-Schritt-Leitfäden und Akten auf dem Gerät. Professional ergänzt Chronologie, Streitpunkte und Recherchevermerk als Arbeitshilfen in bezahlten Plänen. Dreizehn Sprachen, ein ehrlicher Hinweis. NexuLex empfiehlt, bewertet und vermittelt weiterhin keine Anwälte. Allgemeine rechtliche Information, keine Rechtsberatung.',
+  whatsNew: 'Neu: Mustervertrag mit einem Tipp testen, stille Erinnerungen vor der Unterschrift freiwillig aktivieren und mit Ihrem Code einen Freund einladen; beide erhalten eine zusätzliche kostenlose Analyse. Anonyme Nutzungsberichte lassen sich in den Einstellungen abschalten. Anwalt finden über amtliche Kammer- und Rechtshilfeverzeichnisse, eine erste Nachricht schreiben und eine Pro-Fallmappe exportieren. Der Berater hält Landesfragen, Schritt-für-Schritt-Leitfäden und Akten auf dem Gerät. Professional ergänzt Chronologie, Streitpunkte und Recherchevermerk als Arbeitshilfen in bezahlten Plänen. Dreizehn Sprachen, ein ehrlicher Hinweis. NexuLex empfiehlt, bewertet und vermittelt weiterhin keine Anwälte. Allgemeine rechtliche Information, keine Rechtsberatung.',
   shot_analyze: 'Text, PDF oder Foto — Land und Partei',
   shot_decision: 'Unterschreiben, verhandeln oder gehen',
   shot_advisor: 'Ihr Land fragen — prüfbare Quellen',

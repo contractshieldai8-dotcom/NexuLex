@@ -12,7 +12,7 @@ Report disponibili in 13 lingue. I calcolatori legali (indennità, aumento del c
 
 Informazione legale generale, non consulenza legale / rappresentanza di un avvocato.`,
   keywords: 'contratto,locazione,lavoro,NDA,SaaS,clausola,avvocato,rischio,scadenza,consumo,inquilino,firma',
-  whatsNew: 'Trova un avvocato negli albi ufficiali e nelle guide al patrocinio, scrivi il primo messaggio ed esporta un fascicolo Pro. Il consulente tiene domande del tuo paese, guide passo passo e fascicoli sul dispositivo. Professional aggiunge cronologia, questioni controverse e nota di ricerca come ausili di lavoro. Tredici lingue, un avviso onesto. NexuLex non raccomanda, non classifica e non indica ancora alcun avvocato. Informazione giuridica generale, non è consulenza.',
+  whatsNew: 'Novità: prova un contratto di esempio con un tocco, attiva se vuoi promemoria discreti prima della firma e invita un amico con il tuo codice; entrambi ottenete un’analisi gratuita in più. I report d’uso anonimi si disattivano nelle Impostazioni. Trova un avvocato negli albi ufficiali e nelle guide al patrocinio, scrivi il primo messaggio ed esporta un fascicolo Pro. Il consulente tiene domande del tuo paese, guide passo passo e fascicoli sul dispositivo. Professional aggiunge cronologia, questioni controverse e nota di ricerca come ausili di lavoro. Tredici lingue, un avviso onesto. NexuLex non raccomanda, non classifica e non indica ancora alcun avvocato. Informazione giuridica generale, non è consulenza.',
   shot_analyze: 'Testo, PDF o foto — paese e parte',
   shot_decision: 'Firma, tratta o rinuncia — con motivi',
   shot_advisor: 'Chiedi al tuo paese — fonti da verificare',

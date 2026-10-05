@@ -12,7 +12,7 @@ Relatórios em 13 idiomas. As calculadoras legais (indenização, reajuste de al
 
 Informação jurídica geral, não aconselhamento jurídico / representação por advogado.`,
   keywords: 'contrato,aluguel,trabalho,NDA,SaaS,cláusula,advogado,risco,prazo,consumo,inquilino,assinatura',
-  whatsNew: 'Encontre um advogado em diretórios oficiais de ordens e de apoio jurídico, escreva a primeira mensagem e exporte um dossiê Pro. O consultor guarda perguntas do seu país, guias passo a passo e processos no aparelho. A Professional acrescenta cronologia, questões controversas e memorando de investigação como ajudas de trabalho. Treze idiomas, um aviso honesto. A NexuLex continua sem recomendar, classificar ou indicar qualquer advogado. Informação jurídica geral, não é aconselhamento.',
+  whatsNew: 'Novidade: experimente um contrato de exemplo com um toque, ative se quiser lembretes discretos antes de assinar e convide um amigo com o seu código; ambos ganham uma análise gratuita extra. Os relatórios de uso anónimos podem ser desligados nas Definições. Encontre um advogado em diretórios oficiais de ordens e de apoio jurídico, escreva a primeira mensagem e exporte um dossiê Pro. O consultor guarda perguntas do seu país, guias passo a passo e processos no aparelho. A Professional acrescenta cronologia, questões controversas e memorando de investigação como ajudas de trabalho. Treze idiomas, um aviso honesto. A NexuLex continua sem recomendar, classificar ou indicar qualquer advogado. Informação jurídica geral, não é aconselhamento.',
   shot_analyze: 'Texto, PDF ou fotos — país e parte',
   shot_decision: 'Assinar, negociar ou recuar — com motivos',
   shot_advisor: 'Pergunte ao seu país — fontes para verificar',

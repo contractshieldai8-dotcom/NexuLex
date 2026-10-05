@@ -12,7 +12,7 @@ Rapports disponibles en 13 langues. Les calculateurs légaux (indemnité, hausse
 
 Information juridique générale, pas un conseil juridique / une représentation par un avocat.`,
   keywords: 'contrat,bail,travail,NDA,SaaS,clause,avocat,risque,loyer,échéance,locataire,signature,délai',
-  whatsNew: 'Trouvez un avocat via les annuaires officiels des barreaux et de l’aide juridique, rédigez un premier message et exportez un dossier Pro. Le conseiller garde les questions de votre pays, des guides pas à pas et des dossiers sur l’appareil. Professional ajoute chronologie, points en litige et note de recherche comme aides de travail. Treize langues, une mise en garde honnête. NexuLex ne recommande, ne classe et n’oriente toujours aucun avocat. Information juridique générale, pas un conseil.',
+  whatsNew: 'Nouveau : essayez un contrat d’exemple en un geste, activez si vous le souhaitez des rappels discrets avant la signature et invitez un ami avec votre code ; chacun gagne une analyse gratuite en plus. Les rapports d’usage anonymes se désactivent dans les Réglages. Trouvez un avocat via les annuaires officiels des barreaux et de l’aide juridique, rédigez un premier message et exportez un dossier Pro. Le conseiller garde les questions de votre pays, des guides pas à pas et des dossiers sur l’appareil. Professional ajoute chronologie, points en litige et note de recherche comme aides de travail. Treize langues, une mise en garde honnête. NexuLex ne recommande, ne classe et n’oriente toujours aucun avocat. Information juridique générale, pas un conseil.',
   shot_analyze: 'Texte, PDF ou photos — pays et partie',
   shot_decision: 'Signer, négocier ou renoncer — motivé',
   shot_advisor: 'Demandez à votre pays — sources à vérifier',

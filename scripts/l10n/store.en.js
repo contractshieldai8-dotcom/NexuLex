@@ -12,7 +12,7 @@ Reports are available in 13 languages. Statutory calculators (severance, rent in
 
 General legal information, not legal advice / lawyer representation.`,
   keywords: 'contract,lease,NDA,employment,risk,clause,advisor,lawyer,rent,SaaS,tenant,deadline,signature',
-  whatsNew: 'Find a lawyer through official bar and legal-aid directories, write a first-contact message and export a Pro case packet. The advisor keeps country questions, step-by-step process guides and on-device case files. Professional adds a chronology, an issue list and a research memo as work aids on paid plans. Thirteen languages, one honest disclaimer. NexuLex still does not recommend, rank or refer any lawyer. General legal information, not legal advice.',
+  whatsNew: 'New: try a built-in sample contract in one tap, opt in to quiet reminders before you sign, and invite a friend with your code; you both get one extra free analysis. Anonymous usage reports can be switched off in Settings. Find a lawyer through official bar and legal-aid directories, write a first-contact message and export a Pro case packet. The advisor keeps country questions, step-by-step process guides and on-device case files. Professional adds a chronology, an issue list and a research memo as work aids on paid plans. Thirteen languages, one honest disclaimer. NexuLex still does not recommend, rank or refer any lawyer. General legal information, not legal advice.',
   shot_analyze: 'Paste, PDF or photos — pick country and side',
   shot_decision: 'Sign, negotiate or walk away — with reasons',
   shot_advisor: 'Ask your country — sources you can check',
