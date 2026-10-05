@@ -1,7 +1,7 @@
 // WAVE ST.3 — Datenschutz + Löschen (DE).
 module.exports = {
   privacy: `<h1>Datenschutzrichtlinie</h1>
-<p class="meta">Stand: 25. September 2026. Diese Übersetzung dient der Verständlichkeit. Maßgeblich ist der englische Text.</p>
+<p class="meta">Stand: 5. Oktober 2026. Diese Übersetzung dient der Verständlichkeit. Maßgeblich ist der englische Text.</p>
 <p>Diese Richtlinie erklärt, wie NexuLex AI („wir“, „die App“) Daten in der mobilen App und in den zugehörigen Web-Ansichten verarbeitet.</p>
 <h2>1. Welche Daten wir verarbeiten</h2>
 <ul>
@@ -32,7 +32,17 @@ module.exports = {
 <p>Ein aktives App Store- oder Google Play-Abo wird durch die Kontolöschung nicht automatisch gekündigt; kündigen Sie es im Store-Konto. Brief-Codes enden nach dem angegebenen Fenster von selbst.</p>
 <h2>6. Rechtlicher Hinweis</h2>
 <p><strong>NexuLex AI ist keine Anwaltskanzlei und erteilt keine Rechtsberatung.</strong> Ausgaben sind allgemeine Informationshilfen. Entscheidungen bleiben Ihre; ziehen Sie für Ihren Fall eine zugelassene Anwältin oder einen zugelassenen Anwalt hinzu.</p>
-<h2>7. Kontakt</h2>
+<h2 data-sec="signup">7. Anmeldedaten</h2>
+<p>Bei der Anmeldung geben Sie eine E-Mail-Adresse und eine Telefonnummer an. Telefonnummer und Gerätekennung dienen dazu, das kostenlose Analysekontingent zu beanspruchen und wiederholten Missbrauch zu verhindern. Sie werden nicht für Werbung genutzt und nicht verkauft.</p>
+<h2 data-sec="voice">8. Spracheingabe</h2>
+<p>Die Spracheingabe ist optional. Wenn Sie das Mikrofon nutzen, erfolgt die Spracherkennung durch den in Ihr Telefon integrierten Sprachdienst (Apple oder Google) nach den Datenschutzbedingungen dieses Anbieters. NexuLex AI nimmt Ihr Audio weder auf noch speichert es; wir erhalten nur den Text, den Sie verwenden möchten.</p>
+<h2 data-sec="transfer">9. Dienstleister und internationale Übermittlung</h2>
+<p>Wir nutzen Supabase (Cloud-Datenbank und Anmeldung), einen KI-Anbieter eines Dritten, der über unseren Server angesprochen wird (Analysen und Antworten), RevenueCat (Kaufstatus) sowie die Stores von Apple und Google. Diese Anbieter können Daten auch in anderen Ländern als Ihrem verarbeiten, einschließlich Ländern außerhalb des Europäischen Wirtschaftsraums, des Vereinigten Königreichs und der Schweiz. Verlangt das Recht für solche Übermittlungen Garantien, stützen wir uns auf die Übermittlungsmechanismen dieser Anbieter.</p>
+<h2 data-sec="rights">10. Ihre Rechte</h2>
+<p>Je nach Wohnort (zum Beispiel nach DSGVO / UK GDPR, dem Schweizer Datenschutzgesetz, dem österreichischen DSG, dem türkischen KVKK, dem indischen DPDP Act, dem kanadischen PIPEDA und Provinzrecht oder dem australischen Privacy Act) haben Sie möglicherweise das Recht auf Auskunft, Berichtigung, Löschung, Übertragung, Einschränkung der Verarbeitung oder Widerspruch sowie auf Widerruf einer Einwilligung. Ihr Konto können Sie in der App löschen. Für andere Anfragen schreiben Sie von Ihrer registrierten Adresse an nexulexai@gmail.com; wir antworten innerhalb der gesetzlichen Frist. Sie können sich außerdem bei der Datenschutzaufsichtsbehörde Ihres Landes beschweren.</p>
+<h2 data-sec="children">11. Kinder, Werbung und Tracking</h2>
+<p>NexuLex AI richtet sich an Erwachsene ab 18 Jahren und nicht an Kinder. Wir erheben wissentlich keine Daten von Kindern; melden Sie sich bei uns, dann löschen wir sie. Die App enthält keine Werbung und kein App-übergreifendes Tracking, und wir verkaufen keine personenbezogenen Daten.</p>
+<h2>12. Kontakt</h2>
 <p>Fragen zum Datenschutz: nutzen Sie den Support in der App oder schreiben Sie dem im Store genannten Herausgeber.</p>`,
 
   deleteAccount: `<h1>NexuLex AI-Konto löschen</h1>
@@ -60,7 +70,7 @@ module.exports = {
 <p>Siehe auch die <a href="privacy.html">Datenschutzrichtlinie</a>.</p>`,
 
   terms: `<h1>Nutzungsbedingungen (EULA)</h1>
-<p class="meta">Stand: 25. September 2026. Diese Übersetzung dient der Verständlichkeit. Maßgeblich ist der englische Text.</p>
+<p class="meta">Stand: 5. Oktober 2026. Diese Übersetzung dient der Verständlichkeit. Maßgeblich ist der englische Text.</p>
 <p>Mit dem Download oder der Nutzung von NexuLex AI akzeptieren Sie diese Bedingungen und unsere <a href="privacy.html">Datenschutzrichtlinie</a>.</p>
 <h2>1. Leistungsbeschreibung</h2>
 <p>NexuLex AI ist ein Verbraucherprogramm, das Verträge prüfen, Risiken zeigen, Gegensprache entwerfen und begrenzte nur-lese Briefs teilen hilft. Es wird „wie besehen“ bereitgestellt.</p>
@@ -90,6 +100,14 @@ module.exports = {
 <p>Soweit gesetzlich zulässig haften wir nicht für Entscheidungen auf Basis der App-Ausgabe, Fehler dritter KI, Store-Abrechnungsstreit oder Ausfälle außerhalb unserer zumutbaren Kontrolle.</p>
 <h2>8. Änderungen</h2>
 <p>Wir können diese Bedingungen aktualisieren. Die weitere Nutzung nach einer Änderung gilt als Annahme.</p>
-<h2>9. Kontakt</h2>
+<h2 data-sec="eligibility">9. Teilnahmevoraussetzung</h2>
+<p>Zur Nutzung von NexuLex AI müssen Sie mindestens 18 Jahre alt sein oder an Ihrem Wohnort volljährig. Nutzen Sie die App für ein Unternehmen, bestätigen Sie, dass Sie dieses Unternehmen binden dürfen.</p>
+<h2 data-sec="renewal">10. Abonnements und automatische Verlängerung</h2>
+<p>Kostenpflichtige Pläne verlängern sich automatisch um denselben Zeitraum zum angezeigten Store-Preis, bis Sie kündigen. Die Zahlung wird Ihrem App-Store- oder Google-Play-Konto belastet. Sie können in den Einstellungen Ihres Store-Kontos verwalten oder kündigen; im App Store mindestens 24 Stunden vor Ende des laufenden Zeitraums. Das Löschen Ihres NexuLex-AI-Kontos kündigt kein Abonnement. Erstattungen richten sich nach der Richtlinie des Stores.</p>
+<h2 data-sec="ai">11. KI-generierte Ergebnisse</h2>
+<p>Analysen, Antworten, Entwürfe und Zusammenfassungen werden von künstlicher Intelligenz erzeugt. Sie können unvollständig, veraltet oder falsch sein, und das Recht unterscheidet sich je nach Land und ändert sich. Prüfen Sie wichtige Punkte anhand amtlicher Quellen oder mit einer zugelassenen Anwältin oder einem zugelassenen Anwalt, bevor Sie sich darauf verlassen.</p>
+<h2 data-sec="termin">12. Sperrung und Beendigung</h2>
+<p>Sie können die Nutzung von NexuLex AI jederzeit beenden und Ihr Konto löschen. Wir können einen Zugang sperren oder beenden, der gegen diese Bedingungen verstößt oder den Dienst oder andere Nutzer gefährdet.</p>
+<h2>13. Kontakt</h2>
 <p>Für Konto- oder Produktfragen nutzen Sie den Support in der App. Für Verbraucherbeschwerden gelten die Angaben des Herausgebers im Store.</p>`,
 };

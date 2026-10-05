@@ -407,6 +407,14 @@ export default function PaywallScreen({
               </Text>
             ) : null}
 
+            {available ? (
+              <Text
+                style={[styles.sectionHint, { color: theme.subText, textAlign: 'center', marginTop: 4, marginBottom: 10 }]}
+              >
+                {t('lg1AutoRenew')}
+              </Text>
+            ) : null}
+
             <TouchableOpacity
               style={[styles.primaryButton, (!canPurchase || busy) && { opacity: 0.5 }]}
               onPress={handlePurchase}

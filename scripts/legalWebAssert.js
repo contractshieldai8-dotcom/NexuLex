@@ -74,7 +74,52 @@ function assertLegalWebPages(privacy, del, listing) {
   return { cases, langs: LANGS.length };
 }
 
+const PRIVACY_SECTIONS = ['signup', 'voice', 'transfer', 'rights', 'children'];
+const TERMS_SECTIONS = ['eligibility', 'renewal', 'ai', 'termin'];
+const STRIPPED = {
+  fr: /(?<![\p{L}\p{M}'’])(d|l|n|s|c|j|t|m|qu) [aeiouyhàâéèêîôû]|\b(confidentialite|donnees|mise a jour|ecran|reglages|supprime|boutique ?:)\b/iu,
+  es: /\b(politica|traduccion|informacion|analisis|pagina|cancelela|juridico|telefono|ingles|cortesia)\b/i,
+  pt: /\b(politica|traducao|aplicacao|servico|conservacao|eliminacao|juridico|ingles|nao|sao)\b/i,
+  it: /(?<![\p{L}\p{M}'’])(l|d|dell|nell|sull|all|c|quest) (app|account|analisi|avviso|eliminazione|accesso|output)\b|(?<![\p{L}\p{M}])(piu|puo|cosi|perche|responsabilita|proprieta|autorita)(?![\p{L}\p{M}])|(?<![\p{L}\p{M}])e (uno studio|un software)/iu,
+};
+const PICKER = {
+  tr: /sistem seçicisinde/, en: /system picker/, de: /Systemwähler/, fr: /sélecteur système/, es: /selector del sistema/, ar: /منتقي النظام/,
+  it: /selettore di sistema/, zh: /系统选择器/, ru: /системном меню/, fa: /انتخابگر سیستم/, ja: /システムの選択/, pt: /seletor do sistema/, nl: /systeemkiezer/,
+};
+
+/** WAVE C: every language carries the same compliance sections, a fresh date, no stripped accents. */
+function assertLegalWebCompliance(privacy, terms) {
+  let cases = 0;
+  const check = (cond, msg) => {
+    cases += 1;
+    if (!cond) throw new Error(`legalWebCompliance: ${msg}`);
+  };
+  const strip = (s) => s.replace(/<[^>]+>/g, ' ').replace(/https?:\/\/\S+/g, ' ').replace(/\S+@\S+/g, ' ');
+  for (const lang of LANGS) {
+    const p = panelOf(privacy, lang);
+    const t = panelOf(terms, lang);
+    for (const sec of PRIVACY_SECTIONS) check(p.includes(`data-sec="${sec}"`), `privacy ${lang} section ${sec}`);
+    for (const sec of TERMS_SECTIONS) check(t.includes(`data-sec="${sec}"`), `terms ${lang} section ${sec}`);
+    check(/18/.test(panelOf(privacy, lang).match(/data-sec="children"[\s\S]*?<\/p>/)[0]), `privacy ${lang} states age 18`);
+    check(/24/.test(t.match(/data-sec="renewal"[\s\S]*?<\/p>/)[0]), `terms ${lang} states the 24-hour renewal rule`);
+    check(/nexulexai@gmail\.com/.test(p.match(/data-sec="rights"[\s\S]*?<\/p>/)[0]), `privacy ${lang} rights give the contact`);
+    check(/\b5\b/.test(p.match(/<p class="meta">[^<]*<\/p>/)[0]) && !/\b25\b/.test(p.match(/<p class="meta">[^<]*<\/p>/)[0]), `privacy ${lang} dated 5 October 2026`);
+    check(PICKER[lang].test(p), `privacy ${lang} states the picker sentence in its own language`);
+    const h2 = p.match(/<h2[^>]*>\d+\./g) || [];
+    const nums = h2.map((h) => Number(h.match(/(\d+)\./)[1]));
+    check(nums.every((n, i) => n === i + 1), `privacy ${lang} section numbers run 1..${nums.length}`);
+    const th2 = (t.match(/<h2[^>]*>\d+\./g) || []).map((h) => Number(h.match(/(\d+)\./)[1]));
+    check(th2.every((n, i) => n === i + 1), `terms ${lang} section numbers run 1..${th2.length}`);
+    if (STRIPPED[lang]) {
+      const hit = (strip(p) + ' ' + strip(t)).match(STRIPPED[lang]);
+      check(!hit, `${lang} legal text has stripped accents or apostrophes: "${hit && hit[0]}"`);
+    }
+  }
+  return { cases };
+}
+
 module.exports = {
+  assertLegalWebCompliance,
   LANGS,
   LOCKED_QUOTA,
   LOCKED_LAWYER,

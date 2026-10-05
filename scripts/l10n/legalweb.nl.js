@@ -1,7 +1,7 @@
 // WAVE ST.3 — Privacy + verwijderen (NL).
 module.exports = {
   privacy: `<h1>Privacybeleid</h1>
-<p class="meta">Bijgewerkt: 25 september 2026. Vertaling ter verduidelijking. De Engelse tekst is leidend.</p>
+<p class="meta">Bijgewerkt: 5 oktober 2026. Vertaling ter verduidelijking. De Engelse tekst is leidend.</p>
 <p>Dit beleid legt uit hoe NexuLex AI («wij», «de app») gegevens verwerkt in de mobiele app en de bijbehorende webweergaven.</p>
 <h2>1. Gegevens die we verwerken</h2>
 <ul>
@@ -32,7 +32,17 @@ module.exports = {
 <p>Een actief App Store- of Google Play-abonnement wordt niet automatisch opgezegd bij accountverwijdering; zeg het op in het winkelaccount. Briefcodes verlopen vanzelf na het genoemde venster.</p>
 <h2>6. Juridische waarschuwing</h2>
 <p><strong>NexuLex AI is geen advocatenkantoor en geeft geen juridisch advies.</strong> Uitvoer is algemene informatiehulpmiddelen. Beslissingen blijven van u; raadpleeg een bevoegde advocaat voor uw zaak.</p>
-<h2>7. Contact</h2>
+<h2 data-sec="signup">7. Aanmeldgegevens</h2>
+<p>Bij het aanmelden geeft u een e-mailadres en een telefoonnummer op. Het telefoonnummer en een apparaat-ID worden gebruikt om het gratis analysetegoed te claimen en herhaald misbruik te voorkomen. Ze worden niet voor advertenties gebruikt en niet verkocht.</p>
+<h2 data-sec="voice">8. Spraakinvoer</h2>
+<p>Spraakinvoer is optioneel. Als u de microfoon gebruikt, wordt spraakherkenning uitgevoerd door de spraakdienst die in uw telefoon is ingebouwd (Apple of Google), volgens de privacyvoorwaarden van die aanbieder. NexuLex AI neemt uw audio niet op en bewaart die niet; het ontvangt alleen de tekst die u wilt gebruiken.</p>
+<h2 data-sec="transfer">9. Dienstverleners en internationale doorgifte</h2>
+<p>Wij gebruiken Supabase (clouddatabase en inloggen), een AI-aanbieder van een derde partij die via onze server wordt aangeroepen (analyses en antwoorden), RevenueCat (aankoopstatus) en de winkels van Apple en Google. Deze aanbieders kunnen gegevens verwerken in andere landen dan het uwe, ook buiten de Europese Economische Ruimte, het Verenigd Koninkrijk en Zwitserland. Waar de wet waarborgen voor dergelijke doorgifte vereist, vertrouwen wij op de doorgiftemechanismen die deze aanbieders bieden.</p>
+<h2 data-sec="rights">10. Uw rechten</h2>
+<p>Afhankelijk van waar u woont (bijvoorbeeld onder de AVG / UK GDPR, de Zwitserse FADP, de Oostenrijkse DSG, de Turkse KVKK, de Indiase DPDP Act, de Canadese PIPEDA en provinciale wetten of de Australische Privacy Act) heeft u mogelijk het recht op inzage, correctie, verwijdering, overdraagbaarheid, beperking van de verwerking of bezwaar, en op intrekking van uw toestemming. U kunt uw account in de app verwijderen. Voor andere verzoeken schrijft u vanaf uw geregistreerde adres naar nexulexai@gmail.com; wij antwoorden binnen de wettelijke termijn. U kunt ook een klacht indienen bij de gegevensbeschermingsautoriteit van uw land.</p>
+<h2 data-sec="children">11. Kinderen, advertenties en tracking</h2>
+<p>NexuLex AI is bedoeld voor volwassenen van 18 jaar of ouder en richt zich niet op kinderen. Wij verzamelen niet bewust gegevens van kinderen; neem contact op en wij verwijderen ze. De app bevat geen advertenties en geen tracking tussen apps, en wij verkopen geen persoonsgegevens.</p>
+<h2>12. Contact</h2>
 <p>Privacyvragen: gebruik het Support-scherm in de app of schrijf de uitgever op de winkelvermelding.</p>`,
 
   deleteAccount: `<h1>Verwijder uw NexuLex AI-account</h1>
@@ -60,7 +70,7 @@ module.exports = {
 <p>Zie ook het <a href="privacy.html">privacybeleid</a>.</p>`,
 
   terms: `<h1>Gebruiksvoorwaarden (EULA)</h1>
-<p class="meta">Bijgewerkt: 25 september 2026. Vertaling ter verduidelijking. De Engelse tekst is leidend.</p>
+<p class="meta">Bijgewerkt: 5 oktober 2026. Vertaling ter verduidelijking. De Engelse tekst is leidend.</p>
 <p>Door NexuLex AI te downloaden of te gebruiken aanvaardt u deze voorwaarden en ons <a href="privacy.html">privacybeleid</a>.</p>
 <h2>1. Dienstomschrijving</h2>
 <p>NexuLex AI is consumentensoftware die helpt contracten te beoordelen, risico's te zien, tegen-taal te schetsen en beperkte alleen-lezen briefs te delen. De dienst wordt «zoals ze is» geleverd.</p>
@@ -90,6 +100,14 @@ module.exports = {
 <p>Voor zover de wet toestaat zijn wij niet aansprakelijk voor beslissingen op basis van app-uitvoer, fouten van derde-AI, winkelfactuurgeschillen of storingen buiten onze redelijke controle.</p>
 <h2>8. Wijzigingen</h2>
 <p>We kunnen deze voorwaarden bijwerken. Door na een update door te gaan, aanvaardt u de herziene tekst.</p>
-<h2>9. Contact</h2>
+<h2 data-sec="eligibility">9. Leeftijd</h2>
+<p>Om NexuLex AI te gebruiken moet u minstens 18 jaar zijn of meerderjarig volgens de wet van uw woonplaats. Gebruikt u de app voor een bedrijf, dan bevestigt u dat u dat bedrijf mag binden.</p>
+<h2 data-sec="renewal">10. Abonnementen en automatische verlenging</h2>
+<p>Betaalde abonnementen worden automatisch verlengd voor dezelfde periode tegen de getoonde winkelprijs, totdat u opzegt. De betaling wordt afgeschreven van uw App Store- of Google Play-account. U kunt beheren of opzeggen in de instellingen van uw winkelaccount; in de App Store minstens 24 uur voor het einde van de lopende periode. Het verwijderen van uw NexuLex AI-account zegt een abonnement niet op. Terugbetalingen volgen het beleid van de winkel.</p>
+<h2 data-sec="ai">11. Door AI gegenereerde uitvoer</h2>
+<p>Analyses, antwoorden, concepten en samenvattingen worden door kunstmatige intelligentie gegenereerd. Ze kunnen onvolledig, verouderd of onjuist zijn, en het recht verschilt per land en verandert in de loop van de tijd. Controleer belangrijke punten bij officiële bronnen of een bevoegde advocaat voordat u erop vertrouwt.</p>
+<h2 data-sec="termin">12. Schorsing en beëindiging</h2>
+<p>U kunt NexuLex AI op elk moment niet meer gebruiken en uw account verwijderen. Wij kunnen toegang schorsen of beëindigen die deze voorwaarden schendt of de dienst of andere gebruikers in gevaar brengt.</p>
+<h2>13. Contact</h2>
 <p>Voor account of product gebruikt u het Support-scherm in de app. Voor consumentenklachten gelden de gegevens van de uitgever op de winkelvermelding.</p>`,
 };

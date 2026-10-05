@@ -1,7 +1,7 @@
 // WAVE ST.3 — Gizlilik + silme sayfası (TR).
 module.exports = {
   privacy: `<h1>Gizlilik Politikası</h1>
-<p class="meta">Son güncelleme: 25 Eylül 2026</p>
+<p class="meta">Son güncelleme: 5 Ekim 2026</p>
 <p>Bu Gizlilik Politikası, NexuLex AI’nin (“biz”, “uygulama”) mobil uygulama ve ilgili web görüntüleyicilerinde bilgileri nasıl işlediğini açıklar.</p>
 
 <h2>1. İşlenen veriler</h2>
@@ -39,7 +39,17 @@ module.exports = {
 <h2>6. Hukuki uyarı</h2>
 <p><strong>NexuLex AI bir hukuk bürosu değildir ve hukuki tavsiye vermez.</strong> Çıktılar genel bilgilendirme araçlarıdır. Karar size aittir; kendi dosyanız için yetkili bir avukata danışın.</p>
 
-<h2>7. İletişim</h2>
+<h2 data-sec="signup">7. Kayıt bilgileri</h2>
+<p>Kayıtta bir e-posta adresi ve bir telefon numarası verirsiniz. Telefon numarası ve cihaz tanımlayıcısı, ücretsiz analiz hakkını almak ve bu hakkın tekrar tekrar kötüye kullanılmasını önlemek için kullanılır. Reklam için kullanılmaz ve satılmaz.</p>
+<h2 data-sec="voice">8. Sesli giriş</h2>
+<p>Sesli giriş isteğe bağlıdır. Mikrofonu kullandığınızda konuşma tanıma, telefonunuzun yerleşik konuşma hizmeti (Apple veya Google) tarafından, o sağlayıcının kendi gizlilik koşullarıyla yapılır. NexuLex AI sesinizi kaydetmez ve saklamaz; yalnızca kullanmayı seçtiğiniz metni alır.</p>
+<h2 data-sec="transfer">9. Hizmet sağlayıcılar ve uluslararası aktarım</h2>
+<p>Supabase (bulut veritabanı ve oturum açma), sunucumuz üzerinden erişilen üçüncü taraf bir yapay zeka sağlayıcısı (analiz ve yanıtlar), RevenueCat (satın alma durumu) ile Apple ve Google mağazalarını kullanırız. Bu sağlayıcılar verileri bulunduğunuz ülke dışında, Avrupa Ekonomik Alanı, Birleşik Krallık ve İsviçre dışındaki ülkeler dâhil, işleyebilir. Hukukun bu tür aktarımlar için güvence aradığı hâllerde, bu sağlayıcıların sunduğu aktarım mekanizmalarına dayanırız.</p>
+<h2 data-sec="rights">10. Haklarınız</h2>
+<p>Yaşadığınız yere bağlı olarak (örneğin GDPR / UK GDPR, İsviçre FADP, Avusturya DSG, Türkiye KVKK, Hindistan DPDP Yasası, Kanada PIPEDA ve eyalet yasaları ya da Avustralya Privacy Act kapsamında) verilerinize erişme, düzeltme, silme, taşıma, işlenmesini kısıtlama veya itiraz etme ve rızanızı geri çekme haklarına sahip olabilirsiniz. Hesabınızı uygulamadan silebilirsiniz. Diğer talepler için kayıtlı adresinizden nexulexai@gmail.com adresine yazın; hukukun gerektirdiği süre içinde yanıt veririz. Ayrıca ülkenizdeki veri koruma kurumuna şikâyette bulunabilirsiniz.</p>
+<h2 data-sec="children">11. Çocuklar, reklam ve takip</h2>
+<p>NexuLex AI 18 yaş ve üzeri yetişkinlere yöneliktir, çocuklara yönelik değildir. Çocuklardan bilerek veri toplamayız; bize ulaşırsanız sileriz. Uygulamada reklam ve uygulamalar arası takip yoktur, kişisel verileri satmayız.</p>
+<h2>12. İletişim</h2>
 <p>Gizlilik soruları için uygulama içi Destek ekranını kullanın veya mağaza kaydındaki yayıncıya yazın.</p>`,
 
   deleteAccount: `<h1>NexuLex AI hesabınızı silin</h1>
@@ -73,7 +83,7 @@ module.exports = {
 <p>Ayrıca bkz. <a href="privacy.html">Gizlilik Politikası</a>.</p>`,
 
   terms: `<h1>Kullanım Koşulları (EULA)</h1>
-<p class="meta">Son güncelleme: 25 Eylül 2026</p>
+<p class="meta">Son güncelleme: 5 Ekim 2026</p>
 <p>NexuLex AI’yi indirerek veya kullanarak bu Kullanım Koşulları’nı ve <a href="privacy.html">Gizlilik Politikası</a>’nı kabul etmiş olursunuz.</p>
 
 <h2>1. Hizmetin tanımı</h2>
@@ -112,6 +122,14 @@ module.exports = {
 <h2>8. Değişiklikler</h2>
 <p>Bu Koşulları güncelleyebiliriz. Güncellemeden sonra hizmeti kullanmaya devam etmeniz, revize edilmiş Koşulları kabul ettiğiniz anlamına gelir.</p>
 
-<h2>9. İletişim</h2>
+<h2 data-sec="eligibility">9. Uygunluk</h2>
+<p>NexuLex AI’yi kullanmak için en az 18 yaşında veya yaşadığınız yerde reşit olmalısınız. Bir işletme adına kullanıyorsanız o işletmeyi bağlayabildiğinizi onaylarsınız.</p>
+<h2 data-sec="renewal">10. Abonelikler ve otomatik yenileme</h2>
+<p>Ücretli planlar, siz iptal edene kadar gösterilen mağaza fiyatıyla aynı dönem için otomatik yenilenir. Ödeme App Store veya Google Play hesabınızdan alınır. Mağaza hesap ayarlarınızdan yönetebilir veya iptal edebilirsiniz; App Store’da mevcut dönem bitmeden en az 24 saat önce iptal edin. NexuLex AI hesabınızı silmek aboneliği iptal etmez. İadeler mağazanın politikasını izler.</p>
+<h2 data-sec="ai">11. Yapay zeka çıktısı</h2>
+<p>Analizler, yanıtlar, taslaklar ve özetler yapay zeka tarafından üretilir. Eksik, güncelliğini yitirmiş veya hatalı olabilir; hukuk ülkeden ülkeye farklıdır ve zamanla değişir. Güvenmeden önce önemli noktaları resmî kaynaklardan veya ruhsatlı bir avukattan kontrol edin.</p>
+<h2 data-sec="termin">12. Askıya alma ve sona erdirme</h2>
+<p>NexuLex AI’yi kullanmayı bırakabilir ve hesabınızı istediğiniz zaman silebilirsiniz. Bu Koşulları ihlal eden veya hizmeti ya da diğer kullanıcıları riske atan erişimi askıya alabilir veya sona erdirebiliriz.</p>
+<h2>13. İletişim</h2>
 <p>Hesap veya ürün soruları için uygulama içi Destek ekranını kullanın. Tüketici şikayetlerinde mağaza kaydındaki yayıncı bilgileri geçerlidir.</p>`,
 };

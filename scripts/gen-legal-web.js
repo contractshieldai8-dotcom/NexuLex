@@ -1,7 +1,7 @@
 // WAVE ST.3 — bake privacy.html and delete-account.html for 13 languages.
 const fs = require('fs');
 const path = require('path');
-const { LANGS, assertLegalWebPages, assertLegalWebTerms } = require('./legalWebAssert');
+const { LANGS, assertLegalWebPages, assertLegalWebTerms, assertLegalWebCompliance } = require('./legalWebAssert');
 
 const ROOT = path.join(__dirname, '..');
 const RTL = new Set(['ar', 'fa']);
@@ -107,7 +107,8 @@ const listing = fs.readFileSync(path.join(ROOT, 'STORE_LISTING.md'), 'utf8');
 try {
   const result = assertLegalWebPages(fs.readFileSync(privacyPath, 'utf8'), fs.readFileSync(deletePath, 'utf8'), listing);
   const terms = assertLegalWebTerms(fs.readFileSync(termsPath, 'utf8'));
-  console.log('Wrote privacy.html + delete-account.html + terms.html ×', result.langs, 'fixtures=', result.cases + terms.cases);
+  const compliance = assertLegalWebCompliance(fs.readFileSync(privacyPath, 'utf8'), fs.readFileSync(termsPath, 'utf8'));
+  console.log('Wrote privacy.html + delete-account.html + terms.html ×', result.langs, 'fixtures=', result.cases + terms.cases + compliance.cases);
 } catch (error) {
   console.error(error.message);
   process.exit(1);
