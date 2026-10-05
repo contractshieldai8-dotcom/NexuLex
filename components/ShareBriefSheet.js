@@ -229,6 +229,9 @@ export default function ShareBriefSheet({
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux22Pro')}</Text>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux22Guides')}</Text>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux22Disclaimer')}</Text>
+          {!isPro && !minted ? (
+            <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 12 }]}>{t('shareLimitFree')}</Text>
+          ) : null}
 
           {!minted ? (
             <>

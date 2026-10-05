@@ -9505,4 +9505,25 @@ Ticaret Unvanı: Anadolu Bilişim
   if ((rd('i18n.js').match(/WAVE_D1_I18N\.\w+,/g) || []).length !== 13) dFail('i18n.js must merge WAVE_D1_I18N for all 13 languages');
   if (ok) console.log('OK  WAVE D.1 paywall: plans + CTA above fine print, store-only monthly equivalent + trial, 2 keys x 13');
 }
+// WAVE D.2: share funnel timing - free accounts reach the brief sheet; the paywall answers only a server SHARE_LIMIT.
+{
+  let ok = true;
+  const dFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE D.2: ${m}`); };
+  const rd = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
+  const app = rd('App.js');
+  const fn = app.match(/const openShareBrief = \(target\) => \{[\s\S]*?\n  \};/);
+  if (!fn) dFail('openShareBrief not found');
+  else {
+    if (/openPaywall|lockPremium/.test(fn[0].replace(/\/\/.*$/gm, ''))) dFail('openShareBrief must not pre-empt the free brief with a paywall');
+    if (!/setShareSheetAnalysis\(target\)/.test(fn[0])) dFail('openShareBrief must open the share sheet');
+  }
+  const sheet = rd('components/ShareBriefSheet.js');
+  if (!/!isPro && !minted \?[\s\S]{0,200}t\('shareLimitFree'\)/.test(sheet)) dFail('sheet must tell free accounts about the 1 active brief before minting');
+  if (!/error\?\.code === 'SHARE_LIMIT'[\s\S]{0,120}onNeedPaywall\?\.\('share'\)/.test(sheet)) dFail('SHARE_LIMIT must still open the paywall');
+  const mint = rd('supabase/functions/mint-share/index.ts');
+  if (!/FREE_ACTIVE = [1-9]/.test(mint) || !/active >= cap\) return json\(\{ error: 'SHARE_LIMIT' \}, 402\)/.test(mint)) dFail('server must keep enforcing the free brief cap');
+  const wavee = rd('i18n.wavee.js');
+  if ((wavee.match(/shareLimitFree:/g) || []).length !== 13) dFail('shareLimitFree must exist in 13 languages');
+  if (ok) console.log('OK  WAVE D.2 share funnel: free brief reachable, server cap enforced, paywall only on SHARE_LIMIT');
+}
 process.exit(failed ? 1 : 0);

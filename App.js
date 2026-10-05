@@ -1441,10 +1441,8 @@ function AppContent() {
 
   const openShareBrief = (target) => {
     if (!target) return;
-    if (lockPremium) {
-      openPaywall('share');
-      return;
-    }
+    // D.2: free accounts keep 1 active brief (mint-share enforces the cap server-side), so the button opens
+    // the sheet for everyone. The paywall appears only when the server answers SHARE_LIMIT.
     setShareSheetAnalysis(target);
   };
 
