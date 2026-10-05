@@ -45,7 +45,9 @@ module.exports = {
 <h2 data-sec="analytics">12. Anonieme gebruiks- en foutrapporten</h2>
 <p>Om de app betrouwbaar te houden en te verbeteren, kan NexuLex AI korte anonieme gebeurtenissen versturen: bijvoorbeeld welke onderdelen worden gebruikt, of een analyse is voltooid of mislukt, de uitkomsten van het abonnementsscherm en aankopen, en het type fout. Elk rapport bevat een willekeurige installatie-ID die op je apparaat wordt aangemaakt (niet de hardware-ID van je apparaat), de appversie, het platform en de taal van de app. Rapporten bevatten nooit je contracten, teksten, afbeeldingen, e-mailadres, telefoonnummer of account-ID en worden niet gebruikt voor reclame of verkocht.</p>
 <p>In de Europese Economische Ruimte, het Verenigd Koninkrijk, Zwitserland, Turkije, Brazilië, India, Zuid-Korea en Zuid-Afrika wordt niets verzonden tenzij je dat toestaat. Elders staat het standaard aan. Je kunt dit op elk moment wijzigen via <strong>Instellingen → Privacy</strong>; uitzetten verwijdert rapporten die nog op je apparaat wachten. Rapporten worden opgeslagen in Supabase en uiterlijk na 180 dagen verwijderd.</p>
-<h2>13. Contact</h2>
+<h2 data-sec="invite">13. Uitnodigingscodes</h2>
+<p>Als u bent ingelogd, geeft NexuLex AI u een korte uitnodigingscode. Wanneer een vriend die invoert, slaan we de twee account-ID’s, de apparaat-ID van de vriend (dezelfde als voor het quotum gratis analyses) en de datum op, uitsluitend om de bonusanalyses toe te kennen en misbruik te voorkomen. Er wordt niets over uw contracten gedeeld. Als u uw account verwijdert, worden uw code en de koppelingen met accounts verwijderd; er kan een record zonder account-ID blijven bestaan zodat hetzelfde apparaat de bonus niet opnieuw kan claimen.</p>
+<h2>14. Contact</h2>
 <p>Privacyvragen: gebruik het Support-scherm in de app of schrijf de uitgever op de winkelvermelding.</p>`,
 
   deleteAccount: `<h1>Verwijder uw NexuLex AI-account</h1>

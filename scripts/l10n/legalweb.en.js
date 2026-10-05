@@ -52,7 +52,9 @@ module.exports = {
 <h2 data-sec="analytics">12. Anonymous usage and error reports</h2>
 <p>To keep the app reliable and improve it, NexuLex AI can send short anonymous events: for example which areas are used, whether an analysis finished or failed, paywall and purchase outcomes, and the type of an error. Each report carries a random install ID created on your device (not your device’s hardware ID), the app version, platform and app language. Reports never contain your contracts, text, images, email address, phone number or account ID, and are not used for advertising or sold.</p>
 <p>In the European Economic Area, the United Kingdom, Switzerland, Türkiye, Brazil, India, South Korea and South Africa, nothing is sent unless you allow it. Elsewhere it is on by default. You can change this at any time under <strong>Settings → Privacy</strong>; turning it off deletes any reports still waiting on your device. Reports are stored in Supabase and removed after at most 180 days.</p>
-<h2>13. Contact</h2>
+<h2 data-sec="invite">13. Invite codes</h2>
+<p>If you are signed in, NexuLex AI gives you a short invite code. When a friend enters it, we store the two account IDs, the friend’s device identifier (the one used for the free-analysis quota) and the date, only to grant the bonus analyses and to prevent abuse. Nothing about your contracts is shared. If you delete your account, your code and its account links are deleted; a record without any account ID may remain so the same device cannot claim the bonus again.</p>
+<h2>14. Contact</h2>
 <p>Questions about privacy: use the in-app Support screen or contact the publisher listed on the store listing.</p>`,
 
   deleteAccount: `<h1>Delete your NexuLex AI account</h1>

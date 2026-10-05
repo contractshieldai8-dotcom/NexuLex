@@ -45,7 +45,9 @@ module.exports = {
 <h2 data-sec="analytics">12. Rapports anonymes d’utilisation et d’erreurs</h2>
 <p>Pour garder l’application fiable et l’améliorer, NexuLex AI peut envoyer de courts événements anonymes : par exemple les zones utilisées, si une analyse s’est terminée ou a échoué, les résultats de l’écran d’abonnement et des achats, et le type d’une erreur. Chaque rapport contient un identifiant d’installation aléatoire créé sur votre appareil (et non l’identifiant matériel de votre appareil), la version de l’app, la plateforme et la langue de l’app. Les rapports ne contiennent jamais vos contrats, textes, images, adresse e-mail, numéro de téléphone ni identifiant de compte, et ne sont ni utilisés pour la publicité ni vendus.</p>
 <p>Dans l’Espace économique européen, au Royaume-Uni, en Suisse, en Türkiye, au Brésil, en Inde, en Corée du Sud et en Afrique du Sud, rien n’est envoyé sans votre accord. Ailleurs, c’est activé par défaut. Vous pouvez le modifier à tout moment dans <strong>Réglages → Confidentialité</strong> ; le désactiver efface les rapports encore en attente sur votre appareil. Les rapports sont stockés dans Supabase et supprimés au bout de 180 jours au plus.</p>
-<h2>13. Contact</h2>
+<h2 data-sec="invite">13. Codes d’invitation</h2>
+<p>Si vous êtes connecté, NexuLex AI vous attribue un court code d’invitation. Lorsqu’un ami le saisit, nous enregistrons les deux identifiants de compte, l’identifiant d’appareil de l’ami (celui utilisé pour le quota d’analyses gratuites) et la date, uniquement pour accorder les analyses bonus et prévenir les abus. Rien sur vos contrats n’est partagé. Si vous supprimez votre compte, votre code et ses liens avec les comptes sont supprimés ; un enregistrement sans identifiant de compte peut subsister afin que le même appareil ne puisse pas réclamer à nouveau le bonus.</p>
+<h2>14. Contact</h2>
 <p>Questions de confidentialité : utilisez l’écran Assistance dans l’app ou contactez l’éditeur indiqué sur la fiche boutique.</p>`,
 
   deleteAccount: `<h1>Supprimer votre compte NexuLex AI</h1>

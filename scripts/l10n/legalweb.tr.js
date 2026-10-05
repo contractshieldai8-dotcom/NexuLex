@@ -52,7 +52,9 @@ module.exports = {
 <h2 data-sec="analytics">12. Anonim kullanım ve hata raporları</h2>
 <p>Uygulamayı güvenilir tutmak ve geliştirmek için NexuLex AI kısa anonim olaylar gönderebilir: örneğin hangi alanların kullanıldığı, bir analizin tamamlanıp tamamlanmadığı, abonelik ekranı ve satın alma sonuçları ve hata türü. Her rapor, cihazınızda oluşturulan rastgele bir yükleme kimliğini (cihazınızın donanım kimliği değildir), uygulama sürümünü, platformu ve uygulama dilini taşır. Raporlar sözleşmelerinizi, metinlerinizi, görsellerinizi, e-posta adresinizi, telefon numaranızı veya hesap kimliğinizi asla içermez; reklam için kullanılmaz ve satılmaz.</p>
 <p>Avrupa Ekonomik Alanı, Birleşik Krallık, İsviçre, Türkiye, Brezilya, Hindistan, Güney Kore ve Güney Afrika’da siz izin vermedikçe hiçbir şey gönderilmez. Diğer yerlerde varsayılan olarak açıktır. Bunu istediğiniz zaman <strong>Ayarlar → Gizlilik</strong> bölümünden değiştirebilirsiniz; kapattığınızda cihazınızda bekleyen raporlar silinir. Raporlar Supabase’de saklanır ve en geç 180 gün sonra silinir.</p>
-<h2>13. İletişim</h2>
+<h2 data-sec="invite">13. Davet kodları</h2>
+<p>Giriş yaptıysanız NexuLex AI size kısa bir davet kodu verir. Bir arkadaşınız kodu girdiğinde, yalnızca bonus analizleri vermek ve kötüye kullanımı önlemek amacıyla iki hesap kimliğini, arkadaşın cihaz tanımlayıcısını (ücretsiz analiz hakkı için kullanılan) ve tarihi saklarız. Sözleşmelerinize dair hiçbir şey paylaşılmaz. Hesabınızı silerseniz kodunuz ve hesap bağlantıları silinir; aynı cihazın bonusu yeniden almasını önlemek için hesap kimliği içermeyen bir kayıt kalabilir.</p>
+<h2>14. İletişim</h2>
 <p>Gizlilik soruları için uygulama içi Destek ekranını kullanın veya mağaza kaydındaki yayıncıya yazın.</p>`,
 
   deleteAccount: `<h1>NexuLex AI hesabınızı silin</h1>

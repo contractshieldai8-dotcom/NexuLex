@@ -45,7 +45,9 @@ module.exports = {
 <h2 data-sec="analytics">12. Report anonimi di utilizzo ed errori</h2>
 <p>Per mantenere l’app affidabile e migliorarla, NexuLex AI può inviare brevi eventi anonimi: ad esempio quali aree vengono usate, se un’analisi è terminata o non è riuscita, gli esiti della schermata di abbonamento e degli acquisti e il tipo di errore. Ogni report contiene un ID di installazione casuale creato sul tuo dispositivo (non l’ID hardware), la versione dell’app, la piattaforma e la lingua dell’app. I report non contengono mai i tuoi contratti, testi, immagini, indirizzo e-mail, numero di telefono o ID dell’account e non vengono usati per la pubblicità né venduti.</p>
 <p>Nello Spazio economico europeo, nel Regno Unito, in Svizzera, in Turchia, in Brasile, India, Corea del Sud e Sudafrica non viene inviato nulla se non lo consenti. Altrove è attivo per impostazione predefinita. Puoi cambiarlo in qualsiasi momento in <strong>Impostazioni → Privacy</strong>; disattivandolo si eliminano i report ancora in attesa sul dispositivo. I report sono conservati in Supabase e rimossi dopo al massimo 180 giorni.</p>
-<h2>13. Contatti</h2>
+<h2 data-sec="invite">13. Codici invito</h2>
+<p>Se hai effettuato l’accesso, NexuLex AI ti assegna un breve codice invito. Quando un amico lo inserisce, conserviamo i due ID account, l’identificativo del dispositivo dell’amico (lo stesso usato per la quota di analisi gratuite) e la data, solo per assegnare le analisi bonus e prevenire abusi. Non viene condiviso nulla sui tuoi contratti. Se elimini l’account, il tuo codice e i relativi collegamenti agli account vengono eliminati; può restare un record privo di ID account affinché lo stesso dispositivo non possa richiedere di nuovo il bonus.</p>
+<h2>14. Contatti</h2>
 <p>Domande sulla privacy: usa la schermata Supporto nell’app o contatta l’editore indicato sulla scheda store.</p>`,
 
   deleteAccount: `<h1>Elimina il tuo account NexuLex AI</h1>

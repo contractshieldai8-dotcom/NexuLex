@@ -45,7 +45,9 @@ module.exports = {
 <h2 data-sec="analytics">12. Anonyme Nutzungs- und Fehlerberichte</h2>
 <p>Damit die App zuverlässig bleibt und besser wird, kann NexuLex AI kurze anonyme Ereignisse senden: etwa welche Bereiche genutzt werden, ob eine Analyse abgeschlossen wurde oder fehlgeschlagen ist, Paywall- und Kaufergebnisse sowie die Art eines Fehlers. Jeder Bericht enthält eine zufällige Installations-ID, die auf Ihrem Gerät erzeugt wird (nicht die Hardware-ID Ihres Geräts), die App-Version, die Plattform und die App-Sprache. Berichte enthalten niemals Ihre Verträge, Texte, Bilder, E-Mail-Adresse, Telefonnummer oder Konto-ID und werden weder für Werbung genutzt noch verkauft.</p>
 <p>Im Europäischen Wirtschaftsraum, im Vereinigten Königreich, in der Schweiz, in der Türkei, in Brasilien, Indien, Südkorea und Südafrika wird nichts gesendet, solange Sie nicht zustimmen. Anderswo ist die Funktion standardmäßig aktiv. Sie können das jederzeit unter <strong>Einstellungen → Datenschutz</strong> ändern; beim Ausschalten werden noch wartende Berichte auf Ihrem Gerät gelöscht. Die Berichte werden in Supabase gespeichert und nach spätestens 180 Tagen entfernt.</p>
-<h2>13. Kontakt</h2>
+<h2 data-sec="invite">13. Einladungscodes</h2>
+<p>Wenn Sie angemeldet sind, erhalten Sie von NexuLex AI einen kurzen Einladungscode. Gibt ein Freund ihn ein, speichern wir die beiden Konto-IDs, die Gerätekennung des Freundes (dieselbe wie für das Kontingent kostenloser Analysen) und das Datum – ausschließlich, um die Bonus-Analysen zu gewähren und Missbrauch zu verhindern. Über Ihre Verträge wird nichts geteilt. Wenn Sie Ihr Konto löschen, werden Ihr Code und dessen Kontoverknüpfungen gelöscht; ein Eintrag ohne Konto-ID kann bestehen bleiben, damit dasselbe Gerät den Bonus nicht erneut erhält.</p>
+<h2>14. Kontakt</h2>
 <p>Fragen zum Datenschutz: nutzen Sie den Support in der App oder schreiben Sie dem im Store genannten Herausgeber.</p>`,
 
   deleteAccount: `<h1>NexuLex AI-Konto löschen</h1>
