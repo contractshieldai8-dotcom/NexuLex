@@ -43,7 +43,9 @@
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "verify": "node scripts/verify-ui.js",
+    "test:sql": "node scripts/test-referrals-sql.mjs"
   },
   "private": true,
   "expo": {
@@ -58,6 +60,7 @@
     }
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
     "@types/react": "~19.2.4",
     "typescript": "~6.0.3"
   }

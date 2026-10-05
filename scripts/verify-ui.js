@@ -9837,6 +9837,16 @@ Ticaret Unvanı: Anadolu Bilişim
   // Rewards must never be tied to reviews or ratings (App Store 5.6.1 / Play policy)
   const storeFn = (sheet.match(/const openStore = \(\) => \{[\s\S]*?\r?\n  \};/) || [''])[0];
   if (!storeFn || /free_analyses|referral|reward|redeem|setProfile/i.test(storeFn) || /submitReferralCode = async[\s\S]{0,1400}(rateUrl|requestReview|StoreReview)/.test(app)) jFail('no reward may be linked to rating the app');
+  // The migrations are executed on a real Postgres engine (PGlite), not just pattern-checked.
+  const pkgJson = JSON.parse(rd('package.json') || '{}');
+  if (!fs.existsSync('scripts/test-referrals-sql.mjs') || !/test-referrals-sql\.mjs/.test((pkgJson.scripts || {})['test:sql'] || '') || !(pkgJson.devDependencies || {})['@electric-sql/pglite']) jFail('the referral SQL test must exist, be an npm script and have its devDependency');
+  else {
+    const run = require('child_process').spawnSync(process.execPath, ['scripts/test-referrals-sql.mjs'], { encoding: 'utf8', timeout: 120000 });
+    const out = `${run.stdout || ''}${run.stderr || ''}`;
+    const summary = (out.match(/pass=(\d+) fail=(\d+)/) || [])[0];
+    if (run.status !== 0 || !/fail=0/.test(out) || Number((out.match(/pass=(\d+)/) || [])[1]) < 30) jFail(`referral SQL test failed (${summary || 'no summary'}): ${out.split('\n').filter((l) => /FAIL|error/i.test(l)).slice(0, 3).join(' | ')}`);
+    else console.log(`OK  WAVE J SQL on real Postgres engine (PGlite): ${summary}`);
+  }
   if (ok) console.log('OK  WAVE J growth: give-1-get-1 invite codes (server-enforced: verified e-mail, 7 days, one per account and device, cap 5), zero contract data, 2 events, 17 keys x 13');
 }
 // WAVE K: the invited friend is asked once, right after sign-up, where to enter the code.
