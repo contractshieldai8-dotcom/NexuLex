@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 
 import { ACCENT, styles } from '../theme';
 import { useFeedback } from '../context/FeedbackContext';
+import { track } from '../services/telemetry';
 import { footKeyForHook } from '../constants/paywallIntent';
 import { isAnnualPackage, isMonthlyPackage, pickAnnualCompare } from '../constants/annualHighlight';
 import { pickProfessionalCompare } from '../constants/professionalCompare';
@@ -157,12 +158,21 @@ export default function PaywallScreen({
 
     setBusy(true);
     try {
+      track('purchase_start', { tier, hook: hook || 'general' });
       const outcome = await purchasePackage(selected, { tier });
-      if (outcome.plan !== 'free') finishAsPro(outcome);
-      else Alert.alert(t('paywallTitle'), t('paywallPurchaseFailed'));
+      if (outcome.plan !== 'free') {
+        track('purchase_ok', { tier, plan: outcome.plan, hook: hook || 'general' });
+        finishAsPro(outcome);
+      } else {
+        track('purchase_fail', { tier, code: 'NO_ENTITLEMENT' });
+        Alert.alert(t('paywallTitle'), t('paywallPurchaseFailed'));
+      }
     } catch (error) {
       // Kullanıcı vazgeçtiyse hata gösterilmez.
-      if (!isUserCancelled(error)) {
+      if (isUserCancelled(error)) {
+        track('purchase_cancel', { tier });
+      } else {
+        track('purchase_fail', { tier, code: String(error?.code || error?.name || 'ERROR') });
         console.warn('Satın alma hatası:', error.message);
         Alert.alert(t('errorTitle'), t('paywallPurchaseFailed'));
       }
@@ -175,8 +185,12 @@ export default function PaywallScreen({
     setBusy(true);
     try {
       const outcome = await restorePurchases();
-      if (outcome.plan !== 'free') finishAsPro(outcome);
-      else Alert.alert(t('paywallTitle'), t('paywallNoPurchases'));
+      if (outcome.plan !== 'free') {
+        track('restore_ok', { plan: outcome.plan });
+        finishAsPro(outcome);
+      } else {
+        Alert.alert(t('paywallTitle'), t('paywallNoPurchases'));
+      }
     } catch (error) {
       console.warn('Geri yükleme hatası:', error.message);
       Alert.alert(t('errorTitle'), t('paywallPurchaseFailed'));

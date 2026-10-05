@@ -133,6 +133,13 @@ import VoiceMicButton from './components/VoiceMicButton';
 import { shareIcsCalendar } from './utils/calendarExport';
 import { detectContractType, isSalesPreamble, isSaasPreamble, resolveAnalysisCategory } from './utils/contractType';
 import { saveContractReminders } from './services/reminders';
+import {
+  initTelemetry,
+  track,
+  isTelemetryEnabled,
+  setTelemetryEnabled,
+  askTelemetryConsentOnce,
+} from './services/telemetry';
 import { scheduleTrapReminders, subscribeReminderOpens } from './services/notifications';
 import { LIFECYCLES, lifecycleLabelKey, normalizeLifecycle } from './utils/lifecycle';
 import { resolveSourceText } from './utils/shieldDocument';
@@ -406,6 +413,7 @@ function AppContent() {
     setPaywallContext(context || null);
     setPaywallVisible(true);
     paywallHookRef.current = hook;
+    track('paywall_view', { hook: hook || 'general' });
   };
   useEffect(() => {
     const wasVisible = paywallWasVisibleRef.current;
@@ -589,6 +597,17 @@ function AppContent() {
     }
     return undefined;
   }, [appReady]);
+  // WAVE G: anonymous usage/error reports (consent-aware, fail-safe). Starts once the app is ready.
+  const telemetryStartedRef = useRef(false);
+  useEffect(() => {
+    if (!appReady || telemetryStartedRef.current) return;
+    telemetryStartedRef.current = true;
+    initTelemetry({ signedIn: Boolean(user) });
+  }, [appReady, user]);
+  const [telemetryOn, setTelemetryOn] = useState(() => isTelemetryEnabled());
+  useEffect(() => {
+    if (activeTab === 'settings') setTelemetryOn(isTelemetryEnabled());
+  }, [activeTab]);
   useEffect(() => {
     if (localeReady && authBootstrapped && shieldRestoreReady && holdSplashForShield) {
       setHoldSplashForShield(false);
@@ -2119,6 +2138,15 @@ function AppContent() {
       onProgress: setProgressStep,
     };
 
+    const analysisStartedAt = Date.now();
+    const analysisInput = pasted ? 'paste' : file ? 'file' : 'scan';
+    track('analysis_start', {
+      source: analysisInput,
+      category: contractCategory,
+      country: analysisCountry,
+      lang: reportLang,
+    });
+
     try {
       let data;
       let sourceText = '';
@@ -2195,6 +2223,17 @@ function AppContent() {
       }
       setOfferTiers({});
       setResult({ ...decorated, id: analysisId });
+      track('analysis_done', {
+        source: analysisInput,
+        category: resolvedCategory,
+        country: analysisCountry,
+        ms: Date.now() - analysisStartedAt,
+        ok: Boolean(billable),
+      });
+      // Strict-privacy regions: ask once, right after the user has seen value (never at launch).
+      setTimeout(() => {
+        askTelemetryConsentOnce().then(() => setTelemetryOn(isTelemetryEnabled()));
+      }, 2500);
       setAnalyzeSetupOpen(false);
       if (isAcceptableAnalysis(decorated, pasted || sourceText)) maybeOfferShareLoop();
       if (analysisId) rememberLastAnalysisId(analysisId);
@@ -2301,6 +2340,11 @@ function AppContent() {
         }
       }
     } catch (error) {
+      track('analysis_fail', {
+        source: analysisInput,
+        code: String(error?.code || error?.name || 'UNKNOWN'),
+        ms: Date.now() - analysisStartedAt,
+      });
       if (error?.code === QUOTA_ERRORS.QUOTA_EXHAUSTED) {
         openPaywall('quota');
       } else if (error?.code === 'UNREADABLE_FILE') {
@@ -4700,6 +4744,19 @@ function AppContent() {
                   <Text style={styles.secondaryBtnText}>{t('privacyPolicy')}</Text>
                 </TouchableOpacity>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 8 }]}>{t('st7Privacy')}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 4 }}>
+                  <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, flex: 1 }]}>{t('telSettingTitle')}</Text>
+                  <Switch
+                    value={telemetryOn}
+                    onValueChange={(val) => {
+                      setTelemetryOn(val);
+                      setTelemetryEnabled(val);
+                    }}
+                    thumbColor={telemetryOn ? '#00F5D4' : '#f4f3f4'}
+                    accessibilityLabel={t('telSettingTitle')}
+                  />
+                </View>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('telSettingHint')}</Text>
                 <TouchableOpacity
                   style={styles.secondaryBtn}
                   onPress={() => Linking.openURL(TRUST_URLS.terms || 'https://nexulexai.netlify.app/terms.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}

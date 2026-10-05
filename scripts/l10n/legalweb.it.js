@@ -42,7 +42,10 @@ module.exports = {
 <p>A seconda di dove vivi (ad esempio ai sensi del GDPR / UK GDPR, della LPD svizzera, della DSG austriaca, della KVKK turca, del DPDP Act indiano, della PIPEDA canadese e delle leggi provinciali o del Privacy Act australiano) puoi avere il diritto di accedere ai tuoi dati, rettificarli, cancellarli, portarli, limitarne il trattamento od opporti e di revocare il consenso. Puoi cancellare l’account nell’app. Per altre richieste scrivi a nexulexai@gmail.com dall’indirizzo registrato; rispondiamo entro il termine previsto dalla legge. Puoi anche presentare reclamo all’autorità di protezione dei dati del tuo paese.</p>
 <h2 data-sec="children">11. Minori, pubblicità e tracciamento</h2>
 <p>NexuLex AI è pensata per adulti dai 18 anni in su e non è rivolta ai minori. Non raccogliamo consapevolmente dati di minori; contattaci e li cancelleremo. L’app non contiene pubblicità né tracciamento tra app e non vendiamo dati personali.</p>
-<h2>12. Contatti</h2>
+<h2 data-sec="analytics">12. Report anonimi di utilizzo ed errori</h2>
+<p>Per mantenere l’app affidabile e migliorarla, NexuLex AI può inviare brevi eventi anonimi: ad esempio quali aree vengono usate, se un’analisi è terminata o non è riuscita, gli esiti della schermata di abbonamento e degli acquisti e il tipo di errore. Ogni report contiene un ID di installazione casuale creato sul tuo dispositivo (non l’ID hardware), la versione dell’app, la piattaforma e la lingua dell’app. I report non contengono mai i tuoi contratti, testi, immagini, indirizzo e-mail, numero di telefono o ID dell’account e non vengono usati per la pubblicità né venduti.</p>
+<p>Nello Spazio economico europeo, nel Regno Unito, in Svizzera, in Turchia, in Brasile, India, Corea del Sud e Sudafrica non viene inviato nulla se non lo consenti. Altrove è attivo per impostazione predefinita. Puoi cambiarlo in qualsiasi momento in <strong>Impostazioni → Privacy</strong>; disattivandolo si eliminano i report ancora in attesa sul dispositivo. I report sono conservati in Supabase e rimossi dopo al massimo 180 giorni.</p>
+<h2>13. Contatti</h2>
 <p>Domande sulla privacy: usa la schermata Supporto nell’app o contatta l’editore indicato sulla scheda store.</p>`,
 
   deleteAccount: `<h1>Elimina il tuo account NexuLex AI</h1>

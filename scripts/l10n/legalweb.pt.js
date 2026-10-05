@@ -42,7 +42,10 @@ module.exports = {
 <p>Consoante o local onde vive (por exemplo, ao abrigo do RGPD / UK GDPR, da LPD suíça, da DSG austríaca, da KVKK turca, da DPDP Act indiana, da PIPEDA canadiana e das leis provinciais ou da Privacy Act australiana), pode ter direito a aceder aos seus dados, retificá-los, apagá-los, portá-los, limitar o tratamento ou opor-se-lhe e retirar o consentimento. Pode apagar a conta na app. Para outros pedidos escreva para nexulexai@gmail.com a partir do endereço registado; respondemos no prazo que a lei exigir. Pode também apresentar reclamação à autoridade de proteção de dados do seu país.</p>
 <h2 data-sec="children">11. Crianças, publicidade e seguimento</h2>
 <p>A NexuLex AI destina-se a adultos com 18 anos ou mais e não se dirige a crianças. Não recolhemos conscientemente dados de crianças; contacte-nos e apagá-los-emos. A app não contém publicidade nem seguimento entre apps, e não vendemos dados pessoais.</p>
-<h2>12. Contacto</h2>
+<h2 data-sec="analytics">12. Relatórios anónimos de utilização e erros</h2>
+<p>Para manter a app fiável e melhorá-la, NexuLex AI pode enviar eventos anónimos curtos: por exemplo, que áreas são utilizadas, se uma análise terminou ou falhou, os resultados do ecrã de subscrição e das compras, e o tipo de erro. Cada relatório inclui um ID de instalação aleatório criado no seu dispositivo (não o ID de hardware), a versão da app, a plataforma e o idioma da app. Os relatórios nunca contêm os seus contratos, textos, imagens, endereço de e-mail, número de telefone nem ID da conta, e não são usados para publicidade nem vendidos.</p>
+<p>No Espaço Económico Europeu, no Reino Unido, na Suíça, na Turquia, no Brasil, na Índia, na Coreia do Sul e na África do Sul, não é enviado nada sem a sua autorização. Nos restantes países está ativo por predefinição. Pode alterá-lo a qualquer momento em <strong>Definições → Privacidade</strong>; ao desativá-lo, os relatórios ainda pendentes no dispositivo são eliminados. Os relatórios são guardados no Supabase e removidos após, no máximo, 180 dias.</p>
+<h2>13. Contacto</h2>
 <p>Questões de privacidade: use o ecrã de Apoio na app ou contacte o editor indicado na ficha da loja.</p>`,
 
   deleteAccount: `<h1>Apague a sua conta NexuLex AI</h1>

@@ -1075,9 +1075,9 @@ const WAVE_D1_I18N = eval(`(${waveD1Match[1]})`); // eslint-disable-line no-eval
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 2280) {
+  if (languages.length !== 13 || baseKeys.length !== 2289) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2280`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2289`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -9606,5 +9606,65 @@ Ticaret Unvanı: Anadolu Bilişim
     if ((i18nSrc.match(new RegExp(`^\\s+${k}: `, 'gm')) || []).length !== 13) fFail(`${k} must exist in 13 languages`);
   }
   if (ok) console.log('OK  WAVE F screen reader: icon-only buttons labelled, tab + checkbox roles, 2 keys x 13');
+}
+// WAVE G: measurement + stability. Anonymous, allow-listed, consent-aware, fail-safe.
+{
+  let ok = true;
+  const gFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE G: ${m}`); };
+  const rd = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
+  const core = require('../utils/telemetryCore.js');
+  // Pure helpers
+  const sp = core.sanitizeProps({ source: 'paste', ms: 1234.6, ok: true, email: 'a@b.co', nested: { a: 1 }, msg: 'mail me at jo@x.com or 123456789', arr: [1], code: 'x'.repeat(500) });
+  if (sp.email !== undefined || sp.nested !== undefined || sp.arr !== undefined) gFail('sanitizeProps must drop keys that are not allow-listed');
+  if (sp.ms !== 1235 || sp.ok !== true || sp.source !== 'paste') gFail('sanitizeProps must keep allow-listed scalars');
+  if (/@|\d{6,}/.test(sp.msg) || sp.code.length > 120) gFail('sanitizeProps must scrub emails, long numbers and cap length');
+  if (core.makeEvent('not_an_event', {}) !== null || !core.makeEvent('app_open', {})) gFail('makeEvent must accept only listed events');
+  const ep = core.errorProps({ name: 'TypeError', message: 'bad token jo@x.com 987654321', stack: 'SECRET' }, 'render');
+  if (JSON.stringify(ep).includes('SECRET') || /@|\d{6,}/.test(ep.msg)) gFail('error reports must carry no stack and a scrubbed message');
+  if (core.pushBounded(Array.from({ length: 100 }, (_, i) => i), 100).length !== 100 || core.pushBounded(Array.from({ length: 100 }, (_, i) => i), 100)[99] !== 100) gFail('queue must stay bounded');
+  if (!/^[a-f0-9]{16,64}$/.test(core.newInstallId())) gFail('install id format');
+  if (core.defaultConsent('DE') || core.defaultConsent('GB') || core.defaultConsent('TR') || core.defaultConsent('') || !core.defaultConsent('US') || !core.defaultConsent('CA') || !core.defaultConsent('AU')) gFail('consent default: strict regions off, others on');
+  // Client / server parity
+  const edge = rd('supabase/functions/log-event/index.ts');
+  const setOf = (name) => new Set(((edge.match(new RegExp(`const ${name} = new Set\\(\\[([\\s\\S]*?)\\]\\);`)) || [])[1] || '').match(/'[^']+'/g)?.map((x) => x.slice(1, -1)) || []);
+  const same = (a, b) => a.size === b.length && b.every((x) => a.has(x));
+  if (!same(setOf('EVENTS'), core.EVENTS)) gFail('log-event EVENTS must match utils/telemetryCore.js');
+  if (!same(setOf('PROP_KEYS'), core.PROP_KEYS)) gFail('log-event PROP_KEYS must match utils/telemetryCore.js');
+  if (/user_id|auth\.getUser|email\b.*insert/.test(edge.replace(/\/\/.*$/gm, '').replace(/\[email\]|\\\.|email address/g, ''))) gFail('log-event must not store account data');
+  if (!/SUPABASE_SERVICE_ROLE_KEY/.test(edge) || !/DAILY_CAP_PER_INSTALL/.test(edge)) gFail('log-event must write with the service role and cap per install');
+  if (!/\[functions\.log-event\][\s\S]{0,80}verify_jwt = false/.test(rd('supabase/config.toml'))) gFail('config.toml must register log-event (signed-out users can report)');
+  const mig = rd('supabase/migrations/20261005120000_app_events.sql');
+  if (!/alter table public\.app_events enable row level security/.test(mig) || /create policy/i.test(mig) || !/revoke all on table public\.app_events from public, anon, authenticated/.test(mig)) gFail('app_events must be RLS-locked with no policies');
+  if (/user_id|auth\.users/.test(mig)) gFail('app_events must not reference accounts');
+  // App wiring
+  const idx = rd('index.js');
+  if (!/<AppErrorBoundary>[\s\S]*<App \/>[\s\S]*<\/AppErrorBoundary>/.test(idx)) gFail('index.js must wrap App in AppErrorBoundary');
+  const boundary = rd('components/AppErrorBoundary.js');
+  if (!/getDerivedStateFromError/.test(boundary) || !/errBoundaryRetry/.test(boundary) || !/trackError/.test(boundary)) gFail('boundary needs fallback, retry and error report');
+  const svc = rd('services/telemetry.js');
+  if (!/defaultConsent\(deviceRegion\(\)\)/.test(svc) || !/needsTelemetryConsent/.test(svc) || !/ErrorUtils/.test(svc) || !/supabase\.functions\.invoke\('log-event'/.test(svc)) gFail('telemetry service must be consent-aware, hook ErrorUtils and post to log-event');
+  const app = rd('App.js');
+  for (const need of ["track('analysis_start'", "track('analysis_done'", "track('analysis_fail'", "track('paywall_view'", 'initTelemetry(', 'askTelemetryConsentOnce()', "accessibilityLabel={t('telSettingTitle')}"]) {
+    if (!app.includes(need)) gFail(`App.js missing ${need}`);
+  }
+  if (!/track\('purchase_start'/.test(rd('screens/PaywallScreen.js')) || !/track\('purchase_ok'/.test(rd('screens/PaywallScreen.js'))) gFail('paywall must report purchase_start / purchase_ok');
+  // Every track() call anywhere uses only listed events and keys
+  const sources = ['App.js', 'screens/PaywallScreen.js', 'components/ShareBriefSheet.js', 'components/AppErrorBoundary.js', 'services/telemetry.js'];
+  const evSet = new Set(core.EVENTS);
+  const keySet = new Set(core.PROP_KEYS);
+  for (const f of sources) {
+    for (const m of rd(f).matchAll(/\btrack\('([a-z_]+)'(?:,\s*\{([^}]*)\})?/g)) {
+      if (!evSet.has(m[1])) gFail(`${f}: unknown event ${m[1]}`);
+      for (const k of (m[2] || '').matchAll(/(?:^|,)\s*([a-z_]+)\s*(?::|(?=,|$))/g)) {
+        if (!keySet.has(k[1])) gFail(`${f}: property ${k[1]} is not allow-listed (event ${m[1]})`);
+      }
+    }
+  }
+  // 13 languages
+  const i18nSrc = rd('i18n.js');
+  for (const k of ['errBoundaryTitle', 'errBoundaryBody', 'errBoundaryRetry', 'telAskTitle', 'telAskBody', 'telAllow', 'telNotNow', 'telSettingTitle', 'telSettingHint']) {
+    if ((i18nSrc.match(new RegExp(`^\\s+${k}: `, 'gm')) || []).length !== 13) gFail(`${k} must exist in 13 languages`);
+  }
+  if (ok) console.log('OK  WAVE G measurement: anonymous allow-listed events, consent by region, error boundary + global handler, RLS-locked table, 9 keys x 13, privacy section x 13');
 }
 process.exit(failed ? 1 : 0);

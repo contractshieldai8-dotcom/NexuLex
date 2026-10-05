@@ -74,7 +74,7 @@ function assertLegalWebPages(privacy, del, listing) {
   return { cases, langs: LANGS.length };
 }
 
-const PRIVACY_SECTIONS = ['signup', 'voice', 'transfer', 'rights', 'children'];
+const PRIVACY_SECTIONS = ['signup', 'voice', 'transfer', 'rights', 'children', 'analytics'];
 const TERMS_SECTIONS = ['eligibility', 'renewal', 'ai', 'termin'];
 const STRIPPED = {
   fr: /(?<![\p{L}\p{M}'’])(d|l|n|s|c|j|t|m|qu) [aeiouyhàâéèêîôû]|\b(confidentialite|donnees|mise a jour|ecran|reglages|supprime|boutique ?:)\b/iu,

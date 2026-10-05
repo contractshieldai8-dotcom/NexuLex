@@ -49,7 +49,10 @@ module.exports = {
 <p>Yaşadığınız yere bağlı olarak (örneğin GDPR / UK GDPR, İsviçre FADP, Avusturya DSG, Türkiye KVKK, Hindistan DPDP Yasası, Kanada PIPEDA ve eyalet yasaları ya da Avustralya Privacy Act kapsamında) verilerinize erişme, düzeltme, silme, taşıma, işlenmesini kısıtlama veya itiraz etme ve rızanızı geri çekme haklarına sahip olabilirsiniz. Hesabınızı uygulamadan silebilirsiniz. Diğer talepler için kayıtlı adresinizden nexulexai@gmail.com adresine yazın; hukukun gerektirdiği süre içinde yanıt veririz. Ayrıca ülkenizdeki veri koruma kurumuna şikâyette bulunabilirsiniz.</p>
 <h2 data-sec="children">11. Çocuklar, reklam ve takip</h2>
 <p>NexuLex AI 18 yaş ve üzeri yetişkinlere yöneliktir, çocuklara yönelik değildir. Çocuklardan bilerek veri toplamayız; bize ulaşırsanız sileriz. Uygulamada reklam ve uygulamalar arası takip yoktur, kişisel verileri satmayız.</p>
-<h2>12. İletişim</h2>
+<h2 data-sec="analytics">12. Anonim kullanım ve hata raporları</h2>
+<p>Uygulamayı güvenilir tutmak ve geliştirmek için NexuLex AI kısa anonim olaylar gönderebilir: örneğin hangi alanların kullanıldığı, bir analizin tamamlanıp tamamlanmadığı, abonelik ekranı ve satın alma sonuçları ve hata türü. Her rapor, cihazınızda oluşturulan rastgele bir yükleme kimliğini (cihazınızın donanım kimliği değildir), uygulama sürümünü, platformu ve uygulama dilini taşır. Raporlar sözleşmelerinizi, metinlerinizi, görsellerinizi, e-posta adresinizi, telefon numaranızı veya hesap kimliğinizi asla içermez; reklam için kullanılmaz ve satılmaz.</p>
+<p>Avrupa Ekonomik Alanı, Birleşik Krallık, İsviçre, Türkiye, Brezilya, Hindistan, Güney Kore ve Güney Afrika’da siz izin vermedikçe hiçbir şey gönderilmez. Diğer yerlerde varsayılan olarak açıktır. Bunu istediğiniz zaman <strong>Ayarlar → Gizlilik</strong> bölümünden değiştirebilirsiniz; kapattığınızda cihazınızda bekleyen raporlar silinir. Raporlar Supabase’de saklanır ve en geç 180 gün sonra silinir.</p>
+<h2>13. İletişim</h2>
 <p>Gizlilik soruları için uygulama içi Destek ekranını kullanın veya mağaza kaydındaki yayıncıya yazın.</p>`,
 
   deleteAccount: `<h1>NexuLex AI hesabınızı silin</h1>

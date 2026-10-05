@@ -8,6 +8,7 @@ import { LogBox } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import App from './App';
+import AppErrorBoundary from './components/AppErrorBoundary';
 
 // Native olmayan ortamlarda kalan gürültülü uyarılar sarı kutuya düşmesin.
 LogBox.ignoreLogs([
@@ -22,7 +23,9 @@ LogBox.ignoreLogs([
 function Root() {
   return (
     <SafeAreaProvider>
-      <App />
+      <AppErrorBoundary>
+        <App />
+      </AppErrorBoundary>
     </SafeAreaProvider>
   );
 }

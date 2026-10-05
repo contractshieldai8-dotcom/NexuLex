@@ -42,7 +42,10 @@ module.exports = {
 <p>Según dónde viva (por ejemplo, conforme al RGPD / UK GDPR, la LPD suiza, la DSG austriaca, la KVKK turca, la ley DPDP de la India, la PIPEDA canadiense y las leyes provinciales o la Privacy Act australiana), puede tener derecho a acceder a sus datos, rectificarlos, suprimirlos, portarlos, limitar su tratamiento u oponerse a él, y a retirar su consentimiento. Puede borrar su cuenta en la app. Para otras solicitudes escriba a nexulexai@gmail.com desde su correo registrado; respondemos en el plazo que exija la ley. También puede reclamar ante la autoridad de protección de datos de su país.</p>
 <h2 data-sec="children">11. Menores, publicidad y seguimiento</h2>
 <p>NexuLex AI está pensada para adultos de 18 años o más y no se dirige a menores. No recogemos a sabiendas datos de menores; contáctenos y los borraremos. La app no contiene publicidad ni seguimiento entre apps, y no vendemos datos personales.</p>
-<h2>12. Contacto</h2>
+<h2 data-sec="analytics">12. Informes anónimos de uso y errores</h2>
+<p>Para mantener la app fiable y mejorarla, NexuLex AI puede enviar eventos anónimos breves: por ejemplo qué áreas se usan, si un análisis terminó o falló, los resultados de la pantalla de suscripción y de las compras, y el tipo de error. Cada informe incluye un ID de instalación aleatorio creado en tu dispositivo (no el ID de hardware), la versión de la app, la plataforma y el idioma de la app. Los informes nunca contienen tus contratos, textos, imágenes, correo electrónico, número de teléfono ni ID de cuenta, y no se usan para publicidad ni se venden.</p>
+<p>En el Espacio Económico Europeo, el Reino Unido, Suiza, Turquía, Brasil, India, Corea del Sur y Sudáfrica no se envía nada salvo que lo permitas. En el resto del mundo está activado por defecto. Puedes cambiarlo en cualquier momento en <strong>Ajustes → Privacidad</strong>; al desactivarlo se borran los informes que sigan pendientes en tu dispositivo. Los informes se guardan en Supabase y se eliminan como máximo a los 180 días.</p>
+<h2>13. Contacto</h2>
 <p>Preguntas de privacidad: use la pantalla de Soporte en la app o contacte al editor indicado en la ficha de la tienda.</p>`,
 
   deleteAccount: `<h1>Borre su cuenta de NexuLex AI</h1>

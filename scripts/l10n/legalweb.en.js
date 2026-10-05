@@ -49,7 +49,10 @@ module.exports = {
 <p>Depending on where you live (for example under the GDPR / UK GDPR, the Swiss FADP, Austria’s DSG, Türkiye’s KVKK, India’s DPDP Act, Canada’s PIPEDA and provincial laws, or Australia’s Privacy Act) you may have the right to access, correct, delete, export, restrict or object to the use of your data, and to withdraw consent. You can delete your account in the app. For other requests, email nexulexai@gmail.com from the address you registered with; we answer within the period the law requires. You may also complain to the data-protection authority in your country.</p>
 <h2 data-sec="children">11. Children, advertising and tracking</h2>
 <p>NexuLex AI is intended for adults aged 18 or over and is not directed at children. We do not knowingly collect data from children; contact us and we will delete it. The app contains no advertising and no cross-app tracking, and we do not sell personal data.</p>
-<h2>12. Contact</h2>
+<h2 data-sec="analytics">12. Anonymous usage and error reports</h2>
+<p>To keep the app reliable and improve it, NexuLex AI can send short anonymous events: for example which areas are used, whether an analysis finished or failed, paywall and purchase outcomes, and the type of an error. Each report carries a random install ID created on your device (not your device’s hardware ID), the app version, platform and app language. Reports never contain your contracts, text, images, email address, phone number or account ID, and are not used for advertising or sold.</p>
+<p>In the European Economic Area, the United Kingdom, Switzerland, Türkiye, Brazil, India, South Korea and South Africa, nothing is sent unless you allow it. Elsewhere it is on by default. You can change this at any time under <strong>Settings → Privacy</strong>; turning it off deletes any reports still waiting on your device. Reports are stored in Supabase and removed after at most 180 days.</p>
+<h2>13. Contact</h2>
 <p>Questions about privacy: use the in-app Support screen or contact the publisher listed on the store listing.</p>`,
 
   deleteAccount: `<h1>Delete your NexuLex AI account</h1>

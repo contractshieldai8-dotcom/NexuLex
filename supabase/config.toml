@@ -52,3 +52,9 @@ entrypoint = "./functions/pro-tools/index.ts"
 enabled = true
 verify_jwt = true
 entrypoint = "./functions/delete-account/index.ts"
+
+# WAVE G anonymous product events + error reports: allow-listed props only, no account data; open to signed-out users.
+[functions.log-event]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/log-event/index.ts"

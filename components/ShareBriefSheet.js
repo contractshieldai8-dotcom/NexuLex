@@ -20,6 +20,7 @@ import { SHARE_AUDIENCES } from '../utils/shareSnapshot';
 import { mintShare, revokeShare } from '../services/shareBrief';
 import { listAdvisorSeats, pushAdvisorBrief } from '../services/advisorSeat';
 import { useFeedback } from '../context/FeedbackContext';
+import { track } from '../services/telemetry';
 
 const AUDIENCE_KEYS = {
   household: { label: 'shareAudienceHousehold', hint: 'shareAudienceHouseholdHint' },
@@ -114,6 +115,7 @@ export default function ShareBriefSheet({
       }
       const result = await mintShare({ analysisId: id, audience, locale: lang });
       setMinted(result);
+      track('share_minted', { source: audience || 'default' });
       if (!briefViewUrl(result.code)) {
         showToast(t('shareUnavailable'), { type: 'warning' });
       } else {

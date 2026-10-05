@@ -42,7 +42,10 @@ module.exports = {
 <p>Afhankelijk van waar u woont (bijvoorbeeld onder de AVG / UK GDPR, de Zwitserse FADP, de Oostenrijkse DSG, de Turkse KVKK, de Indiase DPDP Act, de Canadese PIPEDA en provinciale wetten of de Australische Privacy Act) heeft u mogelijk het recht op inzage, correctie, verwijdering, overdraagbaarheid, beperking van de verwerking of bezwaar, en op intrekking van uw toestemming. U kunt uw account in de app verwijderen. Voor andere verzoeken schrijft u vanaf uw geregistreerde adres naar nexulexai@gmail.com; wij antwoorden binnen de wettelijke termijn. U kunt ook een klacht indienen bij de gegevensbeschermingsautoriteit van uw land.</p>
 <h2 data-sec="children">11. Kinderen, advertenties en tracking</h2>
 <p>NexuLex AI is bedoeld voor volwassenen van 18 jaar of ouder en richt zich niet op kinderen. Wij verzamelen niet bewust gegevens van kinderen; neem contact op en wij verwijderen ze. De app bevat geen advertenties en geen tracking tussen apps, en wij verkopen geen persoonsgegevens.</p>
-<h2>12. Contact</h2>
+<h2 data-sec="analytics">12. Anonieme gebruiks- en foutrapporten</h2>
+<p>Om de app betrouwbaar te houden en te verbeteren, kan NexuLex AI korte anonieme gebeurtenissen versturen: bijvoorbeeld welke onderdelen worden gebruikt, of een analyse is voltooid of mislukt, de uitkomsten van het abonnementsscherm en aankopen, en het type fout. Elk rapport bevat een willekeurige installatie-ID die op je apparaat wordt aangemaakt (niet de hardware-ID van je apparaat), de appversie, het platform en de taal van de app. Rapporten bevatten nooit je contracten, teksten, afbeeldingen, e-mailadres, telefoonnummer of account-ID en worden niet gebruikt voor reclame of verkocht.</p>
+<p>In de Europese Economische Ruimte, het Verenigd Koninkrijk, Zwitserland, Turkije, Brazilië, India, Zuid-Korea en Zuid-Afrika wordt niets verzonden tenzij je dat toestaat. Elders staat het standaard aan. Je kunt dit op elk moment wijzigen via <strong>Instellingen → Privacy</strong>; uitzetten verwijdert rapporten die nog op je apparaat wachten. Rapporten worden opgeslagen in Supabase en uiterlijk na 180 dagen verwijderd.</p>
+<h2>13. Contact</h2>
 <p>Privacyvragen: gebruik het Support-scherm in de app of schrijf de uitgever op de winkelvermelding.</p>`,
 
   deleteAccount: `<h1>Verwijder uw NexuLex AI-account</h1>
