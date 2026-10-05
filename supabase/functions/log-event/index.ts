@@ -23,6 +23,8 @@ const EVENTS = new Set([
   'share_minted',
   'app_error',
   'consent_choice',
+  'sample_loaded',
+  'first_value',
 ]);
 
 const PROP_KEYS = new Set([

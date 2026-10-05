@@ -26,6 +26,9 @@ import {
 const INSTALL_KEY = '@nexulex/telemetryInstall';
 const CONSENT_KEY = '@nexulex/telemetryConsent'; // 'on' | 'off'
 const QUEUE_KEY = '@nexulex/telemetryQueue';
+const FIRST_OPEN_KEY = '@nexulex/telemetryFirstOpen'; // local timestamp only, never sent as such
+const FIRST_VALUE_KEY = '@nexulex/telemetryFirstValue';
+const MAX_FIRST_VALUE_MS = 30 * 24 * 60 * 60 * 1000;
 const SEND_TIMEOUT_MS = 8000;
 
 const APP_VERSION = Constants.expoConfig?.version || '1.0.0';
@@ -155,6 +158,25 @@ export function track(name, props) {
   }
 }
 
+/**
+ * WAVE H: the activation moment. Reported once per install when the first real result is shown,
+ * with the time since the first launch (ms, capped). Skipped while telemetry is off, so it can still
+ * be recorded after the user opts in.
+ */
+export async function trackFirstValue(props) {
+  try {
+    await load();
+    if (!isTelemetryEnabled()) return;
+    if (await AsyncStorage.getItem(FIRST_VALUE_KEY)) return;
+    const opened = Number(await AsyncStorage.getItem(FIRST_OPEN_KEY)) || 0;
+    const elapsed = opened ? Math.min(Math.max(Date.now() - opened, 0), MAX_FIRST_VALUE_MS) : undefined;
+    await AsyncStorage.setItem(FIRST_VALUE_KEY, '1');
+    track('first_value', { ...(props || {}), ms: elapsed });
+  } catch {
+    // never throw
+  }
+}
+
 export function trackError(error, screen) {
   try {
     track('app_error', errorProps(error, screen));
@@ -244,6 +266,9 @@ export async function initTelemetry({ signedIn = false } = {}) {
   try {
     await load();
     installGlobalHandlers();
+    AsyncStorage.getItem(FIRST_OPEN_KEY)
+      .then((stored) => (stored ? null : AsyncStorage.setItem(FIRST_OPEN_KEY, String(Date.now()))))
+      .catch(() => {});
     track('app_open', { signed_in: Boolean(signedIn), lang: i18n.language || 'en' });
     flushTelemetry();
   } catch {

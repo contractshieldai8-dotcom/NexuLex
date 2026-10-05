@@ -139,7 +139,10 @@ import {
   isTelemetryEnabled,
   setTelemetryEnabled,
   askTelemetryConsentOnce,
+  trackFirstValue,
 } from './services/telemetry';
+import { readSampleDone, markSampleDone } from './services/activation';
+import { isSampleText, sampleIsFree, shouldOfferSample } from './utils/activationCore';
 import { scheduleTrapReminders, subscribeReminderOpens } from './services/notifications';
 import { LIFECYCLES, lifecycleLabelKey, normalizeLifecycle } from './utils/lifecycle';
 import { resolveSourceText } from './utils/shieldDocument';
@@ -604,6 +607,18 @@ function AppContent() {
     telemetryStartedRef.current = true;
     initTelemetry({ signedIn: Boolean(user) });
   }, [appReady, user]);
+  // WAVE H: "try a sample contract" for people who have nothing to paste yet. Hidden until the flag is read.
+  const [sampleDone, setSampleDone] = useState(true);
+  const sampleTextRef = useRef('');
+  useEffect(() => {
+    let alive = true;
+    readSampleDone().then((done) => {
+      if (alive) setSampleDone(done);
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
   const [telemetryOn, setTelemetryOn] = useState(() => isTelemetryEnabled());
   useEffect(() => {
     if (activeTab === 'settings') setTelemetryOn(isTelemetryEnabled());
@@ -2097,6 +2112,25 @@ function AppContent() {
     }
   };
 
+  // WAVE H: fills the paste box with a localized one-sided sample so a first-time user can see a real
+  // report in one tap. The user still picks a side; the first sample does not use a free analysis.
+  const loadSampleContract = () => {
+    if (loading) return;
+    const sample = t('hSampleText');
+    handleContractTextChange(sample);
+    sampleTextRef.current = sample;
+    setSelectedTypeKey('typeFreelance');
+    setDetectedTypeHint('typeFreelance');
+    setAnalysisParty((prev) => {
+      const next = coercePartyForCategory(prev, 'freelance');
+      if (next !== prev) savePartyRole(next).catch(() => {});
+      return next;
+    });
+    track('sample_loaded', { lang: reportLang });
+    showToast(t('hSampleLoaded'), { type: 'info', duration: 4500 });
+    if (!partyConfirmed) setTimeout(() => focusPartySelection(), 250);
+  };
+
   const handleAnalyzeText = async () => {
     const pasted = String(contractText || '').trim();
     const file = selectedFile;
@@ -2139,7 +2173,8 @@ function AppContent() {
     };
 
     const analysisStartedAt = Date.now();
-    const analysisInput = pasted ? 'paste' : file ? 'file' : 'scan';
+    const fromSample = Boolean(pasted) && isSampleText(pasted, sampleTextRef.current);
+    const analysisInput = fromSample ? 'sample' : pasted ? 'paste' : file ? 'file' : 'scan';
     track('analysis_start', {
       source: analysisInput,
       category: contractCategory,
@@ -2230,6 +2265,17 @@ function AppContent() {
         ms: Date.now() - analysisStartedAt,
         ok: Boolean(billable),
       });
+      if (billable) {
+        // WAVE H: the activation moment (once per install) and the one-time sample/real-result flag.
+        trackFirstValue({ source: analysisInput, category: resolvedCategory, country: analysisCountry, lang: reportLang });
+        if (!sampleDone) {
+          setSampleDone(true);
+          markSampleDone();
+        }
+        if (fromSample) {
+          setTimeout(() => showToast(t('hSampleDone'), { type: 'info', duration: 5200 }), 1400);
+        }
+      }
       // Strict-privacy regions: ask once, right after the user has seen value (never at launch).
       setTimeout(() => {
         askTelemetryConsentOnce().then(() => setTelemetryOn(isTelemetryEnabled()));
@@ -2326,7 +2372,9 @@ function AppContent() {
         setUpcomingDeadlines(await loadUpcomingDeadlines(user.id));
       }
 
-      if (quotaEnforced && !isPro && billable) {
+      // WAVE H: the very first sample is free; real contracts and later samples always use a credit.
+      const freeSample = sampleIsFree({ fromSample, sampleDone });
+      if (quotaEnforced && !isPro && billable && !freeSample) {
         try {
           const left = await consumeAnalysisCredit();
           if (typeof left === 'number' && left >= 0) {
@@ -4302,6 +4350,41 @@ function AppContent() {
                     onChangeText={handleContractTextChange}
                   />
                 </View>
+                {shouldOfferSample({
+                  sampleDone,
+                  hasText: Boolean(String(contractText || '').trim()),
+                  hasFile: Boolean(selectedFile),
+                  imageCount: selectedImages.length,
+                  loading,
+                  hasResult: Boolean(activeResult),
+                }) ? (
+                  <TouchableOpacity
+                    onPress={loadSampleContract}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('hSampleBtn')}
+                    style={{
+                      position: 'absolute',
+                      left: 10,
+                      bottom: 22,
+                      zIndex: 2,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 6,
+                      paddingHorizontal: 12,
+                      paddingVertical: 6,
+                      borderRadius: 16,
+                      borderWidth: 1,
+                      borderColor: ACCENT,
+                      backgroundColor: theme.inputBg,
+                      maxWidth: '75%',
+                    }}
+                  >
+                    <Ionicons name="sparkles-outline" size={14} color={ACCENT} />
+                    <Text style={{ color: ACCENT, fontSize: 12, fontWeight: '600', flexShrink: 1 }} numberOfLines={1}>
+                      {t('hSampleBtn')}
+                    </Text>
+                  </TouchableOpacity>
+                ) : null}
               </View>
               
               <TouchableOpacity 

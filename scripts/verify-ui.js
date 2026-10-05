@@ -1075,9 +1075,9 @@ const WAVE_D1_I18N = eval(`(${waveD1Match[1]})`); // eslint-disable-line no-eval
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 2289) {
+  if (languages.length !== 13 || baseKeys.length !== 2293) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2289`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2293`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -9666,5 +9666,51 @@ Ticaret Unvanı: Anadolu Bilişim
     if ((i18nSrc.match(new RegExp(`^\\s+${k}: `, 'gm')) || []).length !== 13) gFail(`${k} must exist in 13 languages`);
   }
   if (ok) console.log('OK  WAVE G measurement: anonymous allow-listed events, consent by region, error boundary + global handler, RLS-locked table, 9 keys x 13, privacy section x 13');
+}
+// WAVE H: first-minute activation. A one-tap sample contract, free once, and an "activation moment" event.
+{
+  let ok = true;
+  const hFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE H: ${m}`); };
+  const rd = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
+  const act = require('../utils/activationCore.js');
+  const core = require('../utils/telemetryCore.js');
+  // Pure helpers
+  if (!act.isSampleText('A  b\n c', 'A b c') || act.isSampleText('A b c d', 'A b c') || act.isSampleText('', '')) hFail('isSampleText must compare ignoring whitespace only and never match empty text');
+  const idle = { sampleDone: false, hasText: false, hasFile: false, imageCount: 0, loading: false, hasResult: false };
+  if (!act.shouldOfferSample(idle)) hFail('chip must show on an empty, idle screen');
+  for (const k of ['sampleDone', 'hasText', 'hasFile', 'loading', 'hasResult']) {
+    if (act.shouldOfferSample({ ...idle, [k]: true })) hFail(`chip must hide when ${k}`);
+  }
+  if (act.shouldOfferSample({ ...idle, imageCount: 2 })) hFail('chip must hide when scans are attached');
+  if (!act.sampleIsFree({ fromSample: true, sampleDone: false }) || act.sampleIsFree({ fromSample: true, sampleDone: true }) || act.sampleIsFree({ fromSample: false, sampleDone: false })) hFail('only the first sample is free');
+  for (const ev of ['sample_loaded', 'first_value']) if (!core.EVENTS.includes(ev)) hFail(`telemetry must list ${ev}`);
+  // 13 samples: present, real length (analysis cache needs >= 200 chars), 8 numbered clauses, all different
+  const i18nSrc = rd('i18n.js');
+  const samples = [...i18nSrc.matchAll(/^\s+hSampleText: ("(?:[^"\\]|\\.)*"),$/gm)].map((m) => { try { return JSON.parse(m[1]); } catch (e) { return ''; } });
+  if (samples.length !== 13) hFail(`hSampleText must exist in 13 languages (found ${samples.length})`);
+  samples.forEach((s, i) => {
+    if (s.length < 200) hFail(`sample #${i} is too short for the analysis cache`);
+    const clauses = s.split('\n').filter((l) => /^[0-9\u06F0-\u06F9]\s*[.．]/.test(l.trim()) || /^[0-9\u06F0-\u06F9][.．、:]/.test(l.trim()));
+    if (clauses.length < 8) hFail(`sample #${i} must have 8 numbered clauses`);
+    if (/[<>{}]|https?:/.test(s)) hFail(`sample #${i} must be plain text`);
+  });
+  if (new Set(samples).size !== samples.length) hFail('every language needs its own sample text');
+  for (const k of ['hSampleBtn', 'hSampleLoaded', 'hSampleDone']) {
+    if ((i18nSrc.match(new RegExp(`^\\s+${k}: `, 'gm')) || []).length !== 13) hFail(`${k} must exist in 13 languages`);
+  }
+  // App wiring
+  const app = rd('App.js');
+  if (!/const loadSampleContract = \(\) => \{[\s\S]{0,900}setSelectedTypeKey\('typeFreelance'\)[\s\S]{0,500}track\('sample_loaded'/.test(app)) hFail('loadSampleContract must set the freelance type and report sample_loaded');
+  const loaderBody = app.slice(app.indexOf('const loadSampleContract'), app.indexOf('const handleAnalyzeText'));
+  if (!loaderBody || /setPartyConfirmed\(/.test(loaderBody)) hFail('the sample must never pick the side for the user');
+  if (!/const analysisInput = fromSample \? 'sample'/.test(app)) hFail("analysis source must be 'sample' for sample runs");
+  if (!/const freeSample = sampleIsFree\(\{ fromSample, sampleDone \}\);[\s\S]{0,80}quotaEnforced && !isPro && billable && !freeSample/.test(app)) hFail('a credit must not be consumed for the first sample');
+  if (!/trackFirstValue\(\{[^}]*\}\);[\s\S]{0,200}markSampleDone\(\)/.test(app)) hFail('first_value must be reported and the sample flag stored after a billable result');
+  if (!/shouldOfferSample\(\{[\s\S]{0,600}\}\) \? \(\s*<TouchableOpacity[\s\S]{0,400}position: 'absolute'[\s\S]{0,900}t\('hSampleBtn'\)/.test(app)) hFail('chip must be an absolute overlay (no layout shift) behind shouldOfferSample');
+  if (!/accessibilityLabel=\{t\('hSampleBtn'\)\}/.test(app)) hFail('chip needs an accessibility label');
+  const tel = rd('services/telemetry.js');
+  if (!/export async function trackFirstValue/.test(tel) || !/FIRST_VALUE_KEY/.test(tel) || !/MAX_FIRST_VALUE_MS/.test(tel) || !/isTelemetryEnabled\(\)\) return;[\s\S]{0,120}FIRST_VALUE_KEY/.test(tel)) hFail('trackFirstValue must be once-only, consent-aware and capped');
+  if (/contract_text|contractText|sourceText/.test((tel.match(/export async function trackFirstValue[\s\S]*?\n\}/) || [''])[0])) hFail('first_value must carry no contract text');
+  if (ok) console.log('OK  WAVE H activation: sample chip (13 samples, overlay, free once, never picks a side), first_value event, 4 keys x 13');
 }
 process.exit(failed ? 1 : 0);

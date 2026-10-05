@@ -15,6 +15,8 @@ export const EVENTS = [
   'share_minted',
   'app_error',
   'consent_choice',
+  'sample_loaded',
+  'first_value',
 ];
 
 export const PROP_KEYS = [
