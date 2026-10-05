@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -37,8 +37,6 @@ export default function ShieldDocumentCard({
   onOpenDiff,
   placeSkipped,
   onShareBrief,
-  onBeforePreview,
-  onPreviewLayout,
   offerTierById = null,
   preferredTier = 'balanced',
 }) {
@@ -63,9 +61,23 @@ export default function ShieldDocumentCard({
       .filter(Boolean);
     return candidates.length > 0;
   }, [analysis, sourceText]);
-  const analysisKey = String(
-    analysis?.id || `${analysis?.score || 0}:${String(analysis?.summary || '').slice(0, 48)}`
-  );
+  // The key follows the report's content, not its database id. Saving an unsaved report
+  // (signing it, applying the shield) assigns an id; that must not look like a new report,
+  // or the open preview collapses and everything below it jumps.
+  const identityRef = useRef(null);
+  const contentSig = `${analysis?.score || 0}:${String(analysis?.summary || '').slice(0, 48)}`;
+  const idNow = String(analysis?.id || '');
+  const prevIdentity = identityRef.current;
+  if (
+    !prevIdentity ||
+    prevIdentity.sig !== contentSig ||
+    (prevIdentity.id && idNow && prevIdentity.id !== idNow)
+  ) {
+    identityRef.current = { sig: contentSig, id: idNow, key: idNow || contentSig };
+  } else if (!prevIdentity.id && idNow) {
+    identityRef.current = { ...prevIdentity, id: idNow };
+  }
+  const analysisKey = identityRef.current.key;
   const [selected, setSelected] = useState({});
   const [stitched, setStitched] = useState(null);
   const [placing, setPlacing] = useState(false);
@@ -77,7 +89,58 @@ export default function ShieldDocumentCard({
     });
     setSelected(next);
     setStitched(null);
-  }, [analysisKey, tierOpts]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [analysisKey]);
+
+  // Switching an offer tier keeps the user's picks and the open preview; the preview is
+  // re-stitched in place instead of being thrown away (which shoved the page).
+  const tierSeenRef = useRef(tierOpts);
+  useEffect(() => {
+    if (tierSeenRef.current === tierOpts) return;
+    tierSeenRef.current = tierOpts;
+    const fresh = listShieldPatches(analysis, tierOpts);
+    const merged = {};
+    fresh.forEach((item) => {
+      merged[item.id] = Object.prototype.hasOwnProperty.call(selected, item.id)
+        ? selected[item.id]
+        : item.defaultSelected;
+    });
+    setSelected(merged);
+    setStitched((prev) => {
+      if (!prev) return prev;
+      const source = [
+        resolveSourceText(analysis, sourceText),
+        analysis?.contract_text,
+        analysis?.contractText,
+        sourceText,
+      ]
+        .map((item) => String(item || '').trim())
+        .filter(Boolean)
+        .sort((a, b) => b.length - a.length)[0];
+      if (!source) return prev;
+      const lockedFirst = lockPremium ? fresh.find((item) => item.defaultSelected)?.id : null;
+      const ids = new Set(
+        fresh
+          .filter((item) => merged[item.id] && !(lockPremium && item.id !== lockedFirst))
+          .map((item) => item.id)
+      );
+      if (lockedFirst) ids.add(lockedFirst);
+      try {
+        const doc = stitchShieldDocument({
+          analysis,
+          sourceText: source,
+          selectedIds: ids,
+          banner,
+          preferredTier: tierOpts.preferredTier,
+          tierById: tierOpts.tierById,
+        });
+        return { ...doc, cut: prev.cut };
+      } catch {
+        return prev;
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tierOpts]);
 
   const firstRedId = patches.find((item) => item.defaultSelected)?.id;
   const banner = t('shieldBanner', {
@@ -177,7 +240,6 @@ export default function ShieldDocumentCard({
       lastMaddeNo(source) > lastMaddeNo(doc.text) ||
       (source.length > String(doc.text || '').length + 80 && tailIsMidWord(doc.text));
     // Toast only when source is incomplete — truncated patches may skip without blocking Apply.
-    onBeforePreview?.();
     setStitched({ ...doc, cut: sourceCut || ateTail });
     if (sourceCut) {
       showToast(t('errExtractTruncated'), { type: 'warning' });
@@ -225,7 +287,6 @@ export default function ShieldDocumentCard({
           }
         }
         const nextDoc = { ...doc, text: nextText, skipped: still };
-        onBeforePreview?.();
         setStitched(nextDoc);
         persistIfReady(nextDoc);
       } finally {
@@ -414,7 +475,7 @@ export default function ShieldDocumentCard({
       </View>
 
       {stitched?.text ? (
-        <View style={{ marginTop: 12 }} onLayout={() => onPreviewLayout?.()}>
+        <View style={{ marginTop: 12 }}>
           {(stitched.skipped || []).filter((item) => item.reason === 'not_found').length ? (
             <Text style={[styles.sectionHint, { color: WARNING }]}>
               {t('shieldSkipUnmatched', {

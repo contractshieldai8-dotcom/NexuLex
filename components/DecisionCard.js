@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Alert, Platform, Share, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Platform, ScrollView, Share, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import * as Sharing from 'expo-sharing';
@@ -13,6 +13,8 @@ import {
   safeDisplayText,
 } from '../utils/analysis';
 import { useFeedback } from '../context/FeedbackContext';
+
+const READY_MESSAGE_BOX_H = 152;
 
 const ACTION_TONE = {
   SIGN: { color: SUCCESS, icon: 'checkmark-circle' },
@@ -320,9 +322,19 @@ export default function DecisionCard({
             </TouchableOpacity>
           </View>
           <Text style={[styles.sectionHint, { color: theme.subText }]}>{t('counterMessageHint')}</Text>
-          <Text style={[styles.decisionReasonText, { color: theme.text, flexShrink: 1, flexWrap: 'wrap' }]}>
-            {safeDisplayText(readyMessage)}
-          </Text>
+          {/* Fixed-height box: the message changes with every offer tier the user taps further
+              down the report, and a growing/shrinking card here would shove the whole page. */}
+          <View style={{ height: READY_MESSAGE_BOX_H }}>
+            <ScrollView
+              nestedScrollEnabled
+              showsVerticalScrollIndicator
+              keyboardShouldPersistTaps="handled"
+            >
+              <Text style={[styles.decisionReasonText, { color: theme.text, flex: 0, flexWrap: 'wrap' }]}>
+                {safeDisplayText(readyMessage)}
+              </Text>
+            </ScrollView>
+          </View>
         </View>
       ) : null}
 

@@ -9126,7 +9126,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/opacity: speaking \? 1 : 0/.test(layers) || !layers.includes('listenBriefing')) {
     uxFail('listen control must keep its height while speaking');
   }
-  if (!app.includes('signedStripHRef') || !/openSignedStrip\(\)\.catch/.test(app)) {
+  if (!app.includes('renderSignedStrip') || !/openSignedStrip\(\)\.catch/.test(app)) {
     uxFail('signing must not shove the report; the signed strip still opens on purpose');
   }
   if (!app.includes('pendingSignedScrollRef') || !/contentFlexGrow=\{activeResult \? 0 : 1\}/.test(app)) {
@@ -9157,8 +9157,8 @@ Ticaret Unvanı: Anadolu Bilişim
     uxFail('listen duration must sit out of the row and stay hidden while idle');
   }
   if (layers.includes("decisionShareText:") ) uxFail('shared decisionShareText must not move into the listen component');
-  if (!app.includes('shieldScrollLockRef') || !shield.includes('onPreviewLayout') || !shield.includes('onBeforePreview?.()')) {
-    uxFail('shield preview must restore scroll after it lays out');
+  if (/shieldScrollLockRef|onPreviewLayout|onBeforePreview/.test(app + shield) || !shield.includes('identityRef')) {
+    uxFail('shield preview must stay put by keeping its identity, not by scrolling after layout');
   }
   if (!/pendingSignedScrollRef\.current/.test(app) || !/contentFlexGrow=\{activeResult \? 0 : 1\}/.test(app)) {
     uxFail('signed-scroll goldens must stay');
@@ -9177,21 +9177,22 @@ Ticaret Unvanı: Anadolu Bilişim
   const app = fs.readFileSync('App.js', 'utf8');
   const layers = fs.readFileSync('components/AnalysisLayers.js', 'utf8');
   const history = fs.readFileSync('screens/HistoryScreen.js', 'utf8');
-  const stripAt = app.indexOf('signedStripHRef.current = next');
-  const strip = app.slice(stripAt, stripAt + 420);
-  if (!strip.includes('(next - prev)') || strip.includes('next <= prev')) {
-    uxFail('shield strip must compensate grow and shrink');
+  if (!app.includes('renderSignedStrip(true)') || !app.includes('showReportStrip') || !app.includes('showHomeStrip')) {
+    uxFail('signed strip must sit under the lifecycle chips while a report is open');
   }
-  if (!app.includes('stripScrollHoldRef') || !app.includes('baseY - h')) {
-    uxFail('shield strip collapse must subtract the cached height');
+  if (/stripScrollHoldRef|signedStripHRef/.test(app)) {
+    uxFail('signed strip must not need a scroll correction');
+  }
+  if (!/showReportStrip = !loading && openReportSigned/.test(app)) {
+    uxFail('signed strip follows the open report lifecycle');
   }
   const tierAt = app.indexOf('const setOfferTier');
   const tierFn = app.slice(tierAt, app.indexOf('const onCounterOfferLayout'));
-  if (tierFn.includes('requestAnimationFrame') || !app.includes('offerScrollLockRef')) {
-    uxFail('offer tier must restore scroll from the counter-text layout, not from setOfferTier');
+  if (tierFn.includes('requestAnimationFrame') || tierFn.includes('scrollTo') || /offerScrollLockRef/.test(app)) {
+    uxFail('offer tier must be a plain state swap with no scroll correction');
   }
-  if (!app.includes('onCounterOfferLayout') || !app.includes('lock.itemId')) {
-    uxFail('counter-offer text must report layout per clause id');
+  if (!app.includes('onCounterOfferLayout') || !app.includes('offerMinH')) {
+    uxFail('counter-offer text must only grow its reserved height per clause');
   }
   const signedAt = app.indexOf('const scrollToSignedReport');
   if (app.slice(signedAt, signedAt + 1200).includes('measureInWindow')) {
@@ -9239,11 +9240,11 @@ Ticaret Unvanı: Anadolu Bilişim
   };
   const app = fs.readFileSync('App.js', 'utf8');
   const history = fs.readFileSync('screens/HistoryScreen.js', 'utf8');
-  if (!app.includes('stripScrollHoldRef') || !app.includes('signedShieldCountRef')) {
-    uxFail('lifecycle strip scroll must capture y before count changes');
+  if (!app.includes('signedShieldCountRef') || /stripScrollHoldRef/.test(app)) {
+    uxFail('lifecycle strip must not hold scroll');
   }
-  if (!app.includes('lock.itemId') || !app.includes('cur.seq !== seq')) {
-    uxFail('offer tier scroll lock must be scoped per clause and sequenced');
+  if (/offerScrollLockRef|lock\.itemId/.test(app)) {
+    uxFail('offer tier must not scroll-lock');
   }
   const histFetch = app.slice(app.indexOf('historyLoadedRef'), app.indexOf('const fetchHistory'));
   if (histFetch.includes('activeTab')) uxFail('history fetch must not rerun on every tab switch');
@@ -9263,15 +9264,15 @@ Ticaret Unvanı: Anadolu Bilişim
   };
   const app = fs.readFileSync('App.js', 'utf8');
   const analysis = fs.readFileSync('utils/analysis.js', 'utf8');
-  if (!app.includes('showAnalyzeStrip') || !app.includes("normalizeLifecycle(result?.lifecycle) === 'signed'")) {
+  if (!app.includes('showReportStrip') || !app.includes("normalizeLifecycle(result?.lifecycle) === 'signed'")) {
     uxFail('shield strip must follow the open report lifecycle');
   }
   if (!/if\s*\(\s*appReady\s*\)\s*SplashScreen\.hideAsync/.test(app)) {
     uxFail('splash must still hide when the app is ready');
   }
   if (!/backgroundColor:\s*'#000000'/.test(app)) uxFail('ready underlay must stay');
-  if (!app.includes('offerRowRefs') || !app.includes('cur.seq !== seq')) {
-    uxFail('offer chips must anchor the measured row');
+  if (app.includes('offerRowRefs')) {
+    uxFail('offer chips must not measure rows');
   }
   const tierAt = app.indexOf('const setOfferTier');
   const tierFn = app.slice(tierAt, app.indexOf('const onCounterOfferLayout'));
@@ -9367,6 +9368,38 @@ Ticaret Unvanı: Anadolu Bilişim
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
   if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
   if (uxOk) console.log('OK  WAVE UX.39 IN / CA / AU / AT / CH: selector, profiles, official sources, disabled packs, labels × 13');
+}
+
+// WAVE A — no layout shift when lifecycle, offer tier, or shield preview change
+{
+  let uxOk = true;
+  const uxFail = (msg) => {
+    failed = true;
+    uxOk = false;
+    console.log(`WAVE A ${msg}`);
+  };
+  const app = fs.readFileSync('App.js', 'utf8');
+  const decision = fs.readFileSync('components/DecisionCard.js', 'utf8');
+  const shield = fs.readFileSync('components/ShieldDocumentCard.js', 'utf8');
+  if (!/READY_MESSAGE_BOX_H/.test(decision) || !/height: READY_MESSAGE_BOX_H/.test(decision)) {
+    uxFail('ready-to-send message must live in a fixed-height box (it changes with every offer tier)');
+  }
+  if (!/\}, \[analysisKey\]\);/.test(shield) || /\}, \[analysisKey, tierOpts\]\);/.test(shield)) {
+    uxFail('shield preview must reset on report change only, never on an offer tier tap');
+  }
+  if (!/prevIdentity\.id !== idNow/.test(shield) || !/key: idNow \|\| contentSig/.test(shield)) {
+    uxFail('assigning a database id must not look like a new report');
+  }
+  if (!/tierSeenRef/.test(shield) || !/stitchShieldDocument\(\{/.test(shield.slice(shield.indexOf('tierSeenRef')))) {
+    uxFail('offer tier must re-stitch the open preview in place');
+  }
+  if (/analyzeScrollRef\.current\?\.scrollTo\?\.\(\{ y: Math\.max\(0, (baseY|y) /.test(app.slice(app.indexOf('const showReportStrip'), app.indexOf('const settleClausePin')))) {
+    uxFail('strip must not scroll-correct');
+  }
+  if (!/lifecycleChips|<LifecycleChips/.test(app) || app.indexOf('renderSignedStrip(true)') < app.indexOf('<LifecycleChips')) {
+    uxFail('signed strip must render after the lifecycle chips');
+  }
+  if (uxOk) console.log('OK  WAVE A no layout shift: fixed ready box, sticky shield identity, strip under chips, plain tier swap');
 }
 
 process.exit(failed ? 1 : 0);

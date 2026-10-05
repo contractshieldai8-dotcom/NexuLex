@@ -387,11 +387,7 @@ function AppContent() {
   const reportAnchorRef = useRef(null);
   const reportYRef = useRef(0);
   const scrollOffsetRef = useRef(0);
-  const shieldScrollLockRef = useRef(null);
-  const signedStripHRef = useRef(0);
   const signedShieldCountRef = useRef(0);
-  const stripScrollHoldRef = useRef(null);
-  const offerScrollLockRef = useRef(null);
   const clausePinRef = useRef(null);
   const clausePadScrollRef = useRef(null);
   const analyzeViewportHRef = useRef(0);
@@ -421,23 +417,10 @@ function AppContent() {
   }, [signedShieldCount]);
 
   const openReportSigned = normalizeLifecycle(result?.lifecycle) === 'signed';
-  const showAnalyzeStrip = !loading && (openReportSigned || (!result && signedShieldCount > 0));
-  useEffect(() => {
-    if (showAnalyzeStrip) return;
-    const hold = stripScrollHoldRef.current;
-    const h = hold?.mode === 'unmount' ? Number(hold.h) || 0 : Number(signedStripHRef.current) || 0;
-    signedStripHRef.current = 0;
-    if (!h || pendingSignedScrollRef.current) {
-      if (hold?.mode === 'unmount') stripScrollHoldRef.current = null;
-      return;
-    }
-    const baseY = hold?.y != null ? Number(hold.y) || 0 : Number(scrollOffsetRef.current) || 0;
-    requestAnimationFrame(() => {
-      if (pendingSignedScrollRef.current) return;
-      analyzeScrollRef.current?.scrollTo?.({ y: Math.max(0, baseY - h), animated: false });
-      if (stripScrollHoldRef.current?.mode === 'unmount') stripScrollHoldRef.current = null;
-    });
-  }, [showAnalyzeStrip]);
+  // The signed-shield strip never pushes the report: with a report open it sits under the
+  // lifecycle chips (below the tapped control); on the empty home it sits at the top.
+  const showReportStrip = !loading && openReportSigned;
+  const showHomeStrip = !loading && !result && signedShieldCount > 0;
 
   const settleClausePin = useCallback(() => {
     const pin = clausePinRef.current;
@@ -1356,68 +1339,21 @@ function AppContent() {
     setCopiedKey(`${keyPrefix}-counter-${index}`);
   };
 
-  const offerRowRefs = useRef({});
+  // Offer tier chips only swap local state. Nothing above the tapped chip changes height
+  // (the ready-to-send message has a fixed box), and the counter text below only ever grows
+  // its reserved height, so the page never needs a scroll correction.
+  const [offerMinH, setOfferMinH] = useState({});
+  const offerKey = (item, itemId) =>
+    `${itemId}:${String(item?.clauseTitle || item?.title || item?.flag || item?.issue || '').slice(0, 24)}`;
 
   const setOfferTier = (itemId, tier) => {
-    const current = offerTiers[itemId] || 'balanced';
-    if (current === tier) return;
-    const commit = (anchor) => {
-      if (!pendingSignedScrollRef.current) {
-        const seq = (offerScrollLockRef.current?.seq || 0) + 1;
-        offerScrollLockRef.current = { itemId, seq, anchor };
-      }
-      setOfferTiers((prev) => ({ ...prev, [itemId]: tier }));
-    };
-    const row = offerRowRefs.current[itemId];
-    const relative = analyzeContentRef.current;
-    if (pendingSignedScrollRef.current || !row || !relative || typeof row.measureLayout !== 'function') {
-      commit(null);
-      return;
-    }
-    try {
-      row.measureLayout(
-        relative,
-        (_x, y) => {
-          const scrollY = Number(scrollOffsetRef.current) || 0;
-          commit((Number(y) || 0) - scrollY);
-        },
-        () => commit(null)
-      );
-    } catch {
-      commit(null);
-    }
+    setOfferTiers((prev) => ((prev[itemId] || 'balanced') === tier ? prev : { ...prev, [itemId]: tier }));
   };
 
-  const onCounterOfferLayout = (itemId) => {
-    const lock = offerScrollLockRef.current;
-    if (!lock || lock.itemId !== itemId || pendingSignedScrollRef.current) return;
-    const { seq, anchor } = lock;
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        const cur = offerScrollLockRef.current;
-        if (pendingSignedScrollRef.current || !cur || cur.seq !== seq || cur.itemId !== itemId) return;
-        const row = offerRowRefs.current[itemId];
-        const relative = analyzeContentRef.current;
-        const finish = (y) => {
-          if (offerScrollLockRef.current?.seq !== seq) return;
-          analyzeScrollRef.current?.scrollTo?.({ y: Math.max(0, y), animated: false });
-          offerScrollLockRef.current = null;
-        };
-        if (anchor == null || !row || !relative || typeof row.measureLayout !== 'function') {
-          finish(Number(scrollOffsetRef.current) || 0);
-          return;
-        }
-        try {
-          row.measureLayout(
-            relative,
-            (_x, y) => finish((Number(y) || 0) - anchor),
-            () => finish(Number(scrollOffsetRef.current) || 0)
-          );
-        } catch {
-          finish(Number(scrollOffsetRef.current) || 0);
-        }
-      });
-    });
+  const onCounterOfferLayout = (key, event) => {
+    const h = Math.ceil(Number(event?.nativeEvent?.layout?.height) || 0);
+    if (!h) return;
+    setOfferMinH((prev) => (h > (prev[key] || 0) ? { ...prev, [key]: h } : prev));
   };
 
   const renderOfferTierChips = (item, itemId) => {
@@ -1431,12 +1367,7 @@ function AppContent() {
     ].filter((chip) => String(offers[chip.id] || '').trim());
     if (chips.length < 2) return null;
     return (
-      <View
-        ref={(node) => {
-          offerRowRefs.current[itemId] = node;
-        }}
-        collapsable={false}
-        style={styles.offerTierRow}
+      <View collapsable={false} style={styles.offerTierRow}
       >
         {chips.map((chip) => {
           const selected = active === chip.id;
@@ -1469,6 +1400,28 @@ function AppContent() {
       </View>
     );
   };
+
+  const renderSignedStrip = (inline = false) => (
+    <TouchableOpacity
+      onPress={() => openSignedStrip().catch(() => {})}
+      activeOpacity={0.85}
+      style={inline ? { marginBottom: 12 } : null}
+    >
+      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>
+        {t('shieldStrip', {
+          count: signedShieldCount,
+          next: (() => {
+            const next = sortDeadlines(upcomingDeadlines)[0];
+            if (next?.date) return formatDate(next.date);
+            return next?.note || '—';
+          })(),
+        })}
+      </Text>
+      <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 8 }]}>
+        {t('shieldResumeHint')}
+      </Text>
+    </TouchableOpacity>
+  );
 
   const copyCounterMessage = async (message) => {
     await Clipboard.setStringAsync(message || '');
@@ -1871,17 +1824,6 @@ function AppContent() {
       return;
     }
     applyLocalAnalysisPatch(row, { lifecycle });
-    const openId = String(resultRef.current?.id || '');
-    const viewingThis = openId ? openId === String(row.id) : Boolean(resultRef.current);
-    const signedNow = lifecycle === 'signed';
-    const signedBefore = previous === 'signed';
-    if (!pendingSignedScrollRef.current && viewingThis && signedNow !== signedBefore) {
-      stripScrollHoldRef.current = {
-        y: Number(scrollOffsetRef.current) || 0,
-        h: Number(signedStripHRef.current) || 0,
-        mode: signedNow ? 'mount' : 'unmount',
-      };
-    }
     if (lifecycle === 'signed') {
       setSignedShieldCount((count) => count + (previous === 'signed' ? 0 : 1));
       armSignedReminders(row).catch(() => {
@@ -2957,7 +2899,10 @@ function AppContent() {
                     </TouchableOpacity>
                   </View>
                   {renderOfferTierChips(flag, flagId)}
-                  <View onLayout={() => onCounterOfferLayout(flagId)}>
+                  <View
+                    style={{ minHeight: offerMinH[offerKey(flag, flagId)] || undefined }}
+                    onLayout={(event) => onCounterOfferLayout(offerKey(flag, flagId), event)}
+                  >
                     <Text style={styles.counterText}>{safeDisplayText(offer)}</Text>
                   </View>
                 </View>
@@ -3122,7 +3067,10 @@ function AppContent() {
                 </TouchableOpacity>
               </View>
               {renderOfferTierChips(item, clauseId)}
-              <View onLayout={() => onCounterOfferLayout(clauseId)}>
+              <View
+                style={{ minHeight: offerMinH[offerKey(item, clauseId)] || undefined }}
+                onLayout={(event) => onCounterOfferLayout(offerKey(item, clauseId), event)}
+              >
                 <Text style={styles.counterText}>{safeDisplayText(offer)}</Text>
               </View>
             </View>
@@ -3337,19 +3285,6 @@ function AppContent() {
             setModalVisible(false);
           }}
           onShareBrief={() => openShareBrief(fullRaw || analysis)}
-          onBeforePreview={() => {
-            if (pendingSignedScrollRef.current) return;
-            shieldScrollLockRef.current = Number(scrollOffsetRef.current) || 0;
-          }}
-          onPreviewLayout={() => {
-            const y = shieldScrollLockRef.current;
-            if (y == null || pendingSignedScrollRef.current) return;
-            requestAnimationFrame(() => {
-              if (pendingSignedScrollRef.current || shieldScrollLockRef.current == null) return;
-              analyzeScrollRef.current?.scrollTo?.({ y: shieldScrollLockRef.current, animated: false });
-              shieldScrollLockRef.current = null;
-            });
-          }}
           placeSkipped={
             lockPremium
               ? undefined
@@ -3382,6 +3317,7 @@ function AppContent() {
             handleLifecycleChange(fullRaw || analysis, code).catch(() => {});
           }}
         />
+        {keyPrefix === 'result' && showReportStrip ? renderSignedStrip(true) : null}
 
         <View style={[styles.scoreCard, { backgroundColor: theme.cardBg, borderColor: getRiskColor(analysis.risk) }]}>
           <Text style={[styles.scoreTitle, { color: theme.subText }]}>{t('securityScore')}</Text>
@@ -4338,36 +4274,7 @@ function AppContent() {
               </>
               ) : null}
 
-              {showAnalyzeStrip ? (
-                <TouchableOpacity
-                  onPress={() => openSignedStrip().catch(() => {})}
-                  activeOpacity={0.85}
-                  onLayout={(event) => {
-                    const next = Number(event?.nativeEvent?.layout?.height) || 0;
-                    const prev = signedStripHRef.current;
-                    signedStripHRef.current = next;
-                    if (next === prev || pendingSignedScrollRef.current) return;
-                    const hold = stripScrollHoldRef.current;
-                    const baseY = hold ? Number(hold.y) || 0 : Number(scrollOffsetRef.current) || 0;
-                    if (hold || baseY > 8) analyzeScrollRef.current?.scrollTo?.({ y: Math.max(0, baseY + (next - prev)), animated: false });
-                    if (hold?.mode === 'mount') stripScrollHoldRef.current = null;
-                  }}
-                >
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>
-                    {t('shieldStrip', {
-                      count: signedShieldCount,
-                      next: (() => {
-                        const next = sortDeadlines(upcomingDeadlines)[0];
-                        if (next?.date) return formatDate(next.date);
-                        return next?.note || '—';
-                      })(),
-                    })}
-                  </Text>
-                  <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 8 }]}>
-                    {t('shieldResumeHint')}
-                  </Text>
-                </TouchableOpacity>
-              ) : null}
+              {showHomeStrip ? renderSignedStrip() : null}
 
               {!loading && upcomingDeadlines.length > 0 && !activeResult && !holdAnalyzeHome ? (
                 <DeadlineRadar
