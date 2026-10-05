@@ -1,5 +1,6 @@
 // WAVE J: invite codes (give 1 free analysis, get 1). The server decides everything; the app only
 // shows the result. Every function is fail-safe: it returns null or a typed error, never crashes the UI.
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { supabase } from './supabase';
 import { isValidCode, normalizeCode, parseReferral, referralErrorKey } from '../utils/referralCore';
 
@@ -24,5 +25,24 @@ export async function redeemReferral(rawCode) {
     return { ok: true, left: Number.isFinite(left) ? left : null };
   } catch (error) {
     return { ok: false, key: referralErrorKey(error?.message) };
+  }
+}
+
+// WAVE K: the invite-code offer for new accounts is shown once per install, then never again.
+const ASKED_KEY = '@nexulex/refAsked';
+
+export async function readRefAsked() {
+  try {
+    return (await AsyncStorage.getItem(ASKED_KEY)) === '1';
+  } catch {
+    return true; // when storage fails, never nag
+  }
+}
+
+export async function markRefAsked() {
+  try {
+    await AsyncStorage.setItem(ASKED_KEY, '1');
+  } catch {
+    // ignore
   }
 }

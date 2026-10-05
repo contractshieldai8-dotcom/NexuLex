@@ -54,3 +54,17 @@ export function parseReferral(data) {
     redeemed: Boolean(row.redeemed),
   };
 }
+
+export const CODE_WINDOW_DAYS = 7;
+
+/**
+ * One-time "do you have an invite code?" offer for a brand-new, verified account.
+ * Stops asking a day before the server window closes so the offer is never a dead end.
+ */
+export function shouldOfferCode({ createdAt, verified, redeemed, asked, now = Date.now() } = {}) {
+  if (!verified || redeemed || asked) return false;
+  const created = new Date(createdAt).getTime();
+  if (!Number.isFinite(created)) return false;
+  const ageMs = now - created;
+  return ageMs >= 0 && ageMs < (CODE_WINDOW_DAYS - 1) * 24 * 60 * 60 * 1000;
+}

@@ -1075,9 +1075,9 @@ const WAVE_D1_I18N = eval(`(${waveD1Match[1]})`); // eslint-disable-line no-eval
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 2320) {
+  if (languages.length !== 13 || baseKeys.length !== 2322) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2320`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2322`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -9838,5 +9838,35 @@ Ticaret Unvanı: Anadolu Bilişim
   const storeFn = (sheet.match(/const openStore = \(\) => \{[\s\S]*?\r?\n  \};/) || [''])[0];
   if (!storeFn || /free_analyses|referral|reward|redeem|setProfile/i.test(storeFn) || /submitReferralCode = async[\s\S]{0,1400}(rateUrl|requestReview|StoreReview)/.test(app)) jFail('no reward may be linked to rating the app');
   if (ok) console.log('OK  WAVE J growth: give-1-get-1 invite codes (server-enforced: verified e-mail, 7 days, one per account and device, cap 5), zero contract data, 2 events, 17 keys x 13');
+}
+// WAVE K: the invited friend is asked once, right after sign-up, where to enter the code.
+{
+  let ok = true;
+  const kFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE K: ${m}`); };
+  const rd = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
+  const rc = require('../utils/referralCore.js');
+  const now = Date.UTC(2026, 9, 5, 12, 0, 0);
+  const day = 24 * 60 * 60 * 1000;
+  const base = { createdAt: new Date(now - day).toISOString(), verified: true, redeemed: false, asked: false, now };
+  if (!rc.shouldOfferCode(base)) kFail('a new verified account is offered the code once');
+  if (rc.shouldOfferCode({ ...base, verified: false }) || rc.shouldOfferCode({ ...base, redeemed: true }) || rc.shouldOfferCode({ ...base, asked: true })) kFail('never offered when unverified, already redeemed or already asked');
+  if (rc.shouldOfferCode({ ...base, createdAt: new Date(now - 6 * day).toISOString() }) || rc.shouldOfferCode({ ...base, createdAt: new Date(now - 30 * day).toISOString() })) kFail('offer stops a day before the 7-day server window closes');
+  if (rc.shouldOfferCode({ ...base, createdAt: 'nonsense' }) || rc.shouldOfferCode({ ...base, createdAt: new Date(now + day).toISOString() }) || rc.shouldOfferCode()) kFail('bad dates never offer');
+  const i18nSrc = rd('i18n.js');
+  ['refAskBody', 'refAskYes'].forEach((k) => {
+    if ((i18nSrc.match(new RegExp(`^\\s+${k}: `, 'gm')) || []).length !== 13) kFail(`${k} must exist in 13 languages`);
+  });
+  const svc = rd('services/referral.js');
+  if (!/@nexulex\/refAsked/.test(svc) || !/readRefAsked[\s\S]{0,200}return true; \/\/ when storage fails, never nag/.test(svc)) kFail('the ask flag is stored and fails closed');
+  const app = rd('App.js');
+  const block = (app.match(/WAVE K: a brand-new[\s\S]*?\}, \[appReady, userId\]\);/) || [''])[0];
+  if (!block) kFail('offer effect missing');
+  if (!/setTimeout\(async \(\) => \{/.test(block) || !/\}, 6000\);/.test(block)) kFail('the offer waits a few seconds, never at the first frame');
+  if (!/overlayBusyRef\.current\) return;/.test(block)) kFail('the offer never stacks on another sheet');
+  if (!/mine\.redeemed\) return;[\s\S]{0,60}await markRefAsked\(\);[\s\S]{0,40}showModal/.test(block)) kFail('only users who have not redeemed are asked, and the flag is stored before the dialog');
+  if (!/cancelLabel: t\('telNotNow'\)/.test(block) || !/setPendingSettingsSection\(\{ id: 'invite'/.test(block)) kFail('the dialog can be dismissed and its action scrolls to the invite card');
+  if (!/catch \{\s*\/\* an optional offer must never break the app \*\//.test(block)) kFail('the offer is fail-safe');
+  if (!/onLayout=\{onSettingsSectionLayout\('invite'\)\}/.test(app)) kFail('the invite card must register its scroll anchor');
+  if (ok) console.log('OK  WAVE K invited-friend offer: once per install, only new verified accounts inside the 7-day window, no stacking, scrolls to the code field, 2 keys x 13');
 }
 process.exit(failed ? 1 : 0);

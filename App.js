@@ -143,8 +143,8 @@ import {
   askTelemetryConsentOnce,
   trackFirstValue,
 } from './services/telemetry';
-import { fetchMyReferral, redeemReferral } from './services/referral';
-import { formatCode, isValidCode, withInviteCode } from './utils/referralCore';
+import { fetchMyReferral, redeemReferral, readRefAsked, markRefAsked } from './services/referral';
+import { formatCode, isValidCode, shouldOfferCode, withInviteCode } from './utils/referralCore';
 import { buildInvitePayload, inviteUrl } from './constants/shareLoop';
 import { readSampleDone, markSampleDone } from './services/activation';
 import { isSampleText, sampleIsFree, shouldOfferSample } from './utils/activationCore';
@@ -754,6 +754,39 @@ function AppContent() {
       cancelled = true;
     };
   }, [userId, activeTab, shareLoopOpen]);
+  // WAVE K: a brand-new, verified account is asked once whether a friend invited them.
+  useEffect(() => {
+    if (!appReady || !userId) return undefined;
+    let cancelled = false;
+    const timer = setTimeout(async () => {
+      try {
+        const asked = await readRefAsked();
+        if (cancelled || !shouldOfferCode({ createdAt: user?.created_at, verified: Boolean(user?.email_confirmed_at), asked })) return;
+        if (overlayBusyRef.current) return; // never stack on another sheet; the next launch tries again
+        const mine = await fetchMyReferral();
+        if (cancelled || !mine || mine.redeemed) return;
+        await markRefAsked();
+        const choice = await showModal({
+          title: t('refHaveCode'),
+          message: t('refAskBody'),
+          confirmLabel: t('refAskYes'),
+          cancelLabel: t('telNotNow'),
+        });
+        if (choice === 'confirm') {
+          setReferral(mine);
+          setActiveTab('settings');
+          setPendingSettingsSection({ id: 'invite', nonce: Date.now() });
+        }
+      } catch {
+        /* an optional offer must never break the app */
+      }
+    }, 6000);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appReady, userId]);
   const shareReferralCode = async () => {
     if (!referral?.code) return;
     try {
@@ -4951,6 +4984,7 @@ function AppContent() {
 
               {userId ? (
                 <View
+                  onLayout={onSettingsSectionLayout('invite')}
                   style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
                 >
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
