@@ -212,7 +212,7 @@ export default function LegalContractGenerator({
           </>
         )}
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={[styles.proposalBtn, { borderColor: ACCENT, opacity: empty || truncated ? 0.4 : 1 }]}
             disabled={empty || truncated}
             onPress={() => {
@@ -222,7 +222,7 @@ export default function LegalContractGenerator({
             <Ionicons name="copy-outline" size={14} color={ACCENT} />
             <Text style={styles.proposalBtnText}>{t('genCopy')}</Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={[styles.proposalBtn, { borderColor: ACCENT, opacity: empty || truncated ? 0.4 : 1 }]}
             disabled={empty || truncated}
             onPress={() => {
@@ -279,7 +279,7 @@ export default function LegalContractGenerator({
       />
 
       <Text style={[styles.label, { color: theme.subText }]}>{t('genTopic')}</Text>
-      <TextInput
+      <TextInput accessibilityLabel={t('genTopicPlaceholder')}
         style={[
           styles.input,
           styles.textArea,
@@ -293,7 +293,7 @@ export default function LegalContractGenerator({
         editable={!loading}
       />
 
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         style={[styles.primaryButton, loading && styles.buttonDisabled]}
         onPress={() => {
           handleGenerate().catch((error) => showToast(describeError(t, error), { type: 'error' }));

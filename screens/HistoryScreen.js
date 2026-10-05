@@ -253,7 +253,7 @@ export default function HistoryScreen({
     const meta = historyRadarMeta(item, normalized);
 
     return (
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         style={[
           styles.historyCard,
           {
@@ -273,7 +273,7 @@ export default function HistoryScreen({
             {t('scoreText')}: {item.score}/100 · {getRiskLabel(item.overall_risk)}
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               onPress={() => onLifecyclePress?.(item)}
               activeOpacity={0.85}
               hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
@@ -299,7 +299,7 @@ export default function HistoryScreen({
                 );
               })()}
             </TouchableOpacity>
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               style={styles.historyDeleteBtn}
               onPress={() => confirmDelete(item)}
               disabled={isDeleting}
@@ -349,7 +349,7 @@ export default function HistoryScreen({
             {t('clauseCountLabel', { count: normalized.clauses.length })}
           </Text>
 
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={styles.historyDeleteBtn}
             onPress={() => onShareItem?.(item)}
             disabled={isDeleting}

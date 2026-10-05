@@ -9928,4 +9928,15 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/invite a friend with your code/.test(JSON.parse(rd('store/listings/en.json')).apple.whatsNew)) lFail('EN release notes must mention the invite code');
   if (ok) console.log('OK  WAVE L store truth: Data Safety / App Privacy cover analytics + referral, no tracking SDK or PII props, release notes x 13, get.html section preserved');
 }
+// WAVE M: screen-reader semantics are enforced by an AST audit, not by regex (zero tolerance ratchet).
+{
+  let ok = true;
+  const mFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE M: ${m}`); };
+  const r = require('./a11y-audit.js').audit();
+  if (r.touch < 300) mFail(`audit saw only ${r.touch} touchables: the walker is broken`);
+  r.touchMissing.slice(0, 12).forEach((m) => mFail(`touchable needs accessibilityRole/Label: ${m}`));
+  r.inputMissing.slice(0, 12).forEach((m) => mFail(`input needs accessibilityLabel: ${m}`));
+  r.other.slice(0, 12).forEach((m) => mFail(`control needs accessibility semantics: ${m}`));
+  if (ok) console.log(`OK  WAVE M accessibility: ${r.touch} touchables have a role and a spoken name (icon-only ones labelled), ${r.input} inputs labelled, switches labelled, modals closable`);
+}
 process.exit(failed ? 1 : 0);

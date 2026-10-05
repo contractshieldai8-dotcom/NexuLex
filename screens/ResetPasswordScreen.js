@@ -121,7 +121,7 @@ export default function ResetPasswordScreen({ visible, theme, email, onDone, onC
               </Text>
 
               <View style={styles.passwordRow}>
-                <TextInput
+                <TextInput accessibilityLabel={t('newPasswordPlaceholder')}
                   style={[
                     styles.input,
                     styles.passwordInput,
@@ -135,7 +135,7 @@ export default function ResetPasswordScreen({ visible, theme, email, onDone, onC
                   autoCapitalize="none"
                   autoComplete="new-password"
                 />
-                <TouchableOpacity
+                <TouchableOpacity accessibilityRole="button"
                   style={styles.passwordToggle}
                   onPress={() => setSecure((prev) => !prev)}
                   hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
@@ -165,7 +165,7 @@ export default function ResetPasswordScreen({ visible, theme, email, onDone, onC
                 </View>
               ) : null}
 
-              <TextInput
+              <TextInput accessibilityLabel={t('confirmPasswordPlaceholder')}
                 style={[
                   styles.input,
                   {
@@ -189,7 +189,7 @@ export default function ResetPasswordScreen({ visible, theme, email, onDone, onC
                 </Text>
               ) : null}
 
-              <TouchableOpacity
+              <TouchableOpacity accessibilityRole="button"
                 style={[styles.primaryButton, !canSubmit && { opacity: 0.5 }]}
                 onPress={handleSubmit}
                 disabled={!canSubmit}
@@ -208,7 +208,7 @@ export default function ResetPasswordScreen({ visible, theme, email, onDone, onC
                 )}
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.secondaryBtn} onPress={handleCancel} disabled={saving}>
+              <TouchableOpacity accessibilityRole="button" style={styles.secondaryBtn} onPress={handleCancel} disabled={saving}>
                 <Text style={styles.secondaryBtnText}>{t('cancelReset')}</Text>
               </TouchableOpacity>
             </View>

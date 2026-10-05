@@ -229,7 +229,7 @@ export default function DecisionCard({
                   {t(LADDER_KEY[step?.step] || 'ladderAsk')}
                 </Text>
                 {step?.ask ? (
-                  <TouchableOpacity onPress={() => copyText(step.ask).catch(() => {})} activeOpacity={0.8}>
+                  <TouchableOpacity accessibilityRole="button" onPress={() => copyText(step.ask).catch(() => {})} activeOpacity={0.8}>
                     <Text style={[styles.decisionReasonText, { color: theme.subText }]}>
                       {safeDisplayText(step.ask)}
                     </Text>
@@ -241,7 +241,7 @@ export default function DecisionCard({
                   </Text>
                 ) : null}
                 {step?.counter ? (
-                  <TouchableOpacity onPress={() => copyText(step.counter).catch(() => {})} activeOpacity={0.8}>
+                  <TouchableOpacity accessibilityRole="button" onPress={() => copyText(step.counter).catch(() => {})} activeOpacity={0.8}>
                     <Text style={[styles.deadlineMeta, { color: ACCENT, marginTop: 4 }]}>
                       {t('ladderCounter')}: {safeDisplayText(step.counter)}
                     </Text>
@@ -272,7 +272,7 @@ export default function DecisionCard({
 
       {showNegotiateCta ? (
         <View style={{ width: '100%', marginTop: 8 }}>
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={[styles.primaryButton, { width: '100%' }]}
             onPress={onUnlock}
             activeOpacity={0.85}
@@ -286,7 +286,7 @@ export default function DecisionCard({
           </Text>
         </View>
       ) : extraReasons > 0 ? (
-        <TouchableOpacity onPress={onUnlock} activeOpacity={0.8}>
+        <TouchableOpacity accessibilityRole="button" onPress={onUnlock} activeOpacity={0.8}>
           <Text style={[styles.lockedMoreText, { color: ACCENT }]}>{t('lockedUnlockAll')}</Text>
         </TouchableOpacity>
       ) : null}
@@ -309,7 +309,7 @@ export default function DecisionCard({
             <Text style={[styles.takeawayTitle, { color: theme.text, flex: 1 }]} numberOfLines={1}>
               {t('counterMessageTitle')}
             </Text>
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               onPress={() => handleCopyCounter().catch(() => {})}
               hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
               accessibilityLabel={t('copyCounterMessage')}
@@ -340,7 +340,7 @@ export default function DecisionCard({
 
       {typeof onVerifyRevision === 'function' ? (
         <View style={{ width: '100%', marginTop: 10 }}>
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={[styles.secondaryBtn, { width: '100%', marginTop: 0 }]}
             onPress={() => onVerifyRevision()}
             activeOpacity={0.85}
@@ -356,7 +356,7 @@ export default function DecisionCard({
       ) : null}
 
       <View style={{ flexDirection: 'column', width: '100%', gap: 8, marginTop: 8 }}>
-        <TouchableOpacity
+        <TouchableOpacity accessibilityRole="button"
           style={[styles.decisionShareBtn, { borderColor: theme.borderColor, width: '100%' }]}
           onPress={handleShare}
           disabled={busy}
@@ -366,7 +366,7 @@ export default function DecisionCard({
           <Text style={styles.decisionShareText} numberOfLines={1}>{t('decisionShare')}</Text>
         </TouchableOpacity>
         {typeof onShareBrief === 'function' ? (
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={[styles.decisionShareBtn, { borderColor: theme.borderColor, width: '100%' }]}
             onPress={() => onShareBrief()}
             activeOpacity={0.85}

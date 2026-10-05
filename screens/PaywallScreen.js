@@ -212,7 +212,7 @@ export default function PaywallScreen({
     const monthly = isMonthlyPackage(pkg);
 
     return (
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         key={pkg.identifier}
         activeOpacity={0.85}
         onPress={() => setSelectedId(pkg.identifier)}
@@ -274,7 +274,7 @@ export default function PaywallScreen({
           <Text style={[styles.sectionHeader, { color: theme.text, flex: 1, marginBottom: 0 }]}>
             {t('paywallTitle')}
           </Text>
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             onPress={onClose}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
             accessibilityLabel={t('closeButton')}
@@ -399,7 +399,7 @@ export default function PaywallScreen({
               </Text>
             ) : null}
 
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               style={[styles.primaryButton, (!canPurchase || busy) && { opacity: 0.5 }]}
               onPress={handlePurchase}
               disabled={!canPurchase || busy}
@@ -419,12 +419,12 @@ export default function PaywallScreen({
             </TouchableOpacity>
 
             {available ? (
-              <TouchableOpacity style={styles.secondaryBtn} onPress={handleRestore} disabled={busy}>
+              <TouchableOpacity accessibilityRole="button" style={styles.secondaryBtn} onPress={handleRestore} disabled={busy}>
                 <Text style={styles.secondaryBtnText}>{t('paywallRestore')}</Text>
               </TouchableOpacity>
             ) : null}
 
-            <TouchableOpacity style={styles.secondaryBtn} onPress={onClose}>
+            <TouchableOpacity accessibilityRole="button" style={styles.secondaryBtn} onPress={onClose}>
               <Text style={styles.secondaryBtnText}>{t('paywallLater')}</Text>
             </TouchableOpacity>
 
@@ -469,12 +469,12 @@ export default function PaywallScreen({
             </View>
 
             <View style={{ marginTop: 16, alignItems: 'center', gap: 8 }}>
-              <TouchableOpacity onPress={() => openLegal(PRIVACY_URL)} activeOpacity={0.85}>
+              <TouchableOpacity accessibilityRole="button" onPress={() => openLegal(PRIVACY_URL)} activeOpacity={0.85}>
                 <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 0 }]}>
                   {t('privacyPolicy')}
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => openLegal(TERMS_URL)} activeOpacity={0.85}>
+              <TouchableOpacity accessibilityRole="button" onPress={() => openLegal(TERMS_URL)} activeOpacity={0.85}>
                 <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 0 }]}>
                   {t('termsOfUse')}
                 </Text>

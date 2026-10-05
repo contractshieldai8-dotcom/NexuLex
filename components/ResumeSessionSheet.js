@@ -79,7 +79,7 @@ export default function ResumeSessionSheet({ visible, theme, items = [], onPick,
                 <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={ACCENT} />
               </TouchableOpacity>
             ))}
-            <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={onSkip}>
+            <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={onSkip}>
               <Text style={styles.secondaryBtnText}>{t('rsSkip')}</Text>
             </TouchableOpacity>
             <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('ux18Disclaimer')}</Text>

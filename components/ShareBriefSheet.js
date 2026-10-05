@@ -241,7 +241,7 @@ export default function ShareBriefSheet({
                 {SHARE_AUDIENCES.map((code) => {
                   const active = audience === code;
                   return (
-                    <TouchableOpacity
+                    <TouchableOpacity accessibilityRole="button"
                       key={code}
                       onPress={() => setAudience(code)}
                       style={[styles.typeChip, active && styles.typeChipActive]}
@@ -257,7 +257,7 @@ export default function ShareBriefSheet({
               <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8 }]}>
                 {t(AUDIENCE_KEYS[audience].hint)}
               </Text>
-              <TouchableOpacity
+              <TouchableOpacity accessibilityRole="button"
                 style={[styles.primaryButton, { marginTop: 16 }, busy && styles.buttonDisabled]}
                 onPress={() => handleMint().catch(() => {})}
                 disabled={busy}
@@ -281,15 +281,15 @@ export default function ShareBriefSheet({
                 })}
               </Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
-                <TouchableOpacity style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleShare().catch(() => {})}>
+                <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleShare().catch(() => {})}>
                   <Ionicons name="share-outline" size={14} color={ACCENT} />
                   <Text style={styles.proposalBtnText}>{t('genShare')}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleCopy().catch(() => {})}>
+                <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleCopy().catch(() => {})}>
                   <Ionicons name="copy-outline" size={14} color={ACCENT} />
                   <Text style={styles.proposalBtnText}>{t('copyDraft')}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity
+                <TouchableOpacity accessibilityRole="button"
                   style={[styles.proposalBtn, { borderColor: ACCENT }]}
                   onPress={() => {
                     onOpenCode?.(minted.code);
@@ -300,7 +300,7 @@ export default function ShareBriefSheet({
                   <Text style={styles.proposalBtnText}>{t('shareOpen')}</Text>
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity
+              <TouchableOpacity accessibilityRole="button"
                 style={[styles.secondaryBtn, { marginTop: 14, borderColor: DANGER }]}
                 onPress={() => handleRevoke().catch(() => {})}
                 disabled={busy}
@@ -317,7 +317,7 @@ export default function ShareBriefSheet({
                 {householdSeats.map((seat) => {
                   const active = householdMemberId === seat.member_id;
                   return (
-                    <TouchableOpacity
+                    <TouchableOpacity accessibilityRole="button"
                       key={seat.id || seat.member_id}
                       onPress={() => setHouseholdMemberId(seat.member_id)}
                       style={[styles.typeChip, active && styles.typeChipActive]}
@@ -330,7 +330,7 @@ export default function ShareBriefSheet({
                   );
                 })}
               </View>
-              <TouchableOpacity
+              <TouchableOpacity accessibilityRole="button"
                 style={[styles.primaryButton, { marginTop: 12 }, busy && styles.buttonDisabled]}
                 onPress={() => handlePushSeat(householdMemberId, 'seatSendHousehold').catch(() => {})}
                 disabled={busy}
@@ -352,7 +352,7 @@ export default function ShareBriefSheet({
                 {advisorSeats.map((seat) => {
                   const active = advisorMemberId === seat.member_id;
                   return (
-                    <TouchableOpacity
+                    <TouchableOpacity accessibilityRole="button"
                       key={seat.id || seat.member_id}
                       onPress={() => setAdvisorMemberId(seat.member_id)}
                       style={[styles.typeChip, active && styles.typeChipActive]}
@@ -365,7 +365,7 @@ export default function ShareBriefSheet({
                   );
                 })}
               </View>
-              <TouchableOpacity
+              <TouchableOpacity accessibilityRole="button"
                 style={[styles.primaryButton, { marginTop: 12 }, busy && styles.buttonDisabled]}
                 onPress={() => handlePushSeat(advisorMemberId, 'seatSent').catch(() => {})}
                 disabled={busy}
@@ -380,7 +380,7 @@ export default function ShareBriefSheet({
             </View>
           ) : null}
 
-          <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={close}>
+          <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={close}>
             <Text style={styles.secondaryBtnText}>{t('closeButton')}</Text>
           </TouchableOpacity>
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('ux22Disclaimer')}</Text>

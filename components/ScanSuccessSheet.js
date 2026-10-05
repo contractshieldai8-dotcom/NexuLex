@@ -81,7 +81,7 @@ export default function ScanSuccessSheet({ visible, theme, countryLabel, onPick,
                 <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={ACCENT} />
               </TouchableOpacity>
             ))}
-            <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={onSkip}>
+            <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={onSkip}>
               <Text style={styles.secondaryBtnText}>{t('ssSkip')}</Text>
             </TouchableOpacity>
             <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10 }]}>{t('gr8Case')}</Text>

@@ -133,7 +133,7 @@ export default function ShareLoopSheet({ visible, theme, country, referralCode, 
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('gr7Country')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('gr7Note')}</Text>
 
-            <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 4 }]} onPress={onClose}>
+            <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 4 }]} onPress={onClose}>
               <Text style={styles.secondaryBtnText}>{t('vlSkip')}</Text>
             </TouchableOpacity>
             <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('ux17Disclaimer')}</Text>

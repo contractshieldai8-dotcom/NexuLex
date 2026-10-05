@@ -414,7 +414,7 @@ export default function ShieldDocumentCard({
                 style={{ marginTop: 2 }}
               />
             </TouchableOpacity>
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               style={{ flex: 1 }}
               onPress={() => {
                 if (fullTo) Alert.alert(String(label || ''), fullTo);
@@ -433,7 +433,7 @@ export default function ShieldDocumentCard({
       })}
 
       <View style={{ flexDirection: 'row', alignItems: 'stretch', gap: 8, marginTop: 8 }}>
-        <TouchableOpacity
+        <TouchableOpacity accessibilityRole="button"
           style={[
             styles.primaryButton,
             { flex: 1, marginTop: 0, marginBottom: 0, minHeight: 50, paddingVertical: 12 },
@@ -459,7 +459,7 @@ export default function ShieldDocumentCard({
           )}
         </TouchableOpacity>
         {typeof onShareBrief === 'function' ? (
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={{
               flex: 1,
               minHeight: 50,
@@ -498,19 +498,19 @@ export default function ShieldDocumentCard({
             </Text>
           </ScrollView>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 10 }}>
-            <TouchableOpacity style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleCopy().catch(() => {})}>
+            <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleCopy().catch(() => {})}>
               <Ionicons name={lockPremium ? 'lock-closed' : 'copy-outline'} size={14} color={ACCENT} />
               <Text style={styles.proposalBtnText}>{t('copyDraft')}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleShare().catch(() => {})}>
+            <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleShare().catch(() => {})}>
               <Ionicons name={lockPremium ? 'lock-closed' : 'share-outline'} size={14} color={ACCENT} />
               <Text style={styles.proposalBtnText}>{t('shareDraft')}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handlePdf().catch(() => {})}>
+            <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handlePdf().catch(() => {})}>
               <Ionicons name={lockPremium ? 'lock-closed' : 'document-outline'} size={14} color={ACCENT} />
               <Text style={styles.proposalBtnText}>{t('exportPdfShort')}</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               style={[styles.proposalBtn, { borderColor: ACCENT }]}
               onPress={() => {
                 if (lockPremium) {

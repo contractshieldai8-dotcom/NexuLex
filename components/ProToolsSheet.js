@@ -208,7 +208,7 @@ export default function ProToolsSheet({
     </View>
   );
   const chip = (key, on, label, onPress, icon) => (
-    <TouchableOpacity
+    <TouchableOpacity accessibilityRole="button"
       key={key}
       onPress={onPress}
       disabled={working}
@@ -243,7 +243,7 @@ export default function ProToolsSheet({
       </Text>
     ));
   const linkBtn = (icon, labelKey, onPress) => (
-    <TouchableOpacity onPress={onPress} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+    <TouchableOpacity accessibilityRole="button" onPress={onPress} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
       <Ionicons name={icon} size={16} color={ACCENT} />
       <Text style={[styles.label, { color: ACCENT, marginBottom: 0 }]}>{t(labelKey)}</Text>
     </TouchableOpacity>
@@ -354,7 +354,7 @@ export default function ProToolsSheet({
       {result.conflicts.length ? sectionTitle('ptConflicts', 'alert-circle-outline', DANGER) : null}
       {bullets(result.conflicts, 'conflict')}
       {caseId ? (
-        <TouchableOpacity style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center', marginTop: 12 }]} onPress={addToTimeline}>
+        <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center', marginTop: 12 }]} onPress={addToTimeline}>
           <Ionicons name="add-circle-outline" size={16} color={ACCENT} />
           <Text style={styles.secondaryBtnText}>{t('ptAddToTimeline')}</Text>
         </TouchableOpacity>
@@ -436,7 +436,7 @@ export default function ProToolsSheet({
           </View>
           {item.why ? <Text style={[bodyText, { marginTop: 4 }]}>{item.why}</Text> : null}
           {item.url ? (
-            <TouchableOpacity onPress={() => openUrl(item.url)} style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 6 }}>
+            <TouchableOpacity accessibilityRole="button" onPress={() => openUrl(item.url)} style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 6 }}>
               <Ionicons name="open-outline" size={14} color={ACCENT} />
               <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 0 }]} numberOfLines={1}>
                 {item.host}
@@ -471,7 +471,7 @@ export default function ProToolsSheet({
       {result.tool === 'chronology' ? renderChronology() : result.tool === 'issues' ? renderIssues() : renderMemo()}
 
       {caseId ? (
-        <TouchableOpacity style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center', marginTop: 8 }]} onPress={saveNote}>
+        <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center', marginTop: 8 }]} onPress={saveNote}>
           <Ionicons name="folder-open-outline" size={16} color={ACCENT} />
           <Text style={styles.secondaryBtnText}>{t('ptSaveToCase')}</Text>
         </TouchableOpacity>
@@ -493,20 +493,20 @@ export default function ProToolsSheet({
     if (working) return null;
     if (result) {
       return (
-        <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={() => setResult(null)}>
+        <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={() => setResult(null)}>
           <Text style={styles.secondaryBtnText}>{t('ptNewRun')}</Text>
         </TouchableOpacity>
       );
     }
     if (!professional) {
       return (
-        <TouchableOpacity style={[styles.primaryButton, { marginTop: 8 }]} onPress={() => onNeedPaywall?.()}>
+        <TouchableOpacity accessibilityRole="button" style={[styles.primaryButton, { marginTop: 8 }]} onPress={() => onNeedPaywall?.()}>
           <Text style={styles.primaryButtonText}>{t('ptUpgrade')}</Text>
         </TouchableOpacity>
       );
     }
     return (
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         style={[styles.primaryButton, { marginTop: 8 }, (tooShort || outOfQuota) && styles.buttonDisabled]}
         onPress={handleRun}
       >

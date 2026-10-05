@@ -52,7 +52,7 @@ export default function SupportScreen({ theme, onClose }) {
           </Text>
 
           {onClose ? (
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               onPress={onClose}
               hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
               accessibilityLabel={t('closeButton')}
@@ -112,7 +112,7 @@ export default function SupportScreen({ theme, onClose }) {
               {t('supportThanksDetail')}
             </Text>
 
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               style={[styles.secondaryBtn, { alignSelf: 'stretch' }]}
               onPress={() => setSent(false)}
             >
@@ -121,7 +121,7 @@ export default function SupportScreen({ theme, onClose }) {
           </View>
         ) : (
           <>
-            <TextInput
+            <TextInput accessibilityLabel={t('supportSubjectPlaceholder')}
               style={[
                 styles.input,
                 {
@@ -138,7 +138,7 @@ export default function SupportScreen({ theme, onClose }) {
               editable={!sending}
             />
 
-            <TextInput
+            <TextInput accessibilityLabel={t('supportMessagePlaceholder')}
               style={[
                 styles.textArea,
                 {
@@ -156,7 +156,7 @@ export default function SupportScreen({ theme, onClose }) {
               editable={!sending}
             />
 
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               style={[styles.primaryButton, sending && styles.buttonDisabled]}
               onPress={handleSend}
               disabled={sending}

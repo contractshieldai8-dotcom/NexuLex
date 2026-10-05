@@ -179,7 +179,7 @@ export default function ScenarioWizardModal({
                       {t(currentQ.labelKey)}
                     </Text>
                     {(currentQ.options || []).map((opt) => (
-                      <TouchableOpacity
+                      <TouchableOpacity accessibilityRole="button"
                         key={opt.value}
                         activeOpacity={0.85}
                         onPress={() => pickOption(opt.value)}
@@ -284,17 +284,17 @@ export default function ScenarioWizardModal({
                   {roadmap.disclaimer}
                 </Text>
 
-                <TouchableOpacity style={styles.primaryButton} onPress={handleCopy}>
+                <TouchableOpacity accessibilityRole="button" style={styles.primaryButton} onPress={handleCopy}>
                   <Text style={styles.primaryButtonText}>{t('scenarioCopyRoadmap')}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.secondaryBtn} onPress={handleShare}>
+                <TouchableOpacity accessibilityRole="button" style={styles.secondaryBtn} onPress={handleShare}>
                   <Text style={styles.secondaryBtnText}>{t('scenarioShareWhatsApp')}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={handleAskAdvisor}>
+                <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={handleAskAdvisor}>
                   <Text style={styles.secondaryBtnText}>{t('scenarioAskAdvisor')}</Text>
                 </TouchableOpacity>
                 {draftTemplateId && onOpenDraft ? (
-                  <TouchableOpacity
+                  <TouchableOpacity accessibilityRole="button"
                     style={[styles.secondaryBtn, { marginTop: 8, borderColor: ACCENT }]}
                     onPress={() => onOpenDraft(draftTemplateId)}
                   >
@@ -305,7 +305,7 @@ export default function ScenarioWizardModal({
             )}
           </KeyboardSafeSheet>
 
-          <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={goBack}>
+          <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={goBack}>
             <Text style={styles.secondaryBtnText}>
               {isResult || stepIndex > 0 ? t('scenarioBack') : t('scenarioClose')}
             </Text>

@@ -61,7 +61,7 @@ export default function RecentChatsList({ theme, compact = false, onOpen, pinTit
             },
           ]}
         >
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8 }}
             onPress={() => {
               openSession(session.id);
@@ -74,7 +74,7 @@ export default function RecentChatsList({ theme, compact = false, onOpen, pinTit
               {session.title || sessionTitle(session)}
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             onPress={() => confirmDelete(session)}
             hitSlop={{ top: 16, bottom: 16, left: 16, right: 16 }}
             accessibilityLabel={t('deleteChatTitle')}

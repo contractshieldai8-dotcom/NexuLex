@@ -55,7 +55,7 @@ export function ConversionHook({ theme, hook, onUnlock }) {
   const bodyKey = `hook${hook[0].toUpperCase()}${hook.slice(1)}Body`;
 
   return (
-    <TouchableOpacity
+    <TouchableOpacity accessibilityRole="button"
       activeOpacity={0.85}
       onPress={onUnlock}
       style={[styles.conversionHook, { backgroundColor: theme.cardBg, borderColor: WARNING }]}
@@ -106,7 +106,7 @@ export function ValidityLayer({ theme, items, extraCount = 0, onUnlock }) {
         </View>
       ))}
       {extraCount > 0 ? (
-        <TouchableOpacity onPress={onUnlock} activeOpacity={0.8}>
+        <TouchableOpacity accessibilityRole="button" onPress={onUnlock} activeOpacity={0.8}>
           <Text style={[styles.lockedMoreText, { color: ACCENT }]}>
             {t('lockedMoreClauses', { count: extraCount })}
           </Text>
@@ -156,7 +156,7 @@ export function LawyerQuestions({ theme, questions = [], extraCount = 0, onUnloc
           </Text>
         );
       })}
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         style={[styles.proposalBtn, { borderColor: ACCENT, marginTop: 12, alignSelf: 'flex-start' }]}
         onPress={() => {
           copyAll().catch(() => {});
@@ -201,7 +201,7 @@ export function HiddenCostsCard({ theme, costs, locked, onUnlock }) {
         </View>
       ) : null}
       {locked ? (
-        <TouchableOpacity onPress={onUnlock} activeOpacity={0.8} style={{ marginTop: 10 }}>
+        <TouchableOpacity accessibilityRole="button" onPress={onUnlock} activeOpacity={0.8} style={{ marginTop: 10 }}>
           <Text style={[styles.lockedMoreText, { color: ACCENT }]}>{t('hookCostsTitle')}</Text>
         </TouchableOpacity>
       ) : null}
@@ -248,7 +248,7 @@ export function CounterProposals({ theme, items, onCopied, country }) {
           })()}
           <View style={styles.proposalActions}>
             {item.readyToSendMessage?.whatsapp ? (
-              <TouchableOpacity
+              <TouchableOpacity accessibilityRole="button"
                 style={styles.proposalBtn}
                 onPress={() => copy(`wa-${index}`, item.readyToSendMessage.whatsapp)}
               >
@@ -261,7 +261,7 @@ export function CounterProposals({ theme, items, onCopied, country }) {
               </TouchableOpacity>
             ) : null}
             {item.readyToSendMessage?.email ? (
-              <TouchableOpacity
+              <TouchableOpacity accessibilityRole="button"
                 style={styles.proposalBtn}
                 onPress={() => copy(`em-${index}`, item.readyToSendMessage.email)}
               >
@@ -381,7 +381,7 @@ export function PlaybookCard({
         {t('signPickedCount', { count: selectedIds.size })}
       </Text>
       {missingCount > 0 ? (
-        <TouchableOpacity onPress={onUnlock} activeOpacity={0.8} style={{ marginBottom: 8 }}>
+        <TouchableOpacity accessibilityRole="button" onPress={onUnlock} activeOpacity={0.8} style={{ marginBottom: 8 }}>
           <Text style={[styles.lockedMoreText, { color: ACCENT }]}>
             +{missingCount} {t('missingAbsent')}
           </Text>
@@ -440,7 +440,7 @@ export function PlaybookCard({
                     {t('missingInsert')}: {safeDisplayText(model.insertClause)}
                   </Text>
                   <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-                    <TouchableOpacity
+                    <TouchableOpacity accessibilityRole="button"
                       style={[styles.proposalBtn, { borderColor: ACCENT }]}
                       onPress={() => {
                         copyClause(model.insertClause, false).catch(() => {});
@@ -449,7 +449,7 @@ export function PlaybookCard({
                       <Ionicons name="copy-outline" size={14} color={ACCENT} />
                       <Text style={styles.proposalBtnText}>{t('ladderCopy')}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
+                    <TouchableOpacity accessibilityRole="button"
                       style={[styles.proposalBtn, { borderColor: ACCENT }]}
                       onPress={() => {
                         copyClause(model.insertClause, true).catch(() => {});
@@ -462,7 +462,7 @@ export function PlaybookCard({
                 </View>
               ) : null}
               {locked && model && (model.status === 'ABSENT' || model.status === 'WEAK') ? (
-                <TouchableOpacity onPress={onUnlock} activeOpacity={0.8} style={{ marginTop: 6 }}>
+                <TouchableOpacity accessibilityRole="button" onPress={onUnlock} activeOpacity={0.8} style={{ marginTop: 6 }}>
                   <Text style={[styles.lockedMoreText, { color: ACCENT }]}>{t('hookMissingTitle')}</Text>
                 </TouchableOpacity>
               ) : null}
@@ -785,7 +785,7 @@ export function ClauseNavigator({ theme, clauses = [], renderCard, contentRef, o
           const active = filter === code;
           const label = code === 'ALL' ? t('clauseFilterAll') : code === 'RED' ? t('riskHigh') : code === 'YELLOW' ? t('riskMedium') : t('riskLow');
           return (
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               key={code}
               onPress={() => chooseFilter(code)}
               style={[

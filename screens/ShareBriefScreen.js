@@ -184,7 +184,7 @@ export default function ShareBriefScreen({ theme, code, snapshot: providedSnapsh
             NexuLex AI — {t('disclaimerShort')}
           </Text>
 
-          <TouchableOpacity style={[styles.primaryButton, { marginTop: 20 }]} onPress={onScanOwn} activeOpacity={0.85}>
+          <TouchableOpacity accessibilityRole="button" style={[styles.primaryButton, { marginTop: 20 }]} onPress={onScanOwn} activeOpacity={0.85}>
             <Text style={styles.primaryButtonText}>{t('shareViewerCta')}</Text>
           </TouchableOpacity>
         </ScrollView>

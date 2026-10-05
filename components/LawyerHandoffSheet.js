@@ -194,7 +194,7 @@ export default function LawyerHandoffSheet({
     </View>
   );
   const chip = (key, on, label, onPress, icon) => (
-    <TouchableOpacity
+    <TouchableOpacity accessibilityRole="button"
       key={key}
       onPress={onPress}
       style={{
@@ -238,7 +238,7 @@ export default function LawyerHandoffSheet({
     </TouchableOpacity>
   );
   const actionBtn = (icon, labelKey, onPress, { primary = false, locked = false } = {}) => (
-    <TouchableOpacity
+    <TouchableOpacity accessibilityRole="button"
       style={[primary ? styles.primaryButton : styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center', marginTop: 8, opacity: busy ? 0.6 : 1 }]}
       onPress={onPress}
       disabled={busy}
@@ -396,7 +396,7 @@ export default function LawyerHandoffSheet({
             {renderBody()}
           </KeyboardSafeSheet>
 
-          <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={onClose}>
+          <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={onClose}>
             <Text style={styles.secondaryBtnText}>{t('closeButton')}</Text>
           </TouchableOpacity>
         </View>

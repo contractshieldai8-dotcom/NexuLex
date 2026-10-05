@@ -508,7 +508,7 @@ export default function LegalAdvisorScreen({
           ) : null}
 
           {item.id !== 'greeting' && !item.isError ? (
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               onPress={() => handleCopy(item)}
               hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
               accessibilityLabel={t('copyAnswer')}
@@ -850,7 +850,7 @@ export default function LegalAdvisorScreen({
           style={{ marginBottom: 8 }}
         >
           {scenarioItems.map(({ item, availability }) => (
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               key={item.id}
               activeOpacity={0.85}
               onPress={() => (availability === 'pending' ? showPendingToast() : setScenarioId(item.id))}
@@ -909,7 +909,7 @@ export default function LegalAdvisorScreen({
             const locked = availability === 'pending';
             const copy = calculatorCopyKeys(item.id, calcPack);
             return (
-              <TouchableOpacity
+              <TouchableOpacity accessibilityRole="button"
                 key={item.id}
                 activeOpacity={0.85}
                 onPress={() => (locked ? showPendingToast() : setCalculatorId(item.id))}
@@ -970,7 +970,7 @@ export default function LegalAdvisorScreen({
           style={{ marginBottom: 8 }}
         >
           {offeredDrafts.map(({ template: item, variant, availability, universal }) => (
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               key={item.id}
               activeOpacity={0.85}
               onPress={() => (availability === 'pending' ? showPendingToast() : openDraft(item.id))}
@@ -1104,7 +1104,7 @@ export default function LegalAdvisorScreen({
       </Text>
 
       <View style={[styles.chatInputRow, { borderTopColor: theme.borderColor, flexGrow: 0, flexShrink: 0 }]}>
-        <TextInput
+        <TextInput accessibilityLabel={t('advisorPlaceholder')}
           style={[
             styles.chatInput,
             {
@@ -1128,7 +1128,7 @@ export default function LegalAdvisorScreen({
           onChangeText={setQuestion}
         />
 
-        <TouchableOpacity
+        <TouchableOpacity accessibilityRole="button"
           style={[styles.chatSendBtn, sending && styles.buttonDisabled]}
           onPress={handleSend}
           disabled={sending}

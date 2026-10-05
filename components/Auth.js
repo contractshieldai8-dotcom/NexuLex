@@ -192,7 +192,7 @@ export default function Auth({ onLoginSuccess }) {
 
   return (
     <View style={styles.card}>
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         style={styles.langChip}
         onPress={() => setLangSheetVisible(true)}
         activeOpacity={0.8}
@@ -206,7 +206,7 @@ export default function Auth({ onLoginSuccess }) {
         {pendingVerification ? t('verifyEmailTitle') : isSignUp ? t('signUpTitle') : t('signInTitle')}
       </Text>
 
-      <TextInput
+      <TextInput accessibilityLabel={t('emailPlaceholder')}
         style={styles.input}
         placeholder={t('emailPlaceholder')}
         placeholderTextColor="#A0AEC0"
@@ -216,7 +216,7 @@ export default function Auth({ onLoginSuccess }) {
         keyboardType="email-address"
       />
 
-      <TextInput
+      <TextInput accessibilityLabel={t('passwordPlaceholder')}
         style={styles.input}
         placeholder={t('passwordPlaceholder')}
         placeholderTextColor="#A0AEC0"
@@ -227,7 +227,7 @@ export default function Auth({ onLoginSuccess }) {
 
       {isSignUp && !pendingVerification && (
         <View style={styles.phoneRow}>
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={styles.phoneCountryBtn}
             onPress={() => setCountrySheetVisible(true)}
             activeOpacity={0.8}
@@ -237,7 +237,7 @@ export default function Auth({ onLoginSuccess }) {
             <Ionicons name="chevron-down" size={13} color="#A0AEC0" />
           </TouchableOpacity>
 
-          <TextInput
+          <TextInput accessibilityLabel={t('phonePlaceholder')}
             style={[styles.input, styles.phoneInput]}
             placeholder={t('phonePlaceholder')}
             placeholderTextColor="#A0AEC0"
@@ -254,7 +254,7 @@ export default function Auth({ onLoginSuccess }) {
       {pendingVerification ? (
         <>
           <Text style={styles.verifyHint}>{t('verifyEmailMessage')}</Text>
-          <TouchableOpacity style={styles.button} onPress={handleResendVerification} disabled={loading}>
+          <TouchableOpacity accessibilityRole="button" style={styles.button} onPress={handleResendVerification} disabled={loading}>
             {loading ? (
               <ActivityIndicator color="#080C14" />
             ) : (
@@ -265,7 +265,7 @@ export default function Auth({ onLoginSuccess }) {
           </TouchableOpacity>
           {__DEV__ && (
             <>
-              <TouchableOpacity
+              <TouchableOpacity accessibilityRole="button"
                 style={styles.devSkipButton}
                 onPress={handleSkipVerificationDev}
                 disabled={loading}
@@ -277,7 +277,7 @@ export default function Auth({ onLoginSuccess }) {
               <Text style={styles.devSkipHint}>{t('skipVerificationDevHint')}</Text>
             </>
           )}
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             onPress={() => {
               setPendingVerification(false);
               setIsSignUp(false);
@@ -289,7 +289,7 @@ export default function Auth({ onLoginSuccess }) {
         </>
       ) : (
         <>
-          <TouchableOpacity style={styles.button} onPress={handleAuth} disabled={loading}>
+          <TouchableOpacity accessibilityRole="button" style={styles.button} onPress={handleAuth} disabled={loading}>
             {loading ? (
               <ActivityIndicator color="#080C14" />
             ) : (
@@ -299,7 +299,7 @@ export default function Auth({ onLoginSuccess }) {
             )}
           </TouchableOpacity>
 
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             onPress={() => {
               setPendingVerification(false);
               setIsSignUp(!isSignUp);

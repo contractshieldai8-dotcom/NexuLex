@@ -27,7 +27,7 @@ export default function LockedSection({
       <Text style={[styles.lockedSubtitle, { color: children ? '#CBD5E1' : theme.subText }]}>
         {subtitle || t('lockedSubtitle')}
       </Text>
-      <TouchableOpacity style={styles.lockedCta} onPress={onUnlock} activeOpacity={0.85}>
+      <TouchableOpacity accessibilityRole="button" style={styles.lockedCta} onPress={onUnlock} activeOpacity={0.85}>
         <Text style={styles.lockedCtaText}>{cta}</Text>
       </TouchableOpacity>
     </>

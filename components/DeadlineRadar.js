@@ -33,7 +33,7 @@ export default function DeadlineRadar({
   };
 
   const remindButton = typeof onRemind === 'function' ? (
-    <TouchableOpacity
+    <TouchableOpacity accessibilityRole="button"
       style={[styles.primaryButton, { marginTop: 12 }, !canRemind && styles.buttonDisabled]}
       onPress={() => {
         if (!canRemind) {

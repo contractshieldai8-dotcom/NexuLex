@@ -161,6 +161,7 @@ export default function AiReportSheet({
                   </Text>
                 </View>
                 <Switch
+                  accessibilityLabel={t('aiReportIncludeContext')}
                   value={includeContext}
                   onValueChange={setIncludeContext}
                   thumbColor={includeContext ? ACCENT : '#f4f3f4'}
@@ -168,7 +169,7 @@ export default function AiReportSheet({
               </View>
             ) : null}
           </KeyboardSafeSheet>
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={[styles.primaryButton, { marginTop: 14 }, sending && styles.buttonDisabled]}
             onPress={submit}
             disabled={sending}
@@ -179,7 +180,7 @@ export default function AiReportSheet({
               <Text style={styles.primaryButtonText}>{t('aiReportSubmit')}</Text>
             )}
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={close} disabled={sending}>
+          <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={close} disabled={sending}>
             <Text style={styles.secondaryBtnText}>{t('cancelButton')}</Text>
           </TouchableOpacity>
         </View>

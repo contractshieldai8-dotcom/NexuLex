@@ -27,7 +27,7 @@ export function PartySideSelector({ theme, selected, onSelect, disabled, hideLab
         {(PARTY_SIDES || []).map((item) => {
           const active = selected === item.code;
           return (
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               key={item.code}
               onPress={() => onSelect(item.code)}
               disabled={disabled}
@@ -61,7 +61,7 @@ export function SelectorField({ theme, icon, label, value, hint, onPress, disabl
     <View>
       {label ? <Text style={[styles.label, { color: theme.subText }]}>{label}</Text> : null}
 
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         onPress={onPress}
         disabled={disabled}
         activeOpacity={0.8}
@@ -133,7 +133,7 @@ export function OptionSheet({
               const isActive = option.code === selectedCode;
 
               return (
-                <TouchableOpacity
+                <TouchableOpacity accessibilityRole="button"
                   key={option.code}
                   activeOpacity={0.8}
                   onPress={() => {
@@ -176,7 +176,7 @@ export function OptionSheet({
             })}
           </ScrollView>
 
-          <TouchableOpacity style={styles.secondaryBtn} onPress={onClose}>
+          <TouchableOpacity accessibilityRole="button" style={styles.secondaryBtn} onPress={onClose}>
             <Text style={styles.secondaryBtnText}>{closeLabel}</Text>
           </TouchableOpacity>
         </View>

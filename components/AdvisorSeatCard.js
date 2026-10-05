@@ -122,15 +122,15 @@ export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPay
         {seat.member_id ? t('seatAccepted') : t('seatPending')}
       </Text>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 8 }}>
-        <TouchableOpacity style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleShareCode(seat).catch(() => {})}>
+        <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleShareCode(seat).catch(() => {})}>
           <Ionicons name="share-outline" size={14} color={ACCENT} />
           <Text style={styles.proposalBtnText}>{t('genShare')}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleCopy(seat).catch(() => {})}>
+        <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleCopy(seat).catch(() => {})}>
           <Ionicons name="copy-outline" size={14} color={ACCENT} />
           <Text style={styles.proposalBtnText}>{t('copyDraft')}</Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        <TouchableOpacity accessibilityRole="button"
           style={[styles.proposalBtn, { borderColor: DANGER }]}
           onPress={() => handleRevoke(seat.code).catch(() => {})}
           disabled={busy}
@@ -148,7 +148,7 @@ export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPay
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux3Household')}</Text>
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux3InviteHint')}</Text>
       {householdSeats.map(renderSeatRow)}
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         style={[styles.secondaryBtn, { marginTop: 14 }, busy && styles.buttonDisabled]}
         onPress={() => handleMint('household').catch(() => {})}
         disabled={busy}
@@ -165,7 +165,7 @@ export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPay
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux3Copy')}</Text>
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t(plan === 'professional' ? 'seatLimitProfessional' : 'seatLimitPro')}</Text>
       {advisorSeats.map(renderSeatRow)}
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         style={[styles.secondaryBtn, { marginTop: 14 }, busy && styles.buttonDisabled]}
         onPress={() => handleMint('advisor').catch(() => {})}
         disabled={busy}
@@ -176,7 +176,7 @@ export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPay
 
       <Text style={[styles.settingLabel, { color: theme.text, marginTop: 18 }]}>{t('seatRedeem')}</Text>
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 6 }]}>{t('ux3RedeemHint')}</Text>
-      <TextInput
+      <TextInput accessibilityLabel={t('seatCodeLabel')}
         style={[
           styles.input,
           {
@@ -194,7 +194,7 @@ export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPay
         value={redeemCode}
         onChangeText={setRedeemCode}
       />
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         style={[styles.secondaryBtn, busy && styles.buttonDisabled]}
         onPress={() => handleRedeem().catch(() => {})}
         disabled={busy}
@@ -208,7 +208,7 @@ export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPay
           const snapshot = item.snapshot || {};
           const decision = snapshot.decision || {};
           return (
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               key={item.id}
               style={[styles.deadlineRow, { borderColor: theme.borderColor, marginTop: 8 }]}
               onPress={() => onOpenBrief?.(snapshot)}

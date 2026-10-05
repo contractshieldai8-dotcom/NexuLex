@@ -55,7 +55,7 @@ export default function SearchableSheet({
     const isActive = item.code === selectedCode;
 
     return (
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         activeOpacity={0.8}
         onPress={() => {
           onSelect(item.code);
@@ -157,7 +157,7 @@ export default function SearchableSheet({
             }
           />
 
-          <TouchableOpacity style={styles.secondaryBtn} onPress={close}>
+          <TouchableOpacity accessibilityRole="button" style={styles.secondaryBtn} onPress={close}>
             <Text style={styles.secondaryBtnText}>{closeLabel}</Text>
           </TouchableOpacity>
         </View>

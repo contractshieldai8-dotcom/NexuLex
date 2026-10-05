@@ -79,7 +79,7 @@ function DraftToolbar({ theme, onCopy, onShare, view, onView }) {
   const { t } = useTranslation();
   return (
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginVertical: 10 }}>
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         style={[styles.proposalBtn, { borderColor: ACCENT }]}
         onPress={() => {
           onCopy().catch(() => {});
@@ -88,7 +88,7 @@ function DraftToolbar({ theme, onCopy, onShare, view, onView }) {
         <Ionicons name="copy-outline" size={14} color={ACCENT} />
         <Text style={styles.proposalBtnText}>{t('copyDraft')}</Text>
       </TouchableOpacity>
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         style={[styles.proposalBtn, { borderColor: ACCENT }]}
         onPress={() => {
           onShare().catch(() => {});
@@ -97,14 +97,14 @@ function DraftToolbar({ theme, onCopy, onShare, view, onView }) {
         <Ionicons name="share-outline" size={14} color={ACCENT} />
         <Text style={styles.proposalBtnText}>{t('genShare')}</Text>
       </TouchableOpacity>
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         style={[styles.proposalBtn, { borderColor: view === 'split' ? ACCENT : theme.borderColor }]}
         onPress={() => onView(view === 'split' ? 'full' : 'split')}
       >
         <Ionicons name="git-compare-outline" size={14} color={ACCENT} />
         <Text style={styles.proposalBtnText}>{t('diffSplitView')}</Text>
       </TouchableOpacity>
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         style={[styles.proposalBtn, { borderColor: view === 'redline' ? ACCENT : theme.borderColor }]}
         onPress={() => onView(view === 'redline' ? 'full' : 'redline')}
       >
@@ -385,7 +385,7 @@ export default function DiffTool({
           {firstOpen?.unmetReason ? ` · ${safeDisplayText(firstOpen.unmetReason)}` : ''}
         </Text>
         {(status.lights || []).map((light) => (
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             key={light.id}
             style={[styles.lightRow, { borderColor: theme.borderColor }]}
             onPress={() => {
@@ -626,7 +626,7 @@ export default function DiffTool({
       <View>
         <Text style={[styles.sectionHint, { color: theme.subText }]}>{t('diffModeHint')}</Text>
         <View style={styles.sideSelector}>
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={[styles.sideCard, { backgroundColor: theme.cardBg, borderColor: ACCENT }]}
             onPress={() => enterMode('auto')}
             disabled={disabled}
@@ -636,7 +636,7 @@ export default function DiffTool({
             <Text style={[styles.sideCardLabel, { color: theme.text }]}>{t('diffAutoRevise')}</Text>
             <Text style={[styles.sideCardHint, { color: theme.subText }]}>{t('diffAutoReviseHint')}</Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={[styles.sideCard, { backgroundColor: theme.cardBg, borderColor: theme.borderColor }]}
             onPress={() => enterMode('manual')}
             disabled={disabled}
@@ -647,7 +647,7 @@ export default function DiffTool({
             <Text style={[styles.sideCardHint, { color: theme.subText }]}>{t('diffManualCompareHint')}</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
+        <TouchableOpacity accessibilityRole="button"
           style={[
             styles.sideCard,
             { backgroundColor: theme.cardBg, borderColor: ACCENT, marginTop: 8 },
@@ -666,7 +666,7 @@ export default function DiffTool({
 
   return (
     <View>
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         onPress={() => {
           setMode(null);
           setResult(null);
@@ -686,7 +686,7 @@ export default function DiffTool({
               </Text>
             </ScrollView>
           ) : null}
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={[styles.primaryButton, loading && styles.buttonDisabled]}
             onPress={handleAutoRevise}
             disabled={disabled || loading}
@@ -703,7 +703,7 @@ export default function DiffTool({
         <>
           <Text style={[styles.sectionHint, { color: theme.subText }]}>{t('verifyModeHint')}</Text>
           <Text style={[styles.label, { color: theme.subText }]}>{t('diffRevised')}</Text>
-          <TextInput
+          <TextInput accessibilityLabel={t('verifyPasteNewHint')}
             style={[
               styles.input,
               styles.textArea,
@@ -730,7 +730,7 @@ export default function DiffTool({
               {revised.length}
             </Text>
           )}
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={[
               styles.primaryButton,
               (loading || !String(revised || '').trim()) && styles.buttonDisabled,
@@ -750,7 +750,7 @@ export default function DiffTool({
         <>
           <Text style={[styles.sectionHint, { color: theme.subText }]}>{t('diffHint')}</Text>
           <Text style={[styles.label, { color: theme.subText }]}>{t('diffOriginal')}</Text>
-          <TextInput
+          <TextInput accessibilityLabel={t('diffOriginal')}
             style={[
               styles.input,
               styles.textArea,
@@ -773,7 +773,7 @@ export default function DiffTool({
           </Text>
 
           <Text style={[styles.label, { color: theme.subText }]}>{t('diffRevised')}</Text>
-          <TextInput
+          <TextInput accessibilityLabel={t('diffRevised')}
             style={[
               styles.input,
               styles.textArea,
@@ -795,7 +795,7 @@ export default function DiffTool({
             {revised.length}
           </Text>
 
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={[styles.primaryButton, loading && styles.buttonDisabled]}
             onPress={handleManualCompare}
             disabled={disabled || loading}

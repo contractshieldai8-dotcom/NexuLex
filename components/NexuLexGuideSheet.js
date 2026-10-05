@@ -163,7 +163,7 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
       const flow = item.kind === 'flow' ? item.flow : GUIDE_WORKFLOWS.find((f) => f.id === item.entry.workflowId);
       if (!flow) return null;
       return (
-        <TouchableOpacity
+        <TouchableOpacity accessibilityRole="button"
           onPress={() => setActiveId(flow.id)}
           activeOpacity={0.85}
           style={[
@@ -200,7 +200,7 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
       const { row, registry } = item;
       const pending = row.availability === 'pending';
       return (
-        <TouchableOpacity
+        <TouchableOpacity accessibilityRole="button"
           onPress={() => runAction({ type: ACTION_FOR_REGISTRY[registry], id: row.item.id })}
           activeOpacity={0.85}
           accessibilityState={{ disabled: pending }}
@@ -304,7 +304,7 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
   const listFooter = (active || activeId === WHATS_NEW) && !legalHit ? (
     <View style={{ paddingBottom: 8 }}>
       {active?.tab === 'advisor' ? (
-        <TouchableOpacity
+        <TouchableOpacity accessibilityRole="button"
           style={[styles.primaryButton, { backgroundColor: ACCENT, marginTop: 4 }]}
           onPress={openAdvisor}
           activeOpacity={0.85}
@@ -312,14 +312,14 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
           <Text style={styles.primaryButtonText}>{t('guideAskAdvisorCta')}</Text>
         </TouchableOpacity>
       ) : null}
-      <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 10 }]} onPress={() => setActiveId(null)}>
+      <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 10 }]} onPress={() => setActiveId(null)}>
         <Text style={styles.secondaryBtnText}>{t('cancelButton')}</Text>
       </TouchableOpacity>
     </View>
   ) : null;
 
   const chip = (key, label, selected, onPress, icon) => (
-    <TouchableOpacity
+    <TouchableOpacity accessibilityRole="button"
       key={key}
       onPress={onPress}
       activeOpacity={0.85}
@@ -382,7 +382,7 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
                 {t('guideSubtitle')}
               </Text>
             </View>
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               onPress={close}
               hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
               accessibilityLabel={t('cancelButton')}
@@ -398,7 +398,7 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
             ]}
           >
             <Ionicons name="search" size={16} color={theme.subText} />
-            <TextInput
+            <TextInput accessibilityLabel={t('guideSearchPlaceholder')}
               style={[styles.searchInput, { color: theme.text }]}
               placeholder={t('guideSearchPlaceholder')}
               placeholderTextColor={theme.subText}
@@ -436,7 +436,7 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
               <Text style={[styles.summaryText, { color: theme.text, marginBottom: 12 }]}>
                 {t('guideAskAdvisor')}
               </Text>
-              <TouchableOpacity
+              <TouchableOpacity accessibilityRole="button"
                 style={[styles.primaryButton, { backgroundColor: ACCENT }]}
                 onPress={openAdvisor}
                 activeOpacity={0.85}

@@ -1562,7 +1562,7 @@ function AppContent() {
         {chips.map((chip) => {
           const selected = active === chip.id;
           return (
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               key={chip.id}
               activeOpacity={0.85}
               onPress={() => setOfferTier(itemId, chip.id)}
@@ -1592,7 +1592,7 @@ function AppContent() {
   };
 
   const renderSignedStrip = (inline = false) => (
-    <TouchableOpacity
+    <TouchableOpacity accessibilityRole="button"
       onPress={() => openSignedStrip().catch(() => {})}
       activeOpacity={0.85}
       style={inline ? { marginBottom: 12 } : null}
@@ -2965,7 +2965,7 @@ function AppContent() {
           placeholderTextColor={theme.subText}
           accessibilityLabel={t('shareEnterCode')}
         />
-        <TouchableOpacity
+        <TouchableOpacity accessibilityRole="button"
           style={[styles.secondaryBtn, { marginTop: 0, paddingHorizontal: 12 }]}
           onPress={openShareFromInput}
           activeOpacity={0.85}
@@ -3137,7 +3137,7 @@ function AppContent() {
                 <View style={styles.counterBox}>
                   <View style={styles.counterHeader}>
                     <Text style={[styles.counterTitle, { flex: 1 }]}>{t('counterTitle')}</Text>
-                    <TouchableOpacity
+                    <TouchableOpacity accessibilityRole="button"
                       onPress={() => copyCounterOfferToClipboard(flag, index, 'flag', flagId)}
                       hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                       accessibilityLabel={t('copyCounterOffer')}
@@ -3240,7 +3240,7 @@ function AppContent() {
           >
             {safeDisplayText(item.clauseTitle) || t('clauseItem', { index: index + 1 })}
           </Text>
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             onPress={() => copyClauseToClipboard(item, index, keyPrefix)}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
             accessibilityLabel={t('copyClause')}
@@ -3305,7 +3305,7 @@ function AppContent() {
             <View style={styles.counterBox}>
               <View style={styles.counterHeader}>
                 <Text style={[styles.counterTitle, { flex: 1 }]}>{t('counterTitle')}</Text>
-                <TouchableOpacity
+                <TouchableOpacity accessibilityRole="button"
                   onPress={() => copyCounterOfferToClipboard(item, index, keyPrefix, clauseId)}
                   hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                   accessibilityLabel={t('copyCounterOffer')}
@@ -3347,7 +3347,7 @@ function AppContent() {
           <Text style={[styles.takeawayTitle, { color: theme.text }]} numberOfLines={1}>
             {t('counterMessageTitle')}
           </Text>
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             onPress={() => copyCounterMessage(analysis.counterMessage)}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
             accessibilityLabel={t('copyCounterMessage')}
@@ -3394,7 +3394,7 @@ function AppContent() {
     return (
       <View style={styles.resultContainer}>
         {locked ? (
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             activeOpacity={0.85}
             onPress={unlock}
             style={[styles.previewBanner, { backgroundColor: theme.cardBg, borderColor: ACCENT }]}
@@ -3449,7 +3449,7 @@ function AppContent() {
                   {t('partyShieldActive', { name: name || roleLabel, role: roleLabel })}
                 </Text>
               </View>
-              <TouchableOpacity
+              <TouchableOpacity accessibilityRole="button"
                 activeOpacity={0.85}
                 onPress={handlePartyFlip}
                 style={[
@@ -3581,7 +3581,7 @@ function AppContent() {
           <Text style={[styles.summaryText, { color: theme.text }]}>{safeDisplayText(analysis.summary)}</Text>
 
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               style={[styles.exportBtn, { marginTop: 0, flexGrow: 1 }]}
               onPress={() => handleExportPdf(fullRaw || analysis, 'share')}
             >
@@ -3590,7 +3590,7 @@ function AppContent() {
                 {keyPrefix === 'history' ? t('exportPdfShort') : t('downloadPdfReport')}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               style={[
                 styles.exportBtn,
                 {
@@ -3813,7 +3813,7 @@ function AppContent() {
             </Text>
           </View>
           {user ? (
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               onPress={() => setGuideVisible(true)}
               hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
               accessibilityLabel={t('guideTitle')}
@@ -3863,7 +3863,7 @@ function AppContent() {
           {forgotPasswordMode ? (
             <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor }]}>
               <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 12 }]}>{t('forgotPasswordTitle')}</Text>
-              <TextInput
+              <TextInput accessibilityLabel={t('resetEmailPlaceholder')}
                 style={[styles.input, { backgroundColor: theme.inputBg, color: theme.text, borderColor: theme.borderColor }]}
                 placeholder={t('resetEmailPlaceholder')}
                 placeholderTextColor={theme.subText}
@@ -3871,17 +3871,17 @@ function AppContent() {
                 onChangeText={setResetEmail}
                 autoCapitalize="none"
               />
-              <TouchableOpacity style={styles.primaryButton} onPress={handleResetPassword}>
+              <TouchableOpacity accessibilityRole="button" style={styles.primaryButton} onPress={handleResetPassword}>
                 <Text style={styles.primaryButtonText}>{t('btnSendResetLink')}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={{ marginTop: 15 }} onPress={() => setForgotPasswordMode(false)}>
+              <TouchableOpacity accessibilityRole="button" style={{ marginTop: 15 }} onPress={() => setForgotPasswordMode(false)}>
                 <Text style={{ color: '#00F5D4', textAlign: 'center' }}>{t('backToLogin')}</Text>
               </TouchableOpacity>
             </View>
           ) : (
             <>
               <Auth onLoginSuccess={(u) => setUser(u)} />
-              <TouchableOpacity style={{ marginTop: 15 }} onPress={() => setForgotPasswordMode(true)}>
+              <TouchableOpacity accessibilityRole="button" style={{ marginTop: 15 }} onPress={() => setForgotPasswordMode(true)}>
                 <Text style={{ color: theme.subText, textAlign: 'center', fontSize: 13 }}>{t('forgotPasswordTitle')}?</Text>
               </TouchableOpacity>
               {renderShareCodeEntry()}
@@ -3947,7 +3947,7 @@ function AppContent() {
             >
               {/* Kalan Ücretsiz Hak / Pro Rozeti */}
               {quotaEnforced && (
-                <TouchableOpacity
+                <TouchableOpacity accessibilityRole="button"
                   activeOpacity={isPro ? 1 : 0.8}
                   onPress={() => !isPro && openPaywall(freeLeft <= 0 ? 'quota' : null)}
                   style={[
@@ -3993,7 +3993,7 @@ function AppContent() {
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>
                     {t('verifyEmailMessage')}
                   </Text>
-                  <TouchableOpacity
+                  <TouchableOpacity accessibilityRole="button"
                     style={[styles.secondaryBtn, resendingVerification && styles.buttonDisabled]}
                     onPress={handleResendVerification}
                     disabled={resendingVerification}
@@ -4007,7 +4007,7 @@ function AppContent() {
                     )}
                   </TouchableOpacity>
                   {__DEV__ && (
-                    <TouchableOpacity style={styles.secondaryBtn} onPress={() => setDevEmailBypass(true)}>
+                    <TouchableOpacity accessibilityRole="button" style={styles.secondaryBtn} onPress={() => setDevEmailBypass(true)}>
                       <Text style={styles.secondaryBtnText} numberOfLines={2} adjustsFontSizeToFit>
                         {t('skipVerificationDev')}
                       </Text>
@@ -4158,7 +4158,7 @@ function AppContent() {
                       ? `${card.name} · ${t(card.labelKey)}`
                       : t(card.sideHintKey || card.hintKey || card.labelKey);
                     return (
-                      <TouchableOpacity
+                      <TouchableOpacity accessibilityRole="button"
                         key={card.code}
                         activeOpacity={0.88}
                         disabled={loading}
@@ -4229,7 +4229,7 @@ function AppContent() {
                   {(CONTRACT_TYPES || []).map((type) => {
                     const active = selectedTypeKey === type.key;
                     return (
-                      <TouchableOpacity
+                      <TouchableOpacity accessibilityRole="button"
                         key={type.key}
                         onPress={() => handleTypeChange(type.key)}
                         style={[styles.typeChip, active && styles.typeChipActive]}
@@ -4261,7 +4261,7 @@ function AppContent() {
                 ].map((item) => {
                   const active = workspaceMode === item.mode;
                   return (
-                    <TouchableOpacity
+                    <TouchableOpacity accessibilityRole="button"
                       key={item.mode}
                       onPress={() => setWorkspaceMode(item.mode)}
                       style={[
@@ -4430,7 +4430,7 @@ function AppContent() {
                   }}
                 />
 
-                <TouchableOpacity 
+                <TouchableOpacity accessibilityRole="button" 
                   style={[styles.uploadButton, { flex: 1, backgroundColor: '#1A233A', borderWidth: 1, borderColor: 'rgba(0, 180, 216, 0.4)' }]} 
                   onPress={handlePickDocument}
                   disabled={loading}
@@ -4454,7 +4454,7 @@ function AppContent() {
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 15 }}>
                   {(selectedImages || []).map((img, index) => (
                     <View key={index} style={styles.imageWrapper}>
-                      <Image source={{ uri: img.uri }} style={styles.previewImage} />
+                      <Image source={{ uri: img.uri }} style={styles.previewImage} accessible={false} />
                       <TouchableOpacity 
         style={styles.deleteButton}
                     onPress={() => removeImage(index)}
@@ -4494,7 +4494,7 @@ function AppContent() {
                 {t('pasteAnalyzeHint')}
               </Text>
               <View style={{ position: 'relative' }}>
-                <TextInput
+                <TextInput accessibilityLabel={t('placeholderText')}
                   style={[styles.textArea, { backgroundColor: theme.inputBg, color: theme.text, borderColor: theme.borderColor, paddingRight: 56 }]}
                   multiline
                   numberOfLines={6}
@@ -4548,7 +4548,7 @@ function AppContent() {
                 ) : null}
               </View>
               
-              <TouchableOpacity 
+              <TouchableOpacity accessibilityRole="button" 
                 style={[styles.primaryButton, loading && styles.buttonDisabled]} 
                 onPress={handleAnalyzeText}
                 disabled={loading}
@@ -4611,7 +4611,7 @@ function AppContent() {
                     <Text style={[styles.settingLabel, { color: theme.text, flex: 1 }]} numberOfLines={2}>
                       {t('lastAnalysisTitle')}
                     </Text>
-                    <TouchableOpacity
+                    <TouchableOpacity accessibilityRole="button"
                       onPress={() => {
                         setResult(null);
                         setAnalyzeSetupOpen(true);
@@ -4778,7 +4778,7 @@ function AppContent() {
 
                 {!emailVerified && (
                   <>
-                    <TouchableOpacity
+                    <TouchableOpacity accessibilityRole="button"
                       style={[styles.secondaryBtn, resendingVerification && styles.buttonDisabled]}
                       onPress={handleResendVerification}
                       disabled={resendingVerification}
@@ -4792,7 +4792,7 @@ function AppContent() {
                       )}
                     </TouchableOpacity>
                     {__DEV__ && (
-                      <TouchableOpacity style={styles.secondaryBtn} onPress={() => setDevEmailBypass(true)}>
+                      <TouchableOpacity accessibilityRole="button" style={styles.secondaryBtn} onPress={() => setDevEmailBypass(true)}>
                         <Text style={styles.secondaryBtnText} numberOfLines={2} adjustsFontSizeToFit>
                           {t('skipVerificationDev')}
                         </Text>
@@ -4802,7 +4802,7 @@ function AppContent() {
                 )}
 
                 {!isPro && (
-                  <TouchableOpacity style={styles.secondaryBtn} onPress={() => openPaywall(null)}>
+                  <TouchableOpacity accessibilityRole="button" style={styles.secondaryBtn} onPress={() => openPaywall(null)}>
                     <Text style={styles.secondaryBtnText} numberOfLines={1} adjustsFontSizeToFit>
                       {t('seePlans')}
                     </Text>
@@ -4827,7 +4827,7 @@ function AppContent() {
               </View>
 
               {/* Destek ve Hata Bildirimi */}
-              <TouchableOpacity
+              <TouchableOpacity accessibilityRole="button"
                 activeOpacity={0.8}
                 onLayout={onSettingsSectionLayout('support')}
                 onPress={() => setSupportVisible(true)}
@@ -4869,7 +4869,7 @@ function AppContent() {
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('st4Security')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('st4SecurityHint')}</Text>
                 </HonestyFold>
-                <TextInput
+                <TextInput accessibilityLabel={t('newPasswordPlaceholder')}
                   style={[
                     styles.input,
                     {
@@ -4889,7 +4889,7 @@ function AppContent() {
                     {t('minPasswordLength')}
                   </Text>
                 ) : null}
-                <TouchableOpacity
+                <TouchableOpacity accessibilityRole="button"
                   style={[styles.secondaryBtn, (updatingPassword || !passwordLongEnough) && styles.buttonDisabled]}
                   onPress={handleUpdatePassword}
                   disabled={updatingPassword || !passwordLongEnough}
@@ -4910,6 +4910,7 @@ function AppContent() {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                   <Text style={[styles.settingLabel, { color: theme.text }]}>{t('darkMode')}</Text>
                   <Switch 
+                    accessibilityLabel={t('darkMode')}
                     value={isDarkMode} 
                     onValueChange={(val) => setIsDarkMode(val)}
                     thumbColor={isDarkMode ? "#00F5D4" : "#f4f3f4"}
@@ -4925,7 +4926,7 @@ function AppContent() {
                 <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 8 }]}>{t('appLanguage')}</Text>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
                   {(APP_LANGUAGES || []).map((lang) => (
-                    <TouchableOpacity 
+                    <TouchableOpacity accessibilityRole="button" 
                       key={lang.code} 
                       onPress={() => changeLanguage(lang.code)}
                       style={[styles.langBtn, currentLang === lang.code && styles.activeLangBtn]}
@@ -5058,7 +5059,7 @@ function AppContent() {
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Sub')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Quota')}</Text>
                 </HonestyFold>
-                <TouchableOpacity
+                <TouchableOpacity accessibilityRole="button"
                   style={[styles.secondaryBtn, { marginTop: 0 }]}
                   onPress={() => Linking.openURL(TRUST_URLS.privacy || 'https://nexulexai.netlify.app/privacy.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
                   activeOpacity={0.85}
@@ -5079,7 +5080,7 @@ function AppContent() {
                   />
                 </View>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('telSettingHint')}</Text>
-                <TouchableOpacity
+                <TouchableOpacity accessibilityRole="button"
                   style={styles.secondaryBtn}
                   onPress={() => Linking.openURL(TRUST_URLS.terms || 'https://nexulexai.netlify.app/terms.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
                   activeOpacity={0.85}
@@ -5087,7 +5088,7 @@ function AppContent() {
                   <Text style={styles.secondaryBtnText}>{t('termsOfUse')}</Text>
                 </TouchableOpacity>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 8 }]}>{t('st7Terms')}</Text>
-                <TouchableOpacity
+                <TouchableOpacity accessibilityRole="button"
                   style={styles.secondaryBtn}
                   onPress={() => Linking.openURL(TRUST_URLS.deleteAccount || 'https://nexulexai.netlify.app/delete-account.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
                   activeOpacity={0.85}
@@ -5110,7 +5111,7 @@ function AppContent() {
                 </Text>
               </View>
 
-              <TouchableOpacity 
+              <TouchableOpacity accessibilityRole="button" 
                 onPress={() => supabase.auth.signOut()}
                 style={styles.logoutBtnLarge}
               >
@@ -5156,7 +5157,7 @@ function AppContent() {
                     <Text style={[styles.secondaryBtnText, { color: DANGER }]}>{t('accountDeleteTitle')}</Text>
                   )}
                 </TouchableOpacity>
-                <TouchableOpacity
+                <TouchableOpacity accessibilityRole="button"
                   style={[styles.secondaryBtn, { marginTop: 8 }]}
                   onPress={async () => {
                     const opened = await openSubscriptionManagement();

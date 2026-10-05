@@ -41,7 +41,7 @@ export default function ContractMiniRadar({ theme, radar, preview = false }) {
         const value = String(radar[row.field] || '').trim() || '—';
         const label = t(row.labelKey);
         return (
-          <Pressable
+          <Pressable accessibilityRole="button"
             key={row.key}
             onPress={() => {
               if (value && value !== '—') Alert.alert(label, value);

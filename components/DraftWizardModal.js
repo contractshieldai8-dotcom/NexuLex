@@ -289,7 +289,7 @@ export default function DraftWizardModal({
                 <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux13NoWin')}</Text>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 12 }]}>{t('ux13Disclaimer')}</Text>
                 {offered.map(({ template: item, variant: itemVariant }) => (
-                  <TouchableOpacity
+                  <TouchableOpacity accessibilityRole="button"
                     key={item.id}
                     activeOpacity={0.85}
                     onPress={() => setTemplateId(item.id)}
@@ -396,11 +396,11 @@ export default function DraftWizardModal({
                 <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>
                   {t('draftBlankHint')}
                 </Text>
-                <TouchableOpacity style={styles.primaryButton} onPress={handleGenerate}>
+                <TouchableOpacity accessibilityRole="button" style={styles.primaryButton} onPress={handleGenerate}>
                   <Text style={styles.primaryButtonText}>{t('draftGenerate')}</Text>
                 </TouchableOpacity>
                 {Object.keys(answers).length ? (
-                  <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={handleReset}>
+                  <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={handleReset}>
                     <Text style={styles.secondaryBtnText}>{t('draftResetAnswers')}</Text>
                   </TouchableOpacity>
                 ) : null}
@@ -466,13 +466,13 @@ export default function DraftWizardModal({
                     <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
                       {t('draftProLockBody')}
                     </Text>
-                    <TouchableOpacity style={styles.primaryButton} onPress={() => onNeedPaywall?.(templateId)}>
+                    <TouchableOpacity accessibilityRole="button" style={styles.primaryButton} onPress={() => onNeedPaywall?.(templateId)}>
                       <Text style={styles.primaryButtonText}>{t('draftUnlockCta')}</Text>
                     </TouchableOpacity>
                   </View>
                 ) : null}
 
-                <TouchableOpacity
+                <TouchableOpacity accessibilityRole="button"
                   style={[styles.primaryButton, exporting && styles.buttonDisabled]}
                   onPress={handleDocx}
                   disabled={exporting}
@@ -486,19 +486,19 @@ export default function DraftWizardModal({
                     </Text>
                   )}
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.secondaryBtn} onPress={handleCopy}>
+                <TouchableOpacity accessibilityRole="button" style={styles.secondaryBtn} onPress={handleCopy}>
                   <Text style={styles.secondaryBtnText}>
                     {isPro ? '' : '🔒 '}
                     {t('draftCopy')}
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={handleShare}>
+                <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={handleShare}>
                   <Text style={styles.secondaryBtnText}>
                     {isPro ? '' : '🔒 '}
                     {t('draftShare')}
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity
+                <TouchableOpacity accessibilityRole="button"
                   style={[styles.secondaryBtn, { marginTop: 8 }, improving && styles.buttonDisabled]}
                   onPress={handleImprove}
                   disabled={improving}
@@ -516,7 +516,7 @@ export default function DraftWizardModal({
                   {t('draftImproveHint')}
                 </Text>
                 {draft.improved && originalDraft ? (
-                  <TouchableOpacity
+                  <TouchableOpacity accessibilityRole="button"
                     style={[styles.secondaryBtn, { marginTop: 8 }]}
                     onPress={() => setDraft(originalDraft)}
                   >
@@ -530,7 +530,7 @@ export default function DraftWizardModal({
             )}
           </KeyboardSafeSheet>
 
-          <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={goBack}>
+          <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={goBack}>
             <Text style={styles.secondaryBtnText}>
               {draft || (template && !presetTemplateId) ? t('draftBack') : t('draftClose')}
             </Text>

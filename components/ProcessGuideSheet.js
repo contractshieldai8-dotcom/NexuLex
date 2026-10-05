@@ -103,7 +103,7 @@ export default function ProcessGuideSheet({
     </View>
   );
   const chip = (key, on, label, onPress, icon) => (
-    <TouchableOpacity
+    <TouchableOpacity accessibilityRole="button"
       key={key}
       onPress={onPress}
       style={{
@@ -160,7 +160,7 @@ export default function ProcessGuideSheet({
       </ScrollView>
       {list.length ? (
         list.map((item) => (
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             key={item.id}
             activeOpacity={0.85}
             onPress={() => openGuide(item.id)}
@@ -189,7 +189,7 @@ export default function ProcessGuideSheet({
   const renderGuide = () => (
     <View>
       {active.urgent ? (
-        <TouchableOpacity
+        <TouchableOpacity accessibilityRole="button"
           activeOpacity={0.85}
           onPress={emergency ? callEmergency : undefined}
           disabled={!emergency}
@@ -218,7 +218,7 @@ export default function ProcessGuideSheet({
           </Text>
           <Text style={[bodyText, { marginTop: 2 }]}>{t(`pgStage_${stage}_d`)}</Text>
           {stage === 'deadline' || stage === 'official_letter' ? (
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               onPress={() => onOpenCalculator?.('deadline_date')}
               style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 6 }}
             >
@@ -240,7 +240,7 @@ export default function ProcessGuideSheet({
       {links.length ? (
         <>
           {links.map((link) => (
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               key={link.url}
               onPress={() => openUrl(link.url)}
               style={{ ...box, flexDirection: 'row', alignItems: 'center', gap: 8 }}
@@ -276,21 +276,21 @@ export default function ProcessGuideSheet({
         ) : null}
       </View>
 
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         style={[styles.primaryButton, { flexDirection: 'row', gap: 6, justifyContent: 'center' }]}
         onPress={() => onAsk?.({ area: active.area, question: t('pgAskTemplate', { title: t(active.titleKey) }) })}
       >
         <Ionicons name="help-buoy-outline" size={17} color="#080C14" />
         <Text style={styles.primaryButtonText}>{t('pgAskCta')}</Text>
       </TouchableOpacity>
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center', marginTop: 8 }]}
         onPress={() => onStartCase?.({ title: t(active.titleKey), area: active.area })}
       >
         <Ionicons name="folder-open-outline" size={16} color={ACCENT} />
         <Text style={styles.secondaryBtnText}>{t('pgCaseCta')}</Text>
       </TouchableOpacity>
-      <TouchableOpacity
+      <TouchableOpacity accessibilityRole="button"
         style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center', marginTop: 8 }]}
         onPress={handleShare}
       >
@@ -342,7 +342,7 @@ export default function ProcessGuideSheet({
             {active ? renderGuide() : renderList()}
           </KeyboardSafeSheet>
 
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={[styles.secondaryBtn, { marginTop: 8 }]}
             onPress={active ? () => openGuide(null) : onClose}
           >

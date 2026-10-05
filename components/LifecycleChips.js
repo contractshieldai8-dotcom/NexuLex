@@ -48,7 +48,7 @@ export default function LifecycleChips({ theme, value, onSelect, hint = true }) 
           const active = current === code;
           const chip = lifecycleChipStyle(code, theme, { active });
           return (
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               key={code}
               onPress={() => onSelect?.(code)}
               activeOpacity={0.85}

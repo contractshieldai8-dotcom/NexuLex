@@ -344,7 +344,7 @@ export default function CaseHubSheet({
     { flex: 0, backgroundColor: theme.inputBg, color: theme.text, borderColor: theme.borderColor, marginBottom: 10 },
   ];
   const linkBtn = (icon, labelKey, onPress, color = ACCENT, extra = null) => (
-    <TouchableOpacity onPress={onPress} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }} hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}>
+    <TouchableOpacity accessibilityRole="button" onPress={onPress} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }} hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}>
       <Ionicons name={icon} size={15} color={color} />
       <Text style={[styles.label, { color, marginBottom: 0 }]}>{t(labelKey)}</Text>
       {extra}
@@ -361,7 +361,7 @@ export default function CaseHubSheet({
       {values.map((value) => {
         const on = value === selected;
         return (
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             key={value}
             onPress={() => onSelect(value)}
             style={{
@@ -402,7 +402,7 @@ export default function CaseHubSheet({
           <Text style={[bodyText, { marginTop: 4 }]} numberOfLines={2}>
             {importExplanation.title}
           </Text>
-          <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 10 }]} onPress={() => importInto(null)}>
+          <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 10 }]} onPress={() => importInto(null)}>
             <Text style={styles.secondaryBtnText}>{t('caseImportNew')}</Text>
           </TouchableOpacity>
         </View>
@@ -411,7 +411,7 @@ export default function CaseHubSheet({
       {cases.map((item) => {
         const line = nextLine(item);
         return (
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             key={item.id}
             onPress={() => {
               if (importExplanation) {
@@ -540,7 +540,7 @@ export default function CaseHubSheet({
                   {isoToDmy(event.date)} · {t(`caseKind_${event.kind}`)}
                   {alert && left !== null ? ` · ${daysLabel(left)}` : ''}
                 </Text>
-                <TouchableOpacity onPress={() => deleteEvent(event)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityLabel={t('caseDeleteItem')}>
+                <TouchableOpacity accessibilityRole="button" onPress={() => deleteEvent(event)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityLabel={t('caseDeleteItem')}>
                   <Ionicons name="trash-outline" size={15} color={theme.subText} />
                 </TouchableOpacity>
               </View>
@@ -552,7 +552,7 @@ export default function CaseHubSheet({
             </View>
           );
         })}
-        <TouchableOpacity style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center' }]} onPress={openEventForm}>
+        <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center' }]} onPress={openEventForm}>
           <Ionicons name="add" size={16} color={ACCENT} />
           <Text style={styles.secondaryBtnText}>{t('caseAddEvent')}</Text>
         </TouchableOpacity>
@@ -566,10 +566,10 @@ export default function CaseHubSheet({
               <Text style={[styles.settingLabel, { color: theme.text, fontSize: 14, flex: 1 }]} numberOfLines={2}>
                 {item.label || t(EVIDENCE_LABEL_KEYS[item.kind])}
               </Text>
-              <TouchableOpacity onPress={() => shareEvidence(item)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityLabel={t('caseEvidenceShare')}>
+              <TouchableOpacity accessibilityRole="button" onPress={() => shareEvidence(item)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityLabel={t('caseEvidenceShare')}>
                 <Ionicons name="share-outline" size={16} color={ACCENT} />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => deleteEvidence(item)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityLabel={t('caseDeleteItem')}>
+              <TouchableOpacity accessibilityRole="button" onPress={() => deleteEvidence(item)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityLabel={t('caseDeleteItem')}>
                 <Ionicons name="trash-outline" size={15} color={theme.subText} />
               </TouchableOpacity>
             </View>
@@ -584,7 +584,7 @@ export default function CaseHubSheet({
           </View>
         ))}
         {active.evidence.length ? <Text style={[styles.sectionHint, { color: theme.subText }]}>{t('caseFingerprintHint')}</Text> : null}
-        <TouchableOpacity style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center' }]} onPress={openEvidenceForm}>
+        <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center' }]} onPress={openEvidenceForm}>
           <Ionicons name="add" size={16} color={ACCENT} />
           <Text style={styles.secondaryBtnText}>{t('caseAddEvidence')}</Text>
         </TouchableOpacity>
@@ -647,7 +647,7 @@ export default function CaseHubSheet({
         maxLength={120}
       />
       <View style={{ flexDirection: 'row', gap: 8, marginBottom: 12 }}>
-        <TouchableOpacity
+        <TouchableOpacity accessibilityRole="button"
           style={[styles.secondaryBtn, { flex: 1, flexDirection: 'row', gap: 6, justifyContent: 'center' }, busy && styles.buttonDisabled]}
           onPress={pickPhotoEvidence}
           disabled={busy}
@@ -655,7 +655,7 @@ export default function CaseHubSheet({
           <Ionicons name="image-outline" size={16} color={ACCENT} />
           <Text style={styles.secondaryBtnText}>{t('caseEvidencePhoto')}</Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        <TouchableOpacity accessibilityRole="button"
           style={[styles.secondaryBtn, { flex: 1, flexDirection: 'row', gap: 6, justifyContent: 'center' }, busy && styles.buttonDisabled]}
           onPress={pickPdfEvidence}
           disabled={busy}
@@ -683,7 +683,7 @@ export default function CaseHubSheet({
     if (busy) return null;
     if (view === 'list') {
       return (
-        <TouchableOpacity style={[styles.primaryButton, { marginTop: 8 }]} onPress={startNew}>
+        <TouchableOpacity accessibilityRole="button" style={[styles.primaryButton, { marginTop: 8 }]} onPress={startNew}>
           <Text style={styles.primaryButtonText}>{t('caseNew')}</Text>
         </TouchableOpacity>
       );
@@ -691,11 +691,11 @@ export default function CaseHubSheet({
     const action = view === 'new' ? saveNew : view === 'event' ? saveEvent : view === 'evidence' ? saveNoteEvidence : null;
     return (
       <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
-        <TouchableOpacity style={[styles.secondaryBtn, { flex: 1 }]} onPress={() => go(view === 'detail' ? 'list' : activeId && view !== 'new' ? 'detail' : 'list')}>
+        <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { flex: 1 }]} onPress={() => go(view === 'detail' ? 'list' : activeId && view !== 'new' ? 'detail' : 'list')}>
           <Text style={styles.secondaryBtnText}>{t('caseBack')}</Text>
         </TouchableOpacity>
         {action ? (
-          <TouchableOpacity style={[styles.primaryButton, { flex: 1 }]} onPress={action}>
+          <TouchableOpacity accessibilityRole="button" style={[styles.primaryButton, { flex: 1 }]} onPress={action}>
             <Text style={styles.primaryButtonText}>{t('caseSave')}</Text>
           </TouchableOpacity>
         ) : null}

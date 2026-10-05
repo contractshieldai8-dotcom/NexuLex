@@ -232,7 +232,7 @@ export default function DocumentExplainerSheet({
     <View>
       <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('docExplainHint')}</Text>
       <View style={{ flexDirection: 'row', gap: 8, marginBottom: 10 }}>
-        <TouchableOpacity
+        <TouchableOpacity accessibilityRole="button"
           style={[styles.secondaryBtn, { flex: 1, flexDirection: 'row', gap: 6, justifyContent: 'center' }, (picking || working) && styles.buttonDisabled]}
           onPress={pickPhotos}
           disabled={picking || working}
@@ -242,7 +242,7 @@ export default function DocumentExplainerSheet({
             {images.length ? t('docExplainPages', { count: images.length }) : t('docExplainPickPhotos')}
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        <TouchableOpacity accessibilityRole="button"
           style={[styles.secondaryBtn, { flex: 1, flexDirection: 'row', gap: 6, justifyContent: 'center' }, (picking || working) && styles.buttonDisabled]}
           onPress={pickPdf}
           disabled={picking || working}
@@ -254,7 +254,7 @@ export default function DocumentExplainerSheet({
         </TouchableOpacity>
       </View>
       {images.length || pdf ? (
-        <TouchableOpacity
+        <TouchableOpacity accessibilityRole="button"
           onPress={() => {
             setImages([]);
             setPdf(null);
@@ -303,7 +303,7 @@ export default function DocumentExplainerSheet({
           <Text style={[styles.label, { color: theme.subText, marginTop: 12 }]}>{t('docExplainRecent')}</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingBottom: 4 }}>
             {saved.map((item) => (
-              <TouchableOpacity
+              <TouchableOpacity accessibilityRole="button"
                 key={item.id}
                 onPress={() => setEntry(item)}
                 style={{ ...box, marginBottom: 0, maxWidth: 200, minWidth: 140, backgroundColor: theme.cardBg }}
@@ -381,13 +381,13 @@ export default function DocumentExplainerSheet({
               ) : null}
               <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
                 {deadline.date && left !== null && left >= 0 ? (
-                  <TouchableOpacity onPress={() => remind(deadline, index)} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                  <TouchableOpacity accessibilityRole="button" onPress={() => remind(deadline, index)} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                     <Ionicons name="notifications-outline" size={15} color={ACCENT} />
                     <Text style={[styles.label, { color: ACCENT, marginBottom: 0 }]}>{t('docExplainRemind')}</Text>
                   </TouchableOpacity>
                 ) : null}
                 {!deadline.date && deadline.rule ? (
-                  <TouchableOpacity onPress={() => onOpenCalculator?.('deadline_date')} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                  <TouchableOpacity accessibilityRole="button" onPress={() => onOpenCalculator?.('deadline_date')} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                     <Ionicons name="calculator-outline" size={15} color={ACCENT} />
                     <Text style={[styles.label, { color: ACCENT, marginBottom: 0 }]}>{t('docExplainCountDays')}</Text>
                   </TouchableOpacity>
@@ -456,7 +456,7 @@ export default function DocumentExplainerSheet({
         ))}
 
         {onAddToCase ? (
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center', marginTop: 16 }]}
             onPress={() => onAddToCase(entry.explanation)}
           >
@@ -466,11 +466,11 @@ export default function DocumentExplainerSheet({
         ) : null}
 
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16, marginTop: 16, flexWrap: 'nowrap' }}>
-          <TouchableOpacity onPress={handleAskAdvisor} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+          <TouchableOpacity accessibilityRole="button" onPress={handleAskAdvisor} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
             <Ionicons name="chatbubbles-outline" size={16} color={ACCENT} />
             <Text style={[styles.label, { color: ACCENT, marginBottom: 0 }]}>{t('docExplainAskAdvisor')}</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleShare} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+          <TouchableOpacity accessibilityRole="button" onPress={handleShare} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
             <Ionicons name="share-outline" size={16} color={ACCENT} />
             <Text style={[styles.label, { color: ACCENT, marginBottom: 0 }]}>{t('docExplainShare')}</Text>
           </TouchableOpacity>
@@ -539,11 +539,11 @@ export default function DocumentExplainerSheet({
           </KeyboardSafeSheet>
 
           {entry && !working ? (
-            <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={() => setEntry(null)}>
+            <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={() => setEntry(null)}>
               <Text style={styles.secondaryBtnText}>{t('docExplainNew')}</Text>
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               style={[styles.primaryButton, { marginTop: 8 }, (working || picking || !hasInput) && styles.buttonDisabled]}
               onPress={handleExplain}
               disabled={working || picking}

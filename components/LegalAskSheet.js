@@ -177,7 +177,7 @@ export default function LegalAskSheet({
     { flex: 0, textAlignVertical: 'top', backgroundColor: theme.inputBg, color: theme.text, borderColor: theme.borderColor, marginBottom: 10 },
   ];
   const chip = (key, on, label, onPress, icon) => (
-    <TouchableOpacity
+    <TouchableOpacity accessibilityRole="button"
       key={key}
       onPress={onPress}
       style={{
@@ -205,7 +205,7 @@ export default function LegalAskSheet({
     </ScrollView>
   );
   const linkBtn = (icon, labelKey, onPress) => (
-    <TouchableOpacity onPress={onPress} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+    <TouchableOpacity accessibilityRole="button" onPress={onPress} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
       <Ionicons name={icon} size={16} color={ACCENT} />
       <Text style={[styles.label, { color: ACCENT, marginBottom: 0 }]}>{t(labelKey)}</Text>
     </TouchableOpacity>
@@ -363,7 +363,7 @@ export default function LegalAskSheet({
 
         {ans.sources.length || portal ? sectionTitle('askSources', 'globe-outline') : null}
         {ans.sources.map((source) => (
-          <TouchableOpacity key={source.url} onPress={() => openUrl(source.url)} style={{ ...box, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <TouchableOpacity accessibilityRole="button" key={source.url} onPress={() => openUrl(source.url)} style={{ ...box, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
             <Ionicons name="open-outline" size={16} color={ACCENT} />
             <View style={{ flex: 1 }}>
               <Text style={[styles.settingLabel, { color: ACCENT, fontSize: 14 }]} numberOfLines={2}>
@@ -376,7 +376,7 @@ export default function LegalAskSheet({
           </TouchableOpacity>
         ))}
         {portal ? (
-          <TouchableOpacity onPress={() => openUrl(portal)} style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+          <TouchableOpacity accessibilityRole="button" onPress={() => openUrl(portal)} style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 }}>
             <Ionicons name="search-outline" size={15} color={ACCENT} />
             <Text style={[styles.label, { color: ACCENT, marginBottom: 0 }]}>{t('askOfficialPortal')}</Text>
           </TouchableOpacity>
@@ -395,7 +395,7 @@ export default function LegalAskSheet({
         {ans.followUps.length ? chipRow(ans.followUps.map((item, index) => chip(`fu-${index}`, false, item, () => followUp(item)))) : null}
 
         {caseId ? (
-          <TouchableOpacity
+          <TouchableOpacity accessibilityRole="button"
             style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center', marginTop: 12 }]}
             onPress={saveToCase}
           >
@@ -466,11 +466,11 @@ export default function LegalAskSheet({
           </KeyboardSafeSheet>
 
           {entry && !working ? (
-            <TouchableOpacity style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={() => setEntry(null)}>
+            <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={() => setEntry(null)}>
               <Text style={styles.secondaryBtnText}>{t('askNew')}</Text>
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity
+            <TouchableOpacity accessibilityRole="button"
               style={[styles.primaryButton, { marginTop: 8 }, (working || question.trim().length < ASK_QUESTION_MIN) && styles.buttonDisabled]}
               onPress={handleAsk}
               disabled={working}

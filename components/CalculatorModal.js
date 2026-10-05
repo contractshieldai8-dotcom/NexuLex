@@ -470,6 +470,7 @@ export default function CalculatorModal({
                     {t('calcIncludesNotice')}
                   </Text>
                   <Switch
+                    accessibilityLabel={t('calcIncludesNotice')}
                     value={includesNoticePay}
                     onValueChange={setIncludesNoticePay}
                     trackColor={{ true: ACCENT }}
@@ -520,7 +521,7 @@ export default function CalculatorModal({
                   <Text style={[styles.settingLabel, { color: theme.text, flex: 1 }]}>
                     {t('calcIsResidential')}
                   </Text>
-                  <Switch value={isResidential} onValueChange={setIsResidential} trackColor={{ true: ACCENT }} />
+                  <Switch accessibilityLabel={t('calcIsResidential')} value={isResidential} onValueChange={setIsResidential} trackColor={{ true: ACCENT }} />
                 </View>
               </>
             ) : null}
@@ -587,7 +588,7 @@ export default function CalculatorModal({
                   ].map((opt) => {
                     const active = interestType === opt.id;
                     return (
-                      <TouchableOpacity
+                      <TouchableOpacity accessibilityRole="button"
                         key={opt.id}
                         onPress={() => setInterestType(opt.id)}
                         style={[
@@ -625,7 +626,7 @@ export default function CalculatorModal({
                 {deadlineUnit === 'days' ? (
                   <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
                     <Text style={[styles.settingLabel, { color: theme.text, flex: 1 }]}>{t('calcBusinessDays')}</Text>
-                    <Switch value={businessDays} onValueChange={setBusinessDays} trackColor={{ true: ACCENT }} />
+                    <Switch accessibilityLabel={t('calcBusinessDays')} value={businessDays} onValueChange={setBusinessDays} trackColor={{ true: ACCENT }} />
                   </View>
                 ) : null}
               </>
@@ -684,7 +685,7 @@ export default function CalculatorModal({
             ) : null}
 
             {available ? (
-              <TouchableOpacity style={styles.primaryButton} onPress={runCalculate} activeOpacity={0.85}>
+              <TouchableOpacity accessibilityRole="button" style={styles.primaryButton} onPress={runCalculate} activeOpacity={0.85}>
                 <Text style={styles.primaryButtonText}>{t('calcCalculate')}</Text>
               </TouchableOpacity>
             ) : null}
@@ -749,13 +750,13 @@ export default function CalculatorModal({
                   {t(result.disclaimerKey || 'calcDisclaimer')}
                 </Text>
 
-                <TouchableOpacity style={styles.primaryButton} onPress={handleCopy} activeOpacity={0.85}>
+                <TouchableOpacity accessibilityRole="button" style={styles.primaryButton} onPress={handleCopy} activeOpacity={0.85}>
                   <Text style={styles.primaryButtonText}>{t('calcCopy')}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.secondaryBtn} onPress={handleShare} activeOpacity={0.85}>
+                <TouchableOpacity accessibilityRole="button" style={styles.secondaryBtn} onPress={handleShare} activeOpacity={0.85}>
                   <Text style={styles.secondaryBtnText}>{t('calcShare')}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.secondaryBtn} onPress={handleAskAdvisor} activeOpacity={0.85}>
+                <TouchableOpacity accessibilityRole="button" style={styles.secondaryBtn} onPress={handleAskAdvisor} activeOpacity={0.85}>
                   <Text style={styles.secondaryBtnText}>{t('calcAskAdvisor')}</Text>
                 </TouchableOpacity>
               </View>
