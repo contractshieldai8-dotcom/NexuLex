@@ -23,32 +23,32 @@ export const WAVE_GR7_I18N = {
   },
   "de": {
     "gr7RateHint": "Unter Android oeffnet das die Google-Play-Liste in Ihrer Sprache und Ihrem Land. Am iPhone oeffnet es die oeffentliche get-Seite, bis eine App-Store-Liste live ist.",
-    "gr7InviteHint": "Die Einladung ist nur die oeffentliche get-Seite in Ihrer Sprache. Kein Vertragstext wird angehaengt.",
-    "gr7Play": "Google-Play-Liste fuer dieses Land",
+    "gr7InviteHint": "Die Einladung ist nur die oeffentliche get-Seite in Ihrer Sprache. Kein Vertragstext wird angehängt.",
+    "gr7Play": "Google-Play-Liste für dieses Land",
     "gr7Get": "Oeffentliche NexuLex-Seite. Die App-Store-Liste ist noch nicht live.",
     "gr7NoApple": "Es gibt noch keine Apple-App-Nummer. Die iPhone-Bewertung bleibt auf der get-Seite.",
-    "gr7Align": "Die get-Seite folgt der Sprache, die Sie teilen. Store-Texte kommen spaeter.",
-    "gr7Country": "Die Bewertung folgt dem Land, das Sie waehlten. Sie raet kein Gericht und kein Ergebnis.",
-    "gr7Note": "NexuLex tauscht nie eine Bewertung gegen ein Ergebnis. Eine Rezension aendert den Bericht nicht."
+    "gr7Align": "Die get-Seite folgt der Sprache, die Sie teilen. Store-Texte kommen später.",
+    "gr7Country": "Die Bewertung folgt dem Land, das Sie wählten. Sie rät kein Gericht und kein Ergebnis.",
+    "gr7Note": "NexuLex tauscht nie eine Bewertung gegen ein Ergebnis. Eine Rezension ändert den Bericht nicht."
   },
   "fr": {
-    "gr7RateHint": "Sous Android cela ouvre la fiche Google Play dans votre langue et votre pays. Sur iPhone cela ouvre la page get publique tant qu une fiche App Store n est pas en ligne.",
-    "gr7InviteHint": "L invitation est seulement la page get publique dans votre langue. Aucun texte de contrat n est joint.",
+    "gr7RateHint": "Sous Android cela ouvre la fiche Google Play dans votre langue et votre pays. Sur iPhone cela ouvre la page get publique tant qu’une fiche App Store n’est pas en ligne.",
+    "gr7InviteHint": "L’invitation est seulement la page get publique dans votre langue. Aucun texte de contrat n’est joint.",
     "gr7Play": "Fiche Google Play pour ce pays",
-    "gr7Get": "Page NexuLex publique. La fiche App Store n est pas encore en ligne.",
-    "gr7NoApple": "Il n y a pas encore de numero d app Apple. La note iPhone reste sur la page get.",
+    "gr7Get": "Page NexuLex publique. La fiche App Store n’est pas encore en ligne.",
+    "gr7NoApple": "Il n’y a pas encore de numéro d’app Apple. La note iPhone reste sur la page get.",
     "gr7Align": "La page get suit la langue que vous partagez. Les textes magasin viennent plus tard.",
-    "gr7Country": "La note suit le pays choisi. Elle ne devine ni tribunal ni resultat.",
-    "gr7Note": "NexuLex n echange jamais une note contre un resultat. Un avis ne change pas le rapport."
+    "gr7Country": "La note suit le pays choisi. Elle ne devine ni tribunal ni résultat.",
+    "gr7Note": "NexuLex n’échange jamais une note contre un résultat. Un avis ne change pas le rapport."
   },
   "es": {
-    "gr7RateHint": "En Android esto abre la ficha de Google Play en su idioma y pais. En iPhone abre la pagina get publica hasta que la ficha de App Store este activa.",
-    "gr7InviteHint": "La invitacion es solo la pagina get publica en su idioma. No se adjunta texto del contrato.",
-    "gr7Play": "Ficha de Google Play para este pais",
-    "gr7Get": "Pagina publica de NexuLex. La ficha de App Store aun no esta activa.",
-    "gr7NoApple": "Aun no hay numero de app de Apple. La valoracion de iPhone sigue en la pagina get.",
-    "gr7Align": "La pagina get sigue el idioma que comparte. El texto de tienda llega despues.",
-    "gr7Country": "La valoracion sigue el pais que eligio. No adivina un tribunal ni un resultado.",
+    "gr7RateHint": "En Android esto abre la ficha de Google Play en su idioma y país. En iPhone abre la página get pública hasta que la ficha de App Store este activa.",
+    "gr7InviteHint": "La invitación es solo la página get pública en su idioma. No se adjunta texto del contrato.",
+    "gr7Play": "Ficha de Google Play para este país",
+    "gr7Get": "Página pública de NexuLex. La ficha de App Store aún no está activa.",
+    "gr7NoApple": "Aun no hay número de app de Apple. La valoracion de iPhone sigue en la página get.",
+    "gr7Align": "La página get sigue el idioma que comparte. El texto de tienda llega después.",
+    "gr7Country": "La valoracion sigue el país que eligió. No adivina un tribunal ni un resultado.",
     "gr7Note": "NexuLex nunca cambia una valoracion por un resultado. Una reseña no cambia el informe."
   },
   "ar": {
@@ -62,10 +62,10 @@ export const WAVE_GR7_I18N = {
     "gr7Note": "لا يبادل NexuLex تقييما بنتيجة. والمراجعة لا تغيّر التقرير."
   },
   "it": {
-    "gr7RateHint": "Su Android apre la scheda Google Play nella tua lingua e nel tuo paese. Su iPhone apre la pagina get pubblica finche una scheda App Store non e online.",
-    "gr7InviteHint": "L invito e solo la pagina get pubblica nella tua lingua. Nessun testo del contratto e allegato.",
+    "gr7RateHint": "Su Android apre la scheda Google Play nella tua lingua e nel tuo paese. Su iPhone apre la pagina get pubblica finché una scheda App Store non è online.",
+    "gr7InviteHint": "L’invito è solo la pagina get pubblica nella tua lingua. Nessun testo del contratto è allegato.",
     "gr7Play": "Scheda Google Play per questo paese",
-    "gr7Get": "Pagina NexuLex pubblica. La scheda App Store non e ancora online.",
+    "gr7Get": "Pagina NexuLex pubblica. La scheda App Store non è ancora online.",
     "gr7NoApple": "Non c e ancora un numero app Apple. La valutazione iPhone resta sulla pagina get.",
     "gr7Align": "La pagina get segue la lingua che condividi. I testi store arrivano dopo.",
     "gr7Country": "La valutazione segue il paese scelto. Non indovina un tribunale ne un esito.",
@@ -112,14 +112,14 @@ export const WAVE_GR7_I18N = {
     "gr7Note": "NexuLex は評価を結果と引き換えません。レビューは報告を変えません。"
   },
   "pt": {
-    "gr7RateHint": "No Android isto abre a ficha da Google Play no seu idioma e pais. No iPhone abre a pagina get publica ate a ficha da App Store estar ativa.",
-    "gr7InviteHint": "O convite e so a pagina get publica no seu idioma. Nenhum texto do contrato e anexado.",
-    "gr7Play": "Ficha da Google Play para este pais",
-    "gr7Get": "Pagina publica da NexuLex. A ficha da App Store ainda nao esta ativa.",
-    "gr7NoApple": "Ainda nao ha numero de app da Apple. A avaliacao no iPhone fica na pagina get.",
-    "gr7Align": "A pagina get segue o idioma que partilha. O texto da loja vem depois.",
-    "gr7Country": "A avaliacao segue o pais que escolheu. Nao adivinha um tribunal nem um resultado.",
-    "gr7Note": "A NexuLex nunca troca uma avaliacao por um resultado. Uma recensão nao muda o relatorio."
+    "gr7RateHint": "No Android isto abre a ficha da Google Play no seu idioma e país. No iPhone abre a página get pública até a ficha da App Store estar ativa.",
+    "gr7InviteHint": "O convite é só a página get pública no seu idioma. Nenhum texto do contrato é anexado.",
+    "gr7Play": "Ficha da Google Play para este país",
+    "gr7Get": "Página pública da NexuLex. A ficha da App Store ainda não esta ativa.",
+    "gr7NoApple": "Ainda não há número de app da Apple. A avaliação no iPhone fica na página get.",
+    "gr7Align": "A página get segue o idioma que partilha. O texto da loja vem depois.",
+    "gr7Country": "A avaliação segue o país que escolheu. Não adivinha um tribunal nem um resultado.",
+    "gr7Note": "A NexuLex nunca troca uma avaliação por um resultado. Uma recensão não muda o relatório."
   },
   "nl": {
     "gr7RateHint": "Op Android opent dit de Google Play-fiche in uw taal en land. Op iPhone opent het de openbare get-pagina tot er een App Store-fiche live is.",

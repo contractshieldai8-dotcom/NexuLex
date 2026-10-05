@@ -22,33 +22,33 @@ export const WAVE_UX14_I18N = {
     "ux14Disclaimer": "NexuLex is not a law firm. A structured memo is a product tool, not a lawyer."
   },
   "de": {
-    "ux14Quota": "Professional-Werkzeuglaeufe pro Tag: {{toolsDaily}}. Der Server zaehlt sie.",
-    "ux14Server": "Die App zeigt nur den Rest. NexuLex kann auf diesem Telefon keine extra Laeufe erfinden.",
-    "ux14Plan": "Chronologie, Streitpunkte und das Recherchememo bleiben im Professional-Plan. Pro enthaelt sie nicht.",
+    "ux14Quota": "Professional-Werkzeugläufe pro Tag: {{toolsDaily}}. Der Server zählt sie.",
+    "ux14Server": "Die App zeigt nur den Rest. NexuLex kann auf diesem Telefon keine extra Läufe erfinden.",
+    "ux14Plan": "Chronologie, Streitpunkte und das Recherchememo bleiben im Professional-Plan. Pro enthält sie nicht.",
     "ux14Material": "Ein Lauf nutzt nur das Material, das Sie einfuegen. Daten werden markiert, nie geraten.",
-    "ux14Sources": "Oeffnen Sie jede amtliche Quelle selbst. Ein Zitat kann veralten.",
-    "ux14NoAdvice": "Das ist eine Arbeitshilfe. Keine Beratung fuer eine Mandantenakte und keine Vertretung.",
+    "ux14Sources": "Öffnen Sie jede amtliche Quelle selbst. Ein Zitat kann veralten.",
+    "ux14NoAdvice": "Das ist eine Arbeitshilfe. Keine Beratung für eine Mandantenakte und keine Vertretung.",
     "ux14Device": "Ergebnisse bleiben auf diesem Telefon, bis Sie sie in eine Akte speichern oder teilen.",
     "ux14Disclaimer": "NexuLex ist keine Kanzlei. Ein strukturiertes Memo ist ein Produktwerkzeug, kein Anwalt."
   },
   "fr": {
-    "ux14Quota": "Passages d outils Professional par jour: {{toolsDaily}}. Le serveur les compte.",
-    "ux14Server": "L app affiche seulement le reste. NexuLex ne peut pas inventer de passages en plus sur ce telephone.",
+    "ux14Quota": "Passages d’outils Professional par jour: {{toolsDaily}}. Le serveur les compte.",
+    "ux14Server": "L’app affiche seulement le reste. NexuLex ne peut pas inventer de passages en plus sur ce téléphone.",
     "ux14Plan": "Chronologie, liste des points et note de recherche restent dans le forfait Professional. Pro ne les inclut pas.",
-    "ux14Material": "Un passage n utilise que le materiau que vous collez. Les dates sont signalees, jamais inventees.",
-    "ux14Sources": "Ouvrez chaque source officielle vous-meme. Une citation peut etre perimee.",
-    "ux14NoAdvice": "C est une aide de travail. Pas un conseil pour un dossier client et pas une representation.",
-    "ux14Device": "Les resultats restent sur ce telephone sauf si vous les sauvez dans un dossier ou les partagez.",
-    "ux14Disclaimer": "NexuLex n est pas un cabinet. Une note structuree est un outil produit, pas un avocat."
+    "ux14Material": "Un passage n’utilise que le matériau que vous collez. Les dates sont signalées, jamais inventées.",
+    "ux14Sources": "Ouvrez chaque source officielle vous-même. Une citation peut être perimee.",
+    "ux14NoAdvice": "C’est une aide de travail. Pas un conseil pour un dossier client et pas une représentation.",
+    "ux14Device": "Les résultats restent sur ce téléphone sauf si vous les sauvez dans un dossier ou les partagez.",
+    "ux14Disclaimer": "NexuLex n’est pas un cabinet. Une note structurée est un outil produit, pas un avocat."
   },
   "es": {
-    "ux14Quota": "Ejecuciones de herramientas Professional al dia: {{toolsDaily}}. El servidor las cuenta.",
-    "ux14Server": "La app solo muestra el resto. NexuLex no puede inventar ejecuciones extra en este telefono.",
-    "ux14Plan": "Cronologia, lista de puntos y nota de investigacion siguen en el plan Professional. Pro no las incluye.",
-    "ux14Material": "Una ejecucion usa solo el material que usted pega. Las fechas se marcan, nunca se adivinan.",
+    "ux14Quota": "Ejecuciones de herramientas Professional al día: {{toolsDaily}}. El servidor las cuenta.",
+    "ux14Server": "La app solo muestra el resto. NexuLex no puede inventar ejecuciones extra en este teléfono.",
+    "ux14Plan": "Cronología, lista de puntos y nota de investigación siguen en el plan Professional. Pro no las incluye.",
+    "ux14Material": "Una ejecución usa solo el material que usted pega. Las fechas se marcan, nunca se adivinan.",
     "ux14Sources": "Abra usted cada fuente oficial. Una cita puede quedar vieja.",
     "ux14NoAdvice": "Es una ayuda de trabajo. No es consejo para un expediente de cliente y no representa a nadie.",
-    "ux14Device": "Los resultados se quedan en este telefono salvo que los guarde en un expediente o los comparta.",
+    "ux14Device": "Los resultados se quedan en este teléfono salvo que los guarde en un expediente o los comparta.",
     "ux14Disclaimer": "NexuLex no es un bufete. Una nota estructurada es una herramienta de producto, no un abogado."
   },
   "ar": {
@@ -63,13 +63,13 @@ export const WAVE_UX14_I18N = {
   },
   "it": {
     "ux14Quota": "Esecuzioni di strumenti Professional al giorno: {{toolsDaily}}. Il server le conta.",
-    "ux14Server": "L app mostra solo il resto. NexuLex non puo inventare esecuzioni extra su questo telefono.",
+    "ux14Server": "L’app mostra solo il resto. NexuLex non può inventare esecuzioni extra su questo telefono.",
     "ux14Plan": "Cronologia, elenco delle questioni e nota di ricerca restano nel piano Professional. Pro non le include.",
     "ux14Material": "Una esecuzione usa solo il materiale che incolli. Le date sono segnalate, mai indovinate.",
-    "ux14Sources": "Apri tu ogni fonte ufficiale. Una citazione puo essere vecchia.",
-    "ux14NoAdvice": "E un aiuto di lavoro. Non e un parere per un fascicolo cliente e non rappresenta nessuno.",
-    "ux14Device": "I risultati restano su questo telefono finche non li salvi in una pratica o li condividi.",
-    "ux14Disclaimer": "NexuLex non e uno studio. Una nota strutturata e uno strumento di prodotto, non un avvocato."
+    "ux14Sources": "Apri tu ogni fonte ufficiale. Una citazione può essere vecchia.",
+    "ux14NoAdvice": "È un aiuto di lavoro. Non è un parere per un fascicolo cliente e non rappresenta nessuno.",
+    "ux14Device": "I risultati restano su questo telefono finché non li salvi in una pratica o li condividi.",
+    "ux14Disclaimer": "NexuLex non è uno studio. Una nota strutturata è uno strumento di prodotto, non un avvocato."
   },
   "zh": {
     "ux14Quota": "每日 Professional 工具运行：{{toolsDaily}}。由服务器计数。",
@@ -112,14 +112,14 @@ export const WAVE_UX14_I18N = {
     "ux14Disclaimer": "NexuLex は法律事務所ではありません。組み立てたメモは製品の用具であり、弁護士ではありません。"
   },
   "pt": {
-    "ux14Quota": "Execucoes de ferramentas Professional por dia: {{toolsDaily}}. O servidor conta-as.",
-    "ux14Server": "A app so mostra o resto. A NexuLex nao pode inventar execucoes extra neste telefone.",
-    "ux14Plan": "Cronologia, lista de questoes e nota de pesquisa ficam no plano Professional. O Pro nao as inclui.",
-    "ux14Material": "Uma execucao usa so o material que cola. As datas sao marcadas, nunca adivinhadas.",
-    "ux14Sources": "Abra voce cada fonte oficial. Uma citacao pode ficar velha.",
-    "ux14NoAdvice": "E uma ajuda de trabalho. Nao e conselho para um processo de cliente e nao representa ninguem.",
-    "ux14Device": "Os resultados ficam neste telefone ate os guardar num processo ou os partilhar.",
-    "ux14Disclaimer": "A NexuLex nao e um escritorio. Uma nota estruturada e uma ferramenta de produto, nao um advogado."
+    "ux14Quota": "Execuções de ferramentas Professional por dia: {{toolsDaily}}. O servidor conta-as.",
+    "ux14Server": "A app só mostra o resto. A NexuLex não pode inventar execuções extra neste telefone.",
+    "ux14Plan": "Cronologia, lista de questões e nota de pesquisa ficam no plano Professional. O Pro não as inclui.",
+    "ux14Material": "Uma execução usa só o material que cola. As datas são marcadas, nunca adivinhadas.",
+    "ux14Sources": "Abra você cada fonte oficial. Uma citação pode ficar velha.",
+    "ux14NoAdvice": "É uma ajuda de trabalho. Não é conselho para um processo de cliente e não representa ninguém.",
+    "ux14Device": "Os resultados ficam neste telefone até os guardar num processo ou os partilhar.",
+    "ux14Disclaimer": "A NexuLex não é um escritório. Uma nota estruturada é uma ferramenta de produto, não um advogado."
   },
   "nl": {
     "ux14Quota": "Professional-hulplopen per dag: {{toolsDaily}}. De server telt ze.",

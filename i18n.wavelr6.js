@@ -240,7 +240,7 @@ export const WAVE_LR6_I18N = {
   },
   "fr": {
     "lhCardTitle": "Trouver un avocat",
-    "lhCardHint": "Annuaires officiels des barreaux et de l'aide juridictionnelle de votre pays, un premier message prêt et un dossier pour le rendez-vous.",
+    "lhCardHint": "Annuaires officiels des barreaux et de l'aide juridictionnelle de votre pays, un premier message prêt’et un dossier pour le rendez-vous.",
     "lhTitle": "Trouver un avocat",
     "lhHint": "Trouvez vous-même un avocat grâce aux annuaires officiels ci-dessous, puis présentez un résumé clair de votre affaire dès le premier contact.",
     "lhNoReferral": "NexuLex ne recommande, ne classe et n'oriente vers aucun avocat et ne perçoit aucune commission. Les liens ci-dessous mènent à des ordres professionnels et services publics officiels.",

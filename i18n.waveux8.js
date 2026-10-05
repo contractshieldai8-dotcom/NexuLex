@@ -22,33 +22,33 @@ export const WAVE_UX8_I18N = {
     "ux8Disclaimer": "NexuLex is not a law firm. A structured answer is a product tool, not a lawyer."
   },
   "de": {
-    "ux8Quota": "Taegliche Rechtsfragen: gratis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. Der Server zaehlt sie.",
+    "ux8Quota": "Tägliche Rechtsfragen: gratis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. Der Server zählt sie.",
     "ux8Server": "Die App zeigt nur den Rest. NexuLex kann auf diesem Telefon keine extra Gratisfragen erfinden.",
     "ux8Country": "Die Antwort folgt dem Land auf dem Berater-Screen. Das ist ein Korridor, kein Gerichtsgutachten.",
-    "ux8NoAdvice": "Das ist allgemeine Rechtsinformation. Keine Beratung fuer Ihre Sache und keine Vertretung.",
-    "ux8Sources": "Oeffnen Sie jede amtliche Quelle selbst. Gesetze aendern sich; ein Zitat kann veralten.",
-    "ux8NoEvidence": "Eine Akte anhaengen sendet die Kurzfassung, nicht die Beweisdateien.",
+    "ux8NoAdvice": "Das ist allgemeine Rechtsinformation. Keine Beratung für Ihre Sache und keine Vertretung.",
+    "ux8Sources": "Öffnen Sie jede amtliche Quelle selbst. Gesetze ändern sich; ein Zitat kann veralten.",
+    "ux8NoEvidence": "Eine Akte anhängen sendet die Kurzfassung, nicht die Beweisdateien.",
     "ux8Device": "Antworten bleiben auf diesem Telefon, bis Sie sie speichern oder teilen.",
     "ux8Disclaimer": "NexuLex ist keine Kanzlei. Eine strukturierte Antwort ist ein Produktwerkzeug, kein Anwalt."
   },
   "fr": {
     "ux8Quota": "Questions juridiques par jour: gratuit {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. Le serveur les compte.",
-    "ux8Server": "L app affiche seulement le reste. NexuLex ne peut pas inventer de questions gratuites en plus sur ce telephone.",
-    "ux8Country": "La reponse suit le pays de l ecran conseiller. C est un corridor, pas un avis de tribunal.",
-    "ux8NoAdvice": "Ce sont des informations juridiques generales. Pas un conseil pour votre affaire et pas une representation.",
-    "ux8Sources": "Ouvrez chaque source officielle vous-meme. Les textes changent; une citation peut etre perimee.",
-    "ux8NoEvidence": "Joindre un dossier envoie le resume, pas les fichiers de preuve.",
-    "ux8Device": "Les reponses restent sur ce telephone sauf si vous les enregistrez ou les partagez.",
-    "ux8Disclaimer": "NexuLex n est pas un cabinet. Une reponse structuree est un outil produit, pas un avocat."
+    "ux8Server": "L’app affiche seulement le reste. NexuLex ne peut pas inventer de questions gratuites en plus sur ce téléphone.",
+    "ux8Country": "La réponse suit le pays de l’écran conseiller. C’est un corridor, pas un avis de tribunal.",
+    "ux8NoAdvice": "Ce sont des informations juridiques générales. Pas un conseil pour votre affaire et pas une représentation.",
+    "ux8Sources": "Ouvrez chaque source officielle vous-même. Les textes changent; une citation peut être perimee.",
+    "ux8NoEvidence": "Joindre un dossier envoie le résumé, pas les fichiers de preuve.",
+    "ux8Device": "Les réponses restent sur ce téléphone sauf si vous les enregistrez ou les partagez.",
+    "ux8Disclaimer": "NexuLex n’est pas un cabinet. Une réponse structurée est un outil produit, pas un avocat."
   },
   "es": {
-    "ux8Quota": "Preguntas juridicas al dia: gratis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. El servidor las cuenta.",
-    "ux8Server": "La app solo muestra el resto. NexuLex no puede inventar preguntas gratis extra en este telefono.",
-    "ux8Country": "La respuesta sigue el pais de la pantalla del asesor. Es un corredor, no un dictamen judicial.",
-    "ux8NoAdvice": "Es informacion juridica general. No es consejo para su caso y no le representa.",
+    "ux8Quota": "Preguntas jurídicas al día: gratis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. El servidor las cuenta.",
+    "ux8Server": "La app solo muestra el resto. NexuLex no puede inventar preguntas gratis extra en este teléfono.",
+    "ux8Country": "La respuesta sigue el país de la pantalla del asesor. Es un corredor, no un dictamen judicial.",
+    "ux8NoAdvice": "Es información jurídica general. No es consejo para su caso y no le representa.",
     "ux8Sources": "Abra usted cada fuente oficial. Las normas cambian; una cita puede quedar vieja.",
-    "ux8NoEvidence": "Adjuntar un expediente envia el resumen, no los archivos de prueba.",
-    "ux8Device": "Las respuestas se quedan en este telefono salvo que las guarde o las comparta.",
+    "ux8NoEvidence": "Adjuntar un expediente envía el resumen, no los archivos de prueba.",
+    "ux8Device": "Las respuestas se quedan en este teléfono salvo que las guarde o las comparta.",
     "ux8Disclaimer": "NexuLex no es un bufete. Una respuesta estructurada es una herramienta de producto, no un abogado."
   },
   "ar": {
@@ -63,13 +63,13 @@ export const WAVE_UX8_I18N = {
   },
   "it": {
     "ux8Quota": "Domande legali al giorno: gratis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. Il server le conta.",
-    "ux8Server": "L app mostra solo il resto. NexuLex non puo inventare domande gratis extra su questo telefono.",
-    "ux8Country": "La risposta segue il paese della schermata consulente. E un corridoio, non un parere di tribunale.",
-    "ux8NoAdvice": "Sono informazioni legali generali. Non e un parere per la tua pratica e non ti rappresenta.",
-    "ux8Sources": "Apri tu ogni fonte ufficiale. Le norme cambiano; una citazione puo essere vecchia.",
+    "ux8Server": "L’app mostra solo il resto. NexuLex non può inventare domande gratis extra su questo telefono.",
+    "ux8Country": "La risposta segue il paese della schermata consulente. È un corridoio, non un parere di tribunale.",
+    "ux8NoAdvice": "Sono informazioni legali generali. Non è un parere per la tua pratica e non ti rappresenta.",
+    "ux8Sources": "Apri tu ogni fonte ufficiale. Le norme cambiano; una citazione può essere vecchia.",
     "ux8NoEvidence": "Allegare un fascicolo invia il riassunto, non i file di prova.",
-    "ux8Device": "Le risposte restano su questo telefono finche non le salvi o le condividi.",
-    "ux8Disclaimer": "NexuLex non e uno studio. Una risposta strutturata e uno strumento di prodotto, non un avvocato."
+    "ux8Device": "Le risposte restano su questo telefono finché non le salvi o le condividi.",
+    "ux8Disclaimer": "NexuLex non è uno studio. Una risposta strutturata è uno strumento di prodotto, non un avvocato."
   },
   "zh": {
     "ux8Quota": "每日法律提问：免费 {{freeAsk}}，Pro {{proAsk}}，专业版 {{professionalAsk}}。由服务器计数。",
@@ -112,14 +112,14 @@ export const WAVE_UX8_I18N = {
     "ux8Disclaimer": "NexuLex は法律事務所ではありません。組み立てた答えは製品の用具であり、弁護士ではありません。"
   },
   "pt": {
-    "ux8Quota": "Perguntas juridicas por dia: gratis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. O servidor conta-as.",
-    "ux8Server": "A app so mostra o resto. A NexuLex nao pode inventar perguntas gratis extra neste telefone.",
-    "ux8Country": "A resposta segue o pais do ecran do consultor. E um corredor, nao um parecer de tribunal.",
-    "ux8NoAdvice": "E informacao juridica geral. Nao e conselho para o seu caso e nao o representa.",
-    "ux8Sources": "Abra voce cada fonte oficial. As normas mudam; uma citacao pode ficar velha.",
-    "ux8NoEvidence": "Anexar um processo envia o resumo, nao os ficheiros de prova.",
-    "ux8Device": "As respostas ficam neste telefone ate as guardar ou partilhar.",
-    "ux8Disclaimer": "A NexuLex nao e um escritorio. Uma resposta estruturada e uma ferramenta de produto, nao um advogado."
+    "ux8Quota": "Perguntas jurídicas por dia: grátis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. O servidor conta-as.",
+    "ux8Server": "A app só mostra o resto. A NexuLex não pode inventar perguntas grátis extra neste telefone.",
+    "ux8Country": "A resposta segue o país do ecrã do consultor. É um corredor, não um parecer de tribunal.",
+    "ux8NoAdvice": "É informação jurídica geral. Não é conselho para o seu caso e não o representa.",
+    "ux8Sources": "Abra você cada fonte oficial. As normas mudam; uma citação pode ficar velha.",
+    "ux8NoEvidence": "Anexar um processo envia o resumo, não os ficheiros de prova.",
+    "ux8Device": "As respostas ficam neste telefone até as guardar ou partilhar.",
+    "ux8Disclaimer": "A NexuLex não é um escritório. Uma resposta estruturada é uma ferramenta de produto, não um advogado."
   },
   "nl": {
     "ux8Quota": "Juridische vragen per dag: gratis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. De server telt ze.",

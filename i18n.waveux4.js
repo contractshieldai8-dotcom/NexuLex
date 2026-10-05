@@ -23,33 +23,33 @@ export const WAVE_UX4_I18N = {
   },
   "de": {
     "ux4Ask": "Fragen nutzt Ihr Tageskontingent. Es oeffnet keine Anwaltsakte.",
-    "ux4Guides": "Leitfaeden sperren nie. Sie bleiben auf jedem Tarif auf diesem Screen.",
-    "ux4Case": "Eine Akte bleibt auf diesem Telefon. Der Originalvertrag wird nicht angehaengt.",
-    "ux4Lawyer": "Anwalt finden oeffnet amtliche Verzeichnisse. NexuLex empfiehlt und rangiert keine Anwaelte.",
+    "ux4Guides": "Leitfäden sperren nie. Sie bleiben auf jedem Tarif auf diesem Screen.",
+    "ux4Case": "Eine Akte bleibt auf diesem Telefon. Der Originalvertrag wird nicht angehängt.",
+    "ux4Lawyer": "Anwalt finden oeffnet amtliche Verzeichnisse. NexuLex empfiehlt und rangiert keine Anwälte.",
     "ux4Country": "Antworten folgen dem Land oben. Das ist ein Korridor, kein Gericht.",
     "ux4Free": "Die ersten Fragen und die erste Akte bleiben im Gratis-Tarif.",
-    "ux4NoPay": "Diese vier Chips oeffnen nie eine Paywall. Ein spaeteres Werkzeug kann es, wenn das Gratis-Kontingent aufgebraucht ist.",
+    "ux4NoPay": "Diese vier Chips öffnen nie eine Paywall. Ein späteres Werkzeug kann es, wenn das Gratis-Kontingent aufgebraucht ist.",
     "ux4Disclaimer": "NexuLex ist keine Kanzlei. Start-Jobs sind Produktwerkzeuge, keine Rechtsberatung."
   },
   "fr": {
-    "ux4Ask": "Demander utilise votre quota quotidien. Cela n ouvre pas un dossier avocat.",
-    "ux4Guides": "Les guides ne se verrouillent jamais. Ils restent sur cet ecran a chaque offre.",
-    "ux4Case": "Un dossier reste sur ce telephone. Le contrat original n est pas joint.",
-    "ux4Lawyer": "Trouver un avocat ouvre des annuaires officiels. NexuLex ne recommande ni ne classe d avocats.",
-    "ux4Country": "Les reponses suivent le pays affiche ci-dessus. C est un corridor, pas un tribunal.",
-    "ux4Free": "Les premieres questions et le premier dossier restent sur l offre gratuite.",
-    "ux4NoPay": "Ces quatre jetons n ouvrent jamais un paywall. Un outil plus tard peut le faire si le quota gratuit est epuise.",
-    "ux4Disclaimer": "NexuLex n est pas un cabinet. Les taches d accueil sont des outils produit, pas un conseil juridique."
+    "ux4Ask": "Demander utilise votre quota quotidien. Cela n’ouvre pas un dossier avocat.",
+    "ux4Guides": "Les guides ne se verrouillent jamais. Ils restent sur cet écran a chaque offre.",
+    "ux4Case": "Un dossier reste sur ce téléphone. Le contrat original n’est pas joint.",
+    "ux4Lawyer": "Trouver un avocat ouvre des annuaires officiels. NexuLex ne recommande ni ne classe d’avocats.",
+    "ux4Country": "Les réponses suivent le pays affiché ci-dessus. C’est un corridor, pas un tribunal.",
+    "ux4Free": "Les premières questions et le premier dossier restent sur l’offre gratuite.",
+    "ux4NoPay": "Ces quatre jetons n’ouvrent jamais un paywall. Un outil plus tard peut le faire si le quota gratuit est épuisé.",
+    "ux4Disclaimer": "NexuLex n’est pas un cabinet. Les tâches d’accueil sont des outils produit, pas un conseil juridique."
   },
   "es": {
     "ux4Ask": "Preguntar usa su cuota diaria. No abre un expediente de abogado.",
-    "ux4Guides": "Las guias nunca se bloquean. Permanecen en esta pantalla en cada plan.",
-    "ux4Case": "Un expediente se queda en este telefono. El contrato original no se adjunta.",
+    "ux4Guides": "Las guías nunca se bloquean. Permanecen en esta pantalla en cada plan.",
+    "ux4Case": "Un expediente se queda en este teléfono. El contrato original no se adjunta.",
     "ux4Lawyer": "Buscar un abogado abre directorios oficiales. NexuLex no recomienda ni clasifica abogados.",
-    "ux4Country": "Las respuestas siguen el pais de arriba. Es un corredor, no un tribunal.",
+    "ux4Country": "Las respuestas siguen el país de arriba. Es un corredor, no un tribunal.",
     "ux4Free": "Las primeras preguntas y el primer expediente se quedan en el plan gratuito.",
     "ux4NoPay": "Estos cuatro chips nunca abren un paywall. Una herramienta posterior puede, si se agoto la cuota gratuita.",
-    "ux4Disclaimer": "NexuLex no es un bufete. Los trabajos de inicio son herramientas de producto, no asesoramiento juridico."
+    "ux4Disclaimer": "NexuLex no es un bufete. Los trabajos de inicio son herramientas de producto, no asesoramiento jurídico."
   },
   "ar": {
     "ux4Ask": "السؤال يستخدم حصتك اليومية. ولا يفتح ملف محام.",
@@ -64,12 +64,12 @@ export const WAVE_UX4_I18N = {
   "it": {
     "ux4Ask": "Chiedi usa la tua quota giornaliera. Non apre un fascicolo avvocato.",
     "ux4Guides": "Le guide non si bloccano mai. Restano su questa schermata in ogni piano.",
-    "ux4Case": "Un fascicolo resta su questo telefono. Il contratto originale non e allegato.",
+    "ux4Case": "Un fascicolo resta su questo telefono. Il contratto originale non è allegato.",
     "ux4Lawyer": "Trova un avvocato apre elenchi ufficiali. NexuLex non raccomanda ne classifica avvocati.",
-    "ux4Country": "Le risposte seguono il paese mostrato sopra. E un corridoio, non un tribunale.",
+    "ux4Country": "Le risposte seguono il paese mostrato sopra. È un corridoio, non un tribunale.",
     "ux4Free": "Le prime domande e il primo fascicolo restano sul piano gratuito.",
-    "ux4NoPay": "Questi quattro chip non aprono mai un paywall. Uno strumento dopo puo, se la quota gratuita e esaurita.",
-    "ux4Disclaimer": "NexuLex non e uno studio. I lavori home sono strumenti di prodotto, non consulenza legale."
+    "ux4NoPay": "Questi quattro chip non aprono mai un paywall. Uno strumento dopo può, se la quota gratuita e esaurita.",
+    "ux4Disclaimer": "NexuLex non è uno studio. I lavori home sono strumenti di prodotto, non consulenza legale."
   },
   "zh": {
     "ux4Ask": "提问会使用每日额度。不会打开律师档案。",
@@ -112,14 +112,14 @@ export const WAVE_UX4_I18N = {
     "ux4Disclaimer": "NexuLex は法律事務所ではありません。ホーム作業は製品ツールであり、法的助言ではありません。"
   },
   "pt": {
-    "ux4Ask": "Perguntar usa a sua quota diaria. Nao abre um processo de advogado.",
-    "ux4Guides": "Os guias nunca bloqueiam. Ficam neste ecran em qualquer plano.",
-    "ux4Case": "Um processo fica neste telefone. O contrato original nao e anexado.",
-    "ux4Lawyer": "Encontrar um advogado abre diretorios oficiais. A NexuLex nao recomenda nem classifica advogados.",
-    "ux4Country": "As respostas seguem o pais acima. E um corredor, nao um tribunal.",
+    "ux4Ask": "Perguntar usa a sua quota diária. Não abre um processo de advogado.",
+    "ux4Guides": "Os guias nunca bloqueiam. Ficam neste ecrã em qualquer plano.",
+    "ux4Case": "Um processo fica neste telefone. O contrato original não é anexado.",
+    "ux4Lawyer": "Encontrar um advogado abre diretórios oficiais. A NexuLex não recomenda nem classifica advogados.",
+    "ux4Country": "As respostas seguem o país acima. É um corredor, não um tribunal.",
     "ux4Free": "As primeiras perguntas e o primeiro processo ficam no plano gratuito.",
     "ux4NoPay": "Estes quatro chips nunca abrem um paywall. Uma ferramenta posterior pode, se a quota gratuita acabar.",
-    "ux4Disclaimer": "A NexuLex nao e um escritorio. Os trabalhos de inicio sao ferramentas de produto, nao aconselhamento juridico."
+    "ux4Disclaimer": "A NexuLex não é um escritório. Os trabalhos de início são ferramentas de produto, não aconselhamento jurídico."
   },
   "nl": {
     "ux4Ask": "Vragen gebruikt uw dagquotum. Het opent geen advocatendossier.",

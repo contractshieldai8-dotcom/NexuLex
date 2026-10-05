@@ -1,11 +1,11 @@
 // WAVE UX.8 — Pergunta juridica honesta (PT).
 module.exports = {
-  ux8Quota: 'Perguntas juridicas por dia: gratis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. O servidor conta-as.',
-  ux8Server: 'A app so mostra o resto. A NexuLex nao pode inventar perguntas gratis extra neste telefone.',
-  ux8Country: 'A resposta segue o pais do ecran do consultor. E um corredor, nao um parecer de tribunal.',
-  ux8NoAdvice: 'E informacao juridica geral. Nao e conselho para o seu caso e nao o representa.',
-  ux8Sources: 'Abra voce cada fonte oficial. As normas mudam; uma citacao pode ficar velha.',
-  ux8NoEvidence: 'Anexar um processo envia o resumo, nao os ficheiros de prova.',
-  ux8Device: 'As respostas ficam neste telefone ate as guardar ou partilhar.',
-  ux8Disclaimer: 'A NexuLex nao e um escritorio. Uma resposta estruturada e uma ferramenta de produto, nao um advogado.',
+  ux8Quota: 'Perguntas jurídicas por dia: grátis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. O servidor conta-as.',
+  ux8Server: 'A app só mostra o resto. A NexuLex não pode inventar perguntas grátis extra neste telefone.',
+  ux8Country: 'A resposta segue o país do ecrã do consultor. É um corredor, não um parecer de tribunal.',
+  ux8NoAdvice: 'É informação jurídica geral. Não é conselho para o seu caso e não o representa.',
+  ux8Sources: 'Abra você cada fonte oficial. As normas mudam; uma citação pode ficar velha.',
+  ux8NoEvidence: 'Anexar um processo envia o resumo, não os ficheiros de prova.',
+  ux8Device: 'As respostas ficam neste telefone até as guardar ou partilhar.',
+  ux8Disclaimer: 'A NexuLex não é um escritório. Uma resposta estruturada é uma ferramenta de produto, não um advogado.',
 };

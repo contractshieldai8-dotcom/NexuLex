@@ -23,33 +23,33 @@ export const WAVE_ST7_I18N = {
   },
   "de": {
     "st7Privacy": "Die Datenschutzseite ist der volle Text. Diese Karte ist nur eine kurze Erinnerung.",
-    "st7Terms": "Die Nutzungsbedingungen sagen, dass NexuLex keine Kanzlei ist und keine Anwaelte empfiehlt.",
-    "st7Delete": "Die Web-Loeschseite funktioniert ohne die App. Loeschen kuendigt kein Store-Abo.",
-    "st7Lang": "Nutzen Sie die Sprachknoepfe auf der Seite. Lesen Sie die Seite selbst, bevor Sie sich darauf stuetzen.",
-    "st7Binding": "Eine Hilfsuebersetzung kann hinterherhinken. Die Seite auf der Website zaehlt, nicht diese Karte.",
-    "st7Store": "App Store und Google Play besitzen das Abo weiter. Diese Links oeffnen keine Store-Abrechnung.",
+    "st7Terms": "Die Nutzungsbedingungen sagen, dass NexuLex keine Kanzlei ist und keine Anwälte empfiehlt.",
+    "st7Delete": "Die Web-Löschseite funktioniert ohne die App. Löschen kündigt kein Store-Abo.",
+    "st7Lang": "Nutzen Sie die Sprachknoepfe auf der Seite. Lesen Sie die Seite selbst, bevor Sie sich darauf stützen.",
+    "st7Binding": "Eine Hilfsübersetzung kann hinterherhinken. Die Seite auf der Website zählt, nicht diese Karte.",
+    "st7Store": "App Store und Google Play besitzen das Abo weiter. Diese Links öffnen keine Store-Abrechnung.",
     "st7Offline": "Oeffnet eine Seite nicht, hat das Telefon kein Netz. Diese Karte sendet keinen Vertragstext.",
-    "st7Note": "NexuLex-Mitarbeiter koennen ein Store-Abo nicht fuer Sie kuendigen. Nutzen Sie das Store-Konto."
+    "st7Note": "NexuLex-Mitarbeiter können ein Store-Abo nicht für Sie kündigen. Nutzen Sie das Store-Konto."
   },
   "fr": {
-    "st7Privacy": "La page confidentialite est le texte complet. Cette carte n est qu un court rappel.",
-    "st7Terms": "Les conditions d utilisation disent que NexuLex n est pas un cabinet et ne recommande pas d avocats.",
-    "st7Delete": "La page de suppression web marche sans l app. La suppression n annule pas un abonnement magasin.",
-    "st7Lang": "Utilisez les boutons de langue sur le site. Lisez la page vous-meme avant de vous y fier.",
-    "st7Binding": "Une traduction de commodite peut tarder. C est la page du site qui compte, pas cette carte.",
-    "st7Store": "App Store et Google Play restent maitres de l abonnement. Ces liens n ouvrent pas la facturation magasin.",
-    "st7Offline": "Si une page ne s ouvre pas, le telephone n a pas de reseau. Cette carte n envoie aucun texte de contrat.",
+    "st7Privacy": "La page confidentialité est le texte complet. Cette carte n’est qu’un court rappel.",
+    "st7Terms": "Les conditions d’utilisation disent que NexuLex n’est pas un cabinet et ne recommande pas d’avocats.",
+    "st7Delete": "La page de suppression web marche sans l’app. La suppression n’annule pas un abonnement magasin.",
+    "st7Lang": "Utilisez les boutons de langue sur le site. Lisez la page vous-même avant de vous y fier.",
+    "st7Binding": "Une traduction de commodité peut tarder. C’est la page du site qui compte, pas cette carte.",
+    "st7Store": "App Store et Google Play restent maîtres de l’abonnement. Ces liens n’ouvrent pas la facturation magasin.",
+    "st7Offline": "Si une page ne s’ouvre pas, le téléphone n’a pas de réseau. Cette carte n’envoie aucun texte de contrat.",
     "st7Note": "Le personnel NexuLex ne peut pas annuler un abonnement magasin pour vous. Utilisez le compte magasin."
   },
   "es": {
-    "st7Privacy": "La pagina de privacidad es el texto completo. Esta tarjeta es solo un recordatorio breve.",
+    "st7Privacy": "La página de privacidad es el texto completo. Esta tarjeta es solo un recordatorio breve.",
     "st7Terms": "Los terminos de uso dicen que NexuLex no es un bufete y no recomienda abogados.",
-    "st7Delete": "La pagina web de borrado funciona sin la app. Borrar no cancela una suscripcion de tienda.",
-    "st7Lang": "Use los botones de idioma en el sitio. Lea la pagina usted mismo antes de confiar en ella.",
-    "st7Binding": "Una traduccion de conveniencia puede retrasarse. Cuenta la pagina del sitio, no esta tarjeta.",
-    "st7Store": "App Store y Google Play siguen siendo duenos de la suscripcion. Estos enlaces no abren la facturacion de la tienda.",
-    "st7Offline": "Si una pagina no abre, el telefono no tiene red. Esta tarjeta no envia texto del contrato.",
-    "st7Note": "El personal de NexuLex no puede cancelar una suscripcion de tienda por usted. Use la cuenta de la tienda."
+    "st7Delete": "La página web de borrado funciona sin la app. Borrar no cancela una suscripción de tienda.",
+    "st7Lang": "Use los botones de idioma en el sitio. Lea la página usted mismo antes de confiar en ella.",
+    "st7Binding": "Una traducción de conveniencia puede retrasarse. Cuenta la página del sitio, no esta tarjeta.",
+    "st7Store": "App Store y Google Play siguen siendo dueños de la suscripción. Estos enlaces no abren la facturacion de la tienda.",
+    "st7Offline": "Si una página no abre, el teléfono no tiene red. Esta tarjeta no envía texto del contrato.",
+    "st7Note": "El personal de NexuLex no puede cancelar una suscripción de tienda por usted. Use la cuenta de la tienda."
   },
   "ar": {
     "st7Privacy": "صفحة الخصوصية هي النص الكامل. وهذه البطاقة تذكير قصير فقط.",
@@ -62,14 +62,14 @@ export const WAVE_ST7_I18N = {
     "st7Note": "فريق NexuLex لا يستطيع إلغاء اشتراك المتجر عنك. استخدم حساب المتجر."
   },
   "it": {
-    "st7Privacy": "La pagina privacy e il testo completo. Questa scheda e solo un breve promemoria.",
-    "st7Terms": "I termini di utilizzo dicono che NexuLex non e uno studio e non raccomanda avvocati.",
-    "st7Delete": "La pagina web di eliminazione funziona senza l app. Eliminare non disdice un abbonamento store.",
+    "st7Privacy": "La pagina privacy è il testo completo. Questa scheda è solo un breve promemoria.",
+    "st7Terms": "I termini di utilizzo dicono che NexuLex non è uno studio e non raccomanda avvocati.",
+    "st7Delete": "La pagina web di eliminazione funziona senza l’app. Eliminare non disdice un abbonamento store.",
     "st7Lang": "Usa i pulsanti lingua sul sito. Leggi la pagina tu stesso prima di fare affidamento.",
-    "st7Binding": "Una traduzione di comodo puo restare indietro. Conta la pagina sul sito, non questa scheda.",
-    "st7Store": "App Store e Google Play restano titolari dell abbonamento. Questi link non aprono la fatturazione store.",
+    "st7Binding": "Una traduzione di comodo può restare indietro. Conta la pagina sul sito, non questa scheda.",
+    "st7Store": "App Store e Google Play restano titolari dell’abbonamento. Questi link non aprono la fatturazione store.",
     "st7Offline": "Se una pagina non si apre, il telefono non ha rete. Questa scheda non invia testo del contratto.",
-    "st7Note": "Lo staff NexuLex non puo disdire un abbonamento store per te. Usa l account dello store."
+    "st7Note": "Lo staff NexuLex non può disdire un abbonamento store per te. Usa l’account dello store."
   },
   "zh": {
     "st7Privacy": "隐私页才是全文。此卡片只是简短提醒。",
@@ -112,14 +112,14 @@ export const WAVE_ST7_I18N = {
     "st7Note": "NexuLex の担当者はストア定期購入を代行解除できません。ストア口座を使ってください。"
   },
   "pt": {
-    "st7Privacy": "A pagina de privacidade e o texto completo. Este cartao e so um lembrete curto.",
-    "st7Terms": "Os termos de utilizacao dizem que a NexuLex nao e um escritorio e nao recomenda advogados.",
-    "st7Delete": "A pagina web de eliminacao funciona sem a app. Eliminar nao cancela uma subscricao da loja.",
-    "st7Lang": "Use os botoes de lingua no site. Leia a pagina voce mesmo antes de confiar nela.",
-    "st7Binding": "Uma traducao de conveniencia pode atrasar. Conta a pagina no site, nao este cartao.",
-    "st7Store": "A App Store e a Google Play continuam donas da subscricao. Estes ligacoes nao abrem a fatura da loja.",
-    "st7Offline": "Se uma pagina nao abrir, o telefone nao tem rede. Este cartao nao envia texto do contrato.",
-    "st7Note": "A equipa NexuLex nao pode cancelar uma subscricao da loja por si. Use a conta da loja."
+    "st7Privacy": "A página de privacidade é o texto completo. Este cartão é só um lembrete curto.",
+    "st7Terms": "Os termos de utilização dizem que a NexuLex não é um escritório e não recomenda advogados.",
+    "st7Delete": "A página web de eliminacao funciona sem a app. Eliminar não cancela uma subscrição da loja.",
+    "st7Lang": "Use os botões de língua no site. Leia a página você mesmo antes de confiar nela.",
+    "st7Binding": "Uma traducao de conveniencia pode atrasar. Conta a página no site, não este cartão.",
+    "st7Store": "A App Store e a Google Play continuam donas da subscrição. Estas ligações não abrem a fatura da loja.",
+    "st7Offline": "Se uma página não abrir, o telefone não tem rede. Este cartão não envia texto do contrato.",
+    "st7Note": "A equipa NexuLex não pode cancelar uma subscrição da loja por si. Use a conta da loja."
   },
   "nl": {
     "st7Privacy": "De privacy-pagina is de volledige tekst. Deze kaart is slechts een korte herinnering.",

@@ -24,31 +24,31 @@ export const WAVE_UX18_I18N = {
   "de": {
     "ux18Device": "Unfertiger Text bleibt auf diesem Telefon. Nichts wird gesendet, bis Sie fragen oder scannen.",
     "ux18Draft": "Der eingefuegte Entwurf ist lokal. Das PDF selbst wurde nicht gespeichert, nur der Dateiname.",
-    "ux18Corridor": "Sprache und Land bleiben, wie Sie sie liessen. Diese Karte aendert den Korridor nicht.",
+    "ux18Corridor": "Sprache und Land bleiben, wie Sie sie liessen. Diese Karte ändert den Korridor nicht.",
     "ux18NoNet": "Fortsetzen ruft kein Netz. NexuLex aktualisiert hier keine Gerichtsakte.",
     "ux18Jobs": "Vier Arten: unfertiger Text, letzte Akte, letzte Frage, letzter Bericht.",
     "ux18NoWin": "Nichts hier verspricht ein Ergebnis oder reiht einen Anwalt.",
-    "ux18Guides": "Schritt-fuer-Schritt-Leitfaeden bleiben in jedem Fall offen.",
+    "ux18Guides": "Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.",
     "ux18Disclaimer": "NexuLex ist keine Kanzlei. Eine Fortsetzen-Karte ist ein Produktwerkzeug, kein Anwalt."
   },
   "fr": {
-    "ux18Device": "Le texte inacheve reste sur ce telephone. Rien n est envoye tant que vous ne demandez ou n analysez.",
-    "ux18Draft": "Le brouillon colle est local. Le PDF lui-meme n a pas ete stocke, seulement le nom du fichier.",
-    "ux18Corridor": "Langue et pays restent comme vous les avez laisses. Cette carte ne change pas le corridor.",
-    "ux18NoNet": "Reprendre n appelle pas le reseau. NexuLex ne rafraichit aucun dossier de tribunal ici.",
-    "ux18Jobs": "Quatre types: texte inacheve, dernier dossier, derniere question, dernier rapport.",
-    "ux18NoWin": "Rien ici ne promet un resultat ni ne classe un avocat.",
-    "ux18Guides": "Les guides pas a pas restent ouverts dans tous les cas.",
-    "ux18Disclaimer": "NexuLex n est pas un cabinet. Une carte de reprise est un outil produit, pas un avocat."
+    "ux18Device": "Le texte inacheve reste sur ce téléphone. Rien n’est envoye tant que vous ne demandez ou n’analysez.",
+    "ux18Draft": "Le brouillon colle est local. Le PDF lui-même n’a pas été stocke, seulement le nom du fichier.",
+    "ux18Corridor": "Langue et pays restent comme vous les avez laissés. Cette carte ne change pas le corridor.",
+    "ux18NoNet": "Reprendre n’appelle pas le réseau. NexuLex ne rafraichit aucun dossier de tribunal ici.",
+    "ux18Jobs": "Quatre types: texte inacheve, dernier dossier, dernière question, dernier rapport.",
+    "ux18NoWin": "Rien ici ne promet un résultat ni ne classe un avocat.",
+    "ux18Guides": "Les guides pas à pas restent ouverts dans tous les cas.",
+    "ux18Disclaimer": "NexuLex n’est pas un cabinet. Une carte de reprise est un outil produit, pas un avocat."
   },
   "es": {
-    "ux18Device": "El texto sin terminar se queda en este telefono. Nada se envia hasta que pregunte o analice.",
-    "ux18Draft": "El borrador pegado es local. El PDF no se guardo, solo el nombre del archivo.",
-    "ux18Corridor": "Idioma y pais siguen como los dejo. Esta tarjeta no cambia el corredor.",
-    "ux18NoNet": "Continuar no llama a la red. NexuLex no actualiza un expediente judicial aqui.",
-    "ux18Jobs": "Cuatro tipos: texto sin terminar, ultimo expediente, ultima pregunta, ultimo informe.",
-    "ux18NoWin": "Nada aqui promete un resultado ni clasifica a un abogado.",
-    "ux18Guides": "Las guias paso a paso siguen abiertas de todos modos.",
+    "ux18Device": "El texto sin terminar se queda en este teléfono. Nada se envía hasta que pregunte o analice.",
+    "ux18Draft": "El borrador pegado es local. El PDF no se guardó, solo el nombre del archivo.",
+    "ux18Corridor": "Idioma y país siguen como los dejo. Esta tarjeta no cambia el corredor.",
+    "ux18NoNet": "Continuar no llama a la red. NexuLex no actualiza un expediente judicial aquí.",
+    "ux18Jobs": "Cuatro tipos: texto sin terminar, último expediente, última pregunta, último informe.",
+    "ux18NoWin": "Nada aquí promete un resultado ni clasifica a un abogado.",
+    "ux18Guides": "Las guías paso a paso siguen abiertas de todos modos.",
     "ux18Disclaimer": "NexuLex no es un bufete. Una tarjeta de reanudacion es una herramienta de producto, no un abogado."
   },
   "ar": {
@@ -62,14 +62,14 @@ export const WAVE_UX18_I18N = {
     "ux18Disclaimer": "NexuLex ليس مكتب محاماة. وبطاقة الاستئناف أداة منتج وليست محاميا."
   },
   "it": {
-    "ux18Device": "Il testo incompiuto resta su questo telefono. Nulla viene inviato finche non chiedi o analizzi.",
-    "ux18Draft": "La bozza incollata e locale. Il PDF non e stato salvato, solo il nome del file.",
+    "ux18Device": "Il testo incompiuto resta su questo telefono. Nulla viene inviato finché non chiedi o analizzi.",
+    "ux18Draft": "La bozza incollata è locale. Il PDF non è stato salvato, solo il nome del file.",
     "ux18Corridor": "Lingua e paese restano come li hai lasciati. Questa scheda non cambia il corridoio.",
     "ux18NoNet": "Riprendi non chiama la rete. NexuLex non aggiorna un fascicolo di tribunale qui.",
     "ux18Jobs": "Quattro tipi: testo incompiuto, ultimo fascicolo, ultima domanda, ultimo report.",
     "ux18NoWin": "Nulla qui promette un esito o classifica un avvocato.",
     "ux18Guides": "Le guide passo passo restano sbloccate in ogni caso.",
-    "ux18Disclaimer": "NexuLex non e uno studio. Una scheda di ripresa e uno strumento di prodotto, non un avvocato."
+    "ux18Disclaimer": "NexuLex non è uno studio. Una scheda di ripresa è uno strumento di prodotto, non un avvocato."
   },
   "zh": {
     "ux18Device": "未完成的文字留在这台手机上。在你提问或分析之前不会发送任何内容。",
@@ -112,14 +112,14 @@ export const WAVE_UX18_I18N = {
     "ux18Disclaimer": "NexuLex は法律事務所ではありません。再開カードは製品の用具であり、弁護士ではありません。"
   },
   "pt": {
-    "ux18Device": "O texto inacabado fica neste telefone. Nada e enviado ate perguntar ou analisar.",
-    "ux18Draft": "O rascunho colado e local. O PDF em si nao foi guardado, so o nome do ficheiro.",
-    "ux18Corridor": "Lingua e pais ficam como os deixou. Este cartao nao muda o corredor.",
-    "ux18NoNet": "Retomar nao chama a rede. A NexuLex nao atualiza um processo de tribunal aqui.",
-    "ux18Jobs": "Quatro tipos: texto inacabado, ultimo processo, ultima pergunta, ultimo relatorio.",
+    "ux18Device": "O texto inacabado fica neste telefone. Nada é enviado até perguntar ou analisar.",
+    "ux18Draft": "O rascunho colado é local. O PDF em si não foi guardado, só o nome do ficheiro.",
+    "ux18Corridor": "Língua e país ficam como os deixou. Este cartão não muda o corredor.",
+    "ux18NoNet": "Retomar não chama a rede. A NexuLex não atualiza um processo de tribunal aqui.",
+    "ux18Jobs": "Quatro tipos: texto inacabado, último processo, última pergunta, último relatório.",
     "ux18NoWin": "Nada aqui promete um resultado ou classifica um advogado.",
     "ux18Guides": "Os guias passo a passo ficam desbloqueados de qualquer forma.",
-    "ux18Disclaimer": "A NexuLex nao e um escritorio. Um cartao de retoma e uma ferramenta de produto, nao um advogado."
+    "ux18Disclaimer": "A NexuLex não é um escritório. Um cartão de retoma é uma ferramenta de produto, não um advogado."
   },
   "nl": {
     "ux18Device": "Onvoltooide tekst blijft op deze telefoon. Niets wordt verzonden tot u vraagt of analyseert.",

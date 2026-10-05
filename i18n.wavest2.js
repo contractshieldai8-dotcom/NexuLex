@@ -32,24 +32,24 @@ export const WAVE_ST2_I18N = {
     "st2Disclaimer": "NexuLex ist keine Anwaltskanzlei. Datenschutzseiten können sich ändern; lesen Sie selbst."
   },
   "fr": {
-    "st2Title": "Confiance et controle",
-    "st2Hint": "Ce que NexuLex conserve, ce qui reste sur l appareil et comment l abonnement boutique est gere.",
-    "st2Keep": "Les analyses et les messages d assistance restent dans votre compte jusqu a suppression.",
-    "st2Picker": "Photos et PDF sont choisis dans le selecteur systeme. Ils ne sont pas captures en arriere-plan.",
-    "st2Sub": "Supprimer le compte n annule pas un abonnement App Store ou Google Play. Gerez-le dans la boutique.",
-    "st2Quota": "L enregistrement appareil du quota gratuit reste non lie apres suppression, seulement pour bloquer les demandes gratuites repetees.",
-    "st2WebDelete": "Supprimer sans l application",
-    "st2Disclaimer": "NexuLex n est pas un cabinet d avocats. Les pages de confidentialite peuvent changer; lisez-les vous-meme."
+    "st2Title": "Confiance et contrôle",
+    "st2Hint": "Ce que NexuLex conserve, ce qui reste sur l’appareil et comment l’abonnement boutique est gere.",
+    "st2Keep": "Les analyses et les messages d’assistance restent dans votre compte jusqu’à suppression.",
+    "st2Picker": "Photos et PDF sont choisis dans le sélecteur système. Ils ne sont pas captures en arriere-plan.",
+    "st2Sub": "Supprimer le compte n’annule pas un abonnement App Store ou Google Play. Gérez-le dans la boutique.",
+    "st2Quota": "L’enregistrement appareil du quota gratuit reste non lie après suppression, seulement pour bloquer les demandes gratuites repetees.",
+    "st2WebDelete": "Supprimer sans l’application",
+    "st2Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Les pages de confidentialité peuvent changer; lisez-les vous-même."
   },
   "es": {
     "st2Title": "Confianza y control",
-    "st2Hint": "Que guarda NexuLex, que permanece en el dispositivo y como se gestiona la suscripcion de la tienda.",
-    "st2Keep": "Los analisis y los mensajes de soporte permanecen en su cuenta hasta que los borre.",
+    "st2Hint": "Que guarda NexuLex, que permanece en el dispositivo y como se gestiona la suscripción de la tienda.",
+    "st2Keep": "Los análisis y los mensajes de soporte permanecen en su cuenta hasta que los borre.",
     "st2Picker": "Las fotos y los PDF se eligen en el selector del sistema. No se capturan en segundo plano.",
-    "st2Sub": "Borrar la cuenta no cancela una suscripcion de App Store o Google Play. Gestione en la tienda.",
+    "st2Sub": "Borrar la cuenta no cancela una suscripción de App Store o Google Play. Gestione en la tienda.",
     "st2Quota": "El registro del dispositivo del cupo gratuito permanece sin vinculo tras el borrado, solo para bloquear nuevas solicitudes gratuitas.",
-    "st2WebDelete": "Borrar sin la aplicacion",
-    "st2Disclaimer": "NexuLex no es un despacho de abogados. Las paginas de privacidad pueden cambiar; lealas usted."
+    "st2WebDelete": "Borrar sin la aplicación",
+    "st2Disclaimer": "NexuLex no es un despacho de abogados. Las páginas de privacidad pueden cambiar; lealas usted."
   },
   "ar": {
     "st2Title": "الثقة والتحكم",
@@ -63,13 +63,13 @@ export const WAVE_ST2_I18N = {
   },
   "it": {
     "st2Title": "Fiducia e controllo",
-    "st2Hint": "Cosa conserva NexuLex, cosa resta sul dispositivo e come si gestisce l abbonamento dello store.",
-    "st2Keep": "Analisi e messaggi di supporto restano nell account finche non li elimini.",
+    "st2Hint": "Cosa conserva NexuLex, cosa resta sul dispositivo e come si gestisce l’abbonamento dello store.",
+    "st2Keep": "Analisi e messaggi di supporto restano nell’account finché non li elimini.",
     "st2Picker": "Foto e PDF si scelgono nel selettore di sistema. Non vengono acquisiti in background.",
-    "st2Sub": "Eliminare l account non disdice un abbonamento App Store o Google Play. Gestiscilo nello store.",
-    "st2Quota": "Il record dispositivo della quota gratuita resta scollegato dopo l eliminazione, solo per bloccare nuove richieste gratuite.",
-    "st2WebDelete": "Elimina senza l app",
-    "st2Disclaimer": "NexuLex non e uno studio legale. Le pagine sulla privacy possono cambiare; leggile tu."
+    "st2Sub": "Eliminare l’account non disdice un abbonamento App Store o Google Play. Gestiscilo nello store.",
+    "st2Quota": "Il record dispositivo della quota gratuita resta scollegato dopo l’eliminazione, solo per bloccare nuove richieste gratuite.",
+    "st2WebDelete": "Elimina senza l’app",
+    "st2Disclaimer": "NexuLex non è uno studio legale. Le pagine sulla privacy possono cambiare; leggile tu."
   },
   "zh": {
     "st2Title": "信任与掌控",
@@ -112,14 +112,14 @@ export const WAVE_ST2_I18N = {
     "st2Disclaimer": "NexuLex は法律事務所ではありません。プライバシーページは変わることがあります。ご自身でご確認ください。"
   },
   "pt": {
-    "st2Title": "Confianca e controlo",
-    "st2Hint": "O que o NexuLex guarda, o que fica no dispositivo e como a subscricao da loja e gerida.",
-    "st2Keep": "Analises e mensagens de apoio ficam na conta ate as apagar.",
-    "st2Picker": "Fotos e PDF sao escolhidos no seletor do sistema. Nao sao capturados em segundo plano.",
-    "st2Sub": "Apagar a conta nao cancela uma subscricao da App Store ou da Google Play. Faca a gestao na loja.",
-    "st2Quota": "O registo do dispositivo da quota gratuita fica sem ligacao apos a eliminacao, so para bloquear novos pedidos gratuitos.",
-    "st2WebDelete": "Apagar sem a aplicacao",
-    "st2Disclaimer": "A NexuLex nao e um escritorio de advogados. As paginas de privacidade podem mudar; leia-as voce."
+    "st2Title": "Confiança e controlo",
+    "st2Hint": "O que o NexuLex guarda, o que fica no dispositivo e como a subscrição da loja é gerida.",
+    "st2Keep": "Análises e mensagens de apoio ficam na conta até as apagar.",
+    "st2Picker": "Fotos e PDF são escolhidos no seletor do sistema. Não são capturados em segundo plano.",
+    "st2Sub": "Apagar a conta não cancela uma subscrição da App Store ou da Google Play. Faça a gestao na loja.",
+    "st2Quota": "O registo do dispositivo da quota gratuita fica sem ligação após a eliminacao, só para bloquear novos pedidos gratuitos.",
+    "st2WebDelete": "Apagar sem a aplicação",
+    "st2Disclaimer": "A NexuLex não é um escritório de advogados. As páginas de privacidade podem mudar; leia-as você."
   },
   "nl": {
     "st2Title": "Vertrouwen en beheer",

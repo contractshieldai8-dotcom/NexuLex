@@ -22,34 +22,34 @@ export const WAVE_UX7_I18N = {
     "ux7Disclaimer": "NexuLex is not a law firm. Case files are product tools, not legal advice."
   },
   "de": {
-    "ux7OnDevice": "Die Fallakte bleibt auf diesem Telefon. NexuLex laedt den Originalvertrag nicht mit der Akte hoch.",
-    "ux7NoContract": "Eine Akte anlegen haengt keine Scan-Fotos und keinen Vertragstext an. Die bleiben in Analyse, bis Sie sie selbst als Beweis ablegen.",
+    "ux7OnDevice": "Die Fallakte bleibt auf diesem Telefon. NexuLex lädt den Originalvertrag nicht mit der Akte hoch.",
+    "ux7NoContract": "Eine Akte anlegen hängt keine Scan-Fotos und keinen Vertragstext an. Die bleiben in Analyse, bis Sie sie selbst als Beweis ablegen.",
     "ux7Free": "Die erste Fallakte bleibt im Gratis-Plan. Weitere Akten brauchen Pro. Erinnerungen bleiben gratis.",
-    "ux7Evidence": "Beweise, die Sie ablegen, bekommen den Fingerabdruck auf diesem Telefon. Teilen ist Ihre Wahl; die Beraterfrage sendet keine Fingerabdruecke.",
+    "ux7Evidence": "Beweise, die Sie ablegen, bekommen den Fingerabdruck auf diesem Telefon. Teilen ist Ihre Wahl; die Beraterfrage sendet keine Fingerabdrücke.",
     "ux7Brief": "Die Anwaltszusammenfassung liegt im bezahlten Pro-Plan. Sie ist eine geteilte Kurzfassung, keine Gerichtsschrift.",
     "ux7NoWin": "Eine Fallakte sagt kein Gerichtsergebnis voraus und vertritt Sie nicht.",
     "ux7Share": "Ein Haushaltsplatz kann eine geteilte Kurzfassung lesen. Den Originalvertrag aus dieser Akte oeffnet er nicht.",
     "ux7Disclaimer": "NexuLex ist keine Kanzlei. Fallakten sind Produktwerkzeuge, keine Rechtsberatung."
   },
   "fr": {
-    "ux7OnDevice": "Le dossier reste sur ce telephone. NexuLex n envoie pas le contrat original avec le dossier.",
-    "ux7NoContract": "Ouvrir un dossier n attache ni photos d analyse ni texte du contrat. Ils restent dans Analyser sauf si vous les ajoutez vous-meme comme preuve.",
-    "ux7Free": "Le premier dossier reste dans le forfait gratuit. D autres dossiers demandent Pro. Les rappels restent gratuits.",
-    "ux7Evidence": "Les preuves que vous ajoutez sont empreintes sur ce telephone. Partager un fichier est votre choix; la question au conseiller n envoie pas d empreintes.",
-    "ux7Brief": "Le resume avocat est sur le forfait Pro payant. C est un resume que vous partagez, pas un depot au tribunal.",
-    "ux7NoWin": "Un dossier ne predit pas un resultat de tribunal et ne vous represente pas.",
-    "ux7Share": "Un siege foyer peut lire un resume que vous partagez. Il ne peut pas ouvrir le contrat original depuis ce dossier.",
-    "ux7Disclaimer": "NexuLex n est pas un cabinet. Les dossiers sont des outils produit, pas un conseil juridique."
+    "ux7OnDevice": "Le dossier reste sur ce téléphone. NexuLex n’envoie pas le contrat original avec le dossier.",
+    "ux7NoContract": "Ouvrir un dossier n’attache ni photos d’analyse ni texte du contrat. Ils restent dans Analyser sauf si vous les ajoutez vous-même comme preuve.",
+    "ux7Free": "Le premier dossier reste dans le forfait gratuit. D’autres dossiers demandent Pro. Les rappels restent gratuits.",
+    "ux7Evidence": "Les preuves que vous ajoutez sont empreintes sur ce téléphone. Partager un fichier est votre choix; la question au conseiller n’envoie pas d’empreintes.",
+    "ux7Brief": "Le resume avocat est sur le forfait Pro payant. C’est un resume que vous partagez, pas un dépôt’au tribunal.",
+    "ux7NoWin": "Un dossier ne prédit pas un résultat de tribunal et ne vous représente pas.",
+    "ux7Share": "Un siège foyer peut lire un resume que vous partagez. Il ne peut pas ouvrir le contrat original depuis ce dossier.",
+    "ux7Disclaimer": "NexuLex n’est pas un cabinet. Les dossiers sont des outils produit, pas un conseil juridique."
   },
   "es": {
-    "ux7OnDevice": "El expediente se queda en este telefono. NexuLex no sube el contrato original con el archivo.",
-    "ux7NoContract": "Abrir un expediente no adjunta fotos del analisis ni el texto del contrato. Eso se queda en Analizar salvo que usted lo anada como prueba.",
-    "ux7Free": "El primer expediente se queda en el plan gratuito. Mas archivos necesitan Pro. Los recordatorios siguen gratis.",
-    "ux7Evidence": "Las pruebas que anade se firman en este telefono. Compartir un archivo es su eleccion; la pregunta al asesor no envia huellas.",
-    "ux7Brief": "El resumen para el abogado esta en el plan Pro de pago. Es un resumen que usted comparte, no un escrito judicial.",
+    "ux7OnDevice": "El expediente se queda en este teléfono. NexuLex no sube el contrato original con el archivo.",
+    "ux7NoContract": "Abrir un expediente no adjunta fotos del análisis ni el texto del contrato. Eso se queda en Analizar salvo que usted lo añada como prueba.",
+    "ux7Free": "El primer expediente se queda en el plan gratuito. Más archivos necesitan Pro. Los recordatorios siguen gratis.",
+    "ux7Evidence": "Las pruebas que añade se firman en este teléfono. Compartir un archivo es su eleccion; la pregunta al asesor no envía huellas.",
+    "ux7Brief": "El resumen para el abogado está en el plan Pro de pago. Es un resumen que usted comparte, no un escrito judicial.",
     "ux7NoWin": "Un expediente no predice un resultado judicial y no le representa.",
     "ux7Share": "Un asiento del hogar puede leer un resumen que usted comparte. No puede abrir el contrato original desde este archivo.",
-    "ux7Disclaimer": "NexuLex no es un bufete. Los expedientes son herramientas de producto, no asesoramiento juridico."
+    "ux7Disclaimer": "NexuLex no es un bufete. Los expedientes son herramientas de producto, no asesoramiento jurídico."
   },
   "ar": {
     "ux7OnDevice": "الملف يبقى على هذا الهاتف. ولا يرفع NexuLex العقد الأصلي مع الملف.",
@@ -63,13 +63,13 @@ export const WAVE_UX7_I18N = {
   },
   "it": {
     "ux7OnDevice": "Il fascicolo resta su questo telefono. NexuLex non carica il contratto originale con il file.",
-    "ux7NoContract": "Aprire un fascicolo non allega foto della scansione ne il testo del contratto. Restano in Analizza finche non li aggiungi tu come prova.",
+    "ux7NoContract": "Aprire un fascicolo non allega foto della scansione ne il testo del contratto. Restano in Analizza finché non li aggiungi tu come prova.",
     "ux7Free": "Il primo fascicolo resta sul piano gratuito. Altri file chiedono Pro. I promemoria restano gratis.",
-    "ux7Evidence": "Le prove che aggiungi ricevono l impronta su questo telefono. Condividere un file e una tua scelta; la domanda al consulente non invia impronte.",
-    "ux7Brief": "Il brief avvocato e sul piano Pro a pagamento. E un riassunto che condividi, non un atto di tribunale.",
+    "ux7Evidence": "Le prove che aggiungi ricevono l’impronta su questo telefono. Condividere un file è una tua scelta; la domanda al consulente non invia impronte.",
+    "ux7Brief": "Il brief avvocato è sul piano Pro a pagamento. È un riassunto che condividi, non un atto di tribunale.",
     "ux7NoWin": "Un fascicolo non predice un esito in tribunale e non ti rappresenta.",
-    "ux7Share": "Un posto famiglia puo leggere un brief che condividi. Non puo aprire il contratto originale da questo file.",
-    "ux7Disclaimer": "NexuLex non e uno studio. I fascicoli sono strumenti di prodotto, non consulenza legale."
+    "ux7Share": "Un posto famiglia può leggere un brief che condividi. Non può aprire il contratto originale da questo file.",
+    "ux7Disclaimer": "NexuLex non è uno studio. I fascicoli sono strumenti di prodotto, non consulenza legale."
   },
   "zh": {
     "ux7OnDevice": "案件档案留在这台手机上。NexuLex 不会随档案上传原合同。",
@@ -112,14 +112,14 @@ export const WAVE_UX7_I18N = {
     "ux7Disclaimer": "NexuLex は法律事務所ではありません。事件ファイルは製品の用具であり、法的助言ではありません。"
   },
   "pt": {
-    "ux7OnDevice": "O processo fica neste telefone. A NexuLex nao carrega o contrato original com o ficheiro.",
-    "ux7NoContract": "Abrir um processo nao anexa fotos da analise nem o texto do contrato. Ficam em Analisar salvo se os adicionar como prova.",
-    "ux7Free": "O primeiro processo fica no plano gratuito. Mais ficheiros pedem Pro. Os lembretes ficam gratis.",
-    "ux7Evidence": "As provas que adiciona recebem impressao neste telefone. Partilhar um ficheiro e a sua escolha; a pergunta ao consultor nao envia impressoes.",
-    "ux7Brief": "O resumo para o advogado esta no plano Pro pago. E um resumo que partilha, nao um articulado em tribunal.",
-    "ux7NoWin": "Um processo nao prevê um resultado em tribunal e nao o representa.",
-    "ux7Share": "Um lugar da casa pode ler um resumo que partilha. Nao abre o contrato original a partir deste ficheiro.",
-    "ux7Disclaimer": "A NexuLex nao e um escritorio. Os processos sao ferramentas de produto, nao aconselhamento juridico."
+    "ux7OnDevice": "O processo fica neste telefone. A NexuLex não carrega o contrato original com o ficheiro.",
+    "ux7NoContract": "Abrir um processo não anexa fotos da análise nem o texto do contrato. Ficam em Analisar salvo se os adicionar como prova.",
+    "ux7Free": "O primeiro processo fica no plano gratuito. Mais ficheiros pedem Pro. Os lembretes ficam grátis.",
+    "ux7Evidence": "As provas que adiciona recebem impressão neste telefone. Partilhar um ficheiro é a sua escolha; a pergunta ao consultor não envia impressões.",
+    "ux7Brief": "O resumo para o advogado está no plano Pro pago. É um resumo que partilha, não um articulado em tribunal.",
+    "ux7NoWin": "Um processo não prevê um resultado em tribunal e não o representa.",
+    "ux7Share": "Um lugar da casa pode ler um resumo que partilha. Não abre o contrato original a partir deste ficheiro.",
+    "ux7Disclaimer": "A NexuLex não é um escritório. Os processos são ferramentas de produto, não aconselhamento jurídico."
   },
   "nl": {
     "ux7OnDevice": "Het dossier blijft op deze telefoon. NexuLex uploadt het oorspronkelijke contract niet met het bestand.",

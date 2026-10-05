@@ -5,7 +5,7 @@ module.exports = {
   ux23Export: 'Exportar el registro visible',
   ux23Register: 'Un registro NexuLex son fechas, puntuaciones y partes. Nunca incluye el texto del contrato.',
   ux23Count: '{{visible}} de {{total}} filas en esta vista.',
-  ux23Empty: 'Ninguna fila coincide. Borre la busqueda o abra Analizar.',
-  ux23Guides: 'Las guias paso a paso siguen abiertas de todos modos.',
+  ux23Empty: 'Ninguna fila coincide. Borre la búsqueda o abra Analizar.',
+  ux23Guides: 'Las guías paso a paso siguen abiertas de todos modos.',
   ux23Disclaimer: 'NexuLex no es un bufete. Un registro de historial es un archivo de producto, no un abogado.',
 };

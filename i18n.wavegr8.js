@@ -23,32 +23,32 @@ export const WAVE_GR8_I18N = {
   },
   "de": {
     "gr8Country": "Dieser Bericht nutzte {{country}}. Das ist ein Rechtskorridor, kein Gerichtsergebnis.",
-    "gr8Invite": "Die Einladung teilt nur die oeffentliche get-Seite in Ihrer Sprache. Kein Vertragstext wird angehaengt.",
-    "gr8Get": "Die oeffentliche Seite hat keinen Bericht. Sie hilft nur der anderen Person, NexuLex zu oeffnen.",
+    "gr8Invite": "Die Einladung teilt nur die oeffentliche get-Seite in Ihrer Sprache. Kein Vertragstext wird angehängt.",
+    "gr8Get": "Die oeffentliche Seite hat keinen Bericht. Sie hilft nur der anderen Person, NexuLex zu öffnen.",
     "gr8Case": "Eine Akte bleibt auf diesem Telefon. Sie sendet den Originalvertrag an niemanden.",
-    "gr8Ask": "Eine Frage nutzt Ihr Tageskontingent. Schritt-fuer-Schritt-Leitfaeden bleiben in jedem Fall offen.",
+    "gr8Ask": "Eine Frage nutzt Ihr Tageskontingent. Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.",
     "gr8NoWin": "Auf dieser Karte gibt es keine Anwaltsrangliste und kein versprochenes Ergebnis.",
-    "gr8Lang": "Die Oberflaechensprache ist die, die Sie in den Einstellungen waehlten. Sie aendert den Laenderkorridor nicht.",
-    "gr8Note": "NexuLex tauscht keinen naechsten Schritt gegen ein versprochenes Ergebnis."
+    "gr8Lang": "Die Oberflächensprache ist die, die Sie in den Einstellungen wählten. Sie ändert den Länderkorridor nicht.",
+    "gr8Note": "NexuLex tauscht keinen nächsten Schritt gegen ein versprochenes Ergebnis."
   },
   "fr": {
-    "gr8Country": "Ce rapport a utilise {{country}}. C est un corridor de droit, pas un resultat de tribunal.",
-    "gr8Invite": "L invitation partage seulement la page get publique dans votre langue. Aucun texte de contrat n est joint.",
-    "gr8Get": "La page publique n a pas de rapport. Elle aide seulement l autre personne a ouvrir NexuLex.",
-    "gr8Case": "Un dossier reste sur ce telephone. Il n envoie le contrat original a personne.",
-    "gr8Ask": "Une question utilise votre quota quotidien. Les guides pas a pas restent ouverts dans tous les cas.",
-    "gr8NoWin": "Rien sur cette carte ne classe un avocat ni ne promet un resultat.",
-    "gr8Lang": "La langue de l interface est celle choisie dans Reglages. Elle ne change pas le corridor pays.",
-    "gr8Note": "NexuLex n echange jamais une prochaine etape contre un resultat promis."
+    "gr8Country": "Ce rapport a utilisé {{country}}. C’est un corridor de droit, pas un résultat de tribunal.",
+    "gr8Invite": "L’invitation partage seulement la page get publique dans votre langue. Aucun texte de contrat n’est joint.",
+    "gr8Get": "La page publique n’a pas de rapport. Elle aide seulement l’autre personne a ouvrir NexuLex.",
+    "gr8Case": "Un dossier reste sur ce téléphone. Il n’envoie le contrat original a personne.",
+    "gr8Ask": "Une question utilise votre quota quotidien. Les guides pas à pas restent ouverts dans tous les cas.",
+    "gr8NoWin": "Rien sur cette carte ne classe un avocat ni ne promet un résultat.",
+    "gr8Lang": "La langue de l’interface est celle choisie dans Réglages. Elle ne change pas le corridor pays.",
+    "gr8Note": "NexuLex n’échange jamais une prochaine étape contre un résultat promis."
   },
   "es": {
     "gr8Country": "Este informe uso {{country}}. Es un corredor legal, no un resultado de tribunal.",
-    "gr8Invite": "La invitacion comparte solo la pagina get publica en su idioma. No se adjunta texto del contrato.",
-    "gr8Get": "La pagina publica no tiene informe. Solo ayuda a la otra persona a abrir NexuLex.",
-    "gr8Case": "Un expediente se queda en este telefono. No envia el contrato original a nadie.",
-    "gr8Ask": "Una pregunta usa su cuota diaria. Las guias paso a paso siguen abiertas de todos modos.",
+    "gr8Invite": "La invitación comparte solo la página get pública en su idioma. No se adjunta texto del contrato.",
+    "gr8Get": "La página pública no tiene informe. Solo ayuda a la otra persona a abrir NexuLex.",
+    "gr8Case": "Un expediente se queda en este teléfono. No envía el contrato original a nadie.",
+    "gr8Ask": "Una pregunta usa su cuota diaria. Las guías paso a paso siguen abiertas de todos modos.",
     "gr8NoWin": "Nada en esta tarjeta clasifica a un abogado ni promete un resultado.",
-    "gr8Lang": "El idioma de la interfaz es el que eligio en Ajustes. No cambia el corredor del pais.",
+    "gr8Lang": "El idioma de la interfaz es el que eligió en Ajustes. No cambia el corredor del país.",
     "gr8Note": "NexuLex nunca cambia un siguiente paso por un resultado prometido."
   },
   "ar": {
@@ -62,13 +62,13 @@ export const WAVE_GR8_I18N = {
     "gr8Note": "لا يبادل NexuLex خطوة تالية بنتيجة موعودة."
   },
   "it": {
-    "gr8Country": "Questo report ha usato {{country}}. E un corridoio di diritto, non un esito di tribunale.",
-    "gr8Invite": "L invito condivide solo la pagina get pubblica nella tua lingua. Nessun testo del contratto e allegato.",
-    "gr8Get": "La pagina pubblica non ha report. Serve solo all altra persona per aprire NexuLex.",
+    "gr8Country": "Questo report ha usato {{country}}. È un corridoio di diritto, non un esito di tribunale.",
+    "gr8Invite": "L’invito condivide solo la pagina get pubblica nella tua lingua. Nessun testo del contratto è allegato.",
+    "gr8Get": "La pagina pubblica non ha report. Serve solo all’altra persona per aprire NexuLex.",
     "gr8Case": "Un fascicolo resta su questo telefono. Non invia il contratto originale a nessuno.",
     "gr8Ask": "Una domanda usa la tua quota giornaliera. Le guide passo passo restano sbloccate in ogni caso.",
     "gr8NoWin": "Nulla su questa scheda classifica un avvocato o promette un esito.",
-    "gr8Lang": "La lingua dell interfaccia e quella scelta in Impostazioni. Non cambia il corridoio paese.",
+    "gr8Lang": "La lingua dell’interfaccia e quella scelta in Impostazioni. Non cambia il corridoio paese.",
     "gr8Note": "NexuLex non scambia mai un passo successivo con un esito promesso."
   },
   "zh": {
@@ -112,13 +112,13 @@ export const WAVE_GR8_I18N = {
     "gr8Note": "NexuLex は次の一手を約束された結果と引き換えません。"
   },
   "pt": {
-    "gr8Country": "Este relatorio usou {{country}}. E um corredor legal, nao um resultado de tribunal.",
-    "gr8Invite": "O convite partilha so a pagina get publica no seu idioma. Nenhum texto do contrato e anexado.",
-    "gr8Get": "A pagina publica nao tem relatorio. So ajuda a outra pessoa a abrir a NexuLex.",
-    "gr8Case": "Um processo fica neste telefone. Nao envia o contrato original a ninguem.",
-    "gr8Ask": "Uma pergunta usa a sua quota diaria. Os guias passo a passo ficam desbloqueados de qualquer forma.",
-    "gr8NoWin": "Nada neste cartao classifica um advogado ou promete um resultado.",
-    "gr8Lang": "A lingua da interface e a que escolheu em Definicoes. Nao muda o corredor do pais.",
+    "gr8Country": "Este relatório usou {{country}}. É um corredor legal, não um resultado de tribunal.",
+    "gr8Invite": "O convite partilha só a página get pública no seu idioma. Nenhum texto do contrato é anexado.",
+    "gr8Get": "A página pública não tem relatório. Só ajuda a outra pessoa a abrir a NexuLex.",
+    "gr8Case": "Um processo fica neste telefone. Não envia o contrato original a ninguém.",
+    "gr8Ask": "Uma pergunta usa a sua quota diária. Os guias passo a passo ficam desbloqueados de qualquer forma.",
+    "gr8NoWin": "Nada neste cartão classifica um advogado ou promete um resultado.",
+    "gr8Lang": "A língua da interface é a que escolheu em Definições. Não muda o corredor do país.",
     "gr8Note": "A NexuLex nunca troca um passo seguinte por um resultado prometido."
   },
   "nl": {

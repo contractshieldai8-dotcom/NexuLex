@@ -1,11 +1,11 @@
 // WAVE UX.10 — Guias de procedimentos honestos (PT).
 module.exports = {
-  ux10Free: 'Estes {{guides}} guias ficam gratis. A NexuLex nao tranca esta lista atras de um plano.',
-  ux10Country: 'As ligacoes oficiais seguem {{country}}. Os passos sao um corredor, nao um parecer de tribunal.',
-  ux10NoAdvice: 'E uma ajuda de leitura. Nao e conselho para o seu caso e nao o representa.',
-  ux10Deadlines: 'Os guias nao inventam um prazo. Confirme cada data na pagina oficial ou na carta recebida.',
-  ux10Sources: 'Abra voce cada orgao oficial. As regras mudam; uma ligacao pode ficar velha.',
-  ux10NoList: 'A app nao lista nem classifica advogados individuais. So aponta para orgaos oficiais.',
+  ux10Free: 'Estes {{guides}} guias ficam grátis. A NexuLex não tranca esta lista atras de um plano.',
+  ux10Country: 'As ligações oficiais seguem {{country}}. Os passos são um corredor, não um parecer de tribunal.',
+  ux10NoAdvice: 'É uma ajuda de leitura. Não é conselho para o seu caso e não o representa.',
+  ux10Deadlines: 'Os guias não inventam um prazo. Confirme cada data na página oficial ou na carta recebida.',
+  ux10Sources: 'Abra você cada órgão oficial. As regras mudam; uma ligação pode ficar velha.',
+  ux10NoList: 'A app não lista nem classifica advogados individuais. Só aponta para órgãos oficiais.',
   ux10Device: 'Os guias ficam neste telefone. Abrir um site sai da app.',
-  ux10Disclaimer: 'A NexuLex nao e um escritorio. Um mapa de processo e uma ferramenta de produto, nao um advogado.',
+  ux10Disclaimer: 'A NexuLex não é um escritório. Um mapa de processo é uma ferramenta de produto, não um advogado.',
 };

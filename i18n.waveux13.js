@@ -25,29 +25,29 @@ export const WAVE_UX13_I18N = {
     "ux13Preview": "Die ersten {{previewLines}} Zeilen bleiben gratis. Voller Brief, DOCX und Politur bleiben Pro.",
     "ux13Blank": "Leere Antworten bleiben markiert. NexuLex erfindet keine Fakten, Daten oder Normen.",
     "ux13Country": "Der Brief folgt {{country}}. Das ist ein Korridor, kein Gerichtsschriftsatz.",
-    "ux13NoAdvice": "Das ist ein Entwurf. Keine Beratung fuer Ihre Sache und keine Vertretung.",
+    "ux13NoAdvice": "Das ist ein Entwurf. Keine Beratung für Ihre Sache und keine Vertretung.",
     "ux13Send": "Lesen Sie ihn selbst vor dem Versand. Ein amtliches Formular kann anders aussehen.",
     "ux13Device": "Der Entwurf bleibt auf diesem Telefon, bis Sie ihn kopieren, teilen oder exportieren.",
     "ux13NoWin": "Einen Brief senden eroeffnet kein Verfahren und sagt kein Urteil voraus.",
     "ux13Disclaimer": "NexuLex ist keine Kanzlei. Ein ausgefuellter Entwurf ist ein Produktwerkzeug, kein Anwalt."
   },
   "fr": {
-    "ux13Preview": "Les {{previewLines}} premieres lignes restent gratuites. La lettre complete, le DOCX et la relecture restent Pro.",
-    "ux13Blank": "Les reponses vides restent marquees. NexuLex n invente ni faits, ni dates, ni textes.",
-    "ux13Country": "La lettre suit {{country}}. C est un corridor, pas un acte de tribunal.",
-    "ux13NoAdvice": "C est un brouillon. Pas un conseil pour votre affaire et pas une representation.",
-    "ux13Send": "Lisez-le vous-meme avant envoi. Un formulaire officiel peut etre different.",
-    "ux13Device": "Le brouillon reste sur ce telephone sauf si vous le copiez, le partagez ou l exportez.",
-    "ux13NoWin": "Envoyer une lettre n ouvre pas une affaire et ne predit pas un jugement.",
-    "ux13Disclaimer": "NexuLex n est pas un cabinet. Un brouillon rempli est un outil produit, pas un avocat."
+    "ux13Preview": "Les {{previewLines}} premières lignes restent gratuites. La lettre complete, le DOCX et la relecture restent Pro.",
+    "ux13Blank": "Les réponses vides restent marquees. NexuLex n’invente ni faits, ni dates, ni textes.",
+    "ux13Country": "La lettre suit {{country}}. C’est un corridor, pas un acte de tribunal.",
+    "ux13NoAdvice": "C’est un brouillon. Pas un conseil pour votre affaire et pas une représentation.",
+    "ux13Send": "Lisez-le vous-même avant envoi. Un formulaire officiel peut être différent.",
+    "ux13Device": "Le brouillon reste sur ce téléphone sauf si vous le copiez, le partagez ou l’exportez.",
+    "ux13NoWin": "Envoyer une lettre n’ouvre pas une affaire et ne prédit pas un jugement.",
+    "ux13Disclaimer": "NexuLex n’est pas un cabinet. Un brouillon rempli est un outil produit, pas un avocat."
   },
   "es": {
-    "ux13Preview": "Las primeras {{previewLines}} lineas siguen gratis. La carta completa, el DOCX y el pulido siguen Pro.",
+    "ux13Preview": "Las primeras {{previewLines}} líneas siguen gratis. La carta completa, el DOCX y el pulido siguen Pro.",
     "ux13Blank": "Las respuestas vacias quedan marcadas. NexuLex no inventa hechos, fechas ni normas.",
     "ux13Country": "La carta sigue {{country}}. Es un corredor, no un escrito judicial.",
     "ux13NoAdvice": "Es un borrador. No es consejo para su caso y no le representa.",
     "ux13Send": "Lealo usted antes de enviarlo. Un formulario oficial puede verse distinto.",
-    "ux13Device": "El borrador se queda en este telefono salvo que lo copie, lo comparta o lo exporte.",
+    "ux13Device": "El borrador se queda en este teléfono salvo que lo copie, lo comparta o lo exporte.",
     "ux13NoWin": "Enviar una carta no abre un caso y no predice una sentencia.",
     "ux13Disclaimer": "NexuLex no es un bufete. Un borrador relleno es una herramienta de producto, no un abogado."
   },
@@ -64,12 +64,12 @@ export const WAVE_UX13_I18N = {
   "it": {
     "ux13Preview": "Le prime {{previewLines}} righe restano gratis. La lettera intera, il DOCX e la limatura restano Pro.",
     "ux13Blank": "Le risposte vuote restano segnate. NexuLex non inventa fatti, date o norme.",
-    "ux13Country": "La lettera segue {{country}}. E un corridoio, non un atto di tribunale.",
-    "ux13NoAdvice": "E una bozza. Non e un parere per la tua pratica e non ti rappresenta.",
-    "ux13Send": "Leggila tu prima di inviarla. Un modulo ufficiale puo essere diverso.",
-    "ux13Device": "La bozza resta su questo telefono finche non la copi, la condividi o la esporti.",
+    "ux13Country": "La lettera segue {{country}}. È un corridoio, non un atto di tribunale.",
+    "ux13NoAdvice": "È una bozza. Non è un parere per la tua pratica e non ti rappresenta.",
+    "ux13Send": "Leggila tu prima di inviarla. Un modulo ufficiale può essere diverso.",
+    "ux13Device": "La bozza resta su questo telefono finché non la copi, la condividi o la esporti.",
     "ux13NoWin": "Inviare una lettera non apre una causa e non predice una sentenza.",
-    "ux13Disclaimer": "NexuLex non e uno studio. Una bozza compilata e uno strumento di prodotto, non un avvocato."
+    "ux13Disclaimer": "NexuLex non è uno studio. Una bozza compilata è uno strumento di prodotto, non un avvocato."
   },
   "zh": {
     "ux13Preview": "前 {{previewLines}} 行保持免费。全文、DOCX 和润色仍属 Pro。",
@@ -112,14 +112,14 @@ export const WAVE_UX13_I18N = {
     "ux13Disclaimer": "NexuLex は法律事務所ではありません。埋めた下書きは製品の用具であり、弁護士ではありません。"
   },
   "pt": {
-    "ux13Preview": "As primeiras {{previewLines}} linhas ficam gratis. A carta completa, o DOCX e o polimento ficam Pro.",
-    "ux13Blank": "Respostas vazias ficam marcadas. A NexuLex nao inventa factos, datas ou normas.",
-    "ux13Country": "A carta segue {{country}}. E um corredor, nao um articulado de tribunal.",
-    "ux13NoAdvice": "E um rascunho. Nao e conselho para o seu caso e nao o representa.",
-    "ux13Send": "Leia voce antes de enviar. Um formulario oficial pode parecer diferente.",
-    "ux13Device": "O rascunho fica neste telefone ate o copiar, partilhar ou exportar.",
-    "ux13NoWin": "Enviar uma carta nao abre um processo e nao prevê uma sentenca.",
-    "ux13Disclaimer": "A NexuLex nao e um escritorio. Um rascunho preenchido e uma ferramenta de produto, nao um advogado."
+    "ux13Preview": "As primeiras {{previewLines}} linhas ficam grátis. A carta completa, o DOCX e o polimento ficam Pro.",
+    "ux13Blank": "Respostas vazias ficam marcadas. A NexuLex não inventa factos, datas ou normas.",
+    "ux13Country": "A carta segue {{country}}. É um corredor, não um articulado de tribunal.",
+    "ux13NoAdvice": "É um rascunho. Não é conselho para o seu caso e não o representa.",
+    "ux13Send": "Leia você antes de enviar. Um formulário oficial pode parecer diferente.",
+    "ux13Device": "O rascunho fica neste telefone até o copiar, partilhar ou exportar.",
+    "ux13NoWin": "Enviar uma carta não abre um processo e não prevê uma sentença.",
+    "ux13Disclaimer": "A NexuLex não é um escritório. Um rascunho preenchido é uma ferramenta de produto, não um advogado."
   },
   "nl": {
     "ux13Preview": "De eerste {{previewLines}} regels blijven gratis. De volle brief, DOCX en polijst blijven Pro.",

@@ -1,11 +1,11 @@
 // WAVE UX.9 — Explicador honesto (PT).
 module.exports = {
-  ux9Free: 'Explicacoes gratis este mes: {{freeExplains}}. Este telefone guarda a contagem.',
-  ux9Deadlines: 'Prazos, valores e o primeiro passo seguinte ficam gratis. O resto do plano e Pro.',
-  ux9Pro: 'O Pro abre cada passo, as suas opcoes, papeis a reunir e quando ver um advogado.',
-  ux9Country: 'A explicacao segue o pais do ecran do consultor. E um corredor, nao um parecer de tribunal.',
-  ux9Verify: 'Leia voce o original. Os prazos comecam no dia em que recebeu o papel, nao neste ecran.',
-  ux9Device: 'A NexuLex guarda o resultado neste telefone ate o guardar num processo ou o partilhar.',
-  ux9NoAdvice: 'E uma ajuda de leitura. Nao e conselho para o seu caso e nao o representa.',
-  ux9Disclaimer: 'A NexuLex nao e um escritorio. Uma explicacao e uma ferramenta de produto, nao um advogado.',
+  ux9Free: 'Explicações grátis este mês: {{freeExplains}}. Este telefone guarda a contagem.',
+  ux9Deadlines: 'Prazos, valores e o primeiro passo seguinte ficam grátis. O resto do plano é Pro.',
+  ux9Pro: 'O Pro abre cada passo, as suas opções, papéis a reunir e quando ver um advogado.',
+  ux9Country: 'A explicação segue o país do ecrã do consultor. É um corredor, não um parecer de tribunal.',
+  ux9Verify: 'Leia você o original. Os prazos começam no dia em que recebeu o papel, não neste ecrã.',
+  ux9Device: 'A NexuLex guarda o resultado neste telefone até o guardar num processo ou o partilhar.',
+  ux9NoAdvice: 'É uma ajuda de leitura. Não é conselho para o seu caso e não o representa.',
+  ux9Disclaimer: 'A NexuLex não é um escritório. Uma explicação é uma ferramenta de produto, não um advogado.',
 };

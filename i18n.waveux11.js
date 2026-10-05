@@ -24,32 +24,32 @@ export const WAVE_UX11_I18N = {
   "de": {
     "ux11Store": "Jeder Preis auf diesem Screen kommt aus dem Store auf diesem Telefon. NexuLex erfindet keinen Preis.",
     "ux11First": "Erster Scan, erste Fragen und erste Akte bleiben gratis. Entsperren Sie erst, wenn dieser Wert verbraucht ist.",
-    "ux11Guides": "Verfahrensleitfaeden bleiben gratis. Diese Paywall oeffnet sich nie fuer die Leitfadenliste.",
-    "ux11Yearly": "Ein Jahres-Hinweis erscheint nur, wenn dieser Store das Jahr guenstiger als zwoelf Monatszahlungen desselben Plans listet.",
-    "ux11Peer": "Professional wird mit Pro nur in derselben Store-Periode und Waehrung verglichen. Gemischte Preise bleiben verborgen.",
+    "ux11Guides": "Verfahrensleitfäden bleiben gratis. Diese Paywall oeffnet sich nie für die Leitfadenliste.",
+    "ux11Yearly": "Ein Jahres-Hinweis erscheint nur, wenn dieser Store das Jahr günstiger als zwoelf Monatszahlungen desselben Plans listet.",
+    "ux11Peer": "Professional wird mit Pro nur in derselben Store-Periode und Währung verglichen. Gemischte Preise bleiben verborgen.",
     "ux11Restore": "Wiederherstellen spricht mit dem Store. Die App kann auf diesem Telefon kein Abo erfinden.",
     "ux11NoCourt": "Zahlen macht diese App nicht zur Kanzlei und vertritt Sie nicht vor Gericht.",
     "ux11Disclaimer": "NexuLex ist keine Kanzlei. Ein Abo ist ein Produkt, kein Anwalt."
   },
   "fr": {
-    "ux11Store": "Chaque prix de cet ecran vient du store de ce telephone. NexuLex n invente aucun prix.",
-    "ux11First": "La premiere analyse, les premieres questions et le premier dossier restent gratuits. Debloquez seulement apres cette valeur.",
-    "ux11Guides": "Les guides de demarche restent gratuits. Cet ecran ne s ouvre jamais pour la liste des guides.",
-    "ux11Yearly": "Un surplus annuel n apparait que si ce store liste l annuel moins cher que douze paiements mensuels du meme forfait.",
-    "ux11Peer": "Professional n est compare a Pro qu a la meme periode et devise du store. Les prix mixtes restent caches.",
-    "ux11Restore": "Restaurer parle au store. L app ne peut pas inventer un abonnement sur ce telephone.",
-    "ux11NoCourt": "Payer ne fait pas de cette app un cabinet et ne vous represente pas au tribunal.",
-    "ux11Disclaimer": "NexuLex n est pas un cabinet. Un abonnement est un produit, pas un avocat."
+    "ux11Store": "Chaque prix de cet écran vient du store de ce téléphone. NexuLex n’invente aucun prix.",
+    "ux11First": "La première analyse, les premières questions et le premier dossier restent gratuits. Débloquez seulement après cette valeur.",
+    "ux11Guides": "Les guides de démarche restent gratuits. Cet écran ne s’ouvre jamais pour la liste des guides.",
+    "ux11Yearly": "Un surplus annuel n’apparaît que si ce store liste l’annuel moins cher que douze paiements mensuels du même forfait.",
+    "ux11Peer": "Professional n’est compare a Pro qu’a la même période et devise du store. Les prix mixtes restent caches.",
+    "ux11Restore": "Restaurer parle au store. L’app ne peut pas inventer un abonnement sur ce téléphone.",
+    "ux11NoCourt": "Payer ne fait pas de cette app un cabinet et ne vous représente pas au tribunal.",
+    "ux11Disclaimer": "NexuLex n’est pas un cabinet. Un abonnement est un produit, pas un avocat."
   },
   "es": {
-    "ux11Store": "Cada precio de esta pantalla viene de la tienda de este telefono. NexuLex no inventa un precio.",
-    "ux11First": "El primer analisis, las primeras preguntas y el primer expediente siguen gratis. Desbloquee solo cuando ese valor se haya usado.",
-    "ux11Guides": "Las guias de tramite siguen gratis. Este paywall no se abre nunca por la lista de guias.",
-    "ux11Yearly": "Un aviso anual aparece solo si esta tienda lista el anual mas barato que doce pagos mensuales del mismo plan.",
-    "ux11Peer": "Professional se compara con Pro solo en el mismo periodo y moneda de la tienda. Los precios mixtos se ocultan.",
-    "ux11Restore": "Restaurar habla con la tienda. La app no puede inventar una suscripcion en este telefono.",
+    "ux11Store": "Cada precio de esta pantalla viene de la tienda de este teléfono. NexuLex no inventa un precio.",
+    "ux11First": "El primer análisis, las primeras preguntas y el primer expediente siguen gratis. Desbloquee solo cuando ese valor se haya usado.",
+    "ux11Guides": "Las guías de trámite siguen gratis. Este paywall no se abre nunca por la lista de guías.",
+    "ux11Yearly": "Un aviso anual aparece solo si esta tienda lista el anual más barato que doce pagos mensuales del mismo plan.",
+    "ux11Peer": "Professional se compara con Pro solo en el mismo período y moneda de la tienda. Los precios mixtos se ocultan.",
+    "ux11Restore": "Restaurar habla con la tienda. La app no puede inventar una suscripción en este teléfono.",
     "ux11NoCourt": "Pagar no convierte esta app en un bufete y no le representa ante un tribunal.",
-    "ux11Disclaimer": "NexuLex no es un bufete. Una suscripcion es un producto, no un abogado."
+    "ux11Disclaimer": "NexuLex no es un bufete. Una suscripción es un producto, no un abogado."
   },
   "ar": {
     "ux11Store": "كل سعر في هذه الشاشة يأتي من متجر هذا الهاتف. ولا يخترع NexuLex سعرا.",
@@ -65,11 +65,11 @@ export const WAVE_UX11_I18N = {
     "ux11Store": "Ogni prezzo di questa schermata viene dallo store di questo telefono. NexuLex non inventa un prezzo.",
     "ux11First": "Il primo scan, le prime domande e il primo fascicolo restano gratis. Sblocca solo dopo aver usato quel valore.",
     "ux11Guides": "Le guide alle procedure restano gratis. Questo paywall non si apre mai per lelenco delle guide.",
-    "ux11Yearly": "Un evidenza annuale compare solo se questo store elenca l annuale meno caro di dodici pagamenti mensili dello stesso piano.",
+    "ux11Yearly": "Un evidenza annuale compare solo se questo store elenca l’annuale meno caro di dodici pagamenti mensili dello stesso piano.",
     "ux11Peer": "Professional si confronta con Pro solo nello stesso periodo e valuta dello store. I prezzi misti restano nascosti.",
-    "ux11Restore": "Ripristina parla con lo store. L app non puo inventare un abbonamento su questo telefono.",
+    "ux11Restore": "Ripristina parla con lo store. L’app non può inventare un abbonamento su questo telefono.",
     "ux11NoCourt": "Pagare non rende questa app uno studio e non ti rappresenta in tribunale.",
-    "ux11Disclaimer": "NexuLex non e uno studio. Un abbonamento e un prodotto, non un avvocato."
+    "ux11Disclaimer": "NexuLex non è uno studio. Un abbonamento è un prodotto, non un avvocato."
   },
   "zh": {
     "ux11Store": "此屏幕上的每个价格来自这台手机上的商店。NexuLex 不会编造价格。",
@@ -112,14 +112,14 @@ export const WAVE_UX11_I18N = {
     "ux11Disclaimer": "NexuLex は法律事務所ではありません。購読は製品であり、弁護士ではありません。"
   },
   "pt": {
-    "ux11Store": "Cada preco neste ecran vem da loja deste telefone. A NexuLex nao inventa um preco.",
-    "ux11First": "A primeira leitura, as primeiras perguntas e o primeiro processo ficam gratis. Desbloqueie so depois de usar esse valor.",
-    "ux11Guides": "Os guias de procedimento ficam gratis. Este paywall nunca abre pela lista de guias.",
-    "ux11Yearly": "Um destaque anual so aparece se esta loja listar o anual mais barato do que doze pagamentos mensais do mesmo plano.",
-    "ux11Peer": "O Professional so se compara ao Pro no mesmo periodo e moeda da loja. Precos mistos ficam escondidos.",
-    "ux11Restore": "Restaurar fala com a loja. A app nao pode inventar uma subscricao neste telefone.",
-    "ux11NoCourt": "Pagar nao torna esta app um escritorio e nao o representa em tribunal.",
-    "ux11Disclaimer": "A NexuLex nao e um escritorio. Uma subscricao e um produto, nao um advogado."
+    "ux11Store": "Cada preço neste ecrã vem da loja deste telefone. A NexuLex não inventa um preço.",
+    "ux11First": "A primeira leitura, as primeiras perguntas e o primeiro processo ficam grátis. Desbloqueie só depois de usar esse valor.",
+    "ux11Guides": "Os guias de procedimento ficam grátis. Este paywall nunca abre pela lista de guias.",
+    "ux11Yearly": "Um destaque anual só aparece se esta loja listar o anual mais barato do que doze pagamentos mensais do mesmo plano.",
+    "ux11Peer": "O Professional só se compara ao Pro no mesmo período e moeda da loja. Preços mistos ficam escondidos.",
+    "ux11Restore": "Restaurar fala com a loja. A app não pode inventar uma subscrição neste telefone.",
+    "ux11NoCourt": "Pagar não torna esta app um escritório e não o representa em tribunal.",
+    "ux11Disclaimer": "A NexuLex não é um escritório. Uma subscrição é um produto, não um advogado."
   },
   "nl": {
     "ux11Store": "Elke prijs op dit scherm komt uit de winkel op deze telefoon. NexuLex verzint geen prijs.",

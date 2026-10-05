@@ -32,24 +32,24 @@ export const WAVE_UX2_I18N = {
     "ux2Disclaimer": "NexuLex ist keine Anwaltskanzlei. Dieser Korridor ist ein Startpunkt, keine Rechtsberatung."
   },
   "fr": {
-    "ux2Hint": "La langue est l interface. Le pays est le corridor juridique. Vous pourrez changer les deux plus tard dans Reglages.",
-    "ux2Guess": "Ceci est une hypothese de depart depuis la langue et la region de l appareil. Ce n est pas un avis juridique.",
-    "ux2Free": "Le premier scan, les premieres questions et le premier dossier restent dans le forfait gratuit.",
-    "ux2Generic": "Hors Turquie, les calculateurs restent generaux et les tables statutaires restent coupees.",
-    "ux2Intent": "Ensuite vous choisissez un premier travail. Les guides pas a pas ne se verrouillent jamais.",
+    "ux2Hint": "La langue est l’interface. Le pays est le corridor juridique. Vous pourrez changer les deux plus tard dans Réglages.",
+    "ux2Guess": "Ceci est une hypothese de départ depuis la langue et la région de l’appareil. Ce n’est pas un avis juridique.",
+    "ux2Free": "Le premier scan, les premières questions et le premier dossier restent dans le forfait gratuit.",
+    "ux2Generic": "Hors Turquie, les calculateurs restent généraux et les tables statutaires restent coupées.",
+    "ux2Intent": "Ensuite vous choisissez un premier travail. Les guides pas à pas ne se verrouillent jamais.",
     "ux2Change": "Utilisez les boutons ci-dessous si cette langue ou ce pays est faux.",
-    "ux2Settings": "Reglages garde encore la langue, le pays et les commandes de suppression de compte.",
-    "ux2Disclaimer": "NexuLex n est pas un cabinet d avocats. Ce corridor est un point de depart, pas un conseil juridique."
+    "ux2Settings": "Réglages garde encore la langue, le pays et les commandes de suppression de compte.",
+    "ux2Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce corridor est un point de départ, pas un conseil juridique."
   },
   "es": {
-    "ux2Hint": "El idioma es la interfaz. El pais es el corredor juridico. Ambos se cambian luego en Ajustes.",
-    "ux2Guess": "Esta es una conjetura inicial del idioma y la region del dispositivo. No es un dictamen juridico.",
-    "ux2Free": "El primer analisis, las primeras preguntas y el primer expediente se quedan en el plan gratuito.",
-    "ux2Generic": "Fuera de Turquia, las calculadoras siguen siendo generales y las tablas legales siguen apagadas.",
-    "ux2Intent": "Luego elige un primer trabajo. Las guias paso a paso no se bloquean.",
-    "ux2Change": "Use los botones de abajo si este idioma o pais es incorrecto.",
-    "ux2Settings": "Ajustes sigue guardando el idioma, el pais y los controles de borrar cuenta.",
-    "ux2Disclaimer": "NexuLex no es un despacho de abogados. Este corredor es un punto de partida, no asesoramiento juridico."
+    "ux2Hint": "El idioma es la interfaz. El país es el corredor jurídico. Ambos se cambian luego en Ajustes.",
+    "ux2Guess": "Esta es una conjetura inicial del idioma y la region del dispositivo. No es un dictamen jurídico.",
+    "ux2Free": "El primer análisis, las primeras preguntas y el primer expediente se quedan en el plan gratuito.",
+    "ux2Generic": "Fuera de Turquía, las calculadoras siguen siendo generales y las tablas legales siguen apagadas.",
+    "ux2Intent": "Luego elige un primer trabajo. Las guías paso a paso no se bloquean.",
+    "ux2Change": "Use los botones de abajo si este idioma o país es incorrecto.",
+    "ux2Settings": "Ajustes sigue guardando el idioma, el país y los controles de borrar cuenta.",
+    "ux2Disclaimer": "NexuLex no es un despacho de abogados. Este corredor es un punto de partida, no asesoramiento jurídico."
   },
   "ar": {
     "ux2Hint": "اللغة هي الواجهة. البلد هو الممر القانوني. يمكنك تغييرهما لاحقا من الإعدادات.",
@@ -62,14 +62,14 @@ export const WAVE_UX2_I18N = {
     "ux2Disclaimer": "NexuLex ليس مكتب محاماة. هذا الممر نقطة بداية وليس استشارة قانونية."
   },
   "it": {
-    "ux2Hint": "La lingua e l interfaccia. Il paese e il corridoio giuridico. Entrambi si cambiano dopo in Impostazioni.",
-    "ux2Guess": "Questa e una stima iniziale da lingua e regione del dispositivo. Non e un parere legale.",
+    "ux2Hint": "La lingua è l’interfaccia. Il paese è il corridoio giuridico. Entrambi si cambiano dopo in Impostazioni.",
+    "ux2Guess": "Questa è una stima iniziale da lingua e regione del dispositivo. Non è un parere legale.",
     "ux2Free": "La prima analisi, le prime domande e il primo fascicolo restano nel piano gratuito.",
     "ux2Generic": "Fuori dalla Turchia i calcolatori restano generici e le tabelle statutarie restano spente.",
     "ux2Intent": "Poi scegli un primo lavoro. Le guide passo passo non si bloccano.",
     "ux2Change": "Usa i pulsanti sotto se lingua o paese sono sbagliati.",
-    "ux2Settings": "Impostazioni tiene ancora lingua, paese e i comandi per eliminare l account.",
-    "ux2Disclaimer": "NexuLex non e uno studio legale. Questo corridoio e un punto di partenza, non consulenza legale."
+    "ux2Settings": "Impostazioni tiene ancora lingua, paese e i comandi per eliminare l’account.",
+    "ux2Disclaimer": "NexuLex non è uno studio legale. Questo corridoio è un punto di partenza, non consulenza legale."
   },
   "zh": {
     "ux2Hint": "语言是界面。国家是法律走廊。两者之后都可在设置中更改。",
@@ -112,14 +112,14 @@ export const WAVE_UX2_I18N = {
     "ux2Disclaimer": "NexuLex は法律事務所ではありません。この回廊は出発点であり、法的助言ではありません。"
   },
   "pt": {
-    "ux2Hint": "A lingua e a interface. O pais e o corredor juridico. Ambos mudam depois nas Definicoes.",
-    "ux2Guess": "Isto e um palpite inicial da lingua e da regiao do dispositivo. Nao e um parecer juridico.",
-    "ux2Free": "A primeira analise, as primeiras perguntas e o primeiro processo ficam no plano gratuito.",
+    "ux2Hint": "A língua é a interface. O país é o corredor jurídico. Ambos mudam depois nas Definições.",
+    "ux2Guess": "Isto é um palpite inicial da língua e da região do dispositivo. Não é um parecer jurídico.",
+    "ux2Free": "A primeira análise, as primeiras perguntas e o primeiro processo ficam no plano gratuito.",
     "ux2Generic": "Fora da Turquia, as calculadoras ficam gerais e as tabelas legais ficam desligadas.",
     "ux2Intent": "A seguir escolhe um primeiro trabalho. Os guias passo a passo nunca bloqueiam.",
-    "ux2Change": "Use os botoes abaixo se esta lingua ou este pais estiver errado.",
-    "ux2Settings": "As Definicoes ainda guardam a lingua, o pais e os controlos de apagar a conta.",
-    "ux2Disclaimer": "A NexuLex nao e um escritorio de advogados. Este corredor e um ponto de partida, nao aconselhamento juridico."
+    "ux2Change": "Use os botões abaixo se esta língua ou este país estiver errado.",
+    "ux2Settings": "As Definições ainda guardam a língua, o país e os controlos de apagar a conta.",
+    "ux2Disclaimer": "A NexuLex não é um escritório de advogados. Este corredor é um ponto de partida, não aconselhamento jurídico."
   },
   "nl": {
     "ux2Hint": "Taal is de interface. Land is de juridische corridor. Beide wijzigt u later in Instellingen.",

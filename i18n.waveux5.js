@@ -22,34 +22,34 @@ export const WAVE_UX5_I18N = {
     "ux5Disclaimer": "NexuLex is not a law firm. These chips are product paths, not legal advice."
   },
   "de": {
-    "ux5Country": "{{country}} ist der Rechtskorridor fuer diesen Scan. Es ist kein Gericht.",
+    "ux5Country": "{{country}} ist der Rechtskorridor für diesen Scan. Es ist kein Gericht.",
     "ux5Lang": "Die Berichtssprache ist, wie der Scan geschrieben wird. Sie schreibt den Vertrag nicht um.",
     "ux5Scan": "Ein Foto, ein PDF oder eingefuegter Text bleibt auf diesem Telefon, bis Sie die Analyse starten.",
     "ux5Free": "Die ersten Scans, die ersten Fragen und die erste Akte bleiben im Gratis-Plan.",
-    "ux5Guides": "Leitfaeden sperren nie. Die anderen Chips oeffnen Werkzeuge, die spaeter ein Kontingent nutzen koennen.",
-    "ux5Lawyer": "Anwalt finden oeffnet amtliche Verzeichnisse. NexuLex empfiehlt und rangiert keine Anwaelte.",
+    "ux5Guides": "Leitfäden sperren nie. Die anderen Chips öffnen Werkzeuge, die später ein Kontingent nutzen können.",
+    "ux5Lawyer": "Anwalt finden oeffnet amtliche Verzeichnisse. NexuLex empfiehlt und rangiert keine Anwälte.",
     "ux5NoWin": "Ein Scan sagt kein Gerichtsergebnis voraus und vertritt Sie nicht.",
     "ux5Disclaimer": "NexuLex ist keine Kanzlei. Diese Chips sind Produktwege, keine Rechtsberatung."
   },
   "fr": {
-    "ux5Country": "{{country}} est le corridor de droit pour cette analyse. Ce n est pas un tribunal.",
-    "ux5Lang": "La langue du rapport est celle dans laquelle l analyse est ecrite. Elle ne reecrit pas le contrat.",
-    "ux5Scan": "Une photo, un PDF ou un texte colle reste sur ce telephone jusqu a ce que vous lanciez l analyse.",
-    "ux5Free": "Les premieres analyses, les premieres questions et le premier dossier restent dans le forfait gratuit.",
+    "ux5Country": "{{country}} est le corridor de droit pour cette analyse. Ce n’est pas un tribunal.",
+    "ux5Lang": "La langue du rapport est celle dans laquelle l’analyse est écrite. Elle ne réécrit pas le contrat.",
+    "ux5Scan": "Une photo, un PDF ou un texte colle reste sur ce téléphone jusqu’à ce que vous lanciez l’analyse.",
+    "ux5Free": "Les premières analyses, les premières questions et le premier dossier restent dans le forfait gratuit.",
     "ux5Guides": "Les guides ne se verrouillent jamais. Les autres puces ouvrent des outils qui peuvent plus tard user un quota.",
-    "ux5Lawyer": "Trouver un avocat ouvre des annuaires officiels. NexuLex ne recommande ni ne classe d avocats.",
-    "ux5NoWin": "Une analyse ne predit pas un resultat de tribunal et ne vous represente pas.",
-    "ux5Disclaimer": "NexuLex n est pas un cabinet. Ces puces sont des chemins produit, pas un conseil juridique."
+    "ux5Lawyer": "Trouver un avocat ouvre des annuaires officiels. NexuLex ne recommande ni ne classe d’avocats.",
+    "ux5NoWin": "Une analyse ne prédit pas un résultat de tribunal et ne vous représente pas.",
+    "ux5Disclaimer": "NexuLex n’est pas un cabinet. Ces puces sont des chemins produit, pas un conseil juridique."
   },
   "es": {
-    "ux5Country": "{{country}} es el corredor legal de este analisis. No es un tribunal.",
-    "ux5Lang": "El idioma del informe es como se escribe el analisis. No reescribe el contrato.",
-    "ux5Scan": "Una foto, un PDF o texto pegado se queda en este telefono hasta que inicie el analisis.",
-    "ux5Free": "Los primeros analisis, las primeras preguntas y el primer expediente se quedan en el plan gratuito.",
-    "ux5Guides": "Las guias nunca se bloquean. Los otros chips abren herramientas que luego pueden usar una cuota.",
+    "ux5Country": "{{country}} es el corredor legal de este análisis. No es un tribunal.",
+    "ux5Lang": "El idioma del informe es como se escribe el análisis. No reescribe el contrato.",
+    "ux5Scan": "Una foto, un PDF o texto pegado se queda en este teléfono hasta que inicie el análisis.",
+    "ux5Free": "Los primeros análisis, las primeras preguntas y el primer expediente se quedan en el plan gratuito.",
+    "ux5Guides": "Las guías nunca se bloquean. Los otros chips abren herramientas que luego pueden usar una cuota.",
     "ux5Lawyer": "Buscar un abogado abre directorios oficiales. NexuLex no recomienda ni clasifica abogados.",
-    "ux5NoWin": "Un analisis no predice un resultado judicial y no le representa.",
-    "ux5Disclaimer": "NexuLex no es un bufete. Estos chips son caminos de producto, no asesoramiento juridico."
+    "ux5NoWin": "Un análisis no predice un resultado judicial y no le representa.",
+    "ux5Disclaimer": "NexuLex no es un bufete. Estos chips son caminos de producto, no asesoramiento jurídico."
   },
   "ar": {
     "ux5Country": "{{country}} هو ممر القانون لهذا الفحص. وليس محكمة.",
@@ -62,14 +62,14 @@ export const WAVE_UX5_I18N = {
     "ux5Disclaimer": "NexuLex ليس مكتب محاماة. وهذه الرقاقات مسارات منتج وليست استشارة قانونية."
   },
   "it": {
-    "ux5Country": "{{country}} e il corridoio di diritto di questa scansione. Non e un tribunale.",
+    "ux5Country": "{{country}} è il corridoio di diritto di questa scansione. Non è un tribunale.",
     "ux5Lang": "La lingua del report e come viene scritta la scansione. Non riscrive il contratto.",
-    "ux5Scan": "Una foto, un PDF o testo incollato resta su questo telefono finche non avvii l analisi.",
+    "ux5Scan": "Una foto, un PDF o testo incollato resta su questo telefono finché non avvii l’analisi.",
     "ux5Free": "Le prime scansioni, le prime domande e il primo fascicolo restano sul piano gratuito.",
     "ux5Guides": "Le guide non si bloccano mai. Gli altri chip aprono strumenti che poi possono usare una quota.",
     "ux5Lawyer": "Trova un avvocato apre elenchi ufficiali. NexuLex non raccomanda ne classifica avvocati.",
     "ux5NoWin": "Una scansione non predice un esito in tribunale e non ti rappresenta.",
-    "ux5Disclaimer": "NexuLex non e uno studio. Questi chip sono percorsi di prodotto, non consulenza legale."
+    "ux5Disclaimer": "NexuLex non è uno studio. Questi chip sono percorsi di prodotto, non consulenza legale."
   },
   "zh": {
     "ux5Country": "{{country}} 是本次扫描的法律走廊。不是法院。",
@@ -112,14 +112,14 @@ export const WAVE_UX5_I18N = {
     "ux5Disclaimer": "NexuLex は法律事務所ではありません。これらのチップは製品の道であり、法的助言ではありません。"
   },
   "pt": {
-    "ux5Country": "{{country}} e o corredor legal desta analise. Nao e um tribunal.",
-    "ux5Lang": "O idioma do relatorio e como a analise e escrita. Nao reescreve o contrato.",
-    "ux5Scan": "Uma foto, um PDF ou texto colado fica neste telefone ate iniciar a analise.",
-    "ux5Free": "As primeiras analises, as primeiras perguntas e o primeiro processo ficam no plano gratuito.",
+    "ux5Country": "{{country}} é o corredor legal desta análise. Não é um tribunal.",
+    "ux5Lang": "O idioma do relatório é como a análise é escrita. Não reescreve o contrato.",
+    "ux5Scan": "Uma foto, um PDF ou texto colado fica neste telefone até iniciar a análise.",
+    "ux5Free": "As primeiras análises, as primeiras perguntas e o primeiro processo ficam no plano gratuito.",
     "ux5Guides": "Os guias nunca bloqueiam. Os outros chips abrem ferramentas que depois podem usar uma quota.",
-    "ux5Lawyer": "Encontrar um advogado abre diretorios oficiais. A NexuLex nao recomenda nem classifica advogados.",
-    "ux5NoWin": "Uma analise nao prevê um resultado em tribunal e nao o representa.",
-    "ux5Disclaimer": "A NexuLex nao e um escritorio. Estes chips sao caminhos de produto, nao aconselhamento juridico."
+    "ux5Lawyer": "Encontrar um advogado abre diretórios oficiais. A NexuLex não recomenda nem classifica advogados.",
+    "ux5NoWin": "Uma análise não prevê um resultado em tribunal e não o representa.",
+    "ux5Disclaimer": "A NexuLex não é um escritório. Estes chips são caminhos de produto, não aconselhamento jurídico."
   },
   "nl": {
     "ux5Country": "{{country}} is de rechtscorridor voor deze scan. Het is geen rechtbank.",

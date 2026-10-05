@@ -5,7 +5,7 @@ module.exports = {
   ux20Score: 'Die Punktzahl ist eine NexuLex Arbeitshilfe. Sie ist kein Gerichtsergebnis.',
   ux20Pdf: 'Ein PDF-Export ist eine Produktdatei. Er ist keine Gerichtsakte.',
   ux20Share: 'Ein Teilen-Kurzbrief ist eine kurze Produktnotiz. Er ist nicht der volle Vertrag.',
-  ux20Guides: 'Schritt-fuer-Schritt-Leitfaeden bleiben in jedem Fall offen.',
+  ux20Guides: 'Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.',
   ux20NoWin: 'Nichts in diesem Bericht verspricht ein Ergebnis oder reiht einen Anwalt.',
   ux20Disclaimer: 'NexuLex ist keine Kanzlei. Ein Scan-Bericht ist ein Produktwerkzeug, kein Anwalt.',
 };

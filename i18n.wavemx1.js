@@ -28,7 +28,7 @@ export const WAVE_MX1_I18N = {
   "fr": {
     "mxAnnualBadge": "{{percent}} de moins que douze paiements mensuels",
     "mxAnnualHint": "Comparé à douze fois le prix mensuel affiché par le magasin sur cet écran.",
-    "mxMonthlyNote": "Facturé chaque mois. Choisissez l’année si les deux prix sont listés et que l’année coûte moins.",
+    "mxMonthlyNote": "Facturé chaque mois. Choisissez l’année si les deux prix sont listés’et que l’année coûte moins.",
     "mxNoCompare": "Un chiffre d’économie n’apparaît que si le magasin affiche un prix mensuel et un prix annuel.",
     "mxFirstValue": "La première analyse, les premières questions et le premier dossier restent dans le forfait gratuit.",
     "mxYearlyPick": "L’année est sélectionnée quand elle coûte moins que douze mois."

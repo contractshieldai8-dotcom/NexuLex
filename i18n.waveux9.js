@@ -22,34 +22,34 @@ export const WAVE_UX9_I18N = {
     "ux9Disclaimer": "NexuLex is not a law firm. An explanation is a product tool, not a lawyer."
   },
   "de": {
-    "ux9Free": "Kostenlose Erklaerungen diesen Monat: {{freeExplains}}. Dieses Telefon zaehlt sie.",
-    "ux9Deadlines": "Fristen, Betraege und der erste naechste Schritt bleiben gratis. Der Rest des Plans ist Pro.",
+    "ux9Free": "Kostenlose Erklärungen diesen Monat: {{freeExplains}}. Dieses Telefon zählt sie.",
+    "ux9Deadlines": "Fristen, Beträge und der erste nächste Schritt bleiben gratis. Der Rest des Plans ist Pro.",
     "ux9Pro": "Pro oeffnet jeden Schritt, Ihre Optionen, die Unterlagen und wann Sie einen Anwalt sehen.",
-    "ux9Country": "Die Erklaerung folgt dem Land auf dem Berater-Screen. Das ist ein Korridor, kein Gerichtsgutachten.",
+    "ux9Country": "Die Erklärung folgt dem Land auf dem Berater-Screen. Das ist ein Korridor, kein Gerichtsgutachten.",
     "ux9Verify": "Lesen Sie das Original selbst. Fristen beginnen am Tag des Empfangs, nicht auf diesem Bildschirm.",
-    "ux9Device": "NexuLex behaelt das Ergebnis auf diesem Telefon, bis Sie es in eine Akte speichern oder teilen.",
-    "ux9NoAdvice": "Das ist eine Lesehilfe. Keine Beratung fuer Ihre Sache und keine Vertretung.",
-    "ux9Disclaimer": "NexuLex ist keine Kanzlei. Eine Erklaerung ist ein Produktwerkzeug, kein Anwalt."
+    "ux9Device": "NexuLex behält das Ergebnis auf diesem Telefon, bis Sie es in eine Akte speichern oder teilen.",
+    "ux9NoAdvice": "Das ist eine Lesehilfe. Keine Beratung für Ihre Sache und keine Vertretung.",
+    "ux9Disclaimer": "NexuLex ist keine Kanzlei. Eine Erklärung ist ein Produktwerkzeug, kein Anwalt."
   },
   "fr": {
-    "ux9Free": "Explications gratuites ce mois: {{freeExplains}}. Ce telephone tient le compte.",
-    "ux9Deadlines": "Delais, montants et la premiere etape restent gratuits. Le reste du plan est Pro.",
-    "ux9Pro": "Pro ouvre chaque etape, vos options, les pieces a reunir et quand voir un avocat.",
-    "ux9Country": "L explication suit le pays de l ecran conseiller. C est un corridor, pas un avis de tribunal.",
-    "ux9Verify": "Lisez l original vous-meme. Les delais partent du jour de reception, pas de cet ecran.",
-    "ux9Device": "NexuLex garde le resultat sur ce telephone sauf si vous le sauvez dans un dossier ou le partagez.",
-    "ux9NoAdvice": "C est une aide a la lecture. Pas un conseil pour votre affaire et pas une representation.",
-    "ux9Disclaimer": "NexuLex n est pas un cabinet. Une explication est un outil produit, pas un avocat."
+    "ux9Free": "Explications gratuites ce mois: {{freeExplains}}. Ce téléphone tient le compte.",
+    "ux9Deadlines": "Délais, montants et la première étape restent gratuits. Le reste du plan est Pro.",
+    "ux9Pro": "Pro ouvre chaque étape, vos options, les pièces a réunir et quand voir un avocat.",
+    "ux9Country": "L’explication suit le pays de l’écran conseiller. C’est un corridor, pas un avis de tribunal.",
+    "ux9Verify": "Lisez l’original vous-même. Les délais partent du jour de réception, pas de cet écran.",
+    "ux9Device": "NexuLex garde le résultat sur ce téléphone sauf si vous le sauvez dans un dossier ou le partagez.",
+    "ux9NoAdvice": "C’est une aide a la lecture. Pas un conseil pour votre affaire et pas une représentation.",
+    "ux9Disclaimer": "NexuLex n’est pas un cabinet. Une explication est un outil produit, pas un avocat."
   },
   "es": {
-    "ux9Free": "Explicaciones gratis este mes: {{freeExplains}}. Este telefono guarda el recuento.",
+    "ux9Free": "Explicaciones gratis este mes: {{freeExplains}}. Este teléfono guarda el recuento.",
     "ux9Deadlines": "Plazos, importes y el primer paso siguiente siguen gratis. El resto del plan es Pro.",
-    "ux9Pro": "Pro abre cada paso, sus opciones, papeles a reunir y cuando ver a un abogado.",
-    "ux9Country": "La explicacion sigue el pais de la pantalla del asesor. Es un corredor, no un dictamen judicial.",
-    "ux9Verify": "Lea usted el original. Los plazos empiezan el dia que recibio el papel, no en esta pantalla.",
-    "ux9Device": "NexuLex deja el resultado en este telefono salvo que lo guarde en un expediente o lo comparta.",
+    "ux9Pro": "Pro abre cada paso, sus opciones, papeles a reunir y cuándo ver a un abogado.",
+    "ux9Country": "La explicación sigue el país de la pantalla del asesor. Es un corredor, no un dictamen judicial.",
+    "ux9Verify": "Lea usted el original. Los plazos empiezan el día que recibió el papel, no en esta pantalla.",
+    "ux9Device": "NexuLex deja el resultado en este teléfono salvo que lo guarde en un expediente o lo comparta.",
     "ux9NoAdvice": "Es una ayuda de lectura. No es consejo para su caso y no le representa.",
-    "ux9Disclaimer": "NexuLex no es un bufete. Una explicacion es una herramienta de producto, no un abogado."
+    "ux9Disclaimer": "NexuLex no es un bufete. Una explicación es una herramienta de producto, no un abogado."
   },
   "ar": {
     "ux9Free": "الشروحات المجانية هذا الشهر: {{freeExplains}}. وهذا الهاتف يحفظ العد.",
@@ -63,13 +63,13 @@ export const WAVE_UX9_I18N = {
   },
   "it": {
     "ux9Free": "Spiegazioni gratis questo mese: {{freeExplains}}. Questo telefono tiene il conteggio.",
-    "ux9Deadlines": "Scadenze, importi e il primo passo successivo restano gratis. Il resto del piano e Pro.",
+    "ux9Deadlines": "Scadenze, importi e il primo passo successivo restano gratis. Il resto del piano è Pro.",
     "ux9Pro": "Pro apre ogni passo, le tue opzioni, le carte da raccogliere e quando vedere un avvocato.",
-    "ux9Country": "La spiegazione segue il paese della schermata consulente. E un corridoio, non un parere di tribunale.",
-    "ux9Verify": "Leggi tu l originale. I termini partono dal giorno in cui hai ricevuto il foglio, non da questa schermata.",
-    "ux9Device": "NexuLex tiene il risultato su questo telefono finche non lo salvi in una pratica o lo condividi.",
-    "ux9NoAdvice": "E un aiuto alla lettura. Non e un parere per la tua pratica e non ti rappresenta.",
-    "ux9Disclaimer": "NexuLex non e uno studio. Una spiegazione e uno strumento di prodotto, non un avvocato."
+    "ux9Country": "La spiegazione segue il paese della schermata consulente. È un corridoio, non un parere di tribunale.",
+    "ux9Verify": "Leggi tu l’originale. I termini partono dal giorno in cui hai ricevuto il foglio, non da questa schermata.",
+    "ux9Device": "NexuLex tiene il risultato su questo telefono finché non lo salvi in una pratica o lo condividi.",
+    "ux9NoAdvice": "È un aiuto alla lettura. Non è un parere per la tua pratica e non ti rappresenta.",
+    "ux9Disclaimer": "NexuLex non è uno studio. Una spiegazione è uno strumento di prodotto, non un avvocato."
   },
   "zh": {
     "ux9Free": "本月免费解读：{{freeExplains}}。次数记在这台手机上。",
@@ -112,14 +112,14 @@ export const WAVE_UX9_I18N = {
     "ux9Disclaimer": "NexuLex は法律事務所ではありません。説明は製品の用具であり、弁護士ではありません。"
   },
   "pt": {
-    "ux9Free": "Explicacoes gratis este mes: {{freeExplains}}. Este telefone guarda a contagem.",
-    "ux9Deadlines": "Prazos, valores e o primeiro passo seguinte ficam gratis. O resto do plano e Pro.",
-    "ux9Pro": "O Pro abre cada passo, as suas opcoes, papeis a reunir e quando ver um advogado.",
-    "ux9Country": "A explicacao segue o pais do ecran do consultor. E um corredor, nao um parecer de tribunal.",
-    "ux9Verify": "Leia voce o original. Os prazos comecam no dia em que recebeu o papel, nao neste ecran.",
-    "ux9Device": "A NexuLex guarda o resultado neste telefone ate o guardar num processo ou o partilhar.",
-    "ux9NoAdvice": "E uma ajuda de leitura. Nao e conselho para o seu caso e nao o representa.",
-    "ux9Disclaimer": "A NexuLex nao e um escritorio. Uma explicacao e uma ferramenta de produto, nao um advogado."
+    "ux9Free": "Explicações grátis este mês: {{freeExplains}}. Este telefone guarda a contagem.",
+    "ux9Deadlines": "Prazos, valores e o primeiro passo seguinte ficam grátis. O resto do plano é Pro.",
+    "ux9Pro": "O Pro abre cada passo, as suas opções, papéis a reunir e quando ver um advogado.",
+    "ux9Country": "A explicação segue o país do ecrã do consultor. É um corredor, não um parecer de tribunal.",
+    "ux9Verify": "Leia você o original. Os prazos começam no dia em que recebeu o papel, não neste ecrã.",
+    "ux9Device": "A NexuLex guarda o resultado neste telefone até o guardar num processo ou o partilhar.",
+    "ux9NoAdvice": "É uma ajuda de leitura. Não é conselho para o seu caso e não o representa.",
+    "ux9Disclaimer": "A NexuLex não é um escritório. Uma explicação é uma ferramenta de produto, não um advogado."
   },
   "nl": {
     "ux9Free": "Gratis uitleg deze maand: {{freeExplains}}. Deze telefoon bewaart de telling.",

@@ -1,11 +1,11 @@
 // WAVE UX.14 — Ferramentas Professional honestas (PT).
 module.exports = {
-  ux14Quota: 'Execucoes de ferramentas Professional por dia: {{toolsDaily}}. O servidor conta-as.',
-  ux14Server: 'A app so mostra o resto. A NexuLex nao pode inventar execucoes extra neste telefone.',
-  ux14Plan: 'Cronologia, lista de questoes e nota de pesquisa ficam no plano Professional. O Pro nao as inclui.',
-  ux14Material: 'Uma execucao usa so o material que cola. As datas sao marcadas, nunca adivinhadas.',
-  ux14Sources: 'Abra voce cada fonte oficial. Uma citacao pode ficar velha.',
-  ux14NoAdvice: 'E uma ajuda de trabalho. Nao e conselho para um processo de cliente e nao representa ninguem.',
-  ux14Device: 'Os resultados ficam neste telefone ate os guardar num processo ou os partilhar.',
-  ux14Disclaimer: 'A NexuLex nao e um escritorio. Uma nota estruturada e uma ferramenta de produto, nao um advogado.',
+  ux14Quota: 'Execuções de ferramentas Professional por dia: {{toolsDaily}}. O servidor conta-as.',
+  ux14Server: 'A app só mostra o resto. A NexuLex não pode inventar execuções extra neste telefone.',
+  ux14Plan: 'Cronologia, lista de questões e nota de pesquisa ficam no plano Professional. O Pro não as inclui.',
+  ux14Material: 'Uma execução usa só o material que cola. As datas são marcadas, nunca adivinhadas.',
+  ux14Sources: 'Abra você cada fonte oficial. Uma citação pode ficar velha.',
+  ux14NoAdvice: 'É uma ajuda de trabalho. Não é conselho para um processo de cliente e não representa ninguém.',
+  ux14Device: 'Os resultados ficam neste telefone até os guardar num processo ou os partilhar.',
+  ux14Disclaimer: 'A NexuLex não é um escritório. Uma nota estruturada é uma ferramenta de produto, não um advogado.',
 };

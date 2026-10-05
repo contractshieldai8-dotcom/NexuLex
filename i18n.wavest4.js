@@ -32,24 +32,24 @@ export const WAVE_ST4_I18N = {
     "st4Disclaimer": "NexuLex ist keine Anwaltskanzlei. Support und Plätze sind Produktwerkzeuge, keine Rechtsberatung."
   },
   "fr": {
-    "st4Seats": "Les sieges foyer et conseiller partagent des briefs, pas le contrat original.",
-    "st4SeatsHint": "Un siege peut ouvrir un brief en lecture seule. Il ne voit pas les photos non partagees.",
-    "st4Support": "L assistance concerne le produit. Ce n est pas un conseil juridique et n ouvre pas de dossier avocat.",
-    "st4SupportHint": "Ecrivez dans votre langue. Nous repondons sur l app, la restauration d achat et l acces au compte.",
-    "st4Security": "Un nouveau mot de passe est stocke par le service de connexion. Le personnel NexuLex ne peut pas le lire.",
-    "st4SecurityHint": "Changer le mot de passe n annule pas un abonnement App Store ou Google Play.",
-    "st4Plan": "Professional releve le plafond de sieges. L abonnement reste a la boutique.",
-    "st4Disclaimer": "NexuLex n est pas un cabinet d avocats. Assistance et sieges sont des outils produit, pas un conseil juridique."
+    "st4Seats": "Les sièges foyer et conseiller partagent des briefs, pas le contrat original.",
+    "st4SeatsHint": "Un siège peut ouvrir un brief en lecture seule. Il ne voit pas les photos non partagees.",
+    "st4Support": "L’assistance concerne le produit. Ce n’est pas un conseil juridique et n’ouvre pas de dossier avocat.",
+    "st4SupportHint": "Écrivez dans votre langue. Nous repondons sur l’app, la restauration d’achat et l’accès’au compte.",
+    "st4Security": "Un nouveau mot de passe est stocké par le service de connexion. Le personnel NexuLex ne peut pas le lire.",
+    "st4SecurityHint": "Changer le mot de passe n’annule pas un abonnement App Store ou Google Play.",
+    "st4Plan": "Professional releve le plafond de sièges. L’abonnement reste a la boutique.",
+    "st4Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Assistance et sièges sont des outils produit, pas un conseil juridique."
   },
   "es": {
     "st4Seats": "Los asientos de hogar y asesor comparten briefs, no el contrato original.",
     "st4SeatsHint": "Un asiento puede abrir un brief de solo lectura. No ve fotos que usted no compartio.",
-    "st4Support": "El soporte es para preguntas de producto. No es asesoramiento juridico ni abre un expediente de abogado.",
+    "st4Support": "El soporte es para preguntas de producto. No es asesoramiento jurídico ni abre un expediente de abogado.",
     "st4SupportHint": "Escriba en su idioma. Respondemos sobre la app, restaurar compras y el acceso a la cuenta.",
-    "st4Security": "La nueva contrasena la guarda el servicio de acceso. El personal de NexuLex no puede leerla.",
-    "st4SecurityHint": "Cambiar la contrasena no cancela una suscripcion de App Store o Google Play.",
-    "st4Plan": "Professional sube el tope de asientos. La suscripcion sigue en la tienda.",
-    "st4Disclaimer": "NexuLex no es un despacho de abogados. Soporte y asientos son herramientas de producto, no asesoramiento juridico."
+    "st4Security": "La nueva contraseña la guarda el servicio de acceso. El personal de NexuLex no puede leerla.",
+    "st4SecurityHint": "Cambiar la contraseña no cancela una suscripción de App Store o Google Play.",
+    "st4Plan": "Professional sube el tope de asientos. La suscripción sigue en la tienda.",
+    "st4Disclaimer": "NexuLex no es un despacho de abogados. Soporte y asientos son herramientas de producto, no asesoramiento jurídico."
   },
   "ar": {
     "st4Seats": "مقاعد الأسرة والمستشار تشارك الملخصات لا نص العقد الأصلي.",
@@ -63,13 +63,13 @@ export const WAVE_ST4_I18N = {
   },
   "it": {
     "st4Seats": "I posti nucleo e advisor condividono i brief, non il contratto originale.",
-    "st4SeatsHint": "Un posto puo aprire un brief in sola lettura. Non vede le foto che non hai condiviso.",
-    "st4Support": "Il supporto e per domande di prodotto. Non e consulenza legale e non apre un fascicolo avvocato.",
-    "st4SupportHint": "Scrivi nella tua lingua. Rispondiamo su app, ripristino acquisti e accesso all account.",
-    "st4Security": "La nuova password la conserva il servizio di accesso. Lo staff NexuLex non puo leggerla.",
+    "st4SeatsHint": "Un posto può aprire un brief in sola lettura. Non vede le foto che non hai condiviso.",
+    "st4Support": "Il supporto è per domande di prodotto. Non è consulenza legale e non apre un fascicolo avvocato.",
+    "st4SupportHint": "Scrivi nella tua lingua. Rispondiamo su app, ripristino acquisti e accesso all’account.",
+    "st4Security": "La nuova password la conserva il servizio di accesso. Lo staff NexuLex non può leggerla.",
     "st4SecurityHint": "Cambiare la password non disdice un abbonamento App Store o Google Play.",
-    "st4Plan": "Professional alza il tetto dei posti. L abbonamento resta nello store.",
-    "st4Disclaimer": "NexuLex non e uno studio legale. Supporto e posti sono strumenti di prodotto, non consulenza legale."
+    "st4Plan": "Professional alza il tetto dei posti. L’abbonamento resta nello store.",
+    "st4Disclaimer": "NexuLex non è uno studio legale. Supporto e posti sono strumenti di prodotto, non consulenza legale."
   },
   "zh": {
     "st4Seats": "家庭与顾问席位共享简报，而不是原始合同文本。",
@@ -112,14 +112,14 @@ export const WAVE_ST4_I18N = {
     "st4Disclaimer": "NexuLex は法律事務所ではありません。サポートとシートは製品ツールであり、法的助言ではありません。"
   },
   "pt": {
-    "st4Seats": "Os lugares de agregado e consultor partilham briefs, nao o contrato original.",
-    "st4SeatsHint": "Um lugar pode abrir um brief so de leitura. Nao ve fotos que nao partilhou.",
-    "st4Support": "O apoio e para perguntas de produto. Nao e aconselhamento juridico nem abre um processo de advogado.",
-    "st4SupportHint": "Escreva na sua lingua. Respondemos sobre a app, restaurar compras e o acesso a conta.",
-    "st4Security": "A nova palavra-passe fica no servico de inicio de sessao. A equipa NexuLex nao a pode ler.",
-    "st4SecurityHint": "Mudar a palavra-passe nao cancela uma subscricao da App Store ou da Google Play.",
-    "st4Plan": "Professional sobe o teto de lugares. A subscricao continua na loja.",
-    "st4Disclaimer": "A NexuLex nao e um escritorio de advogados. Apoio e lugares sao ferramentas de produto, nao aconselhamento juridico."
+    "st4Seats": "Os lugares de agregado e consultor partilham briefs, não o contrato original.",
+    "st4SeatsHint": "Um lugar pode abrir um brief só de leitura. Não vê fotos que não partilhou.",
+    "st4Support": "O apoio é para perguntas de produto. Não é aconselhamento jurídico nem abre um processo de advogado.",
+    "st4SupportHint": "Escreva na sua língua. Respondemos sobre a app, restaurar compras e o acesso a conta.",
+    "st4Security": "A nova palavra-passe fica no serviço de início de sessão. A equipa NexuLex não a pode ler.",
+    "st4SecurityHint": "Mudar a palavra-passe não cancela uma subscrição da App Store ou da Google Play.",
+    "st4Plan": "Professional sobe o teto de lugares. A subscrição continua na loja.",
+    "st4Disclaimer": "A NexuLex não é um escritório de advogados. Apoio e lugares são ferramentas de produto, não aconselhamento jurídico."
   },
   "nl": {
     "st4Seats": "Huishoud- en adviseurplekken delen briefs, niet de oorspronkelijke contracttekst.",

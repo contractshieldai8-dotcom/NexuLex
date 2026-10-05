@@ -22,33 +22,33 @@ export const WAVE_UX21_I18N = {
     "ux21Disclaimer": "NexuLex is not a law firm. A history card is a product tool, not a lawyer."
   },
   "de": {
-    "ux21Cloud": "Gespeicherte Scans liegen in Ihrem Konto. Sie oeffnen sich auf einem anderen angemeldeten Telefon.",
-    "ux21Delete": "Eine Karte zu loeschen entfernt diesen Scan aus dem Konto. Es kuendigt keinen Store-Plan.",
+    "ux21Cloud": "Gespeicherte Scans liegen in Ihrem Konto. Sie öffnen sich auf einem anderen angemeldeten Telefon.",
+    "ux21Delete": "Eine Karte zu löschen entfernt diesen Scan aus dem Konto. Es kündigt keinen Store-Plan.",
     "ux21Share": "Das Teilen-Symbol oeffnet einen kurzen NexuLex Brief. Es ist nicht der volle Vertrag.",
-    "ux21Preview": "Eine Karte zu oeffnen kann weiter die Gratisvorschau-Sperre zeigen. Das ist ein Plan-Tor, keine Gerichtsakte.",
+    "ux21Preview": "Eine Karte zu öffnen kann weiter die Gratisvorschau-Sperre zeigen. Das ist ein Plan-Tor, keine Gerichtsakte.",
     "ux21Chat": "Berater-Chats stehen auf dieser Liste getrennt. Sie sind kein Scan-Bericht.",
     "ux21NoWin": "Die Punktzahl auf einer Karte ist eine Arbeitshilfe. Sie ist kein Gerichtsergebnis.",
-    "ux21Guides": "Schritt-fuer-Schritt-Leitfaeden bleiben in jedem Fall offen.",
+    "ux21Guides": "Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.",
     "ux21Disclaimer": "NexuLex ist keine Kanzlei. Eine Verlaufskarte ist ein Produktwerkzeug, kein Anwalt."
   },
   "fr": {
-    "ux21Cloud": "Les scans enregistres vivent dans votre compte. Ils peuvent s ouvrir sur un autre telephone connecte.",
-    "ux21Delete": "Supprimer une carte retire ce scan du compte. Cela n annule pas un forfait magasin.",
-    "ux21Share": "L icone de partage ouvre un court brief NexuLex. Ce n est pas le contrat entier.",
-    "ux21Preview": "Ouvrir une carte peut encore montrer le verrou d apercu gratuit. C est une porte de forfait, pas un dossier de tribunal.",
-    "ux21Chat": "Les chats conseiller sont a part sur cette liste. Ce n est pas un rapport de scan.",
-    "ux21NoWin": "Le score sur une carte est une aide de travail. Ce n est pas un resultat de tribunal.",
-    "ux21Guides": "Les guides pas a pas restent ouverts dans tous les cas.",
-    "ux21Disclaimer": "NexuLex n est pas un cabinet. Une carte d historique est un outil produit, pas un avocat."
+    "ux21Cloud": "Les scans enregistres vivent dans votre compte. Ils peuvent s’ouvrir sur un autre téléphone connecte.",
+    "ux21Delete": "Supprimer une carte retire ce scan du compte. Cela n’annule pas un forfait magasin.",
+    "ux21Share": "L’icône de partage ouvre un court brief NexuLex. Ce n’est pas le contrat entier.",
+    "ux21Preview": "Ouvrir une carte peut encore montrer le verrou d’aperçu gratuit. C’est une porte de forfait, pas un dossier de tribunal.",
+    "ux21Chat": "Les chats conseiller sont à part sur cette liste. Ce n’est pas un rapport de scan.",
+    "ux21NoWin": "Le score sur une carte est une aide de travail. Ce n’est pas un résultat de tribunal.",
+    "ux21Guides": "Les guides pas à pas restent ouverts dans tous les cas.",
+    "ux21Disclaimer": "NexuLex n’est pas un cabinet. Une carte d’historique est un outil produit, pas un avocat."
   },
   "es": {
-    "ux21Cloud": "Los analisis guardados viven en su cuenta. Pueden abrirse en otro telefono con sesion.",
-    "ux21Delete": "Borrar una tarjeta quita ese analisis de la cuenta. No cancela un plan de tienda.",
+    "ux21Cloud": "Los análisis guardados viven en su cuenta. Pueden abrirse en otro teléfono con sesión.",
+    "ux21Delete": "Borrar una tarjeta quita ese análisis de la cuenta. No cancela un plan de tienda.",
     "ux21Share": "El icono de compartir abre un brief corto de NexuLex. No es el contrato completo.",
-    "ux21Preview": "Abrir una tarjeta aun puede mostrar el bloqueo de vista previa. Es una puerta de plan, no un expediente judicial.",
-    "ux21Chat": "Los chats del asesor estan aparte en esta lista. No son un informe de analisis.",
-    "ux21NoWin": "La puntuacion de una tarjeta es una ayuda de trabajo. No es un resultado judicial.",
-    "ux21Guides": "Las guias paso a paso siguen abiertas de todos modos.",
+    "ux21Preview": "Abrir una tarjeta aún puede mostrar el bloqueo de vista previa. Es una puerta de plan, no un expediente judicial.",
+    "ux21Chat": "Los chats del asesor están aparte en esta lista. No son un informe de análisis.",
+    "ux21NoWin": "La puntuación de una tarjeta es una ayuda de trabajo. No es un resultado judicial.",
+    "ux21Guides": "Las guías paso a paso siguen abiertas de todos modos.",
     "ux21Disclaimer": "NexuLex no es un bufete. Una tarjeta de historial es una herramienta de producto, no un abogado."
   },
   "ar": {
@@ -63,13 +63,13 @@ export const WAVE_UX21_I18N = {
   },
   "it": {
     "ux21Cloud": "Gli scan salvati vivono nel tuo account. Possono aprirsi su un altro telefono connesso.",
-    "ux21Delete": "Cancellare una scheda toglie quello scan dall account. Non disdice un piano dello store.",
-    "ux21Share": "L icona di condivisione apre un brief breve NexuLex. Non e il contratto intero.",
-    "ux21Preview": "Aprire una scheda puo ancora mostrare il blocco anteprima gratuita. E un cancello di piano, non un fascicolo di tribunale.",
+    "ux21Delete": "Cancellare una scheda toglie quello scan dall’account. Non disdice un piano dello store.",
+    "ux21Share": "L’icona di condivisione apre un brief breve NexuLex. Non è il contratto intero.",
+    "ux21Preview": "Aprire una scheda può ancora mostrare il blocco anteprima gratuita. È un cancello di piano, non un fascicolo di tribunale.",
     "ux21Chat": "Le chat del consulente stanno a parte in questo elenco. Non sono un report di scan.",
-    "ux21NoWin": "Il punteggio su una scheda e un aiuto di lavoro. Non e un esito di tribunale.",
+    "ux21NoWin": "Il punteggio su una scheda è un aiuto di lavoro. Non è un esito di tribunale.",
     "ux21Guides": "Le guide passo passo restano sbloccate in ogni caso.",
-    "ux21Disclaimer": "NexuLex non e uno studio. Una scheda di cronologia e uno strumento di prodotto, non un avvocato."
+    "ux21Disclaimer": "NexuLex non è uno studio. Una scheda di cronologia è uno strumento di prodotto, non un avvocato."
   },
   "zh": {
     "ux21Cloud": "已保存的扫描存在你的账户里。可在另一台已登录的手机打开。",
@@ -112,14 +112,14 @@ export const WAVE_UX21_I18N = {
     "ux21Disclaimer": "NexuLex は法律事務所ではありません。履歴カードは製品の用具であり、弁護士ではありません。"
   },
   "pt": {
-    "ux21Cloud": "As analises guardadas vivem na sua conta. Podem abrir noutro telefone com sessao.",
-    "ux21Delete": "Apagar um cartao retira essa analise da conta. Nao cancela um plano da loja.",
-    "ux21Share": "O icone de partilha abre um brief curto da NexuLex. Nao e o contrato completo.",
-    "ux21Preview": "Abrir um cartao ainda pode mostrar o bloqueio da pre-visualizacao. E um portao de plano, nao um processo em tribunal.",
-    "ux21Chat": "As conversas do consultor ficam a parte nesta lista. Nao sao um relatorio de analise.",
-    "ux21NoWin": "A pontuacao num cartao e uma ajuda de trabalho. Nao e um resultado de tribunal.",
+    "ux21Cloud": "As análises guardadas vivem na sua conta. Podem abrir noutro telefone com sessão.",
+    "ux21Delete": "Apagar um cartão retira essa análise da conta. Não cancela um plano da loja.",
+    "ux21Share": "O ícone de partilha abre um brief curto da NexuLex. Não é o contrato completo.",
+    "ux21Preview": "Abrir um cartão ainda pode mostrar o bloqueio da pré-visualização. É um portão de plano, não um processo em tribunal.",
+    "ux21Chat": "As conversas do consultor ficam a parte nesta lista. Não são um relatório de análise.",
+    "ux21NoWin": "A pontuação num cartão é uma ajuda de trabalho. Não é um resultado de tribunal.",
     "ux21Guides": "Os guias passo a passo ficam desbloqueados de qualquer forma.",
-    "ux21Disclaimer": "A NexuLex nao e um escritorio. Um cartao de historico e uma ferramenta de produto, nao um advogado."
+    "ux21Disclaimer": "A NexuLex não é um escritório. Um cartão de histórico é uma ferramenta de produto, não um advogado."
   },
   "nl": {
     "ux21Cloud": "Opgeslagen scans staan in uw account. Ze kunnen openen op een andere ingelogde telefoon.",

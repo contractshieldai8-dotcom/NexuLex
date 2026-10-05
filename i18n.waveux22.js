@@ -23,32 +23,32 @@ export const WAVE_UX22_I18N = {
   },
   "de": {
     "ux22Brief": "Ein Teilen-Brief ist eine kurze Produktnotiz. Er ist nicht die volle Vertragsdatei.",
-    "ux22Code": "Der Code oeffnet eine oeffentliche Ansicht. NexuLex haengt den Vertragstext nie an.",
+    "ux22Code": "Der Code oeffnet eine oeffentliche Ansicht. NexuLex hängt den Vertragstext nie an.",
     "ux22Expire": "Ein Code kann ablaufen oder widerrufen werden. Das ist eine Produktsteuerung, kein Gerichtssiegel.",
     "ux22Leak": "Wird ein Leck blockiert, blieb der Vertrag vom Teilen fern. Das ist Absicht.",
-    "ux22Audience": "Die Zielgruppe waehlt nur, wer die Notiz oeffnen darf. Sie reiht keinen Anwalt.",
-    "ux22Pro": "Zusaetzliche Haus- und Beraterplaetze bleiben im bezahlten Plan. Leitfaeden bleiben frei.",
-    "ux22Guides": "Schritt-fuer-Schritt-Leitfaeden bleiben in jedem Fall offen.",
+    "ux22Audience": "Die Zielgruppe wählt nur, wer die Notiz öffnen darf. Sie reiht keinen Anwalt.",
+    "ux22Pro": "Zusätzliche Haus- und Beraterplätze bleiben im bezahlten Plan. Leitfäden bleiben frei.",
+    "ux22Guides": "Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.",
     "ux22Disclaimer": "NexuLex ist keine Kanzlei. Ein Teilen-Brief ist ein Produktwerkzeug, kein Anwalt."
   },
   "fr": {
-    "ux22Brief": "Un brief de partage est une courte note produit. Ce n est pas le fichier contrat entier.",
-    "ux22Code": "Le code ouvre un visualiseur public. NexuLex n attache jamais le texte du contrat.",
-    "ux22Expire": "Un code peut expirer ou etre revoque. C est un controle produit, pas un sceau de tribunal.",
-    "ux22Leak": "Si une fuite est bloquee, le contrat n est pas dans le partage. C est volontaire.",
+    "ux22Brief": "Un brief de partage est une courte note produit. Ce n’est pas le fichier contrat entier.",
+    "ux22Code": "Le code ouvre un visualiseur public. NexuLex n’attache jamais le texte du contrat.",
+    "ux22Expire": "Un code peut expirer ou être revoque. C’est un contrôle produit, pas un sceau de tribunal.",
+    "ux22Leak": "Si une fuite est bloquée, le contrat n’est pas dans le partage. C’est volontaire.",
     "ux22Audience": "Le public choisit seulement qui peut ouvrir la note. Il ne classe aucun avocat.",
-    "ux22Pro": "Les sieges foyer et conseiller en plus restent dans un forfait payant. Les guides restent gratuits.",
-    "ux22Guides": "Les guides pas a pas restent ouverts dans tous les cas.",
-    "ux22Disclaimer": "NexuLex n est pas un cabinet. Un brief de partage est un outil produit, pas un avocat."
+    "ux22Pro": "Les sièges foyer et conseiller en plus restent dans un forfait payant. Les guides restent gratuits.",
+    "ux22Guides": "Les guides pas à pas restent ouverts dans tous les cas.",
+    "ux22Disclaimer": "NexuLex n’est pas un cabinet. Un brief de partage est un outil produit, pas un avocat."
   },
   "es": {
     "ux22Brief": "Un brief para compartir es una nota corta de producto. No es el archivo del contrato completo.",
-    "ux22Code": "El codigo abre un visor publico. NexuLex nunca adjunta el texto del contrato.",
-    "ux22Expire": "Un codigo puede caducar o revocarse. Es un control de producto, no un sello judicial.",
-    "ux22Leak": "Si se bloquea una filtracion, el contrato no fue en el envio. Es por diseno.",
-    "ux22Audience": "La audiencia solo elige quien puede abrir la nota. No clasifica a un abogado.",
-    "ux22Pro": "Los asientos extra de hogar y asesor se quedan en un plan de pago. Las guias siguen gratis.",
-    "ux22Guides": "Las guias paso a paso siguen abiertas de todos modos.",
+    "ux22Code": "El código abre un visor público. NexuLex nunca adjunta el texto del contrato.",
+    "ux22Expire": "Un código puede caducar o revocarse. Es un control de producto, no un sello judicial.",
+    "ux22Leak": "Si se bloquea una filtración, el contrato no fue en el envio. Es por diseño.",
+    "ux22Audience": "La audiencia solo elige quién puede abrir la nota. No clasifica a un abogado.",
+    "ux22Pro": "Los asientos extra de hogar y asesor se quedan en un plan de pago. Las guías siguen gratis.",
+    "ux22Guides": "Las guías paso a paso siguen abiertas de todos modos.",
     "ux22Disclaimer": "NexuLex no es un bufete. Un brief para compartir es una herramienta de producto, no un abogado."
   },
   "ar": {
@@ -62,14 +62,14 @@ export const WAVE_UX22_I18N = {
     "ux22Disclaimer": "NexuLex ليس مكتب محاماة. وموجز المشاركة أداة منتج وليست محاميا."
   },
   "it": {
-    "ux22Brief": "Un brief da condividere e una breve nota di prodotto. Non e il file del contratto intero.",
+    "ux22Brief": "Un brief da condividere è una breve nota di prodotto. Non è il file del contratto intero.",
     "ux22Code": "Il codice apre un visualizzatore pubblico. NexuLex non allega mai il testo del contratto.",
-    "ux22Expire": "Un codice puo scadere o essere revocato. E un controllo di prodotto, non un sigillo di tribunale.",
-    "ux22Leak": "Se una fuga e bloccata, il contratto non e nella condivisione. E voluto.",
-    "ux22Audience": "Il pubblico sceglie solo chi puo aprire la nota. Non classifica un avvocato.",
+    "ux22Expire": "Un codice può scadere o essere revocato. È un controllo di prodotto, non un sigillo di tribunale.",
+    "ux22Leak": "Se una fuga è bloccata, il contratto non è nella condivisione. È voluto.",
+    "ux22Audience": "Il pubblico sceglie solo chi può aprire la nota. Non classifica un avvocato.",
     "ux22Pro": "I posti extra casa e consulente restano su un piano a pagamento. Le guide restano gratuite.",
     "ux22Guides": "Le guide passo passo restano sbloccate in ogni caso.",
-    "ux22Disclaimer": "NexuLex non e uno studio. Un brief da condividere e uno strumento di prodotto, non un avvocato."
+    "ux22Disclaimer": "NexuLex non è uno studio. Un brief da condividere è uno strumento di prodotto, non un avvocato."
   },
   "zh": {
     "ux22Brief": "分享摘要是简短的产品说明。不是完整合同文件。",
@@ -112,14 +112,14 @@ export const WAVE_UX22_I18N = {
     "ux22Disclaimer": "NexuLex は法律事務所ではありません。共有の要約は製品の用具であり、弁護士ではありません。"
   },
   "pt": {
-    "ux22Brief": "Um brief para partilhar e uma nota curta de produto. Nao e o ficheiro do contrato completo.",
-    "ux22Code": "O codigo abre um visualizador publico. A NexuLex nunca anexa o texto do contrato.",
-    "ux22Expire": "Um codigo pode caducar ou ser revogado. E um controlo de produto, nao um selo de tribunal.",
-    "ux22Leak": "Se uma fuga for bloqueada, o contrato nao entrou na partilha. E de proposito.",
-    "ux22Audience": "O publico so escolhe quem pode abrir a nota. Nao classifica um advogado.",
-    "ux22Pro": "Lugares extra de casa e consultor ficam num plano pago. Os guias ficam gratis.",
+    "ux22Brief": "Um brief para partilhar é uma nota curta de produto. Não é o ficheiro do contrato completo.",
+    "ux22Code": "O código abre um visualizador público. A NexuLex nunca anexa o texto do contrato.",
+    "ux22Expire": "Um código pode caducar ou ser revogado. É um controlo de produto, não um selo de tribunal.",
+    "ux22Leak": "Se uma fuga for bloqueada, o contrato não entrou na partilha. É de propósito.",
+    "ux22Audience": "O público só escolhe quem pode abrir a nota. Não classifica um advogado.",
+    "ux22Pro": "Lugares extra de casa e consultor ficam num plano pago. Os guias ficam grátis.",
     "ux22Guides": "Os guias passo a passo ficam desbloqueados de qualquer forma.",
-    "ux22Disclaimer": "A NexuLex nao e um escritorio. Um brief para partilhar e uma ferramenta de produto, nao um advogado."
+    "ux22Disclaimer": "A NexuLex não é um escritório. Um brief para partilhar é uma ferramenta de produto, não um advogado."
   },
   "nl": {
     "ux22Brief": "Een deelbrief is een korte productnotitie. Het is niet het volledige contractbestand.",

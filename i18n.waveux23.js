@@ -25,21 +25,21 @@ export const WAVE_UX23_I18N = {
     "ux23Search": "Parteien, Art oder Kurztext suchen",
     "ux23Filter": "Alle gespeicherten Zeilen",
     "ux23Export": "Sichtbares Register exportieren",
-    "ux23Register": "Ein NexuLex Register sind Daten, Punkte und Parteien. Es enthaelt nie den Vertragstext.",
+    "ux23Register": "Ein NexuLex Register sind Daten, Punkte und Parteien. Es enthält nie den Vertragstext.",
     "ux23Count": "{{visible}} von {{total}} Zeilen in dieser Ansicht.",
-    "ux23Empty": "Keine Zeile passt. Leeren Sie die Suche oder oeffnen Sie Analyse.",
-    "ux23Guides": "Schritt-fuer-Schritt-Leitfaeden bleiben in jedem Fall offen.",
+    "ux23Empty": "Keine Zeile passt. Leeren Sie die Suche oder öffnen Sie Analyse.",
+    "ux23Guides": "Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.",
     "ux23Disclaimer": "NexuLex ist keine Kanzlei. Ein Verlaufsregister ist eine Produktdatei, kein Anwalt."
   },
   "fr": {
     "ux23Search": "Cherchez les parties, le type ou le résumé",
     "ux23Filter": "Toutes les lignes sauvees",
     "ux23Export": "Exporter le registre visible",
-    "ux23Register": "Un registre NexuLex ce sont dates, scores et parties. Il n inclut jamais le texte du contrat.",
+    "ux23Register": "Un registre NexuLex ce sont dates, scores et parties. Il n’inclut jamais le texte du contrat.",
     "ux23Count": "{{visible}} sur {{total}} lignes dans cette vue.",
     "ux23Empty": "Aucune ligne ne correspond. Videz la recherche ou ouvrez Analyser.",
-    "ux23Guides": "Les guides pas a pas restent ouverts dans tous les cas.",
-    "ux23Disclaimer": "NexuLex n est pas un cabinet. Un registre d historique est un fichier produit, pas un avocat."
+    "ux23Guides": "Les guides pas à pas restent ouverts dans tous les cas.",
+    "ux23Disclaimer": "NexuLex n’est pas un cabinet. Un registre d’historique est un fichier produit, pas un avocat."
   },
   "es": {
     "ux23Search": "Busque partes, tipo o resumen",
@@ -47,8 +47,8 @@ export const WAVE_UX23_I18N = {
     "ux23Export": "Exportar el registro visible",
     "ux23Register": "Un registro NexuLex son fechas, puntuaciones y partes. Nunca incluye el texto del contrato.",
     "ux23Count": "{{visible}} de {{total}} filas en esta vista.",
-    "ux23Empty": "Ninguna fila coincide. Borre la busqueda o abra Analizar.",
-    "ux23Guides": "Las guias paso a paso siguen abiertas de todos modos.",
+    "ux23Empty": "Ninguna fila coincide. Borre la búsqueda o abra Analizar.",
+    "ux23Guides": "Las guías paso a paso siguen abiertas de todos modos.",
     "ux23Disclaimer": "NexuLex no es un bufete. Un registro de historial es un archivo de producto, no un abogado."
   },
   "ar": {
@@ -69,7 +69,7 @@ export const WAVE_UX23_I18N = {
     "ux23Count": "{{visible}} di {{total}} righe in questa vista.",
     "ux23Empty": "Nessuna riga corrisponde. Svuota la ricerca o apri Analizza.",
     "ux23Guides": "Le guide passo passo restano sbloccate in ogni caso.",
-    "ux23Disclaimer": "NexuLex non e uno studio. Un registro di cronologia e un file di prodotto, non un avvocato."
+    "ux23Disclaimer": "NexuLex non è uno studio. Un registro di cronologia è un file di prodotto, non un avvocato."
   },
   "zh": {
     "ux23Search": "搜索当事方、类型或摘要",
@@ -114,12 +114,12 @@ export const WAVE_UX23_I18N = {
   "pt": {
     "ux23Search": "Pesquise partes, tipo ou resumo",
     "ux23Filter": "Todas as linhas guardadas",
-    "ux23Export": "Exportar o registo visivel",
-    "ux23Register": "Um registo NexuLex sao datas, pontuacoes e partes. Nunca inclui o texto do contrato.",
+    "ux23Export": "Exportar o registo visível",
+    "ux23Register": "Um registo NexuLex é feito de datas, pontuações e partes. Nunca inclui o texto do contrato.",
     "ux23Count": "{{visible}} de {{total}} linhas nesta vista.",
     "ux23Empty": "Nenhuma linha corresponde. Limpe a pesquisa ou abra Analisar.",
     "ux23Guides": "Os guias passo a passo ficam desbloqueados de qualquer forma.",
-    "ux23Disclaimer": "A NexuLex nao e um escritorio. Um registo de historico e um ficheiro de produto, nao um advogado."
+    "ux23Disclaimer": "A NexuLex não é um escritório. Um registo de histórico é um ficheiro de produto, não um advogado."
   },
   "nl": {
     "ux23Search": "Zoek partijen, type of samenvatting",

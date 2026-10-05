@@ -22,33 +22,33 @@ export const WAVE_MX2_I18N = {
     "mx2Disclaimer": "NexuLex is not a law firm. Only the store prices on this screen are compared."
   },
   "de": {
-    "mx2Delta": "Professional kostet {{percent}} mehr als Pro bei gleicher Store-Periode und Waehrung.",
+    "mx2Delta": "Professional kostet {{percent}} mehr als Pro bei gleicher Store-Periode und Währung.",
     "mx2Prices": "Dieser Store listet Professional mit {{plusPrice}} und Pro mit {{proPrice}}.",
-    "mx2NoDelta": "Eine Pro-gegen-Professional-Zahl erscheint nur, wenn beide Plaene dieselbe Periode in derselben Waehrung nennen.",
-    "mx2Yearly": "Jaehrliches Professional wird nur hervorgehoben, wenn es guenstiger ist als zwoelf Professional-Monatszahlungen.",
+    "mx2NoDelta": "Eine Pro-gegen-Professional-Zahl erscheint nur, wenn beide Pläne dieselbe Periode in derselben Währung nennen.",
+    "mx2Yearly": "Jährliches Professional wird nur hervorgehoben, wenn es günstiger ist als zwoelf Professional-Monatszahlungen.",
     "mx2Offering": "Professional ist ein eigenes Store-Angebot. NexuLex erfindet diesen Preis nie.",
-    "mx2Upgrade": "Wenn Sie schon Pro zahlen, steuert der Store das Upgrade. Die App addiert keine zweite versteckte Gebuehr.",
+    "mx2Upgrade": "Wenn Sie schon Pro zahlen, steuert der Store das Upgrade. Die App addiert keine zweite versteckte Gebühr.",
     "mx2FirstValue": "Erster Scan, erste Fragen und erste Akte bleiben gratis. Professional-Werkzeuge bleiben im bezahlten Professional-Plan.",
     "mx2Disclaimer": "NexuLex ist keine Kanzlei. Verglichen werden nur die Storepreise auf diesem Bildschirm."
   },
   "fr": {
-    "mx2Delta": "Professional coute {{percent}} de plus que Pro pour la meme periode et la meme devise du magasin.",
-    "mx2Prices": "Ce magasin affiche Professional a {{plusPrice}} et Pro a {{proPrice}}.",
-    "mx2NoDelta": "Un chiffre Pro contre Professional n apparait que si les deux forfaits listent la meme periode dans la meme devise.",
-    "mx2Yearly": "Professional annuel n est mis en avant que s il coute moins que douze paiements mensuels Professional.",
-    "mx2Offering": "Professional est une offre magasin separee. NexuLex n invente jamais ce prix.",
-    "mx2Upgrade": "Si vous payez deja Pro, le magasin gere le passage. L app n ajoute pas de second frais cache.",
-    "mx2FirstValue": "La premiere analyse, les premieres questions et le premier dossier restent gratuits. Les outils Professional restent sur le forfait Professional payant.",
-    "mx2Disclaimer": "NexuLex n est pas un cabinet. Seuls les prix magasin de cet ecran sont compares."
+    "mx2Delta": "Professional coûte {{percent}} de plus que Pro pour la même période et la même devise du magasin.",
+    "mx2Prices": "Ce magasin affiche Professional à {{plusPrice}} et Pro à {{proPrice}}.",
+    "mx2NoDelta": "Un chiffre Pro contre Professional n’apparaît que si les deux forfaits listent la même période dans la même devise.",
+    "mx2Yearly": "Professional annuel n’est mis en avant que s’il coûte moins que douze paiements mensuels Professional.",
+    "mx2Offering": "Professional est une offre magasin séparée. NexuLex n’invente jamais ce prix.",
+    "mx2Upgrade": "Si vous payez déjà Pro, le magasin gere le passage. L’app n’ajoute pas de second frais cache.",
+    "mx2FirstValue": "La première analyse, les premières questions et le premier dossier restent gratuits. Les outils Professional restent sur le forfait Professional payant.",
+    "mx2Disclaimer": "NexuLex n’est pas un cabinet. Seuls les prix magasin de cet écran sont compares."
   },
   "es": {
-    "mx2Delta": "Professional cuesta {{percent}} mas que Pro en el mismo periodo y moneda de la tienda.",
+    "mx2Delta": "Professional cuesta {{percent}} más que Pro en el mismo período y moneda de la tienda.",
     "mx2Prices": "Esta tienda lista Professional a {{plusPrice}} y Pro a {{proPrice}}.",
-    "mx2NoDelta": "Una cifra Pro frente a Professional solo aparece cuando ambos planes listan el mismo periodo en la misma moneda.",
+    "mx2NoDelta": "Una cifra Pro frente a Professional solo aparece cuando ambos planes listan el mismo período en la misma moneda.",
     "mx2Yearly": "Professional anual se destaca solo cuando cuesta menos que doce pagos mensuales Professional.",
     "mx2Offering": "Professional es una oferta de tienda aparte. NexuLex nunca inventa ese precio.",
-    "mx2Upgrade": "Si ya paga Pro, la tienda gestiona el cambio. La app no anade una segunda tarifa oculta.",
-    "mx2FirstValue": "El primer analisis, las primeras preguntas y el primer expediente siguen gratis. Las herramientas Professional quedan en el plan Professional de pago.",
+    "mx2Upgrade": "Si ya paga Pro, la tienda gestiona el cambio. La app no añade una segunda tarifa oculta.",
+    "mx2FirstValue": "El primer análisis, las primeras preguntas y el primer expediente siguen gratis. Las herramientas Professional quedan en el plan Professional de pago.",
     "mx2Disclaimer": "NexuLex no es un bufete. Solo se comparan los precios de tienda de esta pantalla."
   },
   "ar": {
@@ -62,14 +62,14 @@ export const WAVE_MX2_I18N = {
     "mx2Disclaimer": "NexuLex ليس مكتب محاماة. وتُقارن فقط أسعار المتجر في هذه الشاشة."
   },
   "it": {
-    "mx2Delta": "Professional costa {{percent}} in piu di Pro nello stesso periodo e nella stessa valuta dello store.",
+    "mx2Delta": "Professional costa {{percent}} in più di Pro nello stesso periodo e nella stessa valuta dello store.",
     "mx2Prices": "Questo store elenca Professional a {{plusPrice}} e Pro a {{proPrice}}.",
     "mx2NoDelta": "Una cifra Pro contro Professional compare solo quando entrambi i piani elencano lo stesso periodo nella stessa valuta.",
     "mx2Yearly": "Professional annuale e evidenziato solo se costa meno di dodici pagamenti mensili Professional.",
     "mx2Offering": "Professional e un offerta store separata. NexuLex non inventa mai quel prezzo.",
-    "mx2Upgrade": "Se paghi gia Pro, lo store gestisce il passaggio. L app non aggiunge un secondo costo nascosto.",
+    "mx2Upgrade": "Se paghi già Pro, lo store gestisce il passaggio. L’app non aggiunge un secondo costo nascosto.",
     "mx2FirstValue": "La prima scansione, le prime domande e il primo fascicolo restano gratis. Gli strumenti Professional restano sul piano Professional a pagamento.",
-    "mx2Disclaimer": "NexuLex non e uno studio. Si confrontano solo i prezzi store di questa schermata."
+    "mx2Disclaimer": "NexuLex non è uno studio. Si confrontano solo i prezzi store di questa schermata."
   },
   "zh": {
     "mx2Delta": "在同一商店周期和同一币种下，专业版比 Pro 贵 {{percent}}。",
@@ -112,14 +112,14 @@ export const WAVE_MX2_I18N = {
     "mx2Disclaimer": "NexuLex は法律事務所ではありません。この画面の店頭価格だけを比べます。"
   },
   "pt": {
-    "mx2Delta": "O Professional custa {{percent}} mais do que o Pro no mesmo periodo e na mesma moeda da loja.",
+    "mx2Delta": "O Professional custa {{percent}} mais do que o Pro no mesmo período e na mesma moeda da loja.",
     "mx2Prices": "Esta loja lista o Professional a {{plusPrice}} e o Pro a {{proPrice}}.",
-    "mx2NoDelta": "Uma cifra Pro versus Professional so aparece quando ambos os planos listam o mesmo periodo na mesma moeda.",
-    "mx2Yearly": "O Professional anual so e destacado quando custa menos do que doze pagamentos mensais Professional.",
-    "mx2Offering": "O Professional e uma oferta de loja separada. A NexuLex nunca inventa esse preco.",
-    "mx2Upgrade": "Se ja paga o Pro, a loja trata da mudanca. A app nao acrescenta uma segunda taxa escondida.",
-    "mx2FirstValue": "A primeira analise, as primeiras perguntas e o primeiro processo ficam gratis. As ferramentas Professional ficam no plano Professional pago.",
-    "mx2Disclaimer": "A NexuLex nao e um escritorio. So se comparam os precos de loja neste ecran."
+    "mx2NoDelta": "Uma cifra Pro versus Professional só aparece quando ambos os planos listam o mesmo período na mesma moeda.",
+    "mx2Yearly": "O Professional anual só é destacado quando custa menos do que doze pagamentos mensais Professional.",
+    "mx2Offering": "O Professional é uma oferta de loja separada. A NexuLex nunca inventa esse preço.",
+    "mx2Upgrade": "Se já paga o Pro, a loja trata da mudança. A app não acrescenta uma segunda taxa escondida.",
+    "mx2FirstValue": "A primeira análise, as primeiras perguntas e o primeiro processo ficam grátis. As ferramentas Professional ficam no plano Professional pago.",
+    "mx2Disclaimer": "A NexuLex não é um escritório. Só se comparam os preços de loja neste ecrã."
   },
   "nl": {
     "mx2Delta": "Professional kost {{percent}} meer dan Pro bij dezelfde winkelperiode en valuta.",

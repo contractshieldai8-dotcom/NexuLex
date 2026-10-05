@@ -1,11 +1,11 @@
 // WAVE ST.8 — Definicoes plano / quota (PT).
 module.exports = {
-  st8Plan: 'O nome acima e o plano que a loja e o nosso servidor confirmaram pela ultima vez.',
-  st8Store: 'A App Store e o Google Play sao donos da subscricao. A NexuLex nao a pode cancelar nas Definicoes.',
-  st8Quota: 'A contagem de analises acima e desta conta. Perguntas juridicas e ferramentas Professional tem contagens diarias proprias no servidor.',
-  st8Ask: 'Perguntas juridicas por dia: gratis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. O servidor conta-as.',
-  st8Tools: 'As ferramentas Professional ficam no plano Professional pago. O Pro nao as inclui.',
-  st8First: 'As primeiras analises, as primeiras perguntas e o primeiro processo ficam no plano gratuito.',
-  st8Restore: 'Se o plano parecer errado, restaure as compras no paywall. As Definicoes nao podem inventar um plano pago.',
-  st8Disclaimer: 'A NexuLex nao e um escritorio. Os nomes de plano aqui sao acesso ao produto, nao aconselhamento juridico.',
+  st8Plan: 'O nome acima é o plano que a loja e o nosso servidor confirmaram pela última vez.',
+  st8Store: 'A App Store e o Google Play são donos da subscrição. A NexuLex não a pode cancelar nas Definições.',
+  st8Quota: 'A contagem de análises acima é desta conta. Perguntas jurídicas e ferramentas Professional têm contagens diárias próprias no servidor.',
+  st8Ask: 'Perguntas jurídicas por dia: grátis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. O servidor conta-as.',
+  st8Tools: 'As ferramentas Professional ficam no plano Professional pago. O Pro não as inclui.',
+  st8First: 'As primeiras análises, as primeiras perguntas e o primeiro processo ficam no plano gratuito.',
+  st8Restore: 'Se o plano parecer errado, restaure as compras no paywall. As Definições não podem inventar um plano pago.',
+  st8Disclaimer: 'A NexuLex não é um escritório. Os nomes de plano aqui são acesso ao produto, não aconselhamento jurídico.',
 };

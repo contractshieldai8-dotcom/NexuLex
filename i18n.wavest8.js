@@ -22,34 +22,34 @@ export const WAVE_ST8_I18N = {
     "st8Disclaimer": "NexuLex is not a law firm. Plan names here are product access, not legal advice."
   },
   "de": {
-    "st8Plan": "Der Name oben ist der Tarif, den Store und unser Server zuletzt bestaetigt haben.",
-    "st8Store": "App Store und Google Play besitzen das Abo. NexuLex kann es in den Einstellungen nicht kuendigen.",
-    "st8Quota": "Die Scan-Zahl oben gilt fuer dieses Konto. Rechtsfragen und Professional-Werkzeuge haben eigene taegliche Serverzaehler.",
-    "st8Ask": "Taegliche Rechtsfragen: gratis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. Der Server zaehlt sie.",
-    "st8Tools": "Professional-Werkzeuge bleiben im bezahlten Professional-Plan. Pro enthaelt sie nicht.",
+    "st8Plan": "Der Name oben ist der Tarif, den Store und unser Server zuletzt bestätigt haben.",
+    "st8Store": "App Store und Google Play besitzen das Abo. NexuLex kann es in den Einstellungen nicht kündigen.",
+    "st8Quota": "Die Scan-Zahl oben gilt für dieses Konto. Rechtsfragen und Professional-Werkzeuge haben eigene tägliche Serverzähler.",
+    "st8Ask": "Tägliche Rechtsfragen: gratis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. Der Server zählt sie.",
+    "st8Tools": "Professional-Werkzeuge bleiben im bezahlten Professional-Plan. Pro enthält sie nicht.",
     "st8First": "Die ersten Scans, die ersten Fragen und die erste Akte bleiben im Gratis-Plan.",
-    "st8Restore": "Sieht der Tarif falsch aus, stellen Sie Kaeufe in der Paywall wieder her. Einstellungen erfinden keinen bezahlten Tarif.",
+    "st8Restore": "Sieht der Tarif falsch aus, stellen Sie Käufe in der Paywall wieder her. Einstellungen erfinden keinen bezahlten Tarif.",
     "st8Disclaimer": "NexuLex ist keine Kanzlei. Tarifnamen hier sind Produktzugang, keine Rechtsberatung."
   },
   "fr": {
-    "st8Plan": "Le nom ci-dessus est le forfait que le magasin et notre serveur ont confirme en dernier.",
-    "st8Store": "L App Store et Google Play possedent l abonnement. NexuLex ne peut pas l annuler depuis Reglages.",
-    "st8Quota": "Le compteur d analyses ci-dessus est ce compte. Questions juridiques et outils Professional ont leurs propres comptes serveur quotidiens.",
+    "st8Plan": "Le nom ci-dessus est le forfait que le magasin et notre serveur ont confirmé en dernier.",
+    "st8Store": "L’App Store et Google Play possedent l’abonnement. NexuLex ne peut pas l’annuler depuis Réglages.",
+    "st8Quota": "Le compteur d’analyses ci-dessus est ce compte. Questions juridiques et outils Professional ont leurs propres comptes serveur quotidiens.",
     "st8Ask": "Questions juridiques par jour: gratuit {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. Le serveur les compte.",
     "st8Tools": "Les outils Professional restent sur le forfait Professional payant. Pro ne les inclut pas.",
-    "st8First": "Les premieres analyses, les premieres questions et le premier dossier restent dans le forfait gratuit.",
-    "st8Restore": "Si le forfait semble faux, restaurez les achats sur le paywall. Reglages ne peut pas inventer un forfait payant.",
-    "st8Disclaimer": "NexuLex n est pas un cabinet. Les noms de forfait ici sont un acces produit, pas un conseil juridique."
+    "st8First": "Les premières analyses, les premières questions et le premier dossier restent dans le forfait gratuit.",
+    "st8Restore": "Si le forfait semble faux, restaurez les achats sur le paywall. Réglages ne peut pas inventer un forfait payant.",
+    "st8Disclaimer": "NexuLex n’est pas un cabinet. Les noms de forfait ici sont un accès produit, pas un conseil juridique."
   },
   "es": {
-    "st8Plan": "El nombre de arriba es el plan que la tienda y nuestro servidor confirmaron por ultima vez.",
-    "st8Store": "App Store y Google Play son dueños de la suscripcion. NexuLex no puede cancelarla desde Ajustes.",
-    "st8Quota": "El recuento de analisis de arriba es de esta cuenta. Preguntas juridicas y herramientas Professional tienen contadores diarios propios en el servidor.",
-    "st8Ask": "Preguntas juridicas al dia: gratis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. El servidor las cuenta.",
+    "st8Plan": "El nombre de arriba es el plan que la tienda y nuestro servidor confirmaron por última vez.",
+    "st8Store": "App Store y Google Play son dueños de la suscripción. NexuLex no puede cancelarla desde Ajustes.",
+    "st8Quota": "El recuento de análisis de arriba es de esta cuenta. Preguntas jurídicas y herramientas Professional tienen contadores diarios propios en el servidor.",
+    "st8Ask": "Preguntas jurídicas al día: gratis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. El servidor las cuenta.",
     "st8Tools": "Las herramientas Professional quedan en el plan Professional de pago. Pro no las incluye.",
-    "st8First": "Los primeros analisis, las primeras preguntas y el primer expediente se quedan en el plan gratuito.",
+    "st8First": "Los primeros análisis, las primeras preguntas y el primer expediente se quedan en el plan gratuito.",
     "st8Restore": "Si el plan parece incorrecto, restaure compras en el paywall. Ajustes no puede inventar un plan de pago.",
-    "st8Disclaimer": "NexuLex no es un bufete. Los nombres de plan aqui son acceso de producto, no asesoramiento juridico."
+    "st8Disclaimer": "NexuLex no es un bufete. Los nombres de plan aquí son acceso de producto, no asesoramiento jurídico."
   },
   "ar": {
     "st8Plan": "الاسم أعلاه هو الخطة التي أكدها المتجر وخادمنا آخر مرة.",
@@ -62,14 +62,14 @@ export const WAVE_ST8_I18N = {
     "st8Disclaimer": "NexuLex ليس مكتب محاماة. وأسماء الخطط هنا وصول منتج وليست استشارة قانونية."
   },
   "it": {
-    "st8Plan": "Il nome sopra e il piano che lo store e il nostro server hanno confermato per ultimo.",
-    "st8Store": "App Store e Google Play possiedono l abbonamento. NexuLex non puo annullarlo da Impostazioni.",
+    "st8Plan": "Il nome sopra è il piano che lo store e il nostro server hanno confermato per ultimo.",
+    "st8Store": "App Store e Google Play possiedono l’abbonamento. NexuLex non può annullarlo da Impostazioni.",
     "st8Quota": "Il conteggio scansioni sopra e di questo account. Domande legali e strumenti Professional hanno conti giornalieri propri sul server.",
     "st8Ask": "Domande legali al giorno: gratis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. Il server le conta.",
     "st8Tools": "Gli strumenti Professional restano sul piano Professional a pagamento. Pro non li include.",
     "st8First": "Le prime scansioni, le prime domande e il primo fascicolo restano sul piano gratuito.",
-    "st8Restore": "Se il piano sembra sbagliato, ripristina gli acquisti sul paywall. Impostazioni non puo inventare un piano a pagamento.",
-    "st8Disclaimer": "NexuLex non e uno studio. I nomi piano qui sono accesso prodotto, non consulenza legale."
+    "st8Restore": "Se il piano sembra sbagliato, ripristina gli acquisti sul paywall. Impostazioni non può inventare un piano a pagamento.",
+    "st8Disclaimer": "NexuLex non è uno studio. I nomi piano qui sono accesso prodotto, non consulenza legale."
   },
   "zh": {
     "st8Plan": "上方名称是商店与我们的服务器最近确认的方案。",
@@ -112,14 +112,14 @@ export const WAVE_ST8_I18N = {
     "st8Disclaimer": "NexuLex は法律事務所ではありません。ここのプラン名は製品の利用権であり、法的助言ではありません。"
   },
   "pt": {
-    "st8Plan": "O nome acima e o plano que a loja e o nosso servidor confirmaram pela ultima vez.",
-    "st8Store": "A App Store e o Google Play sao donos da subscricao. A NexuLex nao a pode cancelar nas Definicoes.",
-    "st8Quota": "A contagem de analises acima e desta conta. Perguntas juridicas e ferramentas Professional tem contagens diarias proprias no servidor.",
-    "st8Ask": "Perguntas juridicas por dia: gratis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. O servidor conta-as.",
-    "st8Tools": "As ferramentas Professional ficam no plano Professional pago. O Pro nao as inclui.",
-    "st8First": "As primeiras analises, as primeiras perguntas e o primeiro processo ficam no plano gratuito.",
-    "st8Restore": "Se o plano parecer errado, restaure as compras no paywall. As Definicoes nao podem inventar um plano pago.",
-    "st8Disclaimer": "A NexuLex nao e um escritorio. Os nomes de plano aqui sao acesso ao produto, nao aconselhamento juridico."
+    "st8Plan": "O nome acima é o plano que a loja e o nosso servidor confirmaram pela última vez.",
+    "st8Store": "A App Store e o Google Play são donos da subscrição. A NexuLex não a pode cancelar nas Definições.",
+    "st8Quota": "A contagem de análises acima é desta conta. Perguntas jurídicas e ferramentas Professional têm contagens diárias próprias no servidor.",
+    "st8Ask": "Perguntas jurídicas por dia: grátis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. O servidor conta-as.",
+    "st8Tools": "As ferramentas Professional ficam no plano Professional pago. O Pro não as inclui.",
+    "st8First": "As primeiras análises, as primeiras perguntas e o primeiro processo ficam no plano gratuito.",
+    "st8Restore": "Se o plano parecer errado, restaure as compras no paywall. As Definições não podem inventar um plano pago.",
+    "st8Disclaimer": "A NexuLex não é um escritório. Os nomes de plano aqui são acesso ao produto, não aconselhamento jurídico."
   },
   "nl": {
     "st8Plan": "De naam hierboven is het plan dat de winkel en onze server het laatst hebben bevestigd.",

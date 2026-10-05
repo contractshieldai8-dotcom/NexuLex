@@ -22,33 +22,33 @@ export const WAVE_ST9_I18N = {
     "st9Disclaimer": "NexuLex is not a law firm. Account delete is a product control, not a lawyer."
   },
   "de": {
-    "st9Analyses": "Loeschen in der App entfernt Scans und Chats auf diesem Konto. Es loescht kein Store-Abo.",
+    "st9Analyses": "Löschen in der App entfernt Scans und Chats auf diesem Konto. Es löscht kein Store-Abo.",
     "st9Device": "Sprache und Rechts-nach-links-Wahl bleiben nach dem Abmelden auf diesem Telefon.",
-    "st9Sub": "Ein App-Store- oder Google-Play-Plan wird auf diesem Bildschirm nicht gekuendigt. Nutzen Sie die Store-Taste.",
-    "st9Web": "Eine oeffentliche Loeschseite liegt auch auf der NexuLex Seite. Sie ist kein Gerichtsformular.",
-    "st9Store": "Verwalten oder stellen Sie den Plan im Store wieder her, der ihn verkauft hat. Dieser Bildschirm kann ihn nicht kuendigen.",
-    "st9Restore": "Nach einer Neuinstallation stellen Sie Kaeufe im Store wieder her. Die App erfindet keinen Plan.",
-    "st9Guides": "Schritt-fuer-Schritt-Leitfaeden bleiben in jedem Fall offen.",
-    "st9Disclaimer": "NexuLex ist keine Kanzlei. Kontoloeschung ist eine Produktsteuerung, kein Anwalt."
+    "st9Sub": "Ein App-Store- oder Google-Play-Plan wird auf diesem Bildschirm nicht gekündigt. Nutzen Sie die Store-Taste.",
+    "st9Web": "Eine oeffentliche Löschseite liegt auch auf der NexuLex Seite. Sie ist kein Gerichtsformular.",
+    "st9Store": "Verwalten oder stellen Sie den Plan im Store wieder her, der ihn verkauft hat. Dieser Bildschirm kann ihn nicht kündigen.",
+    "st9Restore": "Nach einer Neuinstallation stellen Sie Käufe im Store wieder her. Die App erfindet keinen Plan.",
+    "st9Guides": "Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.",
+    "st9Disclaimer": "NexuLex ist keine Kanzlei. Kontolöschung ist eine Produktsteuerung, kein Anwalt."
   },
   "fr": {
-    "st9Analyses": "La suppression dans l app retire les scans et les chats de ce compte. Elle n efface pas un abonnement magasin.",
-    "st9Device": "La langue et le choix droite-a-gauche restent sur ce telephone apres la deconnexion.",
-    "st9Sub": "Un forfait App Store ou Google Play n est pas annule depuis cet ecran. Utilisez le bouton magasin.",
-    "st9Web": "Une page publique de suppression est aussi sur le site NexuLex. Ce n est pas un formulaire de tribunal.",
-    "st9Store": "Gerez ou restaurez le forfait dans le magasin qui l a vendu. Cet ecran ne peut pas l annuler.",
-    "st9Restore": "Apres une reinstallation, restaurez les achats dans le magasin. L app n invente pas un forfait.",
-    "st9Guides": "Les guides pas a pas restent ouverts dans tous les cas.",
-    "st9Disclaimer": "NexuLex n est pas un cabinet. La suppression de compte est un controle produit, pas un avocat."
+    "st9Analyses": "La suppression dans l’app retire les scans et les chats de ce compte. Elle n’efface pas un abonnement magasin.",
+    "st9Device": "La langue et le choix droite-a-gauche restent sur ce téléphone après la déconnexion.",
+    "st9Sub": "Un forfait App Store ou Google Play n’est pas annule depuis cet écran. Utilisez le bouton magasin.",
+    "st9Web": "Une page publique de suppression est aussi sur le site NexuLex. Ce n’est pas un formulaire de tribunal.",
+    "st9Store": "Gérez ou restaurez le forfait dans le magasin qui l’a vendu. Cet écran ne peut pas l’annuler.",
+    "st9Restore": "Après’une reinstallation, restaurez les achats dans le magasin. L’app n’invente pas un forfait.",
+    "st9Guides": "Les guides pas à pas restent ouverts dans tous les cas.",
+    "st9Disclaimer": "NexuLex n’est pas un cabinet. La suppression de compte est un contrôle produit, pas un avocat."
   },
   "es": {
-    "st9Analyses": "Borrar en la app quita analisis y chats de esta cuenta. No borra una suscripcion de tienda.",
-    "st9Device": "El idioma y la preferencia derecha-a-izquierda quedan en este telefono al cerrar sesion.",
-    "st9Sub": "Un plan de App Store o Google Play no se cancela en esta pantalla. Use el boton de la tienda.",
-    "st9Web": "Una pagina publica de borrado tambien esta en el sitio NexuLex. No es un formulario judicial.",
-    "st9Store": "Gestione o restaure el plan en la tienda que lo vendio. Esta pantalla no puede cancelarlo.",
+    "st9Analyses": "Borrar en la app quita análisis y chats de esta cuenta. No borra una suscripción de tienda.",
+    "st9Device": "El idioma y la preferencia derecha-a-izquierda quedan en este teléfono al cerrar sesión.",
+    "st9Sub": "Un plan de App Store o Google Play no se cancela en esta pantalla. Use el botón de la tienda.",
+    "st9Web": "Una página pública de borrado también está en el sitio NexuLex. No es un formulario judicial.",
+    "st9Store": "Gestione o restaure el plan en la tienda que lo vendió. Esta pantalla no puede cancelarlo.",
     "st9Restore": "Tras reinstalar, restaure las compras en la tienda. La app no inventa un plan.",
-    "st9Guides": "Las guias paso a paso siguen abiertas de todos modos.",
+    "st9Guides": "Las guías paso a paso siguen abiertas de todos modos.",
     "st9Disclaimer": "NexuLex no es un bufete. Borrar la cuenta es un control de producto, no un abogado."
   },
   "ar": {
@@ -63,13 +63,13 @@ export const WAVE_ST9_I18N = {
   },
   "it": {
     "st9Analyses": "Cancellare in app toglie scan e chat da questo account. Non cancella un abbonamento dello store.",
-    "st9Device": "Lingua e preferenza destra-sinistra restano su questo telefono dopo l uscita.",
+    "st9Device": "Lingua e preferenza destra-sinistra restano su questo telefono dopo l’uscita.",
     "st9Sub": "Un piano App Store o Google Play non si disdice da questa schermata. Usa il pulsante dello store.",
-    "st9Web": "Una pagina pubblica di cancellazione e anche sul sito NexuLex. Non e un modulo di tribunale.",
-    "st9Store": "Gestisci o ripristina il piano nello store che lo ha venduto. Questa schermata non puo disdirlo.",
-    "st9Restore": "Dopo una reinstallazione ripristina gli acquisti nello store. L app non inventa un piano.",
+    "st9Web": "Una pagina pubblica di cancellazione è anche sul sito NexuLex. Non è un modulo di tribunale.",
+    "st9Store": "Gestisci o ripristina il piano nello store che lo ha venduto. Questa schermata non può disdirlo.",
+    "st9Restore": "Dopo una reinstallazione ripristina gli acquisti nello store. L’app non inventa un piano.",
     "st9Guides": "Le guide passo passo restano sbloccate in ogni caso.",
-    "st9Disclaimer": "NexuLex non e uno studio. Cancellare l account e un controllo di prodotto, non un avvocato."
+    "st9Disclaimer": "NexuLex non è uno studio. Cancellare l’account è un controllo di prodotto, non un avvocato."
   },
   "zh": {
     "st9Analyses": "应用内删除会移除本账户的扫描和聊天。不会抹掉商店订阅。",
@@ -112,14 +112,14 @@ export const WAVE_ST9_I18N = {
     "st9Disclaimer": "NexuLex は法律事務所ではありません。アカウント削除は製品の操作であり、弁護士ではありません。"
   },
   "pt": {
-    "st9Analyses": "Apagar na app retira analises e conversas desta conta. Nao apaga uma subscricao da loja.",
-    "st9Device": "Lingua e preferencia direita-para-esquerda ficam neste telefone depois de sair.",
-    "st9Sub": "Um plano da App Store ou Google Play nao se cancela neste ecran. Use o botao da loja.",
-    "st9Web": "Uma pagina publica de apagar tambem esta no sitio da NexuLex. Nao e um formulario de tribunal.",
-    "st9Store": "Gira ou restaure o plano na loja que o vendeu. Este ecran nao o pode cancelar.",
-    "st9Restore": "Apos reinstalar, restaure as compras na loja. A app nao inventa um plano.",
+    "st9Analyses": "Apagar na app retira análises e conversas desta conta. Não apaga uma subscrição da loja.",
+    "st9Device": "Língua e preferência direita-para-esquerda ficam neste telefone depois de sair.",
+    "st9Sub": "Um plano da App Store ou Google Play não se cancela neste ecrã. Use o botão da loja.",
+    "st9Web": "Uma página pública de apagar também está no sítio da NexuLex. Não é um formulário de tribunal.",
+    "st9Store": "Gira ou restaure o plano na loja que o vendeu. Este ecrã não o pode cancelar.",
+    "st9Restore": "Após reinstalar, restaure as compras na loja. A app não inventa um plano.",
     "st9Guides": "Os guias passo a passo ficam desbloqueados de qualquer forma.",
-    "st9Disclaimer": "A NexuLex nao e um escritorio. Apagar a conta e um controlo de produto, nao um advogado."
+    "st9Disclaimer": "A NexuLex não é um escritório. Apagar a conta é um controlo de produto, não um advogado."
   },
   "nl": {
     "st9Analyses": "Wissen in de app haalt scans en chats van dit account. Het wist geen winkelabonnement.",

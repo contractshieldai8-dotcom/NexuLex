@@ -122,7 +122,7 @@ module.exports = {
   pg_divorce_lawyer: 'Sempre que haja filhos, património relevante, violência ou um cônjuge no estrangeiro.',
   pg_child_support_title: 'Pensão de alimentos',
   pg_child_support_desc: 'Obter ou alterar a pensão de um filho.',
-  pg_child_support_focus: 'A pensão baseia-se normalmente nas necessidades da criança e nos rendimentos de ambos os pais. Guarde prova de cada pagamento feito ou em falta.',
+  pg_child_support_focus: 'A pensão baseia-se normalmente nas necessidades da criança e nos rendimentos de ambos os país. Guarde prova de cada pagamento feito ou em falta.',
   pg_child_support_lawyer: 'Se o outro progenitor esconde rendimentos, vive no estrangeiro ou deixa de pagar apesar de uma decisão.',
   pg_inheritance_title: 'Herança',
   pg_inheritance_desc: 'Um familiar faleceu: património, herdeiros, testamento, dívidas e partilha.',

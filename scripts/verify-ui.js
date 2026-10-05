@@ -9402,4 +9402,43 @@ Ticaret Unvanı: Anadolu Bilişim
   if (uxOk) console.log('OK  WAVE A no layout shift: fixed ready box, sticky shield identity, strip under chips, plain tier swap');
 }
 
+// WAVE B - text hygiene: no stripped accents, dropped apostrophes, or ASCII umlauts in pt / es / fr / it / de
+{
+  let uxOk = true;
+  const uxFail = (msg) => {
+    failed = true;
+    uxOk = false;
+    console.log(`WAVE B ${msg}`);
+  };
+  const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
+  const scope = {};
+  for (const m of i18nSrc.matchAll(/import \{ (\w+) \} from '\.\/(i18n\.[\w.]+)';/g)) {
+    const code = fs.readFileSync(`${m[2]}.js`, 'utf8');
+    const mm = code.match(new RegExp(`export const ${m[1]} = ([\\s\\S]*);\\s*$`));
+    if (!mm) { uxFail(`cannot read ${m[2]}.js`); continue; }
+    scope[m[1]] = eval(`(${mm[1]})`);
+  }
+  const resBody = i18nSrc.slice(i18nSrc.indexOf('const resources = {'), i18nSrc.indexOf('i18n.use(')).replace(/^const resources =/, 'return');
+  const resources = new Function(...Object.keys(scope), resBody)(...Object.values(scope));
+  const banned = {
+    pt: /\b(nao|sao|voce|voces|codigo|informacao|informacoes|numero|clausula|clausulas|proximo|ultimo|rescisao|protecao|opcao|opcoes)\b/i,
+    es: /\b(telefono|codigo|informacion|analisis|clausula|clausulas|proximo|ultimo|numero|rescision|opcion|tambien|despues|pagina)\b/i,
+    fr: /(?<![\p{L}\p{M}'’])(d|l|n|s|c|j|t|m|qu) [aeiouyhàâéèêîôû]/iu,
+    it: /\b(perche|puo|cosi|piu|gia|verra|funzionalita|possibilita|attivita|citta|universita|e'|po')\b/i,
+    de: /\b(fuer|ueber|koennen|koennte|moechten|waehlen|pruefen|zurueck|loeschen|Leitfaeden|Anwaelte|Vertraege|Vertrag?s?aenderung|aendern|Aenderung|Rueck\w*|Ueber\w*|Pruef\w*)\b/,
+  };
+  const strip = (s) => s.replace(/\{\{[^}]*\}\}/g, ' ').replace(/https?:\/\/\S+/g, ' ');
+  for (const [lang, re] of Object.entries(banned)) {
+    const tr = resources[lang] && resources[lang].translation;
+    if (!tr) { uxFail(`${lang} resources missing`); continue; }
+    let n = 0;
+    for (const [k, v] of Object.entries(tr)) {
+      if (typeof v !== 'string') continue;
+      const hit = strip(v).match(re);
+      if (hit && n++ < 5) uxFail(`${lang}.${k} looks un-accented: "${hit[0]}"`);
+    }
+  }
+  if (uxOk) console.log('OK  WAVE B text hygiene: no stripped accents, dropped apostrophes, or ASCII umlauts in pt / es / fr / it / de');
+}
+
 process.exit(failed ? 1 : 0);

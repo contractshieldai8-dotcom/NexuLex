@@ -22,34 +22,34 @@ export const WAVE_ST6_I18N = {
     "st6Disclaimer": "NexuLex is not a law firm. Language and country are starting points, not legal advice."
   },
   "de": {
-    "st6Lang": "Die App-Sprache ist die Oberflaeche. Sie waehlt kein Gericht.",
-    "st6LangHint": "Tippen Sie eine Flagge, um die Screens zu wechseln. Berichte koennen in Analyse eine andere Berichtssprache nutzen.",
-    "st6Country": "Das Land ist der Rechtskorridor. Oeffnen Sie die Liste, um ihn zu aendern.",
-    "st6CountryHint": "Auto folgt der Geraeteregion. Eine bewusste Wahl bleibt, bis Sie sie aendern.",
+    "st6Lang": "Die App-Sprache ist die Oberfläche. Sie wählt kein Gericht.",
+    "st6LangHint": "Tippen Sie eine Flagge, um die Screens zu wechseln. Berichte können in Analyse eine andere Berichtssprache nutzen.",
+    "st6Country": "Das Land ist der Rechtskorridor. Öffnen Sie die Liste, um ihn zu ändern.",
+    "st6CountryHint": "Auto folgt der Geräteregion. Eine bewusste Wahl bleibt, bis Sie sie ändern.",
     "st6Rtl": "Arabisch und Persisch spiegeln das Layout. Nach dem ersten Wechsel kann ein Neustart noetig sein.",
-    "st6Generic": "Ausserhalb der Tuerkei bleiben Rechner allgemein und amtliche Tabellen aus.",
-    "st6Corridor": "Der Korridor beim ersten Oeffnen nutzte dieselbe Sprache und dasselbe Land. Beides aendern Sie hier.",
+    "st6Generic": "Ausserhalb der Türkei bleiben Rechner allgemein und amtliche Tabellen aus.",
+    "st6Corridor": "Der Korridor beim ersten Öffnen nutzte dieselbe Sprache und dasselbe Land. Beides ändern Sie hier.",
     "st6Disclaimer": "NexuLex ist keine Kanzlei. Sprache und Land sind Startpunkte, keine Rechtsberatung."
   },
   "fr": {
-    "st6Lang": "La langue de l app est l interface. Elle ne choisit pas un tribunal.",
-    "st6LangHint": "Touchez un drapeau pour changer les ecrans. Les rapports peuvent encore utiliser une autre langue de rapport dans Analyser.",
+    "st6Lang": "La langue de l’app est l’interface. Elle ne choisit pas un tribunal.",
+    "st6LangHint": "Touchez un drapeau pour changer les écrans. Les rapports peuvent encore utiliser une autre langue de rapport dans Analyser.",
     "st6Country": "Le pays est le corridor de droit. Ouvrez la liste pour le changer.",
-    "st6CountryHint": "Auto suit la region de l appareil. Un choix explicite reste jusqu a ce que vous le changiez.",
-    "st6Rtl": "L arabe et le persan inversent la mise en page. Un redemarrage peut etre necessaire apres le premier changement.",
-    "st6Generic": "Hors Turquie, les calculateurs restent generiques et les tableaux officiels restent eteints.",
-    "st6Corridor": "Le corridor de premiere ouverture a utilise la meme langue et le meme pays. Vous pouvez encore changer les deux ici.",
-    "st6Disclaimer": "NexuLex n est pas un cabinet. Langue et pays sont des points de depart, pas un conseil juridique."
+    "st6CountryHint": "Auto suit la région de l’appareil. Un choix explicite reste jusqu’à ce que vous le changiez.",
+    "st6Rtl": "L’arabe et le persan inversent la mise en page. Un redemarrage peut être nécessaire après le premier changement.",
+    "st6Generic": "Hors Turquie, les calculateurs restent génériques et les tableaux officiels restent éteints.",
+    "st6Corridor": "Le corridor de première ouverture a utilisé la même langue et le même pays. Vous pouvez encore changer les deux ici.",
+    "st6Disclaimer": "NexuLex n’est pas un cabinet. Langue et pays sont des points de départ, pas un conseil juridique."
   },
   "es": {
     "st6Lang": "El idioma de la app es la interfaz. No elige un tribunal.",
-    "st6LangHint": "Toque una bandera para cambiar las pantallas. Los informes aun pueden usar otro idioma de informe en Analizar.",
-    "st6Country": "El pais es el corredor legal. Abra la lista para cambiarlo.",
+    "st6LangHint": "Toque una bandera para cambiar las pantallas. Los informes aún pueden usar otro idioma de informe en Analizar.",
+    "st6Country": "El país es el corredor legal. Abra la lista para cambiarlo.",
     "st6CountryHint": "Auto sigue la region del dispositivo. Una eleccion explicita permanece hasta que la cambie.",
-    "st6Rtl": "El arabe y el persa invierten el diseno. Puede hacer falta reiniciar tras el primer cambio.",
-    "st6Generic": "Fuera de Turquia, las calculadoras siguen genericas y las tablas oficiales apagadas.",
-    "st6Corridor": "El corredor de la primera apertura uso el mismo idioma y pais. Aqui puede cambiar ambos.",
-    "st6Disclaimer": "NexuLex no es un bufete. Idioma y pais son puntos de partida, no asesoramiento juridico."
+    "st6Rtl": "El arabe y el persa invierten el diseño. Puede hacer falta reiniciar tras el primer cambio.",
+    "st6Generic": "Fuera de Turquía, las calculadoras siguen genericas y las tablas oficiales apagadas.",
+    "st6Corridor": "El corredor de la primera apertura uso el mismo idioma y país. Aquí puede cambiar ambos.",
+    "st6Disclaimer": "NexuLex no es un bufete. Idioma y país son puntos de partida, no asesoramiento jurídico."
   },
   "ar": {
     "st6Lang": "لغة التطبيق هي الواجهة. ولا تختار محكمة.",
@@ -62,14 +62,14 @@ export const WAVE_ST6_I18N = {
     "st6Disclaimer": "NexuLex ليس مكتب محاماة. اللغة والبلد نقطتا بداية وليستا استشارة قانونية."
   },
   "it": {
-    "st6Lang": "La lingua dell app e l interfaccia. Non sceglie un tribunale.",
+    "st6Lang": "La lingua dell’app e l’interfaccia. Non sceglie un tribunale.",
     "st6LangHint": "Tocca una bandiera per cambiare le schermate. I report possono ancora usare un altra lingua report in Analizza.",
-    "st6Country": "Il paese e il corridoio di diritto. Apri l elenco per cambiarlo.",
-    "st6CountryHint": "Auto segue la regione del dispositivo. Una scelta esplicita resta finche non la cambi.",
-    "st6Rtl": "Arabo e persiano capovolgono il layout. Dopo il primo cambio puo servire un riavvio.",
+    "st6Country": "Il paese è il corridoio di diritto. Apri l’elenco per cambiarlo.",
+    "st6CountryHint": "Auto segue la regione del dispositivo. Una scelta esplicita resta finché non la cambi.",
+    "st6Rtl": "Arabo e persiano capovolgono il layout. Dopo il primo cambio può servire un riavvio.",
     "st6Generic": "Fuori dalla Turchia i calcolatori restano generici e le tabelle ufficiali restano spente.",
     "st6Corridor": "Il corridoio al primo avvio ha usato la stessa lingua e lo stesso paese. Qui puoi cambiare entrambi.",
-    "st6Disclaimer": "NexuLex non e uno studio. Lingua e paese sono punti di partenza, non consulenza legale."
+    "st6Disclaimer": "NexuLex non è uno studio. Lingua e paese sono punti di partenza, non consulenza legale."
   },
   "zh": {
     "st6Lang": "应用语言是界面。它不会选定法院。",
@@ -112,14 +112,14 @@ export const WAVE_ST6_I18N = {
     "st6Disclaimer": "NexuLex は法律事務所ではありません。言語と国は出発点であり、法的助言ではありません。"
   },
   "pt": {
-    "st6Lang": "A lingua da app e a interface. Nao escolhe um tribunal.",
-    "st6LangHint": "Toque numa bandeira para mudar os ecras. Os relatorios ainda podem usar outra lingua de relatorio em Analisar.",
-    "st6Country": "O pais e o corredor legal. Abra a lista para o mudar.",
-    "st6CountryHint": "Auto segue a regiao do dispositivo. Uma escolha explicita fica ate a mudar.",
-    "st6Rtl": "O arabe e o persa invertem o esquema. Pode ser preciso reiniciar apos a primeira mudanca.",
-    "st6Generic": "Fora da Turquia, as calculadoras ficam genericas e as tabelas oficiais ficam desligadas.",
-    "st6Corridor": "O corredor da primeira abertura usou a mesma lingua e o mesmo pais. Pode ainda mudar ambos aqui.",
-    "st6Disclaimer": "A NexuLex nao e um escritorio. Lingua e pais sao pontos de partida, nao aconselhamento juridico."
+    "st6Lang": "A língua da app é a interface. Não escolhe um tribunal.",
+    "st6LangHint": "Toque numa bandeira para mudar os ecras. Os relatórios ainda podem usar outra língua de relatório em Analisar.",
+    "st6Country": "O país é o corredor legal. Abra a lista para o mudar.",
+    "st6CountryHint": "Auto segue a região do dispositivo. Uma escolha explicita fica até a mudar.",
+    "st6Rtl": "O árabe e o persa invertem o esquema. Pode ser preciso reiniciar após a primeira mudança.",
+    "st6Generic": "Fora da Turquia, as calculadoras ficam genéricas e as tabelas oficiais ficam desligadas.",
+    "st6Corridor": "O corredor da primeira abertura usou a mesma língua e o mesmo país. Pode ainda mudar ambos aqui.",
+    "st6Disclaimer": "A NexuLex não é um escritório. Língua e país são pontos de partida, não aconselhamento jurídico."
   },
   "nl": {
     "st6Lang": "De app-taal is de interface. Ze kiest geen rechtbank.",

@@ -27,29 +27,29 @@ export const WAVE_UX20_I18N = {
     "ux20Score": "Die Punktzahl ist eine NexuLex Arbeitshilfe. Sie ist kein Gerichtsergebnis.",
     "ux20Pdf": "Ein PDF-Export ist eine Produktdatei. Er ist keine Gerichtsakte.",
     "ux20Share": "Ein Teilen-Kurzbrief ist eine kurze Produktnotiz. Er ist nicht der volle Vertrag.",
-    "ux20Guides": "Schritt-fuer-Schritt-Leitfaeden bleiben in jedem Fall offen.",
+    "ux20Guides": "Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.",
     "ux20NoWin": "Nichts in diesem Bericht verspricht ein Ergebnis oder reiht einen Anwalt.",
     "ux20Disclaimer": "NexuLex ist keine Kanzlei. Ein Scan-Bericht ist ein Produktwerkzeug, kein Anwalt."
   },
   "fr": {
-    "ux20Preview": "L apercu gratuit ouvre la carte de decision et une alerte. Le reste reste verrouille dans le forfait gratuit.",
-    "ux20Country": "Ce rapport a utilise {{country}}. C est un corridor, pas un jugement.",
-    "ux20Score": "Le score est une aide de travail NexuLex. Ce n est pas un resultat de tribunal.",
-    "ux20Pdf": "Un export PDF est un fichier produit. Ce n est pas un depot au tribunal.",
-    "ux20Share": "Un brief partage est une courte note produit. Ce n est pas le contrat entier.",
-    "ux20Guides": "Les guides pas a pas restent ouverts dans tous les cas.",
-    "ux20NoWin": "Rien sur ce rapport ne promet un resultat ni ne classe un avocat.",
-    "ux20Disclaimer": "NexuLex n est pas un cabinet. Un rapport de scan est un outil produit, pas un avocat."
+    "ux20Preview": "L’aperçu gratuit ouvre la carte de décision et une alerte. Le reste reste verrouille dans le forfait gratuit.",
+    "ux20Country": "Ce rapport a utilisé {{country}}. C’est un corridor, pas un jugement.",
+    "ux20Score": "Le score est une aide de travail NexuLex. Ce n’est pas un résultat de tribunal.",
+    "ux20Pdf": "Un export PDF est un fichier produit. Ce n’est pas un dépôt’au tribunal.",
+    "ux20Share": "Un brief partage est une courte note produit. Ce n’est pas le contrat entier.",
+    "ux20Guides": "Les guides pas à pas restent ouverts dans tous les cas.",
+    "ux20NoWin": "Rien sur ce rapport ne promet un résultat ni ne classe un avocat.",
+    "ux20Disclaimer": "NexuLex n’est pas un cabinet. Un rapport de scan est un outil produit, pas un avocat."
   },
   "es": {
-    "ux20Preview": "La vista previa gratuita abre la tarjeta de decision y una alerta. El resto sigue bloqueado en el plan gratuito.",
+    "ux20Preview": "La vista previa gratuita abre la tarjeta de decisión y una alerta. El resto sigue bloqueado en el plan gratuito.",
     "ux20Country": "Este informe uso {{country}}. Eso es un corredor, no un juicio.",
-    "ux20Score": "La puntuacion es una ayuda de trabajo de NexuLex. No es un resultado judicial.",
-    "ux20Pdf": "Una exportacion PDF es un archivo de producto. No es un escrito judicial.",
+    "ux20Score": "La puntuación es una ayuda de trabajo de NexuLex. No es un resultado judicial.",
+    "ux20Pdf": "Una exportación PDF es un archivo de producto. No es un escrito judicial.",
     "ux20Share": "Un resumen para compartir es una nota corta de producto. No es el contrato completo.",
-    "ux20Guides": "Las guias paso a paso siguen abiertas de todos modos.",
+    "ux20Guides": "Las guías paso a paso siguen abiertas de todos modos.",
     "ux20NoWin": "Nada en este informe promete un resultado ni clasifica a un abogado.",
-    "ux20Disclaimer": "NexuLex no es un bufete. Un informe de analisis es una herramienta de producto, no un abogado."
+    "ux20Disclaimer": "NexuLex no es un bufete. Un informe de análisis es una herramienta de producto, no un abogado."
   },
   "ar": {
     "ux20Preview": "المعاينة المجانية تفتح بطاقة القرار وعلما أحمر واحدا. والباقي يبقى مقفلا في الخطة المجانية.",
@@ -62,14 +62,14 @@ export const WAVE_UX20_I18N = {
     "ux20Disclaimer": "NexuLex ليس مكتب محاماة. وتقرير الفحص أداة منتج وليست محاميا."
   },
   "it": {
-    "ux20Preview": "L anteprima gratuita apre la card di decisione e un allarme. Il resto resta bloccato sul piano gratuito.",
-    "ux20Country": "Questo report ha usato {{country}}. E un corridoio, non un giudizio.",
-    "ux20Score": "Il punteggio e un aiuto di lavoro NexuLex. Non e un esito di tribunale.",
-    "ux20Pdf": "Un export PDF e un file di prodotto. Non e un deposito in tribunale.",
-    "ux20Share": "Un brief da condividere e una breve nota di prodotto. Non e il contratto intero.",
+    "ux20Preview": "L’anteprima gratuita apre la card di decisione e un allarme. Il resto resta bloccato sul piano gratuito.",
+    "ux20Country": "Questo report ha usato {{country}}. È un corridoio, non un giudizio.",
+    "ux20Score": "Il punteggio è un aiuto di lavoro NexuLex. Non è un esito di tribunale.",
+    "ux20Pdf": "Un export PDF è un file di prodotto. Non è un deposito in tribunale.",
+    "ux20Share": "Un brief da condividere è una breve nota di prodotto. Non è il contratto intero.",
     "ux20Guides": "Le guide passo passo restano sbloccate in ogni caso.",
     "ux20NoWin": "Nulla in questo report promette un esito o classifica un avvocato.",
-    "ux20Disclaimer": "NexuLex non e uno studio. Un report di scan e uno strumento di prodotto, non un avvocato."
+    "ux20Disclaimer": "NexuLex non è uno studio. Un report di scan è uno strumento di prodotto, non un avvocato."
   },
   "zh": {
     "ux20Preview": "免费预览打开决策卡和一面红旗。其余内容在免费方案中保持锁定。",
@@ -112,14 +112,14 @@ export const WAVE_UX20_I18N = {
     "ux20Disclaimer": "NexuLex は法律事務所ではありません。確認報告は製品の用具であり、弁護士ではありません。"
   },
   "pt": {
-    "ux20Preview": "A pre-visualizacao gratuita abre o cartao de decisao e um alerta. O resto fica bloqueado no plano gratuito.",
-    "ux20Country": "Este relatorio usou {{country}}. Isso e um corredor, nao um julgamento.",
-    "ux20Score": "A pontuacao e uma ajuda de trabalho da NexuLex. Nao e um resultado de tribunal.",
-    "ux20Pdf": "Uma exportacao PDF e um ficheiro de produto. Nao e um deposito em tribunal.",
-    "ux20Share": "Um resumo para partilhar e uma nota curta de produto. Nao e o contrato completo.",
+    "ux20Preview": "A pré-visualização gratuita abre o cartão de decisão e um alerta. O resto fica bloqueado no plano gratuito.",
+    "ux20Country": "Este relatório usou {{country}}. Isso é um corredor, não um julgamento.",
+    "ux20Score": "A pontuação é uma ajuda de trabalho da NexuLex. Não é um resultado de tribunal.",
+    "ux20Pdf": "Uma exportação PDF é um ficheiro de produto. Não é um depósito em tribunal.",
+    "ux20Share": "Um resumo para partilhar é uma nota curta de produto. Não é o contrato completo.",
     "ux20Guides": "Os guias passo a passo ficam desbloqueados de qualquer forma.",
-    "ux20NoWin": "Nada neste relatorio promete um resultado ou classifica um advogado.",
-    "ux20Disclaimer": "A NexuLex nao e um escritorio. Um relatorio de analise e uma ferramenta de produto, nao um advogado."
+    "ux20NoWin": "Nada neste relatório promete um resultado ou classifica um advogado.",
+    "ux20Disclaimer": "A NexuLex não é um escritório. Um relatório de análise é uma ferramenta de produto, não um advogado."
   },
   "nl": {
     "ux20Preview": "Het gratis voorbeeld opent de beslissingskaart en een waarschuwing. De rest blijft vergrendeld op het gratis plan.",

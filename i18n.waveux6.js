@@ -22,33 +22,33 @@ export const WAVE_UX6_I18N = {
     "ux6Disclaimer": "NexuLex is not a law firm. Official directories are run by the bodies named, not by NexuLex."
   },
   "de": {
-    "ux6NoList": "Diese Links sind amtliche Stellen. NexuLex listet, rangiert oder vermittelt nie einzelne Anwaelte.",
+    "ux6NoList": "Diese Links sind amtliche Stellen. NexuLex listet, rangiert oder vermittelt nie einzelne Anwälte.",
     "ux6Country": "Verzeichnisse folgen {{country}}. Das ist ein Korridor, keine Vermittlung.",
     "ux6OnDevice": "Die erste Nachricht und das Aktenpaket entstehen auf diesem Telefon. Sie verlassen es nur, wenn Sie kopieren oder teilen.",
     "ux6IntroFree": "Die erste Nachricht bleibt gratis. Sie fragt, ob die Kanzlei die Sache annehmen kann; sie ist kein Auftrag.",
-    "ux6Packet": "Das Gespraechspaket liegt im bezahlten Pro-Plan. Verzeichnisse und die erste Nachricht bleiben gratis.",
+    "ux6Packet": "Das Gesprächspaket liegt im bezahlten Pro-Plan. Verzeichnisse und die erste Nachricht bleiben gratis.",
     "ux6NoWin": "Nichts hier sagt ein Gerichtsergebnis voraus oder vertritt Sie vor einer Behoerde.",
-    "ux6Check": "Pruefen Sie Zulassung, Gebuehren und Interessenkonflikt selbst, bevor Sie jemanden beauftragen.",
+    "ux6Check": "Prüfen Sie Zulassung, Gebühren und Interessenkonflikt selbst, bevor Sie jemanden beauftragen.",
     "ux6Disclaimer": "NexuLex ist keine Kanzlei. Offizielle Verzeichnisse betreiben die genannten Stellen, nicht NexuLex."
   },
   "fr": {
-    "ux6NoList": "Ces liens sont des organismes officiels. NexuLex ne liste, ne classe ni n oriente jamais un avocat particulier.",
-    "ux6Country": "Les annuaires suivent {{country}}. C est un corridor, pas une orientation.",
-    "ux6OnDevice": "Le premier message et le dossier se creent sur ce telephone. Ils ne partent que si vous les copiez ou les partagez.",
-    "ux6IntroFree": "Le premier message reste gratuit. Il demande si le cabinet peut prendre l affaire; ce n est pas un mandat.",
-    "ux6Packet": "Le dossier de reunion est sur le forfait Pro payant. Les annuaires et le premier message restent gratuits.",
-    "ux6NoWin": "Rien ici ne predit un resultat de tribunal ni ne vous represente devant une autorite.",
-    "ux6Check": "Verifiez vous-meme l inscription, les honoraires et un conflit avant d instruire quiconque.",
-    "ux6Disclaimer": "NexuLex n est pas un cabinet. Les annuaires officiels sont tenus par les organismes nommes, pas par NexuLex."
+    "ux6NoList": "Ces liens sont des organismes officiels. NexuLex ne liste, ne classe ni n’oriente jamais un avocat particulier.",
+    "ux6Country": "Les annuaires suivent {{country}}. C’est un corridor, pas une orientation.",
+    "ux6OnDevice": "Le premier message et le dossier se creent sur ce téléphone. Ils ne partent que si vous les copiez ou les partagez.",
+    "ux6IntroFree": "Le premier message reste gratuit. Il demande si le cabinet peut prendre l’affaire; ce n’est pas un mandat.",
+    "ux6Packet": "Le dossier de réunion est sur le forfait Pro payant. Les annuaires et le premier message restent gratuits.",
+    "ux6NoWin": "Rien ici ne prédit un résultat de tribunal ni ne vous représente devant une autorité.",
+    "ux6Check": "Vérifiez vous-même l’inscription, les honoraires et un conflit avant d’instruire quiconque.",
+    "ux6Disclaimer": "NexuLex n’est pas un cabinet. Les annuaires officiels sont tenus par les organismes nommés, pas par NexuLex."
   },
   "es": {
     "ux6NoList": "Estos enlaces son organismos oficiales. NexuLex nunca lista, clasifica ni refiere a un abogado concreto.",
     "ux6Country": "Los directorios siguen {{country}}. Es un corredor, no una derivacion.",
-    "ux6OnDevice": "El primer mensaje y el paquete se crean en este telefono. Solo salen si los copia o comparte.",
+    "ux6OnDevice": "El primer mensaje y el paquete se crean en este teléfono. Solo salen si los copia o comparte.",
     "ux6IntroFree": "El primer mensaje sigue gratis. Pregunta si el despacho puede aceptar el asunto; no es un encargo.",
-    "ux6Packet": "El paquete de reunion esta en el plan Pro de pago. Los directorios y el primer mensaje siguen gratis.",
-    "ux6NoWin": "Nada aqui predice un resultado judicial ni le representa ante ninguna autoridad.",
-    "ux6Check": "Compruebe usted la colegiacion, los honorarios y un conflicto antes de encargar a alguien.",
+    "ux6Packet": "El paquete de reunión está en el plan Pro de pago. Los directorios y el primer mensaje siguen gratis.",
+    "ux6NoWin": "Nada aquí predice un resultado judicial ni le representa ante ninguna autoridad.",
+    "ux6Check": "Compruebe usted la colegiación, los honorarios y un conflicto antes de encargar a alguien.",
     "ux6Disclaimer": "NexuLex no es un bufete. Los directorios oficiales los gestionan los organismos nombrados, no NexuLex."
   },
   "ar": {
@@ -63,13 +63,13 @@ export const WAVE_UX6_I18N = {
   },
   "it": {
     "ux6NoList": "Questi link sono enti ufficiali. NexuLex non elenca, classifica ne indica mai un singolo avvocato.",
-    "ux6Country": "Gli elenchi seguono {{country}}. E un corridoio, non un rinvio.",
+    "ux6Country": "Gli elenchi seguono {{country}}. È un corridoio, non un rinvio.",
     "ux6OnDevice": "Il primo messaggio e il pacchetto nascono su questo telefono. Escono solo se copi o condividi.",
-    "ux6IntroFree": "Il primo messaggio resta gratis. Chiede se lo studio puo prendere la pratica; non e un incarico.",
-    "ux6Packet": "Il pacchetto per l incontro e sul piano Pro a pagamento. Elenchi e primo messaggio restano gratis.",
-    "ux6NoWin": "Nulla qui predice un esito in tribunale o ti rappresenta davanti a un autorita.",
+    "ux6IntroFree": "Il primo messaggio resta gratis. Chiede se lo studio può prendere la pratica; non è un incarico.",
+    "ux6Packet": "Il pacchetto per l’incontro è sul piano Pro a pagamento. Elenchi e primo messaggio restano gratis.",
+    "ux6NoWin": "Nulla qui predice un esito in tribunale o ti rappresenta davanti a un autorità.",
     "ux6Check": "Controlla tu iscrizione, onorari e un conflitto prima di incaricare qualcuno.",
-    "ux6Disclaimer": "NexuLex non e uno studio. Gli elenchi ufficiali li gestiscono gli enti nominati, non NexuLex."
+    "ux6Disclaimer": "NexuLex non è uno studio. Gli elenchi ufficiali li gestiscono gli enti nominati, non NexuLex."
   },
   "zh": {
     "ux6NoList": "这些链接是官方机构。NexuLex 从不列出、排名或转介任何个别律师。",
@@ -112,14 +112,14 @@ export const WAVE_UX6_I18N = {
     "ux6Disclaimer": "NexuLex は法律事務所ではありません。公式名簿は挙げた機関が運営し、NexuLex ではありません。"
   },
   "pt": {
-    "ux6NoList": "Estes ligacoes sao organismos oficiais. A NexuLex nunca lista, classifica nem indica um advogado concreto.",
-    "ux6Country": "Os diretorios seguem {{country}}. E um corredor, nao um encaminhamento.",
-    "ux6OnDevice": "A primeira mensagem e o pacote nascem neste telefone. So saem se copiar ou partilhar.",
-    "ux6IntroFree": "A primeira mensagem fica gratis. Pergunta se o escritorio pode aceitar o assunto; nao e um mandato.",
-    "ux6Packet": "O pacote da reuniao esta no plano Pro pago. Os diretorios e a primeira mensagem ficam gratis.",
+    "ux6NoList": "Estas ligações são organismos oficiais. A NexuLex nunca lista, classifica nem indica um advogado concreto.",
+    "ux6Country": "Os diretórios seguem {{country}}. É um corredor, não um encaminhamento.",
+    "ux6OnDevice": "A primeira mensagem e o pacote nascem neste telefone. Só saem se copiar ou partilhar.",
+    "ux6IntroFree": "A primeira mensagem fica grátis. Pergunta se o escritório pode aceitar o assunto; não é um mandato.",
+    "ux6Packet": "O pacote da reunião está no plano Pro pago. Os diretórios e a primeira mensagem ficam grátis.",
     "ux6NoWin": "Nada aqui prevê um resultado em tribunal nem o representa perante qualquer autoridade.",
-    "ux6Check": "Verifique voce a inscricao, os honorarios e um conflito antes de encarregar alguem.",
-    "ux6Disclaimer": "A NexuLex nao e um escritorio. Os diretorios oficiais sao geridos pelos organismos nomeados, nao pela NexuLex."
+    "ux6Check": "Verifique você a inscrição, os honorários e um conflito antes de encarregar alguém.",
+    "ux6Disclaimer": "A NexuLex não é um escritório. Os diretórios oficiais são geridos pelos organismos nomeados, não pela NexuLex."
   },
   "nl": {
     "ux6NoList": "Deze links zijn officiële instanties. NexuLex somt, rangschikt of verwijst nooit een individuele advocaat.",

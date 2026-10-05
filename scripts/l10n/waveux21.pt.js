@@ -1,11 +1,11 @@
 // WAVE UX.21 — Lista de historico honesta (PT).
 module.exports = {
-  ux21Cloud: 'As analises guardadas vivem na sua conta. Podem abrir noutro telefone com sessao.',
-  ux21Delete: 'Apagar um cartao retira essa analise da conta. Nao cancela um plano da loja.',
-  ux21Share: 'O icone de partilha abre um brief curto da NexuLex. Nao e o contrato completo.',
-  ux21Preview: 'Abrir um cartao ainda pode mostrar o bloqueio da pre-visualizacao. E um portao de plano, nao um processo em tribunal.',
-  ux21Chat: 'As conversas do consultor ficam a parte nesta lista. Nao sao um relatorio de analise.',
-  ux21NoWin: 'A pontuacao num cartao e uma ajuda de trabalho. Nao e um resultado de tribunal.',
+  ux21Cloud: 'As análises guardadas vivem na sua conta. Podem abrir noutro telefone com sessão.',
+  ux21Delete: 'Apagar um cartão retira essa análise da conta. Não cancela um plano da loja.',
+  ux21Share: 'O ícone de partilha abre um brief curto da NexuLex. Não é o contrato completo.',
+  ux21Preview: 'Abrir um cartão ainda pode mostrar o bloqueio da pré-visualização. É um portão de plano, não um processo em tribunal.',
+  ux21Chat: 'As conversas do consultor ficam a parte nesta lista. Não são um relatório de análise.',
+  ux21NoWin: 'A pontuação num cartão é uma ajuda de trabalho. Não é um resultado de tribunal.',
   ux21Guides: 'Os guias passo a passo ficam desbloqueados de qualquer forma.',
-  ux21Disclaimer: 'A NexuLex nao e um escritorio. Um cartao de historico e uma ferramenta de produto, nao um advogado.',
+  ux21Disclaimer: 'A NexuLex não é um escritório. Um cartão de histórico é uma ferramenta de produto, não um advogado.',
 };

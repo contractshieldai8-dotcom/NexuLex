@@ -22,33 +22,33 @@ export const WAVE_UX16_I18N = {
     "ux16Disclaimer": "NexuLex is not a law firm. A local map is a product tool, not a lawyer."
   },
   "de": {
-    "ux16Local": "Die Karte ist eine lokale Tabelle. Kein Netz. NexuLex ruft fuer diesen Weg kein Modell auf.",
+    "ux16Local": "Die Karte ist eine lokale Tabelle. Kein Netz. NexuLex ruft für diesen Weg kein Modell auf.",
     "ux16Country": "Die Schritte folgen {{country}}. Ausserhalb eines gepackten Landes kommen allgemeine Schritte.",
-    "ux16Count": "{{scenarios}} Szenariotypen. Ihre Antworten waehlen einen gespeicherten Zweig, keine lebende Gerichtsakte.",
+    "ux16Count": "{{scenarios}} Szenariotypen. Ihre Antworten wählen einen gespeicherten Zweig, keine lebende Gerichtsakte.",
     "ux16NoWin": "Keine erfundene Gewinnchance und kein erfundener Gerichtsfall.",
-    "ux16NoAdvice": "Ein Korridor von Schritten. Keine Beratung fuer Ihre Akte und keine Vertretung.",
+    "ux16NoAdvice": "Ein Korridor von Schritten. Keine Beratung für Ihre Akte und keine Vertretung.",
     "ux16Device": "Die Antworten bleiben auf diesem Telefon, bis Sie die Karte kopieren oder teilen.",
-    "ux16Guides": "Schritt-fuer-Schritt-Leitfaeden bleiben in jedem Fall offen.",
+    "ux16Guides": "Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.",
     "ux16Disclaimer": "NexuLex ist keine Kanzlei. Eine lokale Karte ist ein Produktwerkzeug, kein Anwalt."
   },
   "fr": {
-    "ux16Local": "La carte est une table locale. Pas de reseau. NexuLex n appelle aucun modele pour ce chemin.",
-    "ux16Country": "Les etapes suivent {{country}}. Hors pays emballe, vous avez des etapes generales.",
-    "ux16Count": "{{scenarios}} types de scenario. Vos reponses choisissent une branche stockee, jamais un dossier vivant.",
-    "ux16NoWin": "Aucune chance de gagner inventee et aucune affaire de tribunal inventee.",
-    "ux16NoAdvice": "Un corridor d etapes. Pas un conseil pour votre dossier et pas une representation.",
-    "ux16Device": "Les reponses restent sur ce telephone sauf si vous copiez ou partagez la carte.",
-    "ux16Guides": "Les guides pas a pas restent ouverts dans tous les cas.",
-    "ux16Disclaimer": "NexuLex n est pas un cabinet. Une carte locale est un outil produit, pas un avocat."
+    "ux16Local": "La carte est une table locale. Pas de réseau. NexuLex n’appelle aucun modèle pour ce chemin.",
+    "ux16Country": "Les étapes suivent {{country}}. Hors pays emballe, vous avez des étapes générales.",
+    "ux16Count": "{{scenarios}} types de scénario. Vos réponses choisissent une branche stockee, jamais un dossier vivant.",
+    "ux16NoWin": "Aucune chance de gagner inventée et aucune affaire de tribunal inventée.",
+    "ux16NoAdvice": "Un corridor d’étapes. Pas un conseil pour votre dossier et pas une représentation.",
+    "ux16Device": "Les réponses restent sur ce téléphone sauf si vous copiez ou partagez la carte.",
+    "ux16Guides": "Les guides pas à pas restent ouverts dans tous les cas.",
+    "ux16Disclaimer": "NexuLex n’est pas un cabinet. Une carte locale est un outil produit, pas un avocat."
   },
   "es": {
     "ux16Local": "El mapa es una tabla local. Sin red. NexuLex no llama a un modelo para este camino.",
-    "ux16Country": "Los pasos siguen {{country}}. Fuera de un pais empaquetado verá pasos generales.",
+    "ux16Country": "Los pasos siguen {{country}}. Fuera de un país empaquetado verá pasos generales.",
     "ux16Count": "{{scenarios}} tipos de escenario. Sus respuestas eligen una rama guardada, nunca un expediente vivo.",
     "ux16NoWin": "No se inventa una chance de ganar ni un caso de tribunal.",
     "ux16NoAdvice": "Un corredor de pasos. No es consejo para su expediente y no le representa.",
-    "ux16Device": "Las respuestas se quedan en este telefono salvo que copie o comparta el mapa.",
-    "ux16Guides": "Las guias paso a paso siguen abiertas de todos modos.",
+    "ux16Device": "Las respuestas se quedan en este teléfono salvo que copie o comparta el mapa.",
+    "ux16Guides": "Las guías paso a paso siguen abiertas de todos modos.",
     "ux16Disclaimer": "NexuLex no es un bufete. Un mapa local es una herramienta de producto, no un abogado."
   },
   "ar": {
@@ -62,14 +62,14 @@ export const WAVE_UX16_I18N = {
     "ux16Disclaimer": "NexuLex ليس مكتب محاماة. والخارطة المحلية أداة منتج وليست محاميا."
   },
   "it": {
-    "ux16Local": "La mappa e una tabella locale. Nessuna rete. NexuLex non chiama un modello per questo percorso.",
+    "ux16Local": "La mappa è una tabella locale. Nessuna rete. NexuLex non chiama un modello per questo percorso.",
     "ux16Country": "I passi seguono {{country}}. Fuori da un paese impacchettato ottieni passi generali.",
     "ux16Count": "{{scenarios}} tipi di scenario. Le tue risposte scelgono un ramo salvato, mai un fascicolo vivo.",
     "ux16NoWin": "Nessuna chance di vittoria inventata e nessuna causa inventata.",
-    "ux16NoAdvice": "Un corridoio di passi. Non e un parere per il tuo fascicolo e non ti rappresenta.",
-    "ux16Device": "Le risposte restano su questo telefono finche non copi o condividi la mappa.",
+    "ux16NoAdvice": "Un corridoio di passi. Non è un parere per il tuo fascicolo e non ti rappresenta.",
+    "ux16Device": "Le risposte restano su questo telefono finché non copi o condividi la mappa.",
     "ux16Guides": "Le guide passo passo restano sbloccate in ogni caso.",
-    "ux16Disclaimer": "NexuLex non e uno studio. Una mappa locale e uno strumento di prodotto, non un avvocato."
+    "ux16Disclaimer": "NexuLex non è uno studio. Una mappa locale è uno strumento di prodotto, non un avvocato."
   },
   "zh": {
     "ux16Local": "地图是本地表格。没有网络。NexuLex 不会为此路径调用模型。",
@@ -112,14 +112,14 @@ export const WAVE_UX16_I18N = {
     "ux16Disclaimer": "NexuLex は法律事務所ではありません。端末内の地図は製品の用具であり、弁護士ではありません。"
   },
   "pt": {
-    "ux16Local": "O mapa e uma tabela local. Sem rede. A NexuLex nao chama um modelo para este caminho.",
-    "ux16Country": "Os passos seguem {{country}}. Fora de um pais empacotado recebe passos gerais.",
-    "ux16Count": "{{scenarios}} tipos de cenario. As respostas escolhem um ramo guardado, nunca um processo vivo.",
-    "ux16NoWin": "Nao se inventa uma chance de ganhar nem um processo de tribunal.",
-    "ux16NoAdvice": "Um corredor de passos. Nao e conselho para o seu processo e nao o representa.",
-    "ux16Device": "As respostas ficam neste telefone ate copiar ou partilhar o mapa.",
+    "ux16Local": "O mapa é uma tabela local. Sem rede. A NexuLex não chama um modelo para este caminho.",
+    "ux16Country": "Os passos seguem {{country}}. Fora de um país empacotado recebe passos gerais.",
+    "ux16Count": "{{scenarios}} tipos de cenário. As respostas escolhem um ramo guardado, nunca um processo vivo.",
+    "ux16NoWin": "Não se inventa uma chance de ganhar nem um processo de tribunal.",
+    "ux16NoAdvice": "Um corredor de passos. Não é conselho para o seu processo e não o representa.",
+    "ux16Device": "As respostas ficam neste telefone até copiar ou partilhar o mapa.",
     "ux16Guides": "Os guias passo a passo ficam desbloqueados de qualquer forma.",
-    "ux16Disclaimer": "A NexuLex nao e um escritorio. Um mapa local e uma ferramenta de produto, nao um advogado."
+    "ux16Disclaimer": "A NexuLex não é um escritório. Um mapa local é uma ferramenta de produto, não um advogado."
   },
   "nl": {
     "ux16Local": "De kaart is een lokale tabel. Geen netwerk. NexuLex roept voor dit pad geen model aan.",
