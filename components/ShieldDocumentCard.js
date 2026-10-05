@@ -399,7 +399,14 @@ export default function ShieldDocumentCard({
             key={patch.id}
             style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 10, paddingVertical: 8 }}
           >
-            <TouchableOpacity onPress={() => togglePatch(patch)} activeOpacity={0.85} hitSlop={8}>
+            <TouchableOpacity
+              onPress={() => togglePatch(patch)}
+              activeOpacity={0.85}
+              hitSlop={12}
+              accessibilityRole="checkbox"
+              accessibilityLabel={String(label || '')}
+              accessibilityState={{ checked, disabled: locked }}
+            >
               <Ionicons
                 name={locked ? 'lock-closed' : checked ? 'checkbox' : 'square-outline'}
                 size={18}

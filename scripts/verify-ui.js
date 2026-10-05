@@ -1075,9 +1075,9 @@ const WAVE_D1_I18N = eval(`(${waveD1Match[1]})`); // eslint-disable-line no-eval
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 2278) {
+  if (languages.length !== 13 || baseKeys.length !== 2280) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2278`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2280`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -9559,5 +9559,52 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/folder-open-outline[\s\S]{0,400}t\('noHistory'\)[\s\S]{0,500}t\('tabAnalyze'\)/.test(empty)) eFail('empty history needs icon, message and an Analyze action');
   if (/t\('noHistory'\)[\s\S]{0,300}t\('ux23Empty'\)[\s\S]{0,60}<\/TouchableOpacity>/.test(empty)) eFail('empty history must not show the "no row matches" filter text');
   if (ok) console.log('OK  WAVE E brand + launch: icon opaque, adaptive + monochrome, splash colour = app, mark in header/welcome, empty history action');
+}
+// WAVE F: screen-reader pass. Icon-only buttons must announce themselves; tabs expose role + state.
+{
+  let ok = true;
+  const fFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE F: ${m}`); };
+  const rd = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
+  const parser = require('@babel/parser');
+  const traverse = require('@babel/traverse').default;
+  const dirs = ['.', 'components', 'screens'];
+  const TOUCH = new Set(['TouchableOpacity', 'Pressable', 'TouchableHighlight']);
+  const bad = [];
+  for (const d of dirs) {
+    for (const f of fs.readdirSync(d)) {
+      if (!/\.js$/.test(f) || /^(i18n|_|babel|metro|index)/.test(f)) continue;
+      const file = d === '.' ? f : `${d}/${f}`;
+      let ast;
+      try {
+        ast = parser.parse(rd(file), { sourceType: 'unambiguous', plugins: ['jsx'] });
+      } catch (e) { continue; }
+      traverse(ast, {
+        JSXElement(p) {
+          if (!TOUCH.has(p.node.openingElement.name.name)) return;
+          const attrs = p.node.openingElement.attributes.map((a) => a.name && a.name.name);
+          if (attrs.includes('accessibilityLabel') || attrs.includes('aria-label')) return;
+          let hasText = false;
+          let hasIcon = false;
+          p.traverse({
+            JSXOpeningElement(q) {
+              if (q.node.name.name === 'Text') hasText = true;
+              if (q.node.name.name === 'Ionicons') hasIcon = true;
+            },
+          });
+          if (hasIcon && !hasText) bad.push(`${file}:${p.node.loc.start.line}`);
+        },
+      });
+    }
+  }
+  if (bad.length) fFail(`icon-only buttons without accessibilityLabel: ${bad.join(', ')}`);
+  const app = rd('App.js');
+  if (!/accessibilityRole="tab"[\s\S]{0,120}accessibilityState=\{\{ selected: activeTab === tab\.key \}\}/.test(app)) fFail('main tabs need role "tab" and selected state');
+  const card = rd('components/ShieldDocumentCard.js');
+  if (!/accessibilityRole="checkbox"[\s\S]{0,160}accessibilityState=\{\{ checked, disabled: locked \}\}/.test(card)) fFail('shield patch toggles need checkbox role + state');
+  const i18nSrc = rd('i18n.js');
+  for (const k of ['a11yRemove', 'a11yClearSearch']) {
+    if ((i18nSrc.match(new RegExp(`^\\s+${k}: `, 'gm')) || []).length !== 13) fFail(`${k} must exist in 13 languages`);
+  }
+  if (ok) console.log('OK  WAVE F screen reader: icon-only buttons labelled, tab + checkbox roles, 2 keys x 13');
 }
 process.exit(failed ? 1 : 0);

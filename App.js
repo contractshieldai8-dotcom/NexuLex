@@ -3585,6 +3585,9 @@ function AppContent() {
                   key={tab.key}
                   onPress={() => setActiveTab(tab.key)}
                   style={[styles.tabItem, activeTab === tab.key && styles.activeTabBorder]}
+                  accessibilityRole="tab"
+                  accessibilityLabel={tab.label}
+                  accessibilityState={{ selected: activeTab === tab.key }}
                 >
                   <Text
                     style={[styles.tabText, { color: activeTab === tab.key ? ACCENT : theme.subText }]}
@@ -4200,9 +4203,11 @@ function AppContent() {
                     <View key={index} style={styles.imageWrapper}>
                       <Image source={{ uri: img.uri }} style={styles.previewImage} />
                       <TouchableOpacity 
-                        style={styles.deleteButton} 
-                        onPress={() => removeImage(index)}
-                      >
+        style={styles.deleteButton}
+                    onPress={() => removeImage(index)}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('a11yRemove')}
+                  >
                         <Ionicons name="close-circle" size={22} color="#FF3B5C" />
                       </TouchableOpacity>
                     </View>
@@ -4216,7 +4221,12 @@ function AppContent() {
                   <Text style={{ color: '#00B4D8', fontSize: 12, flex: 1 }} numberOfLines={1}>
                     📄 {selectedFile.name}
                   </Text>
-                  <TouchableOpacity onPress={() => setSelectedFile(null)}>
+                  <TouchableOpacity
+                    onPress={() => setSelectedFile(null)}
+                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('a11yRemove')}
+                  >
                     <Ionicons name="close-circle" size={18} color="#FF3B5C" />
                   </TouchableOpacity>
                 </View>
@@ -4787,7 +4797,12 @@ function AppContent() {
         <SafeAreaView style={{ flex: 1, backgroundColor: theme.bg, padding: 20 }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
             <Text style={{ color: theme.text, fontSize: 20, fontWeight: 'bold' }}>{t('analysisDetail')}</Text>
-            <TouchableOpacity onPress={() => setModalVisible(false)}>
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
+              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+              accessibilityRole="button"
+              accessibilityLabel={t('closeButton')}
+            >
               <Ionicons name="close-circle-outline" size={30} color={theme.text} />
             </TouchableOpacity>
           </View>

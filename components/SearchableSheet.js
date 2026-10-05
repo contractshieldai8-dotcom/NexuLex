@@ -132,9 +132,11 @@ export default function SearchableSheet({
             />
             {query ? (
               <TouchableOpacity
-                onPress={() => setQuery('')}
-                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-              >
+            onPress={() => setQuery('')}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            accessibilityRole="button"
+            accessibilityLabel={t('a11yClearSearch')}
+          >
                 <Ionicons name="close-circle" size={16} color={theme.subText} />
               </TouchableOpacity>
             ) : null}
