@@ -273,20 +273,9 @@ function withExpoAvSourceFixes(config) {
 }
 
 module.exports = function withAndroidNativeBuild(config) {
-  config.autolinking = {
-    ...config.autolinking,
-    android: {
-      ...(config.autolinking?.android || {}),
-      buildFromSource: Array.from(
-        new Set([
-          ...(config.autolinking?.android?.buildFromSource || []),
-          'expo-av',
-          'expo-modules-core',
-          'expo-updates',
-        ])
-      ),
-    },
-  };
+  // autolinking.android.buildFromSource (expo-av, expo-modules-core, expo-updates) lives in package.json
+  // under "expo.autolinking" (the only place Expo reads it). Setting it on the app config as well made
+  // `expo-doctor` report "should NOT have additional property 'autolinking'", so it is no longer duplicated here.
   config = withJdkAndNdkProperties(config);
   config = withAppNativeFlags(config);
   config = withRootNativeFlags(config);

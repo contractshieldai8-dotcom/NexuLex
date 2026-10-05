@@ -99,8 +99,8 @@ export const WAVE_LR2_I18N = {
     "guideStepCases1": "Danışman sekmesinde Dosyalarım bölümünü açın; hukuk alanını ve taraf durumunuzu seçerek dosya oluşturun.",
     "guideStepCases2": "Olayları, süreleri ve duruşmaları tarihleriyle ekleyin; yaklaşanlar için hatırlatıcı kurun.",
     "guideStepCases3": "Fotoğraf, PDF ve notları delil kasasına koyun; her biri parmak izi ve tarih alır.",
-    "guideStepCases4": "Belge Açıklayıcı’da Dosyama ekle’ye dokunun; görüşmeden önce avukat özetini paylaşın.",
-    "guideNewCaseFiles": "Yeni: kronoloji, delil kasası ve avukat özetiyle Dosyalarım"
+    "guideStepCases4": "Belge açıklayıcı’da Dosyama ekle’ye dokunun; görüşmeden önce avukat özetini paylaşın.",
+    "guideNewCaseFiles": "Yeni: kronoloji, delil kasası ve avukat özetiyle dosyalarım"
   },
   "en": {
     "caseCardTitle": "My case files",
@@ -200,7 +200,7 @@ export const WAVE_LR2_I18N = {
     "guideStepCases1": "In the Advisor tab open My case files and create a file with the area of law and your side.",
     "guideStepCases2": "Add events, deadlines and hearings with their dates, and set reminders for the upcoming ones.",
     "guideStepCases3": "Put photos, PDFs and notes into the evidence locker; each gets a fingerprint and a date.",
-    "guideStepCases4": "In the Document Explainer tap Add to my case file, and share the lawyer brief before your appointment.",
+    "guideStepCases4": "In the Document explainer tap Add to my case file, and share the lawyer brief before your appointment.",
     "guideNewCaseFiles": "New: case files with timeline, evidence locker and lawyer brief"
   },
   "de": {

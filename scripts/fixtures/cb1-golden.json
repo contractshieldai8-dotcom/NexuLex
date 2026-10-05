@@ -363,23 +363,23 @@
     "calc": {
       "severance": {
         "total": 137411.67,
-        "text": "Kıdem / İhbar Hesaplayıcı\n\nAylık matrah (tavanlı): 46154.20 TRY\nUygulanan kıdem tavanı: 46154.20 TRY\nBrüt kıdem: 138462.60 TRY\nDamga vergisi: -1050.93 TRY\nNet kıdem (tahmini): 137411.67 TRY\n\nTahmini net / sonuç: 137411.67 TRY\n\nKanuni dayanak (özet): 1475 s. İş K. m.14 / kıdem tavanı + damga vergisi oranı — yerel tablo.\n\nMevzuat parametreleri: 2026-01-01 itibarıyla günceldir (yerel tablo).\n\n—\nBilgilendirme amaçlı hesaplamadır; resmi bordro/bilirkişi raporu yerine geçmez."
+        "text": "Kıdem / ihbar hesaplayıcı\n\nAylık matrah (tavanlı): 46154.20 TRY\nUygulanan kıdem tavanı: 46154.20 TRY\nBrüt kıdem: 138462.60 TRY\nDamga vergisi: -1050.93 TRY\nNet kıdem (tahmini): 137411.67 TRY\n\nTahmini net / sonuç: 137411.67 TRY\n\nKanuni dayanak (özet): 1475 s. İş K. m.14 / kıdem tavanı + damga vergisi oranı — yerel tablo.\n\nMevzuat parametreleri: 2026-01-01 itibarıyla günceldir (yerel tablo).\n\n—\nBilgilendirme amaçlı hesaplamadır; resmi bordro/bilirkişi raporu yerine geçmez."
       },
       "severanceNotice": {
         "total": 237003.74,
-        "text": "Kıdem / İhbar Hesaplayıcı\n\nAylık matrah (tavanlı): 46154.20 TRY\nUygulanan kıdem tavanı: 46154.20 TRY\nBrüt kıdem: 192309.17 TRY\nDamga vergisi: -1459.63 TRY\nNet kıdem (tahmini): 190849.54 TRY\nTahmini ihbar (1 ay): 46154.20 TRY\n\nTahmini net / sonuç: 237003.74 TRY\n\nKanuni dayanak (özet): 1475 s. İş K. m.14 / kıdem tavanı + damga vergisi oranı — yerel tablo.\n\nMevzuat parametreleri: 2026-01-01 itibarıyla günceldir (yerel tablo).\n\n—\nBilgilendirme amaçlı hesaplamadır; resmi bordro/bilirkişi raporu yerine geçmez."
+        "text": "Kıdem / ihbar hesaplayıcı\n\nAylık matrah (tavanlı): 46154.20 TRY\nUygulanan kıdem tavanı: 46154.20 TRY\nBrüt kıdem: 192309.17 TRY\nDamga vergisi: -1459.63 TRY\nNet kıdem (tahmini): 190849.54 TRY\nTahmini ihbar (1 ay): 46154.20 TRY\n\nTahmini net / sonuç: 237003.74 TRY\n\nKanuni dayanak (özet): 1475 s. İş K. m.14 / kıdem tavanı + damga vergisi oranı — yerel tablo.\n\nMevzuat parametreleri: 2026-01-01 itibarıyla günceldir (yerel tablo).\n\n—\nBilgilendirme amaçlı hesaplamadır; resmi bordro/bilirkişi raporu yerine geçmez."
       },
       "rent": {
         "total": 18750,
-        "text": "Kira Artış Tavanı\n\nMevcut kira: 15000.00 TRY\nÖnerilen kira: 18000.00 TRY\nTavanlı azami kira: 18750.00 TRY\nFark (önerilen − azami): -750.00 TRY\n\nTahmini net / sonuç: 18750.00 TRY\n\nKanuni dayanak (özet): konut kira artışında yasal/TÜFE tavanı — kullanıcı girdisi ile yerel karşılaştırma.\n\nMevzuat parametreleri: 2026-01-01 itibarıyla günceldir (yerel tablo).\n\n—\nBilgilendirme amaçlı hesaplamadır; resmi bordro/bilirkişi raporu yerine geçmez."
+        "text": "Kira artış tavanı\n\nMevcut kira: 15000.00 TRY\nÖnerilen kira: 18000.00 TRY\nTavanlı azami kira: 18750.00 TRY\nFark (önerilen − azami): -750.00 TRY\n\nTahmini net / sonuç: 18750.00 TRY\n\nKanuni dayanak (özet): konut kira artışında yasal/TÜFE tavanı — kullanıcı girdisi ile yerel karşılaştırma.\n\nMevzuat parametreleri: 2026-01-01 itibarıyla günceldir (yerel tablo).\n\n—\nBilgilendirme amaçlı hesaplamadır; resmi bordro/bilirkişi raporu yerine geçmez."
       },
       "interestLegal": {
         "total": 124000,
-        "text": "Yasal / Ticari Faiz (Tahmini)\n\nAnapara: 100000.00 TRY\nGün sayısı: 365\nYıllık oran: %24.00\nTahmini faiz: 24000.00 TRY\nTahmini toplam: 124000.00 TRY\n\nTahmini net / sonuç: 124000.00 TRY\n\nFormül notu (tahmini): (Anapara × Oran × Gün) / (365 × 100). İcra kesin tutarı değildir.\n\nMevzuat parametreleri: 2026-01-01 itibarıyla günceldir (yerel tablo).\n\n—\nBilgilendirme amaçlı hesaplamadır; resmi bordro/bilirkişi raporu yerine geçmez."
+        "text": "Yasal / ticari faiz (tahmini)\n\nAnapara: 100000.00 TRY\nGün sayısı: 365\nYıllık oran: %24.00\nTahmini faiz: 24000.00 TRY\nTahmini toplam: 124000.00 TRY\n\nTahmini net / sonuç: 124000.00 TRY\n\nFormül notu (tahmini): (Anapara × Oran × Gün) / (365 × 100). İcra kesin tutarı değildir.\n\nMevzuat parametreleri: 2026-01-01 itibarıyla günceldir (yerel tablo).\n\n—\nBilgilendirme amaçlı hesaplamadır; resmi bordro/bilirkişi raporu yerine geçmez."
       },
       "interestCommercial": {
         "total": 123802.74,
-        "text": "Yasal / Ticari Faiz (Tahmini)\n\nAnapara: 100000.00 TRY\nGün sayısı: 181\nYıllık oran: %48.00\nTahmini faiz: 23802.74 TRY\nTahmini toplam: 123802.74 TRY\n\nTahmini net / sonuç: 123802.74 TRY\n\nFormül notu (tahmini): (Anapara × Oran × Gün) / (365 × 100). İcra kesin tutarı değildir.\n\nMevzuat parametreleri: 2026-01-01 itibarıyla günceldir (yerel tablo).\n\n—\nBilgilendirme amaçlı hesaplamadır; resmi bordro/bilirkişi raporu yerine geçmez."
+        "text": "Yasal / ticari faiz (tahmini)\n\nAnapara: 100000.00 TRY\nGün sayısı: 181\nYıllık oran: %48.00\nTahmini faiz: 23802.74 TRY\nTahmini toplam: 123802.74 TRY\n\nTahmini net / sonuç: 123802.74 TRY\n\nFormül notu (tahmini): (Anapara × Oran × Gün) / (365 × 100). İcra kesin tutarı değildir.\n\nMevzuat parametreleri: 2026-01-01 itibarıyla günceldir (yerel tablo).\n\n—\nBilgilendirme amaçlı hesaplamadır; resmi bordro/bilirkişi raporu yerine geçmez."
       }
     }
   }

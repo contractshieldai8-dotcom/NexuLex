@@ -7,7 +7,7 @@ export const WAVE_GR4_I18N = {
     "pwFootLawyer": "Resmî rehberler ve ilk mesaj ücretsiz kalır. Kilidi yalnızca dosya paketi için açın.",
     "pwFootQuota": "İlk taramalarınız ücretsiz kalır. Kilidi yalnızca o taramalar bitince açın.",
     "pwFootDraft": "Mektup önizlemesi ücretsiz kalır. Kilidi yalnızca bitmiş mektubu dışa aktarmak için açın.",
-    "pwFootShare": "İlk brief bu telefonda kalır. Kilidi yalnızca ek paylaşım kodları için açın.",
+    "pwFootShare": "İlk özet bu telefonda kalır. Kilidi yalnızca ek paylaşım kodları için açın.",
     "pwFootExplain": "Belgedeki tarihler ücretsiz kalır. Kilidi yalnızca tam eylem planı için açın.",
     "pwFootProfessional": "Kronoloji, sorun listesi ve araştırma notu Professional planda kalır."
   },

@@ -1536,9 +1536,9 @@ if (!/preventAutoHideAsync/.test(indexSrc) || !/expo-splash-screen/.test(indexSr
 } else if (!fs.existsSync('assets/splash.png')) {
   failed = true;
   console.log('assets/splash.png yok');
-} else if (!/"splash"\s*:\s*\{[\s\S]*?"image":\s*"\.\/assets\/splash-icon\.png"/.test(appJsonSrc)) {
+} else if (/^\s{4}"splash"\s*:/m.test(appJsonSrc)) {
   failed = true;
-  console.log('app.json top-level splash-icon.png yok');
+  console.log('app.json top-level "splash" is legacy and fails the Expo schema; use the expo-splash-screen plugin only');
 } else if (/require\(['"]\.\/assets\/splash\.png['"]\)/.test(appSrc) || /splashSource/.test(appSrc) || /splashHiddenRef/.test(appSrc)) {
   failed = true;
   console.log('App.js JS Image splash / splashHiddenRef kalmis');
@@ -5060,7 +5060,7 @@ Ticaret Unvanı: Anadolu Bilişim
     }
     const gen = fs.readFileSync('scripts/gen-waveca-i18n.js', 'utf8');
     if (!/Missing \$\{lang\} translation for key/.test(gen)) l10nFail('gen-waveca must fail loudly on a missing translation (no silent EN fallback)');
-    if (JSON.stringify(waveCa.tr).length < 1000 || waveCa.tr.scenarioSectionTitle !== 'Hızlı Aksiyon Senaryoları') l10nFail('TR waveca copy changed');
+    if (JSON.stringify(waveCa.tr).length < 1000 || waveCa.tr.scenarioSectionTitle !== 'Hızlı aksiyon senaryoları') l10nFail('TR waveca copy changed');
   } catch (error) {
     l10nFail(`waveca sync: ${error.message}`);
   }
@@ -8365,7 +8365,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/if \(disclaimer\) \{\s*lines\.push\('—'\);\s*lines\.push\(disclaimer\);/.test(read('services/scenarioRoadmap.js'))) {
     uxFail('shared roadmap must still end with the disclaimer');
   }
-  if (!ca.includes('"scenarioSectionTitle": "Fast Action Scenarios"') || !ca.includes('"scenarioSectionHint": "3 questions → instant local roadmap. No invented law; not a lawyer substitute."') || !ca.includes('"scenarioLegalDisclaimer": "This roadmap is general information only — not legal advice or court representation. No win-rate or precedent is invented. Consult a licensed attorney for your situation."')) {
+  if (!ca.includes('"scenarioSectionTitle": "Fast action scenarios"') || !ca.includes('"scenarioSectionHint": "3 questions → instant local roadmap. No invented law; not a lawyer substitute."') || !ca.includes('"scenarioLegalDisclaimer": "This roadmap is general information only — not legal advice or court representation. No win-rate or precedent is invented. Consult a licensed attorney for your situation."')) {
     uxFail('en CA scenario copy must stay byte-identical');
   }
   if (!/export const SCENARIO_IDS = \[/.test(read('constants/legalScenarios.js'))) uxFail('scenario catalog must stay');
@@ -8673,7 +8673,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/applyFreePreview\(selectedHistoryItem,\s*!lockPremium\)/.test(app) || !/renderAnalysisReport\(activeHistoryItem, 'history'/.test(app)) {
     uxFail('history modal must keep the preview lock and report honesty');
   }
-  if (!read('i18n.js').includes('historyTitle: "Analysis History"')) {
+  if (!read('i18n.js').includes('historyTitle: "Analysis history"')) {
     uxFail('en historyTitle must stay byte-identical');
   }
   if (!extras.includes("previewBanner: 'Free preview — decision card and 1 red flag are unlocked'")) {
@@ -8868,7 +8868,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!register.includes('contract_?text') || !register.includes('Never copies contract text')) {
     uxFail('register must refuse contract text');
   }
-  if (!read('i18n.js').includes('historyTitle: "Analysis History"')) {
+  if (!read('i18n.js').includes('historyTitle: "Analysis history"')) {
     uxFail('en historyTitle must stay byte-identical');
   }
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
@@ -8980,7 +8980,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!compare.includes("mode: 'history'") || !compare.includes('historySourceText')) {
     uxFail('compare seed must stay local history mode');
   }
-  if (!read('i18n.js').includes('historyTitle: "Analysis History"')) {
+  if (!read('i18n.js').includes('historyTitle: "Analysis history"')) {
     uxFail('en historyTitle must stay byte-identical');
   }
   if (!read('utils/historyRegister.js').includes('contract_?text')) uxFail('register must still refuse contract text');
@@ -9550,7 +9550,7 @@ Ticaret Unvanı: Anadolu Bilişim
   const ex = appJson.expo || {};
   if (ex.android?.adaptiveIcon?.monochromeImage !== './assets/adaptive-mono.png') eFail('app.json needs android.adaptiveIcon.monochromeImage');
   const splashPlugin = (ex.plugins || []).find((p) => Array.isArray(p) && p[0] === 'expo-splash-screen');
-  if (ex.splash?.backgroundColor !== '#0A0F1D' || splashPlugin?.[1]?.backgroundColor !== '#0A0F1D') eFail('splash background must match the app navy (#0A0F1D) in both places');
+  if (ex.splash || splashPlugin?.[1]?.backgroundColor !== '#0A0F1D') eFail('splash background must match the app navy (#0A0F1D) and be set only through the expo-splash-screen plugin (no legacy top-level splash)');
   const app = rd('App.js');
   if (!/const SPLASH_BG = '#0A0F1D'/.test(app) || !/backgroundColor: SPLASH_BG/.test(app)) eFail('boot view must use the splash colour');
   if ((app.match(/source=\{BRAND_MARK\}/g) || []).length < 2) eFail('brand mark must show in the header and on the signed-out welcome');
@@ -9946,5 +9946,63 @@ Ticaret Unvanı: Anadolu Bilişim
   const appSrc = fs.readFileSync('App.js', 'utf8');
   if (!/onChangeText=\{\(text\) => setRefCodeInput\(formatCodeInput\(text\)\)\}/.test(appSrc) || !/letterSpacing: 2, marginBottom: 12/.test(appSrc)) mFail('the invite field must format as you type and keep a gap above the Use button');
   if (ok) console.log(`OK  WAVE M accessibility: ${r.touch} touchables have a role and a spoken name (icon-only ones labelled), ${r.input} inputs labelled, switches labelled, modals closable`);
+}
+// WAVE N: one house style for UI copy (sentence case, no Turkish loanwords) + a clean Expo config schema.
+{
+  let ok = true;
+  const nFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE N: ${m}`); };
+  const rules = require('./lib/copy-rules.js');
+  const fixtures = [
+    ['tr', 'Taslak Üret', 'Taslak üret'],
+    ['tr', 'Giriş Yap', 'Giriş yap'],
+    ['tr', 'Işık Ölçer İşlemi', 'Işık ölçer işlemi'],
+    ['tr', 'Hukuk Danışmanına Sor', 'Hukuk danışmanına sor'],
+    ['tr', 'Doğrulama E-Postasını Tekrar Gönder', 'Doğrulama e-postasını tekrar gönder'],
+    ['tr', 'NexuLex Profesyonel', 'NexuLex Profesyonel'],
+    ['tr', 'Kartı WhatsApp / Sosyal Medyada Paylaş', 'Kartı WhatsApp / sosyal medyada paylaş'],
+    ['tr', '{{count}} Sayfa/Görsel Seçildi', '{{count}} sayfa/görsel seçildi'],
+    ['tr', 'Analiz Ediliyor...', 'Analiz ediliyor...'],
+    ['tr', 'Cumartesi–Pazar Hariç', 'Cumartesi–pazar hariç'],
+    ['en', 'Restore Purchases', 'Restore purchases'],
+    ['en', 'NEXULEX AI - Contract Analysis Report', 'NEXULEX AI - Contract analysis report'],
+    ['en', 'Compare (Diff)', 'Compare (Diff)'],
+    ['en', 'Skip Saturday and Sunday', 'Skip Saturday and Sunday'],
+    ['en', 'Open the Professional workbench on the Advisor tab.', 'Open the Professional workbench on the Advisor tab.'],
+    ['fr', 'Contrat de Travail', 'Contrat de travail'],
+    ['de', 'Allgemeines Recht', 'Allgemeines Recht'],
+  ];
+  fixtures.forEach(([lang, input, want]) => {
+    const got = rules.sentenceCase(input, lang, 'k');
+    if (got !== want) nFail(`sentenceCase(${lang}, ${JSON.stringify(input)}) = ${JSON.stringify(got)}, want ${JSON.stringify(want)}`);
+  });
+  if (rules.vocabulary('Brief Kodu', 'tr') !== 'Özet Kodu' || rules.vocabulary('Briefi aç', 'tr') !== 'Özeti aç') nFail('Turkish brief -> özet vocabulary rule is broken');
+  const { loadResources } = require('./lib/load-i18n.js');
+  const res = loadResources();
+  const offenders = [];
+  let scanned = 0;
+  for (const lang of rules.CASED_LANGS) {
+    for (const [key, value] of Object.entries(res[lang] || {})) {
+      if (typeof value !== 'string') continue;
+      scanned += 1;
+      const fixed = rules.sentenceCase(rules.vocabulary(value, lang), lang, key);
+      if (fixed !== value) offenders.push(`${lang}.${key}: ${JSON.stringify(value)} -> ${JSON.stringify(fixed)}`);
+    }
+  }
+  if (scanned < 8 * 2000) nFail(`copy audit saw only ${scanned} strings: the loader is broken`);
+  offenders.slice(0, 12).forEach((m) => nFail(`UI copy breaks the house style (run node scripts/normalize-copy.js --write): ${m}`));
+  if (offenders.length > 12) nFail(`... and ${offenders.length - 12} more`);
+  // Expo config: nothing the schema rejects (expo-doctor stays green) and nothing duplicated.
+  const cfg = JSON.parse(fs.readFileSync('app.json', 'utf8')).expo || {};
+  if (cfg.splash) nFail('app.json must not carry the legacy top-level "splash" (the expo-splash-screen plugin owns it)');
+  ['compileSdkVersion', 'targetSdkVersion', 'buildToolsVersion'].forEach((k) => {
+    if (cfg.android && k in cfg.android) nFail(`app.json android.${k} is not in the Expo schema; set it through expo-build-properties`);
+  });
+  const bp = (cfg.plugins || []).find((p) => Array.isArray(p) && p[0] === 'expo-build-properties');
+  if (bp?.[1]?.android?.compileSdkVersion !== 36 || bp?.[1]?.android?.targetSdkVersion !== 36 || bp?.[1]?.android?.buildToolsVersion !== '35.0.0') nFail('expo-build-properties must pin compileSdk 36, targetSdk 36, buildTools 35.0.0');
+  const nativePlugin = fs.readFileSync('plugins/withAndroidNativeBuild.js', 'utf8');
+  if (/config\.autolinking\s*=/.test(nativePlugin)) nFail('withAndroidNativeBuild must not write autolinking onto the app config (package.json expo.autolinking owns it)');
+  const fromSource = JSON.parse(fs.readFileSync('package.json', 'utf8')).expo?.autolinking?.android?.buildFromSource || [];
+  ['expo-av', 'expo-modules-core', 'expo-updates'].forEach((m) => { if (!fromSource.includes(m)) nFail(`package.json expo.autolinking.android.buildFromSource must keep ${m}`); });
+  if (ok) console.log(`OK  WAVE N copy + config: ${scanned} UI strings in ${rules.CASED_LANGS.length} cased languages follow sentence case, Turkish says "özet" not "brief", app.json passes the Expo schema (no legacy splash / SDK fields / autolinking)`);
 }
 process.exit(failed ? 1 : 0);

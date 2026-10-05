@@ -2,8 +2,8 @@
 
 export const WAVE_ST4_I18N = {
   "tr": {
-    "st4Seats": "Hane ve danışman koltukları brief paylaşır, orijinal sözleşme metnini değil.",
-    "st4SeatsHint": "Bir koltuk salt okunur brief açabilir. Paylaşmadığınız fotoğrafları göremez.",
+    "st4Seats": "Hane ve danışman koltukları özet paylaşır, orijinal sözleşme metnini değil.",
+    "st4SeatsHint": "Bir koltuk salt okunur özet açabilir. Paylaşmadığınız fotoğrafları göremez.",
     "st4Support": "Destek ürün soruları içindir. Hukuki danışmanlık değildir ve avukat dosyası açmaz.",
     "st4SupportHint": "Kendi dilinizde yazın. Uygulama, satın alma geri yükleme ve hesap erişimi için yanıtlarız.",
     "st4Security": "Yeni parola giriş hizmetinde saklanır. NexuLex ekibi onu okuyamaz.",

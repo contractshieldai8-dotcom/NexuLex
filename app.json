@@ -10,11 +10,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0A0F1D"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -45,9 +40,6 @@
         "backgroundColor": "#02091d"
       },
       "package": "com.nexulex.ai",
-      "compileSdkVersion": 36,
-      "targetSdkVersion": 36,
-      "buildToolsVersion": "35.0.0",
       "permissions": [
         "android.permission.RECORD_AUDIO",
         "android.permission.MODIFY_AUDIO_SETTINGS",

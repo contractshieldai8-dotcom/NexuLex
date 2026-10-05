@@ -8,7 +8,7 @@ export const WAVE_ST8_I18N = {
     "st8Ask": "Günlük hukuki soru: ücretsiz {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. Sayıyı sunucu tutar.",
     "st8Tools": "Professional araçları ücretli Professional plandadır. Pro bunları içermez.",
     "st8First": "İlk taramalar, ilk sorular ve ilk dosya ücretsiz planda kalır.",
-    "st8Restore": "Plan yanlış görünüyorsa paywall’da satın almaları geri yükleyin. Ayarlar ücretli plan uyduramaz.",
+    "st8Restore": "Plan yanlış görünüyorsa abonelik ekranında satın almaları geri yükleyin. Ayarlar ücretli plan uyduramaz.",
     "st8Disclaimer": "NexuLex bir hukuk bürosu değildir. Buradaki plan adları ürün erişimidir, hukuki tavsiye değildir."
   },
   "en": {

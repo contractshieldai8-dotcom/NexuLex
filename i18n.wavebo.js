@@ -3,8 +3,8 @@
 export const WAVE_BO_I18N = {
   "tr": {
     "offerBalanced": "Dengeli",
-    "offerShield": "Sert Kalkan",
-    "offerFast": "Hızlı Uzlaşı",
+    "offerShield": "Sert kalkan",
+    "offerFast": "Hızlı uzlaşı",
     "offerBalancedHint": "Adil koruma — varsayılan ton",
     "offerShieldHint": "Daha güçlü koruma — sert müzakere",
     "offerFastHint": "Hızlı kabul — uzlaşı odaklı"
@@ -12,7 +12,7 @@ export const WAVE_BO_I18N = {
   "en": {
     "offerBalanced": "Balanced",
     "offerShield": "Shield",
-    "offerFast": "Fast-Accept",
+    "offerFast": "Fast-accept",
     "offerBalancedHint": "Fair protect — default tone",
     "offerShieldHint": "Stronger protect — hard negotiate",
     "offerFastHint": "Quick accept — deal-focused"

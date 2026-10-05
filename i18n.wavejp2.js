@@ -21,7 +21,7 @@ export const WAVE_JP2_I18N = {
     "calcUnitDays": "Gün",
     "calcUnitWeeks": "Hafta",
     "calcUnitMonths": "Ay",
-    "calcBusinessDays": "Yalnızca iş günleri (Cumartesi–Pazar hariç)",
+    "calcBusinessDays": "Yalnızca iş günleri (cumartesi–pazar hariç)",
     "calcProRataAmount": "Tam dönem tutarı ({{currency}})",
     "calcProRataAmountNoCur": "Tam dönem tutarı",
     "calcProRataDaysUsed": "Kullanılan gün",

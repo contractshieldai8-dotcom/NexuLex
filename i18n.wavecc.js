@@ -2,11 +2,11 @@
 
 export const WAVE_CC_I18N = {
   "tr": {
-    "draftSectionTitle": "Belge Hazırla",
+    "draftSectionTitle": "Belge hazırla",
     "draftSectionHint": "Belge türünü seçin, birkaç soruyu yanıtlayın; doldurulmuş bir taslak alın.",
     "draftClose": "Kapat",
     "draftBack": "Geri",
-    "draftGenerate": "Taslak Oluştur",
+    "draftGenerate": "Taslak oluştur",
     "draftBlankHint": "Boş bıraktığınız alanlar taslakta [ … ] olarak işaretlenir; hiçbir bilgi uydurulmaz.",
     "draftDatePlaceholder": "GG.AA.YYYY",
     "draftMissingWarning": "Zorunlu alanlar boş, taslakta işaretlendi:",
@@ -25,9 +25,9 @@ export const WAVE_CC_I18N = {
     "draftDisclaimer": "Taslaktır; hukuki temsil yerine geçmez. Göndermeden önce kontrol edin / avukata danışın.",
     "draftNoticeTitle": "İhtarname (ödeme)",
     "draftNoticeDesc": "Vadesi geçmiş bir borç için ödeme süresi veren resmi uyarı taslağı.",
-    "draftMediationTitle": "Arabuluculuk Başvuru Özeti",
+    "draftMediationTitle": "Arabuluculuk başvuru özeti",
     "draftMediationDesc": "Arabuluculuk bürosuna verilecek taraflar ve uyuşmazlık özeti.",
-    "draftConsumerTitle": "Tüketici Hakem Heyeti Dilekçesi",
+    "draftConsumerTitle": "Tüketici hakem heyeti dilekçesi",
     "draftConsumerDesc": "Ayıplı ürün veya hizmet için hakem heyetine başvuru dilekçesi taslağı.",
     "draftQSender": "İhtar eden (ad soyad / unvan)",
     "draftQRecipient": "Muhatap (ad soyad / unvan)",
