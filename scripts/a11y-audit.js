@@ -20,7 +20,7 @@ function listFiles() {
 }
 
 function audit() {
-  const out = { touch: 0, touchMissing: [], input: 0, inputMissing: [], other: [] };
+  const out = { touch: 0, touchMissing: [], input: 0, inputMissing: [], other: [], spacing: [] };
   for (const file of listFiles()) {
     const ast = parser.parse(fs.readFileSync(path.join(ROOT, file), 'utf8'), { sourceType: 'module', plugins: ['jsx'] });
     traverse(ast, {
@@ -43,6 +43,21 @@ function audit() {
           if (name === 'Switch' && !attrs.includes('accessibilityLabel')) out.other.push(`${file}:${line} <Switch> label`);
           if (name === 'Image' && !attrs.includes('accessibilityLabel') && !attrs.includes('accessible') && !attrs.includes('alt')) out.other.push(`${file}:${line} <Image> label-or-hidden`);
           if (name === 'Modal' && !attrs.includes('onRequestClose')) out.other.push(`${file}:${line} <Modal> onRequestClose (Android back / VoiceOver escape)`);
+        }
+        if (name === 'TextInput' && !attrs.includes('...')) {
+          // A field must never touch the control right below it (theme `input` has no bottom margin).
+          const parent = p.parent;
+          const siblings = (parent && parent.children ? parent.children : []).filter((c) => c.type === 'JSXElement');
+          const next = siblings[siblings.indexOf(p.node) + 1];
+          const src = (n) => fs.readFileSync(path.join(ROOT, file), 'utf8').slice(n.start, n.end);
+          if (next && TOUCH.has(next.openingElement.name.name)) {
+            const own = src(open);
+            const nextOpen = src(next.openingElement);
+            const zero = /marginTop:\s*0\b/.test(nextOpen);
+            // textArea carries marginBottom 15; `flex: 1` inputs sit in a row beside their button; password inputs wrap a toggle.
+            const hasGap = /styles\.textArea|flex:\s*1|passwordInput/.test(own) || /marginBottom:\s*([1-9]|[a-zA-Z])/.test(own) || /marginTop:\s*([1-9]|[a-zA-Z])/.test(nextOpen) || (!zero && /styles\.secondaryBtn/.test(nextOpen));
+            if (!hasGap) out.spacing.push(`${file}:${line} <TextInput> touches the button below`);
+          }
         }
         if (name === 'TextInput') {
           out.input += 1;
@@ -79,9 +94,9 @@ module.exports = { audit };
 
 if (require.main === module) {
   const r = audit();
-  console.log(`touchables=${r.touch} missing=${r.touchMissing.length} inputs=${r.input} missing=${r.inputMissing.length} other=${r.other.length}`);
+  console.log(`touchables=${r.touch} missing=${r.touchMissing.length} inputs=${r.input} missing=${r.inputMissing.length} other=${r.other.length} spacing=${r.spacing.length}`);
   const byFile = {};
-  [...r.touchMissing, ...r.inputMissing, ...r.other].forEach((m) => { const f = m.split(':')[0]; byFile[f] = (byFile[f] || 0) + 1; });
+  [...r.touchMissing, ...r.inputMissing, ...r.other, ...r.spacing].forEach((m) => { const f = m.split(':')[0]; byFile[f] = (byFile[f] || 0) + 1; });
   Object.entries(byFile).sort((a, b) => b[1] - a[1]).forEach(([f, n]) => console.log(n, f));
-  if (process.argv.includes('--list')) [...r.touchMissing, ...r.inputMissing, ...r.other].forEach((m) => console.log(m));
+  if (process.argv.includes('--list')) [...r.touchMissing, ...r.inputMissing, ...r.other, ...r.spacing].forEach((m) => console.log(m));
 }

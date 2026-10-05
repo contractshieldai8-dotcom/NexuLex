@@ -173,6 +173,7 @@ export default function ResetPasswordScreen({ visible, theme, email, onDone, onC
                     color: theme.text,
                     borderColor: mismatch ? '#FF4D6D' : theme.borderColor,
                     marginTop: 12,
+                    marginBottom: 14,
                   },
                 ]}
                 placeholder={t('confirmPasswordPlaceholder')}
@@ -184,7 +185,7 @@ export default function ResetPasswordScreen({ visible, theme, email, onDone, onC
               />
 
               {mismatch ? (
-                <Text style={[styles.sectionHint, { color: '#FF4D6D', marginTop: 6 }]}>
+                <Text style={[styles.sectionHint, { color: '#FF4D6D', marginTop: 0 }]}>
                   {t('passwordsDoNotMatch')}
                 </Text>
               ) : null}

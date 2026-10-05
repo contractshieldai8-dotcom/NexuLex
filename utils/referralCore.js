@@ -24,6 +24,12 @@ export function formatCode(raw) {
   return code.length === CODE_LENGTH ? `${code.slice(0, 4)}-${code.slice(4)}` : code;
 }
 
+/** While typing: upper-case, drop everything that is not a code character, cap at 8, dash after 4 (ABCD-EFGH). */
+export function formatCodeInput(raw) {
+  const code = normalizeCode(raw).slice(0, CODE_LENGTH);
+  return code.length > 4 ? `${code.slice(0, 4)}-${code.slice(4)}` : code;
+}
+
 /** Server error text -> i18n key. Unknown errors fall back to the generic message. */
 export function referralErrorKey(message) {
   const text = String(message || '');

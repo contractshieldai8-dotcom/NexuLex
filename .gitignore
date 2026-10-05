@@ -54,3 +54,6 @@ web/dist/
 _smoke_bg/
 _smoke_erp/
 supabase/.temp/
+
+# local video frame dumps
+.video-frames/

@@ -144,7 +144,7 @@ import {
   trackFirstValue,
 } from './services/telemetry';
 import { fetchMyReferral, redeemReferral, readRefAsked, markRefAsked } from './services/referral';
-import { formatCode, isValidCode, shouldOfferCode, withInviteCode } from './utils/referralCore';
+import { formatCode, formatCodeInput, isValidCode, shouldOfferCode, withInviteCode } from './utils/referralCore';
 import { buildInvitePayload, inviteUrl } from './constants/shareLoop';
 import { readSampleDone, markSampleDone } from './services/activation';
 import { isSampleText, sampleIsFree, shouldOfferSample } from './utils/activationCore';
@@ -3864,7 +3864,7 @@ function AppContent() {
             <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor }]}>
               <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 12 }]}>{t('forgotPasswordTitle')}</Text>
               <TextInput accessibilityLabel={t('resetEmailPlaceholder')}
-                style={[styles.input, { backgroundColor: theme.inputBg, color: theme.text, borderColor: theme.borderColor }]}
+                style={[styles.input, { backgroundColor: theme.inputBg, color: theme.text, borderColor: theme.borderColor, marginBottom: 14 }]}
                 placeholder={t('resetEmailPlaceholder')}
                 placeholderTextColor={theme.subText}
                 value={resetEmail}
@@ -5022,13 +5022,16 @@ function AppContent() {
                     <>
                       <Text style={[styles.settingLabel, { color: theme.text, fontSize: 14, marginBottom: 6 }]}>{t('refHaveCode')}</Text>
                       <TextInput
-                        style={[styles.input, { backgroundColor: theme.inputBg, color: theme.text, borderColor: theme.borderColor, letterSpacing: 2 }]}
+                        style={[styles.input, { backgroundColor: theme.inputBg, color: theme.text, borderColor: theme.borderColor, letterSpacing: 2, marginBottom: 12 }]}
                         placeholder={t('refCodePlaceholder')}
                         placeholderTextColor={theme.subText}
                         value={refCodeInput}
-                        onChangeText={(text) => setRefCodeInput(text.toUpperCase())}
+                        onChangeText={(text) => setRefCodeInput(formatCodeInput(text))}
                         autoCapitalize="characters"
                         autoCorrect={false}
+                        autoComplete="off"
+                        returnKeyType="done"
+                        onSubmitEditing={submitReferralCode}
                         maxLength={12}
                         accessibilityLabel={t('refHaveCode')}
                       />
