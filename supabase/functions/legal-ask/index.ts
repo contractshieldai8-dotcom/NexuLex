@@ -1,12 +1,17 @@
-// NEXULEX AI — WAVE LR.3 legal Q&A engine.
+// NEXULEX AI — WAVE LR.3 legal Q&A engine (cost guard: WAVE ECON.1).
 //
 // Unlike analyze-contract this is NOT a generic proxy: the system prompt, model and answer
-// schema live here, and every question consumes a server-side daily quota
-// (public.consume_legal_ask). Question and answer text are never stored or logged.
+// schema live here, and every question consumes a server-side quota (public.consume_legal_ask_v2):
+//   free          3 questions to start, then 1 per rolling 7 days, counted per device
+//   Pro           40 a day and 300 a month
+//   Professional  150 a day and 900 a month
+// Question and answer text are never stored or logged. Only anonymous token totals are kept
+// (public.record_ai_cost: day, feature, plan, model; no user id).
 //
-//   supabase db push                       (migration 20260927120000_legal_ask_usage.sql)
+//   supabase db push                       (migrations 20260927120000_legal_ask_usage.sql, 20261014120000_econ1_cost_guard.sql)
 //   supabase functions deploy legal-ask
 // Secrets used: ANTHROPIC_API_KEY, SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY.
+// Optional: LEGAL_ASK_FREE_MODEL (a cheaper model for the free plan; unset = the main model).
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.1';
 
@@ -16,8 +21,12 @@ const MODEL = 'claude-sonnet-5';
 const MAX_TOKENS = 3500;
 
 const FREE_DAILY_LIMIT = 3;
+const FREE_LIFETIME_LIMIT = 3;
+const FREE_WEEKLY_LIMIT = 1;
 const PRO_DAILY_LIMIT = 40;
+const PRO_MONTHLY_LIMIT = 300;
 const PROFESSIONAL_DAILY_LIMIT = 150;
+const PROFESSIONAL_MONTHLY_LIMIT = 900;
 
 const MAX_QUESTION = 2000;
 const MIN_QUESTION = 8;
@@ -167,14 +176,75 @@ function parseJsonObject(text: string): Record<string, unknown> | null {
   return null;
 }
 
-async function callClaude(apiKey: string, system: string, userText: string) {
+type Plan = 'free' | 'pro' | 'professional';
+type Counters = {
+  day_used?: number;
+  month_used?: number;
+  free_total?: number;
+  free_recent?: number;
+  free_next_day?: string | null;
+};
+
+// One quota object for the app. used / limit / remaining describe the limit that binds right now;
+// "period" says which one (day, month, lifetime or week) so the app words it correctly.
+function buildQuota(plan: Plan, c: Counters) {
+  const dayUsed = Number(c.day_used) || 0;
+  const monthUsed = Number(c.month_used) || 0;
+  const dailyLimit = plan === 'professional' ? PROFESSIONAL_DAILY_LIMIT : plan === 'pro' ? PRO_DAILY_LIMIT : FREE_DAILY_LIMIT;
+  const dayLeft = Math.max(0, dailyLimit - dayUsed);
+  const daily = { used: dayUsed, limit: dailyLimit, remaining: dayLeft };
+
+  if (plan === 'free') {
+    const total = Number(c.free_total) || 0;
+    const recent = Number(c.free_recent) || 0;
+    const lifetimeLeft = Math.max(0, FREE_LIFETIME_LIMIT - total);
+    const weekLeft = Math.max(0, FREE_WEEKLY_LIMIT - recent);
+    const free = {
+      lifetimeLeft,
+      lifetimeLimit: FREE_LIFETIME_LIMIT,
+      weekLeft,
+      weekLimit: FREE_WEEKLY_LIMIT,
+      nextDay: lifetimeLeft > 0 ? null : (c.free_next_day ?? null),
+    };
+    const starting = lifetimeLeft > 0;
+    return {
+      used: starting ? total : recent,
+      limit: starting ? FREE_LIFETIME_LIMIT : FREE_WEEKLY_LIMIT,
+      remaining: Math.min(starting ? lifetimeLeft : weekLeft, dayLeft),
+      period: starting ? 'lifetime' : 'week',
+      pro: false,
+      plan,
+      daily,
+      monthly: null,
+      free,
+    };
+  }
+
+  const monthlyLimit = plan === 'professional' ? PROFESSIONAL_MONTHLY_LIMIT : PRO_MONTHLY_LIMIT;
+  const monthLeft = Math.max(0, monthlyLimit - monthUsed);
+  const monthly = { used: monthUsed, limit: monthlyLimit, remaining: monthLeft };
+  const monthBinds = monthLeft < dayLeft;
+  return {
+    used: monthBinds ? monthUsed : dayUsed,
+    limit: monthBinds ? monthlyLimit : dailyLimit,
+    remaining: Math.min(dayLeft, monthLeft),
+    period: monthBinds ? 'month' : 'day',
+    pro: true,
+    plan,
+    daily,
+    monthly,
+    free: null,
+  };
+}
+
+async function callClaude(apiKey: string, model: string, system: string, userText: string) {
   const headers = {
     'content-type': 'application/json',
     'x-api-key': apiKey,
     'anthropic-version': ANTHROPIC_VERSION,
   };
   const body = (variant: 'disabled' | 'low') => ({
-    model: MODEL,
+    model,
     max_tokens: MAX_TOKENS,
     system,
     messages: [{ role: 'user', content: userText }],
@@ -193,7 +263,12 @@ async function callClaude(apiKey: string, system: string, userText: string) {
     .filter((block: { type?: string }) => block?.type === 'text')
     .map((block: { text?: string }) => block.text || '')
     .join('');
-  return { ok: true as const, text };
+  const usage = {
+    input: Number(data?.usage?.input_tokens) || 0,
+    output: Number(data?.usage?.output_tokens) || 0,
+    truncated: data?.stop_reason === 'max_tokens',
+  };
+  return { ok: true as const, text, usage };
 }
 
 Deno.serve(async (req: Request) => {
@@ -221,19 +296,27 @@ Deno.serve(async (req: Request) => {
 
   const admin = createClient(supabaseUrl, service);
   // The plan column arrives with the LR.5 migration; until then is_pro alone decides.
-  const planned = await admin.from('profiles').select('is_pro, plan').eq('id', user.id).maybeSingle();
+  const planned = await admin.from('profiles').select('is_pro, plan, device_id').eq('id', user.id).maybeSingle();
   const profile = planned.error
-    ? (await admin.from('profiles').select('is_pro').eq('id', user.id).maybeSingle()).data
+    ? (await admin.from('profiles').select('is_pro, device_id').eq('id', user.id).maybeSingle()).data
     : planned.data;
-  const plan = profile?.plan === 'professional' ? 'professional' : profile?.is_pro ? 'pro' : 'free';
+  const plan: Plan = profile?.plan === 'professional' ? 'professional' : profile?.is_pro ? 'pro' : 'free';
   const isPro = plan !== 'free';
-  const limit = plan === 'professional' ? PROFESSIONAL_DAILY_LIMIT : isPro ? PRO_DAILY_LIMIT : FREE_DAILY_LIMIT;
+  // Free questions are counted per device (set when the account claimed its free quota), not per account.
+  const device = typeof profile?.device_id === 'string' ? profile.device_id.slice(0, 200) : '';
+  const model = plan === 'free' ? (Deno.env.get('LEGAL_ASK_FREE_MODEL') || MODEL) : MODEL;
+  const dailyLimit = plan === 'professional' ? PROFESSIONAL_DAILY_LIMIT : isPro ? PRO_DAILY_LIMIT : FREE_DAILY_LIMIT;
+  const monthlyLimit = plan === 'professional' ? PROFESSIONAL_MONTHLY_LIMIT : PRO_MONTHLY_LIMIT;
+
+  const readCounters = async () => {
+    const { data, error } = await admin.rpc('legal_ask_counters', { p_user: user.id, p_device: device });
+    return error || !data ? null : (data as Counters);
+  };
 
   if (body.action === 'quota') {
-    const { data: used, error } = await admin.rpc('legal_ask_used_today', { p_user: user.id });
-    if (error) return json({ error: 'UNAVAILABLE' }, 503);
-    const count = Number(used) || 0;
-    return json({ quota: { used: count, limit, remaining: Math.max(0, limit - count), pro: isPro, plan } });
+    const counters = await readCounters();
+    if (!counters) return json({ error: 'UNAVAILABLE' }, 503);
+    return json({ quota: buildQuota(plan, counters) });
   }
 
   const question = clip(body.question, MAX_QUESTION);
@@ -245,25 +328,46 @@ Deno.serve(async (req: Request) => {
   const area = AREAS.includes(String(body.area)) ? String(body.area) : 'other';
   const audience = AUDIENCES.includes(String(body.audience)) ? String(body.audience) : 'person';
 
-  const { data: consumed, error: quotaError } = await admin.rpc('consume_legal_ask', { p_user: user.id, p_limit: limit });
+  const { data: consumed, error: quotaError } = await admin.rpc('consume_legal_ask_v2', {
+    p_user: user.id,
+    p_device: device,
+    p_free: !isPro,
+    p_daily: dailyLimit,
+    p_monthly: isPro ? monthlyLimit : 0,
+    p_free_lifetime: FREE_LIFETIME_LIMIT,
+    p_free_weekly: FREE_WEEKLY_LIMIT,
+  });
   if (quotaError || !consumed) return json({ error: 'UNAVAILABLE' }, 503);
-  const quota = {
-    used: Number(consumed.used) || 0,
-    limit,
-    remaining: Math.max(0, limit - (Number(consumed.used) || 0)),
-    pro: isPro,
-    plan,
-  };
-  if (!consumed.allowed) return json({ error: 'QUOTA_EXCEEDED', quota }, 429);
+  const quota = buildQuota(plan, consumed as Counters);
+  if (!consumed.allowed) return json({ error: 'QUOTA_EXCEEDED', reason: consumed.reason ?? null, quota }, 429);
 
   const refund = async () => {
     await admin.rpc('refund_legal_ask', { p_user: user.id });
-    return { ...quota, used: Math.max(0, quota.used - 1), remaining: Math.min(limit, quota.remaining + 1) };
+    if (!isPro) await admin.rpc('refund_legal_ask_free', { p_user: user.id, p_device: device });
+    return buildQuota(plan, (await readCounters()) ?? (consumed as Counters));
+  };
+
+  // Anonymous token totals (day, feature, plan, model). Never blocks or fails an answer.
+  const track = async (usage: { input: number; output: number; truncated: boolean }, failed: boolean) => {
+    try {
+      await admin.rpc('record_ai_cost', {
+        p_feature: 'legal_ask',
+        p_plan: plan,
+        p_model: model,
+        p_input: usage.input,
+        p_output: usage.output,
+        p_truncated: usage.truncated,
+        p_failed: failed,
+      });
+    } catch {
+      /* telemetry only */
+    }
   };
 
   try {
     const result = await callClaude(
       apiKey,
+      model,
       buildSystemPrompt({ lang, country, area, audience }),
       buildUserMessage({ question, facts, caseContext })
     );
@@ -274,11 +378,13 @@ Deno.serve(async (req: Request) => {
     }
     const answer = parseJsonObject(result.text);
     if (!answer || !String(answer.short_answer || '').trim()) {
+      await track(result.usage, true);
       const back = await refund();
       console.error('legal-ask parse');
       return json({ error: 'PARSE', quota: back }, 502);
     }
-    return json({ answer, quota, model: MODEL });
+    await track(result.usage, false);
+    return json({ answer, quota, model });
   } catch (error) {
     const back = await refund();
     console.error('legal-ask failure', error instanceof Error ? error.name : 'unknown');

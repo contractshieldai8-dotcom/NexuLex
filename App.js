@@ -4766,9 +4766,12 @@ function AppContent() {
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Quota')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
                     {t('st8Ask', {
-                      freeAsk: String(PLAN_LIMITS.free.askDaily),
+                      freeAsk: String(PLAN_LIMITS.free.askLifetime),
+                      freeWeekly: String(PLAN_LIMITS.free.askWeekly),
                       proAsk: String(PLAN_LIMITS.pro.askDaily),
+                      proMonth: String(PLAN_LIMITS.pro.askMonthly),
                       professionalAsk: String(PLAN_LIMITS.professional.askDaily),
+                      professionalMonth: String(PLAN_LIMITS.professional.askMonthly),
                     })}
                   </Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Tools')}</Text>

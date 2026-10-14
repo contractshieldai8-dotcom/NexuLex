@@ -171,6 +171,7 @@ const APP_FILES = [
   'constants/packDepth.js',
   'constants/lawyerHandoff.js',
   'utils/plan.js',
+  'utils/askQuota.js',
   'constants/storeListing.js',
   'constants/firstIntent.js',
   'constants/sessionResume.js',

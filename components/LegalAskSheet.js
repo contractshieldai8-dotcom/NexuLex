@@ -21,6 +21,7 @@ import { ASK_ERROR_CODES, askLegalQuestion, fetchLegalAskQuota, loadSavedAnswers
 import { loadCases, saveCases } from '../services/caseFileStore';
 import { CASE_AREAS, CASE_AREA_ICONS, addEvent, formatCaseBrief, todayIso } from '../utils/caseFiles';
 import { ASK_AUDIENCES, ASK_FACTS_MAX, ASK_QUESTION_MAX, ASK_QUESTION_MIN, formatAnswerText, officialPortal } from '../utils/legalAnswer';
+import { describeQuota, formatQuotaDay, limitMessageKey, nextFreeDay } from '../utils/askQuota';
 import { PLAN_LIMITS } from '../utils/plan';
 import { describeError } from '../utils/errors';
 import { useFeedback } from '../context/FeedbackContext';
@@ -84,6 +85,8 @@ export default function LegalAskSheet({
 
   const attached = cases.find((item) => item.id === caseId) || null;
   const outOfQuota = !!quota && quota.remaining <= 0;
+  const quotaView = describeQuota(quota, 'ask');
+  const nextFree = quotaView?.period === 'week' && quotaView.count <= 0 ? nextFreeDay(quota) : '';
 
   const handleAsk = async () => {
     const q = question.trim();
@@ -93,7 +96,7 @@ export default function LegalAskSheet({
     }
     if (outOfQuota) {
       if (!isPro) onNeedPaywall?.();
-      else showToast(t('askProLimit'), { type: 'warning' });
+      else showToast(t(limitMessageKey(quota)), { type: 'warning' });
       return;
     }
     setWorking(true);
@@ -109,7 +112,7 @@ export default function LegalAskSheet({
       if (error?.quota) setQuota(error.quota);
       if (error?.code === ASK_ERROR_CODES.QUOTA) {
         if (!isPro) onNeedPaywall?.();
-        else showToast(t('askProLimit'), { type: 'warning' });
+        else showToast(t(limitMessageKey(error?.quota || quota)), { type: 'warning' });
       } else if (error?.code === ASK_ERROR_CODES.UNAVAILABLE) {
         showToast(t('askUnavailable'), { type: 'warning', duration: 3200 });
       } else if (error?.code === ASK_ERROR_CODES.INVALID) {
@@ -255,16 +258,24 @@ export default function LegalAskSheet({
         <Ionicons name="lock-closed-outline" size={13} color={theme.subText} />
         <Text style={[styles.sectionHint, { color: theme.subText, flex: 1, marginBottom: 0 }]}>{t('askPrivacy')}</Text>
       </View>
-      {quota ? (
-        <Text style={[styles.sectionHint, { color: quota.remaining > 0 ? theme.subText : WARNING, marginTop: 6 }]}>
-          {t('askQuotaLeft', { count: quota.remaining, total: quota.limit })}
+      {quotaView ? (
+        <Text style={[styles.sectionHint, { color: quotaView.count > 0 ? theme.subText : WARNING, marginTop: 6 }]}>
+          {t(quotaView.key, { count: quotaView.count, total: quotaView.total })}
+        </Text>
+      ) : null}
+      {nextFree ? (
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
+          {t('econ1AskNext', { date: formatQuotaDay(nextFree, i18n.language) })}
         </Text>
       ) : null}
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>
         {t('ux8Quota', {
-          freeAsk: String(PLAN_LIMITS.free.askDaily),
+          freeAsk: String(PLAN_LIMITS.free.askLifetime),
+          freeWeekly: String(PLAN_LIMITS.free.askWeekly),
           proAsk: String(PLAN_LIMITS.pro.askDaily),
+          proMonth: String(PLAN_LIMITS.pro.askMonthly),
           professionalAsk: String(PLAN_LIMITS.professional.askDaily),
+          professionalMonth: String(PLAN_LIMITS.professional.askMonthly),
         })}
       </Text>
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux8Server')}</Text>

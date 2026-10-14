@@ -177,6 +177,8 @@ const waveLg1Src = fs.existsSync('i18n.wavelg1.js') ? fs.readFileSync('i18n.wave
 const waveLg1Match = waveLg1Src.match(/export const WAVE_LG1_I18N = ([\s\S]*);\s*$/);
 const waveD1Src = fs.existsSync('i18n.waved1.js') ? fs.readFileSync('i18n.waved1.js', 'utf8') : '';
 const waveD1Match = waveD1Src.match(/export const WAVE_D1_I18N = ([\s\S]*);\s*$/);
+const waveEcon1Src = fs.existsSync('i18n.waveecon1.js') ? fs.readFileSync('i18n.waveecon1.js', 'utf8') : '';
+const waveEcon1Match = waveEcon1Src.match(/export const WAVE_ECON1_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
@@ -255,6 +257,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_UX39_I18N = eval(`(${waveUx39Match[1]})`); // eslint-disable-line no-eval
 const WAVE_LG1_I18N = eval(`(${waveLg1Match[1]})`); // eslint-disable-line no-eval
 const WAVE_D1_I18N = eval(`(${waveD1Match[1]})`); // eslint-disable-line no-eval
+const WAVE_ECON1_I18N = eval(`(${waveEcon1Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -326,8 +329,9 @@ const WAVE_D1_I18N = eval(`(${waveD1Match[1]})`); // eslint-disable-line no-eval
     'WAVE_UX39_I18N',
     'WAVE_LG1_I18N',
     'WAVE_D1_I18N',
+    'WAVE_ECON1_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N, WAVE_ST8_I18N, WAVE_UX5_I18N, WAVE_UX6_I18N, WAVE_UX7_I18N, WAVE_UX8_I18N, WAVE_UX9_I18N, WAVE_UX10_I18N, WAVE_UX11_I18N, WAVE_UX12_I18N, WAVE_UX13_I18N, WAVE_UX14_I18N, WAVE_UX15_I18N, WAVE_UX16_I18N, WAVE_UX17_I18N, WAVE_UX18_I18N, WAVE_UX19_I18N, WAVE_UX20_I18N, WAVE_UX21_I18N, WAVE_ST9_I18N, WAVE_UX22_I18N, WAVE_UX23_I18N, WAVE_UX24_I18N, WAVE_UX26_I18N, WAVE_UX27_I18N, WAVE_UX30_I18N, WAVE_UX38_I18N, WAVE_UX39_I18N, WAVE_LG1_I18N, WAVE_D1_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N, WAVE_ST8_I18N, WAVE_UX5_I18N, WAVE_UX6_I18N, WAVE_UX7_I18N, WAVE_UX8_I18N, WAVE_UX9_I18N, WAVE_UX10_I18N, WAVE_UX11_I18N, WAVE_UX12_I18N, WAVE_UX13_I18N, WAVE_UX14_I18N, WAVE_UX15_I18N, WAVE_UX16_I18N, WAVE_UX17_I18N, WAVE_UX18_I18N, WAVE_UX19_I18N, WAVE_UX20_I18N, WAVE_UX21_I18N, WAVE_ST9_I18N, WAVE_UX22_I18N, WAVE_UX23_I18N, WAVE_UX24_I18N, WAVE_UX26_I18N, WAVE_UX27_I18N, WAVE_UX30_I18N, WAVE_UX38_I18N, WAVE_UX39_I18N, WAVE_LG1_I18N, WAVE_D1_I18N, WAVE_ECON1_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -1075,9 +1079,9 @@ const WAVE_D1_I18N = eval(`(${waveD1Match[1]})`); // eslint-disable-line no-eval
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 2322) {
+  if (languages.length !== 13 || baseKeys.length !== 2329) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2322`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2329`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -3537,6 +3541,7 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_UX39_I18N',
       'WAVE_LG1_I18N',
       'WAVE_D1_I18N',
+      'WAVE_ECON1_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -3597,7 +3602,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.waveux38.js', 'utf8').match(/export const WAVE_UX38_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waveux39.js', 'utf8').match(/export const WAVE_UX39_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavelg1.js', 'utf8').match(/export const WAVE_LG1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.waved1.js', 'utf8').match(/export const WAVE_D1_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.waved1.js', 'utf8').match(/export const WAVE_D1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.waveecon1.js', 'utf8').match(/export const WAVE_ECON1_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -5693,7 +5699,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (/body\.system|payload\.system|body\.messages|body\.model|body\.maxTokens/.test(edge)) qaFail('client must not control prompt, messages, model or tokens');
   if (/temperature\s*:/.test(edge)) qaFail('no temperature');
   if (!/Deno\.env\.get\('SUPABASE_SERVICE_ROLE_KEY'\)/.test(edge) || /service_role.{0,5}['"]ey/i.test(edge)) qaFail('service role key only from env');
-  const consumeAt = edge.indexOf("rpc('consume_legal_ask'");
+  const consumeAt = edge.indexOf("rpc('consume_legal_ask_v2'");
   const modelAt = edge.indexOf('await callClaude(');
   if (consumeAt < 0 || modelAt < 0 || consumeAt > modelAt) qaFail('quota must be consumed before calling the model');
   if ((edge.match(/await refund\(\)/g) || []).length < 3) qaFail('quota must be refunded on every model failure path');
@@ -5900,7 +5906,7 @@ Ticaret Unvanı: Anadolu Bilişim
     if (constOf(toolsFn, 'PROFESSIONAL_TOOL_DAILY_LIMIT') !== limits.professional.toolsDaily) proFail('pro-tools limit must match PLAN_LIMITS');
     if (constOf(seatFn, 'PROFESSIONAL_ADVISOR_SEAT_CAP') !== limits.professional.advisorSeats || constOf(seatFn, 'ADVISOR_SEAT_CAP') !== limits.pro.advisorSeats || constOf(seatFn, 'HOUSEHOLD_SEAT_CAP') !== 1) proFail('advisor-seat caps must match PLAN_LIMITS');
   }
-  if (!/select\('is_pro, plan'\)[\s\S]{0,200}select\('is_pro'\)/.test(askFn) || !/select\('is_pro, plan'\)[\s\S]{0,200}select\('is_pro'\)/.test(seatFn)) proFail('legal-ask / advisor-seat must fall back to is_pro before the migration');
+  if (!/select\('is_pro, plan(, device_id)?'\)[\s\S]{0,200}select\('is_pro(, device_id)?'\)/.test(askFn) || !/select\('is_pro, plan'\)[\s\S]{0,200}select\('is_pro'\)/.test(seatFn)) proFail('legal-ask / advisor-seat must fall back to is_pro before the migration');
   if (!/if \(!profile\?\.is_pro\) return json\(\{ error: 'SEAT_LIMIT' \}, 402\);/.test(seatFn)) proFail('advisor seats stay paid-only');
 
   // Migration: plans cannot be written by the app; the Professional counter is service-role only.
@@ -5927,7 +5933,7 @@ Ticaret Unvanı: Anadolu Bilişim
 
   // pro-tools: plan gate, quota before the model, refund on every failure, fixed prompt, no logging of material.
   const gate = toolsFn.indexOf("return json({ error: 'PLAN_REQUIRED' }, 402)");
-  const consume = toolsFn.indexOf("admin.rpc('consume_pro_tool'");
+  const consume = toolsFn.indexOf("admin.rpc('consume_pro_tool_v2'");
   const claude = toolsFn.indexOf('await callClaude(');
   if (gate < 0 || consume < 0 || claude < 0 || !(gate < consume && consume < claude)) proFail('pro-tools must gate the plan, then consume quota, then call the model');
   if ((toolsFn.match(/const back = await refund\(\);/g) || []).length !== 3) proFail('pro-tools must refund on upstream, parse and runtime failures');
@@ -7653,7 +7659,7 @@ Ticaret Unvanı: Anadolu Bilişim
   for (const key of keys) {
     if (!app.includes(`t('${key}'`)) st8Fail(`account card must render ${key}`);
   }
-  if (!/PLAN_LIMITS\.free\.askDaily/.test(app) || !/PLAN_LIMITS\.professional\.askDaily/.test(app)) {
+  if (!/PLAN_LIMITS\.free\.askLifetime/.test(app) || !/PLAN_LIMITS\.professional\.askDaily/.test(app)) {
     st8Fail('ask copy must use PLAN_LIMITS, not invented numbers');
   }
   if (!/plan === 'professional' \? t\('planTabProfessional'\) : t\('planTabPro'\)/.test(app)) {
@@ -7899,7 +7905,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (sheet.lastIndexOf("t('askDisclaimer')") < sheet.lastIndexOf("t('ux8Disclaimer')")) {
     uxFail('askDisclaimer must stay last in the answer');
   }
-  if (!/PLAN_LIMITS\.free\.askDaily/.test(sheet) || !/PLAN_LIMITS\.pro\.askDaily/.test(sheet) || !/PLAN_LIMITS\.professional\.askDaily/.test(sheet)) {
+  if (!/PLAN_LIMITS\.free\.askLifetime/.test(sheet) || !/PLAN_LIMITS\.pro\.askDaily/.test(sheet) || !/PLAN_LIMITS\.professional\.askDaily/.test(sheet)) {
     uxFail('quota copy must use PLAN_LIMITS');
   }
   if (!/fetchLegalAskQuota\(/.test(sheet)) uxFail('quota must stay server-fetched');
@@ -8241,7 +8247,7 @@ Ticaret Unvanı: Anadolu Bilişim
     uxFail('en LR.5 workbench copy must stay byte-identical');
   }
   if (!/const PROFESSIONAL_TOOL_DAILY_LIMIT = 30/.test(read('supabase/functions/pro-tools/index.ts'))) uxFail('server daily limit must stay 30');
-  if (!/professional: \{ askDaily: 150, toolsDaily: 30, advisorSeats: 10 \}/.test(read('utils/plan.js'))) uxFail('PLAN_LIMITS professional toolsDaily must stay 30');
+  if (!/professional: \{ askDaily: 150, askMonthly: 900, toolsDaily: 30, toolsMonthly: 300, advisorSeats: 10 \}/.test(read('utils/plan.js'))) uxFail('PLAN_LIMITS professional toolsDaily must stay 30');
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
@@ -10004,5 +10010,64 @@ Ticaret Unvanı: Anadolu Bilişim
   const fromSource = JSON.parse(fs.readFileSync('package.json', 'utf8')).expo?.autolinking?.android?.buildFromSource || [];
   ['expo-av', 'expo-modules-core', 'expo-updates'].forEach((m) => { if (!fromSource.includes(m)) nFail(`package.json expo.autolinking.android.buildFromSource must keep ${m}`); });
   if (ok) console.log(`OK  WAVE N copy + config: ${scanned} UI strings in ${rules.CASED_LANGS.length} cased languages follow sentence case, Turkish says "özet" not "brief", app.json passes the Expo schema (no legacy splash / SDK fields / autolinking)`);
+}
+// WAVE ECON.1: cost protection. Free = 3 starter questions + 1 a week per device; paid monthly caps; anonymous token telemetry.
+{
+  let ok = true;
+  const eFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE ECON.1: ${m}`); };
+  const rd = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
+  const num = (src, name) => Number((src.match(new RegExp(`const ${name} = (\\d+);`)) || [])[1]);
+  let fixtures = 0;
+  try {
+    const { loadApp } = require('./cb1-harness');
+    const { api } = loadApp('en');
+    const out = api.assertAskQuotaFixtures();
+    fixtures = out.cases;
+    out.fail.forEach((m) => eFail(`askQuota: ${m}`));
+    const L = api.PLAN_LIMITS;
+    if (L.free.askLifetime !== 3 || L.free.askWeekly !== 1) eFail('free plan is 3 starter questions + 1 a week');
+    if (L.pro.askMonthly !== 300 || L.professional.askMonthly !== 900 || L.professional.toolsMonthly !== 300) eFail('monthly caps are 300 / 900 / 300 tool runs');
+    const ask = rd('supabase/functions/legal-ask/index.ts');
+    const tools = rd('supabase/functions/pro-tools/index.ts');
+    if (num(ask, 'FREE_LIFETIME_LIMIT') !== L.free.askLifetime || num(ask, 'FREE_WEEKLY_LIMIT') !== L.free.askWeekly) eFail('legal-ask free limits must match PLAN_LIMITS');
+    if (num(ask, 'PRO_MONTHLY_LIMIT') !== L.pro.askMonthly || num(ask, 'PROFESSIONAL_MONTHLY_LIMIT') !== L.professional.askMonthly) eFail('legal-ask monthly caps must match PLAN_LIMITS');
+    if (num(tools, 'PROFESSIONAL_TOOL_MONTHLY_LIMIT') !== L.professional.toolsMonthly) eFail('pro-tools monthly cap must match PLAN_LIMITS');
+    if (!/p_device: device/.test(ask)) eFail('legal-ask must bind the free quota to the device');
+    for (const [name, src] of [['legal-ask', ask], ['pro-tools', tools]]) {
+      if (!/try \{\s*await admin\.rpc\('record_ai_cost'[\s\S]{0,700}\} catch/.test(src)) eFail(`${name}: token telemetry must never break a request`);
+      if (/record_ai_cost'[\s\S]{0,400}p_user/.test(src)) eFail(`${name}: telemetry must not carry a user id`);
+    }
+    const sql = rd('supabase/migrations/20261014120000_econ1_cost_guard.sql');
+    const freeTable = (sql.match(/create table if not exists public\.legal_ask_free_usage \([\s\S]*?\n\);/) || [''])[0];
+    const costTable = (sql.match(/create table if not exists public\.ai_cost_daily \([\s\S]*?\n\);/) || [''])[0];
+    if (!freeTable || /references|user_id/.test(freeTable)) eFail('free usage must be keyed by device and survive account deletion (no user FK)');
+    if (!costTable || /user|email|device/.test(costTable)) eFail('ai_cost_daily must hold no personal data');
+    for (const table of ['legal_ask_free_usage', 'ai_cost_daily']) {
+      if (!new RegExp(`alter table public\\.${table} enable row level security`).test(sql)) eFail(`${table} needs RLS`);
+    }
+    if ((sql.match(/to service_role;/g) || []).length < 6) eFail('every ECON.1 function is service_role only');
+    const sheetAsk = rd('components/LegalAskSheet.js');
+    const sheetTools = rd('components/ProToolsSheet.js');
+    if (!/describeQuota\(/.test(sheetAsk) || !/describeQuota\(quota, 'tools'\)/.test(sheetTools) || !/limitMessageKey\(/.test(sheetTools)) eFail('sheets must render the server period through describeQuota');
+    const bundle = eval(`(${rd('i18n.waveecon1.js').match(/export const WAVE_ECON1_I18N = ([\s\S]*);\s*$/)[1]})`); // eslint-disable-line no-eval
+    const keys = Object.keys(bundle.en || {});
+    if (keys.length !== 10 || Object.keys(bundle).length !== 13) eFail('ECON.1 copy must be 10 keys x 13 languages');
+    for (const [lang, table] of Object.entries(bundle)) {
+      if (JSON.stringify(Object.keys(table)) !== JSON.stringify(keys)) eFail(`${lang}: key set differs from EN`);
+      for (const key of ['ux8Quota', 'st8Ask']) {
+        for (const ph of ['freeAsk', 'freeWeekly', 'proAsk', 'proMonth', 'professionalAsk', 'professionalMonth']) {
+          if (!table[key].includes(`{{${ph}}}`)) eFail(`${lang}.${key} needs {{${ph}}}`);
+        }
+      }
+      if (!table.ux14Quota.includes('{{toolsDaily}}') || !table.ux14Quota.includes('{{toolsMonth}}')) eFail(`${lang}.ux14Quota needs both limits`);
+      if (!table.econ1AskNext.includes('{{date}}')) eFail(`${lang}.econ1AskNext needs {{date}}`);
+    }
+    if ((rd('i18n.js').match(/WAVE_ECON1_I18N\.\w+,/g) || []).length !== 13) eFail('i18n.js must merge WAVE_ECON1_I18N for all 13 languages');
+    const sqlRun = require('child_process').spawnSync(process.execPath, ['scripts/test-econ1-sql.mjs'], { encoding: 'utf8' });
+    if (sqlRun.status !== 0) eFail(`Postgres test (PGlite) failed:\n${(sqlRun.stdout || '') + (sqlRun.stderr || '')}`.slice(0, 1500));
+  } catch (error) {
+    eFail(`harness error: ${error.message}`);
+  }
+  if (ok) console.log(`OK  WAVE ECON.1 cost guard (${fixtures} fixtures + real-Postgres suite): free 3 + 1/week per device, paid monthly caps 300/900/300, anonymous token telemetry, 10 keys x 13`);
 }
 process.exit(failed ? 1 : 0);

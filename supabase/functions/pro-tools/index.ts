@@ -1,10 +1,11 @@
 // NEXULEX AI — WAVE LR.5 Professional tools: chronology, issue list, research memo.
 //
 // Professional plan only (profiles.plan, written by sync-entitlement). Fixed server prompts and
-// schemas; every run consumes a server-side daily quota (public.consume_pro_tool) and is refunded
-// when the model fails. The case material and the output are never stored or logged.
+// schemas; every run consumes a server-side quota (public.consume_pro_tool_v2: 30 a day and 300 a
+// month, WAVE ECON.1) and is refunded when the model fails. The case material and the output are
+// never stored or logged. Only anonymous token totals are kept (public.record_ai_cost, no user id).
 //
-//   supabase db push                        (migration 20260929120000_professional_tier.sql)
+//   supabase db push                        (migrations 20260929120000_professional_tier.sql, 20261014120000_econ1_cost_guard.sql)
 //   supabase functions deploy pro-tools
 // Secrets used: ANTHROPIC_API_KEY, SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY.
 
@@ -16,6 +17,24 @@ const MODEL = 'claude-sonnet-5';
 const MAX_TOKENS = 5000;
 
 const PROFESSIONAL_TOOL_DAILY_LIMIT = 30;
+const PROFESSIONAL_TOOL_MONTHLY_LIMIT = 300;
+
+// used / limit / remaining describe the limit that binds right now; "period" says which one (day or month).
+function buildQuota(counters: { day_used?: number; month_used?: number }) {
+  const dayUsed = Number(counters.day_used) || 0;
+  const monthUsed = Number(counters.month_used) || 0;
+  const dayLeft = Math.max(0, PROFESSIONAL_TOOL_DAILY_LIMIT - dayUsed);
+  const monthLeft = Math.max(0, PROFESSIONAL_TOOL_MONTHLY_LIMIT - monthUsed);
+  const monthBinds = monthLeft < dayLeft;
+  return {
+    used: monthBinds ? monthUsed : dayUsed,
+    limit: monthBinds ? PROFESSIONAL_TOOL_MONTHLY_LIMIT : PROFESSIONAL_TOOL_DAILY_LIMIT,
+    remaining: Math.min(dayLeft, monthLeft),
+    period: monthBinds ? 'month' : 'day',
+    daily: { used: dayUsed, limit: PROFESSIONAL_TOOL_DAILY_LIMIT, remaining: dayLeft },
+    monthly: { used: monthUsed, limit: PROFESSIONAL_TOOL_MONTHLY_LIMIT, remaining: monthLeft },
+  };
+}
 
 const TOOLS = ['chronology', 'issues', 'memo'];
 const MAX_MATERIAL = 12000;
@@ -216,7 +235,12 @@ async function callClaude(apiKey: string, system: string, userText: string) {
     .filter((block: { type?: string }) => block?.type === 'text')
     .map((block: { text?: string }) => block.text || '')
     .join('');
-  return { ok: true as const, text };
+  const usage = {
+    input: Number(data?.usage?.input_tokens) || 0,
+    output: Number(data?.usage?.output_tokens) || 0,
+    truncated: data?.stop_reason === 'max_tokens',
+  };
+  return { ok: true as const, text, usage };
 }
 
 const hasContent = (tool: string, result: Record<string, unknown>) => {
@@ -251,14 +275,17 @@ Deno.serve(async (req: Request) => {
   const admin = createClient(supabaseUrl, service);
   const { data: profile, error: profileError } = await admin.from('profiles').select('plan').eq('id', user.id).maybeSingle();
   if (profileError) return json({ error: 'UNAVAILABLE' }, 503);
-  const limit = PROFESSIONAL_TOOL_DAILY_LIMIT;
   if (profile?.plan !== 'professional') return json({ error: 'PLAN_REQUIRED' }, 402);
 
+  const readCounters = async () => {
+    const { data, error } = await admin.rpc('pro_tool_counters', { p_user: user.id });
+    return error || !data ? null : (data as { day_used?: number; month_used?: number });
+  };
+
   if (body.action === 'quota') {
-    const { data: used, error } = await admin.rpc('pro_tool_used_today', { p_user: user.id });
-    if (error) return json({ error: 'UNAVAILABLE' }, 503);
-    const count = Number(used) || 0;
-    return json({ quota: { used: count, limit, remaining: Math.max(0, limit - count) } });
+    const counters = await readCounters();
+    if (!counters) return json({ error: 'UNAVAILABLE' }, 503);
+    return json({ quota: buildQuota(counters) });
   }
 
   const tool = TOOLS.includes(String(body.tool)) ? String(body.tool) : '';
@@ -269,18 +296,35 @@ Deno.serve(async (req: Request) => {
   const country = OFFICIAL_DOMAINS[String(body.country || '').toUpperCase()] ? String(body.country).toUpperCase() : 'auto';
   const area = AREAS.includes(String(body.area)) ? String(body.area) : 'other';
 
-  const { data: consumed, error: quotaError } = await admin.rpc('consume_pro_tool', { p_user: user.id, p_limit: limit });
+  const { data: consumed, error: quotaError } = await admin.rpc('consume_pro_tool_v2', {
+    p_user: user.id,
+    p_daily: PROFESSIONAL_TOOL_DAILY_LIMIT,
+    p_monthly: PROFESSIONAL_TOOL_MONTHLY_LIMIT,
+  });
   if (quotaError || !consumed) return json({ error: 'UNAVAILABLE' }, 503);
-  const quota = {
-    used: Number(consumed.used) || 0,
-    limit,
-    remaining: Math.max(0, limit - (Number(consumed.used) || 0)),
-  };
-  if (!consumed.allowed) return json({ error: 'QUOTA_EXCEEDED', quota }, 429);
+  const quota = buildQuota(consumed);
+  if (!consumed.allowed) return json({ error: 'QUOTA_EXCEEDED', reason: consumed.reason ?? null, quota }, 429);
 
   const refund = async () => {
     await admin.rpc('refund_pro_tool', { p_user: user.id });
-    return { ...quota, used: Math.max(0, quota.used - 1), remaining: Math.min(limit, quota.remaining + 1) };
+    return buildQuota((await readCounters()) ?? consumed);
+  };
+
+  // Anonymous token totals (day, feature, plan, model). Never blocks or fails a result.
+  const track = async (usage: { input: number; output: number; truncated: boolean }, failed: boolean) => {
+    try {
+      await admin.rpc('record_ai_cost', {
+        p_feature: `pro_tools_${tool}`,
+        p_plan: 'professional',
+        p_model: MODEL,
+        p_input: usage.input,
+        p_output: usage.output,
+        p_truncated: usage.truncated,
+        p_failed: failed,
+      });
+    } catch {
+      /* telemetry only */
+    }
   };
 
   try {
@@ -292,10 +336,12 @@ Deno.serve(async (req: Request) => {
     }
     const output = parseJsonObject(result.text);
     if (!output || !hasContent(tool, output)) {
+      await track(result.usage, true);
       const back = await refund();
       console.error('pro-tools parse', tool);
       return json({ error: 'PARSE', quota: back }, 502);
     }
+    await track(result.usage, false);
     return json({ tool, result: output, quota, model: MODEL });
   } catch (error) {
     const back = await refund();

@@ -10,10 +10,12 @@ export const ENTITLEMENT_IDS = { pro: 'pro', professional: 'professional' };
 export const PROFESSIONAL_OFFERING_ID = 'professional';
 
 // Mirrors legal-ask, pro-tools and advisor-seat; the server enforces these, the app only displays them.
+// WAVE ECON.1: free = askLifetime questions to start, then askWeekly per rolling 7 days (per device, askDaily at most
+// in one day); paid plans also have a monthly cap (askMonthly / toolsMonthly) on top of the daily one.
 export const PLAN_LIMITS = {
-  free: { askDaily: 3, toolsDaily: 0, advisorSeats: 0 },
-  pro: { askDaily: 40, toolsDaily: 0, advisorSeats: 2 },
-  professional: { askDaily: 150, toolsDaily: 30, advisorSeats: 10 },
+  free: { askDaily: 3, askLifetime: 3, askWeekly: 1, askMonthly: 0, toolsDaily: 0, toolsMonthly: 0, advisorSeats: 0 },
+  pro: { askDaily: 40, askMonthly: 300, toolsDaily: 0, toolsMonthly: 0, advisorSeats: 2 },
+  professional: { askDaily: 150, askMonthly: 900, toolsDaily: 30, toolsMonthly: 300, advisorSeats: 10 },
 };
 
 export const PRO_TOOLS = ['chronology', 'issues', 'memo'];
@@ -243,6 +245,8 @@ export function assertPlanFixtures() {
   if (planFromEntitlementIds(['pro', 'professional']) !== 'professional' || planFromEntitlementIds(['pro']) !== 'pro' || planFromEntitlementIds([]) !== 'free') fail.push('entitlements');
   if (!isProfessionalPlan('professional') || isProfessionalPlan('pro') || !isPaidPlan('pro') || isPaidPlan('free')) fail.push('plan predicates');
   if (PLAN_LIMITS.professional.askDaily <= PLAN_LIMITS.pro.askDaily || PLAN_LIMITS.pro.toolsDaily !== 0) fail.push('limits');
+  if (PLAN_LIMITS.professional.askMonthly <= PLAN_LIMITS.pro.askMonthly || PLAN_LIMITS.pro.askMonthly < PLAN_LIMITS.pro.askDaily || PLAN_LIMITS.professional.toolsMonthly < PLAN_LIMITS.professional.toolsDaily) fail.push('monthly limits');
+  if (PLAN_LIMITS.free.askLifetime < 1 || PLAN_LIMITS.free.askWeekly < 1 || PLAN_LIMITS.free.askDaily < PLAN_LIMITS.free.askLifetime) fail.push('free limits');
 
   const chrono = normalizeToolResult('chronology', {
     jurisdiction_note: 'TR law',

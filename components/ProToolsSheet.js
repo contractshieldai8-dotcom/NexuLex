@@ -20,6 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { ACCENT, DANGER, WARNING, styles } from '../theme';
 import { PRO_TOOL_ERROR_CODES, fetchProToolQuota, runProTool } from '../services/proTools';
 import { loadCases, noteEvidence, saveCases } from '../services/caseFileStore';
+import { describeQuota, limitMessageKey } from '../utils/askQuota';
 import { CASE_AREAS, CASE_AREA_ICONS, addEvent, addEvidence } from '../utils/caseFiles';
 import {
   PLAN_LIMITS,
@@ -108,6 +109,7 @@ export default function ProToolsSheet({
 
   const attached = cases.find((item) => item.id === caseId) || null;
   const outOfQuota = !!quota && quota.remaining <= 0;
+  const quotaView = describeQuota(quota, 'tools');
   const tooShort = material.trim().length < PRO_MATERIAL_MIN;
 
   const handleRun = async () => {
@@ -120,7 +122,7 @@ export default function ProToolsSheet({
       return;
     }
     if (outOfQuota) {
-      showToast(t('ptQuotaDone'), { type: 'warning', duration: 3200 });
+      showToast(t(limitMessageKey(quota, 'tools')), { type: 'warning', duration: 3200 });
       return;
     }
     setWorking(true);
@@ -133,7 +135,7 @@ export default function ProToolsSheet({
     } catch (error) {
       if (error?.quota) setQuota(error.quota);
       if (error?.code === PRO_TOOL_ERROR_CODES.PLAN) onNeedPaywall?.();
-      else if (error?.code === PRO_TOOL_ERROR_CODES.QUOTA) showToast(t('ptQuotaDone'), { type: 'warning', duration: 3200 });
+      else if (error?.code === PRO_TOOL_ERROR_CODES.QUOTA) showToast(t(limitMessageKey(error?.quota || quota, 'tools')), { type: 'warning', duration: 3200 });
       else if (error?.code === PRO_TOOL_ERROR_CODES.UNAVAILABLE) showToast(t('ptUnavailable'), { type: 'warning', duration: 3200 });
       else if (error?.code === PRO_TOOL_ERROR_CODES.INVALID) showToast(t('ptMaterialShort'), { type: 'warning' });
       else showToast(`${describeError(t, error)} ${t('ptFailedNote')}`, { type: 'error', duration: 3600 });
@@ -314,13 +316,13 @@ export default function ProToolsSheet({
         <Ionicons name="lock-closed-outline" size={13} color={theme.subText} />
         <Text style={[styles.sectionHint, { color: theme.subText, flex: 1, marginBottom: 0 }]}>{t('ptPrivacy')}</Text>
       </View>
-      {quota ? (
-        <Text style={[styles.sectionHint, { color: quota.remaining > 0 ? theme.subText : WARNING, marginTop: 6 }]}>
-          {t('ptQuotaLeft', { count: quota.remaining, total: quota.limit })}
+      {quotaView ? (
+        <Text style={[styles.sectionHint, { color: quotaView.count > 0 ? theme.subText : WARNING, marginTop: 6 }]}>
+          {t(quotaView.key, { count: quotaView.count, total: quotaView.total })}
         </Text>
       ) : null}
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>
-        {t('ux14Quota', { toolsDaily: String(PLAN_LIMITS.professional.toolsDaily) })}
+        {t('ux14Quota', { toolsDaily: String(PLAN_LIMITS.professional.toolsDaily), toolsMonth: String(PLAN_LIMITS.professional.toolsMonthly) })}
       </Text>
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux14Server')}</Text>
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux14Plan')}</Text>
