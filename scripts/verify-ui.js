@@ -10070,4 +10070,32 @@ Ticaret Unvanı: Anadolu Bilişim
   }
   if (ok) console.log(`OK  WAVE ECON.1 cost guard (${fixtures} fixtures + real-Postgres suite): free 3 + 1/week per device, paid monthly caps 300/900/300, anonymous token telemetry, 10 keys x 13`);
 }
+// WAVE PRICE.1: price matrix rules. The matrix holds real store numbers only; the app and this repo never invent one.
+{
+  let ok = true;
+  const pFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE PRICE.1: ${m}`); };
+  let fixtures = 0;
+  let status = '';
+  try {
+    const { loadApp } = require('./cb1-harness');
+    const { api } = loadApp('en');
+    const out = api.assertPriceMatrixFixtures();
+    fixtures = out.cases;
+    out.fail.forEach((m) => pFail(`priceMatrix: ${m}`));
+    const matrix = JSON.parse(fs.readFileSync('config/pricing-matrix.json', 'utf8'));
+    const result = api.evaluatePriceMatrix(matrix);
+    status = result.status;
+    if (result.status === 'fail') pFail(`config/pricing-matrix.json breaks the paywall or cost rules: ${result.issues.slice(0, 3).join(' | ')}`);
+    if (result.status === 'template' && matrix.asOf !== null) pFail('an unfilled matrix must not carry an asOf date');
+    if (result.status !== 'template' && !/^\d{4}-\d{2}-\d{2}$/.test(String(matrix.asOf || ''))) pFail('a filled matrix needs an asOf date (YYYY-MM-DD): store prices drift');
+    const regions = (matrix.rows || []).map((r) => r.region);
+    if (new Set(regions).size !== regions.length) pFail('duplicate region rows');
+    for (const key of ['tokenPrices', 'avgTokens', 'storeFeeShare', 'taxShare', 'usdPerUnit']) {
+      if (!matrix.sources?.[key]) pFail(`matrix must say where ${key} comes from`);
+    }
+  } catch (error) {
+    pFail(`harness error: ${error.message}`);
+  }
+  if (ok) console.log(`OK  WAVE PRICE.1 price matrix (${fixtures} fixtures): status ${status}, MX.1/MX.2 rendering + AI cost floor checked from real inputs only, no invented prices`);
+}
 process.exit(failed ? 1 : 0);

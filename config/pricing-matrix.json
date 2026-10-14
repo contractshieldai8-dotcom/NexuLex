@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "status": "template",
+  "asOf": null,
+  "notes": [
+    "Every null below is a real number only you can read: the store consoles, the Anthropic price page and your own Supabase data. The app never ships a default price.",
+    "Run `npm run pricing` to see what is missing; `npm run pricing:strict` fails until every field is filled and every check passes.",
+    "Prices are the customer price you set in App Store Connect / Google Play Console (tax included where the store shows it that way), in the row's currency."
+  ],
+  "sources": {
+    "tokenPrices": "Anthropic pricing page for the model named in supabase/functions/legal-ask/index.ts (MODEL). USD per million tokens.",
+    "avgTokens": "Supabase SQL editor: select feature, plan, model, calls, avg_input_per_call, avg_output_per_call from public.ai_cost_monthly order by month desc; Use feature legal_ask for questions and the highest pro_tools_* row for tool runs. Wait until there are real calls.",
+    "storeFeeShare": "Your current Apple (Small Business / standard) and Google subscription fee rate, as a share: 0.15 or 0.30. Use the higher one you can face.",
+    "taxShare": "Share of the customer price that goes to VAT / sales tax in that row's country (0 when the store price already excludes it).",
+    "usdPerUnit": "Value of one unit of the row currency in USD, from your payout report or a rate you trust. Dated by asOf."
+  },
+  "costInputs": {
+    "usdPerMTokInput": null,
+    "usdPerMTokOutput": null,
+    "avgTokensPerCall": {
+      "legal_ask": { "input": null, "output": null },
+      "pro_tools": { "input": null, "output": null }
+    },
+    "storeFeeShare": null,
+    "fixedUsdPerPayingUserMonth": null,
+    "targetGrossMargin": null,
+    "minSafeUtilization": null
+  },
+  "rows": [
+    { "region": "US", "currency": "USD", "usdPerUnit": null, "pro": { "monthly": null, "yearly": null }, "professional": { "monthly": null, "yearly": null }, "taxShare": null },
+    { "region": "EU", "currency": "EUR", "usdPerUnit": null, "pro": { "monthly": null, "yearly": null }, "professional": { "monthly": null, "yearly": null }, "taxShare": null },
+    { "region": "GB", "currency": "GBP", "usdPerUnit": null, "pro": { "monthly": null, "yearly": null }, "professional": { "monthly": null, "yearly": null }, "taxShare": null },
+    { "region": "TR", "currency": "TRY", "usdPerUnit": null, "pro": { "monthly": null, "yearly": null }, "professional": { "monthly": null, "yearly": null }, "taxShare": null },
+    { "region": "BR", "currency": "BRL", "usdPerUnit": null, "pro": { "monthly": null, "yearly": null }, "professional": { "monthly": null, "yearly": null }, "taxShare": null },
+    { "region": "JP", "currency": "JPY", "usdPerUnit": null, "pro": { "monthly": null, "yearly": null }, "professional": { "monthly": null, "yearly": null }, "taxShare": null }
+  ]
+}

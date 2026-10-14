@@ -47,7 +47,9 @@
     "web": "expo start --web",
     "verify": "node scripts/verify-ui.js",
     "test:sql": "node scripts/test-referrals-sql.mjs",
-    "test:econ1": "node scripts/test-econ1-sql.mjs"
+    "test:econ1": "node scripts/test-econ1-sql.mjs",
+    "pricing": "node scripts/check-pricing.js",
+    "pricing:strict": "node scripts/check-pricing.js --strict"
   },
   "private": true,
   "expo": {

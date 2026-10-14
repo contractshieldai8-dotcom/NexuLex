@@ -206,6 +206,7 @@ const APP_FILES = [
   'constants/historyCompareLocale.js',
   'constants/annualHighlight.js',
   'constants/professionalCompare.js',
+  'utils/priceMatrix.js',
   'constants/settingsTrust.js',
   'constants/localeCorridor.js',
   'constants/settingsOps.js',
