@@ -4131,7 +4131,7 @@ Ticaret Unvanı: Anadolu Bilişim
   const redlineSrc = read('utils/redlineExport.js');
   const waveCcBl = read('i18n.wavecc.js');
 
-  const EDGE_SHA256 = '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a';
+  const EDGE_SHA256 = '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d';
   const edgePath = 'supabase/functions/analyze-contract/index.ts';
   const edgeHash = fs.existsSync(edgePath)
     ? require('crypto').createHash('sha256').update(fs.readFileSync(edgePath)).digest('hex')
@@ -4770,7 +4770,7 @@ Ticaret Unvanı: Anadolu Bilişim
 
   // Locks
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') stFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') stFail('analyze-contract SHA256 changed');
 
   if (stOk) {
     console.log('OK  WAVE ST store hardening (N=26 → 13×1031) + delete-account + AI report + permissions + listing');
@@ -4982,7 +4982,7 @@ Ticaret Unvanı: Anadolu Bilişim
 
   // Locks
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') ux1Fail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') ux1Fail('analyze-contract SHA256 changed');
   try {
     if (JSON.parse(read('app.json')).expo?.android?.softwareKeyboardLayoutMode !== 'pan') ux1Fail('app.json keyboard mode must not change');
   } catch {
@@ -5295,7 +5295,7 @@ Ticaret Unvanı: Anadolu Bilişim
   const pkg = JSON.parse(read('package.json'));
   if (Object.keys(pkg.dependencies || {}).length !== 36) jpFail(`dependency count changed (${Object.keys(pkg.dependencies || {}).length})`);
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') jpFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') jpFail('analyze-contract SHA256 changed');
 
   if (jpOk) {
     console.log(`OK  WAVE JP.2 registry (16 packs, official roots) + availability + 5 universal calculators + 7 universal letters × 13 (${fixtures} fixtures)`);
@@ -5442,7 +5442,7 @@ Ticaret Unvanı: Anadolu Bilişim
 
   // Locks
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') gdFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') gdFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) gdFail('dependency count changed');
 
   if (gdOk) {
@@ -5531,7 +5531,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/'document_explain'(\]|, 'legal_ask'(, 'pro_tools')?\])/.test(read('services/aiReport.js'))) lrFail('aiReport feature id');
 
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') lrFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') lrFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) lrFail('dependency count changed');
 
   if (lrOk) {
@@ -5637,7 +5637,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/id: 'case_files'[\s\S]{0,400}action: \{ type: 'openAdvisorTool', id: 'case_files' \}/.test(capSrc) || !/id: 'cl_case_files'/.test(capSrc)) cfFail('guide workflow + changelog must deep-link case files');
 
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') cfFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') cfFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) cfFail('dependency count changed');
 
   if (cfOk) {
@@ -5743,7 +5743,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/'legal_ask'[,\]]/.test(capSrc) || !/id: 'legal_ask'[\s\S]{0,400}action: \{ type: 'openAdvisorTool', id: 'legal_ask' \}/.test(capSrc) || !/id: 'cl_legal_ask'/.test(capSrc)) qaFail('guide workflow + changelog');
 
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') qaFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') qaFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) qaFail('dependency count changed');
 
   if (qaOk) {
@@ -5823,7 +5823,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/'process_guides'[,\]]/.test(capSrc) || !/id: 'process_guides'[\s\S]{0,400}action: \{ type: 'openAdvisorTool', id: 'process_guides' \}/.test(capSrc) || !/id: 'cl_process_guides'/.test(capSrc)) pgFail('guide workflow + changelog');
 
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') pgFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') pgFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) pgFail('dependency count changed');
 
   if (pgOk) {
@@ -5978,7 +5978,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/pro-tools|Professional tools/i.test(read('web/privacy.html')) || !/daily (run )?count/i.test(read('web/privacy.html'))) proFail('privacy must say only a daily count is kept for Professional tools');
 
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') proFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') proFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) proFail('dependency count changed');
 
   if (proOk) {
@@ -6090,7 +6090,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/does not recommend, rank or refer lawyers/.test(read('web/terms.html')) || !/avukat önermez, sıralamaz/.test(read('web/terms.html'))) lhFail('terms must say NexuLex does not refer lawyers');
 
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') lhFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') lhFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) lhFail('dependency count changed');
 
   if (lhOk) {
@@ -6216,7 +6216,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/Linking\.openURL\(url\)\.catch\(\(\) => showToast\(t\('askLinkFailed'\)/.test(code['screens/PaywallScreen.js'])) qaFail('paywall legal links must toast on failure');
 
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') qaFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') qaFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) qaFail('dependency count changed');
 
   if (qaOk) {
@@ -6278,7 +6278,7 @@ Ticaret Unvanı: Anadolu Bilişim
   }
 
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') relFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') relFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) relFail('dependency count changed');
 
   if (relOk) {
@@ -6351,7 +6351,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (/from ['"].*storeListing['"]/.test(app) || /from ['"].*storeListing['"]/.test(read('i18n.js'))) grFail('store listing must stay out of the app');
 
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') grFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') grFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) grFail('dependency count changed');
 
   if (grOk) {
@@ -6419,7 +6419,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/saveResumeDraft\(\{ text: contractText, fileName: selectedFile\?\.name/.test(app)) grFail('draft persist is text plus file name only');
 
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') grFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') grFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) grFail('dependency count changed');
 
   if (grOk) {
@@ -6484,7 +6484,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) { /* ok if absent */ }
 
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') grFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') grFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) grFail('dependency count changed');
 
   if (grOk) {
@@ -6532,7 +6532,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/id: 'guides'[\s\S]{0,120}process_guides/.test(intent)) grFail('guides first-intent must still open process guides');
   if (!/capturedHook === 'ask'/.test(app) || !/capturedHook === 'lawyer'/.test(app) || !/capturedHook === 'cases'/.test(app)) grFail('purchase must still return to ask / lawyer / cases');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') grFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') grFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) grFail('dependency count changed');
   if (grOk) console.log(`OK  WAVE GR.4 intent-aware paywall (${fixtures} fixtures): first value free, footnotes × 13, guides unlocked`);
 }
@@ -6566,7 +6566,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/t\('pgCardTitle'\)/.test(advisor) || !/t\('lhCardTitle'\)/.test(advisor)) grFail('existing guide and lawyer cards must stay');
   if (/openPaywall/.test((advisor.match(/const openHomeJob = useCallback\([\s\S]*?\[\]\);/) || [''])[0])) grFail('home jobs must not open the paywall');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') grFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') grFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) grFail('dependency count changed');
   if (grOk) console.log(`OK  WAVE GR.5 advisor home (${fixtures} fixtures): 4 jobs × 13, guides and lawyer on the main screen`);
 }
@@ -6612,7 +6612,7 @@ Ticaret Unvanı: Anadolu Bilişim
   }
 
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') relFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') relFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) relFail('dependency count changed');
 
   if (relOk) {
@@ -6662,7 +6662,7 @@ Ticaret Unvanı: Anadolu Bilişim
   }
 
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') relFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') relFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) relFail('dependency count changed');
 
   if (relOk) {
@@ -6726,7 +6726,7 @@ Ticaret Unvanı: Anadolu Bilişim
   }
 
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') relFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') relFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) relFail('dependency count changed');
 
   if (relOk) {
@@ -6797,7 +6797,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) { /* ok if absent */ }
 
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') grFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') grFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) grFail('dependency count changed');
 
   if (grOk) {
@@ -6849,7 +6849,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (/40\s*%|save 40|yüzde 40/i.test(paywall + model)) mxFail('no hardcoded marketing percent');
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) mxFail('guides must stay unlocked');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') mxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') mxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) mxFail('dependency count changed');
   if (mxOk) {
     console.log(`OK  WAVE MX.1 yearly highlight (${fixtures} fixtures): store-price compare × 13, first value free, no invented percent`);
@@ -6899,7 +6899,7 @@ Ticaret Unvanı: Anadolu Bilişim
     jpFail('jurisdictionPacks TR lists and disabled DE pack must stay');
   }
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') jpFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') jpFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) jpFail('dependency count changed');
   if (jpOk) {
     console.log(`OK  WAVE JP.3 country pack depth (${fixtures} fixtures): official sources × 13, TR identity frozen, no invented tables`);
@@ -6965,7 +6965,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/deleteAccount\.html/.test(trust) && !/delete-account\.html/.test(trust)) st2Fail('trust fixtures must keep the public delete page');
   if (!/openSubscriptionManagement/.test(app) || !/accountManageSubscription/.test(app)) st2Fail('store subscription management must stay');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') st2Fail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') st2Fail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) st2Fail('dependency count changed');
   if (st2Ok) {
     console.log(`OK  WAVE ST.2 settings trust surface (${fixtures} fixtures): privacy / deletion / store-sub × 13, ST.1 goldens frozen`);
@@ -7007,7 +7007,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) st3Fail('store listing must stay out of the app');
   if (/anonymi[sz]ed|hashed|anonimleştir|hashlen/i.test(privacy + del)) st3Fail('web pages must not claim anonymized quota');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') st3Fail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') st3Fail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) st3Fail('dependency count changed');
   if (st3Ok) {
     console.log(`OK  WAVE ST.3 privacy and delete pages (${fixtures} fixtures): 13 locales, ST.1 photo/quota goldens frozen`);
@@ -7043,7 +7043,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/terms\.html/.test(read('scripts/publish-brief-web.js'))) st5Fail('publish-brief-web must still copy terms.html');
   if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) st5Fail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') st5Fail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') st5Fail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) st5Fail('dependency count changed');
   if (st5Ok) {
     console.log(`OK  WAVE ST.5 terms of use (${fixtures} fixtures): 13 locales, lawyer-referral goldens frozen`);
@@ -7092,7 +7092,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) ux2Fail('store listing must stay out of the app');
   if (/generic mode|Turkish tables/.test(R.de.ux2Generic + R.fr.ux2Generic)) ux2Fail('DE/FR must not paste English jurisdiction jargon');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') ux2Fail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') ux2Fail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) ux2Fail('dependency count changed');
   if (ux2Ok) {
     console.log(`OK  WAVE UX.2 first-open corridor (${fixtures} fixtures): language + country + first value × 13, intent still after the tick`);
@@ -7144,7 +7144,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/st2Title/.test(app) || !/st2Disclaimer/.test(app)) st4Fail('ST.2 privacy trust card must stay');
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) st4Fail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') st4Fail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') st4Fail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) st4Fail('dependency count changed');
   if (st4Ok) {
     console.log(`OK  WAVE ST.4 settings seats / support / security (${fixtures} fixtures): explainers × 13, seven anchors frozen`);
@@ -7196,7 +7196,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) grFail('store listing must stay out of the app');
   if (/contractText|contract_text/.test(sheet)) grFail('sheet must not read the contract');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') grFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') grFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) grFail('dependency count changed');
   if (grOk) {
     console.log(`OK  WAVE GR.7 country-aware rate (${fixtures} fixtures): Play hl/gl, get.html?lang=, no Apple id × 13`);
@@ -7246,7 +7246,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) relFail('store listing must stay out of the app');
   if (/contract_text/.test(getHtml) || !/nexulex:\/\//.test(getHtml)) relFail('deep link stays; no contract leak');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') relFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') relFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) relFail('dependency count changed');
   if (relOk) {
     console.log(`OK  WAVE REL.5 get.html landing (${fixtures} fixtures): 13 languages, Play bake-only, no Apple id`);
@@ -7309,7 +7309,7 @@ Ticaret Unvanı: Anadolu Bilişim
   }
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.3 seat invite (${fixtures} fixtures): code + get.html only, no contract leak × 13, ST.4 frozen`);
@@ -7371,7 +7371,7 @@ Ticaret Unvanı: Anadolu Bilişim
   }
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) st6Fail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') st6Fail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') st6Fail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) st6Fail('dependency count changed');
   if (st6Ok) {
     console.log(`OK  WAVE ST.6 settings language / country (${fixtures} fixtures): corridor explainers × 13, seven anchors frozen`);
@@ -7434,7 +7434,7 @@ Ticaret Unvanı: Anadolu Bilişim
   }
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) st7Fail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') st7Fail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') st7Fail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) st7Fail('dependency count changed');
   if (st7Ok) {
     console.log(`OK  WAVE ST.7 settings privacy shortcuts (${fixtures} fixtures): explainers × 13, ST.1/ST.2 goldens frozen`);
@@ -7487,7 +7487,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (/itunes\.apple|apps\.apple\.com\/app\/id\d+/.test(sheet + read('constants/scanSuccessLocale.js'))) grFail('must not invent an Apple app id');
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) grFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') grFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') grFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) grFail('dependency count changed');
   if (grOk) {
     console.log(`OK  WAVE GR.8 after-scan honesty (${fixtures} fixtures): country corridor + get.html only × 13, GR.6 frozen`);
@@ -7540,7 +7540,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/t\('pgCardTitle'\)/.test(advisor) || !/t\('lhCardTitle'\)/.test(advisor)) uxFail('existing guide and lawyer cards must stay');
   if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.4 advisor home honesty (${fixtures} fixtures): four jobs × 13, guides unlocked, GR.5 frozen`);
@@ -7616,7 +7616,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) mxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) mxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') mxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') mxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) mxFail('dependency count changed');
   if (mxOk) {
     console.log(`OK  WAVE MX.2 Professional compare (${fixtures} fixtures): store-price Pro vs Professional × 13, MX.1 frozen`);
@@ -7688,7 +7688,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) st8Fail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) st8Fail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') st8Fail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') st8Fail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) st8Fail('dependency count changed');
   if (st8Ok) {
     console.log(`OK  WAVE ST.8 settings plan / quota (${fixtures} fixtures): store-owned plan × 13, seven anchors frozen`);
@@ -7740,7 +7740,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/selectedCountryOption\.label/.test(app)) uxFail('country corridor must use the selected country label');
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.5 analyze home honesty (${fixtures} fixtures): country corridor × 13, GR.1 chips frozen`);
@@ -7802,7 +7802,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.6 lawyer hand-off honesty (${fixtures} fixtures): official bodies × 13, no lawyer list, LR.6 frozen`);
@@ -7858,7 +7858,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.7 case hub honesty (${fixtures} fixtures): device-local × 13, no contract leak, LR.2 frozen`);
@@ -7915,7 +7915,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.8 legal-ask honesty (${fixtures} fixtures): server quota × 13, LR.3 frozen`);
@@ -7971,7 +7971,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.9 document-explainer honesty (${fixtures} fixtures): free deadlines × 13, LR.1 frozen`);
@@ -8025,7 +8025,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.10 process-guide honesty (${fixtures} fixtures): guides unlocked × 13, LR.4 frozen`);
@@ -8086,7 +8086,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.11 paywall first-value honesty (${fixtures} fixtures): store prices × 13, GR.4/MX.1/MX.2 frozen`);
@@ -8139,7 +8139,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.12 calculator honesty (${fixtures} fixtures): local table × 13, CB frozen`);
@@ -8194,7 +8194,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.13 guided-draft honesty (${fixtures} fixtures): free preview × 13, CC frozen`);
@@ -8251,7 +8251,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.14 Professional workbench honesty (${fixtures} fixtures): server quota × 13, LR.5 frozen`);
@@ -8319,7 +8319,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.15 first-scan success honesty (${fixtures} fixtures): 400 ms gap × 13, GR.6/GR.8 frozen`);
@@ -8378,7 +8378,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(read('App.js') + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.16 scenario-roadmap honesty (${fixtures} fixtures): local table × 13, CA frozen`);
@@ -8440,7 +8440,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.17 after-scan invite honesty (${fixtures} fixtures): get.html only × 13, GR.3 frozen`);
@@ -8499,7 +8499,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.18 second-session resume honesty (${fixtures} fixtures): draft on device × 13, GR.2 frozen`);
@@ -8556,7 +8556,7 @@ Ticaret Unvanı: Anadolu Bilişim
   }
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.19 first-intent honesty (${fixtures} fixtures): five paths × 13, GR.1 frozen`);
@@ -8627,7 +8627,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.20 analysis-report honesty (${fixtures} fixtures): preview lock × 13, GR.6 frozen`);
@@ -8688,7 +8688,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.21 history-list honesty (${fixtures} fixtures): cloud delete × 13, historyTitle frozen`);
@@ -8752,7 +8752,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) stFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) stFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') stFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') stFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) stFail('dependency count changed');
   if (stOk) {
     console.log(`OK  WAVE ST.9 settings delete honesty (${fixtures} fixtures): seven anchors × 13, ST.1 warning frozen`);
@@ -8815,7 +8815,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) uxFail('store listing must stay out of the app');
   if (/brief-web/.test(sheet)) uxFail('share sheet must not import brief-web');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.22 share-brief honesty (${fixtures} fixtures): code is not the contract × 13, title frozen`);
@@ -8880,7 +8880,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.23 history command center (${fixtures} fixtures): filter + register × 13, no contract text`);
@@ -8936,7 +8936,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.24 analyze action dock (${fixtures} fixtures): collapse + next steps × 13`);
@@ -8993,7 +8993,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log(`OK  WAVE UX.26 history pair compare (${fixtures} fixtures): DiffTool × 13, no contract export`);
@@ -9060,7 +9060,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) uxFail('guides must stay unlocked');
   if (/from ['"].*storeListing['"]/.test(app + read('i18n.js'))) uxFail('store listing must stay out of the app');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (Object.keys(JSON.parse(read('package.json')).dependencies || {}).length !== 36) uxFail('dependency count changed');
   if (uxOk) {
     console.log('OK  WAVE UX.27 folded notes + guide links: dock, history scroll, measureLayout × 13');
@@ -9384,7 +9384,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/EU_MEMBERS = \['DE', 'FR', 'ES', 'IT', 'NL', 'PT', 'AT'\]/.test(answer)) uxFail('Austria is an EU member in the source allowlist');
   if (!/IN: 'INR'/.test(read('constants/legalCalcRates.js')) || !/CH: 'CHF'/.test(read('constants/legalCalcRates.js'))) uxFail('currency map must cover the new countries');
   const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
-  if (edgeLock !== '845a060596469f5ebd96b36b608c82c4457527750d8c8cacce128518d47a918a') uxFail('analyze-contract SHA256 changed');
+  if (edgeLock !== '30e73d975dab3e022d7e3ba38c7d0e63e78248d098369aff44a1330a4c1a294d') uxFail('analyze-contract SHA256 changed');
   if (uxOk) console.log('OK  WAVE UX.39 IN / CA / AU / AT / CH: selector, profiles, official sources, disabled packs, labels × 13');
 }
 
@@ -10097,5 +10097,26 @@ Ticaret Unvanı: Anadolu Bilişim
     pFail(`harness error: ${error.message}`);
   }
   if (ok) console.log(`OK  WAVE PRICE.1 price matrix (${fixtures} fixtures): status ${status}, MX.1/MX.2 rendering + AI cost floor checked from real inputs only, no invented prices`);
+}
+// WAVE ECON.2: analyze-contract cost telemetry. This is the only reviewed edit to that function (its SHA locks were
+// re-pinned for it): the prompt, the model map, the limits and the response shape stay as they were.
+{
+  let ok = true;
+  const e2Fail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE ECON.2: ${m}`); };
+  try {
+    const src = fs.readFileSync('supabase/functions/analyze-contract/index.ts', 'utf8');
+    if (!/CLAUDE_MODELS[\s\S]*?default: 'claude-sonnet-5'[\s\S]*?deep: 'claude-fable-5'[\s\S]*?fast: 'claude-haiku-4-5'/.test(src)) e2Fail('model map changed');
+    if (!/rest\/v1\/rpc\/record_ai_cost/.test(src) || !/p_feature: `analyze:\$\{kind\}`/.test(src)) e2Fail('record_ai_cost call missing');
+    if ((src.match(/runInBackground\(\s*trackScanCost\(/g) || []).length !== 2) e2Fail('success and empty-text paths must both be tracked');
+    if (/await\s+trackScanCost/.test(src)) e2Fail('telemetry must never delay the analysis response');
+    if (!/try \{[\s\S]*?\} catch \{\s*\/\* telemetry only \*\//.test(src.split('const trackScanCost')[1] || '')) e2Fail('telemetry must swallow its own errors');
+    if (!/COST_SCHEMAS\.includes\(info\.schema\)\s*\? info\.schema : 'other'/.test(src)) e2Fail('feature label must come from an allow-list (no client-controlled cardinality)');
+    const track = (src.split('const trackScanCost')[1] || '').split('const runInBackground')[0];
+    if (/user_id|email|p_user|userId\s*[,}]/.test(track.split('p_feature')[1] || '')) e2Fail('the stored row must hold no user identifier');
+    if (!/to service_role;/.test(fs.readFileSync('supabase/migrations/20261014120000_econ1_cost_guard.sql', 'utf8'))) e2Fail('record_ai_cost must stay service_role only');
+  } catch (error) {
+    e2Fail(`harness error: ${error.message}`);
+  }
+  if (ok) console.log('OK  WAVE ECON.2 analyze-contract telemetry: anonymous (day, feature, plan, model), non-blocking, both paths tracked, prompt/model map untouched');
 }
 process.exit(failed ? 1 : 0);

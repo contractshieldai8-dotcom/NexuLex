@@ -241,6 +241,90 @@ const extractJson = (rawText: string, schema = 'analysis') => {
   return JSON.stringify(JSON_FALLBACKS[schema] || {});
 };
 
+// ---------------------------------------------------------------------------
+// ECON.2 cost telemetry. Anonymous token totals only (public.record_ai_cost: day, feature, plan,
+// model; no user id is stored). Plain PostgREST calls, so no extra dependency; it never blocks,
+// delays or fails an analysis.
+// ---------------------------------------------------------------------------
+const COST_SCHEMAS = ['analysis', 'revise', 'compare', 'generate', 'markdown'];
+
+const jwtSubject = (authHeader: string | null): string => {
+  try {
+    const token = String(authHeader || '').replace(/^Bearer\s+/i, '');
+    const part = token.split('.')[1] || '';
+    const b64 = part.replace(/-/g, '+').replace(/_/g, '/');
+    const payload = JSON.parse(atob(b64 + '='.repeat((4 - (b64.length % 4)) % 4)));
+    const sub = String(payload?.sub || '');
+    return /^[0-9a-f-]{36}$/i.test(sub) ? sub : '';
+  } catch {
+    return '';
+  }
+};
+
+const resolvePlan = async (
+  baseUrl: string,
+  serviceKey: string,
+  userId: string
+): Promise<'free' | 'pro' | 'professional'> => {
+  if (!userId) return 'free';
+  const headers = { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` };
+  const fetchProfile = async (columns: string) => {
+    const res = await fetch(
+      `${baseUrl}/rest/v1/profiles?id=eq.${userId}&select=${columns}&limit=1`,
+      { headers }
+    );
+    return res.ok ? ((await res.json().catch(() => null)) as Array<Record<string, unknown>> | null) : null;
+  };
+  // The plan column arrives with the LR.5 migration; until then is_pro alone decides.
+  const rows = (await fetchProfile('is_pro,plan')) ?? (await fetchProfile('is_pro'));
+  const profile = rows?.[0];
+  if (profile?.plan === 'professional') return 'professional';
+  return profile?.is_pro ? 'pro' : 'free';
+};
+
+const trackScanCost = async (
+  authHeader: string | null,
+  info: { schema: string; model: string; usage: any; stopReason?: string; failed: boolean }
+) => {
+  try {
+    const baseUrl = Deno.env.get('SUPABASE_URL') || '';
+    const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
+    if (!baseUrl || !serviceKey) return;
+    const plan = await resolvePlan(baseUrl, serviceKey, jwtSubject(authHeader));
+    const kind = info.schema ? (COST_SCHEMAS.includes(info.schema) ? info.schema : 'other') : 'text';
+    // Cache tokens are billed too (none are used today); fold them into the input total.
+    const input =
+      (Number(info.usage?.input_tokens) || 0) +
+      (Number(info.usage?.cache_creation_input_tokens) || 0) +
+      (Number(info.usage?.cache_read_input_tokens) || 0);
+    await fetch(`${baseUrl}/rest/v1/rpc/record_ai_cost`, {
+      method: 'POST',
+      headers: {
+        apikey: serviceKey,
+        Authorization: `Bearer ${serviceKey}`,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        p_feature: `analyze:${kind}`,
+        p_plan: plan,
+        p_model: info.model,
+        p_input: input,
+        p_output: Number(info.usage?.output_tokens) || 0,
+        p_truncated: info.stopReason === 'max_tokens',
+        p_failed: info.failed,
+      }),
+    });
+  } catch {
+    /* telemetry only */
+  }
+};
+
+// Keeps the isolate alive until the write finishes without making the caller wait for it.
+const runInBackground = (work: Promise<unknown>) => {
+  const runtime = (globalThis as { EdgeRuntime?: { waitUntil?: (p: Promise<unknown>) => void } }).EdgeRuntime;
+  if (runtime?.waitUntil) runtime.waitUntil(work);
+};
+
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
@@ -385,6 +469,15 @@ Deno.serve(async (req: Request) => {
         model: data?.model ?? model,
         wantJson,
       });
+      runInBackground(
+        trackScanCost(req.headers.get('Authorization'), {
+          schema,
+          model: String(data?.model ?? model),
+          usage: data?.usage,
+          stopReason: data?.stop_reason,
+          failed: true,
+        })
+      );
       return json(
         { error: 'empty-edge-text', stop_reason: data?.stop_reason, usage: data?.usage ?? null },
         502
@@ -392,6 +485,16 @@ Deno.serve(async (req: Request) => {
     }
 
     const text = schema ? extractJson(joined, schema) : joined;
+
+    runInBackground(
+      trackScanCost(req.headers.get('Authorization'), {
+        schema,
+        model: String(data?.model ?? model),
+        usage: data?.usage,
+        stopReason: data?.stop_reason,
+        failed: false,
+      })
+    );
 
     return json({ text, model: data?.model ?? model, usage: data?.usage ?? null });
   } catch (error) {
