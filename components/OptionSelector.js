@@ -35,16 +35,16 @@ export function PartySideSelector({ theme, selected, onSelect, disabled, hideLab
               style={[
                 styles.sideCard,
                 {
-                  backgroundColor: active ? 'rgba(0, 245, 212, 0.1)' : theme.inputBg,
-                  borderColor: active ? ACCENT : theme.borderColor,
+                  backgroundColor: active ? 'rgba(212, 178, 122, 0.1)' : theme.inputBg,
+                  borderColor: active ? theme.accent : theme.borderColor,
                   opacity: disabled ? 0.6 : 1,
                 },
               ]}
             >
-              <Text style={[styles.sideCardEmoji, { color: active ? ACCENT : theme.subText }]}>
+              <Text style={[styles.sideCardEmoji, { color: active ? theme.accent : theme.subText }]}>
                 {item.code === 'buyer' ? '🛡️' : '⚖️'}
               </Text>
-              <Text style={[styles.sideCardLabel, { color: active ? ACCENT : theme.text }]}>
+              <Text style={[styles.sideCardLabel, { color: active ? theme.accent : theme.text }]}>
                 {t(item.labelKey)}
               </Text>
               <Text style={[styles.sideCardHint, { color: theme.subText }]}>{t(item.hintKey)}</Text>
@@ -74,7 +74,7 @@ export function SelectorField({ theme, icon, label, value, hint, onPress, disabl
           },
         ]}
       >
-        {icon ? <Ionicons name={icon} size={16} color={ACCENT} /> : null}
+        {icon ? <Ionicons name={icon} size={16} color={theme.accent} /> : null}
 
         <View style={{ flex: 1 }}>
           <Text style={[styles.selectorValue, { color: theme.text }]} numberOfLines={1}>
@@ -143,8 +143,8 @@ export function OptionSheet({
                   style={[
                     styles.modalOption,
                     {
-                      backgroundColor: isActive ? 'rgba(0, 245, 212, 0.1)' : theme.inputBg,
-                      borderColor: isActive ? ACCENT : theme.borderColor,
+                      backgroundColor: isActive ? 'rgba(212, 178, 122, 0.1)' : theme.inputBg,
+                      borderColor: isActive ? theme.accent : theme.borderColor,
                     },
                   ]}
                 >
@@ -152,7 +152,7 @@ export function OptionSheet({
                     <Text
                       style={[
                         styles.modalOptionText,
-                        { color: isActive ? ACCENT : theme.text },
+                        { color: isActive ? theme.accent : theme.text },
                       ]}
                       numberOfLines={1}
                     >
@@ -169,7 +169,7 @@ export function OptionSheet({
                   </View>
 
                   {isActive ? (
-                    <Ionicons name="checkmark-circle" size={18} color={ACCENT} />
+                    <Ionicons name="checkmark-circle" size={18} color={theme.accent} />
                   ) : null}
                 </TouchableOpacity>
               );

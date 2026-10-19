@@ -217,7 +217,7 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
           <Ionicons
             name={pending ? 'lock-closed-outline' : row.item.icon || 'chevron-forward'}
             size={16}
-            color={pending ? theme.subText : ACCENT}
+            color={pending ? theme.subText : theme.accent}
             style={{ marginRight: 8 }}
           />
           <View style={{ flex: 1 }}>
@@ -240,9 +240,9 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
       styles.statusChip,
       {
         alignSelf: 'flex-start',
-        backgroundColor: 'rgba(0, 245, 212, 0.12)',
+        backgroundColor: 'rgba(212, 178, 122, 0.12)',
         borderWidth: 1,
-        borderColor: ACCENT,
+        borderColor: theme.accent,
         flexDirection: 'row',
         alignItems: 'center',
         gap: 4,
@@ -255,7 +255,7 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
           { borderColor: theme.borderColor, marginBottom: 10, paddingBottom: 10 },
         ]}
       >
-        <Text style={[styles.deadlineLabel, { color: ACCENT, marginBottom: 4 }]}>{index + 1}.</Text>
+        <Text style={[styles.deadlineLabel, { color: theme.accent, marginBottom: 4 }]}>{index + 1}.</Text>
         <Text style={[styles.summaryText, { color: theme.text, marginBottom: 6 }]}>
           {t(step.bodyKey)}
         </Text>
@@ -267,14 +267,14 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
             accessibilityHint={t('guideStepGo')}
             style={chipStyle}
           >
-            <Text style={[styles.statusChipText, { color: ACCENT }]} numberOfLines={1}>
+            <Text style={[styles.statusChipText, { color: theme.accent }]} numberOfLines={1}>
               {t(step.ctaKey)}
             </Text>
-            <Ionicons name="arrow-forward" size={12} color={ACCENT} />
+            <Ionicons name="arrow-forward" size={12} color={theme.accent} />
           </TouchableOpacity>
         ) : (
           <View style={chipStyle}>
-            <Text style={[styles.statusChipText, { color: ACCENT }]} numberOfLines={1}>
+            <Text style={[styles.statusChipText, { color: theme.accent }]} numberOfLines={1}>
               {t(step.ctaKey)}
             </Text>
           </View>
@@ -331,17 +331,17 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
           flexDirection: 'row',
           alignItems: 'center',
           gap: 4,
-          backgroundColor: selected ? 'rgba(0, 245, 212, 0.18)' : theme.inputBg,
-          borderColor: selected ? ACCENT : theme.borderColor,
+          backgroundColor: selected ? 'rgba(212, 178, 122, 0.18)' : theme.inputBg,
+          borderColor: selected ? theme.accent : theme.borderColor,
         },
       ]}
     >
-      {icon ? <Ionicons name={icon} size={12} color={selected ? ACCENT : theme.text} /> : null}
+      {icon ? <Ionicons name={icon} size={12} color={selected ? theme.accent : theme.text} /> : null}
       <Text
         style={[
           styles.typeChipText,
           selected && styles.typeChipTextActive,
-          { color: selected ? ACCENT : theme.text },
+          { color: selected ? theme.accent : theme.text },
         ]}
         numberOfLines={1}
       >
@@ -428,7 +428,7 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
                 styles.card,
                 {
                   backgroundColor: theme.inputBg,
-                  borderColor: ACCENT,
+                  borderColor: theme.accent,
                   marginBottom: 12,
                 },
               ]}

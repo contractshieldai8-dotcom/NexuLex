@@ -1570,7 +1570,7 @@ function AppContent() {
               style={[
                 styles.offerTierChip,
                 {
-                  borderColor: selected ? ACCENT : theme.borderColor,
+                  borderColor: selected ? theme.accent : theme.borderColor,
                   backgroundColor: selected ? `${ACCENT}22` : theme.cardBg,
                 },
               ]}
@@ -1578,7 +1578,7 @@ function AppContent() {
               <Text
                 style={[
                   styles.offerTierChipText,
-                  { color: selected ? ACCENT : theme.subText },
+                  { color: selected ? theme.accent : theme.subText },
                 ]}
                 numberOfLines={1}
               >
@@ -1607,7 +1607,7 @@ function AppContent() {
           })(),
         })}
       </Text>
-      <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 8 }]}>
+      <Text style={[styles.sectionHint, { color: theme.accent, marginBottom: 8 }]}>
         {t('shieldResumeHint')}
       </Text>
     </TouchableOpacity>
@@ -2688,7 +2688,7 @@ function AppContent() {
 
     const headerHtml = `
       <div class="header" style="background:#0A0F1D;color:#FFFFFF;padding:22px 20px;border-radius:10px;border-bottom:0;margin-bottom:22px">
-        <p style="letter-spacing:2px;text-transform:uppercase;font-size:11px;color:#00F5D4;margin:0 0 8px">${escapeHtml(t('executiveAudit'))}</p>
+        <p style="letter-spacing:2px;text-transform:uppercase;font-size:11px;color:#D4B27A;margin:0 0 8px">${escapeHtml(t('executiveAudit'))}</p>
         <h1 style="color:#FFFFFF;margin:0 0 8px">${escapeHtml(t('pdfBrandTitle'))}</h1>
         <p style="color:#94A3B8;margin:0"><strong>${escapeHtml(t('dateLabel'))}:</strong> ${escapeHtml(formatDate(analysis.created_at || Date.now()))}</p>
       </div>
@@ -2834,23 +2834,23 @@ function AppContent() {
           <style>
             @page { size: A4; margin: 16mm; }
             body { font-family: Helvetica, Arial, sans-serif; padding: 0; color: #1A202C; font-size: 11pt; line-height: 1.45; }
-            h1, h3, .section-title { color: #00B4D8; page-break-after: avoid; break-after: avoid; }
+            h1, h3, .section-title { color: #7D5A1E; page-break-after: avoid; break-after: avoid; }
             h1 { margin-bottom: 5px; letter-spacing: 0.5px; }
             h3, .section-title { font-size: 13pt; font-weight: 700; margin-top: 18px; margin-bottom: 8px; }
             p { orphans: 3; widows: 3; }
             .header { border-bottom: 2px solid #E2E8F0; padding-bottom: 15px; margin-bottom: 20px; page-break-inside: avoid; break-inside: avoid; }
-            .score { font-size: 22px; font-weight: bold; color: ${risk === 'RED' ? '#FF3B5C' : '#00E676'}; page-break-after: avoid; }
+            .score { font-size: 22px; font-weight: bold; color: ${risk === 'RED' ? '#B42318' : '#047857'}; page-break-after: avoid; }
             .gauge { background: #E2E8F0; border-radius: 6px; height: 12px; margin: 6px 0 18px; overflow: hidden; }
             .gauge-fill { height: 12px; width: ${Math.max(0, Math.min(100, analysis.score))}%; background: ${getRiskColor(risk)}; }
-            .takeaways { background-color: #F0FDFA; border: 1px solid #99F6E4; padding: 12px 18px; border-radius: 8px; margin-bottom: 18px; page-break-inside: avoid; break-inside: avoid; }
+            .takeaways { background-color: #FBF7EE; border: 1px solid #E7D6B4; padding: 12px 18px; border-radius: 8px; margin-bottom: 18px; page-break-inside: avoid; break-inside: avoid; }
             .jurisdiction { background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 10px 16px; border-radius: 8px; margin-bottom: 18px; font-size: 12px; page-break-inside: avoid; break-inside: avoid; }
-            .red-flag { background-color: #FFF1F2; border: 1px solid #FECDD3; border-left: 4px solid #FF3B5C; padding: 12px; border-radius: 8px; margin-bottom: 10px; page-break-inside: avoid; break-inside: avoid; }
+            .red-flag { background-color: #FFF1F2; border: 1px solid #FECDD3; border-left: 4px solid #B42318; padding: 12px; border-radius: 8px; margin-bottom: 10px; page-break-inside: avoid; break-inside: avoid; }
             .clause { margin-bottom: 15px; border: 1px solid #E2E8F0; padding: 12px; border-radius: 8px; page-break-inside: avoid; break-inside: avoid; }
-            .risk-badge { font-size: 9pt; font-weight: bold; color: #FF3B5C; text-transform: uppercase; letter-spacing: 0.06em; }
-            .counter-box { background-color: #E6FFFA; padding: 10px; border-radius: 6px; margin-top: 8px; page-break-inside: avoid; break-inside: avoid; }
+            .risk-badge { font-size: 9pt; font-weight: bold; color: #B42318; text-transform: uppercase; letter-spacing: 0.06em; }
+            .counter-box { background-color: #FBF7EE; padding: 10px; border-radius: 6px; margin-top: 8px; page-break-inside: avoid; break-inside: avoid; }
             .legal-ref, .glossary-item { font-size: 9.5pt; color: #475569; }
             .legal-ref { margin-top: 6px; }
-            .tip { border-left: 3px solid #00B4D8; padding: 4px 0 4px 12px; margin-bottom: 10px; }
+            .tip { border-left: 3px solid #7D5A1E; padding: 4px 0 4px 12px; margin-bottom: 10px; }
             .glossary-item { margin-bottom: 6px; }
             .page { box-sizing: border-box; width: 178mm; page-break-after: always; }
             .page:last-child { page-break-after: auto; }
@@ -2993,7 +2993,7 @@ function AppContent() {
     return (
       <View style={[styles.takeawayCard, { backgroundColor: theme.cardBg, borderColor: theme.borderColor }]}>
         <View style={styles.takeawayHeader}>
-          <Ionicons name="alert-circle" size={16} color="#FFB800" />
+          <Ionicons name="alert-circle" size={16} color={theme.warning} />
           <Text style={[styles.takeawayTitle, { color: theme.text }]} numberOfLines={1}>
             {t('keyTakeawaysTitle')}
           </Text>
@@ -3018,7 +3018,7 @@ function AppContent() {
     return (
       <View style={[styles.jurisdictionCard, { backgroundColor: theme.cardBg, borderColor: theme.borderColor }]}>
         <View style={styles.takeawayHeader}>
-          <Ionicons name="globe-outline" size={16} color="#00B4D8" />
+          <Ionicons name="globe-outline" size={16} color={theme.accentAlt} />
           <Text style={[styles.takeawayTitle, { color: theme.text }]} numberOfLines={1}>
             {t('jurisdictionTitle')}
           </Text>
@@ -3057,7 +3057,7 @@ function AppContent() {
 
     if (locked) {
       return (
-        <View style={[styles.clashBanner, { backgroundColor: theme.cardBg, borderColor: WARNING }]}>
+        <View style={[styles.clashBanner, { backgroundColor: theme.cardBg, borderColor: theme.warning }]}>
           <Text style={[styles.takeawayTitle, { color: theme.text }]}>{t('lawClashTitle')}</Text>
           <ConversionHook theme={theme} hook="lawClash" onUnlock={onUnlock} />
         </View>
@@ -3065,7 +3065,7 @@ function AppContent() {
     }
 
     return (
-      <View style={[styles.clashBanner, { backgroundColor: theme.cardBg, borderColor: DANGER }]}>
+      <View style={[styles.clashBanner, { backgroundColor: theme.cardBg, borderColor: theme.danger }]}>
         <Text style={[styles.takeawayTitle, { color: theme.text }]}>{t('lawClashTitle')}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('lawClashBody')}</Text>
         {clash.contractLaw ? (
@@ -3145,7 +3145,7 @@ function AppContent() {
                       <Ionicons
                         name={isCounterCopied ? 'checkmark-circle' : 'copy-outline'}
                         size={16}
-                        color={isCounterCopied ? '#00E676' : '#00F5D4'}
+                        color={isCounterCopied ? theme.success : theme.accent}
                       />
                     </TouchableOpacity>
                   </View>
@@ -3161,7 +3161,7 @@ function AppContent() {
             })()}
           </View>
         )) : (
-          <View style={[styles.redFlagCard, { backgroundColor: theme.cardBg, borderLeftColor: ACCENT, borderColor: theme.borderColor }]}>
+          <View style={[styles.redFlagCard, { backgroundColor: theme.cardBg, borderLeftColor: theme.accent, borderColor: theme.borderColor }]}>
             <Text style={[styles.redFlagText, { color: theme.subText }]}>{t('redFlagsEmpty')}</Text>
           </View>
         )}
@@ -3177,7 +3177,7 @@ function AppContent() {
     return (
       <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 20 }]}>
         <View style={styles.takeawayHeader}>
-          <Ionicons name="chatbubbles-outline" size={16} color="#00F5D4" />
+          <Ionicons name="chatbubbles-outline" size={16} color={theme.accent} />
           <Text style={[styles.takeawayTitle, { color: theme.text }]} numberOfLines={1}>
             {t('negotiationTitle')}
           </Text>
@@ -3207,7 +3207,7 @@ function AppContent() {
     return (
       <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 30 }]}>
         <View style={styles.takeawayHeader}>
-          <Ionicons name="book-outline" size={16} color="#00B4D8" />
+          <Ionicons name="book-outline" size={16} color={theme.accentAlt} />
           <Text style={[styles.takeawayTitle, { color: theme.text }]} numberOfLines={1}>
             {t('glossaryTitle')}
           </Text>
@@ -3215,7 +3215,7 @@ function AppContent() {
 
         {glossary.map((entry, index) => (
           <View key={index} style={styles.glossaryRow}>
-            <Text style={[styles.glossaryTerm, { color: '#00B4D8' }]}>{safeDisplayText(entry?.term)}</Text>
+            <Text style={[styles.glossaryTerm, { color: theme.accentAlt }]}>{safeDisplayText(entry?.term)}</Text>
             <Text style={[styles.glossaryDefinition, { color: theme.subText }]}>{safeDisplayText(entry?.definition)}</Text>
           </View>
         ))}
@@ -3249,7 +3249,7 @@ function AppContent() {
             <Ionicons
               name={isCopied ? 'checkmark-circle' : 'copy-outline'}
               size={18}
-              color={isCopied ? '#00E676' : theme.subText}
+              color={isCopied ? theme.success : theme.subText}
             />
           </TouchableOpacity>
         </View>
@@ -3313,7 +3313,7 @@ function AppContent() {
                   <Ionicons
                     name={isCounterCopied ? 'checkmark-circle' : 'copy-outline'}
                     size={16}
-                    color={isCounterCopied ? '#00E676' : '#00F5D4'}
+                    color={isCounterCopied ? theme.success : theme.accent}
                   />
                 </TouchableOpacity>
               </View>
@@ -3343,7 +3343,7 @@ function AppContent() {
         ]}
       >
         <View style={styles.takeawayHeader}>
-          <Ionicons name="send-outline" size={16} color={ACCENT} />
+          <Ionicons name="send-outline" size={16} color={theme.accent} />
           <Text style={[styles.takeawayTitle, { color: theme.text }]} numberOfLines={1}>
             {t('counterMessageTitle')}
           </Text>
@@ -3355,7 +3355,7 @@ function AppContent() {
             <Ionicons
               name={copied ? 'checkmark-circle' : 'copy-outline'}
               size={18}
-              color={copied ? '#00E676' : ACCENT}
+              color={copied ? theme.success : theme.accent}
             />
           </TouchableOpacity>
         </View>
@@ -3397,9 +3397,9 @@ function AppContent() {
           <TouchableOpacity accessibilityRole="button"
             activeOpacity={0.85}
             onPress={unlock}
-            style={[styles.previewBanner, { backgroundColor: theme.cardBg, borderColor: ACCENT }]}
+            style={[styles.previewBanner, { backgroundColor: theme.cardBg, borderColor: theme.accent }]}
           >
-            <Ionicons name="lock-closed" size={14} color={ACCENT} />
+            <Ionicons name="lock-closed" size={14} color={theme.accent} />
             <Text style={[styles.previewBannerText, { color: theme.text }]}>{t('previewBanner')}</Text>
           </TouchableOpacity>
         ) : null}
@@ -3439,12 +3439,12 @@ function AppContent() {
                   styles.previewBanner,
                   {
                     backgroundColor: theme.cardBg,
-                    borderColor: ACCENT,
+                    borderColor: theme.accent,
                     marginBottom: 0,
                   },
                 ]}
               >
-                <Ionicons name="shield-checkmark-outline" size={14} color={ACCENT} />
+                <Ionicons name="shield-checkmark-outline" size={14} color={theme.accent} />
                 <Text style={[styles.previewBannerText, { color: theme.text }]} numberOfLines={2}>
                   {t('partyShieldActive', { name: name || roleLabel, role: roleLabel })}
                 </Text>
@@ -3461,7 +3461,7 @@ function AppContent() {
                   },
                 ]}
               >
-                <Ionicons name="swap-horizontal-outline" size={14} color={ACCENT} />
+                <Ionicons name="swap-horizontal-outline" size={14} color={theme.accent} />
                 <Text style={[styles.previewBannerText, { color: theme.text }]} numberOfLines={2}>
                   {t('partyFlipCta', {
                     name: flipName || flipLabel,
@@ -3598,13 +3598,13 @@ function AppContent() {
                   flexGrow: 1,
                   backgroundColor: theme.inputBg,
                   borderWidth: 1,
-                  borderColor: ACCENT,
+                  borderColor: theme.accent,
                 },
               ]}
               onPress={() => handleExportPdf(fullRaw || analysis, 'save')}
             >
-              <Ionicons name={locked ? 'lock-closed' : 'download-outline'} size={18} color={ACCENT} />
-              <Text style={[styles.exportBtnText, { color: ACCENT }]} numberOfLines={1} adjustsFontSizeToFit>
+              <Ionicons name={locked ? 'lock-closed' : 'download-outline'} size={18} color={theme.accent} />
+              <Text style={[styles.exportBtnText, { color: theme.accent }]} numberOfLines={1} adjustsFontSizeToFit>
                 {t('savePdfToDevice')}
               </Text>
             </TouchableOpacity>
@@ -3809,7 +3809,7 @@ function AppContent() {
           <View style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1 }}>
             <Image source={BRAND_MARK} style={{ width: 26, height: 26, marginRight: 8 }} resizeMode="contain" accessible={false} />
             <Text style={[styles.title, { color: theme.text }]}>
-              NEXULEX <Text style={{ color: '#00F5D4' }}>AI</Text>
+              NEXULEX <Text style={{ color: theme.accent }}>AI</Text>
             </Text>
           </View>
           {user ? (
@@ -3817,40 +3817,56 @@ function AppContent() {
               onPress={() => setGuideVisible(true)}
               hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
               accessibilityLabel={t('guideTitle')}
-              style={{ marginLeft: 'auto', padding: 4 }}
+              style={[
+                styles.headerIconBtn,
+                { backgroundColor: theme.cardBg, borderColor: theme.borderColor },
+              ]}
             >
-              <Ionicons name="compass-outline" size={24} color={ACCENT} />
+              <Ionicons name="compass-outline" size={20} color={theme.accent} />
             </TouchableOpacity>
           ) : null}
         </View>
         <Text style={[styles.tagline, { color: theme.subText }]}>{t('tagline')}</Text>
 
         {user && (
-          <View style={[styles.tabBar, { borderBottomColor: theme.borderColor, backgroundColor: theme.bg }]}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {[
-                { key: 'analyze', label: t('tabAnalyze') },
-                { key: 'advisor', label: t('tabAdvisor') },
-                { key: 'history', label: t('tabHistory') },
-                { key: 'settings', label: t('tabSettings') },
-              ].map((tab) => (
+          <View style={[styles.tabBar, { borderColor: theme.borderColor, backgroundColor: theme.cardBg }]}>
+            {[
+              { key: 'analyze', label: t('tabAnalyze'), icon: 'shield-checkmark' },
+              { key: 'advisor', label: t('tabAdvisor'), icon: 'chatbubbles' },
+              { key: 'history', label: t('tabHistory'), icon: 'time' },
+              { key: 'settings', label: t('tabSettings'), icon: 'settings' },
+            ].map((tab) => {
+              const selected = activeTab === tab.key;
+              return (
                 <TouchableOpacity
                   key={tab.key}
                   onPress={() => setActiveTab(tab.key)}
-                  style={[styles.tabItem, activeTab === tab.key && styles.activeTabBorder]}
+                  activeOpacity={0.7}
+                  style={[
+                    styles.tabItem,
+                    selected && styles.activeTabBorder,
+                    selected && { backgroundColor: theme.accentSoft, borderColor: theme.accentBorder },
+                  ]}
                   accessibilityRole="tab"
                   accessibilityLabel={tab.label}
                   accessibilityState={{ selected: activeTab === tab.key }}
                 >
+                  <Ionicons
+                    name={selected ? tab.icon : `${tab.icon}-outline`}
+                    size={17}
+                    color={selected ? theme.accent : theme.subText}
+                  />
                   <Text
-                    style={[styles.tabText, { color: activeTab === tab.key ? ACCENT : theme.subText }]}
+                    style={[styles.tabText, { color: selected ? theme.accent : theme.subText }]}
                     numberOfLines={1}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.8}
                   >
                     {tab.label}
                   </Text>
                 </TouchableOpacity>
-              ))}
-            </ScrollView>
+              );
+            })}
           </View>
         )}
       </View>
@@ -3875,7 +3891,7 @@ function AppContent() {
                 <Text style={styles.primaryButtonText}>{t('btnSendResetLink')}</Text>
               </TouchableOpacity>
               <TouchableOpacity accessibilityRole="button" style={{ marginTop: 15 }} onPress={() => setForgotPasswordMode(false)}>
-                <Text style={{ color: '#00F5D4', textAlign: 'center' }}>{t('backToLogin')}</Text>
+                <Text style={{ color: theme.accent, textAlign: 'center' }}>{t('backToLogin')}</Text>
               </TouchableOpacity>
             </View>
           ) : (
@@ -3954,17 +3970,17 @@ function AppContent() {
                     styles.quotaBadge,
                     {
                       backgroundColor: theme.cardBg,
-                      borderColor: freeLeft > 0 || isPro ? ACCENT : '#FF3B5C',
+                      borderColor: freeLeft > 0 || isPro ? theme.accent : theme.danger,
                     },
                   ]}
                 >
                   <Ionicons
                     name={isPro ? 'shield-checkmark' : freeLeft > 0 ? 'flash-outline' : 'lock-closed-outline'}
                     size={13}
-                    color={freeLeft > 0 || isPro ? ACCENT : '#FF3B5C'}
+                    color={freeLeft > 0 || isPro ? theme.accent : theme.danger}
                   />
                   <Text
-                    style={[styles.quotaText, { color: freeLeft > 0 || isPro ? ACCENT : '#FF3B5C' }]}
+                    style={[styles.quotaText, { color: freeLeft > 0 || isPro ? theme.accent : theme.danger }]}
                     numberOfLines={1}
                   >
                     {isPro
@@ -3981,11 +3997,11 @@ function AppContent() {
                 <View
                   style={[
                     styles.card,
-                    { backgroundColor: theme.cardBg, borderColor: '#FFB800', marginBottom: 14 },
+                    { backgroundColor: theme.cardBg, borderColor: theme.warning, marginBottom: 14 },
                   ]}
                 >
                   <View style={styles.takeawayHeader}>
-                    <Ionicons name="mail-unread-outline" size={16} color="#FFB800" />
+                    <Ionicons name="mail-unread-outline" size={16} color={theme.warning} />
                     <Text style={[styles.takeawayTitle, { color: theme.text }]} numberOfLines={1}>
                       {t('verifyEmailTitle')}
                     </Text>
@@ -3999,7 +4015,7 @@ function AppContent() {
                     disabled={resendingVerification}
                   >
                     {resendingVerification ? (
-                      <ActivityIndicator color={ACCENT} />
+                      <ActivityIndicator color={theme.accent} />
                     ) : (
                       <Text style={styles.secondaryBtnText} numberOfLines={1} adjustsFontSizeToFit>
                         {t('resendVerification')}
@@ -4042,13 +4058,13 @@ function AppContent() {
                       paddingVertical: 12,
                       borderRadius: 12,
                       borderWidth: 1,
-                      borderColor: ACCENT,
+                      borderColor: theme.accent,
                       backgroundColor: `${ACCENT}14`,
                     }}
                   >
-                    <Ionicons name="document-text-outline" size={18} color={ACCENT} />
+                    <Ionicons name="document-text-outline" size={18} color={theme.accent} />
                     <Text style={{ color: theme.text, fontSize: 15, fontWeight: '700', flex: 1 }}>{t('ux24Report')}</Text>
-                    <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={16} color={ACCENT} />
+                    <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={16} color={theme.accent} />
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
@@ -4068,7 +4084,7 @@ function AppContent() {
                       borderColor: theme.borderColor,
                     }}
                   >
-                    <Ionicons name="add-circle-outline" size={18} color={ACCENT} />
+                    <Ionicons name="add-circle-outline" size={18} color={theme.accent} />
                     <Text style={{ color: theme.text, fontSize: 15, fontWeight: '600', flex: 1 }}>{t('ux24New')}</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
@@ -4086,7 +4102,7 @@ function AppContent() {
                       borderColor: theme.borderColor,
                     }}
                   >
-                    <Ionicons name="map-outline" size={18} color={ACCENT} />
+                    <Ionicons name="map-outline" size={18} color={theme.accent} />
                     <Text style={{ color: theme.text, fontSize: 15, fontWeight: '600', flex: 1 }}>{t('ux24Guides')}</Text>
                   </TouchableOpacity>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux24Disclaimer')}</Text>
@@ -4105,11 +4121,11 @@ function AppContent() {
                     paddingVertical: 12,
                     borderRadius: 12,
                     borderWidth: 1,
-                    borderColor: ACCENT,
+                    borderColor: theme.accent,
                     backgroundColor: theme.cardBg,
                   }}
                 >
-                  <Ionicons name={analyzeSetupOpen ? 'chevron-up' : 'chevron-down'} size={18} color={ACCENT} />
+                  <Ionicons name={analyzeSetupOpen ? 'chevron-up' : 'chevron-down'} size={18} color={theme.accent} />
                   <Text style={{ color: theme.text, fontSize: 15, fontWeight: '700', flex: 1 }}>
                     {analyzeSetupOpen ? t('ux24Collapse') : t('ux24Expand')}
                   </Text>
@@ -4167,7 +4183,7 @@ function AppContent() {
                           styles.partyChoiceCard,
                           {
                             backgroundColor: theme.cardBg,
-                            borderColor: selected ? ACCENT : theme.borderColor,
+                            borderColor: selected ? theme.accent : theme.borderColor,
                           },
                           selected && styles.partyChoiceCardActive,
                         ]}
@@ -4175,13 +4191,13 @@ function AppContent() {
                         <Ionicons
                           name={card.icon || 'shield-checkmark-outline'}
                           size={22}
-                          color={selected ? ACCENT : theme.subText}
+                          color={selected ? theme.accent : theme.subText}
                           style={styles.partyChoiceIcon}
                         />
                         <Text
                           style={[
                             styles.partyChoiceTitle,
-                            { color: selected ? ACCENT : theme.text },
+                            { color: selected ? theme.accent : theme.text },
                           ]}
                           numberOfLines={3}
                         >
@@ -4267,12 +4283,12 @@ function AppContent() {
                       style={[
                         styles.modeToggle,
                         {
-                          backgroundColor: active ? 'rgba(0, 245, 212, 0.12)' : theme.inputBg,
-                          borderColor: active ? ACCENT : theme.borderColor,
+                          backgroundColor: active ? 'rgba(212, 178, 122, 0.12)' : theme.inputBg,
+                          borderColor: active ? theme.accent : theme.borderColor,
                         },
                       ]}
                     >
-                      <Text style={[styles.modeToggleText, { color: active ? ACCENT : theme.subText }]} numberOfLines={1}>
+                      <Text style={[styles.modeToggleText, { color: active ? theme.accent : theme.subText }]} numberOfLines={1}>
                         {item.label}
                       </Text>
                     </TouchableOpacity>
@@ -4386,7 +4402,7 @@ function AppContent() {
                           borderColor: theme.borderColor,
                         }}
                       >
-                        <Ionicons name={item.icon} size={14} color={ACCENT} />
+                        <Ionicons name={item.icon} size={14} color={theme.accent} />
                         <Text style={{ color: theme.text, fontSize: 13, fontWeight: '600' }}>{t(item.titleKey)}</Text>
                       </TouchableOpacity>
                     ))}
@@ -4431,14 +4447,14 @@ function AppContent() {
                 />
 
                 <TouchableOpacity accessibilityRole="button" 
-                  style={[styles.uploadButton, { flex: 1, backgroundColor: '#1A233A', borderWidth: 1, borderColor: 'rgba(0, 180, 216, 0.4)' }]} 
+                  style={[styles.uploadButton, { flex: 1, backgroundColor: '#172238', borderWidth: 1, borderColor: 'rgba(125, 167, 227, 0.4)' }]} 
                   onPress={handlePickDocument}
                   disabled={loading}
                 >
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                    <Ionicons name="document-text-outline" size={16} color="#00B4D8" />
+                    <Ionicons name="document-text-outline" size={16} color={theme.accentAlt} />
                     <Text
-                      style={[styles.uploadButtonText, { color: '#00B4D8', flexShrink: 1 }]}
+                      style={[styles.uploadButtonText, { color: theme.accentAlt, flexShrink: 1 }]}
                       numberOfLines={1}
                       adjustsFontSizeToFit
                       minimumFontScale={0.8}
@@ -4461,7 +4477,7 @@ function AppContent() {
                     accessibilityRole="button"
                     accessibilityLabel={t('a11yRemove')}
                   >
-                        <Ionicons name="close-circle" size={22} color="#FF3B5C" />
+                        <Ionicons name="close-circle" size={22} color={theme.danger} />
                       </TouchableOpacity>
                     </View>
                   ))}
@@ -4471,7 +4487,7 @@ function AppContent() {
               {/* Seçili Dosya Gösterim Rozeti */}
               {selectedFile && (
                 <View style={styles.fileBadge}>
-                  <Text style={{ color: '#00B4D8', fontSize: 12, flex: 1 }} numberOfLines={1}>
+                  <Text style={{ color: theme.accentAlt, fontSize: 12, flex: 1 }} numberOfLines={1}>
                     📄 {selectedFile.name}
                   </Text>
                   <TouchableOpacity
@@ -4480,7 +4496,7 @@ function AppContent() {
                     accessibilityRole="button"
                     accessibilityLabel={t('a11yRemove')}
                   >
-                    <Ionicons name="close-circle" size={18} color="#FF3B5C" />
+                    <Ionicons name="close-circle" size={18} color={theme.danger} />
                   </TouchableOpacity>
                 </View>
               )}
@@ -4535,13 +4551,13 @@ function AppContent() {
                       paddingVertical: 6,
                       borderRadius: 16,
                       borderWidth: 1,
-                      borderColor: ACCENT,
+                      borderColor: theme.accent,
                       backgroundColor: theme.inputBg,
                       maxWidth: '75%',
                     }}
                   >
-                    <Ionicons name="sparkles-outline" size={14} color={ACCENT} />
-                    <Text style={{ color: ACCENT, fontSize: 12, fontWeight: '600', flexShrink: 1 }} numberOfLines={1}>
+                    <Ionicons name="sparkles-outline" size={14} color={theme.accent} />
+                    <Text style={{ color: theme.accent, fontSize: 12, fontWeight: '600', flexShrink: 1 }} numberOfLines={1}>
                       {t('hSampleBtn')}
                     </Text>
                   </TouchableOpacity>
@@ -4749,7 +4765,7 @@ function AppContent() {
                     <Ionicons
                       name={emailVerified ? 'checkmark-circle' : 'alert-circle-outline'}
                       size={15}
-                      color={emailVerified ? ACCENT : '#FFB800'}
+                      color={emailVerified ? theme.accent : theme.warning}
                     />
                     <Text style={{ color: theme.subText, fontSize: 13, flex: 1 }}>
                       {isPro
@@ -4787,7 +4803,7 @@ function AppContent() {
                       disabled={resendingVerification}
                     >
                       {resendingVerification ? (
-                        <ActivityIndicator color={ACCENT} />
+                        <ActivityIndicator color={theme.accent} />
                       ) : (
                         <Text style={styles.secondaryBtnText} numberOfLines={1} adjustsFontSizeToFit>
                           {t('resendVerification')}
@@ -4846,7 +4862,7 @@ function AppContent() {
                   },
                 ]}
               >
-                <Ionicons name="chatbubble-ellipses-outline" size={20} color={ACCENT} />
+                <Ionicons name="chatbubble-ellipses-outline" size={20} color={theme.accent} />
                 <View style={{ flex: 1 }}>
                   <Text style={[styles.settingLabel, { color: theme.text }]} numberOfLines={1}>
                     {t('supportTitle')}
@@ -4899,7 +4915,7 @@ function AppContent() {
                   accessibilityState={{ disabled: updatingPassword || !passwordLongEnough }}
                 >
                   {updatingPassword ? (
-                    <ActivityIndicator color="#00F5D4" />
+                    <ActivityIndicator color={theme.accent} />
                   ) : (
                     <Text style={styles.secondaryBtnText}>{t('btnUpdatePassword')}</Text>
                   )}
@@ -4916,7 +4932,7 @@ function AppContent() {
                     accessibilityLabel={t('darkMode')}
                     value={isDarkMode} 
                     onValueChange={(val) => setIsDarkMode(val)}
-                    thumbColor={isDarkMode ? "#00F5D4" : "#f4f3f4"}
+                    thumbColor={isDarkMode ? theme.accent : "#f4f3f4"}
                   />
                 </View>
               </View>
@@ -4979,7 +4995,7 @@ function AppContent() {
                   <Switch
                     value={nudgesOn}
                     onValueChange={toggleNudges}
-                    thumbColor={nudgesOn ? '#00F5D4' : '#f4f3f4'}
+                    thumbColor={nudgesOn ? theme.accent : '#f4f3f4'}
                     accessibilityLabel={t('nudgeSettingTitle')}
                   />
                 </View>
@@ -4992,7 +5008,7 @@ function AppContent() {
                   style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
                 >
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                    <Ionicons name="gift-outline" size={18} color="#00F5D4" />
+                    <Ionicons name="gift-outline" size={18} color={theme.accent} />
                     <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, flex: 1 }]}>{t('refCardTitle')}</Text>
                   </View>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>
@@ -5081,7 +5097,7 @@ function AppContent() {
                       setTelemetryOn(val);
                       setTelemetryEnabled(val);
                     }}
-                    thumbColor={telemetryOn ? '#00F5D4' : '#f4f3f4'}
+                    thumbColor={telemetryOn ? theme.accent : '#f4f3f4'}
                     accessibilityLabel={t('telSettingTitle')}
                   />
                 </View>
@@ -5129,10 +5145,10 @@ function AppContent() {
                 onLayout={onSettingsSectionLayout('delete')}
                 style={[
                   styles.card,
-                  { backgroundColor: theme.cardBg, borderColor: DANGER, marginTop: 16, marginBottom: 24 },
+                  { backgroundColor: theme.cardBg, borderColor: theme.danger, marginTop: 16, marginBottom: 24 },
                 ]}
               >
-                <Text style={[styles.settingLabel, { color: DANGER }]}>{t('accountDeleteTitle')}</Text>
+                <Text style={[styles.settingLabel, { color: theme.danger }]}>{t('accountDeleteTitle')}</Text>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>
                   {t('accountDeleteHint')}
                 </Text>
@@ -5149,7 +5165,7 @@ function AppContent() {
                 <TouchableOpacity
                   style={[
                     styles.secondaryBtn,
-                    { borderColor: DANGER, marginTop: 4 },
+                    { borderColor: theme.danger, marginTop: 4 },
                     deletingAccount && styles.buttonDisabled,
                   ]}
                   onPress={handleDeleteAccount}
@@ -5158,9 +5174,9 @@ function AppContent() {
                   accessibilityLabel={t('accountDeleteTitle')}
                 >
                   {deletingAccount ? (
-                    <ActivityIndicator color={DANGER} />
+                    <ActivityIndicator color={theme.danger} />
                   ) : (
-                    <Text style={[styles.secondaryBtnText, { color: DANGER }]}>{t('accountDeleteTitle')}</Text>
+                    <Text style={[styles.secondaryBtnText, { color: theme.danger }]}>{t('accountDeleteTitle')}</Text>
                   )}
                 </TouchableOpacity>
                 <TouchableOpacity accessibilityRole="button"

@@ -37,20 +37,20 @@ function shell(title, panels) {
 <style>
 body{margin:0;background:#0A0F1D;color:#F8FAFC;font-family:system-ui,-apple-system,sans-serif;line-height:1.55}
 main{max-width:720px;margin:0 auto;padding:28px 20px 80px}
-.accent{color:#00F5D4;letter-spacing:.08em;text-transform:uppercase;font-size:12px;font-weight:700}
+.accent{color:#D4B27A;letter-spacing:.08em;text-transform:uppercase;font-size:12px;font-weight:700}
 h1{font-size:24px;margin:10px 0 8px;line-height:1.25}
-h2{font-size:17px;color:#00F5D4;margin:28px 0 8px}
+h2{font-size:17px;color:#D4B27A;margin:28px 0 8px}
 p,li{color:#CBD5E1;font-size:15px;margin:0 0 12px}
 ol,ul{padding-left:1.2em;margin:0 0 14px}
 .meta{color:#94A3B8;font-size:13px;margin-bottom:22px}
-.warn{border:1px solid #FF3B5C;border-radius:10px;padding:12px 14px;margin:0 0 18px}
+.warn{border:1px solid #E5484D;border-radius:10px;padding:12px 14px;margin:0 0 18px}
 .lang{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
 .lang button{background:transparent;border:1px solid #1E293B;color:#94A3B8;border-radius:8px;padding:8px 12px;font-weight:600}
-.lang button.active{border-color:#00F5D4;color:#00F5D4}
+.lang button.active{border-color:#D4B27A;color:#D4B27A}
 .panel{display:none}
 .panel.active{display:block}
 [dir=rtl]{text-align:right}
-a{color:#00F5D4}
+a{color:#D4B27A}
 </style>
 </head>
 <body>

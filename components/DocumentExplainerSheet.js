@@ -220,7 +220,7 @@ export default function DocumentExplainerSheet({
 
   const sectionTitle = (key, icon) => (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 14, marginBottom: 6 }}>
-      <Ionicons name={icon} size={15} color={ACCENT} />
+      <Ionicons name={icon} size={15} color={theme.accent} />
       <Text style={[styles.label, { color: theme.text, marginBottom: 0 }]}>{t(key)}</Text>
     </View>
   );
@@ -237,7 +237,7 @@ export default function DocumentExplainerSheet({
           onPress={pickPhotos}
           disabled={picking || working}
         >
-          <Ionicons name="images-outline" size={16} color={ACCENT} />
+          <Ionicons name="images-outline" size={16} color={theme.accent} />
           <Text style={styles.secondaryBtnText} numberOfLines={1}>
             {images.length ? t('docExplainPages', { count: images.length }) : t('docExplainPickPhotos')}
           </Text>
@@ -247,7 +247,7 @@ export default function DocumentExplainerSheet({
           onPress={pickPdf}
           disabled={picking || working}
         >
-          <Ionicons name="document-outline" size={16} color={ACCENT} />
+          <Ionicons name="document-outline" size={16} color={theme.accent} />
           <Text style={styles.secondaryBtnText} numberOfLines={1}>
             {pdf ? pdf.name : t('docExplainPickPdf')}
           </Text>
@@ -284,7 +284,7 @@ export default function DocumentExplainerSheet({
         <Text style={[styles.sectionHint, { color: theme.subText, flex: 1, marginBottom: 0 }]}>{t('docExplainPrivacy')}</Text>
       </View>
       {!isPro ? (
-        <Text style={[styles.sectionHint, { color: freeLeft > 0 ? theme.subText : WARNING, marginTop: 6 }]}>
+        <Text style={[styles.sectionHint, { color: freeLeft > 0 ? theme.subText : theme.warning, marginTop: 6 }]}>
           {t('docExplainFreeLeft', { count: freeLeft, total: FREE_EXPLAINS_PER_MONTH })}
         </Text>
       ) : null}
@@ -309,7 +309,7 @@ export default function DocumentExplainerSheet({
                 style={{ ...box, marginBottom: 0, maxWidth: 200, minWidth: 140, backgroundColor: theme.cardBg }}
               >
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                  <Ionicons name={DOC_TYPE_ICONS[item.explanation.docType] || 'document-outline'} size={15} color={ACCENT} />
+                  <Ionicons name={DOC_TYPE_ICONS[item.explanation.docType] || 'document-outline'} size={15} color={theme.accent} />
                   <Text style={[styles.settingLabel, { color: theme.text, fontSize: 13, flex: 1 }]} numberOfLines={2}>
                     {item.explanation.title}
                   </Text>
@@ -332,7 +332,7 @@ export default function DocumentExplainerSheet({
       <View>
         <View style={{ ...box, backgroundColor: theme.cardBg }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-            <Ionicons name={DOC_TYPE_ICONS[exp.docType] || 'document-outline'} size={20} color={ACCENT} />
+            <Ionicons name={DOC_TYPE_ICONS[exp.docType] || 'document-outline'} size={20} color={theme.accent} />
             <Text style={[styles.settingLabel, { color: theme.text, flex: 1 }]}>{exp.title}</Text>
           </View>
           {exp.issuer ? (
@@ -347,8 +347,8 @@ export default function DocumentExplainerSheet({
         </View>
 
         {exp.confidence === 'LOW' ? (
-          <View style={{ ...box, borderColor: WARNING, flexDirection: 'row', gap: 8 }}>
-            <Ionicons name="eye-off-outline" size={16} color={WARNING} />
+          <View style={{ ...box, borderColor: theme.warning, flexDirection: 'row', gap: 8 }}>
+            <Ionicons name="eye-off-outline" size={16} color={theme.warning} />
             <Text style={[bodyText, { flex: 1 }]}>{t('docExplainLowConfidence')}</Text>
           </View>
         ) : null}
@@ -367,7 +367,7 @@ export default function DocumentExplainerSheet({
                   ? t('docExplainToday')
                   : t('docExplainOverdue');
           return (
-            <View key={`${deadline.label}-${index}`} style={{ ...box, borderColor: left !== null && left <= 7 ? DANGER : theme.borderColor }}>
+            <View key={`${deadline.label}-${index}`} style={{ ...box, borderColor: left !== null && left <= 7 ? theme.danger : theme.borderColor }}>
               <Text style={[styles.settingLabel, { color: theme.text, fontSize: 14 }]}>{deadline.label}</Text>
               {deadline.date ? (
                 <Text style={[bodyText, { marginTop: 4 }]}>
@@ -377,19 +377,19 @@ export default function DocumentExplainerSheet({
               ) : null}
               {deadline.rule ? <Text style={[bodyText, { marginTop: 4 }]}>{deadline.rule}</Text> : null}
               {deadline.fromService ? (
-                <Text style={[styles.sectionHint, { color: WARNING, marginTop: 4, marginBottom: 0 }]}>{t('docExplainFromService')}</Text>
+                <Text style={[styles.sectionHint, { color: theme.warning, marginTop: 4, marginBottom: 0 }]}>{t('docExplainFromService')}</Text>
               ) : null}
               <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
                 {deadline.date && left !== null && left >= 0 ? (
                   <TouchableOpacity accessibilityRole="button" onPress={() => remind(deadline, index)} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-                    <Ionicons name="notifications-outline" size={15} color={ACCENT} />
-                    <Text style={[styles.label, { color: ACCENT, marginBottom: 0 }]}>{t('docExplainRemind')}</Text>
+                    <Ionicons name="notifications-outline" size={15} color={theme.accent} />
+                    <Text style={[styles.label, { color: theme.accent, marginBottom: 0 }]}>{t('docExplainRemind')}</Text>
                   </TouchableOpacity>
                 ) : null}
                 {!deadline.date && deadline.rule ? (
                   <TouchableOpacity accessibilityRole="button" onPress={() => onOpenCalculator?.('deadline_date')} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-                    <Ionicons name="calculator-outline" size={15} color={ACCENT} />
-                    <Text style={[styles.label, { color: ACCENT, marginBottom: 0 }]}>{t('docExplainCountDays')}</Text>
+                    <Ionicons name="calculator-outline" size={15} color={theme.accent} />
+                    <Text style={[styles.label, { color: theme.accent, marginBottom: 0 }]}>{t('docExplainCountDays')}</Text>
                   </TouchableOpacity>
                 ) : null}
               </View>
@@ -460,19 +460,19 @@ export default function DocumentExplainerSheet({
             style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center', marginTop: 16 }]}
             onPress={() => onAddToCase(entry.explanation)}
           >
-            <Ionicons name="folder-open-outline" size={16} color={ACCENT} />
+            <Ionicons name="folder-open-outline" size={16} color={theme.accent} />
             <Text style={styles.secondaryBtnText}>{t('caseAddToCase')}</Text>
           </TouchableOpacity>
         ) : null}
 
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16, marginTop: 16, flexWrap: 'nowrap' }}>
           <TouchableOpacity accessibilityRole="button" onPress={handleAskAdvisor} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-            <Ionicons name="chatbubbles-outline" size={16} color={ACCENT} />
-            <Text style={[styles.label, { color: ACCENT, marginBottom: 0 }]}>{t('docExplainAskAdvisor')}</Text>
+            <Ionicons name="chatbubbles-outline" size={16} color={theme.accent} />
+            <Text style={[styles.label, { color: theme.accent, marginBottom: 0 }]}>{t('docExplainAskAdvisor')}</Text>
           </TouchableOpacity>
           <TouchableOpacity accessibilityRole="button" onPress={handleShare} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-            <Ionicons name="share-outline" size={16} color={ACCENT} />
-            <Text style={[styles.label, { color: ACCENT, marginBottom: 0 }]}>{t('docExplainShare')}</Text>
+            <Ionicons name="share-outline" size={16} color={theme.accent} />
+            <Text style={[styles.label, { color: theme.accent, marginBottom: 0 }]}>{t('docExplainShare')}</Text>
           </TouchableOpacity>
           <View style={{ flex: 1 }} />
           <ReportAiButton
@@ -512,7 +512,7 @@ export default function DocumentExplainerSheet({
         >
           <View style={styles.modalHandle} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-            <Ionicons name="document-attach-outline" size={20} color={ACCENT} />
+            <Ionicons name="document-attach-outline" size={20} color={theme.accent} />
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
               {t('docExplainTitle')}
             </Text>
@@ -528,7 +528,7 @@ export default function DocumentExplainerSheet({
           >
             {working ? (
               <View style={{ alignItems: 'center', paddingVertical: 32, gap: 12 }}>
-                <ActivityIndicator color={ACCENT} />
+                <ActivityIndicator color={theme.accent} />
                 <Text style={[styles.sectionHint, { color: theme.subText, textAlign: 'center' }]}>{t('docExplainWorking')}</Text>
               </View>
             ) : entry && shown ? (

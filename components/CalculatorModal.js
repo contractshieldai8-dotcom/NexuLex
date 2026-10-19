@@ -283,7 +283,7 @@ export default function CalculatorModal({
       <Text style={[styles.label, { color: theme.subText }]}>{label}</Text>
       <TextInput
         {...sheet.field(key)}
-        style={[inputStyle, dateError && !parseIsoDate(value) && { borderColor: DANGER }]}
+        style={[inputStyle, dateError && !parseIsoDate(value) && { borderColor: theme.danger }]}
         value={value}
         onChangeText={onDateChange(setter)}
         placeholder="YYYY-MM-DD"
@@ -307,10 +307,10 @@ export default function CalculatorModal({
             accessibilityState={{ selected: active }}
             style={[
               styles.offerTierChip,
-              { borderColor: active ? ACCENT : theme.borderColor, backgroundColor: active ? `${ACCENT}22` : theme.cardBg },
+              { borderColor: active ? theme.accent : theme.borderColor, backgroundColor: active ? `${ACCENT}22` : theme.cardBg },
             ]}
           >
-            <Text style={[styles.offerTierChipText, { color: active ? ACCENT : theme.subText }]}>{t(opt.labelKey)}</Text>
+            <Text style={[styles.offerTierChipText, { color: active ? theme.accent : theme.subText }]}>{t(opt.labelKey)}</Text>
           </TouchableOpacity>
         );
       })}
@@ -345,7 +345,7 @@ export default function CalculatorModal({
         >
           <View style={styles.modalHandle} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-            <Ionicons name={meta.icon || 'calculator-outline'} size={20} color={ACCENT} />
+            <Ionicons name={meta.icon || 'calculator-outline'} size={20} color={theme.accent} />
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
               {t(copyKeys.titleKey)}
             </Text>
@@ -367,10 +367,10 @@ export default function CalculatorModal({
                 <View
                   style={[
                     styles.offerTierChip,
-                    { borderColor: statutory ? ACCENT : theme.borderColor, backgroundColor: theme.cardBg },
+                    { borderColor: statutory ? theme.accent : theme.borderColor, backgroundColor: theme.cardBg },
                   ]}
                 >
-                  <Text style={[styles.offerTierChipText, { color: statutory ? ACCENT : theme.subText }]}>
+                  <Text style={[styles.offerTierChipText, { color: statutory ? theme.accent : theme.subText }]}>
                     {t(statutory ? 'calcModeStatutory' : 'calcModeGeneric')}
                   </Text>
                 </View>
@@ -405,7 +405,7 @@ export default function CalculatorModal({
             {statutory && ctx.pack ? (
               __DEV__ ? (
                 <>
-                  <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 12 }]}>
+                  <Text style={[styles.sectionHint, { color: theme.accent, marginBottom: 12 }]}>
                     {t('calcAsOfNotice', { date: ctx.pack.asOfDate })}
                   </Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 14 }]}>
@@ -413,13 +413,13 @@ export default function CalculatorModal({
                   </Text>
                 </>
               ) : (
-                <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 14 }]}>
+                <Text style={[styles.sectionHint, { color: theme.accent, marginBottom: 14 }]}>
                   {t('calcRatesAsOfPublic', { date: ctx.pack.asOfDate })}
                 </Text>
               )
             ) : null}
             {available && !ctx.currency && meta.usesMoney !== false ? (
-              <Text style={[styles.sectionHint, { color: DANGER, marginBottom: 12 }]}>
+              <Text style={[styles.sectionHint, { color: theme.danger, marginBottom: 12 }]}>
                 {t('calcCurrencyUnset')}
               </Text>
             ) : null}
@@ -428,10 +428,10 @@ export default function CalculatorModal({
               <View
                 style={[
                   styles.previewBanner,
-                  { backgroundColor: theme.cardBg, borderColor: DANGER, marginBottom: 12 },
+                  { backgroundColor: theme.cardBg, borderColor: theme.danger, marginBottom: 12 },
                 ]}
               >
-                <Ionicons name="lock-closed-outline" size={16} color={DANGER} />
+                <Ionicons name="lock-closed-outline" size={16} color={theme.danger} />
                 <Text style={[styles.previewBannerText, { color: theme.text }]}>
                   {t('calcNotAvailableForCountry')}
                 </Text>
@@ -540,7 +540,7 @@ export default function CalculatorModal({
                 <Text style={[styles.label, { color: theme.subText }]}>{t('calcStartDate')}</Text>
                 <TextInput
                   {...sheet.field('startDate')}
-                  style={[inputStyle, dateError && !parseIsoDate(startDate) && { borderColor: DANGER }]}
+                  style={[inputStyle, dateError && !parseIsoDate(startDate) && { borderColor: theme.danger }]}
                   value={startDate}
                   onChangeText={onDateChange(setStartDate)}
                   placeholder="YYYY-MM-DD"
@@ -552,7 +552,7 @@ export default function CalculatorModal({
                 <Text style={[styles.label, { color: theme.subText }]}>{t('calcEndDate')}</Text>
                 <TextInput
                   {...sheet.field('endDate')}
-                  style={[inputStyle, dateError && { borderColor: DANGER }]}
+                  style={[inputStyle, dateError && { borderColor: theme.danger }]}
                   value={endDate}
                   onChangeText={onDateChange(setEndDate)}
                   placeholder="YYYY-MM-DD"
@@ -562,7 +562,7 @@ export default function CalculatorModal({
                   autoCapitalize="none"
                 />
                 {dateError ? (
-                  <Text style={[styles.sectionHint, { color: DANGER, marginTop: -4, marginBottom: 10 }]}>
+                  <Text style={[styles.sectionHint, { color: theme.danger, marginTop: -4, marginBottom: 10 }]}>
                     {t('calcInvalidDate')}
                   </Text>
                 ) : null}
@@ -594,12 +594,12 @@ export default function CalculatorModal({
                         style={[
                           styles.offerTierChip,
                           {
-                            borderColor: active ? ACCENT : theme.borderColor,
+                            borderColor: active ? theme.accent : theme.borderColor,
                             backgroundColor: active ? `${ACCENT}22` : theme.cardBg,
                           },
                         ]}
                       >
-                        <Text style={[styles.offerTierChipText, { color: active ? ACCENT : theme.subText }]}>
+                        <Text style={[styles.offerTierChipText, { color: active ? theme.accent : theme.subText }]}>
                           {t(opt.labelKey)}
                         </Text>
                       </TouchableOpacity>
@@ -681,7 +681,7 @@ export default function CalculatorModal({
             ) : null}
 
             {dateError && calculatorId !== 'legal_interest' ? (
-              <Text style={[styles.sectionHint, { color: DANGER, marginTop: -4, marginBottom: 10 }]}>{t('calcInvalidDateSingle')}</Text>
+              <Text style={[styles.sectionHint, { color: theme.danger, marginTop: -4, marginBottom: 10 }]}>{t('calcInvalidDateSingle')}</Text>
             ) : null}
 
             {available ? (
@@ -715,10 +715,10 @@ export default function CalculatorModal({
                 <View
                   style={[
                     styles.previewBanner,
-                    { backgroundColor: theme.cardBg, borderColor: ACCENT, marginTop: 10, marginBottom: 10 },
+                    { backgroundColor: theme.cardBg, borderColor: theme.accent, marginTop: 10, marginBottom: 10 },
                   ]}
                 >
-                  <Ionicons name="calculator-outline" size={16} color={ACCENT} />
+                  <Ionicons name="calculator-outline" size={16} color={theme.accent} />
                   <Text style={[styles.previewBannerText, { color: theme.text }]}>
                     {t(result.totalLabelKey || 'calcEstimatedNet')}:{' '}
                     {result.totalText != null ? result.totalText : formatMoney(result.totalAmount, result.currency, displayLocale)}
@@ -726,7 +726,7 @@ export default function CalculatorModal({
                 </View>
 
                 {result.meta?.overCap ? (
-                  <Text style={[styles.sectionHint, { color: DANGER, marginBottom: 10 }]}>
+                  <Text style={[styles.sectionHint, { color: theme.danger, marginBottom: 10 }]}>
                     {t('calcRentOverCap')}
                   </Text>
                 ) : null}

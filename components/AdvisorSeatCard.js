@@ -122,20 +122,20 @@ export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPay
         {seat.member_id ? t('seatAccepted') : t('seatPending')}
       </Text>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 8 }}>
-        <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleShareCode(seat).catch(() => {})}>
-          <Ionicons name="share-outline" size={14} color={ACCENT} />
+        <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: theme.accent }]} onPress={() => handleShareCode(seat).catch(() => {})}>
+          <Ionicons name="share-outline" size={14} color={theme.accent} />
           <Text style={styles.proposalBtnText}>{t('genShare')}</Text>
         </TouchableOpacity>
-        <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleCopy(seat).catch(() => {})}>
-          <Ionicons name="copy-outline" size={14} color={ACCENT} />
+        <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: theme.accent }]} onPress={() => handleCopy(seat).catch(() => {})}>
+          <Ionicons name="copy-outline" size={14} color={theme.accent} />
           <Text style={styles.proposalBtnText}>{t('copyDraft')}</Text>
         </TouchableOpacity>
         <TouchableOpacity accessibilityRole="button"
-          style={[styles.proposalBtn, { borderColor: DANGER }]}
+          style={[styles.proposalBtn, { borderColor: theme.danger }]}
           onPress={() => handleRevoke(seat.code).catch(() => {})}
           disabled={busy}
         >
-          <Text style={[styles.proposalBtnText, { color: DANGER }]}>{t('seatRevoke')}</Text>
+          <Text style={[styles.proposalBtnText, { color: theme.danger }]}>{t('seatRevoke')}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -154,7 +154,7 @@ export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPay
         disabled={busy}
         activeOpacity={0.85}
       >
-        {busy ? <ActivityIndicator color={ACCENT} /> : <Text style={styles.secondaryBtnText}>{t('seatMintHousehold')}</Text>}
+        {busy ? <ActivityIndicator color={theme.accent} /> : <Text style={styles.secondaryBtnText}>{t('seatMintHousehold')}</Text>}
       </TouchableOpacity>
 
       <Text style={[styles.settingLabel, { color: theme.text, marginTop: 20 }]}>{t('seatTitle')}</Text>
@@ -171,7 +171,7 @@ export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPay
         disabled={busy}
         activeOpacity={0.85}
       >
-        {busy ? <ActivityIndicator color={ACCENT} /> : <Text style={styles.secondaryBtnText}>{t('seatMint')}</Text>}
+        {busy ? <ActivityIndicator color={theme.accent} /> : <Text style={styles.secondaryBtnText}>{t('seatMint')}</Text>}
       </TouchableOpacity>
 
       <Text style={[styles.settingLabel, { color: theme.text, marginTop: 18 }]}>{t('seatRedeem')}</Text>

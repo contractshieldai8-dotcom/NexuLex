@@ -43,7 +43,7 @@ async function ensureAndroidChannel() {
       name: 'Contract reminders',
       importance: Notifications.AndroidImportance?.HIGH ?? 4,
       vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#00F5D4',
+      lightColor: '#D4B27A',
     });
   } catch (error) {
     console.log('Bildirim kanalı atlandı:', error?.message);

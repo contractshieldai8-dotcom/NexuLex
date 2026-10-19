@@ -241,7 +241,7 @@ export default function DraftWizardModal({
         >
           <View style={styles.modalHandle} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-            <Ionicons name={headerIcon} size={20} color={ACCENT} />
+            <Ionicons name={headerIcon} size={20} color={theme.accent} />
             <Text
               style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]}
               numberOfLines={2}
@@ -262,10 +262,10 @@ export default function DraftWizardModal({
               <View
                 style={[
                   styles.previewBanner,
-                  { backgroundColor: theme.cardBg, borderColor: ACCENT, marginBottom: 12 },
+                  { backgroundColor: theme.cardBg, borderColor: theme.accent, marginBottom: 12 },
                 ]}
               >
-                <Ionicons name="globe-outline" size={16} color={ACCENT} />
+                <Ionicons name="globe-outline" size={16} color={theme.accent} />
                 <Text style={[styles.previewBannerText, { color: theme.text }]}>
                   {t(variant.universal ? 'draftUniversalBanner' : 'draftGenericBanner')}
                 </Text>
@@ -299,7 +299,7 @@ export default function DraftWizardModal({
                     ]}
                   >
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                      <Ionicons name={item.icon} size={16} color={ACCENT} />
+                      <Ionicons name={item.icon} size={16} color={theme.accent} />
                       <Text style={[styles.secondaryBtnText, { textAlign: alignStart, flexShrink: 1 }]}>
                         {t(itemVariant.titleKey)}
                       </Text>
@@ -340,12 +340,12 @@ export default function DraftWizardModal({
                                 style={[
                                   styles.offerTierChip,
                                   {
-                                    borderColor: active ? ACCENT : theme.borderColor,
+                                    borderColor: active ? theme.accent : theme.borderColor,
                                     backgroundColor: active ? `${ACCENT}22` : theme.cardBg,
                                   },
                                 ]}
                               >
-                                <Text style={[styles.offerTierChipText, { color: active ? ACCENT : theme.subText }]}>
+                                <Text style={[styles.offerTierChipText, { color: active ? theme.accent : theme.subText }]}>
                                   {t(opt.labelKey)}
                                 </Text>
                               </TouchableOpacity>
@@ -368,7 +368,7 @@ export default function DraftWizardModal({
                           {
                             backgroundColor: theme.inputBg,
                             color: theme.text,
-                            borderColor: badDate ? DANGER : theme.borderColor,
+                            borderColor: badDate ? theme.danger : theme.borderColor,
                             minHeight: q.type === 'multiline' ? 80 : 44,
                             textAlignVertical: q.type === 'multiline' ? 'top' : 'center',
                           },
@@ -386,7 +386,7 @@ export default function DraftWizardModal({
                         multiline={q.type === 'multiline'}
                       />
                       {badDate ? (
-                        <Text style={[styles.sectionHint, { color: DANGER, marginTop: 4, marginBottom: 0 }]}>
+                        <Text style={[styles.sectionHint, { color: theme.danger, marginTop: 4, marginBottom: 0 }]}>
                           {t('draftInvalidDate', { format: t('draftDatePlaceholder') })}
                         </Text>
                       ) : null}
@@ -411,8 +411,8 @@ export default function DraftWizardModal({
                   <View
                     style={{
                       borderWidth: 1,
-                      borderColor: DANGER,
-                      backgroundColor: 'rgba(255,59,92,0.08)',
+                      borderColor: theme.danger,
+                      backgroundColor: 'rgba(229, 72, 77, 0.08)',
                       borderRadius: 10,
                       padding: 10,
                       marginBottom: 12,
@@ -454,7 +454,7 @@ export default function DraftWizardModal({
                   <View
                     style={{
                       borderWidth: 1,
-                      borderColor: ACCENT,
+                      borderColor: theme.accent,
                       borderRadius: 10,
                       padding: 12,
                       marginBottom: 12,
@@ -504,7 +504,7 @@ export default function DraftWizardModal({
                   disabled={improving}
                 >
                   {improving ? (
-                    <ActivityIndicator color={ACCENT} size="small" />
+                    <ActivityIndicator color={theme.accent} size="small" />
                   ) : (
                     <Text style={styles.secondaryBtnText}>
                       {isPro ? '' : '🔒 '}

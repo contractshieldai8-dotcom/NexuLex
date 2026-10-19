@@ -76,7 +76,7 @@ export default function ShareLoopSheet({ visible, theme, country, referralCode, 
         >
           <View style={styles.modalHandle} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-            <Ionicons name="gift-outline" size={20} color={ACCENT} />
+            <Ionicons name="gift-outline" size={20} color={theme.accent} />
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
               {t('vlTitle')}
             </Text>
@@ -107,7 +107,7 @@ export default function ShareLoopSheet({ visible, theme, country, referralCode, 
               <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>{t('vlCardTitle')}</Text>
               <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 8 }]}>{t('vlCardBody')}</Text>
               <Text style={[styles.sectionHint, { color: theme.text, marginBottom: 0 }]}>{payload.message}</Text>
-              <Text style={[styles.sectionHint, { color: ACCENT, marginTop: 8, marginBottom: 0 }]}>{t('vlLinkLabel')}</Text>
+              <Text style={[styles.sectionHint, { color: theme.accent, marginTop: 8, marginBottom: 0 }]}>{t('vlLinkLabel')}</Text>
             </View>
 
             <TouchableOpacity style={[styles.secondaryBtn, { marginBottom: 8 }]} onPress={shareInvite} disabled={busy} accessibilityRole="button">

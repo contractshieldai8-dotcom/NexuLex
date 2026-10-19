@@ -32,10 +32,10 @@ function scorePassword(value) {
 }
 
 const STRENGTH = [
-  { key: 'passwordStrengthWeak', color: '#FF4D6D' },
-  { key: 'passwordStrengthWeak', color: '#FF4D6D' },
-  { key: 'passwordStrengthMedium', color: '#FFB020' },
-  { key: 'passwordStrengthGood', color: '#3DDC97' },
+  { key: 'passwordStrengthWeak', color: '#E5484D' },
+  { key: 'passwordStrengthWeak', color: '#E5484D' },
+  { key: 'passwordStrengthMedium', color: '#E8A33D' },
+  { key: 'passwordStrengthGood', color: '#3DBE8B' },
   { key: 'passwordStrengthStrong', color: ACCENT },
 ];
 
@@ -95,11 +95,11 @@ export default function ResetPasswordScreen({ visible, theme, email, onDone, onC
             <View
               style={[
                 styles.card,
-                { backgroundColor: theme.cardBg, borderColor: ACCENT, alignItems: 'center' },
+                { backgroundColor: theme.cardBg, borderColor: theme.accent, alignItems: 'center' },
               ]}
             >
-              <Ionicons name="lock-open" size={40} color={ACCENT} />
-              <Text style={[styles.scoreValue, { color: ACCENT, fontSize: 20, marginTop: 8 }]}>
+              <Ionicons name="lock-open" size={40} color={theme.accent} />
+              <Text style={[styles.scoreValue, { color: theme.accent, fontSize: 20, marginTop: 8 }]}>
                 {t('setNewPasswordTitle')}
               </Text>
               <Text style={[styles.summaryText, { color: theme.subText, textAlign: 'center' }]}>
@@ -171,7 +171,7 @@ export default function ResetPasswordScreen({ visible, theme, email, onDone, onC
                   {
                     backgroundColor: theme.inputBg,
                     color: theme.text,
-                    borderColor: mismatch ? '#FF4D6D' : theme.borderColor,
+                    borderColor: mismatch ? '#E5484D' : theme.borderColor,
                     marginTop: 12,
                     marginBottom: 14,
                   },
@@ -185,7 +185,7 @@ export default function ResetPasswordScreen({ visible, theme, email, onDone, onC
               />
 
               {mismatch ? (
-                <Text style={[styles.sectionHint, { color: '#FF4D6D', marginTop: 0 }]}>
+                <Text style={[styles.sectionHint, { color: '#E5484D', marginTop: 0 }]}>
                   {t('passwordsDoNotMatch')}
                 </Text>
               ) : null}

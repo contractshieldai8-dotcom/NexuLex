@@ -222,13 +222,13 @@ export default function ProToolsSheet({
         paddingVertical: 7,
         borderRadius: 16,
         borderWidth: 1,
-        borderColor: on ? ACCENT : theme.borderColor,
+        borderColor: on ? theme.accent : theme.borderColor,
         backgroundColor: on ? `${ACCENT}22` : 'transparent',
         maxWidth: 220,
       }}
     >
-      {icon ? <Ionicons name={icon} size={14} color={on ? ACCENT : theme.subText} /> : null}
-      <Text style={{ color: on ? ACCENT : theme.text, fontSize: 13, fontWeight: on ? '700' : '500' }} numberOfLines={1}>
+      {icon ? <Ionicons name={icon} size={14} color={on ? theme.accent : theme.subText} /> : null}
+      <Text style={{ color: on ? theme.accent : theme.text, fontSize: 13, fontWeight: on ? '700' : '500' }} numberOfLines={1}>
         {label}
       </Text>
     </TouchableOpacity>
@@ -246,23 +246,23 @@ export default function ProToolsSheet({
     ));
   const linkBtn = (icon, labelKey, onPress) => (
     <TouchableOpacity accessibilityRole="button" onPress={onPress} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-      <Ionicons name={icon} size={16} color={ACCENT} />
-      <Text style={[styles.label, { color: ACCENT, marginBottom: 0 }]}>{t(labelKey)}</Text>
+      <Ionicons name={icon} size={16} color={theme.accent} />
+      <Text style={[styles.label, { color: theme.accent, marginBottom: 0 }]}>{t(labelKey)}</Text>
     </TouchableOpacity>
   );
 
   const renderLocked = () => (
     <View>
-      <View style={{ ...box, borderColor: ACCENT, backgroundColor: `${ACCENT}11` }}>
+      <View style={{ ...box, borderColor: theme.accent, backgroundColor: `${ACCENT}11` }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-          <Ionicons name="ribbon-outline" size={18} color={ACCENT} />
+          <Ionicons name="ribbon-outline" size={18} color={theme.accent} />
           <Text style={[styles.settingLabel, { color: theme.text, flex: 1, fontSize: 15 }]}>{t('ptLockedTitle')}</Text>
         </View>
         <Text style={bodyText}>{t('ptLockedBody')}</Text>
       </View>
       {LOCKED_FEATURES.map((key) => (
         <View key={key} style={styles.paywallFeatureRow}>
-          <Ionicons name="checkmark-circle" size={17} color={ACCENT} />
+          <Ionicons name="checkmark-circle" size={17} color={theme.accent} />
           <Text style={[styles.paywallFeatureText, { color: theme.text }]}>{t(key)}</Text>
         </View>
       ))}
@@ -317,7 +317,7 @@ export default function ProToolsSheet({
         <Text style={[styles.sectionHint, { color: theme.subText, flex: 1, marginBottom: 0 }]}>{t('ptPrivacy')}</Text>
       </View>
       {quotaView ? (
-        <Text style={[styles.sectionHint, { color: quotaView.count > 0 ? theme.subText : WARNING, marginTop: 6 }]}>
+        <Text style={[styles.sectionHint, { color: quotaView.count > 0 ? theme.subText : theme.warning, marginTop: 6 }]}>
           {t(quotaView.key, { count: quotaView.count, total: quotaView.total })}
         </Text>
       ) : null}
@@ -338,7 +338,7 @@ export default function ProToolsSheet({
     <>
       {sectionTitle('ptEvents', 'git-commit-outline')}
       {result.events.map((ev, index) => (
-        <View key={`ev-${index}`} style={{ borderLeftWidth: 2, borderLeftColor: ev.certainty === 'EXACT' ? ACCENT : WARNING, paddingLeft: 12, marginBottom: 12 }}>
+        <View key={`ev-${index}`} style={{ borderLeftWidth: 2, borderLeftColor: ev.certainty === 'EXACT' ? theme.accent : theme.warning, paddingLeft: 12, marginBottom: 12 }}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>
             {ev.date || '—'} · {t(`ptCertainty_${ev.certainty}`)}
           </Text>
@@ -357,7 +357,7 @@ export default function ProToolsSheet({
       {bullets(result.conflicts, 'conflict')}
       {caseId ? (
         <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center', marginTop: 12 }]} onPress={addToTimeline}>
-          <Ionicons name="add-circle-outline" size={16} color={ACCENT} />
+          <Ionicons name="add-circle-outline" size={16} color={theme.accent} />
           <Text style={styles.secondaryBtnText}>{t('ptAddToTimeline')}</Text>
         </TouchableOpacity>
       ) : null}
@@ -376,13 +376,13 @@ export default function ProToolsSheet({
           </Text>
           {issue.position ? (
             <Text style={[bodyText, { marginTop: 6 }]}>
-              <Text style={{ color: ACCENT, fontWeight: '700' }}>{t('ptPosition')}: </Text>
+              <Text style={{ color: theme.accent, fontWeight: '700' }}>{t('ptPosition')}: </Text>
               {issue.position}
             </Text>
           ) : null}
           {issue.counter ? (
             <Text style={[bodyText, { marginTop: 6 }]}>
-              <Text style={{ color: DANGER, fontWeight: '700' }}>{t('ptCounter')}: </Text>
+              <Text style={{ color: theme.danger, fontWeight: '700' }}>{t('ptCounter')}: </Text>
               {issue.counter}
             </Text>
           ) : null}
@@ -418,7 +418,7 @@ export default function ProToolsSheet({
           {result.question}
         </Text>
       ) : null}
-      <View style={{ ...box, borderColor: ACCENT }}>
+      <View style={{ ...box, borderColor: theme.accent }}>
         <Text style={[styles.label, { color: theme.subText, marginBottom: 4 }]}>{t('ptShortAnswer')}</Text>
         <Text style={[bodyText, { fontSize: 14, lineHeight: 21 }]}>{result.shortAnswer}</Text>
       </View>
@@ -431,16 +431,16 @@ export default function ProToolsSheet({
       ))}
       {result.authorities.length ? sectionTitle('ptAuthorities', 'library-outline', WARNING) : null}
       {result.authorities.map((item, index) => (
-        <View key={`au-${index}`} style={{ ...box, borderColor: WARNING }}>
+        <View key={`au-${index}`} style={{ ...box, borderColor: theme.warning }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-            <Text style={{ color: WARNING, fontSize: 11, fontWeight: '800' }}>{t('ptVerifyBadge').toUpperCase()}</Text>
+            <Text style={{ color: theme.warning, fontSize: 11, fontWeight: '800' }}>{t('ptVerifyBadge').toUpperCase()}</Text>
             <Text style={[styles.settingLabel, { color: theme.text, fontSize: 14, flex: 1 }]}>{item.title}</Text>
           </View>
           {item.why ? <Text style={[bodyText, { marginTop: 4 }]}>{item.why}</Text> : null}
           {item.url ? (
             <TouchableOpacity accessibilityRole="button" onPress={() => openUrl(item.url)} style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 6 }}>
-              <Ionicons name="open-outline" size={14} color={ACCENT} />
-              <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 0 }]} numberOfLines={1}>
+              <Ionicons name="open-outline" size={14} color={theme.accent} />
+              <Text style={[styles.sectionHint, { color: theme.accent, marginBottom: 0 }]} numberOfLines={1}>
                 {item.host}
               </Text>
             </TouchableOpacity>
@@ -462,8 +462,8 @@ export default function ProToolsSheet({
   const renderResult = () => (
     <View>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 6 }}>
-        <Ionicons name={PRO_TOOL_ICONS[result.tool]} size={16} color={ACCENT} />
-        <Text style={[styles.label, { color: ACCENT, marginBottom: 0, flex: 1 }]} numberOfLines={1}>
+        <Ionicons name={PRO_TOOL_ICONS[result.tool]} size={16} color={theme.accent} />
+        <Text style={[styles.label, { color: theme.accent, marginBottom: 0, flex: 1 }]} numberOfLines={1}>
           {t(`ptTool_${result.tool}`)}
           {title ? ` · ${title}` : ''}
         </Text>
@@ -474,7 +474,7 @@ export default function ProToolsSheet({
 
       {caseId ? (
         <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center', marginTop: 8 }]} onPress={saveNote}>
-          <Ionicons name="folder-open-outline" size={16} color={ACCENT} />
+          <Ionicons name="folder-open-outline" size={16} color={theme.accent} />
           <Text style={styles.secondaryBtnText}>{t('ptSaveToCase')}</Text>
         </TouchableOpacity>
       ) : null}
@@ -539,7 +539,7 @@ export default function ProToolsSheet({
         >
           <View style={styles.modalHandle} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-            <Ionicons name="ribbon-outline" size={20} color={ACCENT} />
+            <Ionicons name="ribbon-outline" size={20} color={theme.accent} />
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
               {t('ptTitle')}
             </Text>
@@ -555,7 +555,7 @@ export default function ProToolsSheet({
           >
             {working ? (
               <View style={{ alignItems: 'center', paddingVertical: 32, gap: 12 }}>
-                <ActivityIndicator color={ACCENT} />
+                <ActivityIndicator color={theme.accent} />
                 <Text style={[styles.sectionHint, { color: theme.subText, textAlign: 'center' }]}>{t('ptRunning')}</Text>
               </View>
             ) : result ? (

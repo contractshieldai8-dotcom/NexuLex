@@ -74,11 +74,11 @@ export default function AnalysisProgress({ theme, step }) {
       ]}
     >
       <View style={styles.takeawayHeader}>
-        <ActivityIndicator size="small" color={ACCENT} />
+        <ActivityIndicator size="small" color={theme.accent} />
         <Text style={[styles.takeawayTitle, { color: theme.text, flex: 1 }]} numberOfLines={1}>
           {t('progressTitle')}
         </Text>
-        <Text style={[styles.progressStepActive, { color: ACCENT }]}>{stage.percent}%</Text>
+        <Text style={[styles.progressStepActive, { color: theme.accent }]}>{stage.percent}%</Text>
       </View>
 
       <View style={[styles.progressTrack, { backgroundColor: theme.inputBg }]}>
@@ -87,10 +87,10 @@ export default function AnalysisProgress({ theme, step }) {
 
       <View style={styles.progressStepRow}>
         {stage.doneExtract ? (
-          <Ionicons name="checkmark-circle" size={16} color={ACCENT} />
+          <Ionicons name="checkmark-circle" size={16} color={theme.accent} />
         ) : (
           <Animated.View style={{ opacity: pulse }}>
-            <Ionicons name="ellipse" size={12} color={ACCENT} />
+            <Ionicons name="ellipse" size={12} color={theme.accent} />
           </Animated.View>
         )}
         <Text
@@ -107,10 +107,10 @@ export default function AnalysisProgress({ theme, step }) {
 
       <View style={styles.progressStepRow}>
         {stage.percent >= 100 ? (
-          <Ionicons name="checkmark-circle" size={16} color={ACCENT} />
+          <Ionicons name="checkmark-circle" size={16} color={theme.accent} />
         ) : secondActive ? (
           <Animated.View style={{ opacity: pulse }}>
-            <Ionicons name="ellipse" size={12} color={ACCENT} />
+            <Ionicons name="ellipse" size={12} color={theme.accent} />
           </Animated.View>
         ) : (
           <Ionicons name="ellipse-outline" size={12} color={theme.subText} />

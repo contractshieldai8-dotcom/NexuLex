@@ -55,7 +55,7 @@ export default function ContractMiniRadar({ theme, radar, preview = false }) {
               borderTopColor: theme.borderColor,
             }}
           >
-            <Ionicons name={row.icon} size={16} color={ACCENT} style={{ marginTop: 2 }} />
+            <Ionicons name={row.icon} size={16} color={theme.accent} style={{ marginTop: 2 }} />
             <View style={{ flex: 1, minWidth: 0 }}>
               <Text style={[styles.deadlineMeta, { color: theme.subText, marginBottom: 2 }]}>
                 {label}

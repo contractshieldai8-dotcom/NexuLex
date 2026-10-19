@@ -232,7 +232,7 @@ export default function ShareBriefSheet({
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('ux22Guides')}</Text>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('ux22Disclaimer')}</Text>
           {!isPro && !minted ? (
-            <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 12 }]}>{t('shareLimitFree')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.accent, marginBottom: 12 }]}>{t('shareLimitFree')}</Text>
           ) : null}
 
           {!minted ? (
@@ -281,31 +281,31 @@ export default function ShareBriefSheet({
                 })}
               </Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
-                <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleShare().catch(() => {})}>
-                  <Ionicons name="share-outline" size={14} color={ACCENT} />
+                <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: theme.accent }]} onPress={() => handleShare().catch(() => {})}>
+                  <Ionicons name="share-outline" size={14} color={theme.accent} />
                   <Text style={styles.proposalBtnText}>{t('genShare')}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleCopy().catch(() => {})}>
-                  <Ionicons name="copy-outline" size={14} color={ACCENT} />
+                <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: theme.accent }]} onPress={() => handleCopy().catch(() => {})}>
+                  <Ionicons name="copy-outline" size={14} color={theme.accent} />
                   <Text style={styles.proposalBtnText}>{t('copyDraft')}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity accessibilityRole="button"
-                  style={[styles.proposalBtn, { borderColor: ACCENT }]}
+                  style={[styles.proposalBtn, { borderColor: theme.accent }]}
                   onPress={() => {
                     onOpenCode?.(minted.code);
                     close();
                   }}
                 >
-                  <Ionicons name="eye-outline" size={14} color={ACCENT} />
+                  <Ionicons name="eye-outline" size={14} color={theme.accent} />
                   <Text style={styles.proposalBtnText}>{t('shareOpen')}</Text>
                 </TouchableOpacity>
               </View>
               <TouchableOpacity accessibilityRole="button"
-                style={[styles.secondaryBtn, { marginTop: 14, borderColor: DANGER }]}
+                style={[styles.secondaryBtn, { marginTop: 14, borderColor: theme.danger }]}
                 onPress={() => handleRevoke().catch(() => {})}
                 disabled={busy}
               >
-                <Text style={[styles.secondaryBtnText, { color: DANGER }]}>{t('shareRevoke')}</Text>
+                <Text style={[styles.secondaryBtnText, { color: theme.danger }]}>{t('shareRevoke')}</Text>
               </TouchableOpacity>
             </>
           )}

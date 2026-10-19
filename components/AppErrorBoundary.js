@@ -8,7 +8,7 @@ import i18n from '../i18n';
 import { trackError, flushTelemetry } from '../services/telemetry';
 
 const NAVY = '#0A0F1D';
-const ACCENT = '#00F5D4';
+const ACCENT = '#D4B27A';
 
 export default class AppErrorBoundary extends React.Component {
   constructor(props) {

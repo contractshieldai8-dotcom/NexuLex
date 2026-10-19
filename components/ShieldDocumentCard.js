@@ -410,7 +410,7 @@ export default function ShieldDocumentCard({
               <Ionicons
                 name={locked ? 'lock-closed' : checked ? 'checkbox' : 'square-outline'}
                 size={18}
-                color={locked ? theme.subText : checked ? ACCENT : theme.subText}
+                color={locked ? theme.subText : checked ? theme.accent : theme.subText}
                 style={{ marginTop: 2 }}
               />
             </TouchableOpacity>
@@ -466,7 +466,7 @@ export default function ShieldDocumentCard({
               paddingVertical: 12,
               borderRadius: 8,
               borderWidth: 1,
-              borderColor: ACCENT,
+              borderColor: theme.accent,
               alignItems: 'center',
               justifyContent: 'center',
               backgroundColor: 'transparent',
@@ -484,7 +484,7 @@ export default function ShieldDocumentCard({
       {stitched?.text ? (
         <View style={{ marginTop: 12 }}>
           {(stitched.skipped || []).filter((item) => item.reason === 'not_found').length ? (
-            <Text style={[styles.sectionHint, { color: WARNING }]}>
+            <Text style={[styles.sectionHint, { color: theme.warning }]}>
               {t('shieldSkipUnmatched', {
                 count: stitched.skipped.filter((item) => item.reason === 'not_found').length,
               })}
@@ -498,20 +498,20 @@ export default function ShieldDocumentCard({
             </Text>
           </ScrollView>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 10 }}>
-            <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleCopy().catch(() => {})}>
-              <Ionicons name={lockPremium ? 'lock-closed' : 'copy-outline'} size={14} color={ACCENT} />
+            <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: theme.accent }]} onPress={() => handleCopy().catch(() => {})}>
+              <Ionicons name={lockPremium ? 'lock-closed' : 'copy-outline'} size={14} color={theme.accent} />
               <Text style={styles.proposalBtnText}>{t('copyDraft')}</Text>
             </TouchableOpacity>
-            <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handleShare().catch(() => {})}>
-              <Ionicons name={lockPremium ? 'lock-closed' : 'share-outline'} size={14} color={ACCENT} />
+            <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: theme.accent }]} onPress={() => handleShare().catch(() => {})}>
+              <Ionicons name={lockPremium ? 'lock-closed' : 'share-outline'} size={14} color={theme.accent} />
               <Text style={styles.proposalBtnText}>{t('shareDraft')}</Text>
             </TouchableOpacity>
-            <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: ACCENT }]} onPress={() => handlePdf().catch(() => {})}>
-              <Ionicons name={lockPremium ? 'lock-closed' : 'document-outline'} size={14} color={ACCENT} />
+            <TouchableOpacity accessibilityRole="button" style={[styles.proposalBtn, { borderColor: theme.accent }]} onPress={() => handlePdf().catch(() => {})}>
+              <Ionicons name={lockPremium ? 'lock-closed' : 'document-outline'} size={14} color={theme.accent} />
               <Text style={styles.proposalBtnText}>{t('exportPdfShort')}</Text>
             </TouchableOpacity>
             <TouchableOpacity accessibilityRole="button"
-              style={[styles.proposalBtn, { borderColor: ACCENT }]}
+              style={[styles.proposalBtn, { borderColor: theme.accent }]}
               onPress={() => {
                 if (lockPremium) {
                   onNeedPaywall?.();
@@ -520,7 +520,7 @@ export default function ShieldDocumentCard({
                 onOpenDiff?.(stitched.text);
               }}
             >
-              <Ionicons name={lockPremium ? 'lock-closed' : 'git-compare-outline'} size={14} color={ACCENT} />
+              <Ionicons name={lockPremium ? 'lock-closed' : 'git-compare-outline'} size={14} color={theme.accent} />
               <Text style={styles.proposalBtnText}>{t('shieldOpenDiff')}</Text>
             </TouchableOpacity>
           </View>

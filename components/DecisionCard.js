@@ -242,7 +242,7 @@ export default function DecisionCard({
                 ) : null}
                 {step?.counter ? (
                   <TouchableOpacity accessibilityRole="button" onPress={() => copyText(step.counter).catch(() => {})} activeOpacity={0.8}>
-                    <Text style={[styles.deadlineMeta, { color: ACCENT, marginTop: 4 }]}>
+                    <Text style={[styles.deadlineMeta, { color: theme.accent, marginTop: 4 }]}>
                       {t('ladderCounter')}: {safeDisplayText(step.counter)}
                     </Text>
                   </TouchableOpacity>
@@ -253,7 +253,7 @@ export default function DecisionCard({
         ) : null}
 
         {blocked ? (
-          <Text style={[styles.decisionAdvice, { color: WARNING, marginTop: 8, marginBottom: 4 }]}>
+          <Text style={[styles.decisionAdvice, { color: theme.warning, marginTop: 8, marginBottom: 4 }]}>
             {t('signBlockedReason')}
           </Text>
         ) : null}
@@ -287,7 +287,7 @@ export default function DecisionCard({
         </View>
       ) : extraReasons > 0 ? (
         <TouchableOpacity accessibilityRole="button" onPress={onUnlock} activeOpacity={0.8}>
-          <Text style={[styles.lockedMoreText, { color: ACCENT }]}>{t('lockedUnlockAll')}</Text>
+          <Text style={[styles.lockedMoreText, { color: theme.accent }]}>{t('lockedUnlockAll')}</Text>
         </TouchableOpacity>
       ) : null}
 
@@ -305,7 +305,7 @@ export default function DecisionCard({
           ]}
         >
           <View style={styles.takeawayHeader}>
-            <Ionicons name="send-outline" size={16} color={ACCENT} />
+            <Ionicons name="send-outline" size={16} color={theme.accent} />
             <Text style={[styles.takeawayTitle, { color: theme.text, flex: 1 }]} numberOfLines={1}>
               {t('counterMessageTitle')}
             </Text>
@@ -317,7 +317,7 @@ export default function DecisionCard({
               <Ionicons
                 name={counterCopied ? 'checkmark-circle' : 'copy-outline'}
                 size={18}
-                color={counterCopied ? '#00E676' : ACCENT}
+                color={counterCopied ? theme.success : theme.accent}
               />
             </TouchableOpacity>
           </View>
@@ -362,7 +362,7 @@ export default function DecisionCard({
           disabled={busy}
           activeOpacity={0.85}
         >
-          <Ionicons name="logo-whatsapp" size={16} color={ACCENT} />
+          <Ionicons name="logo-whatsapp" size={16} color={theme.accent} />
           <Text style={styles.decisionShareText} numberOfLines={1}>{t('decisionShare')}</Text>
         </TouchableOpacity>
         {typeof onShareBrief === 'function' ? (
@@ -371,7 +371,7 @@ export default function DecisionCard({
             onPress={() => onShareBrief()}
             activeOpacity={0.85}
           >
-            <Ionicons name="link-outline" size={16} color={ACCENT} />
+            <Ionicons name="link-outline" size={16} color={theme.accent} />
             <Text style={styles.decisionShareText} numberOfLines={1}>{t('shareBriefTitle')}</Text>
           </TouchableOpacity>
         ) : null}

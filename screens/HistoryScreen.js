@@ -87,16 +87,16 @@ function FilterButton({ theme, open, active, label, onToggle, buttonRef }) {
           gap: 4,
           height: 40,
           borderWidth: 1,
-          borderColor: active || open ? ACCENT : theme.borderColor,
-          backgroundColor: active ? 'rgba(0, 245, 212, 0.12)' : theme.cardBg,
+          borderColor: active || open ? theme.accent : theme.borderColor,
+          backgroundColor: active ? 'rgba(212, 178, 122, 0.12)' : theme.cardBg,
           borderRadius: 12,
           paddingHorizontal: 10,
         }}
       >
-        <Text numberOfLines={1} style={[{ flex: 1, color: active || open ? ACCENT : theme.text }, filterFace]}>
+        <Text numberOfLines={1} style={[{ flex: 1, color: active || open ? theme.accent : theme.text }, filterFace]}>
           {label}
         </Text>
-        <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={14} color={active || open ? ACCENT : theme.subText} />
+        <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={14} color={active || open ? theme.accent : theme.subText} />
       </TouchableOpacity>
     </View>
   );
@@ -307,9 +307,9 @@ export default function HistoryScreen({
               accessibilityLabel={t('deleteAnalysisTitle')}
             >
               {isDeleting ? (
-                <ActivityIndicator size="small" color={DANGER} />
+                <ActivityIndicator size="small" color={theme.danger} />
               ) : (
-                <Ionicons name="trash-outline" size={17} color={DANGER} />
+                <Ionicons name="trash-outline" size={17} color={theme.danger} />
               )}
             </TouchableOpacity>
           </View>
@@ -356,7 +356,7 @@ export default function HistoryScreen({
             hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
             accessibilityLabel={t('shareBriefTitle')}
           >
-            <Ionicons name="share-social-outline" size={17} color={ACCENT} />
+            <Ionicons name="share-social-outline" size={17} color={theme.accent} />
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
@@ -455,13 +455,13 @@ export default function HistoryScreen({
             alignItems: 'center',
             justifyContent: 'center',
             borderWidth: 1,
-            borderColor: risk === 'all' && lifecycle === 'all' ? ACCENT : theme.borderColor,
-            backgroundColor: risk === 'all' && lifecycle === 'all' ? 'rgba(0, 245, 212, 0.12)' : theme.cardBg,
+            borderColor: risk === 'all' && lifecycle === 'all' ? theme.accent : theme.borderColor,
+            backgroundColor: risk === 'all' && lifecycle === 'all' ? 'rgba(212, 178, 122, 0.12)' : theme.cardBg,
             borderRadius: 12,
             paddingHorizontal: 10,
           }}
         >
-          <Text numberOfLines={1} style={[{ height: 40, color: risk === 'all' && lifecycle === 'all' ? ACCENT : theme.text }, filterFace]}>
+          <Text numberOfLines={1} style={[{ height: 40, color: risk === 'all' && lifecycle === 'all' ? theme.accent : theme.text }, filterFace]}>
             {t('ux23Filter')}
           </Text>
         </TouchableOpacity>
@@ -493,7 +493,7 @@ export default function HistoryScreen({
         accessibilityLabel={t('ux23Export')}
       >
         {exporting ? (
-          <ActivityIndicator color={ACCENT} />
+          <ActivityIndicator color={theme.accent} />
         ) : (
           <Text style={styles.secondaryBtnText}>{t('ux23Export')}</Text>
         )}
@@ -538,7 +538,7 @@ export default function HistoryScreen({
         ListHeaderComponent={listHeader}
         ListEmptyComponent={
           showFirstSpinner ? (
-            <ActivityIndicator color="#00F5D4" size="large" style={{ marginTop: 40 }} />
+            <ActivityIndicator color={theme.accent} size="large" style={{ marginTop: 40 }} />
           ) : history.length === 0 ? (
             sessions.length ? null : (
               // E.3: nothing saved yet - one calm message and one clear next step (ux23Empty is for empty filters only).
@@ -549,9 +549,9 @@ export default function HistoryScreen({
                   onPress={() => onOpenAnalyze?.()}
                   accessibilityRole="button"
                   activeOpacity={0.85}
-                  style={[styles.secondaryBtn, { marginTop: 16, alignSelf: 'center', paddingHorizontal: 24, borderColor: ACCENT }]}
+                  style={[styles.secondaryBtn, { marginTop: 16, alignSelf: 'center', paddingHorizontal: 24, borderColor: theme.accent }]}
                 >
-                  <Text style={[styles.secondaryBtnText, { color: ACCENT }]}>{t('tabAnalyze')}</Text>
+                  <Text style={[styles.secondaryBtnText, { color: theme.accent }]}>{t('tabAnalyze')}</Text>
                 </TouchableOpacity>
               </View>
             )
@@ -605,7 +605,7 @@ export default function HistoryScreen({
                 alignItems: 'center',
               }}
             >
-              <Text numberOfLines={1} style={[{ flex: 1, color: option.selected ? ACCENT : theme.text }, filterFace]}>
+              <Text numberOfLines={1} style={[{ flex: 1, color: option.selected ? theme.accent : theme.text }, filterFace]}>
                 {option.label}
               </Text>
             </TouchableOpacity>

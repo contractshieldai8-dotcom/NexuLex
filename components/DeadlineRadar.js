@@ -58,7 +58,7 @@ export default function DeadlineRadar({
         ]}
       >
         <View style={styles.takeawayHeader}>
-          <Ionicons name="calendar-outline" size={16} color={ACCENT} />
+          <Ionicons name="calendar-outline" size={16} color={theme.accent} />
           <Text style={[styles.takeawayTitle, { color: theme.text, flexShrink: 1 }]}>
             {title || t('deadlinesTitle')}
           </Text>
@@ -80,7 +80,7 @@ export default function DeadlineRadar({
       ]}
     >
       <View style={styles.takeawayHeader}>
-        <Ionicons name="calendar-outline" size={16} color={ACCENT} />
+        <Ionicons name="calendar-outline" size={16} color={theme.accent} />
         <Text style={[styles.takeawayTitle, { color: theme.text, flexShrink: 1 }]}>
           {title || t('deadlinesTitle')}
         </Text>

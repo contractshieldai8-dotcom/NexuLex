@@ -80,35 +80,35 @@ function DraftToolbar({ theme, onCopy, onShare, view, onView }) {
   return (
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginVertical: 10 }}>
       <TouchableOpacity accessibilityRole="button"
-        style={[styles.proposalBtn, { borderColor: ACCENT }]}
+        style={[styles.proposalBtn, { borderColor: theme.accent }]}
         onPress={() => {
           onCopy().catch(() => {});
         }}
       >
-        <Ionicons name="copy-outline" size={14} color={ACCENT} />
+        <Ionicons name="copy-outline" size={14} color={theme.accent} />
         <Text style={styles.proposalBtnText}>{t('copyDraft')}</Text>
       </TouchableOpacity>
       <TouchableOpacity accessibilityRole="button"
-        style={[styles.proposalBtn, { borderColor: ACCENT }]}
+        style={[styles.proposalBtn, { borderColor: theme.accent }]}
         onPress={() => {
           onShare().catch(() => {});
         }}
       >
-        <Ionicons name="share-outline" size={14} color={ACCENT} />
+        <Ionicons name="share-outline" size={14} color={theme.accent} />
         <Text style={styles.proposalBtnText}>{t('genShare')}</Text>
       </TouchableOpacity>
       <TouchableOpacity accessibilityRole="button"
-        style={[styles.proposalBtn, { borderColor: view === 'split' ? ACCENT : theme.borderColor }]}
+        style={[styles.proposalBtn, { borderColor: view === 'split' ? theme.accent : theme.borderColor }]}
         onPress={() => onView(view === 'split' ? 'full' : 'split')}
       >
-        <Ionicons name="git-compare-outline" size={14} color={ACCENT} />
+        <Ionicons name="git-compare-outline" size={14} color={theme.accent} />
         <Text style={styles.proposalBtnText}>{t('diffSplitView')}</Text>
       </TouchableOpacity>
       <TouchableOpacity accessibilityRole="button"
-        style={[styles.proposalBtn, { borderColor: view === 'redline' ? ACCENT : theme.borderColor }]}
+        style={[styles.proposalBtn, { borderColor: view === 'redline' ? theme.accent : theme.borderColor }]}
         onPress={() => onView(view === 'redline' ? 'full' : 'redline')}
       >
-        <Ionicons name="color-wand-outline" size={14} color={ACCENT} />
+        <Ionicons name="color-wand-outline" size={14} color={theme.accent} />
         <Text style={styles.proposalBtnText}>{t('diffRedline')}</Text>
       </TouchableOpacity>
     </View>
@@ -339,7 +339,7 @@ export default function DiffTool({
       if (redlineBusy || !redlineModel) {
         return (
           <View style={{ paddingVertical: 24, alignItems: 'center' }}>
-            <ActivityIndicator color={ACCENT} />
+            <ActivityIndicator color={theme.accent} />
           </View>
         );
       }
@@ -347,7 +347,7 @@ export default function DiffTool({
       return (
         <View>
           {redlineModel.truncated ? (
-            <Text style={[styles.sectionHint, { color: WARNING, marginBottom: 8 }]}>
+            <Text style={[styles.sectionHint, { color: theme.warning, marginBottom: 8 }]}>
               {`Performance Mode: Showing first ${runs.length} runs`}
             </Text>
           ) : null}
@@ -356,7 +356,7 @@ export default function DiffTool({
               <Text
                 key={`${run.type}-${index}`}
                 style={{
-                  color: run.type === 'del' ? DANGER : run.type === 'add' ? SUCCESS : theme.text,
+                  color: run.type === 'del' ? theme.danger : run.type === 'add' ? theme.success : theme.text,
                   textDecorationLine: run.type === 'del' ? 'line-through' : 'none',
                   fontWeight: run.type === 'add' ? '700' : '400',
                   fontSize: 13,
@@ -433,7 +433,7 @@ export default function DiffTool({
         ]}
       >
         <View style={styles.takeawayHeader}>
-          <Ionicons name="git-compare-outline" size={16} color={ACCENT} />
+          <Ionicons name="git-compare-outline" size={16} color={theme.accent} />
           <Text style={[styles.takeawayTitle, { color: theme.text, flexShrink: 1 }]}>
             {t('diffWhatChanged')}
           </Text>
@@ -497,12 +497,12 @@ export default function DiffTool({
               {t(`diffWinner${item.winner === 'USER' ? 'User' : item.winner === 'OTHER' ? 'Other' : 'Mixed'}`)}
             </Text>
             {item.original ? (
-              <Text style={[styles.deadlineMeta, { color: DANGER, textDecorationLine: 'line-through', marginTop: 6 }]}>
+              <Text style={[styles.deadlineMeta, { color: theme.danger, textDecorationLine: 'line-through', marginTop: 6 }]}>
                 {safeDisplayText(item.original)}
               </Text>
             ) : null}
             {item.revised ? (
-              <Text style={[styles.deadlineMeta, { color: SUCCESS, marginTop: 4 }]}>
+              <Text style={[styles.deadlineMeta, { color: theme.success, marginTop: 4 }]}>
                 {safeDisplayText(item.revised)}
               </Text>
             ) : null}
@@ -627,7 +627,7 @@ export default function DiffTool({
         <Text style={[styles.sectionHint, { color: theme.subText }]}>{t('diffModeHint')}</Text>
         <View style={styles.sideSelector}>
           <TouchableOpacity accessibilityRole="button"
-            style={[styles.sideCard, { backgroundColor: theme.cardBg, borderColor: ACCENT }]}
+            style={[styles.sideCard, { backgroundColor: theme.cardBg, borderColor: theme.accent }]}
             onPress={() => enterMode('auto')}
             disabled={disabled}
             activeOpacity={0.85}
@@ -650,7 +650,7 @@ export default function DiffTool({
         <TouchableOpacity accessibilityRole="button"
           style={[
             styles.sideCard,
-            { backgroundColor: theme.cardBg, borderColor: ACCENT, marginTop: 8 },
+            { backgroundColor: theme.cardBg, borderColor: theme.accent, marginTop: 8 },
           ]}
           onPress={() => enterMode('verify')}
           disabled={disabled}
@@ -673,7 +673,7 @@ export default function DiffTool({
         }}
         style={{ marginBottom: 10 }}
       >
-        <Text style={{ color: ACCENT, fontWeight: '700' }}>{t('diffChangeMode')}</Text>
+        <Text style={{ color: theme.accent, fontWeight: '700' }}>{t('diffChangeMode')}</Text>
       </TouchableOpacity>
 
       {mode === 'auto' ? (
@@ -722,7 +722,7 @@ export default function DiffTool({
             editable={!disabled && !loading}
           />
           {!String(revised || '').trim() ? (
-            <Text style={[styles.sectionHint, { color: ACCENT, marginTop: 4 }]}>
+            <Text style={[styles.sectionHint, { color: theme.accent, marginTop: 4 }]}>
               {t('verifyPasteNewHint')}
             </Text>
           ) : (

@@ -91,7 +91,7 @@ export default function ShareBriefScreen({ theme, code, snapshot: providedSnapsh
       </View>
 
       {loading ? (
-        <ActivityIndicator color={ACCENT} size="large" style={{ marginTop: 40 }} />
+        <ActivityIndicator color={theme.accent} size="large" style={{ marginTop: 40 }} />
       ) : missing || !snapshot ? (
         <Text style={[styles.summaryText, { color: theme.subText, margin: 20 }]}>{t('shareUnavailable')}</Text>
       ) : (
@@ -120,7 +120,7 @@ export default function ShareBriefScreen({ theme, code, snapshot: providedSnapsh
           {(snapshot.flags || []).map((flag, index) => {
             const risk = String(flag.risk || flag.severity || 'RED').toUpperCase();
             const tone = getRiskColor(risk);
-            const tinted = risk === 'YELLOW' ? 'rgba(255, 184, 0, 0.12)' : 'rgba(255, 59, 92, 0.12)';
+            const tinted = risk === 'YELLOW' ? 'rgba(232, 163, 61, 0.12)' : 'rgba(229, 72, 77, 0.12)';
             const chrome = risk === 'YELLOW' ? styles.yellowFlagCard : styles.redFlagCard;
             return (
               <View
@@ -143,7 +143,7 @@ export default function ShareBriefScreen({ theme, code, snapshot: providedSnapsh
                   <Text style={[styles.deadlineMeta, { color: theme.subText, marginTop: 6 }]}>{flag.explanation}</Text>
                 ) : null}
                 {flag.counterOffer ? (
-                  <Text style={[styles.deadlineMeta, { color: ACCENT, marginTop: 6 }]}>{flag.counterOffer}</Text>
+                  <Text style={[styles.deadlineMeta, { color: theme.accent, marginTop: 6 }]}>{flag.counterOffer}</Text>
                 ) : null}
               </View>
             );
@@ -152,7 +152,7 @@ export default function ShareBriefScreen({ theme, code, snapshot: providedSnapsh
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
             {(snapshot.missing || []).map((item, index) => (
               <View key={`${item.playbookId}-${index}`} style={[styles.statusChip, { backgroundColor: theme.inputBg }]}>
-                <Text style={[styles.statusChipText, { color: ACCENT }]}>
+                <Text style={[styles.statusChipText, { color: theme.accent }]}>
                   {item.playbookId} · {item.status}
                 </Text>
               </View>

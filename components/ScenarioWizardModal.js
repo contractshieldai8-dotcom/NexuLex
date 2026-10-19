@@ -139,7 +139,7 @@ export default function ScenarioWizardModal({
         >
           <View style={styles.modalHandle} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-            <Ionicons name={scenario.icon || 'map-outline'} size={20} color={ACCENT} />
+            <Ionicons name={scenario.icon || 'map-outline'} size={20} color={theme.accent} />
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
               {t(scenario.titleKey)}
             </Text>
@@ -188,7 +188,7 @@ export default function ScenarioWizardModal({
                           {
                             marginTop: 8,
                             borderColor:
-                              answers[currentQ.id] === opt.value ? ACCENT : theme.borderColor,
+                              answers[currentQ.id] === opt.value ? theme.accent : theme.borderColor,
                             alignItems: 'flex-start',
                             paddingHorizontal: 14,
                           },
@@ -208,10 +208,10 @@ export default function ScenarioWizardModal({
                   <View
                     style={[
                       styles.previewBanner,
-                      { backgroundColor: theme.cardBg, borderColor: ACCENT, marginBottom: 12 },
+                      { backgroundColor: theme.cardBg, borderColor: theme.accent, marginBottom: 12 },
                     ]}
                   >
-                    <Ionicons name="globe-outline" size={16} color={ACCENT} />
+                    <Ionicons name="globe-outline" size={16} color={theme.accent} />
                     <Text style={[styles.previewBannerText, { color: theme.text }]}>
                       {roadmap.banner || t('scenarioGenericBanner')}
                     </Text>
@@ -225,7 +225,7 @@ export default function ScenarioWizardModal({
                     key={`step-${item.stepNumber}`}
                     style={{
                       borderLeftWidth: 2,
-                      borderLeftColor: ACCENT,
+                      borderLeftColor: theme.accent,
                       paddingLeft: 12,
                       marginBottom: 14,
                     }}
@@ -241,14 +241,14 @@ export default function ScenarioWizardModal({
                         style={{
                           alignSelf: 'flex-start',
                           borderWidth: 1,
-                          borderColor: ACCENT,
+                          borderColor: theme.accent,
                           borderRadius: 8,
                           paddingHorizontal: 8,
                           paddingVertical: 3,
                           marginBottom: 4,
                         }}
                       >
-                        <Text style={{ color: ACCENT, fontSize: 11, fontWeight: '600' }}>
+                        <Text style={{ color: theme.accent, fontSize: 11, fontWeight: '600' }}>
                           {item.timeHint}
                         </Text>
                       </View>
@@ -264,14 +264,14 @@ export default function ScenarioWizardModal({
                 <View
                   style={{
                     borderWidth: 1,
-                    borderColor: DANGER,
-                    backgroundColor: 'rgba(255,59,92,0.08)',
+                    borderColor: theme.danger,
+                    backgroundColor: 'rgba(229, 72, 77, 0.08)',
                     borderRadius: 10,
                     padding: 12,
                     marginBottom: 12,
                   }}
                 >
-                  <Text style={[styles.settingLabel, { color: DANGER, marginBottom: 6 }]}>
+                  <Text style={[styles.settingLabel, { color: theme.danger, marginBottom: 6 }]}>
                     {t('scenarioLawyerTitle')}
                   </Text>
                   <Text style={[styles.sectionHint, { color: theme.text, marginBottom: 0 }]}>
@@ -295,7 +295,7 @@ export default function ScenarioWizardModal({
                 </TouchableOpacity>
                 {draftTemplateId && onOpenDraft ? (
                   <TouchableOpacity accessibilityRole="button"
-                    style={[styles.secondaryBtn, { marginTop: 8, borderColor: ACCENT }]}
+                    style={[styles.secondaryBtn, { marginTop: 8, borderColor: theme.accent }]}
                     onPress={() => onOpenDraft(draftTemplateId)}
                   >
                     <Text style={styles.secondaryBtnText}>📝 {t('draftFromRoadmapCta')}</Text>

@@ -303,7 +303,7 @@ export function buildRedlinePdfHtml({
       box-sizing: border-box;
     }
     .header { border-bottom: 2px solid #0A0F1D; padding-bottom: 12px; margin-bottom: 16px; }
-    .brand { letter-spacing: 1px; text-transform: uppercase; font-size: 10pt; color: #00B4D8; margin: 0 0 6px; }
+    .brand { letter-spacing: 1px; text-transform: uppercase; font-size: 10pt; color: #7D5A1E; margin: 0 0 6px; }
     h1 { font-size: 16pt; margin: 0 0 6px; color: #0A0F1D; }
     .meta { color: #64748b; font-size: 10pt; margin: 0; }
     .summary { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; }

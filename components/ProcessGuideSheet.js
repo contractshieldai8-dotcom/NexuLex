@@ -98,7 +98,7 @@ export default function ProcessGuideSheet({
   const box = { borderWidth: 1, borderColor: theme.borderColor, borderRadius: 12, padding: 12, marginBottom: 8 };
   const sectionTitle = (key, icon, params) => (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 14, marginBottom: 6 }}>
-      <Ionicons name={icon} size={15} color={ACCENT} />
+      <Ionicons name={icon} size={15} color={theme.accent} />
       <Text style={[styles.label, { color: theme.text, marginBottom: 0, flex: 1 }]}>{t(key, params)}</Text>
     </View>
   );
@@ -114,12 +114,12 @@ export default function ProcessGuideSheet({
         paddingVertical: 7,
         borderRadius: 16,
         borderWidth: 1,
-        borderColor: on ? ACCENT : theme.borderColor,
+        borderColor: on ? theme.accent : theme.borderColor,
         backgroundColor: on ? `${ACCENT}22` : 'transparent',
       }}
     >
-      {icon ? <Ionicons name={icon} size={14} color={on ? ACCENT : theme.subText} /> : null}
-      <Text style={{ color: on ? ACCENT : theme.text, fontSize: 13, fontWeight: on ? '700' : '500' }} numberOfLines={1}>
+      {icon ? <Ionicons name={icon} size={14} color={on ? theme.accent : theme.subText} /> : null}
+      <Text style={{ color: on ? theme.accent : theme.text, fontSize: 13, fontWeight: on ? '700' : '500' }} numberOfLines={1}>
         {label}
       </Text>
     </TouchableOpacity>
@@ -166,7 +166,7 @@ export default function ProcessGuideSheet({
             onPress={() => openGuide(item.id)}
             style={{ ...box, flexDirection: 'row', alignItems: 'center', gap: 10 }}
           >
-            <Ionicons name={item.icon} size={20} color={item.urgent ? DANGER : ACCENT} />
+            <Ionicons name={item.icon} size={20} color={item.urgent ? theme.danger : theme.accent} />
             <View style={{ flex: 1 }}>
               <Text style={[styles.settingLabel, { color: theme.text, fontSize: 14 }]} numberOfLines={2}>
                 {t(item.titleKey)}
@@ -193,10 +193,10 @@ export default function ProcessGuideSheet({
           activeOpacity={0.85}
           onPress={emergency ? callEmergency : undefined}
           disabled={!emergency}
-          style={{ ...box, borderColor: DANGER, backgroundColor: 'rgba(255,59,92,0.08)', flexDirection: 'row', gap: 8, alignItems: 'center' }}
+          style={{ ...box, borderColor: theme.danger, backgroundColor: 'rgba(229, 72, 77, 0.08)', flexDirection: 'row', gap: 8, alignItems: 'center' }}
         >
-          <Ionicons name="call-outline" size={18} color={DANGER} />
-          <Text style={[bodyText, { flex: 1, color: DANGER, fontWeight: '700' }]}>
+          <Ionicons name="call-outline" size={18} color={theme.danger} />
+          <Text style={[bodyText, { flex: 1, color: theme.danger, fontWeight: '700' }]}>
             {emergency ? t('pgEmergency', { number: emergency }) : t('pgEmergencyGeneric')}
           </Text>
         </TouchableOpacity>
@@ -204,15 +204,15 @@ export default function ProcessGuideSheet({
 
       <Text style={[bodyText, { marginBottom: 8 }]}>{t(active.descKey)}</Text>
 
-      <View style={{ ...box, borderColor: ACCENT }}>
-        <Text style={[styles.label, { color: ACCENT, marginBottom: 4 }]}>{t('pgFocusTitle')}</Text>
+      <View style={{ ...box, borderColor: theme.accent }}>
+        <Text style={[styles.label, { color: theme.accent, marginBottom: 4 }]}>{t('pgFocusTitle')}</Text>
         <Text style={bodyText}>{t(active.focusKey)}</Text>
       </View>
       <Text style={[styles.sectionHint, { color: theme.subText }]}>{t('pgUniversalNote')}</Text>
 
       {sectionTitle('pgStepsTitle', 'footsteps-outline')}
       {active.stages.map((stage, index) => (
-        <View key={stage} style={{ borderLeftWidth: 2, borderLeftColor: ACCENT, paddingLeft: 12, marginBottom: 12 }}>
+        <View key={stage} style={{ borderLeftWidth: 2, borderLeftColor: theme.accent, paddingLeft: 12, marginBottom: 12 }}>
           <Text style={[styles.settingLabel, { color: theme.text, fontSize: 14 }]}>
             {index + 1}. {t(`pgStage_${stage}_t`)}
           </Text>
@@ -222,8 +222,8 @@ export default function ProcessGuideSheet({
               onPress={() => onOpenCalculator?.('deadline_date')}
               style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 6 }}
             >
-              <Ionicons name="calculator-outline" size={15} color={WARNING} />
-              <Text style={[styles.label, { color: WARNING, marginBottom: 0 }]}>{t('pgDeadlineCta')}</Text>
+              <Ionicons name="calculator-outline" size={15} color={theme.warning} />
+              <Text style={[styles.label, { color: theme.warning, marginBottom: 0 }]}>{t('pgDeadlineCta')}</Text>
             </TouchableOpacity>
           ) : null}
         </View>
@@ -245,10 +245,10 @@ export default function ProcessGuideSheet({
               onPress={() => openUrl(link.url)}
               style={{ ...box, flexDirection: 'row', alignItems: 'center', gap: 8 }}
             >
-              <Ionicons name={PG_BODY_ICONS[link.type]} size={16} color={ACCENT} />
+              <Ionicons name={PG_BODY_ICONS[link.type]} size={16} color={theme.accent} />
               <View style={{ flex: 1 }}>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t(`pgBody_${link.type}`)}</Text>
-                <Text style={[styles.settingLabel, { color: ACCENT, fontSize: 14 }]} numberOfLines={2}>
+                <Text style={[styles.settingLabel, { color: theme.accent, fontSize: 14 }]} numberOfLines={2}>
                   {link.name}
                 </Text>
               </View>
@@ -261,8 +261,8 @@ export default function ProcessGuideSheet({
         <Text style={[bodyText, { color: theme.subText }]}>{t('pgLinksNone')}</Text>
       )}
 
-      <View style={{ ...box, borderColor: DANGER, backgroundColor: 'rgba(255,59,92,0.08)', marginTop: 12 }}>
-        <Text style={[styles.label, { color: DANGER, marginBottom: 4 }]}>{t('pgLawyerTitle')}</Text>
+      <View style={{ ...box, borderColor: theme.danger, backgroundColor: 'rgba(229, 72, 77, 0.08)', marginTop: 12 }}>
+        <Text style={[styles.label, { color: theme.danger, marginBottom: 4 }]}>{t('pgLawyerTitle')}</Text>
         <Text style={bodyText}>{t(active.lawyerKey)}</Text>
         {onFindLawyer ? (
           <TouchableOpacity
@@ -270,8 +270,8 @@ export default function ProcessGuideSheet({
             style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 8 }}
             accessibilityRole="button"
           >
-            <Ionicons name="person-outline" size={15} color={ACCENT} />
-            <Text style={[styles.label, { color: ACCENT, marginBottom: 0 }]}>{t('lhFindCta')}</Text>
+            <Ionicons name="person-outline" size={15} color={theme.accent} />
+            <Text style={[styles.label, { color: theme.accent, marginBottom: 0 }]}>{t('lhFindCta')}</Text>
           </TouchableOpacity>
         ) : null}
       </View>
@@ -287,14 +287,14 @@ export default function ProcessGuideSheet({
         style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center', marginTop: 8 }]}
         onPress={() => onStartCase?.({ title: t(active.titleKey), area: active.area })}
       >
-        <Ionicons name="folder-open-outline" size={16} color={ACCENT} />
+        <Ionicons name="folder-open-outline" size={16} color={theme.accent} />
         <Text style={styles.secondaryBtnText}>{t('pgCaseCta')}</Text>
       </TouchableOpacity>
       <TouchableOpacity accessibilityRole="button"
         style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center', marginTop: 8 }]}
         onPress={handleShare}
       >
-        <Ionicons name="share-outline" size={16} color={ACCENT} />
+        <Ionicons name="share-outline" size={16} color={theme.accent} />
         <Text style={styles.secondaryBtnText}>{t('pgShare')}</Text>
       </TouchableOpacity>
 
@@ -325,7 +325,7 @@ export default function ProcessGuideSheet({
         >
           <View style={styles.modalHandle} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-            <Ionicons name={active ? active.icon : 'map-outline'} size={20} color={active?.urgent ? DANGER : ACCENT} />
+            <Ionicons name={active ? active.icon : 'map-outline'} size={20} color={active?.urgent ? theme.danger : theme.accent} />
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
               {active ? t(active.titleKey) : t('pgTitle')}
             </Text>

@@ -125,7 +125,7 @@ const FONT_MEDIUM = Platform.select({ ios: 'System', android: 'sans-serif-medium
 const styles = StyleSheet.create({
   uploadButton: {
     flex: 1,
-    backgroundColor: '#1E293B',
+    backgroundColor: '#172238',
     paddingVertical: 12,
     paddingHorizontal: 12,
     borderRadius: 8,
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     minHeight: 44,
     borderWidth: 1,
-    borderColor: 'rgba(0, 245, 212, 0.55)',
+    borderColor: 'rgba(212, 178, 122, 0.55)',
     shadowColor: ACCENT,
     shadowOpacity: 0.28,
     shadowRadius: 8,

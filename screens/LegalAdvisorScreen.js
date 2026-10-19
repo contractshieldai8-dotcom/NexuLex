@@ -479,7 +479,7 @@ export default function LegalAdvisorScreen({
     if (isUser) {
       return (
         <View style={styles.bubbleUser}>
-          <Text style={[styles.bubbleMeta, { color: ACCENT }]}>{t('advisorYou')}</Text>
+          <Text style={[styles.bubbleMeta, { color: theme.accent }]}>{t('advisorYou')}</Text>
           <Text style={[styles.bubbleText, { color: theme.text }]}>{item.text}</Text>
         </View>
       );
@@ -516,13 +516,13 @@ export default function LegalAdvisorScreen({
               <Ionicons
                 name={copiedId === item.id ? 'checkmark-circle' : 'copy-outline'}
                 size={15}
-                color={copiedId === item.id ? ACCENT : theme.subText}
+                color={copiedId === item.id ? theme.accent : theme.subText}
               />
             </TouchableOpacity>
           ) : null}
         </View>
 
-        <Text style={[styles.bubbleText, { color: item.isError ? '#FF3B5C' : theme.text }]}>
+        <Text style={[styles.bubbleText, { color: item.isError ? theme.danger : theme.text }]}>
           {item.text}
         </Text>
 
@@ -563,7 +563,7 @@ export default function LegalAdvisorScreen({
                 backgroundColor: theme.cardBg,
               }}
             >
-              <Ionicons name={item.icon} size={14} color={ACCENT} />
+              <Ionicons name={item.icon} size={14} color={theme.accent} />
               <Text style={{ color: theme.text, fontSize: 13, fontWeight: '600' }}>{t(item.titleKey)}</Text>
             </TouchableOpacity>
           ))}
@@ -603,7 +603,7 @@ export default function LegalAdvisorScreen({
               accessibilityRole="link"
               style={{ marginBottom: 8 }}
             >
-              <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 0 }]}>{t('jp3Portal')}</Text>
+              <Text style={[styles.sectionHint, { color: theme.accent, marginBottom: 0 }]}>{t('jp3Portal')}</Text>
             </TouchableOpacity>
           ) : null}
           {packDepth.officialCount ? (
@@ -616,8 +616,8 @@ export default function LegalAdvisorScreen({
             accessibilityRole="button"
             style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}
           >
-            <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 0, flex: 1 }]}>{t('jp3SeeGuides')}</Text>
-            <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={16} color={ACCENT} />
+            <Text style={[styles.sectionHint, { color: theme.accent, marginBottom: 0, flex: 1 }]}>{t('jp3SeeGuides')}</Text>
+            <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={16} color={theme.accent} />
           </TouchableOpacity>
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 12, marginBottom: 0 }]}>{t('jp3Disclaimer')}</Text>
         </View>
@@ -636,21 +636,21 @@ export default function LegalAdvisorScreen({
             alignItems: 'center',
             gap: 12,
             borderWidth: 1,
-            borderColor: ACCENT,
+            borderColor: theme.accent,
             backgroundColor: `${ACCENT}14`,
             borderRadius: 14,
             padding: 14,
             marginTop: 8,
           }}
         >
-          <Ionicons name="help-buoy-outline" size={26} color={ACCENT} />
+          <Ionicons name="help-buoy-outline" size={26} color={theme.accent} />
           <View style={{ flex: 1 }}>
             <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>{t('askCardTitle')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
               {t('askCardHint')}
             </Text>
           </View>
-          <Ionicons name="chevron-forward" size={18} color={ACCENT} />
+          <Ionicons name="chevron-forward" size={18} color={theme.accent} />
         </TouchableOpacity>
         <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
@@ -670,21 +670,21 @@ export default function LegalAdvisorScreen({
             alignItems: 'center',
             gap: 12,
             borderWidth: 1,
-            borderColor: ACCENT,
+            borderColor: theme.accent,
             backgroundColor: theme.cardBg,
             borderRadius: 14,
             padding: 14,
             marginVertical: 8,
           }}
         >
-          <Ionicons name="document-attach-outline" size={26} color={ACCENT} />
+          <Ionicons name="document-attach-outline" size={26} color={theme.accent} />
           <View style={{ flex: 1 }}>
             <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>{t('docExplainCardTitle')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
               {t('docExplainCardHint')}
             </Text>
           </View>
-          <Ionicons name="chevron-forward" size={18} color={ACCENT} />
+          <Ionicons name="chevron-forward" size={18} color={theme.accent} />
         </TouchableOpacity>
         <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('ux9Deadlines')}</Text>
@@ -709,7 +709,7 @@ export default function LegalAdvisorScreen({
             marginBottom: 8,
           }}
         >
-          <Ionicons name="folder-open-outline" size={26} color={ACCENT} />
+          <Ionicons name="folder-open-outline" size={26} color={theme.accent} />
           <View style={{ flex: 1 }}>
             <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>
               {t('caseCardTitle')}
@@ -719,7 +719,7 @@ export default function LegalAdvisorScreen({
               {t('caseCardHint')}
             </Text>
           </View>
-          <Ionicons name="chevron-forward" size={18} color={ACCENT} />
+          <Ionicons name="chevron-forward" size={18} color={theme.accent} />
         </TouchableOpacity>
         <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('ux7OnDevice')}</Text>
@@ -743,7 +743,7 @@ export default function LegalAdvisorScreen({
             marginBottom: 8,
           }}
         >
-          <Ionicons name="map-outline" size={26} color={ACCENT} />
+          <Ionicons name="map-outline" size={26} color={theme.accent} />
           <View style={{ flex: 1 }}>
             <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>
               {t('pgCardTitle')} ({PROCESS_GUIDES.length})
@@ -752,7 +752,7 @@ export default function LegalAdvisorScreen({
               {t('pgCardHint')}
             </Text>
           </View>
-          <Ionicons name="chevron-forward" size={18} color={ACCENT} />
+          <Ionicons name="chevron-forward" size={18} color={theme.accent} />
         </TouchableOpacity>
         <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>
@@ -771,14 +771,14 @@ export default function LegalAdvisorScreen({
             alignItems: 'center',
             gap: 12,
             borderWidth: 1,
-            borderColor: plan === 'professional' ? ACCENT : theme.borderColor,
+            borderColor: plan === 'professional' ? theme.accent : theme.borderColor,
             backgroundColor: theme.cardBg,
             borderRadius: 14,
             padding: 14,
             marginBottom: 8,
           }}
         >
-          <Ionicons name="ribbon-outline" size={26} color={ACCENT} />
+          <Ionicons name="ribbon-outline" size={26} color={theme.accent} />
           <View style={{ flex: 1 }}>
             <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>
               {t('ptCardTitle')}
@@ -788,9 +788,9 @@ export default function LegalAdvisorScreen({
             </Text>
           </View>
           {plan === 'professional' ? (
-            <Ionicons name="chevron-forward" size={18} color={ACCENT} />
+            <Ionicons name="chevron-forward" size={18} color={theme.accent} />
           ) : (
-            <Text style={{ color: ACCENT, fontSize: 11, fontWeight: '800' }}>{t('planProfessionalBadge')}</Text>
+            <Text style={{ color: theme.accent, fontSize: 11, fontWeight: '800' }}>{t('planProfessionalBadge')}</Text>
           )}
         </TouchableOpacity>
         <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
@@ -815,7 +815,7 @@ export default function LegalAdvisorScreen({
             marginBottom: 8,
           }}
         >
-          <Ionicons name="briefcase-outline" size={26} color={ACCENT} />
+          <Ionicons name="briefcase-outline" size={26} color={theme.accent} />
           <View style={{ flex: 1 }}>
             <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>
               {t('lhCardTitle')}
@@ -824,7 +824,7 @@ export default function LegalAdvisorScreen({
               {t('lhCardHint')}
             </Text>
           </View>
-          <Ionicons name="chevron-forward" size={18} color={ACCENT} />
+          <Ionicons name="chevron-forward" size={18} color={theme.accent} />
         </TouchableOpacity>
         <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('ux6NoList')}</Text>
@@ -868,7 +868,7 @@ export default function LegalAdvisorScreen({
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 }}>
-                <Ionicons name={item.icon || 'map-outline'} size={16} color={ACCENT} />
+                <Ionicons name={item.icon || 'map-outline'} size={16} color={theme.accent} />
                 <Text
                   style={[styles.settingLabel, { color: theme.text, fontSize: 13, flex: 1 }]}
                   numberOfLines={2}
@@ -930,7 +930,7 @@ export default function LegalAdvisorScreen({
                   <Ionicons
                     name={locked ? 'lock-closed-outline' : item.icon || 'calculator-outline'}
                     size={16}
-                    color={locked ? theme.subText : ACCENT}
+                    color={locked ? theme.subText : theme.accent}
                   />
                   <Text
                     style={[styles.settingLabel, { color: theme.text, fontSize: 13, flex: 1 }]}
@@ -993,7 +993,7 @@ export default function LegalAdvisorScreen({
               <Ionicons
                 name={availability === 'pending' ? 'lock-closed-outline' : item.icon || 'document-text-outline'}
                 size={16}
-                color={availability === 'pending' ? theme.subText : ACCENT}
+                color={availability === 'pending' ? theme.subText : theme.accent}
               />
               <Text
                 style={[styles.settingLabel, { color: theme.text, fontSize: 13, flexShrink: 1 }]}
@@ -1090,7 +1090,7 @@ export default function LegalAdvisorScreen({
                 },
               ]}
             >
-              <ActivityIndicator size="small" color={ACCENT} />
+              <ActivityIndicator size="small" color={theme.accent} />
               <Text style={[styles.bubbleText, { color: theme.subText }]}>
                 {t('advisorThinking')}
               </Text>

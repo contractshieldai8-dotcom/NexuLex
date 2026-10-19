@@ -19,7 +19,7 @@ export default function LockedSection({
   const action = (
     <>
       <View style={styles.lockedIconWrap}>
-        <Ionicons name="lock-closed" size={18} color={ACCENT} />
+        <Ionicons name="lock-closed" size={18} color={theme.accent} />
       </View>
       <Text style={[styles.lockedTitle, { color: children ? '#FFFFFF' : theme.text }]}>
         {title || t('lockedTitle')}

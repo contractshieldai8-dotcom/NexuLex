@@ -219,8 +219,8 @@ export default function PaywallScreen({
         style={[
           styles.planCard,
           {
-            backgroundColor: active ? 'rgba(0, 245, 212, 0.08)' : theme.inputBg,
-            borderColor: active ? ACCENT : theme.borderColor,
+            backgroundColor: active ? 'rgba(212, 178, 122, 0.08)' : theme.inputBg,
+            borderColor: active ? theme.accent : theme.borderColor,
           },
         ]}
       >
@@ -229,7 +229,7 @@ export default function PaywallScreen({
             {pkg.title}
           </Text>
           {yearly ? (
-            <Text style={[styles.planBadge, { color: ACCENT }]}>
+            <Text style={[styles.planBadge, { color: theme.accent }]}>
               {annualCompare ? t('mxAnnualBadge', { percent: String(annualCompare.percent) }) : t('paywallBestValue')}
             </Text>
           ) : null}
@@ -243,18 +243,18 @@ export default function PaywallScreen({
             <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('wd1PerMonth', { price: pkg.pricePerMonthString })}</Text>
           ) : null}
           {active && pkg.hasFreeTrial ? (
-            <Text style={[styles.sectionHint, { color: ACCENT, marginTop: 4, marginBottom: 0 }]}>{t('wd1Trial', { price: pkg.priceString })}</Text>
+            <Text style={[styles.sectionHint, { color: theme.accent, marginTop: 4, marginBottom: 0 }]}>{t('wd1Trial', { price: pkg.priceString })}</Text>
           ) : null}
         </View>
 
-        <Text style={[styles.planPrice, { color: active ? ACCENT : theme.text }]}>
+        <Text style={[styles.planPrice, { color: active ? theme.accent : theme.text }]}>
           {pkg.priceString}
         </Text>
 
         <Ionicons
           name={active ? 'radio-button-on' : 'radio-button-off'}
           size={20}
-          color={active ? ACCENT : theme.subText}
+          color={active ? theme.accent : theme.subText}
         />
       </TouchableOpacity>
     );
@@ -287,11 +287,11 @@ export default function PaywallScreen({
           <View
             style={[
               styles.card,
-              { backgroundColor: theme.cardBg, borderColor: ACCENT, alignItems: 'center' },
+              { backgroundColor: theme.cardBg, borderColor: theme.accent, alignItems: 'center' },
             ]}
           >
-            <Ionicons name="shield-checkmark" size={44} color={ACCENT} />
-            <Text style={[styles.scoreValue, { color: ACCENT, fontSize: 22, marginTop: 8 }]}>
+            <Ionicons name="shield-checkmark" size={44} color={theme.accent} />
+            <Text style={[styles.scoreValue, { color: theme.accent, fontSize: 22, marginTop: 8 }]}>
               {heroTitle()}
             </Text>
             <Text style={[styles.summaryText, { color: theme.subText }]}>
@@ -320,13 +320,13 @@ export default function PaywallScreen({
                     borderWidth: 1,
                     borderRadius: 14,
                     padding: 12,
-                    borderColor: active ? ACCENT : theme.borderColor,
-                    backgroundColor: active ? 'rgba(0, 245, 212, 0.08)' : theme.cardBg,
+                    borderColor: active ? theme.accent : theme.borderColor,
+                    backgroundColor: active ? 'rgba(212, 178, 122, 0.08)' : theme.cardBg,
                   }}
                 >
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                    <Ionicons name={value === 'professional' ? 'ribbon-outline' : 'shield-checkmark-outline'} size={16} color={active ? ACCENT : theme.subText} />
-                    <Text style={[styles.settingLabel, { color: active ? ACCENT : theme.text, fontSize: 15 }]} numberOfLines={1}>
+                    <Ionicons name={value === 'professional' ? 'ribbon-outline' : 'shield-checkmark-outline'} size={16} color={active ? theme.accent : theme.subText} />
+                    <Text style={[styles.settingLabel, { color: active ? theme.accent : theme.text, fontSize: 15 }]} numberOfLines={1}>
                       {t(value === 'professional' ? 'planTabProfessional' : 'planTabPro')}
                     </Text>
                   </View>
@@ -350,7 +350,7 @@ export default function PaywallScreen({
 
             {(tier === 'professional' ? PROFESSIONAL_FEATURE_KEYS : FEATURE_KEYS).map((key) => (
               <View key={key} style={styles.paywallFeatureRow}>
-                <Ionicons name="checkmark-circle" size={17} color={ACCENT} />
+                <Ionicons name="checkmark-circle" size={17} color={theme.accent} />
                 <Text style={[styles.paywallFeatureText, { color: theme.text }]}>{t(key)}</Text>
               </View>
             ))}
@@ -360,7 +360,7 @@ export default function PaywallScreen({
 
             {loadingPlans ? (
               <View style={{ alignItems: 'center', paddingVertical: 20 }}>
-                <ActivityIndicator color={ACCENT} />
+                <ActivityIndicator color={theme.accent} />
                 <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10 }]}>
                   {t('paywallLoadingPlans')}
                 </Text>
@@ -382,7 +382,7 @@ export default function PaywallScreen({
             ) : null}
 
             {owned ? (
-              <Text style={[styles.sectionHint, { color: ACCENT, textAlign: 'center', marginVertical: 8 }]}>
+              <Text style={[styles.sectionHint, { color: theme.accent, textAlign: 'center', marginVertical: 8 }]}>
                 {t('planYouHave')}
               </Text>
             ) : tier === 'professional' && plan === 'pro' && packages.length > 0 ? (
@@ -470,12 +470,12 @@ export default function PaywallScreen({
 
             <View style={{ marginTop: 16, alignItems: 'center', gap: 8 }}>
               <TouchableOpacity accessibilityRole="button" onPress={() => openLegal(PRIVACY_URL)} activeOpacity={0.85}>
-                <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 0 }]}>
+                <Text style={[styles.sectionHint, { color: theme.accent, marginBottom: 0 }]}>
                   {t('privacyPolicy')}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity accessibilityRole="button" onPress={() => openLegal(TERMS_URL)} activeOpacity={0.85}>
-                <Text style={[styles.sectionHint, { color: ACCENT, marginBottom: 0 }]}>
+                <Text style={[styles.sectionHint, { color: theme.accent, marginBottom: 0 }]}>
                   {t('termsOfUse')}
                 </Text>
               </TouchableOpacity>

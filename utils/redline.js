@@ -111,8 +111,8 @@ export function redlineHtml(original, revised) {
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
-      if (token.type === 'del') return `<span style="color:#FF3B5C;text-decoration:line-through">${safe}</span>`;
-      if (token.type === 'add') return `<span style="color:#059669;font-weight:700">${safe}</span>`;
+      if (token.type === 'del') return `<span style="color:#B42318;text-decoration:line-through">${safe}</span>`;
+      if (token.type === 'add') return `<span style="color:#047857;font-weight:700">${safe}</span>`;
       return safe;
     })
     .join(' ');

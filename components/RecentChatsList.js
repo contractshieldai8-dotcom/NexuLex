@@ -69,7 +69,7 @@ export default function RecentChatsList({ theme, compact = false, onOpen, pinTit
             }}
             activeOpacity={0.85}
           >
-            <Ionicons name="chatbubble-ellipses-outline" size={15} color={ACCENT} />
+            <Ionicons name="chatbubble-ellipses-outline" size={15} color={theme.accent} />
             <Text style={[styles.historySummary, { color: theme.text, flex: 1, marginTop: 0 }]} numberOfLines={1}>
               {session.title || sessionTitle(session)}
             </Text>
@@ -79,7 +79,7 @@ export default function RecentChatsList({ theme, compact = false, onOpen, pinTit
             hitSlop={{ top: 16, bottom: 16, left: 16, right: 16 }}
             accessibilityLabel={t('deleteChatTitle')}
           >
-            <Ionicons name="trash-outline" size={17} color={DANGER} />
+            <Ionicons name="trash-outline" size={17} color={theme.danger} />
           </TouchableOpacity>
         </View>
       ))}

@@ -170,7 +170,7 @@ export default function LegalContractGenerator({
     if (loading) {
       return (
         <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginTop: 16 }]}>
-          <ActivityIndicator color={ACCENT} />
+          <ActivityIndicator color={theme.accent} />
           <Text style={[styles.sectionHint, { color: theme.subText, textAlign: 'center', marginTop: 10 }]}>
             {t('genLoading')}
           </Text>
@@ -213,23 +213,23 @@ export default function LegalContractGenerator({
         )}
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
           <TouchableOpacity accessibilityRole="button"
-            style={[styles.proposalBtn, { borderColor: ACCENT, opacity: empty || truncated ? 0.4 : 1 }]}
+            style={[styles.proposalBtn, { borderColor: theme.accent, opacity: empty || truncated ? 0.4 : 1 }]}
             disabled={empty || truncated}
             onPress={() => {
               handleCopy().catch(() => showToast(t('genShareFailed'), { type: 'error' }));
             }}
           >
-            <Ionicons name="copy-outline" size={14} color={ACCENT} />
+            <Ionicons name="copy-outline" size={14} color={theme.accent} />
             <Text style={styles.proposalBtnText}>{t('genCopy')}</Text>
           </TouchableOpacity>
           <TouchableOpacity accessibilityRole="button"
-            style={[styles.proposalBtn, { borderColor: ACCENT, opacity: empty || truncated ? 0.4 : 1 }]}
+            style={[styles.proposalBtn, { borderColor: theme.accent, opacity: empty || truncated ? 0.4 : 1 }]}
             disabled={empty || truncated}
             onPress={() => {
               handleShare().catch(() => showToast(t('genShareFailed'), { type: 'error' }));
             }}
           >
-            <Ionicons name="share-outline" size={14} color={ACCENT} />
+            <Ionicons name="share-outline" size={14} color={theme.accent} />
             <Text style={styles.proposalBtnText}>{t('genShare')}</Text>
           </TouchableOpacity>
         </View>

@@ -352,7 +352,7 @@ export default function CaseHubSheet({
   );
   const sectionTitle = (key, icon) => (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 14, marginBottom: 6 }}>
-      <Ionicons name={icon} size={15} color={ACCENT} />
+      <Ionicons name={icon} size={15} color={theme.accent} />
       <Text style={[styles.label, { color: theme.text, marginBottom: 0 }]}>{t(key)}</Text>
     </View>
   );
@@ -372,12 +372,12 @@ export default function CaseHubSheet({
               paddingVertical: 7,
               borderRadius: 16,
               borderWidth: 1,
-              borderColor: on ? ACCENT : theme.borderColor,
+              borderColor: on ? theme.accent : theme.borderColor,
               backgroundColor: on ? `${ACCENT}22` : 'transparent',
             }}
           >
-            {iconOf ? <Ionicons name={iconOf(value)} size={14} color={on ? ACCENT : theme.subText} /> : null}
-            <Text style={{ color: on ? ACCENT : theme.text, fontSize: 13, fontWeight: on ? '700' : '500' }}>{labelOf(value)}</Text>
+            {iconOf ? <Ionicons name={iconOf(value)} size={14} color={on ? theme.accent : theme.subText} /> : null}
+            <Text style={{ color: on ? theme.accent : theme.text, fontSize: 13, fontWeight: on ? '700' : '500' }}>{labelOf(value)}</Text>
           </TouchableOpacity>
         );
       })}
@@ -390,14 +390,14 @@ export default function CaseHubSheet({
     if (next.type === 'none') return { text: t('caseNextNone'), color: theme.subText };
     return {
       text: `${t(`caseKind_${next.type}`)}: ${next.event.title} · ${isoToDmy(next.event.date)} · ${daysLabel(next.daysLeft)}`,
-      color: next.daysLeft <= 7 ? DANGER : next.daysLeft <= 14 ? WARNING : SUCCESS,
+      color: next.daysLeft <= 7 ? theme.danger : next.daysLeft <= 14 ? theme.warning : theme.success,
     };
   };
 
   const renderList = () => (
     <View>
       {importExplanation ? (
-        <View style={{ ...box, borderColor: ACCENT, backgroundColor: `${ACCENT}11` }}>
+        <View style={{ ...box, borderColor: theme.accent, backgroundColor: `${ACCENT}11` }}>
           <Text style={[styles.settingLabel, { color: theme.text, fontSize: 14 }]}>{t('caseImportTitle')}</Text>
           <Text style={[bodyText, { marginTop: 4 }]} numberOfLines={2}>
             {importExplanation.title}
@@ -424,7 +424,7 @@ export default function CaseHubSheet({
             style={{ ...box, backgroundColor: theme.cardBg }}
           >
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-              <Ionicons name={CASE_AREA_ICONS[item.area]} size={18} color={ACCENT} />
+              <Ionicons name={CASE_AREA_ICONS[item.area]} size={18} color={theme.accent} />
               <Text style={[styles.settingLabel, { color: theme.text, flex: 1, fontSize: 15 }]} numberOfLines={2}>
                 {item.title}
               </Text>
@@ -440,7 +440,7 @@ export default function CaseHubSheet({
         );
       })}
       {!isPro ? (
-        <Text style={[styles.sectionHint, { color: cases.length >= FREE_CASE_LIMIT ? WARNING : theme.subText, marginTop: 4 }]}>
+        <Text style={[styles.sectionHint, { color: cases.length >= FREE_CASE_LIMIT ? theme.warning : theme.subText, marginTop: 4 }]}>
           {t('caseFreeLimit')}
         </Text>
       ) : null}
@@ -496,7 +496,7 @@ export default function CaseHubSheet({
       <View>
         <View style={{ ...box, backgroundColor: theme.cardBg }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-            <Ionicons name={CASE_AREA_ICONS[active.area]} size={20} color={ACCENT} />
+            <Ionicons name={CASE_AREA_ICONS[active.area]} size={20} color={theme.accent} />
             <Text style={[styles.settingLabel, { color: theme.text, flex: 1 }]}>{active.title}</Text>
           </View>
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
@@ -520,7 +520,7 @@ export default function CaseHubSheet({
             'caseBrief',
             shareBrief,
             ACCENT,
-            isPro ? null : <Ionicons name="lock-closed" size={12} color={ACCENT} />
+            isPro ? null : <Ionicons name="lock-closed" size={12} color={theme.accent} />
           )}
           {onOpenProTools ? linkBtn('ribbon-outline', 'ptCardTitle', () => onOpenProTools(active)) : null}
           {onOpenLawyer ? linkBtn('person-outline', 'lhFindCta', () => onOpenLawyer(active)) : null}
@@ -533,9 +533,9 @@ export default function CaseHubSheet({
           const left = daysBetween(today, event.date);
           const urgent = alert && left !== null && left >= 0 && left <= 7;
           return (
-            <View key={event.id} style={{ ...box, borderColor: urgent ? DANGER : theme.borderColor }}>
+            <View key={event.id} style={{ ...box, borderColor: urgent ? theme.danger : theme.borderColor }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                <Ionicons name={EVENT_KIND_ICONS[event.kind]} size={15} color={alert ? WARNING : ACCENT} />
+                <Ionicons name={EVENT_KIND_ICONS[event.kind]} size={15} color={alert ? theme.warning : theme.accent} />
                 <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, flex: 1 }]}>
                   {isoToDmy(event.date)} · {t(`caseKind_${event.kind}`)}
                   {alert && left !== null ? ` · ${daysLabel(left)}` : ''}
@@ -553,7 +553,7 @@ export default function CaseHubSheet({
           );
         })}
         <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center' }]} onPress={openEventForm}>
-          <Ionicons name="add" size={16} color={ACCENT} />
+          <Ionicons name="add" size={16} color={theme.accent} />
           <Text style={styles.secondaryBtnText}>{t('caseAddEvent')}</Text>
         </TouchableOpacity>
 
@@ -562,12 +562,12 @@ export default function CaseHubSheet({
         {active.evidence.map((item) => (
           <View key={item.id} style={box}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-              <Ionicons name={EVIDENCE_ICONS[item.kind]} size={15} color={ACCENT} />
+              <Ionicons name={EVIDENCE_ICONS[item.kind]} size={15} color={theme.accent} />
               <Text style={[styles.settingLabel, { color: theme.text, fontSize: 14, flex: 1 }]} numberOfLines={2}>
                 {item.label || t(EVIDENCE_LABEL_KEYS[item.kind])}
               </Text>
               <TouchableOpacity accessibilityRole="button" onPress={() => shareEvidence(item)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityLabel={t('caseEvidenceShare')}>
-                <Ionicons name="share-outline" size={16} color={ACCENT} />
+                <Ionicons name="share-outline" size={16} color={theme.accent} />
               </TouchableOpacity>
               <TouchableOpacity accessibilityRole="button" onPress={() => deleteEvidence(item)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityLabel={t('caseDeleteItem')}>
                 <Ionicons name="trash-outline" size={15} color={theme.subText} />
@@ -585,7 +585,7 @@ export default function CaseHubSheet({
         ))}
         {active.evidence.length ? <Text style={[styles.sectionHint, { color: theme.subText }]}>{t('caseFingerprintHint')}</Text> : null}
         <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center' }]} onPress={openEvidenceForm}>
-          <Ionicons name="add" size={16} color={ACCENT} />
+          <Ionicons name="add" size={16} color={theme.accent} />
           <Text style={styles.secondaryBtnText}>{t('caseAddEvidence')}</Text>
         </TouchableOpacity>
 
@@ -652,7 +652,7 @@ export default function CaseHubSheet({
           onPress={pickPhotoEvidence}
           disabled={busy}
         >
-          <Ionicons name="image-outline" size={16} color={ACCENT} />
+          <Ionicons name="image-outline" size={16} color={theme.accent} />
           <Text style={styles.secondaryBtnText}>{t('caseEvidencePhoto')}</Text>
         </TouchableOpacity>
         <TouchableOpacity accessibilityRole="button"
@@ -660,7 +660,7 @@ export default function CaseHubSheet({
           onPress={pickPdfEvidence}
           disabled={busy}
         >
-          <Ionicons name="document-outline" size={16} color={ACCENT} />
+          <Ionicons name="document-outline" size={16} color={theme.accent} />
           <Text style={styles.secondaryBtnText}>{t('caseEvidencePdf')}</Text>
         </TouchableOpacity>
       </View>
@@ -727,7 +727,7 @@ export default function CaseHubSheet({
         >
           <View style={styles.modalHandle} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-            <Ionicons name="folder-open-outline" size={20} color={ACCENT} />
+            <Ionicons name="folder-open-outline" size={20} color={theme.accent} />
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
               {t(titleKey)}
             </Text>
@@ -743,7 +743,7 @@ export default function CaseHubSheet({
           >
             {busy ? (
               <View style={{ alignItems: 'center', paddingVertical: 32, gap: 12 }}>
-                <ActivityIndicator color={ACCENT} />
+                <ActivityIndicator color={theme.accent} />
                 <Text style={[styles.sectionHint, { color: theme.subText, textAlign: 'center' }]}>{t('caseEvidenceWorking')}</Text>
               </View>
             ) : view === 'new' ? (

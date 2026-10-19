@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityInd
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { supabase } from '../services/supabase';
-import { alignStart } from '../theme';
+import { ACCENT, WARNING, alignStart } from '../theme';
 import { QUOTA_ERRORS, syncProfileAndQuota } from '../services/quota';
 import SearchableSheet from './SearchableSheet';
 import { APP_LANGUAGES, getLanguage } from '../constants/options';
@@ -19,11 +19,11 @@ import { createAuthRedirectUrl } from '../utils/authRedirects';
 
 // GiriÅŸ ekranÄ±, uygulamanÄ±n koyu paletiyle uyumlu yalÄ±n bir tema kullanÄ±r.
 const AUTH_THEME = {
-  cardBg: '#121824',
-  inputBg: '#0B0F19',
-  borderColor: '#1E2638',
-  text: '#E8EDF5',
-  subText: '#A0AEC0',
+  cardBg: '#111A2E',
+  inputBg: '#0D1426',
+  borderColor: 'rgba(255, 255, 255, 0.09)',
+  text: '#EEF1F8',
+  subText: '#9AA6BD',
 };
 
 export default function Auth({ onLoginSuccess }) {
@@ -199,7 +199,7 @@ export default function Auth({ onLoginSuccess }) {
       >
         <Text style={styles.langChipFlag}>{getLanguage(activeLang).flag}</Text>
         <Text style={styles.langChipText}>{getLanguage(activeLang).label}</Text>
-        <Ionicons name="chevron-down" size={14} color="#00F5D4" />
+        <Ionicons name="chevron-down" size={14} color={ACCENT} />
       </TouchableOpacity>
 
       <Text style={styles.title}>
@@ -209,7 +209,7 @@ export default function Auth({ onLoginSuccess }) {
       <TextInput accessibilityLabel={t('emailPlaceholder')}
         style={styles.input}
         placeholder={t('emailPlaceholder')}
-        placeholderTextColor="#A0AEC0"
+        placeholderTextColor="#9AA6BD"
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"
@@ -219,7 +219,7 @@ export default function Auth({ onLoginSuccess }) {
       <TextInput accessibilityLabel={t('passwordPlaceholder')}
         style={styles.input}
         placeholder={t('passwordPlaceholder')}
-        placeholderTextColor="#A0AEC0"
+        placeholderTextColor="#9AA6BD"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
@@ -234,13 +234,13 @@ export default function Auth({ onLoginSuccess }) {
           >
             <Text style={styles.phoneFlag}>{country.flag}</Text>
             <Text style={styles.phoneDial}>{country.dial}</Text>
-            <Ionicons name="chevron-down" size={13} color="#A0AEC0" />
+            <Ionicons name="chevron-down" size={13} color="#9AA6BD" />
           </TouchableOpacity>
 
           <TextInput accessibilityLabel={t('phonePlaceholder')}
             style={[styles.input, styles.phoneInput]}
             placeholder={t('phonePlaceholder')}
-            placeholderTextColor="#A0AEC0"
+            placeholderTextColor="#9AA6BD"
             value={phone}
             // YalnÄ±zca rakam ve ayÄ±rÄ±cÄ±lar; Ã¼lke kodu ayrÄ± alandan gelir.
             onChangeText={(value) => setPhone(value.replace(/[^\d\s-]/g, ''))}
@@ -349,7 +349,7 @@ const FONTS = Platform.select({
 });
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: '#121824', padding: 20, borderRadius: 16, borderWidth: 1, borderColor: '#1E2638' },
+  card: { backgroundColor: '#111A2E', padding: 20, borderRadius: 16, borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.09)' },
   langChip: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -360,11 +360,11 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#1E2638',
-    backgroundColor: '#0B0F19',
+    borderColor: 'rgba(255, 255, 255, 0.09)',
+    backgroundColor: '#0D1426',
   },
   langChipFlag: { fontSize: 16 },
-  langChipText: { color: '#00F5D4', fontFamily: FONTS.medium, fontSize: 13, fontWeight: '600' },
+  langChipText: { color: ACCENT, fontFamily: FONTS.medium, fontSize: 13, fontWeight: '600' },
   phoneRow: { flexDirection: 'row', alignItems: 'stretch', gap: 8 },
   phoneCountryBtn: {
     flexDirection: 'row',
@@ -373,30 +373,30 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#1E2638',
-    backgroundColor: '#0B0F19',
+    borderColor: 'rgba(255, 255, 255, 0.09)',
+    backgroundColor: '#0D1426',
     marginBottom: 12,
   },
   phoneFlag: { fontSize: 18 },
-  phoneDial: { color: '#E8EDF5', fontFamily: FONTS.medium, fontSize: 14, fontWeight: '600' },
+  phoneDial: { color: '#EEF1F8', fontFamily: FONTS.medium, fontSize: 14, fontWeight: '600' },
   phoneInput: { flex: 1 },
   title: { fontFamily: FONTS.bold, fontSize: 20, fontWeight: '800', letterSpacing: 0.4, color: '#FFFFFF', marginBottom: 16, textAlign: 'center' },
-  input: { backgroundColor: '#0B0F19', color: '#FFFFFF', fontFamily: FONTS.regular, fontSize: 14, padding: 14, borderRadius: 12, borderWidth: 1, borderColor: '#1E2638', marginBottom: 12, textAlign: alignStart },
-  button: { backgroundColor: '#00F5D4', paddingVertical: 16, paddingHorizontal: 18, borderRadius: 12, alignItems: 'center', justifyContent: 'center', minHeight: 54, marginTop: 8 },
+  input: { backgroundColor: '#0D1426', color: '#FFFFFF', fontFamily: FONTS.regular, fontSize: 14, padding: 14, borderRadius: 12, borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.09)', marginBottom: 12, textAlign: alignStart },
+  button: { backgroundColor: '#D4B27A', paddingVertical: 16, paddingHorizontal: 18, borderRadius: 12, alignItems: 'center', justifyContent: 'center', minHeight: 54, marginTop: 8 },
   buttonText: { color: '#080C14', fontFamily: FONTS.bold, fontWeight: '800', fontSize: 16, letterSpacing: 0.3, textAlign: 'center' },
-  switchText: { color: '#A0AEC0', fontFamily: FONTS.regular, textAlign: 'center', fontSize: 13, lineHeight: 18 },
-  verifyHint: { color: '#A0AEC0', fontFamily: FONTS.regular, textAlign: 'center', fontSize: 13, lineHeight: 19, marginBottom: 8 },
+  switchText: { color: '#9AA6BD', fontFamily: FONTS.regular, textAlign: 'center', fontSize: 13, lineHeight: 18 },
+  verifyHint: { color: '#9AA6BD', fontFamily: FONTS.regular, textAlign: 'center', fontSize: 13, lineHeight: 19, marginBottom: 8 },
   devSkipButton: {
     marginTop: 10,
     paddingVertical: 14,
     paddingHorizontal: 14,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#FFB800',
+    borderColor: WARNING,
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 48,
   },
-  devSkipText: { color: '#FFB800', fontFamily: FONTS.bold, fontWeight: '700', fontSize: 13, textAlign: 'center' },
-  devSkipHint: { color: '#6B7280', fontFamily: FONTS.regular, textAlign: 'center', fontSize: 11, lineHeight: 16, marginTop: 8 },
+  devSkipText: { color: WARNING, fontFamily: FONTS.bold, fontWeight: '700', fontSize: 13, textAlign: 'center' },
+  devSkipHint: { color: '#7C8AA3', fontFamily: FONTS.regular, textAlign: 'center', fontSize: 11, lineHeight: 16, marginTop: 8 },
 });

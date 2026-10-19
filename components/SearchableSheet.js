@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 import { ACCENT, alignStart, styles } from '../theme';
 import { useKeyboardSafeSheet } from './KeyboardSafeSheet';
 
@@ -31,6 +32,7 @@ export default function SearchableSheet({
   onSelect,
   onClose,
 }) {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const sheet = useKeyboardSafeSheet({ maxHeight: SHEET_MAX, bottomPadding: Math.max(insets.bottom, 0) + 16 });
   const [query, setQuery] = useState('');
@@ -64,8 +66,8 @@ export default function SearchableSheet({
         style={[
           styles.modalOption,
           {
-            backgroundColor: isActive ? 'rgba(0, 245, 212, 0.1)' : theme.inputBg,
-            borderColor: isActive ? ACCENT : theme.borderColor,
+            backgroundColor: isActive ? 'rgba(212, 178, 122, 0.1)' : theme.inputBg,
+            borderColor: isActive ? theme.accent : theme.borderColor,
           },
         ]}
       >
@@ -73,7 +75,7 @@ export default function SearchableSheet({
 
         <View style={{ flex: 1 }}>
           <Text
-            style={[styles.modalOptionText, { color: isActive ? ACCENT : theme.text }]}
+            style={[styles.modalOptionText, { color: isActive ? theme.accent : theme.text }]}
             numberOfLines={1}
           >
             {item.label}
@@ -85,7 +87,7 @@ export default function SearchableSheet({
           ) : null}
         </View>
 
-        {isActive ? <Ionicons name="checkmark-circle" size={18} color={ACCENT} /> : null}
+        {isActive ? <Ionicons name="checkmark-circle" size={18} color={theme.accent} /> : null}
       </TouchableOpacity>
     );
   };

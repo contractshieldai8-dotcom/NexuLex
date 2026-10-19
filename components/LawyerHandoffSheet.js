@@ -189,7 +189,7 @@ export default function LawyerHandoffSheet({
   const box = { borderWidth: 1, borderColor: theme.borderColor, borderRadius: 12, padding: 12, marginBottom: 8 };
   const sectionTitle = (key, icon, params) => (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 14, marginBottom: 6 }}>
-      <Ionicons name={icon} size={15} color={ACCENT} />
+      <Ionicons name={icon} size={15} color={theme.accent} />
       <Text style={[styles.label, { color: theme.text, marginBottom: 0, flex: 1 }]}>{t(key, params)}</Text>
     </View>
   );
@@ -205,12 +205,12 @@ export default function LawyerHandoffSheet({
         paddingVertical: 7,
         borderRadius: 16,
         borderWidth: 1,
-        borderColor: on ? ACCENT : theme.borderColor,
+        borderColor: on ? theme.accent : theme.borderColor,
         backgroundColor: on ? `${ACCENT}22` : 'transparent',
       }}
     >
-      {icon ? <Ionicons name={icon} size={14} color={on ? ACCENT : theme.subText} /> : null}
-      <Text style={{ color: on ? ACCENT : theme.text, fontSize: 13, fontWeight: on ? '700' : '500' }} numberOfLines={1}>
+      {icon ? <Ionicons name={icon} size={14} color={on ? theme.accent : theme.subText} /> : null}
+      <Text style={{ color: on ? theme.accent : theme.text, fontSize: 13, fontWeight: on ? '700' : '500' }} numberOfLines={1}>
         {label}
       </Text>
     </TouchableOpacity>
@@ -227,7 +227,7 @@ export default function LawyerHandoffSheet({
       style={{ ...box, flexDirection: 'row', alignItems: 'center', gap: 10 }}
       accessibilityRole="link"
     >
-      <Ionicons name={icon} size={18} color={ACCENT} />
+      <Ionicons name={icon} size={18} color={theme.accent} />
       <View style={{ flex: 1 }}>
         <Text style={[styles.label, { color: theme.text, marginBottom: 2 }]}>{body.name}</Text>
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]} numberOfLines={1}>
@@ -243,7 +243,7 @@ export default function LawyerHandoffSheet({
       onPress={onPress}
       disabled={busy}
     >
-      <Ionicons name={locked ? 'lock-closed' : icon} size={16} color={primary ? '#080C14' : ACCENT} />
+      <Ionicons name={locked ? 'lock-closed' : icon} size={16} color={primary ? '#080C14' : theme.accent} />
       <Text style={primary ? styles.primaryButtonText : styles.secondaryBtnText}>{t(labelKey)}</Text>
     </TouchableOpacity>
   );
@@ -251,8 +251,8 @@ export default function LawyerHandoffSheet({
   const renderBody = () => (
     <View>
       <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('lhHint')}</Text>
-      <View style={{ ...box, borderColor: WARNING, backgroundColor: 'rgba(255,184,0,0.08)', flexDirection: 'row', gap: 8 }}>
-        <Ionicons name="shield-checkmark-outline" size={16} color={WARNING} />
+      <View style={{ ...box, borderColor: theme.warning, backgroundColor: 'rgba(232, 163, 61, 0.08)', flexDirection: 'row', gap: 8 }}>
+        <Ionicons name="shield-checkmark-outline" size={16} color={theme.warning} />
         <Text style={[bodyText, { flex: 1 }]}>{t('lhNoReferral')}</Text>
       </View>
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>{t('ux6NoList')}</Text>
@@ -328,7 +328,7 @@ export default function LawyerHandoffSheet({
             accessibilityRole="checkbox"
             accessibilityState={{ checked: on }}
           >
-            <Ionicons name={on ? 'checkbox' : 'square-outline'} size={18} color={on ? ACCENT : theme.subText} />
+            <Ionicons name={on ? 'checkbox' : 'square-outline'} size={18} color={on ? theme.accent : theme.subText} />
             <Text style={[bodyText, { flex: 1 }]}>{t(`lhQ_${id}`)}</Text>
           </TouchableOpacity>
         );
@@ -337,7 +337,7 @@ export default function LawyerHandoffSheet({
       {sectionTitle('lhPrepTitle', 'checkmark-done-outline')}
       {HANDOFF_PREP.map((id) => (
         <View key={id} style={{ flexDirection: 'row', gap: 8, marginBottom: 6 }}>
-          <Ionicons name="ellipse" size={6} color={ACCENT} style={{ marginTop: 7 }} />
+          <Ionicons name="ellipse" size={6} color={theme.accent} style={{ marginTop: 7 }} />
           <Text style={[bodyText, { flex: 1 }]}>{t(`lhPrep_${id}`)}</Text>
         </View>
       ))}
@@ -379,7 +379,7 @@ export default function LawyerHandoffSheet({
         >
           <View style={styles.modalHandle} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-            <Ionicons name="briefcase-outline" size={20} color={ACCENT} />
+            <Ionicons name="briefcase-outline" size={20} color={theme.accent} />
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
               {t('lhTitle')}
             </Text>

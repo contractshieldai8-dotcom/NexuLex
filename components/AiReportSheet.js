@@ -93,7 +93,7 @@ export default function AiReportSheet({
         >
           <View style={styles.modalHandle} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 6 }}>
-            <Ionicons name="flag-outline" size={20} color={ACCENT} />
+            <Ionicons name="flag-outline" size={20} color={theme.accent} />
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]}>
               {t('aiReportTitle')}
             </Text>
@@ -117,14 +117,14 @@ export default function AiReportSheet({
                       flexDirection: 'row',
                       alignItems: 'center',
                       gap: 10,
-                      borderColor: active ? ACCENT : theme.borderColor,
+                      borderColor: active ? theme.accent : theme.borderColor,
                     },
                   ]}
                 >
                   <Ionicons
                     name={active ? 'radio-button-on' : 'radio-button-off'}
                     size={18}
-                    color={active ? ACCENT : theme.subText}
+                    color={active ? theme.accent : theme.subText}
                   />
                   <Text style={[styles.modalOptionText, { color: theme.text, flex: 1 }]}>{t(item.labelKey)}</Text>
                 </TouchableOpacity>
@@ -164,7 +164,7 @@ export default function AiReportSheet({
                   accessibilityLabel={t('aiReportIncludeContext')}
                   value={includeContext}
                   onValueChange={setIncludeContext}
-                  thumbColor={includeContext ? ACCENT : '#f4f3f4'}
+                  thumbColor={includeContext ? theme.accent : '#f4f3f4'}
                 />
               </View>
             ) : null}

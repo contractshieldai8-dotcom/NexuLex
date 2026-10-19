@@ -111,14 +111,14 @@ export function FeedbackProvider({ children, theme = darkTheme }) {
               feedbackStyles.toast,
               {
                 backgroundColor: theme.cardBg,
-                borderColor: TONE[toast.type] || ACCENT,
+                borderColor: TONE[toast.type] || theme.accent,
               },
             ]}
           >
             <Ionicons
               name={toast.type === 'success' ? 'checkmark-circle' : toast.type === 'error' ? 'alert-circle' : 'information-circle'}
               size={18}
-              color={TONE[toast.type] || ACCENT}
+              color={TONE[toast.type] || theme.accent}
             />
             <Text style={[feedbackStyles.toastText, { color: theme.text }]}>{toast.message}</Text>
           </View>

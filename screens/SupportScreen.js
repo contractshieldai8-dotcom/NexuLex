@@ -76,8 +76,8 @@ export default function SupportScreen({ theme, onClose }) {
           ]}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-            <Ionicons name="chatbubble-ellipses-outline" size={16} color={ACCENT} />
-            <Text style={[styles.bubbleMeta, { color: ACCENT, marginBottom: 0 }]}>NEXULEX AI</Text>
+            <Ionicons name="chatbubble-ellipses-outline" size={16} color={theme.accent} />
+            <Text style={[styles.bubbleMeta, { color: theme.accent, marginBottom: 0 }]}>NEXULEX AI</Text>
           </View>
 
           <Text style={[styles.bubbleText, { color: theme.text }]}>{t('supportGreeting')}</Text>
@@ -92,12 +92,12 @@ export default function SupportScreen({ theme, onClose }) {
               styles.card,
               {
                 backgroundColor: theme.cardBg,
-                borderColor: ACCENT,
+                borderColor: theme.accent,
                 alignItems: 'center',
               },
             ]}
           >
-            <Ionicons name="checkmark-circle" size={40} color={ACCENT} />
+            <Ionicons name="checkmark-circle" size={40} color={theme.accent} />
             <Text
               style={[styles.settingLabel, { color: theme.text, marginTop: 10, textAlign: 'center' }]}
             >

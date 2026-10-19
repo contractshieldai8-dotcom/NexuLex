@@ -37,7 +37,7 @@ function LayerCard({ theme, icon, title, children, borderColor }) {
       ]}
     >
       <View style={styles.takeawayHeader}>
-        <Ionicons name={icon} size={16} color={borderColor || ACCENT} />
+        <Ionicons name={icon} size={16} color={borderColor || theme.accent} />
         <Text style={[styles.takeawayTitle, { color: theme.text, flexShrink: 1 }]}>
           {title}
         </Text>
@@ -58,14 +58,14 @@ export function ConversionHook({ theme, hook, onUnlock }) {
     <TouchableOpacity accessibilityRole="button"
       activeOpacity={0.85}
       onPress={onUnlock}
-      style={[styles.conversionHook, { backgroundColor: theme.cardBg, borderColor: WARNING }]}
+      style={[styles.conversionHook, { backgroundColor: theme.cardBg, borderColor: theme.warning }]}
     >
-      <Ionicons name="flash" size={18} color={WARNING} />
+      <Ionicons name="flash" size={18} color={theme.warning} />
       <View style={{ flex: 1 }}>
         <Text style={[styles.conversionHookTitle, { color: theme.text }]}>{t(titleKey)}</Text>
         <Text style={[styles.conversionHookBody, { color: theme.subText }]}>{t(bodyKey)}</Text>
       </View>
-      <Text style={[styles.lockedCtaText, { color: ACCENT }]}>{t('lockedCta')}</Text>
+      <Text style={[styles.lockedCtaText, { color: theme.accent }]}>{t('lockedCta')}</Text>
     </TouchableOpacity>
   );
 }
@@ -99,7 +99,7 @@ export function ValidityLayer({ theme, items, extraCount = 0, onUnlock }) {
             <Text style={styles.legalReference}>⚖ {item.governingLawReference}</Text>
           ) : null}
           {(item.legalStatus === 'VOID' || item.legalStatus === 'PARTIALLY_VOID') && item.cancellationRight ? (
-            <Text style={[styles.deadlineMeta, { color: DANGER, marginTop: 6 }]}>
+            <Text style={[styles.deadlineMeta, { color: theme.danger, marginTop: 6 }]}>
               {t('validityRemedyLabel')}: {safeDisplayText(item.cancellationRight)}
             </Text>
           ) : null}
@@ -107,7 +107,7 @@ export function ValidityLayer({ theme, items, extraCount = 0, onUnlock }) {
       ))}
       {extraCount > 0 ? (
         <TouchableOpacity accessibilityRole="button" onPress={onUnlock} activeOpacity={0.8}>
-          <Text style={[styles.lockedMoreText, { color: ACCENT }]}>
+          <Text style={[styles.lockedMoreText, { color: theme.accent }]}>
             {t('lockedMoreClauses', { count: extraCount })}
           </Text>
         </TouchableOpacity>
@@ -157,13 +157,13 @@ export function LawyerQuestions({ theme, questions = [], extraCount = 0, onUnloc
         );
       })}
       <TouchableOpacity accessibilityRole="button"
-        style={[styles.proposalBtn, { borderColor: ACCENT, marginTop: 12, alignSelf: 'flex-start' }]}
+        style={[styles.proposalBtn, { borderColor: theme.accent, marginTop: 12, alignSelf: 'flex-start' }]}
         onPress={() => {
           copyAll().catch(() => {});
         }}
         activeOpacity={0.85}
       >
-        <Ionicons name="copy-outline" size={14} color={ACCENT} />
+        <Ionicons name="copy-outline" size={14} color={theme.accent} />
         <Text style={styles.proposalBtnText}>{t('ladderCopy')}</Text>
       </TouchableOpacity>
     </LayerCard>
@@ -194,7 +194,7 @@ export function HiddenCostsCard({ theme, costs, locked, onUnlock }) {
       ))}
       {costs?.totalEstimatedLiability ? (
         <View style={[styles.decisionHarmBox, { backgroundColor: theme.inputBg, marginTop: 8 }]}>
-          <Text style={[styles.decisionHarmLabel, { color: WARNING }]}>{t('hiddenCostTotal')}</Text>
+          <Text style={[styles.decisionHarmLabel, { color: theme.warning }]}>{t('hiddenCostTotal')}</Text>
           <Text style={[styles.decisionHarmText, { color: theme.text }]}>
             {costs.totalEstimatedLiability}
           </Text>
@@ -202,7 +202,7 @@ export function HiddenCostsCard({ theme, costs, locked, onUnlock }) {
       ) : null}
       {locked ? (
         <TouchableOpacity accessibilityRole="button" onPress={onUnlock} activeOpacity={0.8} style={{ marginTop: 10 }}>
-          <Text style={[styles.lockedMoreText, { color: ACCENT }]}>{t('hookCostsTitle')}</Text>
+          <Text style={[styles.lockedMoreText, { color: theme.accent }]}>{t('hookCostsTitle')}</Text>
         </TouchableOpacity>
       ) : null}
     </LayerCard>
@@ -255,7 +255,7 @@ export function CounterProposals({ theme, items, onCopied, country }) {
                 <Ionicons
                   name={copied === `wa-${index}` ? 'checkmark-circle' : 'logo-whatsapp'}
                   size={14}
-                  color={ACCENT}
+                  color={theme.accent}
                 />
                 <Text style={styles.proposalBtnText}>{t('sendViaWhatsApp')}</Text>
               </TouchableOpacity>
@@ -268,7 +268,7 @@ export function CounterProposals({ theme, items, onCopied, country }) {
                 <Ionicons
                   name={copied === `em-${index}` ? 'checkmark-circle' : 'mail-outline'}
                   size={14}
-                  color={ACCENT}
+                  color={theme.accent}
                 />
                 <Text style={styles.proposalBtnText}>{t('sendViaEmail')}</Text>
               </TouchableOpacity>
@@ -291,7 +291,7 @@ export function ObligationsChecklist({ theme, items }) {
           <Ionicons
             name={item.party === 'USER' ? 'person-outline' : 'people-outline'}
             size={16}
-            color={item.party === 'USER' ? ACCENT : theme.subText}
+            color={item.party === 'USER' ? theme.accent : theme.subText}
           />
           <View style={{ flex: 1 }}>
             <Text style={[styles.deadlineLabel, { color: theme.text }]}>{safeDisplayText(item.task)}</Text>
@@ -323,7 +323,7 @@ export function IntegrityChecks({ theme, checks }) {
     <LayerCard theme={theme} icon="warning-outline" title={t('integrityTitle')} borderColor={DANGER}>
       {(rows || []).map((row) => (
         <View key={row.label} style={[styles.deadlineRow, { borderColor: theme.borderColor }]}>
-          <Ionicons name={row.icon} size={16} color={DANGER} />
+          <Ionicons name={row.icon} size={16} color={theme.danger} />
           <Text style={[styles.deadlineLabel, { color: theme.text, flex: 1 }]}>{row.label}</Text>
         </View>
       ))}
@@ -360,9 +360,9 @@ export function PlaybookCard({
   const missingCount = lockedCounts.missingAbsent || 0;
 
   const statusMeta = (status) => {
-    if (status === 'PRESENT') return { color: SUCCESS, label: t('missingPresent') };
-    if (status === 'WEAK') return { color: WARNING, label: t('missingWeak') };
-    if (status === 'ABSENT') return { color: DANGER, label: t('missingAbsent') };
+    if (status === 'PRESENT') return { color: theme.success, label: t('missingPresent') };
+    if (status === 'WEAK') return { color: theme.warning, label: t('missingWeak') };
+    if (status === 'ABSENT') return { color: theme.danger, label: t('missingAbsent') };
     return null;
   };
 
@@ -377,12 +377,12 @@ export function PlaybookCard({
     <LayerCard theme={theme} icon="book-outline" title={t('playbookTitle')}>
       <Text style={[styles.sectionHint, { color: theme.subText }]}>{t('playbookHint')}</Text>
       <Text style={[styles.sectionHint, { color: theme.subText }]}>{t('signPickHint')}</Text>
-      <Text style={[styles.deadlineMeta, { color: ACCENT, marginBottom: 8 }]}>
+      <Text style={[styles.deadlineMeta, { color: theme.accent, marginBottom: 8 }]}>
         {t('signPickedCount', { count: selectedIds.size })}
       </Text>
       {missingCount > 0 ? (
         <TouchableOpacity accessibilityRole="button" onPress={onUnlock} activeOpacity={0.8} style={{ marginBottom: 8 }}>
-          <Text style={[styles.lockedMoreText, { color: ACCENT }]}>
+          <Text style={[styles.lockedMoreText, { color: theme.accent }]}>
             +{missingCount} {t('missingAbsent')}
           </Text>
         </TouchableOpacity>
@@ -401,7 +401,7 @@ export function PlaybookCard({
         return (
           <TouchableOpacity
             key={item.id}
-            style={[styles.deadlineRow, { borderColor: selected ? ACCENT : theme.borderColor }]}
+            style={[styles.deadlineRow, { borderColor: selected ? theme.accent : theme.borderColor }]}
             onPress={() => onToggleCondition?.(item)}
             activeOpacity={0.85}
             accessibilityRole="button"
@@ -410,7 +410,7 @@ export function PlaybookCard({
             <Ionicons
               name={selected ? 'checkmark-circle' : 'square-outline'}
               size={16}
-              color={selected ? SUCCESS : DANGER}
+              color={selected ? theme.success : theme.danger}
             />
             <View style={{ flex: 1, flexShrink: 1 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
@@ -441,21 +441,21 @@ export function PlaybookCard({
                   </Text>
                   <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
                     <TouchableOpacity accessibilityRole="button"
-                      style={[styles.proposalBtn, { borderColor: ACCENT }]}
+                      style={[styles.proposalBtn, { borderColor: theme.accent }]}
                       onPress={() => {
                         copyClause(model.insertClause, false).catch(() => {});
                       }}
                     >
-                      <Ionicons name="copy-outline" size={14} color={ACCENT} />
+                      <Ionicons name="copy-outline" size={14} color={theme.accent} />
                       <Text style={styles.proposalBtnText}>{t('ladderCopy')}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity accessibilityRole="button"
-                      style={[styles.proposalBtn, { borderColor: ACCENT }]}
+                      style={[styles.proposalBtn, { borderColor: theme.accent }]}
                       onPress={() => {
                         copyClause(model.insertClause, true).catch(() => {});
                       }}
                     >
-                      <Ionicons name="add-outline" size={14} color={ACCENT} />
+                      <Ionicons name="add-outline" size={14} color={theme.accent} />
                       <Text style={styles.proposalBtnText}>{t('missingAddToMessage')}</Text>
                     </TouchableOpacity>
                   </View>
@@ -463,7 +463,7 @@ export function PlaybookCard({
               ) : null}
               {locked && model && (model.status === 'ABSENT' || model.status === 'WEAK') ? (
                 <TouchableOpacity accessibilityRole="button" onPress={onUnlock} activeOpacity={0.8} style={{ marginTop: 6 }}>
-                  <Text style={[styles.lockedMoreText, { color: ACCENT }]}>{t('hookMissingTitle')}</Text>
+                  <Text style={[styles.lockedMoreText, { color: theme.accent }]}>{t('hookMissingTitle')}</Text>
                 </TouchableOpacity>
               ) : null}
             </View>
@@ -486,16 +486,16 @@ export function CostWidget({ theme, costs }) {
     <View
       style={[
         styles.costWidget,
-        { backgroundColor: theme.cardBg, borderColor: WARNING },
+        { backgroundColor: theme.cardBg, borderColor: theme.warning },
       ]}
     >
       <View style={styles.takeawayHeader}>
-        <Ionicons name="calculator-outline" size={16} color={WARNING} />
+        <Ionicons name="calculator-outline" size={16} color={theme.warning} />
         <Text style={[styles.takeawayTitle, { color: theme.text, flexShrink: 1 }]}>
           {costs.horizonLabel || t('costWidgetTitle')}
         </Text>
       </View>
-      <Text style={[styles.costWidgetValue, { color: WARNING }]}>
+      <Text style={[styles.costWidgetValue, { color: theme.warning }]}>
         {safeDisplayText(costs.totalEstimatedLiability)}
       </Text>
       <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>
@@ -607,7 +607,7 @@ export function VoiceBriefButton({ theme, analysis, lang }) {
         accessibilityLabel={speaking ? t('stopBriefing') : t('listenBriefing')}
       >
         <View style={{ width: 16, height: 16, alignItems: 'center', justifyContent: 'center' }}>
-          <Ionicons name={speaking ? 'stop-circle' : 'volume-high-outline'} size={16} color={ACCENT} />
+          <Ionicons name={speaking ? 'stop-circle' : 'volume-high-outline'} size={16} color={theme.accent} />
         </View>
         <Text
           style={[
@@ -626,7 +626,7 @@ export function VoiceBriefButton({ theme, analysis, lang }) {
           style={{
             position: 'absolute',
             right: 12,
-            color: ACCENT,
+            color: theme.accent,
             fontSize: 12,
             lineHeight: 16,
             includeFontPadding: false,
@@ -675,9 +675,9 @@ export function RiskSummary({ theme, clauses = [], redFlags = [] }) {
   const low = list.filter((item) => String(item?.riskLevel || '').toUpperCase() === 'GREEN').length;
   const total = Math.max(1, high + medium + low);
   const rows = [
-    { key: 'high', label: t('riskHigh'), count: high, color: DANGER },
-    { key: 'medium', label: t('riskMedium'), count: medium, color: WARNING },
-    { key: 'low', label: t('riskLow'), count: low, color: SUCCESS },
+    { key: 'high', label: t('riskHigh'), count: high, color: theme.danger },
+    { key: 'medium', label: t('riskMedium'), count: medium, color: theme.warning },
+    { key: 'low', label: t('riskLow'), count: low, color: theme.success },
   ];
 
   return (

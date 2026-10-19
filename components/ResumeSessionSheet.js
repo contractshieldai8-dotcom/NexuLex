@@ -35,7 +35,7 @@ export default function ResumeSessionSheet({ visible, theme, items = [], onPick,
         >
           <View style={styles.modalHandle} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-            <Ionicons name="return-down-back-outline" size={20} color={ACCENT} />
+            <Ionicons name="return-down-back-outline" size={20} color={theme.accent} />
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
               {t('rsTitle')}
             </Text>
@@ -71,12 +71,12 @@ export default function ResumeSessionSheet({ visible, theme, items = [], onPick,
                   marginBottom: 8,
                 }}
               >
-                <Ionicons name={item.icon} size={22} color={ACCENT} />
+                <Ionicons name={item.icon} size={22} color={theme.accent} />
                 <View style={{ flex: 1 }}>
                   <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>{t(item.titleKey)}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>{t(item.hintKey)}</Text>
                 </View>
-                <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={ACCENT} />
+                <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={theme.accent} />
               </TouchableOpacity>
             ))}
             <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={onSkip}>

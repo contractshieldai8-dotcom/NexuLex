@@ -1,31 +1,108 @@
 import { I18nManager, Platform, StyleSheet } from 'react-native';
 
+// ─────────────────────────────────────────────────────────────────────────────
+// NexuLex design tokens — "Ink & Champagne"
+//
+// One calm brand colour (champagne gold) on deep ink navy; status colours are
+// kept separate so "brand" never gets confused with "safe". Every screen reads
+// these tokens, so the whole app can be re-skinned from this file alone.
+//
+// Contrast (WCAG): dark theme text on bg >= 12:1, accent on bg ~9:1, status
+// colours on bg >= 4.9:1. Light theme uses darker status/accent tones (>= 4.5:1).
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Marka Renkleri — dark-theme values. Keep the 6-digit hex form: several
+// screens build tints with `${ACCENT}22` (hex alpha suffix).
+export const ACCENT = '#D4B27A';
+export const ACCENT_ALT = '#7DA7E3';
+export const DANGER = '#E5484D';
+export const WARNING = '#E8A33D';
+export const SUCCESS = '#3DBE8B';
+export const alignStart = I18nManager.isRTL ? 'right' : 'left';
+
+// Text colour placed on top of a filled ACCENT / WARNING / SUCCESS surface.
+export const INK = '#080C14';
+
+// Spacing scale (4pt grid)
+export const SPACING = { xxs: 2, xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 32 };
+
+// Corner radii: rounded-rect controls 12, cards 16, sheets 24, chips/badges pill
+export const RADIUS = { xs: 6, sm: 10, md: 12, lg: 16, xl: 20, sheet: 24, pill: 999 };
+
+// Type scale (size / line-height): comfortable 1.45-1.6 ratios for reading
+export const TYPE = {
+  caption: { fontSize: 11, lineHeight: 16 },
+  small: { fontSize: 12, lineHeight: 18 },
+  body: { fontSize: 14, lineHeight: 21 },
+  bodyLg: { fontSize: 15, lineHeight: 23 },
+  title: { fontSize: 17, lineHeight: 24 },
+  heading: { fontSize: 20, lineHeight: 28 },
+  display: { fontSize: 28, lineHeight: 34 },
+};
+
+// Layered ambient elevation. iOS: soft, wide shadow. Android: low elevation.
+// Dark surfaces get depth mostly from the lighter surface + hairline border.
+const elevation = (opacity, radius, offsetY, androidElevation) =>
+  Platform.select({
+    ios: {
+      shadowColor: '#000000',
+      shadowOpacity: opacity,
+      shadowRadius: radius,
+      shadowOffset: { width: 0, height: offsetY },
+    },
+    android: { elevation: androidElevation },
+    default: {},
+  });
+
+export const SHADOW = {
+  none: {},
+  sm: elevation(0.16, 8, 2, 1),
+  md: elevation(0.22, 16, 6, 3),
+  lg: elevation(0.3, 28, 12, 8),
+};
+
 // Tema Tanımlamaları
 export const darkTheme = {
   bg: '#0A0F1D',
-  text: '#FFFFFF',
-  subText: '#94A3B8',
-  cardBg: '#111827',
-  inputBg: '#1F2937',
-  borderColor: '#1E293B',
+  text: '#EEF1F8',
+  subText: '#9AA6BD',
+  cardBg: '#111A2E',
+  inputBg: '#0D1426',
+  borderColor: 'rgba(255, 255, 255, 0.09)',
+  // Extended tokens (additive — existing keys above are unchanged in meaning)
+  surfaceRaised: '#172238',
+  borderStrong: 'rgba(255, 255, 255, 0.16)',
+  accent: ACCENT,
+  accentSoft: 'rgba(212, 178, 122, 0.14)',
+  accentBorder: 'rgba(212, 178, 122, 0.38)',
+  onAccent: INK,
+  accentAlt: ACCENT_ALT,
+  danger: DANGER,
+  warning: WARNING,
+  success: SUCCESS,
+  overlay: 'rgba(5, 8, 16, 0.76)',
 };
 
 export const lightTheme = {
-  bg: '#F1F5F9',
+  bg: '#F5F3EE',
   text: '#0F172A',
   subText: '#475569',
   cardBg: '#FFFFFF',
-  inputBg: '#F8FAFC',
+  inputBg: '#F1EFE9',
   borderColor: '#CBD5E1',
+  surfaceRaised: '#FBFAF7',
+  borderStrong: '#9AA6BD',
+  // Darker brand/status tones so text and icons stay legible on light surfaces
+  accent: '#7D5A1E',
+  accentSoft: 'rgba(125, 90, 30, 0.10)',
+  accentBorder: 'rgba(125, 90, 30, 0.40)',
+  onAccent: '#FFFFFF',
+  accentAlt: '#2F5DA8',
+  danger: '#B42318',
+  warning: '#9A5B0A',
+  success: '#047857',
+  overlay: 'rgba(15, 23, 42, 0.45)',
 };
-
-// Marka Renkleri
-export const ACCENT = '#00F5D4';
-export const ACCENT_ALT = '#00B4D8';
-export const DANGER = '#FF3B5C';
-export const WARNING = '#FFB800';
-export const SUCCESS = '#00E676';
-export const alignStart = I18nManager.isRTL ? 'right' : 'left';
 
 export const getRiskColor = (level) => {
   switch (level) {
@@ -62,9 +139,9 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontFamily: FONTS.bold,
-    fontSize: 24,
-    fontWeight: '900',
-    letterSpacing: 1.2,
+    fontSize: 20,
+    fontWeight: '800',
+    letterSpacing: 1.8,
   },
   tagline: {
     fontFamily: FONTS.regular,
@@ -73,32 +150,54 @@ export const styles = StyleSheet.create({
     letterSpacing: 0.2,
     marginTop: 2,
   },
+  // Segmented navigation: four equal pills inside one rounded track.
   tabBar: {
     flexDirection: 'row',
-    marginTop: 15,
-    borderBottomWidth: 1,
+    marginTop: 14,
+    padding: 4,
+    gap: 4,
+    borderWidth: 1,
+    borderRadius: 18,
   },
   tabItem: {
-    paddingVertical: 10,
-    marginRight: 20,
+    flex: 1,
+    minHeight: 52,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+    gap: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: 'transparent',
   },
   activeTabBorder: {
-    borderBottomWidth: 2,
-    borderBottomColor: ACCENT,
+    borderWidth: 1,
   },
   tabText: {
     fontFamily: FONTS.medium,
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '600',
-    letterSpacing: 0.3,
+    letterSpacing: 0.2,
+    maxWidth: '100%',
+  },
+  headerIconBtn: {
+    marginLeft: 'auto',
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   scrollContent: {
     padding: 20,
   },
   card: {
-    padding: 16,
-    borderRadius: 12,
+    padding: 18,
+    borderRadius: 16,
     borderWidth: 1,
+    ...SHADOW.sm,
   },
   settingLabel: {
     fontFamily: FONTS.bold,
@@ -107,17 +206,17 @@ export const styles = StyleSheet.create({
     letterSpacing: 0.2,
   },
   input: {
-    height: 48,
+    height: 50,
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 12,
     paddingHorizontal: 12,
     fontFamily: FONTS.regular,
     fontSize: 14,
   },
   textArea: {
     borderWidth: 1,
-    borderRadius: 8,
-    padding: 12,
+    borderRadius: 12,
+    padding: 14,
     fontFamily: FONTS.regular,
     fontSize: 14,
     lineHeight: 20,
@@ -138,18 +237,28 @@ export const styles = StyleSheet.create({
     backgroundColor: ACCENT,
     paddingVertical: 14,
     paddingHorizontal: 16,
-    borderRadius: 8,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 50,
+    minHeight: 52,
     marginBottom: 16,
+    ...Platform.select({
+      ios: {
+        shadowColor: ACCENT,
+        shadowOpacity: 0.28,
+        shadowRadius: 14,
+        shadowOffset: { width: 0, height: 6 },
+      },
+      android: { elevation: 2 },
+      default: {},
+    }),
   },
   primaryButtonText: {
     color: '#080C14',
     fontFamily: FONTS.bold,
     fontSize: 15,
-    fontWeight: 'bold',
-    letterSpacing: 0.3,
+    fontWeight: '700',
+    letterSpacing: 0.4,
     textAlign: 'center',
   },
   secondaryBtn: {
@@ -157,7 +266,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: ACCENT,
     paddingVertical: 12,
-    borderRadius: 8,
+    borderRadius: 12,
     alignItems: 'center',
     marginTop: 10,
   },
@@ -172,10 +281,10 @@ export const styles = StyleSheet.create({
     opacity: 0.6,
   },
   uploadButton: {
-    backgroundColor: '#1E293B',
+    backgroundColor: '#172238',
     paddingVertical: 12,
     paddingHorizontal: 12,
-    borderRadius: 8,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 44,
@@ -195,7 +304,7 @@ export const styles = StyleSheet.create({
   previewImage: {
     width: 70,
     height: 70,
-    borderRadius: 8,
+    borderRadius: 10,
   },
   deleteButton: {
     position: 'absolute',
@@ -207,18 +316,18 @@ export const styles = StyleSheet.create({
   fileBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#1E293B',
+    backgroundColor: '#172238',
     padding: 10,
-    borderRadius: 8,
+    borderRadius: 12,
     marginBottom: 12,
   },
   resultContainer: {
     marginTop: 20,
   },
   scoreCard: {
-    padding: 16,
-    borderRadius: 12,
-    borderWidth: 2,
+    padding: 20,
+    borderRadius: 16,
+    borderWidth: 1.5,
     marginBottom: 20,
     alignItems: 'center',
   },
@@ -232,7 +341,7 @@ export const styles = StyleSheet.create({
   scoreValue: {
     fontFamily: FONTS.bold,
     fontSize: 32,
-    fontWeight: '900',
+    fontWeight: '800',
     letterSpacing: 0.5,
     marginVertical: 4,
   },
@@ -264,15 +373,15 @@ export const styles = StyleSheet.create({
   },
   summaryText: {
     fontFamily: FONTS.regular,
-    fontSize: 14,
+    fontSize: 15,
     textAlign: alignStart,
     marginTop: 6,
-    lineHeight: 21,
+    lineHeight: 23,
     letterSpacing: 0.1,
   },
   takeawayCard: {
-    padding: 14,
-    borderRadius: 12,
+    padding: 16,
+    borderRadius: 16,
     borderWidth: 1,
     marginBottom: 20,
   },
@@ -300,7 +409,7 @@ export const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: 'rgba(255, 184, 0, 0.15)',
+    backgroundColor: 'rgba(232, 163, 61, 0.15)',
     color: WARNING,
     fontFamily: FONTS.bold,
     fontSize: 11,
@@ -311,8 +420,8 @@ export const styles = StyleSheet.create({
   takeawayText: {
     flex: 1,
     fontFamily: FONTS.regular,
-    fontSize: 13,
-    lineHeight: 19,
+    fontSize: 14,
+    lineHeight: 21,
   },
   sectionHint: {
     fontFamily: FONTS.regular,
@@ -321,8 +430,8 @@ export const styles = StyleSheet.create({
     marginBottom: 12,
   },
   jurisdictionCard: {
-    padding: 14,
-    borderRadius: 12,
+    padding: 16,
+    borderRadius: 16,
     borderWidth: 1,
     marginBottom: 16,
   },
@@ -342,10 +451,10 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   redFlagCard: {
-    padding: 14,
-    borderRadius: 10,
+    padding: 16,
+    borderRadius: 14,
     borderWidth: 1,
-    borderColor: 'rgba(255, 59, 92, 0.45)',
+    borderColor: 'rgba(229, 72, 77, 0.45)',
     borderLeftWidth: 4,
     borderLeftColor: DANGER,
     marginBottom: 12,
@@ -354,10 +463,10 @@ export const styles = StyleSheet.create({
     overflow: 'visible',
   },
   yellowFlagCard: {
-    padding: 14,
-    borderRadius: 10,
+    padding: 16,
+    borderRadius: 14,
     borderWidth: 1,
-    borderColor: 'rgba(255, 184, 0, 0.45)',
+    borderColor: 'rgba(232, 163, 61, 0.45)',
     borderLeftWidth: 4,
     borderLeftColor: WARNING,
     marginBottom: 12,
@@ -367,8 +476,8 @@ export const styles = StyleSheet.create({
   },
   redFlagText: {
     fontFamily: FONTS.regular,
-    fontSize: 13,
-    lineHeight: 19,
+    fontSize: 14,
+    lineHeight: 21,
     flexShrink: 1,
     flexWrap: 'wrap',
   },
@@ -390,7 +499,7 @@ export const styles = StyleSheet.create({
     width: 22,
     height: 22,
     borderRadius: 11,
-    backgroundColor: 'rgba(0, 245, 212, 0.15)',
+    backgroundColor: 'rgba(212, 178, 122, 0.15)',
     color: ACCENT,
     fontFamily: FONTS.bold,
     fontSize: 11,
@@ -431,7 +540,7 @@ export const styles = StyleSheet.create({
     backgroundColor: ACCENT,
     paddingVertical: 8,
     paddingHorizontal: 14,
-    borderRadius: 6,
+    borderRadius: 10,
     marginTop: 12,
     gap: 6,
   },
@@ -451,8 +560,8 @@ export const styles = StyleSheet.create({
     marginBottom: 12,
   },
   clauseCard: {
-    padding: 14,
-    borderRadius: 10,
+    padding: 16,
+    borderRadius: 14,
     borderWidth: 1,
     marginBottom: 12,
     minHeight: 72,
@@ -475,9 +584,9 @@ export const styles = StyleSheet.create({
     flexShrink: 0,
   },
   badge: {
-    paddingHorizontal: 8,
+    paddingHorizontal: 9,
     paddingVertical: 2,
-    borderRadius: 4,
+    borderRadius: 6,
   },
   badgeText: {
     color: '#FFFFFF',
@@ -513,9 +622,9 @@ export const styles = StyleSheet.create({
     textAlign: alignStart,
   },
   issueBox: {
-    backgroundColor: 'rgba(255, 59, 92, 0.1)',
-    padding: 10,
-    borderRadius: 6,
+    backgroundColor: 'rgba(229, 72, 77, 0.1)',
+    padding: 12,
+    borderRadius: 10,
     marginTop: 4,
   },
   issueTitle: {
@@ -529,14 +638,14 @@ export const styles = StyleSheet.create({
   issueText: {
     color: DANGER,
     fontFamily: FONTS.regular,
-    fontSize: 13,
-    lineHeight: 19,
+    fontSize: 14,
+    lineHeight: 21,
     textAlign: alignStart,
   },
   counterBox: {
-    backgroundColor: 'rgba(0, 245, 212, 0.1)',
-    padding: 10,
-    borderRadius: 6,
+    backgroundColor: 'rgba(212, 178, 122, 0.1)',
+    padding: 12,
+    borderRadius: 10,
     marginTop: 6,
   },
   offerTierRow: {
@@ -548,7 +657,7 @@ export const styles = StyleSheet.create({
   },
   offerTierChip: {
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 10,
     paddingHorizontal: 10,
     paddingVertical: 6,
     maxWidth: '100%',
@@ -575,13 +684,13 @@ export const styles = StyleSheet.create({
   counterText: {
     color: ACCENT,
     fontFamily: FONTS.regular,
-    fontSize: 13,
-    lineHeight: 19,
+    fontSize: 14,
+    lineHeight: 21,
     textAlign: alignStart,
   },
   historyCard: {
-    padding: 14,
-    borderRadius: 10,
+    padding: 16,
+    borderRadius: 14,
     borderWidth: 1,
     marginBottom: 10,
   },
@@ -616,9 +725,9 @@ export const styles = StyleSheet.create({
   langBtn: {
     paddingHorizontal: 12,
     paddingVertical: 8,
-    borderRadius: 6,
+    borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: 'rgba(255, 255, 255, 0.16)',
   },
   activeLangBtn: {
     backgroundColor: ACCENT,
@@ -627,7 +736,7 @@ export const styles = StyleSheet.create({
   langText: {
     fontFamily: FONTS.medium,
     fontSize: 12,
-    color: '#94A3B8',
+    color: '#9AA6BD',
     fontWeight: '600',
     letterSpacing: 0.4,
   },
@@ -654,9 +763,9 @@ export const styles = StyleSheet.create({
     minHeight: 36,
     maxHeight: 36,
     paddingHorizontal: 12,
-    borderRadius: 8,
+    borderRadius: 18,
     borderWidth: 1,
-    borderColor: '#1E293B',
+    borderColor: 'rgba(255, 255, 255, 0.09)',
     backgroundColor: 'transparent',
     marginRight: 0,
     justifyContent: 'center',
@@ -665,25 +774,25 @@ export const styles = StyleSheet.create({
     flexShrink: 0,
   },
   typeChipActive: {
-    backgroundColor: 'rgba(0, 229, 204, 0.1)',
-    borderColor: '#00E5CC',
+    backgroundColor: 'rgba(212, 178, 122, 0.1)',
+    borderColor: '#D4B27A',
   },
   typeChipText: {
     fontFamily: FONTS.medium,
     fontSize: 12,
     fontWeight: '600',
     letterSpacing: 0.2,
-    color: '#94A3B8',
+    color: '#9AA6BD',
   },
   typeChipTextActive: {
-    color: '#00E5CC',
+    color: '#D4B27A',
   },
   logoutBtnLarge: {
     backgroundColor: 'transparent',
     borderWidth: 1,
     borderColor: DANGER,
     paddingVertical: 14,
-    borderRadius: 8,
+    borderRadius: 12,
     alignItems: 'center',
     marginTop: 10,
     marginBottom: 30,
@@ -702,7 +811,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 12,
     paddingHorizontal: 12,
     paddingVertical: 12,
     marginBottom: 12,
@@ -726,8 +835,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalSheet: {
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
     borderWidth: 1,
     borderBottomWidth: 0,
     paddingHorizontal: 20,
@@ -740,7 +849,7 @@ export const styles = StyleSheet.create({
     width: 42,
     height: 4,
     borderRadius: 2,
-    backgroundColor: '#334155',
+    backgroundColor: 'rgba(255, 255, 255, 0.22)',
     marginBottom: 14,
   },
   modalTitle: {
@@ -756,7 +865,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: 13,
     paddingHorizontal: 14,
-    borderRadius: 10,
+    borderRadius: 12,
     borderWidth: 1,
     marginBottom: 8,
     gap: 10,
@@ -816,7 +925,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
     borderWidth: 1,
-    borderRadius: 12,
+    borderRadius: 16,
     paddingHorizontal: 14,
     paddingVertical: 14,
     marginBottom: 10,
@@ -843,7 +952,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 12,
     paddingHorizontal: 12,
     height: 44,
     marginBottom: 12,
@@ -899,8 +1008,8 @@ export const styles = StyleSheet.create({
 
   // --- Analiz İlerleme Adımları ---
   progressCard: {
-    padding: 16,
-    borderRadius: 12,
+    padding: 18,
+    borderRadius: 16,
     borderWidth: 1,
     marginTop: 16,
     marginBottom: 16,
@@ -943,10 +1052,10 @@ export const styles = StyleSheet.create({
   bubbleUser: {
     alignSelf: 'flex-end',
     maxWidth: '85%',
-    backgroundColor: 'rgba(0, 245, 212, 0.12)',
+    backgroundColor: 'rgba(212, 178, 122, 0.12)',
     borderWidth: 1,
-    borderColor: 'rgba(0, 245, 212, 0.35)',
-    borderRadius: 14,
+    borderColor: 'rgba(212, 178, 122, 0.35)',
+    borderRadius: 18,
     borderBottomRightRadius: 4,
     padding: 12,
   },
@@ -954,14 +1063,14 @@ export const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     maxWidth: '90%',
     borderWidth: 1,
-    borderRadius: 14,
+    borderRadius: 18,
     borderBottomLeftRadius: 4,
     padding: 12,
   },
   bubbleText: {
     fontFamily: FONTS.regular,
-    fontSize: 14,
-    lineHeight: 21,
+    fontSize: 15,
+    lineHeight: 22,
     textAlign: alignStart,
   },
   bubbleMeta: {
@@ -983,7 +1092,7 @@ export const styles = StyleSheet.create({
   chatInput: {
     flex: 1,
     borderWidth: 1,
-    borderRadius: 12,
+    borderRadius: 14,
     paddingHorizontal: 14,
     paddingTop: 12,
     paddingBottom: 12,
@@ -1015,7 +1124,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 6,
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,
     borderWidth: 1,
@@ -1053,7 +1162,7 @@ export const styles = StyleSheet.create({
     gap: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
-    borderRadius: 10,
+    borderRadius: 14,
     borderWidth: 1,
     marginBottom: 14,
   },
@@ -1073,7 +1182,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     minHeight: 116,
     borderWidth: 1.5,
-    borderRadius: 12,
+    borderRadius: 16,
     paddingHorizontal: 14,
     paddingVertical: 14,
     justifyContent: 'flex-start',
@@ -1104,9 +1213,9 @@ export const styles = StyleSheet.create({
     letterSpacing: 0.2,
   },
   decisionCard: {
-    borderWidth: 1.5,
-    borderRadius: 14,
-    padding: 16,
+    borderWidth: 1,
+    borderRadius: 18,
+    padding: 18,
     marginBottom: 16,
   },
   decisionHeader: {
@@ -1164,7 +1273,7 @@ export const styles = StyleSheet.create({
     lineHeight: 19,
   },
   decisionHarmBox: {
-    borderRadius: 10,
+    borderRadius: 12,
     padding: 12,
     marginTop: 6,
     marginBottom: 12,
@@ -1188,7 +1297,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 8,
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 12,
     paddingVertical: 10,
   },
   decisionShareText: {
@@ -1212,8 +1321,8 @@ export const styles = StyleSheet.create({
   },
   lockedCard: {
     borderWidth: 1,
-    borderRadius: 12,
-    padding: 18,
+    borderRadius: 16,
+    padding: 20,
     marginBottom: 20,
     alignItems: 'center',
   },
@@ -1221,7 +1330,7 @@ export const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: 'rgba(0, 245, 212, 0.12)',
+    backgroundColor: 'rgba(212, 178, 122, 0.12)',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 10,
@@ -1242,7 +1351,7 @@ export const styles = StyleSheet.create({
   },
   lockedCta: {
     backgroundColor: ACCENT,
-    borderRadius: 10,
+    borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 10,
     maxWidth: '100%',
@@ -1256,7 +1365,7 @@ export const styles = StyleSheet.create({
   },
   lockedWrap: {
     borderWidth: 1,
-    borderRadius: 12,
+    borderRadius: 16,
     marginBottom: 20,
     overflow: 'hidden',
     position: 'relative',
@@ -1282,7 +1391,7 @@ export const styles = StyleSheet.create({
   sideCard: {
     flex: 1,
     borderWidth: 1,
-    borderRadius: 12,
+    borderRadius: 16,
     paddingHorizontal: 12,
     paddingVertical: 14,
   },
@@ -1329,14 +1438,14 @@ export const styles = StyleSheet.create({
     textAlign: 'right',
   },
   upcomingCard: {
-    padding: 14,
-    borderRadius: 12,
+    padding: 16,
+    borderRadius: 16,
     borderWidth: 1,
   },
   counterMessageCard: {
     borderWidth: 1,
-    borderRadius: 12,
-    padding: 16,
+    borderRadius: 16,
+    padding: 18,
     marginBottom: 20,
   },
   conversionHook: {
@@ -1344,7 +1453,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
     borderWidth: 1,
-    borderRadius: 12,
+    borderRadius: 16,
     padding: 14,
     marginBottom: 16,
   },
@@ -1396,7 +1505,7 @@ export const styles = StyleSheet.create({
     gap: 6,
     borderWidth: 1,
     borderColor: ACCENT,
-    borderRadius: 10,
+    borderRadius: 12,
     paddingHorizontal: 10,
     paddingVertical: 8,
   },
@@ -1413,8 +1522,8 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
   costWidget: {
-    borderWidth: 1.5,
-    borderRadius: 14,
+    borderWidth: 1,
+    borderRadius: 18,
     padding: 16,
     marginBottom: 12,
   },
@@ -1431,7 +1540,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 8,
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 12,
     paddingVertical: 10,
     marginTop: 16,
     marginBottom: 16,
@@ -1444,7 +1553,7 @@ export const styles = StyleSheet.create({
   modeToggle: {
     flex: 1,
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 12,
     paddingVertical: 10,
     alignItems: 'center',
   },
@@ -1468,9 +1577,9 @@ export const styles = StyleSheet.create({
   },
   unspecifiedBadge: {
     alignSelf: 'flex-start',
-    backgroundColor: 'rgba(255, 184, 0, 0.16)',
+    backgroundColor: 'rgba(232, 163, 61, 0.16)',
     borderWidth: 1,
-    borderColor: 'rgba(255, 184, 0, 0.45)',
+    borderColor: 'rgba(232, 163, 61, 0.45)',
     borderRadius: 8,
     paddingHorizontal: 8,
     paddingVertical: 4,
@@ -1508,13 +1617,13 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   clashBanner: {
-    borderWidth: 1.5,
-    borderRadius: 12,
+    borderWidth: 1,
+    borderRadius: 16,
     padding: 12,
     marginBottom: 16,
   },
 });
 
-// YELLOW badges need dark ink on WARNING (#FFB800); RED/others keep white.
+// YELLOW badges need dark ink on WARNING (#E8A33D); RED/others keep white.
 export const badgeLabelStyle = (level) =>
   String(level || '').toUpperCase() === 'YELLOW' ? styles.badgeTextOnYellow : styles.badgeText;

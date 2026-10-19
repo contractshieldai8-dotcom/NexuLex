@@ -169,7 +169,7 @@ export default function LegalAskSheet({
 
   const sectionTitle = (key, icon) => (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 14, marginBottom: 6 }}>
-      <Ionicons name={icon} size={15} color={ACCENT} />
+      <Ionicons name={icon} size={15} color={theme.accent} />
       <Text style={[styles.label, { color: theme.text, marginBottom: 0 }]}>{t(key)}</Text>
     </View>
   );
@@ -191,13 +191,13 @@ export default function LegalAskSheet({
         paddingVertical: 7,
         borderRadius: 16,
         borderWidth: 1,
-        borderColor: on ? ACCENT : theme.borderColor,
+        borderColor: on ? theme.accent : theme.borderColor,
         backgroundColor: on ? `${ACCENT}22` : 'transparent',
         maxWidth: 220,
       }}
     >
-      {icon ? <Ionicons name={icon} size={14} color={on ? ACCENT : theme.subText} /> : null}
-      <Text style={{ color: on ? ACCENT : theme.text, fontSize: 13, fontWeight: on ? '700' : '500' }} numberOfLines={1}>
+      {icon ? <Ionicons name={icon} size={14} color={on ? theme.accent : theme.subText} /> : null}
+      <Text style={{ color: on ? theme.accent : theme.text, fontSize: 13, fontWeight: on ? '700' : '500' }} numberOfLines={1}>
         {label}
       </Text>
     </TouchableOpacity>
@@ -209,8 +209,8 @@ export default function LegalAskSheet({
   );
   const linkBtn = (icon, labelKey, onPress) => (
     <TouchableOpacity accessibilityRole="button" onPress={onPress} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-      <Ionicons name={icon} size={16} color={ACCENT} />
-      <Text style={[styles.label, { color: ACCENT, marginBottom: 0 }]}>{t(labelKey)}</Text>
+      <Ionicons name={icon} size={16} color={theme.accent} />
+      <Text style={[styles.label, { color: theme.accent, marginBottom: 0 }]}>{t(labelKey)}</Text>
     </TouchableOpacity>
   );
 
@@ -259,7 +259,7 @@ export default function LegalAskSheet({
         <Text style={[styles.sectionHint, { color: theme.subText, flex: 1, marginBottom: 0 }]}>{t('askPrivacy')}</Text>
       </View>
       {quotaView ? (
-        <Text style={[styles.sectionHint, { color: quotaView.count > 0 ? theme.subText : WARNING, marginTop: 6 }]}>
+        <Text style={[styles.sectionHint, { color: quotaView.count > 0 ? theme.subText : theme.warning, marginTop: 6 }]}>
           {t(quotaView.key, { count: quotaView.count, total: quotaView.total })}
         </Text>
       ) : null}
@@ -302,7 +302,7 @@ export default function LegalAskSheet({
         <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]} numberOfLines={3}>
           {entry.question}
         </Text>
-        <View style={{ ...box, borderColor: ACCENT, backgroundColor: theme.cardBg }}>
+        <View style={{ ...box, borderColor: theme.accent, backgroundColor: theme.cardBg }}>
           <Text style={[styles.label, { color: theme.subText, marginBottom: 4 }]}>{t('askShortAnswer')}</Text>
           <Text style={[bodyText, { fontSize: 14, lineHeight: 21 }]}>{ans.shortAnswer}</Text>
           {ans.jurisdictionNote ? (
@@ -311,15 +311,15 @@ export default function LegalAskSheet({
         </View>
 
         {ans.confidence === 'LOW' ? (
-          <View style={{ ...box, borderColor: WARNING, flexDirection: 'row', gap: 8 }}>
-            <Ionicons name="alert-circle-outline" size={16} color={WARNING} />
+          <View style={{ ...box, borderColor: theme.warning, flexDirection: 'row', gap: 8 }}>
+            <Ionicons name="alert-circle-outline" size={16} color={theme.warning} />
             <Text style={[bodyText, { flex: 1 }]}>{t('askLowConfidence')}</Text>
           </View>
         ) : null}
 
         {ans.missingFacts.length ? (
-          <View style={{ ...box, borderColor: WARNING }}>
-            <Text style={[styles.label, { color: WARNING, marginBottom: 4 }]}>{t('askMissingFacts')}</Text>
+          <View style={{ ...box, borderColor: theme.warning }}>
+            <Text style={[styles.label, { color: theme.warning, marginBottom: 4 }]}>{t('askMissingFacts')}</Text>
             {ans.missingFacts.map((item, index) => (
               <Text key={`mf-${index}`} style={[bodyText, { marginBottom: 2 }]}>
                 • {item}
@@ -334,7 +334,7 @@ export default function LegalAskSheet({
         {ans.rules.map((rule, index) => (
           <View key={`rule-${index}`} style={box}>
             <Text style={[styles.settingLabel, { color: theme.text, fontSize: 14 }]}>{rule.title}</Text>
-            {rule.citation ? <Text style={[styles.sectionHint, { color: ACCENT, marginTop: 2, marginBottom: 0 }]}>{rule.citation}</Text> : null}
+            {rule.citation ? <Text style={[styles.sectionHint, { color: theme.accent, marginTop: 2, marginBottom: 0 }]}>{rule.citation}</Text> : null}
             {rule.detail ? <Text style={[bodyText, { marginTop: 4 }]}>{rule.detail}</Text> : null}
           </View>
         ))}
@@ -351,7 +351,7 @@ export default function LegalAskSheet({
 
         {ans.deadlines.length ? sectionTitle('askDeadlines', 'alarm-outline') : null}
         {ans.deadlines.map((deadline, index) => (
-          <View key={`dl-${index}`} style={{ ...box, borderColor: DANGER }}>
+          <View key={`dl-${index}`} style={{ ...box, borderColor: theme.danger }}>
             <Text style={[styles.settingLabel, { color: theme.text, fontSize: 14 }]}>{deadline.label}</Text>
             <Text style={[bodyText, { marginTop: 4 }]}>{deadline.rule}</Text>
             <View style={{ marginTop: 8 }}>{linkBtn('calculator-outline', 'docExplainCountDays', () => onOpenCalculator?.('deadline_date'))}</View>
@@ -375,9 +375,9 @@ export default function LegalAskSheet({
         {ans.sources.length || portal ? sectionTitle('askSources', 'globe-outline') : null}
         {ans.sources.map((source) => (
           <TouchableOpacity accessibilityRole="button" key={source.url} onPress={() => openUrl(source.url)} style={{ ...box, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-            <Ionicons name="open-outline" size={16} color={ACCENT} />
+            <Ionicons name="open-outline" size={16} color={theme.accent} />
             <View style={{ flex: 1 }}>
-              <Text style={[styles.settingLabel, { color: ACCENT, fontSize: 14 }]} numberOfLines={2}>
+              <Text style={[styles.settingLabel, { color: theme.accent, fontSize: 14 }]} numberOfLines={2}>
                 {source.title}
               </Text>
               <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]} numberOfLines={1}>
@@ -388,8 +388,8 @@ export default function LegalAskSheet({
         ))}
         {portal ? (
           <TouchableOpacity accessibilityRole="button" onPress={() => openUrl(portal)} style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 }}>
-            <Ionicons name="search-outline" size={15} color={ACCENT} />
-            <Text style={[styles.label, { color: ACCENT, marginBottom: 0 }]}>{t('askOfficialPortal')}</Text>
+            <Ionicons name="search-outline" size={15} color={theme.accent} />
+            <Text style={[styles.label, { color: theme.accent, marginBottom: 0 }]}>{t('askOfficialPortal')}</Text>
           </TouchableOpacity>
         ) : null}
         {ans.sources.length || portal ? (
@@ -410,7 +410,7 @@ export default function LegalAskSheet({
             style={[styles.secondaryBtn, { flexDirection: 'row', gap: 6, justifyContent: 'center', marginTop: 12 }]}
             onPress={saveToCase}
           >
-            <Ionicons name="folder-open-outline" size={16} color={ACCENT} />
+            <Ionicons name="folder-open-outline" size={16} color={theme.accent} />
             <Text style={styles.secondaryBtnText}>{t('askSaveToCase')}</Text>
           </TouchableOpacity>
         ) : null}
@@ -450,7 +450,7 @@ export default function LegalAskSheet({
         >
           <View style={styles.modalHandle} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-            <Ionicons name="help-buoy-outline" size={20} color={ACCENT} />
+            <Ionicons name="help-buoy-outline" size={20} color={theme.accent} />
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
               {t('askTitle')}
             </Text>
@@ -466,7 +466,7 @@ export default function LegalAskSheet({
           >
             {working ? (
               <View style={{ alignItems: 'center', paddingVertical: 32, gap: 12 }}>
-                <ActivityIndicator color={ACCENT} />
+                <ActivityIndicator color={theme.accent} />
                 <Text style={[styles.sectionHint, { color: theme.subText, textAlign: 'center' }]}>{t('askWorking')}</Text>
               </View>
             ) : entry ? (

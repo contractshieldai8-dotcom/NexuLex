@@ -23,9 +23,9 @@ export function lifecycleChipStyle(value, theme, { active = true } = {}) {
   const draft = normalizeLifecycle(value) === 'draft';
   if (draft) {
     return {
-      backgroundColor: active ? 'rgba(0, 245, 212, 0.16)' : 'transparent',
+      backgroundColor: active ? 'rgba(212, 178, 122, 0.16)' : 'transparent',
       borderWidth: 1,
-      borderColor: ACCENT,
+      borderColor: theme.accent,
       color: theme?.text || '#0F172A',
     };
   }
