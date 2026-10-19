@@ -8,12 +8,36 @@
 //   supabase db push                        (migrations 20260929120000_professional_tier.sql, 20261014120000_econ1_cost_guard.sql)
 //   supabase functions deploy pro-tools
 // Secrets used: ANTHROPIC_API_KEY, SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY.
+// Optional: PRO_TOOLS_MODEL (rollback switch, e.g. claude-sonnet-5; unset = claude-sonnet-5-5).
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.1';
 
 const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
 const ANTHROPIC_VERSION = '2023-06-01';
-const MODEL = 'claude-sonnet-5';
+
+// BEGIN claude-model-profile
+// Identical in all three Claude functions (scripts/verify-ui.js, WAVE ECON.3, keeps the copies in sync).
+// Thinking rules per model family: platform.claude.com/docs/en/build-with-claude/thinking (checked Oct 2026).
+const envModel = (name: string, fallback: string) => (Deno.env.get(name) || '').trim() || fallback;
+
+// Fable, Mythos and Opus 5.5 cannot turn thinking off.
+const ALWAYS_THINKS = /^claude-(fable|mythos|opus-5-5)/;
+
+const thinkingParams = (model: string) => {
+  // Claude Sonnet 5.5 answers 400 to "disabled"; "between_tools" is its no-up-front-thinking setting (effort high or below).
+  if (/^claude-sonnet-5-5/.test(model)) return { thinking: { type: 'between_tools' } };
+  // Keep thinking adaptive at low effort so the output bill stays bounded (thinking tokens are billed as output).
+  if (ALWAYS_THINKS.test(model)) return { thinking: { type: 'adaptive' }, output_config: { effort: 'low' } };
+  // Sonnet 5, Haiku 4.5 and Haiku 5.5 accept "disabled" (Haiku 5.5 at effort high or below; its default is medium).
+  return { thinking: { type: 'disabled' } };
+};
+
+// One retry after a 400: no thinking field, low effort. Pointless where thinking is already adaptive at low effort.
+const lowEffortParams = () => ({ output_config: { effort: 'low' } });
+const canRetryLowEffort = (model: string) => !ALWAYS_THINKS.test(model);
+// END claude-model-profile
+
+const MODEL = envModel('PRO_TOOLS_MODEL', 'claude-sonnet-5-5');
 const MAX_TOKENS = 5000;
 
 const PROFESSIONAL_TOOL_DAILY_LIMIT = 30;
@@ -215,21 +239,21 @@ async function callClaude(apiKey: string, system: string, userText: string) {
     'x-api-key': apiKey,
     'anthropic-version': ANTHROPIC_VERSION,
   };
-  const body = (variant: 'disabled' | 'low') => ({
+  const body = (retry: boolean) => ({
     model: MODEL,
     max_tokens: MAX_TOKENS,
     system,
     messages: [{ role: 'user', content: userText }],
-    // "temperature" is deprecated for these models and must never be sent.
-    ...(variant === 'disabled' ? { thinking: { type: 'disabled' } } : { output_config: { effort: 'low' } }),
+    // Sampling parameters (temperature, top_p, top_k) are rejected by these models and must never be sent.
+    ...(retry ? lowEffortParams() : thinkingParams(MODEL)),
   });
-  const send = async (variant: 'disabled' | 'low') => {
-    const response = await fetch(ANTHROPIC_API_URL, { method: 'POST', headers, body: JSON.stringify(body(variant)) });
+  const send = async (retry: boolean) => {
+    const response = await fetch(ANTHROPIC_API_URL, { method: 'POST', headers, body: JSON.stringify(body(retry)) });
     const data = await response.json().catch(() => null);
     return { response, data };
   };
-  let { response, data } = await send('disabled');
-  if (!response.ok && response.status === 400) ({ response, data } = await send('low'));
+  let { response, data } = await send(false);
+  if (!response.ok && response.status === 400 && canRetryLowEffort(MODEL)) ({ response, data } = await send(true));
   if (!response.ok) return { ok: false as const, status: response.status };
   const text = (data?.content ?? [])
     .filter((block: { type?: string }) => block?.type === 'text')

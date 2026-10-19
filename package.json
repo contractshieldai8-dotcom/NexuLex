@@ -48,6 +48,10 @@
     "verify": "node scripts/verify-ui.js",
     "test:sql": "node scripts/test-referrals-sql.mjs",
     "test:econ1": "node scripts/test-econ1-sql.mjs",
+    "test:econ3": "node scripts/test-econ3-sql.mjs",
+    "test:analyze": "node scripts/test-analyze-guard.mjs",
+    "check:models": "node scripts/check-models.mjs",
+    "cost:report": "node scripts/cost-report.mjs",
     "pricing": "node scripts/check-pricing.js",
     "pricing:strict": "node scripts/check-pricing.js --strict"
   },

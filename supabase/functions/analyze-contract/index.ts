@@ -8,16 +8,52 @@
 //
 // JWT doğrulaması Supabase tarafından varsayılan olarak yapılır: yalnızca
 // oturum açmış kullanıcılar bu uç noktayı çağırabilir.
+//
+// WAVE ECON.3: the gateway also accepts the public anon key, so the function itself now requires a real
+// user (JWT "sub"), resolves the plan, allows "deep" only on Professional, caps request text by plan and
+// counts calls per user per day (public.consume_analyze_call). Plan lookups and the counter fail OPEN
+// when the database is unreachable, so an outage never blocks a paying user.
+// Optional rollback switches (unset = the defaults below): ANALYZE_MODEL_DEFAULT, ANALYZE_MODEL_DEEP, ANALYZE_MODEL_FAST.
+// Secrets used: ANTHROPIC_API_KEY, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY.
 
 const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
 const ANTHROPIC_VERSION = '2023-06-01';
 
+// BEGIN claude-model-profile
+// Identical in all three Claude functions (scripts/verify-ui.js, WAVE ECON.3, keeps the copies in sync).
+// Thinking rules per model family: platform.claude.com/docs/en/build-with-claude/thinking (checked Oct 2026).
+const envModel = (name: string, fallback: string) => (Deno.env.get(name) || '').trim() || fallback;
+
+// Fable, Mythos and Opus 5.5 cannot turn thinking off.
+const ALWAYS_THINKS = /^claude-(fable|mythos|opus-5-5)/;
+
+const thinkingParams = (model: string) => {
+  // Claude Sonnet 5.5 answers 400 to "disabled"; "between_tools" is its no-up-front-thinking setting (effort high or below).
+  if (/^claude-sonnet-5-5/.test(model)) return { thinking: { type: 'between_tools' } };
+  // Keep thinking adaptive at low effort so the output bill stays bounded (thinking tokens are billed as output).
+  if (ALWAYS_THINKS.test(model)) return { thinking: { type: 'adaptive' }, output_config: { effort: 'low' } };
+  // Sonnet 5, Haiku 4.5 and Haiku 5.5 accept "disabled" (Haiku 5.5 at effort high or below; its default is medium).
+  return { thinking: { type: 'disabled' } };
+};
+
+// One retry after a 400: no thinking field, low effort. Pointless where thinking is already adaptive at low effort.
+const lowEffortParams = () => ({ output_config: { effort: 'low' } });
+const canRetryLowEffort = (model: string) => !ALWAYS_THINKS.test(model);
+// END claude-model-profile
+
 // İstemci yalnızca bir "mode" gönderir; model kimlikleri sunucuda tutulur.
 const CLAUDE_MODELS: Record<string, string> = {
-  default: 'claude-sonnet-5',
-  deep: 'claude-fable-5',
-  fast: 'claude-haiku-4-5',
+  default: envModel('ANALYZE_MODEL_DEFAULT', 'claude-sonnet-5-5'),
+  deep: envModel('ANALYZE_MODEL_DEEP', 'claude-fable-5-1'),
+  fast: envModel('ANALYZE_MODEL_FAST', 'claude-haiku-5-5'),
 };
+const CLAUDE_MODES = ['default', 'deep', 'fast'];
+
+type Plan = 'free' | 'pro' | 'professional';
+// Abuse backstops, not product quotas: one analysis is several calls (OCR batches, the analysis, a continuation).
+const DAILY_CALL_LIMIT: Record<Plan, number> = { free: 30, pro: 200, professional: 400 };
+// Request text per call, media (base64) excluded. The app slices contracts to 24k characters.
+const MAX_TEXT_CHARS: Record<Plan, number> = { free: 120_000, pro: 300_000, professional: 400_000 };
 
 // Uç noktanın açık uçlu bir Claude proxy'sine dönüşmemesi için üst sınırlar.
 // EXTRACT istemci 8192 clamp; uzun analiz 16384 buradan geçer. GENERATE 8192 kalır.
@@ -56,6 +92,21 @@ const weighContent = (content: unknown): number => {
     if (block && typeof block === 'object') {
       const data = (block as { source?: { data?: unknown } }).source?.data;
       if (typeof data === 'string') total += data.length;
+      const text = (block as { text?: unknown }).text;
+      if (typeof text === 'string') total += text.length;
+    }
+  }
+  return total;
+};
+
+// Characters of readable text only (base64 media is weighed by weighContent, not here).
+const weighText = (content: unknown): number => {
+  if (typeof content === 'string') return content.length;
+  if (!Array.isArray(content)) return 0;
+  let total = 0;
+  for (const block of content) {
+    if (typeof block === 'string') total += block.length;
+    else if (block && typeof block === 'object') {
       const text = (block as { text?: unknown }).text;
       if (typeof text === 'string') total += text.length;
     }
@@ -261,58 +312,71 @@ const jwtSubject = (authHeader: string | null): string => {
   }
 };
 
-const resolvePlan = async (
-  baseUrl: string,
-  serviceKey: string,
-  userId: string
-): Promise<'free' | 'pro' | 'professional'> => {
-  if (!userId) return 'free';
-  const headers = { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` };
+// Database access (PostgREST, service role). Every call has a short timeout; callers treat null as "unknown".
+const GUARD_TIMEOUT_MS = 3000;
+const dbHeaders = (serviceKey: string) => ({
+  apikey: serviceKey,
+  Authorization: `Bearer ${serviceKey}`,
+  'content-type': 'application/json',
+});
+
+// Returns the plan, or null when the profile could not be read (the caller then fails open).
+const resolvePlan = async (baseUrl: string, serviceKey: string, userId: string): Promise<Plan | null> => {
   const fetchProfile = async (columns: string) => {
-    const res = await fetch(
-      `${baseUrl}/rest/v1/profiles?id=eq.${userId}&select=${columns}&limit=1`,
-      { headers }
-    );
-    return res.ok ? ((await res.json().catch(() => null)) as Array<Record<string, unknown>> | null) : null;
+    try {
+      const res = await fetch(`${baseUrl}/rest/v1/profiles?id=eq.${userId}&select=${columns}&limit=1`, {
+        headers: dbHeaders(serviceKey),
+        signal: AbortSignal.timeout(GUARD_TIMEOUT_MS),
+      });
+      return res.ok ? ((await res.json().catch(() => null)) as Array<Record<string, unknown>> | null) : null;
+    } catch {
+      return null;
+    }
   };
   // The plan column arrives with the LR.5 migration; until then is_pro alone decides.
   const rows = (await fetchProfile('is_pro,plan')) ?? (await fetchProfile('is_pro'));
-  const profile = rows?.[0];
+  if (!rows) return null;
+  const profile = rows[0];
   if (profile?.plan === 'professional') return 'professional';
   return profile?.is_pro ? 'pro' : 'free';
 };
 
+const callRpc = async (baseUrl: string, serviceKey: string, name: string, args: Record<string, unknown>) => {
+  try {
+    const res = await fetch(`${baseUrl}/rest/v1/rpc/${name}`, {
+      method: 'POST',
+      headers: dbHeaders(serviceKey),
+      body: JSON.stringify(args),
+      signal: AbortSignal.timeout(GUARD_TIMEOUT_MS),
+    });
+    return res.ok ? { ok: true as const, data: await res.json().catch(() => null) } : { ok: false as const, data: null };
+  } catch {
+    return { ok: false as const, data: null };
+  }
+};
+
 const trackScanCost = async (
-  authHeader: string | null,
+  plan: Plan,
   info: { schema: string; model: string; usage: any; stopReason?: string; failed: boolean }
 ) => {
   try {
     const baseUrl = Deno.env.get('SUPABASE_URL') || '';
     const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
     if (!baseUrl || !serviceKey) return;
-    const plan = await resolvePlan(baseUrl, serviceKey, jwtSubject(authHeader));
     const kind = info.schema ? (COST_SCHEMAS.includes(info.schema) ? info.schema : 'other') : 'text';
     // Cache tokens are billed too (none are used today); fold them into the input total.
     const input =
       (Number(info.usage?.input_tokens) || 0) +
       (Number(info.usage?.cache_creation_input_tokens) || 0) +
       (Number(info.usage?.cache_read_input_tokens) || 0);
-    await fetch(`${baseUrl}/rest/v1/rpc/record_ai_cost`, {
-      method: 'POST',
-      headers: {
-        apikey: serviceKey,
-        Authorization: `Bearer ${serviceKey}`,
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        p_feature: `analyze:${kind}`,
-        p_plan: plan,
-        p_model: info.model,
-        p_input: input,
-        p_output: Number(info.usage?.output_tokens) || 0,
-        p_truncated: info.stopReason === 'max_tokens',
-        p_failed: info.failed,
-      }),
+    await callRpc(baseUrl, serviceKey, 'record_ai_cost', {
+      p_feature: `analyze:${kind}`,
+      p_plan: plan,
+      p_model: info.model,
+      p_input: input,
+      p_output: Number(info.usage?.output_tokens) || 0,
+      p_truncated: info.stopReason === 'max_tokens',
+      p_failed: info.failed,
     });
   } catch {
     /* telemetry only */
@@ -376,8 +440,10 @@ Deno.serve(async (req: Request) => {
   }
 
   let messageChars = 0;
+  let textChars = 0;
   for (const message of messages) {
     messageChars += weighContent(message?.content);
+    textChars += weighText(message?.content);
     if (messageChars > MAX_MESSAGE_CHARS) {
       return json({ error: 'PAYLOAD_TOO_LARGE' }, 413);
     }
@@ -403,7 +469,43 @@ Deno.serve(async (req: Request) => {
     return json({ error: '"system" bir metin olmalıdır.' }, 400);
   }
 
-  const model = CLAUDE_MODELS[mode as string] || CLAUDE_MODELS.default;
+  // --- ECON.3 guard: who is calling, on which plan, and may this call go ahead? ---------------------
+  const authHeader = req.headers.get('Authorization');
+  const userId = jwtSubject(authHeader);
+  // The gateway lets the public anon key through; it has no "sub", so it is never a real user.
+  if (!userId) return json({ error: 'AUTH' }, 401);
+
+  const baseUrl = Deno.env.get('SUPABASE_URL') || '';
+  const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
+  const knownPlan = baseUrl && serviceKey ? await resolvePlan(baseUrl, serviceKey, userId) : null;
+  const plan: Plan = knownPlan ?? 'free'; // strictest text cap and no "deep" when the plan is unknown
+
+  if (textChars > MAX_TEXT_CHARS[plan]) {
+    return json({ error: 'PAYLOAD_TOO_LARGE' }, 413);
+  }
+
+  // "deep" (the most expensive model) is a Professional feature. Anyone else gets the default model.
+  const requestedMode = CLAUDE_MODES.includes(mode as string) ? (mode as string) : 'default';
+  const effectiveMode = requestedMode === 'deep' && plan !== 'professional' ? 'default' : requestedMode;
+  if (effectiveMode !== requestedMode) console.warn('deep mode downgraded to default', { plan });
+
+  let counted = false;
+  if (knownPlan) {
+    const used = await callRpc(baseUrl, serviceKey, 'consume_analyze_call', {
+      p_user: userId,
+      p_limit: DAILY_CALL_LIMIT[plan],
+    });
+    if (used.ok && used.data?.allowed === false) {
+      return json({ error: 'ANALYZE_DAILY_LIMIT', limit: DAILY_CALL_LIMIT[plan] }, 429);
+    }
+    counted = used.ok; // a failed counter fails open
+  }
+  // A call the model never served (upstream error, crash) is given back.
+  const refund = () => {
+    if (counted) runInBackground(callRpc(baseUrl, serviceKey, 'refund_analyze_call', { p_user: userId }));
+  };
+
+  const model = CLAUDE_MODELS[effectiveMode];
   const schema = typeof expectJson === 'string' ? expectJson : expectJson ? 'analysis' : '';
   const wantJson = Boolean(schema);
   const maxTok = clampNumber(maxTokens, DEFAULT_MAX_TOKENS, 256, MAX_ALLOWED_TOKENS);
@@ -414,14 +516,14 @@ Deno.serve(async (req: Request) => {
     'anthropic-version': ANTHROPIC_VERSION,
   };
 
-  const buildAnthropicBody = (opts: { thinkingDisabled?: boolean; effortLow?: boolean }) => ({
+  const buildAnthropicBody = (retry: boolean) => ({
     model,
     max_tokens: maxTok,
     ...(system ? { system } : {}),
     messages,
-    // Thinking burns max_tokens and can return empty text content for JSON/OCR.
-    ...(opts.thinkingDisabled ? { thinking: { type: 'disabled' } } : {}),
-    ...(opts.effortLow ? { output_config: { effort: 'low' } } : {}),
+    // Thinking burns max_tokens and can return empty text content for JSON/OCR, so up-front thinking
+    // is turned off where the model allows it (Sonnet 5.5: between_tools, Haiku / Sonnet 5: disabled).
+    ...(retry ? lowEffortParams() : thinkingParams(model)),
   });
 
   const callAnthropic = async (bodyObj: Record<string, unknown>) => {
@@ -437,20 +539,21 @@ Deno.serve(async (req: Request) => {
   };
 
   try {
-    // Prefer thinking disabled so the full token budget goes to visible text / JSON.
-    let { response, data } = await callAnthropic(buildAnthropicBody({ thinkingDisabled: true }));
+    // Up-front thinking off (or low effort where the model cannot turn it off): the whole token budget goes to visible text / JSON.
+    let { response, data } = await callAnthropic(buildAnthropicBody(false));
 
-    // Some models reject thinking.disabled → one retry with effort:low (no thinking key).
-    if (!response.ok && response.status === 400) {
-      console.warn('thinking.disabled rejected; retrying once with output_config.effort=low', {
+    // A model that rejects the thinking setting: one retry with effort:low (no thinking key).
+    if (!response.ok && response.status === 400 && canRetryLowEffort(model)) {
+      console.warn('thinking setting rejected; retrying once with output_config.effort=low', {
         model,
         wantJson,
         detail: data?.error?.message,
       });
-      ({ response, data } = await callAnthropic(buildAnthropicBody({ effortLow: true })));
+      ({ response, data } = await callAnthropic(buildAnthropicBody(true)));
     }
 
     if (!response.ok) {
+      refund();
       const detail = data?.error?.message || `Claude API ${response.status}`;
       // Üst kaynağın durum kodu aynen aktarılır; istemcideki yeniden deneme
       // mantığı 429/5xx ayrımını buna göre yapar.
@@ -470,7 +573,7 @@ Deno.serve(async (req: Request) => {
         wantJson,
       });
       runInBackground(
-        trackScanCost(req.headers.get('Authorization'), {
+        trackScanCost(plan, {
           schema,
           model: String(data?.model ?? model),
           usage: data?.usage,
@@ -487,7 +590,7 @@ Deno.serve(async (req: Request) => {
     const text = schema ? extractJson(joined, schema) : joined;
 
     runInBackground(
-      trackScanCost(req.headers.get('Authorization'), {
+      trackScanCost(plan, {
         schema,
         model: String(data?.model ?? model),
         usage: data?.usage,
@@ -499,6 +602,7 @@ Deno.serve(async (req: Request) => {
     return json({ text, model: data?.model ?? model, usage: data?.usage ?? null });
   } catch (error) {
     console.error('analyze-contract hatası:', error);
+    refund();
     return json({ error: error instanceof Error ? error.message : String(error) }, 502);
   }
 });
