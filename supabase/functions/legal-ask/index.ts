@@ -12,7 +12,8 @@
 //   supabase functions deploy legal-ask
 // Secrets used: ANTHROPIC_API_KEY, SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY.
 // Optional: LEGAL_ASK_MODEL (rollback switch, e.g. claude-sonnet-5; unset = claude-sonnet-5-5),
-//           LEGAL_ASK_FREE_MODEL (a cheaper model for the free plan; unset = the main model).
+//           LEGAL_ASK_FREE_MODEL (the model of the free plan; unset = claude-haiku-5-5, about 25x cheaper per answer.
+//           The 13-language A/B (npm run test:ab) passed 13/13 hard checks on it. Set it to claude-sonnet-5-5 to give free users the main model).
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.1';
 
@@ -42,7 +43,10 @@ const canRetryLowEffort = (model: string) => !ALWAYS_THINKS.test(model);
 // END claude-model-profile
 
 const MODEL = envModel('LEGAL_ASK_MODEL', 'claude-sonnet-5-5');
-const MAX_TOKENS = 3500;
+const FREE_MODEL = envModel('LEGAL_ASK_FREE_MODEL', 'claude-haiku-5-5');
+// The A/B showed Sonnet 5.5 answers of 3000-3500 tokens in tr / de / nl / fa: 3500 cut 2 of 13 answers mid-JSON (PARSE error).
+// The cap only bounds a runaway answer, you pay for the tokens actually written.
+const MAX_TOKENS = 6000;
 
 const FREE_DAILY_LIMIT = 3;
 const FREE_LIFETIME_LIMIT = 3;
@@ -328,7 +332,7 @@ Deno.serve(async (req: Request) => {
   const isPro = plan !== 'free';
   // Free questions are counted per device (set when the account claimed its free quota), not per account.
   const device = typeof profile?.device_id === 'string' ? profile.device_id.slice(0, 200) : '';
-  const model = plan === 'free' ? envModel('LEGAL_ASK_FREE_MODEL', MODEL) : MODEL;
+  const model = plan === 'free' ? FREE_MODEL : MODEL;
   const dailyLimit = plan === 'professional' ? PROFESSIONAL_DAILY_LIMIT : isPro ? PRO_DAILY_LIMIT : FREE_DAILY_LIMIT;
   const monthlyLimit = plan === 'professional' ? PROFESSIONAL_MONTHLY_LIMIT : PRO_MONTHLY_LIMIT;
 

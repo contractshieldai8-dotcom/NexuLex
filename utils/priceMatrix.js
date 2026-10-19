@@ -16,17 +16,57 @@ const TIERS = ['pro', 'professional'];
 const PERIODS = ['monthly', 'yearly'];
 const typeOf = (period) => (period === 'yearly' ? 'ANNUAL' : 'MONTHLY');
 
+// WAVE ECON.4: two input shapes, one evaluator.
+//  - Legacy (WAVE PRICE.1): one flat usdPerMTokInput / usdPerMTokOutput for every feature, legal_ask + pro_tools only.
+//  - Model based: costInputs.featureModels names the model of each feature, costInputs.models holds each model's price, and
+//    contract scans (analyze, analyze_extract, analyze_deep) are priced too. A matrix is model based as soon as
+//    costInputs.featureModels is an object (the template ships it with nulls). Nothing here ever supplies a number.
+export const isModelBased = (inputs) => !!inputs?.featureModels && typeof inputs.featureModels === 'object' && !Array.isArray(inputs.featureModels);
+const textOf = (value) => (typeof value === 'string' && value.trim() ? value.trim() : null);
+
+// USD per million tokens (input, output) the feature is billed at: its model's price, else the legacy flat price.
+export function pricesFor(inputs, feature) {
+  const model = textOf(inputs?.featureModels?.[feature]);
+  if (model) return { in: num(inputs?.models?.[model]?.usdPerMTokInput), out: num(inputs?.models?.[model]?.usdPerMTokOutput) };
+  return { in: num(inputs?.usdPerMTokInput), out: num(inputs?.usdPerMTokOutput) };
+}
+
 export function tokenCostUsd(inputs, feature) {
   const tokens = inputs?.avgTokensPerCall?.[feature];
-  const pIn = num(inputs?.usdPerMTokInput);
-  const pOut = num(inputs?.usdPerMTokOutput);
+  const { in: pIn, out: pOut } = pricesFor(inputs, feature);
   const tIn = num(tokens?.input);
   const tOut = num(tokens?.output);
   if (pIn === null || pOut === null || tIn === null || tOut === null) return null;
   return (tIn / 1e6) * pIn + (tOut / 1e6) * pOut;
 }
 
-// Most a paying user can cost in one month: the monthly cap, never more than the daily cap x 30.
+// One contract scan: the analysis call + the OCR / PDF text-extraction calls it needs (+ the deep model for a share of
+// Professional scans). null while any needed figure is missing.
+export function scanCostUsd(plan, inputs) {
+  const analysis = tokenCostUsd(inputs, 'analyze');
+  const ratio = num(inputs?.analyze?.extractCallsPerScan);
+  if (analysis === null || ratio === null) return null;
+  let extract = 0;
+  if (ratio > 0) {
+    const perExtract = tokenCostUsd(inputs, 'analyze_extract');
+    if (perExtract === null) return null;
+    extract = ratio * perExtract;
+  }
+  let analysisCost = analysis;
+  if (plan === 'professional') {
+    const share = num(inputs?.analyze?.deepShareProfessional);
+    if (share === null) return null;
+    if (share > 0) {
+      const deep = tokenCostUsd(inputs, 'analyze_deep');
+      if (deep === null) return null;
+      analysisCost = (1 - share) * analysis + share * deep;
+    }
+  }
+  return analysisCost + extract;
+}
+
+// Most a paying user can cost in one month: the monthly cap, never more than the daily cap x 30. Model-based matrices add
+// the scans you allow per month (analyze.callsPerMonth: the app has no monthly scan cap of its own, you choose and enforce it).
 export function worstCaseAiCostUsd(plan, inputs) {
   const limits = PLAN_LIMITS[plan];
   if (!limits) return null;
@@ -35,7 +75,14 @@ export function worstCaseAiCostUsd(plan, inputs) {
   const askCost = asks > 0 ? tokenCostUsd(inputs, 'legal_ask') : 0;
   const toolCost = tools > 0 ? tokenCostUsd(inputs, 'pro_tools') : 0;
   if (askCost === null || toolCost === null) return null;
-  return asks * askCost + tools * toolCost;
+  let scans = 0;
+  if (isModelBased(inputs) && TIERS.includes(plan)) {
+    const calls = num(inputs?.analyze?.callsPerMonth?.[plan]);
+    const perScan = calls === null ? null : calls > 0 ? scanCostUsd(plan, inputs) : 0;
+    if (perScan === null) return null;
+    scans = calls * perScan;
+  }
+  return asks * askCost + tools * toolCost + scans;
 }
 
 // What reaches you per month, in USD, after tax and the store's cut. monthlyPrice is in the row currency.
@@ -64,12 +111,29 @@ const packagesFor = (row, tier, periods) =>
   }));
 
 const priceCount = (row) => TIERS.reduce((sum, tier) => sum + PERIODS.filter((period) => pos(row?.[tier]?.[period])).length, 0);
-const COST_PATHS = [
+const LEGACY_COST_PATHS = [
   ['usdPerMTokInput'], ['usdPerMTokOutput'], ['storeFeeShare'], ['fixedUsdPerPayingUserMonth'], ['targetGrossMargin'], ['minSafeUtilization'],
   ['avgTokensPerCall', 'legal_ask', 'input'], ['avgTokensPerCall', 'legal_ask', 'output'],
   ['avgTokensPerCall', 'pro_tools', 'input'], ['avgTokensPerCall', 'pro_tools', 'output'],
 ];
+// Model based: every priced feature needs its model, that model's two prices and its average tokens. Scan extraction and the
+// deep model are only required once the matrix says they happen (a ratio / share above zero).
+function requiredCostPaths(inputs) {
+  if (!isModelBased(inputs)) return LEGACY_COST_PATHS;
+  const paths = [['storeFeeShare'], ['fixedUsdPerPayingUserMonth'], ['targetGrossMargin'], ['minSafeUtilization'],
+    ['analyze', 'callsPerMonth', 'pro'], ['analyze', 'callsPerMonth', 'professional'], ['analyze', 'extractCallsPerScan'], ['analyze', 'deepShareProfessional']];
+  const features = ['legal_ask', 'pro_tools', 'analyze'];
+  if (num(inputs?.analyze?.extractCallsPerScan) > 0) features.push('analyze_extract');
+  if (num(inputs?.analyze?.deepShareProfessional) > 0) features.push('analyze_deep');
+  for (const feature of features) {
+    paths.push(['featureModels', feature], ['avgTokensPerCall', feature, 'input'], ['avgTokensPerCall', feature, 'output']);
+    const model = textOf(inputs?.featureModels?.[feature]);
+    if (model) paths.push(['models', model, 'usdPerMTokInput'], ['models', model, 'usdPerMTokOutput']);
+  }
+  return paths;
+}
 const readPath = (object, path) => path.reduce((value, key) => (value == null ? undefined : value[key]), object);
+const filled = (value) => num(value) !== null || textOf(value) !== null;
 
 export function evaluatePriceMatrix(matrix) {
   const rows = Array.isArray(matrix?.rows) ? matrix.rows : [];
@@ -78,10 +142,27 @@ export function evaluatePriceMatrix(matrix) {
   const missing = [];
   const report = [];
 
-  const costMissing = COST_PATHS.filter((path) => num(readPath(inputs, path)) === null).map((path) => `costInputs.${path.join('.')}`);
+  const costPaths = requiredCostPaths(inputs);
+  const costMissing = costPaths.filter((path) => !filled(readPath(inputs, path))).map((path) => `costInputs.${path.join('.')}`);
   const pricedRows = rows.filter((row) => priceCount(row) > 0);
-  const anyCost = costMissing.length < COST_PATHS.length;
+  const anyCost = costMissing.length < costPaths.length;
   if (!pricedRows.length && !anyCost) return { status: 'template', issues, missing: [], rows: [], pricedRegions: 0 };
+
+  if (isModelBased(inputs)) {
+    const bad = (path, ok) => { const value = readPath(inputs, path); if (value !== null && value !== undefined && !(num(value) !== null && ok(value))) issues.push(`costInputs.${path.join('.')}: not a plausible value`); };
+    bad(['analyze', 'deepShareProfessional'], (v) => v >= 0 && v <= 1);
+    bad(['analyze', 'extractCallsPerScan'], (v) => v >= 0 && v <= 20);
+    bad(['analyze', 'callsPerMonth', 'pro'], (v) => v >= 0 && v <= 100000);
+    bad(['analyze', 'callsPerMonth', 'professional'], (v) => v >= 0 && v <= 100000);
+    for (const [feature, model] of Object.entries(inputs.featureModels)) {
+      if (model !== null && model !== undefined && !textOf(model)) issues.push(`costInputs.featureModels.${feature}: model name must be text or null`);
+    }
+    for (const [model, price] of Object.entries(inputs.models || {})) {
+      for (const key of ['usdPerMTokInput', 'usdPerMTokOutput']) {
+        if (price?.[key] !== null && price?.[key] !== undefined && !(num(price[key]) !== null && price[key] > 0 && price[key] < 1000)) issues.push(`costInputs.models.${model}.${key}: not a plausible USD per million tokens`);
+      }
+    }
+  }
 
   if (!rows.length) issues.push('rows: add at least one region');
   const regions = new Set();
@@ -171,5 +252,44 @@ export function assertPriceMatrixFixtures() {
   check(evaluatePriceMatrix(matrix([row()], { ...inputs, storeFeeShare: null })).status === 'incomplete', 'missing cost inputs are incomplete, not ok');
   check(evaluatePriceMatrix(matrix([row(), row()])).issues.some((m) => /twice/.test(m)), 'duplicate region is reported');
   check(evaluatePriceMatrix(matrix([row(), { region: 'YY', currency: 'EUR', pro: {}, professional: {} }])).status === 'incomplete', 'an unpriced region is listed as missing');
+
+  // WAVE ECON.4: model-based inputs (fixture prices, not real ones). Sonnet 3/15, Haiku 1/5, Fable 10/50 USD per million tokens.
+  const mInputs = (patch = {}) => ({
+    models: {
+      'model-s': { usdPerMTokInput: 3, usdPerMTokOutput: 15 },
+      'model-h': { usdPerMTokInput: 1, usdPerMTokOutput: 5 },
+      'model-f': { usdPerMTokInput: 10, usdPerMTokOutput: 50 },
+    },
+    featureModels: { legal_ask: 'model-s', pro_tools: 'model-s', analyze: 'model-s', analyze_extract: 'model-h', analyze_deep: 'model-f' },
+    avgTokensPerCall: {
+      legal_ask: { input: 2000, output: 1000 }, pro_tools: { input: 4000, output: 2000 }, analyze: { input: 10000, output: 4000 },
+      analyze_extract: { input: 3000, output: 2000 }, analyze_deep: { input: 10000, output: 6000 },
+    },
+    analyze: { callsPerMonth: { pro: 20, professional: 40 }, extractCallsPerScan: 0.5, deepShareProfessional: 0.25 },
+    storeFeeShare: 0.15, fixedUsdPerPayingUserMonth: 0.5, targetGrossMargin: 0.5, minSafeUtilization: 0.25,
+    ...patch,
+  });
+  const mi = mInputs();
+  check(Math.abs(tokenCostUsd(mi, 'analyze_extract') - 0.013) < 1e-9, 'each feature is priced at its own model');
+  check(Math.abs(tokenCostUsd(mInputs({ models: { ...mi.models, 'model-s': { usdPerMTokInput: 3, usdPerMTokOutput: 30 } } }), 'legal_ask') - 0.036) < 1e-9, 'a model price change reaches every feature on it');
+  check(Math.abs(tokenCostUsd({ ...inputs, featureModels: {} }, 'legal_ask') - 0.021) < 1e-9, 'a feature without a model falls back to the flat price');
+  check(Math.abs(scanCostUsd('pro', mi) - 0.0965) < 1e-9, 'a Pro scan = analysis + extraction calls');
+  check(Math.abs(scanCostUsd('professional', mi) - 0.174) < 1e-9, 'a Professional scan mixes in the deep model by its share');
+  check(Math.abs(worstCaseAiCostUsd('pro', mi) - (300 * 0.021 + 20 * 0.0965)) < 1e-9, 'pro worst case adds the allowed monthly scans');
+  check(Math.abs(worstCaseAiCostUsd('professional', mi) - (900 * 0.021 + 300 * 0.042 + 40 * 0.174)) < 1e-9, 'professional worst case adds scans, tools and questions');
+  check(worstCaseAiCostUsd('free', mi) === 0, 'free plan still has no paid cost');
+  const mOk = evaluatePriceMatrix(matrix([row()], mi));
+  check(mOk.status === 'ok' && mOk.rows[0].complete, 'a healthy model-based row passes');
+  check(evaluatePriceMatrix(matrix([row()], mInputs({ analyze: { ...mi.analyze, callsPerMonth: { pro: 20, professional: 400 } } }))).issues.some((m) => /safe utilization/.test(m)), 'heavy Professional scans can push a price under the cost floor');
+  check(evaluatePriceMatrix(matrix([row()], mInputs({ analyze: { ...mi.analyze, callsPerMonth: { pro: null, professional: 40 } } }))).status === 'incomplete', 'an undecided monthly scan allowance is incomplete, not ok');
+  check(evaluatePriceMatrix(matrix([row()], mInputs({ featureModels: { ...mi.featureModels, analyze: 'model-x' } }))).missing.includes('costInputs.models.model-x.usdPerMTokInput'), 'a model without a price is listed as missing');
+  check(evaluatePriceMatrix(matrix([row()], mInputs({ featureModels: { ...mi.featureModels, analyze: null } }))).status === 'incomplete', 'a feature without a model is incomplete');
+  check(evaluatePriceMatrix(matrix([row()], mInputs({ analyze: { ...mi.analyze, deepShareProfessional: 1.5 } }))).status === 'fail', 'a deep share above 100 percent is rejected');
+  check(evaluatePriceMatrix(matrix([row()], mInputs({ models: { ...mi.models, 'model-s': { usdPerMTokInput: -1, usdPerMTokOutput: 15 } } }))).status === 'fail', 'a negative token price is rejected');
+  const noExtras = mInputs({ analyze: { callsPerMonth: { pro: 20, professional: 40 }, extractCallsPerScan: 0, deepShareProfessional: 0 }, featureModels: { legal_ask: 'model-s', pro_tools: 'model-s', analyze: 'model-s', analyze_extract: null, analyze_deep: null }, avgTokensPerCall: { legal_ask: mi.avgTokensPerCall.legal_ask, pro_tools: mi.avgTokensPerCall.pro_tools, analyze: mi.avgTokensPerCall.analyze } });
+  check(evaluatePriceMatrix(matrix([row()], noExtras)).status === 'ok', 'no extraction and no deep scans means those figures are not required');
+  check(Math.abs(worstCaseAiCostUsd('professional', noExtras) - (900 * 0.021 + 300 * 0.042 + 40 * 0.09)) < 1e-9, 'without extraction or deep scans a scan is just the analysis call');
+  const mTemplate = { rows: [{ region: 'A', currency: 'USD', pro: { monthly: null, yearly: null }, professional: { monthly: null, yearly: null } }], costInputs: { models: {}, featureModels: { legal_ask: null, pro_tools: null, analyze: null, analyze_extract: null, analyze_deep: null }, avgTokensPerCall: {}, analyze: { callsPerMonth: { pro: null, professional: null }, extractCallsPerScan: null, deepShareProfessional: null } } };
+  check(evaluatePriceMatrix(mTemplate).status === 'template', 'an empty model-based matrix is still a template');
   return { cases, fail };
 }

@@ -10184,4 +10184,52 @@ Ticaret Unvanı: Anadolu Bilişim
   }
   if (ok) console.log('OK  WAVE ECON.3 Claude 5.5 migration + analyze-contract guard: Sonnet 5.5 between_tools / Haiku 5.5 disabled / Fable adaptive, anon key refused, deep = Professional, daily call cap + refund, fail-open, real handler + Postgres suites');
 }
+// WAVE ECON.4: model tooling (Models API capabilities, 13-language A/B, telemetry export, model-based price matrix).
+// Keys come from the environment only; the offline suites run the real benchmark engine and the real Edge Function on fakes.
+{
+  let ok = true;
+  const e4Fail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE ECON.4: ${m}`); };
+  try {
+    const rd = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
+    const pkg = JSON.parse(rd('package.json'));
+    const wanted = { 'models:caps': 'scripts/model-capabilities.mjs', 'test:ab': 'scripts/benchmark-models.mjs', 'test:benchmark': 'scripts/test-benchmark.mjs', 'test:telemetry': 'scripts/test-telemetry.mjs', 'cost:export': 'scripts/export-telemetry.mjs', 'cost:report': 'scripts/cost-report.mjs' };
+    for (const [name, file] of Object.entries(wanted)) {
+      if (pkg.scripts?.[name] !== `node ${file}`) e4Fail(`npm run ${name} must run ${file}`);
+      if (!fs.existsSync(file)) e4Fail(`${file} is missing`);
+    }
+    const tooling = ['scripts/model-capabilities.mjs', 'scripts/benchmark-models.mjs', 'scripts/export-telemetry.mjs', 'scripts/cost-report.mjs', 'scripts/check-models.mjs', 'scripts/lib/claude.mjs', 'scripts/lib/benchmark.mjs', 'scripts/lib/telemetry.mjs', 'scripts/lib/ab-fixtures.mjs'];
+    for (const file of tooling) {
+      const src = rd(file);
+      if (/sk-ant-[A-Za-z0-9_-]{20,}|eyJ[A-Za-z0-9_-]{30,}\./.test(src)) e4Fail(`${file} contains something that looks like a real key`);
+    }
+    if (!/process\.env\.SUPABASE_SERVICE_ROLE_KEY/.test(rd('scripts/export-telemetry.mjs')) || /writeFileSync\([^)]*\bkey\b/.test(rd('scripts/export-telemetry.mjs'))) e4Fail('the service key must come from the environment and never be written');
+    if (!/process\.env\.ANTHROPIC_API_KEY/.test(rd('scripts/lib/claude.mjs'))) e4Fail('the Anthropic key must come from the environment');
+    if (!/DEFAULT_BUDGET_USD\s*=\s*(0?\.\d+|1)\b/.test(rd('scripts/lib/benchmark.mjs') + rd('scripts/benchmark-models.mjs'))) e4Fail('the A/B default budget must stay at or under 1 USD');
+    // A/B findings (Oct 2026): Sonnet 5.5 legal answers reach 3000-3500 tokens (3500 cut 2 of 13 mid-JSON); Haiku 5.5 passed 13/13 in 13 languages.
+    const ask = rd('supabase/functions/legal-ask/index.ts');
+    const askCap = Number((ask.match(/const MAX_TOKENS = (\d+);/) || [])[1]);
+    if (!(askCap >= 5000 && askCap <= 8192)) e4Fail(`legal-ask MAX_TOKENS must leave room for long answers (5000-8192), found ${askCap}`);
+    if (!/const FREE_MODEL = envModel\('LEGAL_ASK_FREE_MODEL', 'claude-haiku-5-5'\)/.test(ask) || !/const model = plan === 'free' \? FREE_MODEL : MODEL;/.test(ask)) e4Fail('free questions must run on the cheap model (Haiku 5.5, rollback: LEGAL_ASK_FREE_MODEL)');
+    const ignore = rd('.gitignore');
+    if (!/^scripts\/\.telemetry\/$/m.test(ignore) || !/^scripts\/\.ab-output\/$/m.test(ignore)) e4Fail('telemetry exports and A/B reports must be git-ignored');
+    // Model-based price matrix: the shipped template must be the new shape and still an unfilled template.
+    const matrix = JSON.parse(rd('config/pricing-matrix.json'));
+    const featureModels = matrix.costInputs?.featureModels || {};
+    for (const feature of ['legal_ask', 'pro_tools', 'analyze', 'analyze_extract', 'analyze_deep']) {
+      if (!(feature in featureModels)) e4Fail(`pricing-matrix.json costInputs.featureModels.${feature} missing`);
+      if (!(feature in (matrix.costInputs?.avgTokensPerCall || {}))) e4Fail(`pricing-matrix.json costInputs.avgTokensPerCall.${feature} missing`);
+    }
+    if (!matrix.costInputs?.analyze?.callsPerMonth || !('extractCallsPerScan' in matrix.costInputs.analyze) || !('deepShareProfessional' in matrix.costInputs.analyze)) e4Fail('pricing-matrix.json costInputs.analyze (scan volume) missing');
+    if (!matrix.sources?.featureModels || !matrix.sources?.scanVolume) e4Fail('matrix must say where featureModels and scan volume come from');
+    for (const file of ['scripts/test-benchmark.mjs', 'scripts/test-telemetry.mjs']) {
+      const run = require('child_process').spawnSync(process.execPath, [file], { encoding: 'utf8' });
+      if (run.status !== 0) e4Fail(`${file} failed:\n${(run.stdout || '') + (run.stderr || '')}`.slice(0, 1500));
+    }
+    const dry = require('child_process').spawnSync(process.execPath, ['scripts/benchmark-models.mjs', '--dry-run'], { encoding: 'utf8' });
+    if (dry.status !== 0 || !/hard stop/.test(dry.stdout || '')) e4Fail(`benchmark --dry-run failed:\n${(dry.stdout || '') + (dry.stderr || '')}`.slice(0, 1000));
+  } catch (error) {
+    e4Fail(`harness error: ${error.message}`);
+  }
+  if (ok) console.log('OK  WAVE ECON.4 model tooling: caps + 13-language A/B (budget-capped, key from env) + telemetry export/report/--matrix + model-based price matrix, offline suites green');
+}
 process.exit(failed ? 1 : 0);

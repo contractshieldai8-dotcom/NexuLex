@@ -57,3 +57,7 @@ supabase/.temp/
 
 # local video frame dumps
 .video-frames/
+
+# anonymous telemetry exports (npm run cost:export) and A/B benchmark reports (npm run test:ab)
+scripts/.telemetry/
+scripts/.ab-output/
