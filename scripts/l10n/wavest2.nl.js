@@ -7,5 +7,5 @@ module.exports = {
   st2Sub: 'Het account verwijderen zegt een App Store- of Google Play-abonnement niet op. Beheer het in de winkel.',
   st2Quota: 'Het apparaatrecord van het gratis quotum blijft na verwijderen ontkoppeld, alleen om herhaalde gratis claims te blokkeren.',
   st2WebDelete: 'Verwijderen zonder de app',
-  st2Disclaimer: 'NexuLex is geen advocatenkantoor. Privacypaginas kunnen wijzigen; lees ze zelf.',
+  st2Disclaimer: "NexuLex is geen advocatenkantoor. De app geeft algemene informatie, geen juridisch advies; een betaald abonnement ontgrendelt functies, geen vertegenwoordiging door een advocaat.",
 };

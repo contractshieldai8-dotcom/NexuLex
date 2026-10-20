@@ -7,5 +7,5 @@ module.exports = {
   ux21Chat: '顾问聊天在此列表中单独出现。不是扫描报告。',
   ux21NoWin: '卡片上的分数是工作辅助。不是法庭结果。',
   ux21Guides: '分步指南无论哪种情况都不上锁。',
-  ux21Disclaimer: 'NexuLex 不是律师事务所。历史卡片是产品工具，不是律师。',
+  ux21Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

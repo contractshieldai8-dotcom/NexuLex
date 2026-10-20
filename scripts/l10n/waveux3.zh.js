@@ -7,5 +7,5 @@ module.exports = {
   ux3Advisor: '顾问席位保持只读。关系结束后请撤销代码。',
   ux3Get: '公开页面没有合同，也没有简报。只帮助打开 NexuLex。',
   ux3Copy: '复制发送同一条代码消息。不会复制条款文本。',
-  ux3Disclaimer: 'NexuLex 不是律师事务所。席位是产品工具，不是律师档案。',
+  ux3Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

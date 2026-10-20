@@ -7,5 +7,5 @@ module.exports = {
   ux15Invite: 'L’invitation partage seulement la page get publique. NexuLex n’attache jamais le contrat.',
   ux15Pause: 'La feuille suivante attend une courte pause pour que deux feuilles ne se superposent jamais.',
   ux15Guides: 'Les guides pas à pas restent ouverts dans tous les cas.',
-  ux15Disclaimer: 'NexuLex n’est pas un cabinet. Un scan prêt’est un outil produit, pas un avocat.',
+  ux15Disclaimer: "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique.",
 };

@@ -7,5 +7,5 @@ module.exports = {
   ux3Advisor: 'Adviseurplekken blijven alleen-lezen. Trek de code in als de relatie stopt.',
   ux3Get: 'De openbare pagina heeft geen contract en geen brief. Ze helpt alleen NexuLex te openen.',
   ux3Copy: 'Kopieren stuurt hetzelfde codebericht. Er wordt geen clausuletekst gekopieerd.',
-  ux3Disclaimer: 'NexuLex is geen advocatenkantoor. Een plek is een producthulp, geen advocatendossier.',
+  ux3Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

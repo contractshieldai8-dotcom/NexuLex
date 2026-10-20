@@ -7,5 +7,5 @@ module.exports = {
   ux14Sources: 'Her resmî kaynağı kendiniz açın. Atıf eski kalabilir.',
   ux14NoAdvice: 'Bu bir çalışma yardımcısıdır. Müvekkil dosyasına tavsiye değildir ve kimseyi temsil etmez.',
   ux14Device: 'Sonuçlar bir dosyaya kaydetmediğiniz veya paylaşmadığınız sürece bu telefonda kalır.',
-  ux14Disclaimer: 'NexuLex bir hukuk bürosu değildir. Yapılandırılmış not ürün aracıdır, avukat değildir.',
+  ux14Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

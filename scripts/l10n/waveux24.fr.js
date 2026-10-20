@@ -7,5 +7,5 @@ module.exports = {
   ux24New: 'Lancer un nouveau scan',
   ux24Report: 'Ouvrir la carte de décision',
   ux24Guides: 'Guides pas à pas',
-  ux24Disclaimer: 'NexuLex n’est pas un cabinet. Ces raccourcis sont un outil produit, pas un avocat.',
+  ux24Disclaimer: "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique.",
 };

@@ -7,5 +7,5 @@ module.exports = {
   ux19NoWin: 'Rien ici ne promet un résultat ni ne classe un avocat.',
   ux19Device: 'Rien ne quitte le téléphone tant que vous n’analysez ou ne partagez.',
   ux19Corridor: 'Langue et pays restent comme vous venez de les choisir. Cette carte ne les change pas.',
-  ux19Disclaimer: 'NexuLex n’est pas un cabinet. Une carte de premier pas est un outil produit, pas un avocat.',
+  ux19Disclaimer: "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique.",
 };

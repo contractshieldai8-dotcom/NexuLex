@@ -7,5 +7,5 @@ module.exports = {
   ux22Audience: 'Die Zielgruppe wählt nur, wer die Notiz öffnen darf. Sie reiht keinen Anwalt.',
   ux22Pro: 'Zusätzliche Haus- und Beraterplätze bleiben im bezahlten Plan. Leitfäden bleiben frei.',
   ux22Guides: 'Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.',
-  ux22Disclaimer: 'NexuLex ist keine Kanzlei. Ein Teilen-Brief ist ein Produktwerkzeug, kein Anwalt.',
+  ux22Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

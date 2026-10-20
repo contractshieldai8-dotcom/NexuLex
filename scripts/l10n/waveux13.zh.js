@@ -7,5 +7,5 @@ module.exports = {
   ux13Send: '发送前请自行阅读。官方表格可能不同。',
   ux13Device: '除非您复制、分享或导出，草稿留在这台手机上。',
   ux13NoWin: '寄出信件不会立案，也不会预测判决。',
-  ux13Disclaimer: 'NexuLex 不是律师事务所。填好的草稿是产品工具，不是律师。',
+  ux13Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

@@ -41,9 +41,12 @@ export function PartySideSelector({ theme, selected, onSelect, disabled, hideLab
                 },
               ]}
             >
-              <Text style={[styles.sideCardEmoji, { color: active ? theme.accent : theme.subText }]}>
-                {item.code === 'buyer' ? '🛡️' : '⚖️'}
-              </Text>
+              <Ionicons
+                name={item.icon || (item.code === 'buyer' ? 'shield-checkmark-outline' : 'scale-outline')}
+                size={22}
+                color={active ? theme.accent : theme.subText}
+                style={{ marginBottom: 8 }}
+              />
               <Text style={[styles.sideCardLabel, { color: active ? theme.accent : theme.text }]}>
                 {t(item.labelKey)}
               </Text>

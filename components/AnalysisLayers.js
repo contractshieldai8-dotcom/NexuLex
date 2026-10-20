@@ -4,12 +4,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import * as Clipboard from 'expo-clipboard';
 
-import { ACCENT, DANGER, SUCCESS, WARNING, styles } from '../theme';
-import { legalStatusKey, hasHiddenCosts, integrityHasWarnings, safeDisplayText, buildAudioScript } from '../utils/analysis';
+import { ACCENT, DANGER, SUCCESS, WARNING, styles, toneText } from '../theme';
+import { legalStatusKey, legalStatusIcon, hasHiddenCosts, integrityHasWarnings, safeDisplayText, buildAudioScript } from '../utils/analysis';
 import { getPlaybook, playbookItemById, statuteFor } from '../constants/playbooks';
 import { useFeedback } from '../context/FeedbackContext';
 import { isSpeaking, isSpeakableText, speakAnalysisSummary, speechAvailable, stopBriefing } from '../services/voice';
 import LockedSection from './LockedSection';
+import LegalRef from './LegalRef';
 
 const STATUS_TONE = {
   VOID: DANGER,
@@ -37,7 +38,7 @@ function LayerCard({ theme, icon, title, children, borderColor }) {
       ]}
     >
       <View style={styles.takeawayHeader}>
-        <Ionicons name={icon} size={16} color={borderColor || theme.accent} />
+        <Ionicons name={icon} size={16} color={toneText(borderColor) || theme.accent} />
         <Text style={[styles.takeawayTitle, { color: theme.text, flexShrink: 1 }]}>
           {title}
         </Text>
@@ -78,11 +79,14 @@ export function ValidityLayer({ theme, items, extraCount = 0, onUnlock }) {
     <LayerCard theme={theme} icon="scale-outline" title={t('validityTitle')}>
       {(items || []).map((item, index) => (
         <View key={`${item.clauseNumber}-${index}`} style={[styles.layerRow, { borderColor: theme.borderColor }]}>
-          <View style={[styles.statusChip, { backgroundColor: STATUS_TONE[item.legalStatus] || WARNING }]}>
-            <Text style={styles.statusChipText}>
-              {item.legalStatus === 'VALID' ? '🟢 ' : item.legalStatus === 'QUESTIONABLE' ? '🟡 ' : '🔴 '}
-              {t(legalStatusKey(item.legalStatus))}
-            </Text>
+          <View
+            style={[
+              styles.statusChip,
+              { backgroundColor: STATUS_TONE[item.legalStatus] || WARNING, flexDirection: 'row', alignItems: 'center', gap: 4 },
+            ]}
+          >
+            <Ionicons name={legalStatusIcon(item.legalStatus)} size={12} color="#080C14" />
+            <Text style={styles.statusChipText}>{t(legalStatusKey(item.legalStatus))}</Text>
           </View>
           {item.clauseNumber ? (
             <Text style={[styles.deadlineLabel, { color: theme.subText }]}>{item.clauseNumber}</Text>
@@ -96,7 +100,7 @@ export function ValidityLayer({ theme, items, extraCount = 0, onUnlock }) {
               {safeDisplayText(item.explanation, t('clauseGeneralFallback'))}
             </Text>
           {item.governingLawReference ? (
-            <Text style={styles.legalReference}>⚖ {item.governingLawReference}</Text>
+            <LegalRef theme={theme}>{item.governingLawReference}</LegalRef>
           ) : null}
           {(item.legalStatus === 'VOID' || item.legalStatus === 'PARTIALLY_VOID') && item.cancellationRight ? (
             <Text style={[styles.deadlineMeta, { color: theme.danger, marginTop: 6 }]}>
@@ -244,7 +248,7 @@ export function CounterProposals({ theme, items, onCopied, country }) {
             const pb = playbookItemById(item.playbookId || item.riskClauseId);
             const fallback = pb ? statuteFor(pb, country) : '';
             const cite = direct || fallback;
-            return cite ? <Text style={styles.legalReference}>⚖ {cite}</Text> : null;
+            return cite ? <LegalRef theme={theme}>{cite}</LegalRef> : null;
           })()}
           <View style={styles.proposalActions}>
             {item.readyToSendMessage?.whatsapp ? (
@@ -427,7 +431,7 @@ export function PlaybookCard({
                 <Text style={[styles.deadlineMeta, { color: theme.subText }]}>{hint}</Text>
               ) : null}
               {citation ? (
-                <Text style={styles.legalReference}>⚖ {citation}</Text>
+                <LegalRef theme={theme}>{citation}</LegalRef>
               ) : null}
               {showDetails && model.whyItHurts ? (
                 <Text style={[styles.deadlineMeta, { color: theme.text, marginTop: 6 }]}>

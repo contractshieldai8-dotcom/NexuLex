@@ -9,7 +9,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "automatic",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -37,7 +37,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "monochromeImage": "./assets/adaptive-mono.png",
-        "backgroundColor": "#02091d"
+        "backgroundColor": "#0A0F1D"
       },
       "package": "com.nexulex.ai",
       "permissions": [
@@ -153,7 +153,7 @@
         "expo-notifications",
         {
           "icon": "./assets/notification-icon.png",
-          "color": "#00F5D4",
+          "color": "#D4B27A",
           "defaultChannel": "trap-calendar",
           "enableBackgroundRemoteNotifications": false
         }

@@ -7,5 +7,5 @@ module.exports = {
   st2Sub: '删除账户不会自动取消 App Store 或 Google Play 订阅。请在商店中管理。',
   st2Quota: '免费额度的设备记录在删除后仍保持未关联，仅用于阻止重复领取免费额度。',
   st2WebDelete: '不通过应用删除账户',
-  st2Disclaimer: 'NexuLex 不是律师事务所。隐私页面可能更新，请自行阅读。',
+  st2Disclaimer: "NexuLex 不是律师事务所。本应用提供一般性信息，不构成法律意见；付费方案只解锁功能，不包含律师代理服务。",
 };

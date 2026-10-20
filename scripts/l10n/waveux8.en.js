@@ -7,5 +7,5 @@ module.exports = {
   ux8Sources: 'Open every official source yourself. Statutes change; a citation can be stale.',
   ux8NoEvidence: 'Attaching a case file sends the summary, not the evidence files.',
   ux8Device: 'Answers stay on this phone unless you save or share them.',
-  ux8Disclaimer: 'NexuLex is not a law firm. A structured answer is a product tool, not a lawyer.',
+  ux8Disclaimer: "NexuLex is not a law firm. This is general information, not legal advice.",
 };

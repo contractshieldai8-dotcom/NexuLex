@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, styles } from '../theme';
+import { ACCENT, DANGER, SUCCESS, WARNING, styles, toneText } from '../theme';
 import KeyboardScreen from '../components/KeyboardScreen';
 import { supabase } from '../services/supabase';
 
@@ -32,10 +32,10 @@ function scorePassword(value) {
 }
 
 const STRENGTH = [
-  { key: 'passwordStrengthWeak', color: '#E5484D' },
-  { key: 'passwordStrengthWeak', color: '#E5484D' },
-  { key: 'passwordStrengthMedium', color: '#E8A33D' },
-  { key: 'passwordStrengthGood', color: '#3DBE8B' },
+  { key: 'passwordStrengthWeak', color: DANGER },
+  { key: 'passwordStrengthWeak', color: DANGER },
+  { key: 'passwordStrengthMedium', color: WARNING },
+  { key: 'passwordStrengthGood', color: SUCCESS },
   { key: 'passwordStrengthStrong', color: ACCENT },
 ];
 
@@ -159,7 +159,7 @@ export default function ResetPasswordScreen({ visible, theme, email, onDone, onC
                       ]}
                     />
                   </View>
-                  <Text style={[styles.strengthLabel, { color: strength.color }]}>
+                  <Text style={[styles.strengthLabel, { color: toneText(strength.color) }]}>
                     {t(strength.key)}
                   </Text>
                 </View>
@@ -171,7 +171,7 @@ export default function ResetPasswordScreen({ visible, theme, email, onDone, onC
                   {
                     backgroundColor: theme.inputBg,
                     color: theme.text,
-                    borderColor: mismatch ? '#E5484D' : theme.borderColor,
+                    borderColor: mismatch ? theme.danger || DANGER : theme.borderColor,
                     marginTop: 12,
                     marginBottom: 14,
                   },
@@ -185,7 +185,7 @@ export default function ResetPasswordScreen({ visible, theme, email, onDone, onC
               />
 
               {mismatch ? (
-                <Text style={[styles.sectionHint, { color: '#E5484D', marginTop: 0 }]}>
+                <Text style={[styles.sectionHint, { color: theme.danger || DANGER, marginTop: 0 }]}>
                   {t('passwordsDoNotMatch')}
                 </Text>
               ) : null}

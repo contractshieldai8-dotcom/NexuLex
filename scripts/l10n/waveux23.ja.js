@@ -7,5 +7,5 @@ module.exports = {
   ux23Count: 'この表示は {{visible}} / {{total}} 行です。',
   ux23Empty: '合う行がありません。検索を消すか確認を開いてください。',
   ux23Guides: '手順ガイドはどちらでもロックされません。',
-  ux23Disclaimer: 'NexuLex は法律事務所ではありません。履歴の台帳は製品ファイルであり、弁護士ではありません。',
+  ux23Disclaimer: "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。",
 };

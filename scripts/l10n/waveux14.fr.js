@@ -7,5 +7,5 @@ module.exports = {
   ux14Sources: 'Ouvrez chaque source officielle vous-même. Une citation peut être perimee.',
   ux14NoAdvice: 'C’est une aide de travail. Pas un conseil pour un dossier client et pas une représentation.',
   ux14Device: 'Les résultats restent sur ce téléphone sauf si vous les sauvez dans un dossier ou les partagez.',
-  ux14Disclaimer: 'NexuLex n’est pas un cabinet. Une note structurée est un outil produit, pas un avocat.',
+  ux14Disclaimer: "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique.",
 };

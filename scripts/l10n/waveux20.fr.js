@@ -7,5 +7,5 @@ module.exports = {
   ux20Share: 'Un brief partage est une courte note produit. Ce n’est pas le contrat entier.',
   ux20Guides: 'Les guides pas à pas restent ouverts dans tous les cas.',
   ux20NoWin: 'Rien sur ce rapport ne promet un résultat ni ne classe un avocat.',
-  ux20Disclaimer: 'NexuLex n’est pas un cabinet. Un rapport de scan est un outil produit, pas un avocat.',
+  ux20Disclaimer: "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique.",
 };

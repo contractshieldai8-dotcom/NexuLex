@@ -6,6 +6,5 @@ module.exports = {
   st4SupportHint: 'ご自身の言語で書いてください。アプリ、購入の復元、アカウント入場について返します。',
   st4Security: '新しいパスワードはサインインサービスが保管します。NexuLex の担当者は読めません。',
   st4SecurityHint: 'パスワード変更では App Store または Google Play の定期購入は解除されません。',
-  st4Plan: 'Professional はシート上限を上げます。定期購入はストアのままです。',
-  st4Disclaimer: 'NexuLex は法律事務所ではありません。サポートとシートは製品ツールであり、法的助言ではありません。',
+  st4Plan: 'Professional はシート上限を上げます。定期購入はストアのままです。'
 };

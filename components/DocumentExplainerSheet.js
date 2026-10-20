@@ -17,7 +17,7 @@ import * as DocumentPicker from 'expo-document-picker';
 import * as ImagePicker from 'expo-image-picker';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, DANGER, SUCCESS, WARNING, styles } from '../theme';
+import { ACCENT, ACCENT_ALT, DANGER, SUCCESS, WARNING, styles, toneText } from '../theme';
 import { explainLegalDocument } from '../services/ai';
 import {
   loadFreeExplainsLeft,
@@ -327,7 +327,8 @@ export default function DocumentExplainerSheet({
 
   const renderResult = () => {
     const exp = shown;
-    const urgency = URGENCY_STYLE[exp.urgency] || URGENCY_STYLE.MEDIUM;
+    const baseUrgency = URGENCY_STYLE[exp.urgency] || URGENCY_STYLE.MEDIUM;
+    const urgency = { ...baseUrgency, color: toneText(baseUrgency.color) };
     return (
       <View>
         <View style={{ ...box, backgroundColor: theme.cardBg }}>
@@ -512,7 +513,7 @@ export default function DocumentExplainerSheet({
         >
           <View style={styles.modalHandle} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-            <Ionicons name="document-attach-outline" size={20} color={theme.accent} />
+            <Ionicons name="document-attach-outline" size={20} color={toneText(ACCENT_ALT)} />
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
               {t('docExplainTitle')}
             </Text>

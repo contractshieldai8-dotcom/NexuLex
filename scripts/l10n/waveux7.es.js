@@ -7,5 +7,5 @@ module.exports = {
   ux7Brief: 'El resumen para el abogado está en el plan Pro de pago. Es un resumen que usted comparte, no un escrito judicial.',
   ux7NoWin: 'Un expediente no predice un resultado judicial y no le representa.',
   ux7Share: 'Un asiento del hogar puede leer un resumen que usted comparte. No puede abrir el contrato original desde este archivo.',
-  ux7Disclaimer: 'NexuLex no es un bufete. Los expedientes son herramientas de producto, no asesoramiento jurídico.',
+  ux7Disclaimer: "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico.",
 };

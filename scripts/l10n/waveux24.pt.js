@@ -7,5 +7,5 @@ module.exports = {
   ux24New: 'Iniciar uma análise nova',
   ux24Report: 'Abrir o cartão de decisão',
   ux24Guides: 'Guias passo a passo',
-  ux24Disclaimer: 'A NexuLex não é um escritório. Estes atalhos são uma ferramenta de produto, não um advogado.',
+  ux24Disclaimer: "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico.",
 };

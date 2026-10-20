@@ -7,5 +7,5 @@ module.exports = {
   ux15Invite: '邀请只分享公开 get 页面。NexuLex 从不附上合同。',
   ux15Pause: '下一页会短暂停一下，两页绝不会叠在一起。',
   ux15Guides: '分步指南无论哪种情况都不上锁。',
-  ux15Disclaimer: 'NexuLex 不是律师事务所。完成的扫描是产品工具，不是律师。',
+  ux15Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

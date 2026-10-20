@@ -7,5 +7,5 @@ module.exports = {
   ux17Store: 'En Android, Valorar abre el anuncio de Play. En iOS abre la página get pública. No se inventa un id de Apple.',
   ux17Device: 'El contrato y el informe se quedan en este teléfono.',
   ux17Guides: 'Las guías paso a paso siguen abiertas de todos modos.',
-  ux17Disclaimer: 'NexuLex no es un bufete. Una invitación es una herramienta de producto, no un abogado.',
+  ux17Disclaimer: "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico.",
 };

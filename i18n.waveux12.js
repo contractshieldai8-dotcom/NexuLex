@@ -8,8 +8,8 @@ export const WAVE_UX12_I18N = {
     "ux12Official": "Her oranı resmî gazete veya kurumdan kendiniz doğrulayın. Tablolar eski kalabilir.",
     "ux12NoWin": "Hesaplayıcı hüküm tahmin etmez ve kazanma şansı uydurmaz.",
     "ux12Device": "Girdileriniz kopyalamadığınız veya paylaşmadığınız sürece bu telefonda kalır.",
-    "ux12Free": "Bu hesaplayıcılar ücretsiz kalır. Bu liste paywall açmaz.",
-    "ux12Disclaimer": "NexuLex bir hukuk bürosu değildir. Rakam ürün aracıdır, avukat değildir."
+    "ux12Free": "Bu hesaplayıcılar ücretsiz kalır. Bu listeyi açmak hiçbir zaman ödeme istemez.",
+    "ux12Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux12Table": "These figures come from a local static table on this phone. NexuLex does not fetch a live court rate.",
@@ -18,8 +18,8 @@ export const WAVE_UX12_I18N = {
     "ux12Official": "Confirm every rate yourself on the official gazette or authority. Tables go stale.",
     "ux12NoWin": "A calculator does not predict a judgment and does not invent a win chance.",
     "ux12Device": "Your inputs stay on this phone unless you copy or share the result.",
-    "ux12Free": "These calculators stay free. This list never opens a paywall.",
-    "ux12Disclaimer": "NexuLex is not a law firm. A figure is a product tool, not a lawyer."
+    "ux12Free": "These calculators stay free. Opening this list never asks you to pay.",
+    "ux12Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux12Table": "Diese Zahlen kommen aus einer lokalen statischen Tabelle auf diesem Telefon. NexuLex holt keinen Live-Gerichtssatz.",
@@ -28,8 +28,8 @@ export const WAVE_UX12_I18N = {
     "ux12Official": "Prüfen Sie jeden Satz selbst im Amtsblatt oder bei der Behoerde. Tabellen veralten.",
     "ux12NoWin": "Ein Rechner sagt kein Urteil voraus und erfindet keine Gewinnchance.",
     "ux12Device": "Ihre Eingaben bleiben auf diesem Telefon, bis Sie das Ergebnis kopieren oder teilen.",
-    "ux12Free": "Diese Rechner bleiben gratis. Diese Liste oeffnet keine Paywall.",
-    "ux12Disclaimer": "NexuLex ist keine Kanzlei. Eine Zahl ist ein Produktwerkzeug, kein Anwalt."
+    "ux12Free": "Diese Rechner bleiben kostenlos. Das Öffnen dieser Liste verlangt nie eine Zahlung.",
+    "ux12Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux12Table": "Ces chiffres viennent d’une table locale statique sur ce téléphone. NexuLex ne tire pas un taux de tribunal en direct.",
@@ -38,8 +38,8 @@ export const WAVE_UX12_I18N = {
     "ux12Official": "Confirmez chaque taux vous-même au journal officiel ou a l’autorité. Les tables vieillissent.",
     "ux12NoWin": "Un calculateur ne prédit pas un jugement et n’invente aucune chance de gagner.",
     "ux12Device": "Vos saisies restent sur ce téléphone sauf si vous copiez ou partagez le résultat.",
-    "ux12Free": "Ces calculateurs restent gratuits. Cette liste n’ouvre jamais un paywall.",
-    "ux12Disclaimer": "NexuLex n’est pas un cabinet. Un chiffre est un outil produit, pas un avocat."
+    "ux12Free": "Ces calculateurs restent gratuits. Ouvrir cette liste ne demande jamais de payer.",
+    "ux12Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux12Table": "Estas cifras vienen de una tabla local estatica en este teléfono. NexuLex no pide un tipo judicial en vivo.",
@@ -48,8 +48,8 @@ export const WAVE_UX12_I18N = {
     "ux12Official": "Confirme usted cada tipo en el boletin o la autoridad oficial. Las tablas envejecen.",
     "ux12NoWin": "Una calculadora no predice una sentencia y no inventa una chance de ganar.",
     "ux12Device": "Sus datos se quedan en este teléfono salvo que copie o comparta el resultado.",
-    "ux12Free": "Estas calculadoras siguen gratis. Esta lista no abre un paywall.",
-    "ux12Disclaimer": "NexuLex no es un bufete. Una cifra es una herramienta de producto, no un abogado."
+    "ux12Free": "Estas calculadoras siguen siendo gratuitas. Abrir esta lista nunca pide pagar.",
+    "ux12Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux12Table": "هذه الأرقام تأتي من جدول محلي ثابت على هذا الهاتف. ولا يجلب NexuLex سعر محكمة حي.",
@@ -58,8 +58,8 @@ export const WAVE_UX12_I18N = {
     "ux12Official": "أكّد كل سعر بنفسك في الجريدة الرسمية أو الجهة. والجداول تَقدُم.",
     "ux12NoWin": "الحاسبة لا تتوقع حكما ولا تخترع فرصة ربح.",
     "ux12Device": "مدخلاتك تبقى على هذا الهاتف ما لم تنسخ النتيجة أو تشاركها.",
-    "ux12Free": "هذه الحاسبات تبقى مجانية. وهذه القائمة لا تفتح جدار دفع.",
-    "ux12Disclaimer": "NexuLex ليس مكتب محاماة. والرقم أداة منتج وليست محاميا."
+    "ux12Free": "تبقى هذه الحاسبات مجانية. فتح هذه القائمة لا يطلب منك الدفع أبدًا.",
+    "ux12Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux12Table": "Queste cifre vengono da una tabella locale statica su questo telefono. NexuLex non scarica un tasso di tribunale in diretta.",
@@ -68,8 +68,8 @@ export const WAVE_UX12_I18N = {
     "ux12Official": "Conferma tu ogni tasso sulla gazzetta o sull’ente ufficiale. Le tabelle invecchiano.",
     "ux12NoWin": "Un calcolatore non predice una sentenza e non inventa una chance di vincere.",
     "ux12Device": "I tuoi dati restano su questo telefono finché non copi o condividi il risultato.",
-    "ux12Free": "Questi calcolatori restano gratis. Questo elenco non apre un paywall.",
-    "ux12Disclaimer": "NexuLex non è uno studio. Una cifra è uno strumento di prodotto, non un avvocato."
+    "ux12Free": "Questi calcolatori restano gratuiti. Aprire questo elenco non chiede mai di pagare.",
+    "ux12Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux12Table": "这些数字来自这台手机上的本地静态表。NexuLex 不会抓取实时法院利率。",
@@ -78,8 +78,8 @@ export const WAVE_UX12_I18N = {
     "ux12Official": "请自行在官方公报或机关核对每一项费率。表格会过时。",
     "ux12NoWin": "计算器不预测判决，也不编造胜诉机会。",
     "ux12Device": "除非您复制或分享结果，输入留在这台手机上。",
-    "ux12Free": "这些计算器保持免费。此列表不会打开付费墙。",
-    "ux12Disclaimer": "NexuLex 不是律师事务所。数字是产品工具，不是律师。"
+    "ux12Free": "这些计算器保持免费。打开此列表永远不会要求付费。",
+    "ux12Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux12Table": "Эти цифры приходят из локальной статичной таблицы на этом телефоне. NexuLex не качает живую судебную ставку.",
@@ -88,8 +88,8 @@ export const WAVE_UX12_I18N = {
     "ux12Official": "Проверьте каждую ставку сами в официальном вестнике или органе. Таблицы устаревают.",
     "ux12NoWin": "Калькулятор не предсказывает решение и не выдумывает шанс выиграть.",
     "ux12Device": "Ваши вводы остаются на этом телефоне, пока вы не скопируете или не отправите результат.",
-    "ux12Free": "Эти калькуляторы остаются бесплатными. Этот список не открывает paywall.",
-    "ux12Disclaimer": "NexuLex не юридическая фирма. Цифра — инструмент продукта, не адвокат."
+    "ux12Free": "Эти калькуляторы остаются бесплатными. Открытие этого списка никогда не требует оплаты.",
+    "ux12Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux12Table": "این رقم‌ها از جدول ایستای محلی روی همین تلفن می‌آیند. NexuLex نرخ زنده دادگاه نمی‌گیرد.",
@@ -98,8 +98,8 @@ export const WAVE_UX12_I18N = {
     "ux12Official": "هر نرخ را خودتان در روزنامهٔ رسمی یا مرجع تأیید کنید. جدول‌ها کهنه می‌شوند.",
     "ux12NoWin": "ماشین‌حساب حکم پیش‌بینی نمی‌کند و شانس برد نمی‌سازد.",
     "ux12Device": "ورودی‌ها تا وقتی نتیجه را رونوشت یا هم‌رسانی نکنید روی همین تلفن می‌مانند.",
-    "ux12Free": "این ماشین‌حساب‌ها رایگان می‌مانند. این فهرست دیوار پرداخت باز نمی‌کند.",
-    "ux12Disclaimer": "NexuLex دفتر وکالت نیست. رقم ابزار محصول است، نه وکیل."
+    "ux12Free": "این ماشین‌حساب‌ها رایگان می‌مانند. باز کردن این فهرست هرگز پرداخت نمی‌خواهد.",
+    "ux12Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux12Table": "これらの数字はこの電話のローカル静的表から来ます。NexuLex は裁判所の生レートを取りません。",
@@ -108,8 +108,8 @@ export const WAVE_UX12_I18N = {
     "ux12Official": "各利率は官報または所管でご自分で確かめてください。表は古くなります。",
     "ux12NoWin": "計算機は判決を予測せず、勝ちの見込みも作りません。",
     "ux12Device": "コピーまたは共有しない限り、入力はこの電話に残ります。",
-    "ux12Free": "これらの計算機は無料のままです。この一覧は課金画面を開きません。",
-    "ux12Disclaimer": "NexuLex は法律事務所ではありません。数字は製品の用具であり、弁護士ではありません。"
+    "ux12Free": "これらの計算ツールは無料のままです。この一覧を開いても支払いを求められることはありません。",
+    "ux12Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux12Table": "Estas cifras vem de uma tabela local estatica neste telefone. A NexuLex não busca uma taxa judicial em direto.",
@@ -118,8 +118,8 @@ export const WAVE_UX12_I18N = {
     "ux12Official": "Confirme você cada taxa no diario oficial ou na autoridade. As tabelas envelhecem.",
     "ux12NoWin": "Uma calculadora não prevê uma sentença e não inventa uma hipótese de ganhar.",
     "ux12Device": "Os seus dados ficam neste telefone até copiar ou partilhar o resultado.",
-    "ux12Free": "Estas calculadoras ficam grátis. Esta lista não abre um paywall.",
-    "ux12Disclaimer": "A NexuLex não é um escritório. Uma cifra é uma ferramenta de produto, não um advogado."
+    "ux12Free": "Estas calculadoras continuam gratuitas. Abrir esta lista nunca pede pagamento.",
+    "ux12Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux12Table": "Deze cijfers komen uit een lokale statische tabel op deze telefoon. NexuLex haalt geen live rechterlijk tarief.",
@@ -128,7 +128,7 @@ export const WAVE_UX12_I18N = {
     "ux12Official": "Bevestig elk tarief zelf in het staatsblad of bij de instantie. Tabellen verouderen.",
     "ux12NoWin": "Een rekenmachine voorspelt geen vonnis en verzint geen winstkans.",
     "ux12Device": "Uw invoer blijft op deze telefoon tot u het resultaat kopieert of deelt.",
-    "ux12Free": "Deze rekenmachines blijven gratis. Deze lijst opent geen paywall.",
-    "ux12Disclaimer": "NexuLex is geen advocatenkantoor. Een cijfer is een producthulp, geen advocaat."
+    "ux12Free": "Deze rekenhulpen blijven gratis. Deze lijst openen vraagt nooit om betaling.",
+    "ux12Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

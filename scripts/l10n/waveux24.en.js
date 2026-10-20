@@ -7,5 +7,5 @@ module.exports = {
   ux24New: 'Start a new scan',
   ux24Report: 'Open the decision card',
   ux24Guides: 'Step-by-step guides',
-  ux24Disclaimer: 'NexuLex is not a law firm. These shortcuts are a product tool, not a lawyer.',
+  ux24Disclaimer: "NexuLex is not a law firm. This is general information, not legal advice.",
 };

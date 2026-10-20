@@ -7,5 +7,5 @@ module.exports = {
   st2Sub: 'Apagar a conta não cancela uma subscrição da App Store ou da Google Play. Faça a gestao na loja.',
   st2Quota: 'O registo do dispositivo da quota gratuita fica sem ligação após a eliminacao, só para bloquear novos pedidos gratuitos.',
   st2WebDelete: 'Apagar sem a aplicação',
-  st2Disclaimer: 'A NexuLex não é um escritório de advogados. As páginas de privacidade podem mudar; leia-as você.',
+  st2Disclaimer: "A NexuLex não é um escritório de advocacia. A app oferece informações gerais, não aconselhamento jurídico; um plano pago libera recursos, não representação por advogado.",
 };

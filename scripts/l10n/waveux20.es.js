@@ -7,5 +7,5 @@ module.exports = {
   ux20Share: 'Un resumen para compartir es una nota corta de producto. No es el contrato completo.',
   ux20Guides: 'Las guías paso a paso siguen abiertas de todos modos.',
   ux20NoWin: 'Nada en este informe promete un resultado ni clasifica a un abogado.',
-  ux20Disclaimer: 'NexuLex no es un bufete. Un informe de análisis es una herramienta de producto, no un abogado.',
+  ux20Disclaimer: "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico.",
 };

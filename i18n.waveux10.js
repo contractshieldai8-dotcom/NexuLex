@@ -9,7 +9,7 @@ export const WAVE_UX10_I18N = {
     "ux10Sources": "Her resmî kurumu kendiniz açın. Kurallar değişir; bağlantı eski kalabilir.",
     "ux10NoList": "Uygulama tek tek avukat listelemez veya sıralamaz. Yalnızca resmî kurumları gösterir.",
     "ux10Device": "Rehberler bu telefonda kalır. Bir site açmak uygulamadan çıkar.",
-    "ux10Disclaimer": "NexuLex bir hukuk bürosu değildir. Süreç haritası ürün aracıdır, avukat değildir."
+    "ux10Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux10Free": "These {{guides}} guides stay free. NexuLex never locks this list behind a plan.",
@@ -19,7 +19,7 @@ export const WAVE_UX10_I18N = {
     "ux10Sources": "Open every official body yourself. Rules change; a link can go stale.",
     "ux10NoList": "The app does not list or rank individual lawyers. It only points to official bodies.",
     "ux10Device": "Guides stay on this phone. Opening a site leaves the app.",
-    "ux10Disclaimer": "NexuLex is not a law firm. A process map is a product tool, not a lawyer."
+    "ux10Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux10Free": "Diese {{guides}} Leitfäden bleiben gratis. NexuLex sperrt diese Liste hinter keinem Plan.",
@@ -29,7 +29,7 @@ export const WAVE_UX10_I18N = {
     "ux10Sources": "Öffnen Sie jede amtliche Stelle selbst. Regeln ändern sich; ein Link kann veralten.",
     "ux10NoList": "Die App listet und rangiert keine einzelnen Anwälte. Sie zeigt nur amtliche Stellen.",
     "ux10Device": "Leitfäden bleiben auf diesem Telefon. Eine Website öffnen verlässt die App.",
-    "ux10Disclaimer": "NexuLex ist keine Kanzlei. Eine Prozesskarte ist ein Produktwerkzeug, kein Anwalt."
+    "ux10Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux10Free": "Ces {{guides}} guides restent gratuits. NexuLex ne verrouille jamais cette liste derrière un forfait.",
@@ -39,7 +39,7 @@ export const WAVE_UX10_I18N = {
     "ux10Sources": "Ouvrez chaque organisme officiel vous-même. Les règles changent; un lien peut être perime.",
     "ux10NoList": "L’app ne liste ni ne classe d’avocats individuels. Elle pointe seulement des organismes officiels.",
     "ux10Device": "Les guides restent sur ce téléphone. Ouvrir un site quitte l’app.",
-    "ux10Disclaimer": "NexuLex n’est pas un cabinet. Une carte de démarche est un outil produit, pas un avocat."
+    "ux10Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux10Free": "Estas {{guides}} guías siguen gratis. NexuLex no bloquea esta lista tras un plan.",
@@ -49,7 +49,7 @@ export const WAVE_UX10_I18N = {
     "ux10Sources": "Abra usted cada organismo oficial. Las normas cambian; un enlace puede quedar viejo.",
     "ux10NoList": "La app no lista ni clasifica abogados concretos. Solo señala organismos oficiales.",
     "ux10Device": "Las guías se quedan en este teléfono. Abrir un sitio sale de la app.",
-    "ux10Disclaimer": "NexuLex no es un bufete. Un mapa de trámite es una herramienta de producto, no un abogado."
+    "ux10Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux10Free": "تبقى هذه الأدلة الـ {{guides}} مجانية. ولا يقفِل NexuLex هذه القائمة خلف خطة.",
@@ -59,7 +59,7 @@ export const WAVE_UX10_I18N = {
     "ux10Sources": "افتح كل جهة رسمية بنفسك. والقواعد تتغير؛ وقد يَقدُم الرابط.",
     "ux10NoList": "التطبيق لا يسرد محامين أفرادا ولا يرتّبهم. وهو يشير فقط إلى جهات رسمية.",
     "ux10Device": "الأدلة تبقى على هذا الهاتف. وفتح موقع يغادر التطبيق.",
-    "ux10Disclaimer": "NexuLex ليس مكتب محاماة. وخريطة الإجراء أداة منتج وليست محاميا."
+    "ux10Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux10Free": "Queste {{guides}} guide restano gratis. NexuLex non blocca mai questo elenco dietro un piano.",
@@ -69,7 +69,7 @@ export const WAVE_UX10_I18N = {
     "ux10Sources": "Apri tu ogni ente ufficiale. Le regole cambiano; un link può diventare vecchio.",
     "ux10NoList": "L’app non elenca ne classifica avvocati singoli. Indica solo enti ufficiali.",
     "ux10Device": "Le guide restano su questo telefono. Aprire un sito esce dall’app.",
-    "ux10Disclaimer": "NexuLex non è uno studio. Una mappa di procedura è uno strumento di prodotto, non un avvocato."
+    "ux10Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux10Free": "这 {{guides}} 份指南保持免费。NexuLex 不会把此列表锁在套餐后面。",
@@ -79,7 +79,7 @@ export const WAVE_UX10_I18N = {
     "ux10Sources": "请自行打开每个官方机构。规则会变；链接可能过时。",
     "ux10NoList": "应用不列出或排名个别律师。只指向官方机构。",
     "ux10Device": "指南留在这台手机上。打开网站会离开应用。",
-    "ux10Disclaimer": "NexuLex 不是律师事务所。流程地图是产品工具，不是律师。"
+    "ux10Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux10Free": "Эти {{guides}} инструкции остаются бесплатными. NexuLex не запирает этот список за тарифом.",
@@ -89,7 +89,7 @@ export const WAVE_UX10_I18N = {
     "ux10Sources": "Откройте каждый официальный орган сами. Правила меняются; ссылка может устареть.",
     "ux10NoList": "Приложение не составляет и не ранжирует отдельных адвокатов. Оно указывает только на органы.",
     "ux10Device": "Инструкции остаются на этом телефоне. Открытие сайта покидает приложение.",
-    "ux10Disclaimer": "NexuLex не юридическая фирма. Карта процесса — инструмент продукта, не адвокат."
+    "ux10Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux10Free": "این {{guides}} راهنما رایگان می‌مانند. NexuLex این فهرست را پشت هیچ طرحی قفل نمی‌کند.",
@@ -99,7 +99,7 @@ export const WAVE_UX10_I18N = {
     "ux10Sources": "هر نهاد رسمی را خودتان باز کنید. قواعد عوض می‌شوند؛ پیوند ممکن است کهنه شود.",
     "ux10NoList": "برنامه وکیل جدا فهرست یا رتبه‌بندی نمی‌کند. فقط به نهادهای رسمی اشاره می‌کند.",
     "ux10Device": "راهنماها روی همین تلفن می‌مانند. باز کردن سایت برنامه را ترک می‌کند.",
-    "ux10Disclaimer": "NexuLex دفتر وکالت نیست. نقشهٔ فرایند ابزار محصول است، نه وکیل."
+    "ux10Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux10Free": "この {{guides}} 件のガイドは無料のままです。NexuLex はこの一覧をプランの後ろに閉じ込めません。",
@@ -109,7 +109,7 @@ export const WAVE_UX10_I18N = {
     "ux10Sources": "公式機関はご自分で開いてください。規則は変わり、リンクは古くなり得ます。",
     "ux10NoList": "アプリは個々の弁護士を一覧にも順位にもしません。公式機関だけを示します。",
     "ux10Device": "ガイドはこの電話に残ります。サイトを開くとアプリを離れます。",
-    "ux10Disclaimer": "NexuLex は法律事務所ではありません。手続き地図は製品の用具であり、弁護士ではありません。"
+    "ux10Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux10Free": "Estes {{guides}} guias ficam grátis. A NexuLex não tranca esta lista atras de um plano.",
@@ -119,7 +119,7 @@ export const WAVE_UX10_I18N = {
     "ux10Sources": "Abra você cada órgão oficial. As regras mudam; uma ligação pode ficar velha.",
     "ux10NoList": "A app não lista nem classifica advogados individuais. Só aponta para órgãos oficiais.",
     "ux10Device": "Os guias ficam neste telefone. Abrir um site sai da app.",
-    "ux10Disclaimer": "A NexuLex não é um escritório. Um mapa de processo é uma ferramenta de produto, não um advogado."
+    "ux10Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux10Free": "Deze {{guides}} gidsen blijven gratis. NexuLex sluit deze lijst achter geen enkel plan.",
@@ -129,6 +129,6 @@ export const WAVE_UX10_I18N = {
     "ux10Sources": "Open elke officiele instantie zelf. Regels veranderen; een link kan verouderen.",
     "ux10NoList": "De app somt geen individuele advocaten op en rangschikt ze niet. Alleen officiele instanties.",
     "ux10Device": "Gidsen blijven op deze telefoon. Een site openen verlaat de app.",
-    "ux10Disclaimer": "NexuLex is geen advocatenkantoor. Een proceskaart is een producthulp, geen advocaat."
+    "ux10Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

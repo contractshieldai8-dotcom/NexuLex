@@ -7,5 +7,5 @@ module.exports = {
   ux7Brief: 'De advocaatbrief zit in het betaalde Pro-plan. Het is een samenvatting die u deelt, geen processtuk.',
   ux7NoWin: 'Een dossier voorspelt geen rechterlijke uitkomst en vertegenwoordigt u niet.',
   ux7Share: 'Een huishoudplaats kan een samenvatting lezen die u deelt. Het oorspronkelijke contract uit dit bestand opent hij niet.',
-  ux7Disclaimer: 'NexuLex is geen advocatenkantoor. Dossiers zijn producthulpen, geen juridisch advies.',
+  ux7Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

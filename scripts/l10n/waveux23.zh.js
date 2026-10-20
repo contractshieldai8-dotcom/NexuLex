@@ -7,5 +7,5 @@ module.exports = {
   ux23Count: '此视图中 {{visible}} / {{total}} 行。',
   ux23Empty: '没有匹配行。清除搜索或打开分析。',
   ux23Guides: '分步指南无论哪种情况都不上锁。',
-  ux23Disclaimer: 'NexuLex 不是律师事务所。历史登记表是产品文件，不是律师。',
+  ux23Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

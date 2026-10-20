@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityInd
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { supabase } from '../services/supabase';
-import { ACCENT, WARNING, alignStart } from '../theme';
+import { darkTheme, alignStart } from '../theme';
 import { QUOTA_ERRORS, syncProfileAndQuota } from '../services/quota';
 import SearchableSheet from './SearchableSheet';
 import { APP_LANGUAGES, getLanguage } from '../constants/options';
@@ -18,16 +18,11 @@ import { setAppLanguage } from '../utils/language';
 import { createAuthRedirectUrl } from '../utils/authRedirects';
 
 // GiriÅŸ ekranÄ±, uygulamanÄ±n koyu paletiyle uyumlu yalÄ±n bir tema kullanÄ±r.
-const AUTH_THEME = {
-  cardBg: '#111A2E',
-  inputBg: '#0D1426',
-  borderColor: 'rgba(255, 255, 255, 0.09)',
-  text: '#EEF1F8',
-  subText: '#9AA6BD',
-};
-
-export default function Auth({ onLoginSuccess }) {
+export default function Auth({ onLoginSuccess, theme = darkTheme }) {
   const { t, i18n } = useTranslation();
+  // Sign-in follows the app appearance (it used to be a fixed dark card, which looked
+  // foreign inside the light theme). Dark values are identical to the previous palette.
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -199,7 +194,7 @@ export default function Auth({ onLoginSuccess }) {
       >
         <Text style={styles.langChipFlag}>{getLanguage(activeLang).flag}</Text>
         <Text style={styles.langChipText}>{getLanguage(activeLang).label}</Text>
-        <Ionicons name="chevron-down" size={14} color={ACCENT} />
+        <Ionicons name="chevron-down" size={14} color={theme.accent} />
       </TouchableOpacity>
 
       <Text style={styles.title}>
@@ -209,7 +204,7 @@ export default function Auth({ onLoginSuccess }) {
       <TextInput accessibilityLabel={t('emailPlaceholder')}
         style={styles.input}
         placeholder={t('emailPlaceholder')}
-        placeholderTextColor="#9AA6BD"
+        placeholderTextColor={theme.subText}
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"
@@ -219,7 +214,7 @@ export default function Auth({ onLoginSuccess }) {
       <TextInput accessibilityLabel={t('passwordPlaceholder')}
         style={styles.input}
         placeholder={t('passwordPlaceholder')}
-        placeholderTextColor="#9AA6BD"
+        placeholderTextColor={theme.subText}
         secureTextEntry
         value={password}
         onChangeText={setPassword}
@@ -234,13 +229,13 @@ export default function Auth({ onLoginSuccess }) {
           >
             <Text style={styles.phoneFlag}>{country.flag}</Text>
             <Text style={styles.phoneDial}>{country.dial}</Text>
-            <Ionicons name="chevron-down" size={13} color="#9AA6BD" />
+            <Ionicons name="chevron-down" size={13} color={theme.subText} />
           </TouchableOpacity>
 
           <TextInput accessibilityLabel={t('phonePlaceholder')}
             style={[styles.input, styles.phoneInput]}
             placeholder={t('phonePlaceholder')}
-            placeholderTextColor="#9AA6BD"
+            placeholderTextColor={theme.subText}
             value={phone}
             // YalnÄ±zca rakam ve ayÄ±rÄ±cÄ±lar; Ã¼lke kodu ayrÄ± alandan gelir.
             onChangeText={(value) => setPhone(value.replace(/[^\d\s-]/g, ''))}
@@ -256,7 +251,7 @@ export default function Auth({ onLoginSuccess }) {
           <Text style={styles.verifyHint}>{t('verifyEmailMessage')}</Text>
           <TouchableOpacity accessibilityRole="button" style={styles.button} onPress={handleResendVerification} disabled={loading}>
             {loading ? (
-              <ActivityIndicator color="#080C14" />
+              <ActivityIndicator color={theme.onAccent} />
             ) : (
               <Text style={styles.buttonText} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.85}>
                 {t('resendVerification')}
@@ -291,7 +286,7 @@ export default function Auth({ onLoginSuccess }) {
         <>
           <TouchableOpacity accessibilityRole="button" style={styles.button} onPress={handleAuth} disabled={loading}>
             {loading ? (
-              <ActivityIndicator color="#080C14" />
+              <ActivityIndicator color={theme.onAccent} />
             ) : (
               <Text style={styles.buttonText} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.85}>
                 {isSignUp ? t('signUpButton') : t('signInButton')}
@@ -315,7 +310,7 @@ export default function Auth({ onLoginSuccess }) {
 
       <SearchableSheet
         visible={langSheetVisible}
-        theme={AUTH_THEME}
+        theme={theme}
         title={t('languageSelectorTitle')}
         searchPlaceholder={t('languageSearchPlaceholder')}
         emptyLabel={t('languageNoResult')}
@@ -328,7 +323,7 @@ export default function Auth({ onLoginSuccess }) {
 
       <SearchableSheet
         visible={countrySheetVisible}
-        theme={AUTH_THEME}
+        theme={theme}
         title={t('countryCodeTitle')}
         searchPlaceholder={t('countryCodeSearchPlaceholder')}
         emptyLabel={t('languageNoResult')}
@@ -348,55 +343,56 @@ const FONTS = Platform.select({
   default: { regular: 'System', medium: 'System', bold: 'System' },
 });
 
-const styles = StyleSheet.create({
-  card: { backgroundColor: '#111A2E', padding: 20, borderRadius: 16, borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.09)' },
-  langChip: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'flex-end',
-    gap: 6,
-    marginBottom: 15,
-    paddingHorizontal: 12,
-    paddingVertical: 7,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.09)',
-    backgroundColor: '#0D1426',
-  },
-  langChipFlag: { fontSize: 16 },
-  langChipText: { color: ACCENT, fontFamily: FONTS.medium, fontSize: 13, fontWeight: '600' },
-  phoneRow: { flexDirection: 'row', alignItems: 'stretch', gap: 8 },
-  phoneCountryBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    paddingHorizontal: 12,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.09)',
-    backgroundColor: '#0D1426',
-    marginBottom: 12,
-  },
-  phoneFlag: { fontSize: 18 },
-  phoneDial: { color: '#EEF1F8', fontFamily: FONTS.medium, fontSize: 14, fontWeight: '600' },
-  phoneInput: { flex: 1 },
-  title: { fontFamily: FONTS.bold, fontSize: 20, fontWeight: '800', letterSpacing: 0.4, color: '#FFFFFF', marginBottom: 16, textAlign: 'center' },
-  input: { backgroundColor: '#0D1426', color: '#FFFFFF', fontFamily: FONTS.regular, fontSize: 14, padding: 14, borderRadius: 12, borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.09)', marginBottom: 12, textAlign: alignStart },
-  button: { backgroundColor: '#D4B27A', paddingVertical: 16, paddingHorizontal: 18, borderRadius: 12, alignItems: 'center', justifyContent: 'center', minHeight: 54, marginTop: 8 },
-  buttonText: { color: '#080C14', fontFamily: FONTS.bold, fontWeight: '800', fontSize: 16, letterSpacing: 0.3, textAlign: 'center' },
-  switchText: { color: '#9AA6BD', fontFamily: FONTS.regular, textAlign: 'center', fontSize: 13, lineHeight: 18 },
-  verifyHint: { color: '#9AA6BD', fontFamily: FONTS.regular, textAlign: 'center', fontSize: 13, lineHeight: 19, marginBottom: 8 },
-  devSkipButton: {
-    marginTop: 10,
-    paddingVertical: 14,
-    paddingHorizontal: 14,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: WARNING,
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: 48,
-  },
-  devSkipText: { color: WARNING, fontFamily: FONTS.bold, fontWeight: '700', fontSize: 13, textAlign: 'center' },
-  devSkipHint: { color: '#7C8AA3', fontFamily: FONTS.regular, textAlign: 'center', fontSize: 11, lineHeight: 16, marginTop: 8 },
-});
+const makeStyles = (theme) =>
+  StyleSheet.create({
+    card: { backgroundColor: theme.cardBg, padding: 20, borderRadius: 16, borderWidth: 1, borderColor: theme.borderColor },
+    langChip: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      alignSelf: 'flex-end',
+      gap: 6,
+      marginBottom: 15,
+      paddingHorizontal: 12,
+      paddingVertical: 7,
+      borderRadius: 20,
+      borderWidth: 1,
+      borderColor: theme.borderColor,
+      backgroundColor: theme.inputBg,
+    },
+    langChipFlag: { fontSize: 16 },
+    langChipText: { color: theme.accent, fontFamily: FONTS.medium, fontSize: 13, fontWeight: '600' },
+    phoneRow: { flexDirection: 'row', alignItems: 'stretch', gap: 8 },
+    phoneCountryBtn: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 5,
+      paddingHorizontal: 12,
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: theme.borderColor,
+      backgroundColor: theme.inputBg,
+      marginBottom: 12,
+    },
+    phoneFlag: { fontSize: 18 },
+    phoneDial: { color: theme.text, fontFamily: FONTS.medium, fontSize: 14, fontWeight: '600' },
+    phoneInput: { flex: 1 },
+    title: { fontFamily: FONTS.bold, fontSize: 20, fontWeight: '800', letterSpacing: 0.4, color: theme.text, marginBottom: 16, textAlign: 'center' },
+    input: { backgroundColor: theme.inputBg, color: theme.text, fontFamily: FONTS.regular, fontSize: 14, padding: 14, borderRadius: 12, borderWidth: 1, borderColor: theme.borderColor, marginBottom: 12, textAlign: alignStart },
+    button: { backgroundColor: theme.accent, paddingVertical: 16, paddingHorizontal: 18, borderRadius: 12, alignItems: 'center', justifyContent: 'center', minHeight: 54, marginTop: 8 },
+    buttonText: { color: theme.onAccent, fontFamily: FONTS.bold, fontWeight: '800', fontSize: 16, letterSpacing: 0.3, textAlign: 'center' },
+    switchText: { color: theme.subText, fontFamily: FONTS.regular, textAlign: 'center', fontSize: 13, lineHeight: 18 },
+    verifyHint: { color: theme.subText, fontFamily: FONTS.regular, textAlign: 'center', fontSize: 13, lineHeight: 19, marginBottom: 8 },
+    devSkipButton: {
+      marginTop: 10,
+      paddingVertical: 14,
+      paddingHorizontal: 14,
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: theme.warning,
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: 48,
+    },
+    devSkipText: { color: theme.warning, fontFamily: FONTS.bold, fontWeight: '700', fontSize: 13, textAlign: 'center' },
+    devSkipHint: { color: theme.subText, fontFamily: FONTS.regular, textAlign: 'center', fontSize: 11, lineHeight: 16, marginTop: 8 },
+  });

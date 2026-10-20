@@ -7,5 +7,5 @@ module.exports = {
   ux14Sources: '请自行打开每一份官方来源。引用可能过时。',
   ux14NoAdvice: '这是工作辅助。不是针对客户卷宗的意见，也不代表任何人。',
   ux14Device: '除非您存入案件或分享，结果留在这台手机上。',
-  ux14Disclaimer: 'NexuLex 不是律师事务所。结构化备忘是产品工具，不是律师。',
+  ux14Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

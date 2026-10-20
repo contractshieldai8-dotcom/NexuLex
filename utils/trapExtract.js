@@ -111,30 +111,90 @@ export function extractTrapDurations(source) {
   return found;
 }
 
-function prettyUnit(duration, lang = 'tr') {
-  const tr = String(lang || 'tr').startsWith('tr');
-  if (!tr) return duration.unitEn;
-  if (duration.unit === 'gün') return 'Gün';
-  if (duration.unit === 'hafta') return 'Hafta';
-  if (duration.unit === 'ay') return 'Ay';
-  if (duration.unit === 'yıl') return 'Yıl';
-  return duration.unit;
+// Localised duration badge ("60 days · Notice"). One table per app language so a German,
+// Arabic or Japanese reader never sees an English-only chip. Kept inline (no imports)
+// because verify-ui evaluates this file with Function().
+// unit forms: [day, week, month, year] -> [one, other] (ru/ar use their own plural rules below).
+const BADGE_UNITS = {
+  tr: { d: ['gün', 'gün'], w: ['hafta', 'hafta'], m: ['ay', 'ay'], y: ['yıl', 'yıl'] },
+  en: { d: ['day', 'days'], w: ['week', 'weeks'], m: ['month', 'months'], y: ['year', 'years'] },
+  de: { d: ['Tag', 'Tage'], w: ['Woche', 'Wochen'], m: ['Monat', 'Monate'], y: ['Jahr', 'Jahre'] },
+  fr: { d: ['jour', 'jours'], w: ['semaine', 'semaines'], m: ['mois', 'mois'], y: ['an', 'ans'] },
+  es: { d: ['día', 'días'], w: ['semana', 'semanas'], m: ['mes', 'meses'], y: ['año', 'años'] },
+  it: { d: ['giorno', 'giorni'], w: ['settimana', 'settimane'], m: ['mese', 'mesi'], y: ['anno', 'anni'] },
+  pt: { d: ['dia', 'dias'], w: ['semana', 'semanas'], m: ['mês', 'meses'], y: ['ano', 'anos'] },
+  nl: { d: ['dag', 'dagen'], w: ['week', 'weken'], m: ['maand', 'maanden'], y: ['jaar', 'jaar'] },
+  fa: { d: ['روز', 'روز'], w: ['هفته', 'هفته'], m: ['ماه', 'ماه'], y: ['سال', 'سال'] },
+  zh: { d: ['天', '天'], w: ['周', '周'], m: ['个月', '个月'], y: ['年', '年'] },
+  ja: { d: ['日', '日'], w: ['週間', '週間'], m: ['か月', 'か月'], y: ['年', '年'] },
+  ru: {
+    d: ['день', 'дня', 'дней'],
+    w: ['неделя', 'недели', 'недель'],
+    m: ['месяц', 'месяца', 'месяцев'],
+    y: ['год', 'года', 'лет'],
+  },
+  ar: {
+    d: ['يوم', 'يومان', 'أيام', 'يومًا'],
+    w: ['أسبوع', 'أسبوعان', 'أسابيع', 'أسبوعًا'],
+    m: ['شهر', 'شهران', 'أشهر', 'شهرًا'],
+    y: ['سنة', 'سنتان', 'سنوات', 'سنة'],
+  },
+};
+
+const BADGE_KINDS = {
+  tr: { n: 'İhbar', t: 'Süre', r: 'İade' },
+  en: { n: 'Notice', t: 'Term', r: 'Refund' },
+  de: { n: 'Kündigungsfrist', t: 'Laufzeit', r: 'Rückerstattung' },
+  fr: { n: 'Préavis', t: 'Durée', r: 'Remboursement' },
+  es: { n: 'Preaviso', t: 'Plazo', r: 'Reembolso' },
+  it: { n: 'Preavviso', t: 'Durata', r: 'Rimborso' },
+  pt: { n: 'Aviso prévio', t: 'Prazo', r: 'Reembolso' },
+  nl: { n: 'Opzegtermijn', t: 'Looptijd', r: 'Terugbetaling' },
+  fa: { n: 'اخطار', t: 'مدت', r: 'بازپرداخت' },
+  zh: { n: '通知期', t: '期限', r: '退款' },
+  ja: { n: '通知期間', t: '期間', r: '返金' },
+  ru: { n: 'Уведомление', t: 'Срок', r: 'Возврат' },
+  ar: { n: 'إشعار', t: 'مدة', r: 'استرداد' },
+};
+
+const BADGE_UNIT_KEY = { days: 'd', weeks: 'w', months: 'm', years: 'y' };
+
+function badgeLang(lang) {
+  const code = String(lang || 'tr').slice(0, 2).toLowerCase();
+  return BADGE_UNITS[code] ? code : 'en';
+}
+
+function badgeUnitLabel(code, unitKey, amount) {
+  const forms = BADGE_UNITS[code][unitKey];
+  const n = Math.abs(Number(amount) || 0);
+  if (code === 'ru') {
+    const mod10 = n % 10;
+    const mod100 = n % 100;
+    if (mod10 === 1 && mod100 !== 11) return forms[0];
+    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return forms[1];
+    return forms[2];
+  }
+  if (code === 'ar') {
+    if (n === 1) return forms[0];
+    if (n === 2) return forms[1];
+    if (n >= 3 && n <= 10) return forms[2];
+    return forms[3];
+  }
+  return n === 1 ? forms[0] : forms[1];
 }
 
 export function trapBadgeFor(slotKey, duration, lang = 'tr') {
   if (!duration) return '';
-  const tr = String(lang || 'tr').startsWith('tr');
-  const unit = prettyUnit(duration, lang);
-  if (slotKey === 'termination' || slotKey === 'TERMINATION_WINDOW') {
-    return tr ? `⏱️ ${duration.amount} ${unit} İhbar` : `⏱️ ${duration.amount}-${duration.unitEn} notice`;
-  }
-  if (slotKey === 'confidentiality' || slotKey === 'CONFIDENTIALITY') {
-    return tr ? `🔒 ${duration.amount} ${unit} Süre` : `🔒 ${duration.amount} ${duration.unitEn}`;
-  }
-  if (slotKey === 'return_or_refund' || slotKey === 'RETURN') {
-    return tr ? `💰 ${duration.amount} ${unit} İade` : `💰 ${duration.amount}-${duration.unitEn} refund`;
-  }
-  return `${duration.amount} ${unit}`;
+  const code = badgeLang(lang);
+  const unitKey = BADGE_UNIT_KEY[duration.unitEn] || 'd';
+  const unit = badgeUnitLabel(code, unitKey, duration.amount);
+  const kinds = BADGE_KINDS[code];
+  let kind = '';
+  if (slotKey === 'termination' || slotKey === 'TERMINATION_WINDOW') kind = kinds.n;
+  else if (slotKey === 'confidentiality' || slotKey === 'CONFIDENTIALITY') kind = kinds.t;
+  else if (slotKey === 'return_or_refund' || slotKey === 'RETURN') kind = kinds.r;
+  const span = `${duration.amount} ${unit}`;
+  return kind ? `${span} · ${kind}` : span;
 }
 
 export function analysisSourceText(analysis) {
@@ -346,7 +406,7 @@ Confidentiality survives. Deposit is unspecified.`;
   const notice = noticeDateIso(anchor, extracted.termination);
   if (notice !== '2028-08-01') fail.push(`notice ${notice}`);
   const items = reminderItems([], [
-    { label: 'TERMINATION_WINDOW', date: notice, badge: '⏱️ 60 Gün İhbar', kind: 'TERMINATION_WINDOW' },
+    { label: 'TERMINATION_WINDOW', date: notice, badge: '60 gün · İhbar', kind: 'TERMINATION_WINDOW' },
     { label: 'CONFIDENTIALITY', date: '', badge: '', note: 'Belirsiz', placeholder: true, kind: 'CONFIDENTIALITY' },
     { label: 'RETURN', date: '', badge: '', note: 'Belirsiz', placeholder: true, kind: 'RETURN' },
   ]);
@@ -356,7 +416,7 @@ Confidentiality survives. Deposit is unspecified.`;
     fail.push(`when ${when && when.toISOString ? when.toISOString() : when}`);
   }
   const noAnchor = reminderItems([], [
-    { label: 'TERMINATION_WINDOW', date: '', badge: '⏱️ 60 Gün İhbar', kind: 'TERMINATION_WINDOW' },
+    { label: 'TERMINATION_WINDOW', date: '', badge: '60 gün · İhbar', kind: 'TERMINATION_WINDOW' },
   ]);
   if (noAnchor.length !== 0) fail.push('no-anchor scheduled');
   if (fail.length) {

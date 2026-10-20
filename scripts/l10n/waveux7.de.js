@@ -7,5 +7,5 @@ module.exports = {
   ux7Brief: 'Die Anwaltszusammenfassung liegt im bezahlten Pro-Plan. Sie ist eine geteilte Kurzfassung, keine Gerichtsschrift.',
   ux7NoWin: 'Eine Fallakte sagt kein Gerichtsergebnis voraus und vertritt Sie nicht.',
   ux7Share: 'Ein Haushaltsplatz kann eine geteilte Kurzfassung lesen. Den Originalvertrag aus dieser Akte oeffnet er nicht.',
-  ux7Disclaimer: 'NexuLex ist keine Kanzlei. Fallakten sind Produktwerkzeuge, keine Rechtsberatung.',
+  ux7Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

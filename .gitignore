@@ -61,3 +61,8 @@ supabase/.temp/
 # anonymous telemetry exports (npm run cost:export) and A/B benchmark reports (npm run test:ab)
 scripts/.telemetry/
 scripts/.ab-output/
+
+.gradle/
+.cxx/
+android/app/build/
+node_modules/

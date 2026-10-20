@@ -6,6 +6,6 @@ module.exports = {
   ux12Official: 'Confirmez chaque taux vous-même au journal officiel ou a l’autorité. Les tables vieillissent.',
   ux12NoWin: 'Un calculateur ne prédit pas un jugement et n’invente aucune chance de gagner.',
   ux12Device: 'Vos saisies restent sur ce téléphone sauf si vous copiez ou partagez le résultat.',
-  ux12Free: 'Ces calculateurs restent gratuits. Cette liste n’ouvre jamais un paywall.',
-  ux12Disclaimer: 'NexuLex n’est pas un cabinet. Un chiffre est un outil produit, pas un avocat.',
+  ux12Free: "Ces calculateurs restent gratuits. Ouvrir cette liste ne demande jamais de payer.",
+  ux12Disclaimer: "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique.",
 };

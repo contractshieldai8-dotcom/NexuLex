@@ -7,5 +7,5 @@ module.exports = {
   ux16NoAdvice: 'Een corridor van stappen. Geen advies voor uw dossier en geen vertegenwoordiging.',
   ux16Device: 'De antwoorden blijven op deze telefoon tot u de kaart kopieert of deelt.',
   ux16Guides: 'Stapsgewijze gidsen blijven in elk geval ontgrendeld.',
-  ux16Disclaimer: 'NexuLex is geen advocatenkantoor. Een lokale kaart is een producthulp, geen advocaat.',
+  ux16Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

@@ -7,5 +7,5 @@ module.exports = {
   ux9Verify: 'Aslı kendiniz okuyun. Süreler belgenin size ulaştığı günden başlar, bu ekrandan değil.',
   ux9Device: 'NexuLex sonucu bir dosyaya kaydetmediğiniz veya paylaşmadığınız sürece bu telefonda tutar.',
   ux9NoAdvice: 'Bu bir okuma yardımcısıdır. Dosyanıza tavsiye değildir ve sizi temsil etmez.',
-  ux9Disclaimer: 'NexuLex bir hukuk bürosu değildir. Açıklama ürün aracıdır, avukat değildir.',
+  ux9Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

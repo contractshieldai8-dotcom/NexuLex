@@ -6,6 +6,5 @@ module.exports = {
   st4SupportHint: 'Schreiben Sie in Ihrer Sprache. Wir antworten zu App, Kaufwiederherstellung und Kontozugang.',
   st4Security: 'Ein neues Passwort speichert der Anmeldedienst. NexuLex-Mitarbeiter können es nicht lesen.',
   st4SecurityHint: 'Ein Passwortwechsel kündigt kein App Store- oder Google Play-Abo.',
-  st4Plan: 'Professional hebt die Platzgrenze. Das Abo bleibt im Store.',
-  st4Disclaimer: 'NexuLex ist keine Anwaltskanzlei. Support und Plätze sind Produktwerkzeuge, keine Rechtsberatung.',
+  st4Plan: 'Professional hebt die Platzgrenze. Das Abo bleibt im Store.'
 };

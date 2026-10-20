@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, DANGER, WARNING, styles } from '../theme';
+import { ACCENT, DANGER, WARNING, styles, toneText } from '../theme';
 import { useFeedback } from '../context/FeedbackContext';
 import { daysUntil, kindIcon, kindLabelKey, parseIsoDate } from '../utils/deadlines';
 import { isUnspecifiedTrap, safeDisplayText } from '../utils/analysis';
@@ -113,7 +113,7 @@ export default function DeadlineRadar({
             key={`${item.date}-${item.label}-${index}`}
             style={[styles.deadlineRow, { borderColor: theme.borderColor }]}
           >
-            <Ionicons name={kindIcon(item.kind)} size={16} color={tone} />
+            <Ionicons name={kindIcon(item.kind)} size={16} color={toneText(tone)} />
             <View style={{ flex: 1, flexShrink: 1 }}>
               <Text style={[styles.deadlineLabel, { color: theme.text }]}>{rawLabel}</Text>
               {meta ? (
@@ -153,11 +153,11 @@ export default function DeadlineRadar({
                     theme.bg === '#0A0F1D' ? { color: '#FFE08A' } : null,
                   ]}
                 >
-                  ⚠️ {t('trapUnspecifiedBadge')}
+                  {t('trapUnspecifiedBadge')}
                 </Text>
               </View>
             ) : typeof days === 'number' ? (
-              <Text style={[styles.deadlineDays, { color: tone }]}>
+              <Text style={[styles.deadlineDays, { color: toneText(tone) }]}>
                 {overdue ? t('deadlineOverdue') : t('deadlineDaysLeft', { count: days })}
               </Text>
             ) : null}

@@ -6,6 +6,6 @@ module.exports = {
   ux4Lawyer: 'Find a lawyer opens official directories. NexuLex does not recommend or rank lawyers.',
   ux4Country: 'Answers follow the country shown above. That is a corridor, not a court.',
   ux4Free: 'The first questions and the first case stay on the free plan.',
-  ux4NoPay: 'These four chips never open a paywall. A later tool may, if the free quota is used up.',
-  ux4Disclaimer: 'NexuLex is not a law firm. Home jobs are product tools, not legal advice.',
+  ux4NoPay: "These four shortcuts never ask you to pay. A later tool may, once your free uses are gone.",
+  ux4Disclaimer: "NexuLex is not a law firm. This is general information, not legal advice.",
 };

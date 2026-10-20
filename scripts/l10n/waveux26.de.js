@@ -7,5 +7,5 @@ module.exports = {
   ux26Local: 'NexuLex vergleicht auf diesem Telefon. Für diesen Schritt wird nichts Neues hochgeladen.',
   ux26NoWin: 'Ein Vergleich ist kein Gerichtsergebnis und kein Gewinnanspruch.',
   ux26Guides: 'Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.',
-  ux26Disclaimer: 'NexuLex ist keine Kanzlei. Ein Vergleich ist ein Produktwerkzeug, kein Anwalt.',
+  ux26Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

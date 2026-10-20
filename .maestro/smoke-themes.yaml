@@ -1,0 +1,37 @@
+# Visual smoke test: tours the main tabs in dark mode, flips the theme, tours them again in light mode.
+#
+#   maestro test .maestro/smoke-themes.yaml
+#   maestro test -e TAB_ANALYZE="Analyze" -e TAB_ADVISOR="Advisor" -e TAB_HISTORY="History" \
+#                -e TAB_SETTINGS="Settings" -e DARK_MODE_LABEL="Dark mode" .maestro/smoke-themes.yaml
+#
+# Precondition: the app is installed, signed in, and currently in DARK mode (the default).
+# Screenshots land in ~/.maestro/tests/<run>/ - compare the dark-* and light-* sets by eye or with an image diff.
+appId: com.nexulex.ai
+env:
+  TAB_ANALYZE: Analiz et
+  TAB_ADVISOR: Danışman
+  TAB_HISTORY: Geçmiş
+  TAB_SETTINGS: Ayarlar
+  DARK_MODE_LABEL: Karanlık mod
+---
+- launchApp
+- runFlow:
+    file: _tour.yaml
+    env:
+      SHOT_PREFIX: dark
+# Flip to light mode from Settings.
+- tapOn: ${TAB_SETTINGS}
+- scrollUntilVisible:
+    element: ${DARK_MODE_LABEL}
+    direction: DOWN
+- tapOn: ${DARK_MODE_LABEL}
+- runFlow:
+    file: _tour.yaml
+    env:
+      SHOT_PREFIX: light
+# Leave the device the way we found it.
+- tapOn: ${TAB_SETTINGS}
+- scrollUntilVisible:
+    element: ${DARK_MODE_LABEL}
+    direction: DOWN
+- tapOn: ${DARK_MODE_LABEL}

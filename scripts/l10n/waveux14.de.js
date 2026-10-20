@@ -7,5 +7,5 @@ module.exports = {
   ux14Sources: 'Öffnen Sie jede amtliche Quelle selbst. Ein Zitat kann veralten.',
   ux14NoAdvice: 'Das ist eine Arbeitshilfe. Keine Beratung für eine Mandantenakte und keine Vertretung.',
   ux14Device: 'Ergebnisse bleiben auf diesem Telefon, bis Sie sie in eine Akte speichern oder teilen.',
-  ux14Disclaimer: 'NexuLex ist keine Kanzlei. Ein strukturiertes Memo ist ein Produktwerkzeug, kein Anwalt.',
+  ux14Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

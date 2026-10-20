@@ -7,5 +7,5 @@ module.exports = {
   ux5Guides: 'Gidsen vergrendelen nooit. De andere chips openen hulpmiddelen die later een quotum kunnen gebruiken.',
   ux5Lawyer: 'Advocaat vinden opent officiele gidsen. NexuLex beveelt geen advocaten aan en rangschikt ze niet.',
   ux5NoWin: 'Een scan voorspelt geen rechterlijke uitkomst en vertegenwoordigt u niet.',
-  ux5Disclaimer: 'NexuLex is geen advocatenkantoor. Deze chips zijn productpaden, geen juridisch advies.',
+  ux5Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

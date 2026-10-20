@@ -7,5 +7,5 @@ module.exports = {
   ux3Advisor: 'I posti advisor restano in sola lettura. Revoca il codice se il rapporto finisce.',
   ux3Get: 'La pagina pubblica non ha contratto ne brief. Serve solo ad aprire NexuLex.',
   ux3Copy: 'Copiare invia lo stesso messaggio di codice. Nessun testo di clausola viene copiato.',
-  ux3Disclaimer: 'NexuLex non è uno studio. Un posto è uno strumento di prodotto, non un fascicolo avvocato.',
+  ux3Disclaimer: "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale.",
 };

@@ -6,6 +6,5 @@ module.exports = {
   st4SupportHint: 'Escreva na sua língua. Respondemos sobre a app, restaurar compras e o acesso a conta.',
   st4Security: 'A nova palavra-passe fica no serviço de início de sessão. A equipa NexuLex não a pode ler.',
   st4SecurityHint: 'Mudar a palavra-passe não cancela uma subscrição da App Store ou da Google Play.',
-  st4Plan: 'Professional sobe o teto de lugares. A subscrição continua na loja.',
-  st4Disclaimer: 'A NexuLex não é um escritório de advogados. Apoio e lugares são ferramentas de produto, não aconselhamento jurídico.',
+  st4Plan: 'Professional sobe o teto de lugares. A subscrição continua na loja.'
 };

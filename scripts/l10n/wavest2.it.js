@@ -7,5 +7,5 @@ module.exports = {
   st2Sub: 'Eliminare l’account non disdice un abbonamento App Store o Google Play. Gestiscilo nello store.',
   st2Quota: 'Il record dispositivo della quota gratuita resta scollegato dopo l’eliminazione, solo per bloccare nuove richieste gratuite.',
   st2WebDelete: 'Elimina senza l’app',
-  st2Disclaimer: 'NexuLex non è uno studio legale. Le pagine sulla privacy possono cambiare; leggile tu.',
+  st2Disclaimer: "NexuLex non è uno studio legale. L’app offre informazioni generali, non consulenza legale; un piano a pagamento sblocca funzioni, non una rappresentanza legale.",
 };

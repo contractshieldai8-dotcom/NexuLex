@@ -7,5 +7,5 @@ module.exports = {
   ux24New: 'Yeni bir tarama başlat',
   ux24Report: 'Karar kartına git',
   ux24Guides: 'Adım adım rehberler',
-  ux24Disclaimer: 'NexuLex bir hukuk bürosu değildir. Bu kısayollar ürün aracıdır, avukat değildir.',
+  ux24Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

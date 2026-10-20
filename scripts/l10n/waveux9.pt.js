@@ -7,5 +7,5 @@ module.exports = {
   ux9Verify: 'Leia você o original. Os prazos começam no dia em que recebeu o papel, não neste ecrã.',
   ux9Device: 'A NexuLex guarda o resultado neste telefone até o guardar num processo ou o partilhar.',
   ux9NoAdvice: 'É uma ajuda de leitura. Não é conselho para o seu caso e não o representa.',
-  ux9Disclaimer: 'A NexuLex não é um escritório. Uma explicação é uma ferramenta de produto, não um advogado.',
+  ux9Disclaimer: "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico.",
 };

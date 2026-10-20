@@ -9,7 +9,7 @@ export const WAVE_UX9_I18N = {
     "ux9Verify": "Aslı kendiniz okuyun. Süreler belgenin size ulaştığı günden başlar, bu ekrandan değil.",
     "ux9Device": "NexuLex sonucu bir dosyaya kaydetmediğiniz veya paylaşmadığınız sürece bu telefonda tutar.",
     "ux9NoAdvice": "Bu bir okuma yardımcısıdır. Dosyanıza tavsiye değildir ve sizi temsil etmez.",
-    "ux9Disclaimer": "NexuLex bir hukuk bürosu değildir. Açıklama ürün aracıdır, avukat değildir."
+    "ux9Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux9Free": "Free explanations this month: {{freeExplains}}. This phone keeps the count.",
@@ -19,7 +19,7 @@ export const WAVE_UX9_I18N = {
     "ux9Verify": "Read the original yourself. Dates start from the day you received the paper, not from this screen.",
     "ux9Device": "NexuLex keeps the result on this phone unless you save it to a case or share it.",
     "ux9NoAdvice": "This is a reading aid. It is not advice for your case and does not represent you.",
-    "ux9Disclaimer": "NexuLex is not a law firm. An explanation is a product tool, not a lawyer."
+    "ux9Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux9Free": "Kostenlose Erklärungen diesen Monat: {{freeExplains}}. Dieses Telefon zählt sie.",
@@ -29,7 +29,7 @@ export const WAVE_UX9_I18N = {
     "ux9Verify": "Lesen Sie das Original selbst. Fristen beginnen am Tag des Empfangs, nicht auf diesem Bildschirm.",
     "ux9Device": "NexuLex behält das Ergebnis auf diesem Telefon, bis Sie es in eine Akte speichern oder teilen.",
     "ux9NoAdvice": "Das ist eine Lesehilfe. Keine Beratung für Ihre Sache und keine Vertretung.",
-    "ux9Disclaimer": "NexuLex ist keine Kanzlei. Eine Erklärung ist ein Produktwerkzeug, kein Anwalt."
+    "ux9Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux9Free": "Explications gratuites ce mois: {{freeExplains}}. Ce téléphone tient le compte.",
@@ -39,7 +39,7 @@ export const WAVE_UX9_I18N = {
     "ux9Verify": "Lisez l’original vous-même. Les délais partent du jour de réception, pas de cet écran.",
     "ux9Device": "NexuLex garde le résultat sur ce téléphone sauf si vous le sauvez dans un dossier ou le partagez.",
     "ux9NoAdvice": "C’est une aide a la lecture. Pas un conseil pour votre affaire et pas une représentation.",
-    "ux9Disclaimer": "NexuLex n’est pas un cabinet. Une explication est un outil produit, pas un avocat."
+    "ux9Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux9Free": "Explicaciones gratis este mes: {{freeExplains}}. Este teléfono guarda el recuento.",
@@ -49,7 +49,7 @@ export const WAVE_UX9_I18N = {
     "ux9Verify": "Lea usted el original. Los plazos empiezan el día que recibió el papel, no en esta pantalla.",
     "ux9Device": "NexuLex deja el resultado en este teléfono salvo que lo guarde en un expediente o lo comparta.",
     "ux9NoAdvice": "Es una ayuda de lectura. No es consejo para su caso y no le representa.",
-    "ux9Disclaimer": "NexuLex no es un bufete. Una explicación es una herramienta de producto, no un abogado."
+    "ux9Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux9Free": "الشروحات المجانية هذا الشهر: {{freeExplains}}. وهذا الهاتف يحفظ العد.",
@@ -59,7 +59,7 @@ export const WAVE_UX9_I18N = {
     "ux9Verify": "اقرأ الأصل بنفسك. والمواعيد تبدأ من يوم استلامك الورقة لا من هذه الشاشة.",
     "ux9Device": "يبقي NexuLex النتيجة على هذا الهاتف ما لم تحفظها في ملف أو تشاركها.",
     "ux9NoAdvice": "هذه مساعدة قراءة. وليست استشارة لقضيتك ولا تمثيلا لك.",
-    "ux9Disclaimer": "NexuLex ليس مكتب محاماة. والشرح أداة منتج وليست محاميا."
+    "ux9Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux9Free": "Spiegazioni gratis questo mese: {{freeExplains}}. Questo telefono tiene il conteggio.",
@@ -69,7 +69,7 @@ export const WAVE_UX9_I18N = {
     "ux9Verify": "Leggi tu l’originale. I termini partono dal giorno in cui hai ricevuto il foglio, non da questa schermata.",
     "ux9Device": "NexuLex tiene il risultato su questo telefono finché non lo salvi in una pratica o lo condividi.",
     "ux9NoAdvice": "È un aiuto alla lettura. Non è un parere per la tua pratica e non ti rappresenta.",
-    "ux9Disclaimer": "NexuLex non è uno studio. Una spiegazione è uno strumento di prodotto, non un avvocato."
+    "ux9Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux9Free": "本月免费解读：{{freeExplains}}。次数记在这台手机上。",
@@ -79,7 +79,7 @@ export const WAVE_UX9_I18N = {
     "ux9Verify": "请自行阅读原件。日期从您收到文件当天起算，不是从这个屏幕。",
     "ux9Device": "除非您存入案件或分享，NexuLex 将结果留在这台手机上。",
     "ux9NoAdvice": "这是阅读辅助。不是针对您案件的意见，也不代表您。",
-    "ux9Disclaimer": "NexuLex 不是律师事务所。解读是产品工具，不是律师。"
+    "ux9Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux9Free": "Бесплатных разборов в этом месяце: {{freeExplains}}. Счёт хранит этот телефон.",
@@ -89,7 +89,7 @@ export const WAVE_UX9_I18N = {
     "ux9Verify": "Прочитайте оригинал сами. Сроки идут со дня получения бумаги, не с этого экрана.",
     "ux9Device": "NexuLex хранит результат на этом телефоне, пока вы не сохраните его в дело или не отправите.",
     "ux9NoAdvice": "Это помощь в чтении. Не совет по вашему делу и не представительство.",
-    "ux9Disclaimer": "NexuLex не юридическая фирма. Разбор — инструмент продукта, не адвокат."
+    "ux9Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux9Free": "توضیح رایگان این ماه: {{freeExplains}}. شمارش روی همین تلفن می‌ماند.",
@@ -99,7 +99,7 @@ export const WAVE_UX9_I18N = {
     "ux9Verify": "اصل را خودتان بخوانید. تاریخ‌ها از روز دریافت برگه شروع می‌شوند نه از این صفحه.",
     "ux9Device": "NexuLex نتیجه را تا وقتی در پرونده ذخیره یا هم‌رسانی نکنید روی همین تلفن نگه می‌دارد.",
     "ux9NoAdvice": "این کمک خواندن است. مشاوره پرونده شما نیست و نمایندگی نمی‌کند.",
-    "ux9Disclaimer": "NexuLex دفتر وکالت نیست. توضیح ابزار محصول است، نه وکیل."
+    "ux9Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux9Free": "今月の無料読み解き: {{freeExplains}}。回数はこの電話が覚えます。",
@@ -109,7 +109,7 @@ export const WAVE_UX9_I18N = {
     "ux9Verify": "原本はご自分で読んでください。日付は書面を受け取った日から始まり、この画面からではありません。",
     "ux9Device": "案件に保存または共有しない限り、NexuLex は結果をこの電話に残します。",
     "ux9NoAdvice": "これは読みの助けです。あなたの事件への助言ではなく、代理でもありません。",
-    "ux9Disclaimer": "NexuLex は法律事務所ではありません。説明は製品の用具であり、弁護士ではありません。"
+    "ux9Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux9Free": "Explicações grátis este mês: {{freeExplains}}. Este telefone guarda a contagem.",
@@ -119,7 +119,7 @@ export const WAVE_UX9_I18N = {
     "ux9Verify": "Leia você o original. Os prazos começam no dia em que recebeu o papel, não neste ecrã.",
     "ux9Device": "A NexuLex guarda o resultado neste telefone até o guardar num processo ou o partilhar.",
     "ux9NoAdvice": "É uma ajuda de leitura. Não é conselho para o seu caso e não o representa.",
-    "ux9Disclaimer": "A NexuLex não é um escritório. Uma explicação é uma ferramenta de produto, não um advogado."
+    "ux9Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux9Free": "Gratis uitleg deze maand: {{freeExplains}}. Deze telefoon bewaart de telling.",
@@ -129,6 +129,6 @@ export const WAVE_UX9_I18N = {
     "ux9Verify": "Lees het origineel zelf. Termijnen starten op de dag van ontvangst, niet op dit scherm.",
     "ux9Device": "NexuLex houdt het resultaat op deze telefoon tot u het in een dossier bewaart of deelt.",
     "ux9NoAdvice": "Dit is een leeshulp. Geen advies voor uw zaak en geen vertegenwoordiging.",
-    "ux9Disclaimer": "NexuLex is geen advocatenkantoor. Een uitleg is een producthulp, geen advocaat."
+    "ux9Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

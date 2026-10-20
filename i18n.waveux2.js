@@ -9,7 +9,7 @@ export const WAVE_UX2_I18N = {
     "ux2Intent": "Sonra ilk işi seçersiniz. Adım adım rehberler kilitlenmez.",
     "ux2Change": "Dil veya ülke yanlışsa aşağıdaki düğmeleri kullanın.",
     "ux2Settings": "Ayarlar dil, ülke ve hesap silme denetimlerini tutmaya devam eder.",
-    "ux2Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu koridor başlangıçtır, hukuki danışmanlık değildir."
+    "ux2Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux2Hint": "Language is the interface. Country is the law corridor. You can change both later in Settings.",
@@ -19,7 +19,7 @@ export const WAVE_UX2_I18N = {
     "ux2Intent": "Next you pick a first job. Step-by-step guides never lock.",
     "ux2Change": "Use the buttons below if this language or country is wrong.",
     "ux2Settings": "Settings still keep the language, country and delete-account controls.",
-    "ux2Disclaimer": "NexuLex is not a law firm. This corridor is a starting point, not legal advice."
+    "ux2Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux2Hint": "Die Sprache ist die Oberfläche. Das Land ist der Rechtskorridor. Beides ändern Sie später in den Einstellungen.",
@@ -29,7 +29,7 @@ export const WAVE_UX2_I18N = {
     "ux2Intent": "Als Nächstes wählen Sie eine erste Aufgabe. Schritt-für-Schritt-Leitfäden bleiben offen.",
     "ux2Change": "Nutzen Sie die Tasten unten, wenn Sprache oder Land falsch sind.",
     "ux2Settings": "Einstellungen behalten weiter Sprache, Land und die Kontolöschung.",
-    "ux2Disclaimer": "NexuLex ist keine Anwaltskanzlei. Dieser Korridor ist ein Startpunkt, keine Rechtsberatung."
+    "ux2Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux2Hint": "La langue est l’interface. Le pays est le corridor juridique. Vous pourrez changer les deux plus tard dans Réglages.",
@@ -39,7 +39,7 @@ export const WAVE_UX2_I18N = {
     "ux2Intent": "Ensuite vous choisissez un premier travail. Les guides pas à pas ne se verrouillent jamais.",
     "ux2Change": "Utilisez les boutons ci-dessous si cette langue ou ce pays est faux.",
     "ux2Settings": "Réglages garde encore la langue, le pays et les commandes de suppression de compte.",
-    "ux2Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce corridor est un point de départ, pas un conseil juridique."
+    "ux2Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux2Hint": "El idioma es la interfaz. El país es el corredor jurídico. Ambos se cambian luego en Ajustes.",
@@ -49,7 +49,7 @@ export const WAVE_UX2_I18N = {
     "ux2Intent": "Luego elige un primer trabajo. Las guías paso a paso no se bloquean.",
     "ux2Change": "Use los botones de abajo si este idioma o país es incorrecto.",
     "ux2Settings": "Ajustes sigue guardando el idioma, el país y los controles de borrar cuenta.",
-    "ux2Disclaimer": "NexuLex no es un despacho de abogados. Este corredor es un punto de partida, no asesoramiento jurídico."
+    "ux2Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux2Hint": "اللغة هي الواجهة. البلد هو الممر القانوني. يمكنك تغييرهما لاحقا من الإعدادات.",
@@ -59,7 +59,7 @@ export const WAVE_UX2_I18N = {
     "ux2Intent": "بعد ذلك تختار أول مهمة. الأدلة خطوة بخطوة لا تُقفل.",
     "ux2Change": "استخدم الأزرار أدناه إذا كانت هذه اللغة أو هذا البلد خاطئين.",
     "ux2Settings": "الإعدادات ما زالت تحتفظ بضوابط اللغة والبلد وحذف الحساب.",
-    "ux2Disclaimer": "NexuLex ليس مكتب محاماة. هذا الممر نقطة بداية وليس استشارة قانونية."
+    "ux2Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux2Hint": "La lingua è l’interfaccia. Il paese è il corridoio giuridico. Entrambi si cambiano dopo in Impostazioni.",
@@ -69,7 +69,7 @@ export const WAVE_UX2_I18N = {
     "ux2Intent": "Poi scegli un primo lavoro. Le guide passo passo non si bloccano.",
     "ux2Change": "Usa i pulsanti sotto se lingua o paese sono sbagliati.",
     "ux2Settings": "Impostazioni tiene ancora lingua, paese e i comandi per eliminare l’account.",
-    "ux2Disclaimer": "NexuLex non è uno studio legale. Questo corridoio è un punto di partenza, non consulenza legale."
+    "ux2Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux2Hint": "语言是界面。国家是法律走廊。两者之后都可在设置中更改。",
@@ -79,7 +79,7 @@ export const WAVE_UX2_I18N = {
     "ux2Intent": "接下来选择第一项工作。分步指南永不锁定。",
     "ux2Change": "若此语言或国家不对，请使用下方按钮。",
     "ux2Settings": "设置仍保留语言、国家与删除账户控件。",
-    "ux2Disclaimer": "NexuLex 不是律师事务所。此走廊是起点，不是法律意见。"
+    "ux2Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux2Hint": "Язык — это интерфейс. Страна — правовой коридор. Оба потом меняются в настройках.",
@@ -89,7 +89,7 @@ export const WAVE_UX2_I18N = {
     "ux2Intent": "Дальше вы выбираете первую задачу. Пошаговые гиды не блокируются.",
     "ux2Change": "Нажмите кнопки ниже, если язык или страна неверны.",
     "ux2Settings": "Настройки по-прежнему хранят язык, страну и удаление аккаунта.",
-    "ux2Disclaimer": "NexuLex не юридическая фирма. Этот коридор — старт, а не юридическая консультация."
+    "ux2Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux2Hint": "زبان رابط است. کشور راهروی حقوقی است. هر دو را بعدا در تنظیمات عوض می‌کنید.",
@@ -99,7 +99,7 @@ export const WAVE_UX2_I18N = {
     "ux2Intent": "بعد نخستین کار را برمی‌گزینید. راهنماهای گام‌به‌گام قفل نمی‌شوند.",
     "ux2Change": "اگر این زبان یا کشور نادرست است دکمه‌های پایین را به کار ببرید.",
     "ux2Settings": "تنظیمات همچنان زبان، کشور و کنترل حذف حساب را نگه می‌دارد.",
-    "ux2Disclaimer": "NexuLex دفتر وکالت نیست. این راهرو نقطه آغاز است، نه مشاوره حقوقی."
+    "ux2Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux2Hint": "言語は画面です。国は法の回廊です。どちらも後から設定で変えられます。",
@@ -109,7 +109,7 @@ export const WAVE_UX2_I18N = {
     "ux2Intent": "次に最初の作業を選びます。手順ガイドはロックされません。",
     "ux2Change": "この言語や国が違う場合は下のボタンを使ってください。",
     "ux2Settings": "設定には言語、国、アカウント削除の操作が残ります。",
-    "ux2Disclaimer": "NexuLex は法律事務所ではありません。この回廊は出発点であり、法的助言ではありません。"
+    "ux2Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux2Hint": "A língua é a interface. O país é o corredor jurídico. Ambos mudam depois nas Definições.",
@@ -119,7 +119,7 @@ export const WAVE_UX2_I18N = {
     "ux2Intent": "A seguir escolhe um primeiro trabalho. Os guias passo a passo nunca bloqueiam.",
     "ux2Change": "Use os botões abaixo se esta língua ou este país estiver errado.",
     "ux2Settings": "As Definições ainda guardam a língua, o país e os controlos de apagar a conta.",
-    "ux2Disclaimer": "A NexuLex não é um escritório de advogados. Este corredor é um ponto de partida, não aconselhamento jurídico."
+    "ux2Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux2Hint": "Taal is de interface. Land is de juridische corridor. Beide wijzigt u later in Instellingen.",
@@ -129,6 +129,6 @@ export const WAVE_UX2_I18N = {
     "ux2Intent": "Daarna kiest u een eerste taak. Stapsgewijze gidsen vergrendelen nooit.",
     "ux2Change": "Gebruik de knoppen hieronder als deze taal of dit land fout is.",
     "ux2Settings": "Instellingen houdt nog steeds taal, land en accountverwijdering bij.",
-    "ux2Disclaimer": "NexuLex is geen advocatenkantoor. Deze corridor is een startpunt, geen juridisch advies."
+    "ux2Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

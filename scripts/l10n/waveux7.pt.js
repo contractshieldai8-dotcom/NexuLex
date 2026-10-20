@@ -7,5 +7,5 @@ module.exports = {
   ux7Brief: 'O resumo para o advogado está no plano Pro pago. É um resumo que partilha, não um articulado em tribunal.',
   ux7NoWin: 'Um processo não prevê um resultado em tribunal e não o representa.',
   ux7Share: 'Um lugar da casa pode ler um resumo que partilha. Não abre o contrato original a partir deste ficheiro.',
-  ux7Disclaimer: 'A NexuLex não é um escritório. Os processos são ferramentas de produto, não aconselhamento jurídico.',
+  ux7Disclaimer: "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico.",
 };

@@ -6,6 +6,5 @@ module.exports = {
   st4SupportHint: '请用您的语言写。我们回复应用、恢复购买与账户访问。',
   st4Security: '新密码由登录服务保存。NexuLex 员工无法读取。',
   st4SecurityHint: '更改密码不会取消 App Store 或 Google Play 订阅。',
-  st4Plan: 'Professional 提高席位上限。订阅仍由商店管理。',
-  st4Disclaimer: 'NexuLex 不是律师事务所。支持与席位是产品工具，不是法律意见。',
+  st4Plan: 'Professional 提高席位上限。订阅仍由商店管理。'
 };

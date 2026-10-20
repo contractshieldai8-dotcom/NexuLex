@@ -12,7 +12,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { ACCENT, DANGER, SUCCESS, WARNING, darkTheme, styles as appStyles } from '../theme';
+import { ACCENT, ACCENT_ALT, DANGER, SUCCESS, WARNING, darkTheme, styles as appStyles, toneText } from '../theme';
 
 const FeedbackContext = createContext(null);
 
@@ -20,7 +20,7 @@ const TONE = {
   success: SUCCESS,
   error: DANGER,
   warning: WARNING,
-  info: ACCENT,
+  info: ACCENT_ALT,
 };
 
 export function FeedbackProvider({ children, theme = darkTheme }) {
@@ -118,7 +118,7 @@ export function FeedbackProvider({ children, theme = darkTheme }) {
             <Ionicons
               name={toast.type === 'success' ? 'checkmark-circle' : toast.type === 'error' ? 'alert-circle' : 'information-circle'}
               size={18}
-              color={TONE[toast.type] || theme.accent}
+              color={toneText(TONE[toast.type]) || theme.accent}
             />
             <Text style={[feedbackStyles.toastText, { color: theme.text }]}>{toast.message}</Text>
           </View>

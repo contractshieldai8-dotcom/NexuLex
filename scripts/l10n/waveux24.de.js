@@ -7,5 +7,5 @@ module.exports = {
   ux24New: 'Einen neuen Scan starten',
   ux24Report: 'Zur Entscheidungskarte',
   ux24Guides: 'Schritt-für-Schritt-Leitfäden',
-  ux24Disclaimer: 'NexuLex ist keine Kanzlei. Diese Kürzel sind ein Produktwerkzeug, kein Anwalt.',
+  ux24Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

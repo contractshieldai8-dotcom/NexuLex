@@ -7,5 +7,5 @@ module.exports = {
   ux18Jobs: 'Dört tür: bitmemiş metin, son dosya, son soru, son rapor.',
   ux18NoWin: 'Burada sonuç vaadi veya avukat sıralaması yoktur.',
   ux18Guides: 'Adım adım rehberler her durumda açık kalır.',
-  ux18Disclaimer: 'NexuLex bir hukuk bürosu değildir. Devam kartı ürün aracıdır, avukat değildir.',
+  ux18Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

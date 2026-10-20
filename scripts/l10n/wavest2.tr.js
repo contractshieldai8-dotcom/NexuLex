@@ -7,5 +7,5 @@ module.exports = {
   st2Sub: 'Hesabı silmek App Store veya Google Play aboneliğini iptal etmez. Mağazadan yönetin.',
   st2Quota: 'Ücretsiz kota cihaz kaydı silmeden sonra hesaba bağlı kalmaz; yalnızca tekrar ücretsiz talep engellenir.',
   st2WebDelete: 'Uygulamasız hesap sil',
-  st2Disclaimer: 'NexuLex bir hukuk bürosu değildir. Gizlilik sayfaları değişebilir; kendiniz okuyun.',
+  st2Disclaimer: "NexuLex bir hukuk bürosu değildir. Uygulama genel bilgi sunar, hukuki tavsiye vermez; ücretli plan yalnızca özelliklerin kilidini açar, avukatlık hizmeti içermez.",
 };

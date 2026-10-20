@@ -37,7 +37,7 @@ export async function compressImage(uri, knownWidth) {
   return out;
 }
 
-export default function ContractAnalyzer({ onImagesReady, disabled, imageCount = 0 }) {
+export default function ContractAnalyzer({ onImagesReady, disabled, imageCount = 0, theme }) {
   const { t } = useTranslation();
   const { showToast } = useFeedback();
   const [picking, setPicking] = useState(false);
@@ -97,17 +97,22 @@ export default function ContractAnalyzer({ onImagesReady, disabled, imageCount =
 
   return (
     <TouchableOpacity
-      style={[styles.uploadButton, busy && styles.disabled]}
+      accessibilityRole="button"
+      style={[
+        styles.uploadButton,
+        theme ? { backgroundColor: theme.surfaceRaised, borderColor: theme.accentBorder, shadowColor: theme.accent } : null,
+        busy && styles.disabled,
+      ]}
       onPress={pickImages}
       disabled={busy}
     >
       {picking ? (
-        <ActivityIndicator color="#FFFFFF" />
+        <ActivityIndicator color={theme ? theme.accent : '#FFFFFF'} />
       ) : (
         <View style={styles.row}>
-          <Ionicons name="scan-outline" size={18} color={ACCENT} />
+          <Ionicons name="scan-outline" size={18} color={theme ? theme.accent : ACCENT} />
           <Text
-            style={styles.uploadButtonText}
+            style={[styles.uploadButtonText, theme ? { color: theme.text } : null]}
             numberOfLines={1}
             adjustsFontSizeToFit
             minimumFontScale={0.8}
@@ -128,7 +133,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#172238',
     paddingVertical: 12,
     paddingHorizontal: 12,
-    borderRadius: 8,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 44,

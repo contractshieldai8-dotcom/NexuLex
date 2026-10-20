@@ -9,7 +9,7 @@ export const WAVE_UX5_I18N = {
     "ux5Guides": "Rehberler asla kilitlenmez. Diğer yongalar sonra kota kullanabilecek araçlar açar.",
     "ux5Lawyer": "Avukat bul resmî rehberleri açar. NexuLex avukat önermez ve sıralamaz.",
     "ux5NoWin": "Tarama mahkeme sonucu öngörmez ve sizi temsil etmez.",
-    "ux5Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu yongalar ürün yollarıdır, hukuki tavsiye değildir."
+    "ux5Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux5Country": "{{country}} is the law corridor for this scan. It is not a court.",
@@ -19,7 +19,7 @@ export const WAVE_UX5_I18N = {
     "ux5Guides": "Guides never lock. The other chips open tools that may later use a quota.",
     "ux5Lawyer": "Find a lawyer opens official directories. NexuLex does not recommend or rank lawyers.",
     "ux5NoWin": "A scan does not predict a court result and does not represent you.",
-    "ux5Disclaimer": "NexuLex is not a law firm. These chips are product paths, not legal advice."
+    "ux5Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux5Country": "{{country}} ist der Rechtskorridor für diesen Scan. Es ist kein Gericht.",
@@ -29,7 +29,7 @@ export const WAVE_UX5_I18N = {
     "ux5Guides": "Leitfäden sperren nie. Die anderen Chips öffnen Werkzeuge, die später ein Kontingent nutzen können.",
     "ux5Lawyer": "Anwalt finden oeffnet amtliche Verzeichnisse. NexuLex empfiehlt und rangiert keine Anwälte.",
     "ux5NoWin": "Ein Scan sagt kein Gerichtsergebnis voraus und vertritt Sie nicht.",
-    "ux5Disclaimer": "NexuLex ist keine Kanzlei. Diese Chips sind Produktwege, keine Rechtsberatung."
+    "ux5Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux5Country": "{{country}} est le corridor de droit pour cette analyse. Ce n’est pas un tribunal.",
@@ -39,7 +39,7 @@ export const WAVE_UX5_I18N = {
     "ux5Guides": "Les guides ne se verrouillent jamais. Les autres puces ouvrent des outils qui peuvent plus tard user un quota.",
     "ux5Lawyer": "Trouver un avocat ouvre des annuaires officiels. NexuLex ne recommande ni ne classe d’avocats.",
     "ux5NoWin": "Une analyse ne prédit pas un résultat de tribunal et ne vous représente pas.",
-    "ux5Disclaimer": "NexuLex n’est pas un cabinet. Ces puces sont des chemins produit, pas un conseil juridique."
+    "ux5Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux5Country": "{{country}} es el corredor legal de este análisis. No es un tribunal.",
@@ -49,7 +49,7 @@ export const WAVE_UX5_I18N = {
     "ux5Guides": "Las guías nunca se bloquean. Los otros chips abren herramientas que luego pueden usar una cuota.",
     "ux5Lawyer": "Buscar un abogado abre directorios oficiales. NexuLex no recomienda ni clasifica abogados.",
     "ux5NoWin": "Un análisis no predice un resultado judicial y no le representa.",
-    "ux5Disclaimer": "NexuLex no es un bufete. Estos chips son caminos de producto, no asesoramiento jurídico."
+    "ux5Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux5Country": "{{country}} هو ممر القانون لهذا الفحص. وليس محكمة.",
@@ -59,7 +59,7 @@ export const WAVE_UX5_I18N = {
     "ux5Guides": "الأدلة لا تُقفل أبدا. والرقاقات الأخرى تفتح أدوات قد تستخدم حصة لاحقا.",
     "ux5Lawyer": "ابحث عن محام يفتح أدلة رسمية. ولا يوصي NexuLex بمحامين ولا يرتّبهم.",
     "ux5NoWin": "الفحص لا يتوقع نتيجة محكمة ولا يمثلك.",
-    "ux5Disclaimer": "NexuLex ليس مكتب محاماة. وهذه الرقاقات مسارات منتج وليست استشارة قانونية."
+    "ux5Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux5Country": "{{country}} è il corridoio di diritto di questa scansione. Non è un tribunale.",
@@ -69,7 +69,7 @@ export const WAVE_UX5_I18N = {
     "ux5Guides": "Le guide non si bloccano mai. Gli altri chip aprono strumenti che poi possono usare una quota.",
     "ux5Lawyer": "Trova un avvocato apre elenchi ufficiali. NexuLex non raccomanda ne classifica avvocati.",
     "ux5NoWin": "Una scansione non predice un esito in tribunale e non ti rappresenta.",
-    "ux5Disclaimer": "NexuLex non è uno studio. Questi chip sono percorsi di prodotto, non consulenza legale."
+    "ux5Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux5Country": "{{country}} 是本次扫描的法律走廊。不是法院。",
@@ -79,7 +79,7 @@ export const WAVE_UX5_I18N = {
     "ux5Guides": "指南从不锁定。其他芯片会打开之后可能使用额度的工具。",
     "ux5Lawyer": "找律师会打开官方名录。NexuLex 不推荐、不排名律师。",
     "ux5NoWin": "扫描不预测法庭结果，也不代表您。",
-    "ux5Disclaimer": "NexuLex 不是律师事务所。这些芯片是产品路径，不是法律意见。"
+    "ux5Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux5Country": "{{country}} — правовой коридор этой проверки. Это не суд.",
@@ -89,7 +89,7 @@ export const WAVE_UX5_I18N = {
     "ux5Guides": "Гиды никогда не блокируются. Другие чипы открывают инструменты, которые потом могут тратить квоту.",
     "ux5Lawyer": "Найти адвоката открывает официальные справочники. NexuLex не рекомендует и не ранжирует адвокатов.",
     "ux5NoWin": "Проверка не предсказывает исход суда и не представляет вас.",
-    "ux5Disclaimer": "NexuLex не юридическая фирма. Эти чипы — пути продукта, не юридическая консультация."
+    "ux5Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux5Country": "{{country}} کریدور حقوقی این بررسی است. دادگاه نیست.",
@@ -99,7 +99,7 @@ export const WAVE_UX5_I18N = {
     "ux5Guides": "راهنماها هرگز قفل نمی‌شوند. تراشه‌های دیگر ابزارهایی می‌گشایند که بعداً ممکن است سهمیه مصرف کنند.",
     "ux5Lawyer": "یافتن وکیل فهرست‌های رسمی را باز می‌کند. NexuLex وکیل توصیه یا رتبه‌بندی نمی‌کند.",
     "ux5NoWin": "بررسی نتیجه دادگاه را پیش‌بینی نمی‌کند و شما را نمایندگی نمی‌کند.",
-    "ux5Disclaimer": "NexuLex دفتر وکالت نیست. این تراشه‌ها مسیر محصول‌اند، نه مشاوره حقوقی."
+    "ux5Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux5Country": "{{country}} はこの確認の法の廊下です。裁判所ではありません。",
@@ -109,7 +109,7 @@ export const WAVE_UX5_I18N = {
     "ux5Guides": "ガイドは決してロックされません。他のチップは、後で回数を使うことがある用具を開きます。",
     "ux5Lawyer": "弁護士を探すと公式名簿が開きます。NexuLex は弁護士を勧めず、順位も付けません。",
     "ux5NoWin": "確認は裁判の結果を予測せず、あなたを代理しません。",
-    "ux5Disclaimer": "NexuLex は法律事務所ではありません。これらのチップは製品の道であり、法的助言ではありません。"
+    "ux5Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux5Country": "{{country}} é o corredor legal desta análise. Não é um tribunal.",
@@ -119,7 +119,7 @@ export const WAVE_UX5_I18N = {
     "ux5Guides": "Os guias nunca bloqueiam. Os outros chips abrem ferramentas que depois podem usar uma quota.",
     "ux5Lawyer": "Encontrar um advogado abre diretórios oficiais. A NexuLex não recomenda nem classifica advogados.",
     "ux5NoWin": "Uma análise não prevê um resultado em tribunal e não o representa.",
-    "ux5Disclaimer": "A NexuLex não é um escritório. Estes chips são caminhos de produto, não aconselhamento jurídico."
+    "ux5Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux5Country": "{{country}} is de rechtscorridor voor deze scan. Het is geen rechtbank.",
@@ -129,6 +129,6 @@ export const WAVE_UX5_I18N = {
     "ux5Guides": "Gidsen vergrendelen nooit. De andere chips openen hulpmiddelen die later een quotum kunnen gebruiken.",
     "ux5Lawyer": "Advocaat vinden opent officiele gidsen. NexuLex beveelt geen advocaten aan en rangschikt ze niet.",
     "ux5NoWin": "Een scan voorspelt geen rechterlijke uitkomst en vertegenwoordigt u niet.",
-    "ux5Disclaimer": "NexuLex is geen advocatenkantoor. Deze chips zijn productpaden, geen juridisch advies."
+    "ux5Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

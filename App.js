@@ -16,6 +16,7 @@ import {
   Keyboard,
   I18nManager,
   AppState,
+  Appearance,
   Share,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -52,8 +53,8 @@ import { parseShareCode, SHARE_CODE_RE } from './utils/shareSnapshot';
 import { buildHistoryCompareSeed } from './utils/historyCompare';
 import { readOwnedFile, writeOwnedBase64, isExpoGoUri, trySaveBase64ViaSaf } from './utils/fileAccess';
 import { paginatePlainBody } from './utils/exportPlain';
-import { darkTheme, lightTheme, getRiskColor, badgeLabelStyle, styles, ACCENT, DANGER, WARNING, alignStart } from './theme';
-import { normalizeAnalysis, getKeyTakeaways, escapeHtml, applyFreePreview, toDecisionCardPayload, pickPaywallHook, hasHiddenCosts, integrityHasWarnings, safeDisplayText, ensureTrapCalendar, FROST_TRAP_DATES, legalStatusKey, legalStatusEmoji, meaningfulRedFlags, buildAdvisorAnalysisContext, userSignConditions, isBillableAnalysis, isAcceptableAnalysis, isPlaceholderText, buildLocalRadarPreview, pickCounterOffer, countOfferTiers, buildReadyToSendMessage } from './utils/analysis';
+import { darkTheme, lightTheme, getRiskColor, getRiskTextColor, badgeLabelStyle, styles, setActiveThemeMode, ACCENT, DANGER, WARNING, alignStart } from './theme';
+import { normalizeAnalysis, getKeyTakeaways, escapeHtml, applyFreePreview, toDecisionCardPayload, pickPaywallHook, hasHiddenCosts, integrityHasWarnings, safeDisplayText, ensureTrapCalendar, FROST_TRAP_DATES, legalStatusKey, legalStatusIcon, meaningfulRedFlags, buildAdvisorAnalysisContext, userSignConditions, isBillableAnalysis, isAcceptableAnalysis, isPlaceholderText, buildLocalRadarPreview, pickCounterOffer, countOfferTiers, buildReadyToSendMessage } from './utils/analysis';
 import { describeError } from './utils/errors';
 import { loadStoredLanguage, setAppLanguage } from './utils/language';
 import { loadStoredParty, savePartyRole } from './utils/party';
@@ -123,6 +124,10 @@ import {
 } from './components/AnalysisLayers';
 import DiffTool from './components/DiffTool';
 import HonestyFold from './components/HonestyFold';
+import LegalRef from './components/LegalRef';
+import BrandMark from './components/BrandMark';
+import PlanQuotaTable from './components/PlanQuotaTable';
+import SettingsGroupHeader from './components/SettingsGroupHeader';
 import ShieldDocumentCard from './components/ShieldDocumentCard';
 import NexuLexGuideSheet from './components/NexuLexGuideSheet';
 import FirstIntentSheet from './components/FirstIntentSheet';
@@ -159,7 +164,7 @@ import {
 import { leadKey } from './utils/reminderLead';
 import { LIFECYCLES, lifecycleLabelKey, normalizeLifecycle } from './utils/lifecycle';
 import { resolveSourceText } from './utils/shieldDocument';
-import { PLAN_LIMITS, planOf } from './utils/plan';
+import { planOf } from './utils/plan';
 import { syncEntitlement } from './services/purchases';
 import { useFeedback, FeedbackProvider } from './context/FeedbackContext';
 import { AdvisorChatProvider, useAdvisorChat } from './context/AdvisorChatContext';
@@ -170,6 +175,7 @@ import { corridorMessage } from './constants/localeCorridor';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LAST_ANALYSIS_KEY = '@nexulex/last_analysis_id';
+const THEME_MODE_KEY = '@nexulex/theme_mode';
 const GUIDE_ITEM_TYPES = { openCalculator: 'calculator', openDraft: 'draft', openScenario: 'scenario' };
 
 // Analiz butonunda gösterilecek dinamik durum metinleri.
@@ -239,6 +245,28 @@ function AppContent() {
   const [activeTab, setActiveTab] = useState('analyze');
   const [guideVisible, setGuideVisible] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  // Shared style keys that carry the champagne accent resolve to the bronze variant on light surfaces.
+  setActiveThemeMode(isDarkMode ? 'dark' : 'light');
+  // Remember the chosen appearance across launches (it used to reset to dark every start).
+  useEffect(() => {
+    let alive = true;
+    AsyncStorage.getItem(THEME_MODE_KEY)
+      .then((stored) => {
+        if (alive && stored === 'light') setIsDarkMode(false);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
+  // Keep native chrome (keyboard, system dialogs, status icons) in step with the in-app theme.
+  useEffect(() => {
+    try {
+      Appearance.setColorScheme(isDarkMode ? 'dark' : 'light');
+    } catch {
+      /* older runtimes: ignore */
+    }
+  }, [isDarkMode]);
   const [contractText, setContractText] = useState('');
   const [localRadarPreview, setLocalRadarPreview] = useState(null);
   const [selectedTypeKey, setSelectedTypeKey] = useState('typeGeneral');
@@ -720,6 +748,14 @@ function AppContent() {
       if (cancelled) return;
       setAnalysisCountry(country);
       if (!storedCountry) persistJurisdiction(country).catch(() => {});
+      // Resolve the saved appearance BEFORE the splash hides so light-mode users never see a dark flash.
+      try {
+        const storedMode = await AsyncStorage.getItem(THEME_MODE_KEY);
+        if (!cancelled && storedMode === 'light') setIsDarkMode(false);
+      } catch {
+        /* default (dark) stays */
+      }
+      if (cancelled) return;
       setLocaleReady(true);
     };
 
@@ -2925,12 +2961,15 @@ function AppContent() {
     setPendingShareCode(code);
   };
 
-  const renderShareCodeEntry = () => (
-    <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginTop: 8, marginBottom: 14 }]}>
-      <Text style={[styles.settingLabel, { color: theme.text }]}>{t('shareEnterCode')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
-        {t('shareEnterCodeHint')}
-      </Text>
+  // compact: History tab shows the code box as one slim row so the saved analyses stay above the fold.
+  const renderShareCodeEntry = (compact = false) => (
+    <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginTop: 8, marginBottom: compact ? 4 : 14 }, compact ? { paddingVertical: 10 } : null]}>
+      <Text style={[styles.settingLabel, { color: theme.text, marginBottom: compact ? 6 : undefined }]}>{t('shareEnterCode')}</Text>
+      {compact ? null : (
+        <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
+          {t('shareEnterCodeHint')}
+        </Text>
+      )}
       <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
         <TextInput
           style={[
@@ -3113,18 +3152,18 @@ function AppContent() {
             </Text>
 
             {flag.legalReference ? (
-              <Text style={styles.legalReference}>
-                ⚖ {t('legalReferenceLabel')}: {safeDisplayText(flag.legalReference)}
-              </Text>
+              <LegalRef theme={theme} label={t('legalReferenceLabel')}>
+                {safeDisplayText(flag.legalReference)}
+              </LegalRef>
             ) : (() => {
               const book = getPlaybook(analysis?.contractCategory || categoryFromTypeKey(selectedTypeKey));
               const fallback = (book?.items || [])
                 .map((item) => statuteFor(item, analysisCountry))
                 .find((cite) => cite && /[§]|m\.\s*\d|Art\.|المادة|ст\./i.test(cite));
               return fallback ? (
-                <Text style={styles.legalReference}>
-                  ⚖ {t('legalReferenceLabel')}: {fallback}
-                </Text>
+                <LegalRef theme={theme} label={t('legalReferenceLabel')}>
+                  {fallback}
+                </LegalRef>
               ) : null;
             })()}
 
@@ -3263,11 +3302,15 @@ function AppContent() {
                 ),
                 alignSelf: 'flex-start',
                 marginBottom: 8,
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 4,
               },
             ]}
           >
+            <Ionicons name={legalStatusIcon(item.legalStatus)} size={12} color="#080C14" />
             <Text style={styles.statusChipText} numberOfLines={1}>
-              {legalStatusEmoji(item.legalStatus)} {t(legalStatusKey(item.legalStatus))}
+              {t(legalStatusKey(item.legalStatus))}
             </Text>
           </View>
         ) : null}
@@ -3286,9 +3329,9 @@ function AppContent() {
         </View>
 
         {safeDisplayText(item.legalReference) ? (
-          <Text style={styles.legalReference}>
-            ⚖ {t('legalReferenceLabel')}: {safeDisplayText(item.legalReference)}
-          </Text>
+          <LegalRef theme={theme} label={t('legalReferenceLabel')}>
+            {safeDisplayText(item.legalReference)}
+          </LegalRef>
         ) : null}
 
         {(item.legalStatus === 'VOID' || item.legalStatus === 'PARTIALLY_VOID') && item.cancellationRight ? (
@@ -3379,9 +3422,22 @@ function AppContent() {
         PARTY_ROLES[0];
       const roleLabel = role?.labelKey ? t(role.labelKey) : '';
       const name = String(partyDisplayName || '').trim();
+      // Real, already-visible findings from the user's own preview: shown on the paywall as the reason to unlock.
+      let findings = null;
+      if (analysis?.isPreview) {
+        const top = (analysis.redFlags || [])[0];
+        const lc = analysis.lockedCounts || {};
+        findings = {
+          topRisk: String(top?.title || top?.clauseTitle || top?.explanation || top?.issue || '').trim().slice(0, 140),
+          lockedRisks: (lc.redFlags || 0) + (lc.clauses || 0),
+          lockedFixes: lc.proposals || 0,
+          hasMessage: Boolean(lc.hasCounterMessage),
+        };
+      }
       return {
         partyLabel: name || roleLabel,
         estimatedHarm: String(analysis?.decision?.estimatedHarm || '').trim(),
+        findings,
       };
     };
     const unlock = () => openPaywall(pickPaywallHook(analysis) || 'negotiate', paywallCtx());
@@ -3572,7 +3628,7 @@ function AppContent() {
 
         <View style={[styles.scoreCard, { backgroundColor: theme.cardBg, borderColor: getRiskColor(analysis.risk) }]}>
           <Text style={[styles.scoreTitle, { color: theme.subText }]}>{t('securityScore')}</Text>
-          <Text style={[styles.scoreValue, { color: getRiskColor(analysis.risk) }]}>
+          <Text style={[styles.scoreValue, { color: getRiskTextColor(analysis.risk) }]}>
             {analysis.score} / 100
           </Text>
 
@@ -3804,11 +3860,11 @@ function AppContent() {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={theme.bg} />
       
       {/* Üst Başlık — opaque sticky so scroll content cannot bleed under tabs */}
-      <View style={[styles.topHeader, { backgroundColor: theme.bg, zIndex: 20, elevation: 20 }]}>
+      <View style={[styles.topHeader, { backgroundColor: theme.bg, zIndex: 20, elevation: isDarkMode ? 20 : 6 }]}>
         <View style={styles.brandRow}>
           <View style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 1 }}>
-            <Image source={BRAND_MARK} style={{ width: 26, height: 26, marginRight: 8 }} resizeMode="contain" accessible={false} />
-            <Text style={[styles.title, { color: theme.text }]}>
+            <BrandMark size={26} isDarkMode={isDarkMode} style={{ marginRight: 8 }} />
+            <Text style={[styles.title, { color: theme.text }]} maxFontSizeMultiplier={1.2} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>
               NEXULEX <Text style={{ color: theme.accent }}>AI</Text>
             </Text>
           </View>
@@ -3822,11 +3878,11 @@ function AppContent() {
                 { backgroundColor: theme.cardBg, borderColor: theme.borderColor },
               ]}
             >
-              <Ionicons name="compass-outline" size={20} color={theme.accent} />
+              <Ionicons name="compass-outline" size={20} color={theme.accentAlt} />
             </TouchableOpacity>
           ) : null}
         </View>
-        <Text style={[styles.tagline, { color: theme.subText }]}>{t('tagline')}</Text>
+        <Text style={[styles.tagline, { color: theme.subText }]} maxFontSizeMultiplier={1.3}>{t('tagline')}</Text>
 
         {user && (
           <View style={[styles.tabBar, { borderColor: theme.borderColor, backgroundColor: theme.cardBg }]}>
@@ -3861,6 +3917,7 @@ function AppContent() {
                     numberOfLines={1}
                     adjustsFontSizeToFit
                     minimumFontScale={0.8}
+                    maxFontSizeMultiplier={1.25}
                   >
                     {tab.label}
                   </Text>
@@ -3874,7 +3931,7 @@ function AppContent() {
       {!user ? (
         <KeyboardScreen contentContainerStyle={{ padding: 20 }}>
           <View style={{ alignItems: 'center', marginBottom: 16 }}>
-            <Image source={BRAND_MARK} style={{ width: 84, height: 84 }} resizeMode="contain" accessible={false} />
+            <BrandMark size={84} isDarkMode={isDarkMode} />
           </View>
           {forgotPasswordMode ? (
             <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor }]}>
@@ -3896,7 +3953,7 @@ function AppContent() {
             </View>
           ) : (
             <>
-              <Auth onLoginSuccess={(u) => setUser(u)} />
+              <Auth onLoginSuccess={(u) => setUser(u)} theme={theme} />
               <TouchableOpacity accessibilityRole="button" style={{ marginTop: 15 }} onPress={() => setForgotPasswordMode(true)}>
                 <Text style={{ color: theme.subText, textAlign: 'center', fontSize: 13 }}>{t('forgotPasswordTitle')}?</Text>
               </TouchableOpacity>
@@ -4430,6 +4487,7 @@ function AppContent() {
               <>
               <View style={{ flexDirection: 'row', gap: 10, marginBottom: 12 }}>
                 <ContractAnalyzer
+                  theme={theme}
                   disabled={loading}
                   imageCount={selectedImages.length}
                   onImagesReady={(images) => {
@@ -4447,14 +4505,14 @@ function AppContent() {
                 />
 
                 <TouchableOpacity accessibilityRole="button" 
-                  style={[styles.uploadButton, { flex: 1, backgroundColor: '#172238', borderWidth: 1, borderColor: 'rgba(125, 167, 227, 0.4)' }]} 
+                  style={[styles.uploadButton, { flex: 1, backgroundColor: theme.surfaceRaised, borderWidth: 1, borderColor: theme.accentBorder }]} 
                   onPress={handlePickDocument}
                   disabled={loading}
                 >
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                    <Ionicons name="document-text-outline" size={16} color={theme.accentAlt} />
+                    <Ionicons name="document-text-outline" size={16} color={theme.accent} />
                     <Text
-                      style={[styles.uploadButtonText, { color: theme.accentAlt, flexShrink: 1 }]}
+                      style={[styles.uploadButtonText, { color: theme.text, flexShrink: 1 }]}
                       numberOfLines={1}
                       adjustsFontSizeToFit
                       minimumFontScale={0.8}
@@ -4486,9 +4544,10 @@ function AppContent() {
 
               {/* Seçili Dosya Gösterim Rozeti */}
               {selectedFile && (
-                <View style={styles.fileBadge}>
+                <View style={[styles.fileBadge, { alignItems: 'center', gap: 8 }]}>
+                  <Ionicons name="document-text-outline" size={16} color={theme.accentAlt} />
                   <Text style={{ color: theme.accentAlt, fontSize: 12, flex: 1 }} numberOfLines={1}>
-                    📄 {selectedFile.name}
+                    {selectedFile.name}
                   </Text>
                   <TouchableOpacity
                     onPress={() => setSelectedFile(null)}
@@ -4551,13 +4610,13 @@ function AppContent() {
                       paddingVertical: 6,
                       borderRadius: 16,
                       borderWidth: 1,
-                      borderColor: theme.accent,
+                      borderColor: theme.accentAltBorder || theme.accentAlt,
                       backgroundColor: theme.inputBg,
                       maxWidth: '75%',
                     }}
                   >
-                    <Ionicons name="sparkles-outline" size={14} color={theme.accent} />
-                    <Text style={{ color: theme.accent, fontSize: 12, fontWeight: '600', flexShrink: 1 }} numberOfLines={1}>
+                    <Ionicons name="sparkles-outline" size={14} color={theme.accentAlt} />
+                    <Text style={{ color: theme.accentAlt, fontSize: 12, fontWeight: '600', flexShrink: 1 }} numberOfLines={1}>
                       {t('hSampleBtn')}
                     </Text>
                   </TouchableOpacity>
@@ -4582,9 +4641,17 @@ function AppContent() {
                     </Text>
                   </View>
                 ) : (
-                  <Text style={styles.primaryButtonText} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.85}>
-                    {t('btnStartAnalyze')}
-                  </Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+                    <Ionicons name="sparkles" size={18} color="#080C14" />
+                    <Text
+                      style={[styles.primaryButtonText, { flexShrink: 1 }]}
+                      numberOfLines={1}
+                      adjustsFontSizeToFit
+                      minimumFontScale={0.85}
+                    >
+                      {t('btnStartAnalyze')}
+                    </Text>
+                  </View>
                 )}
               </TouchableOpacity>
 
@@ -4701,7 +4768,7 @@ function AppContent() {
             }}
             pointerEvents={activeTab === 'history' ? 'auto' : 'none'}
           >
-              <View style={{ paddingHorizontal: 20, paddingTop: 12 }}>{renderShareCodeEntry()}</View>
+              <View style={{ paddingHorizontal: 20, paddingTop: 12 }}>{renderShareCodeEntry(true)}</View>
               <HistoryScreen
                 theme={theme}
                 history={history}
@@ -4753,6 +4820,7 @@ function AppContent() {
             pointerEvents={activeTab === 'settings' ? 'auto' : 'none'}
           >
             <KeyboardScreen contentContainerStyle={{ padding: 20 }} scrollRef={settingsScrollRef}>
+              <SettingsGroupHeader theme={theme} icon="person-circle-outline" label={t('setGrpAccount')} first />
               <View
                 onLayout={onSettingsSectionLayout('account')}
                 style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
@@ -4780,16 +4848,7 @@ function AppContent() {
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Plan')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Store')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Quota')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
-                    {t('st8Ask', {
-                      freeAsk: String(PLAN_LIMITS.free.askLifetime),
-                      freeWeekly: String(PLAN_LIMITS.free.askWeekly),
-                      proAsk: String(PLAN_LIMITS.pro.askDaily),
-                      proMonth: String(PLAN_LIMITS.pro.askMonthly),
-                      professionalAsk: String(PLAN_LIMITS.professional.askDaily),
-                      professionalMonth: String(PLAN_LIMITS.professional.askMonthly),
-                    })}
-                  </Text>
+                  <PlanQuotaTable theme={theme} plan={plan} />
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Tools')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8First')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Restore')}</Text>
@@ -4827,7 +4886,6 @@ function AppContent() {
                     </Text>
                   </TouchableOpacity>
                 )}
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>{t('st8Disclaimer')}</Text>
               </View>
 
               <View onLayout={onSettingsSectionLayout('seats')}>
@@ -4843,163 +4901,6 @@ function AppContent() {
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st4SeatsHint')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st4Plan')}</Text>
                 </HonestyFold>
-              </View>
-
-              {/* Destek ve Hata Bildirimi */}
-              <TouchableOpacity accessibilityRole="button"
-                activeOpacity={0.8}
-                onLayout={onSettingsSectionLayout('support')}
-                onPress={() => setSupportVisible(true)}
-                style={[
-                  styles.card,
-                  {
-                    backgroundColor: theme.cardBg,
-                    borderColor: theme.borderColor,
-                    marginBottom: 16,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    gap: 12,
-                  },
-                ]}
-              >
-                <Ionicons name="chatbubble-ellipses-outline" size={20} color={theme.accent} />
-                <View style={{ flex: 1 }}>
-                  <Text style={[styles.settingLabel, { color: theme.text }]} numberOfLines={1}>
-                    {t('supportTitle')}
-                  </Text>
-                </View>
-                <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={theme.subText} />
-              </TouchableOpacity>
-              <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
-                  {t('st4SupportHint')}
-                </Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
-                  {t('st4Support')}
-                </Text>
-              </HonestyFold>
-
-              <View
-                onLayout={onSettingsSectionLayout('security')}
-                style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
-              >
-                <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 10 }]}>{t('securitySettings')}</Text>
-                <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('st4Security')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('st4SecurityHint')}</Text>
-                </HonestyFold>
-                <TextInput accessibilityLabel={t('newPasswordPlaceholder')}
-                  style={[
-                    styles.input,
-                    {
-                      backgroundColor: theme.inputBg,
-                      color: theme.text,
-                      borderColor: theme.borderColor,
-                    },
-                  ]}
-                  placeholder={t('newPasswordPlaceholder')}
-                  placeholderTextColor={theme.subText}
-                  secureTextEntry
-                  value={newPassword}
-                  onChangeText={setNewPassword}
-                />
-                {newPassword.length > 0 && !passwordLongEnough ? (
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>
-                    {t('minPasswordLength')}
-                  </Text>
-                ) : null}
-                <TouchableOpacity accessibilityRole="button"
-                  style={[styles.secondaryBtn, (updatingPassword || !passwordLongEnough) && styles.buttonDisabled]}
-                  onPress={handleUpdatePassword}
-                  disabled={updatingPassword || !passwordLongEnough}
-                  accessibilityState={{ disabled: updatingPassword || !passwordLongEnough }}
-                >
-                  {updatingPassword ? (
-                    <ActivityIndicator color={theme.accent} />
-                  ) : (
-                    <Text style={styles.secondaryBtnText}>{t('btnUpdatePassword')}</Text>
-                  )}
-                </TouchableOpacity>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>
-                  {t('st4Disclaimer')}
-                </Text>
-              </View>
-
-              <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Text style={[styles.settingLabel, { color: theme.text }]}>{t('darkMode')}</Text>
-                  <Switch 
-                    accessibilityLabel={t('darkMode')}
-                    value={isDarkMode} 
-                    onValueChange={(val) => setIsDarkMode(val)}
-                    thumbColor={isDarkMode ? theme.accent : "#f4f3f4"}
-                  />
-                </View>
-              </View>
-
-              {/* Dil Seçim Alanı */}
-              <View
-                onLayout={onSettingsSectionLayout('language')}
-                style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 20 }]}
-              >
-                <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 8 }]}>{t('appLanguage')}</Text>
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-                  {(APP_LANGUAGES || []).map((lang) => (
-                    <TouchableOpacity accessibilityRole="button" 
-                      key={lang.code} 
-                      onPress={() => changeLanguage(lang.code)}
-                      style={[styles.langBtn, currentLang === lang.code && styles.activeLangBtn]}
-                    >
-                      <Text
-                        style={[styles.langText, currentLang === lang.code && styles.activeLangText]}
-                        numberOfLines={1}
-                      >
-                        {lang.flag}  {lang.label}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
-                </View>
-                <Text style={[styles.settingLabel, { color: theme.text, marginTop: 8, marginBottom: 4 }]}>
-                  {t('analysisCountryLabel')}
-                </Text>
-                <TouchableOpacity
-                  onPress={() => setCountrySheetVisible(true)}
-                  accessibilityRole="button"
-                  accessibilityLabel={t('analysisCountryLabel')}
-                  style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 6 }}
-                >
-                  <Text style={[styles.sectionHint, { color: theme.text, flex: 1, marginBottom: 0 }]}>
-                    {selectedCountryOption.label} · {t('localeCountryHint')}
-                  </Text>
-                  <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={theme.subText} />
-                </TouchableOpacity>
-                <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st6Lang')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st6LangHint')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st6Rtl')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('st6Country')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st6CountryHint')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st6Generic')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st6Corridor')}</Text>
-                </HonestyFold>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10, marginBottom: 0 }]}>
-                  {t('st6Disclaimer')}
-                </Text>
-              </View>
-
-              <View
-                style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
-              >
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 4 }}>
-                  <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, flex: 1 }]}>{t('nudgeSettingTitle')}</Text>
-                  <Switch
-                    value={nudgesOn}
-                    onValueChange={toggleNudges}
-                    thumbColor={nudgesOn ? theme.accent : '#f4f3f4'}
-                    accessibilityLabel={t('nudgeSettingTitle')}
-                  />
-                </View>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('nudgeSettingHint')}</Text>
               </View>
 
               {userId ? (
@@ -5068,69 +4969,128 @@ function AppContent() {
                 </View>
               ) : null}
 
-              <View
-                onLayout={onSettingsSectionLayout('privacy')}
-                style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
-              >
-                <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 10 }]}>{t('privacyPolicy')}</Text>
-                <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, marginBottom: 6 }]}>{t('st2Title')}</Text>
-                <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Hint')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Keep')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Picker')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Sub')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Quota')}</Text>
-                </HonestyFold>
-                <TouchableOpacity accessibilityRole="button"
-                  style={[styles.secondaryBtn, { marginTop: 0 }]}
-                  onPress={() => Linking.openURL(TRUST_URLS.privacy || 'https://nexulexai.netlify.app/privacy.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
-                  activeOpacity={0.85}
-                >
-                  <Text style={styles.secondaryBtnText}>{t('privacyPolicy')}</Text>
-                </TouchableOpacity>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 8 }]}>{t('st7Privacy')}</Text>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 4 }}>
-                  <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, flex: 1 }]}>{t('telSettingTitle')}</Text>
-                  <Switch
-                    value={telemetryOn}
+              <SettingsGroupHeader theme={theme} icon="color-palette-outline" label={t('setGrpPrefs')} />
+              <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Text style={[styles.settingLabel, { color: theme.text }]}>{t('darkMode')}</Text>
+                  <Switch 
+                    accessibilityLabel={t('darkMode')}
+                    value={isDarkMode} 
                     onValueChange={(val) => {
-                      setTelemetryOn(val);
-                      setTelemetryEnabled(val);
+                      setIsDarkMode(val);
+                      AsyncStorage.setItem(THEME_MODE_KEY, val ? 'dark' : 'light').catch(() => {});
                     }}
-                    thumbColor={telemetryOn ? theme.accent : '#f4f3f4'}
-                    accessibilityLabel={t('telSettingTitle')}
+                    thumbColor={isDarkMode ? theme.accent : "#f4f3f4"}
+                    trackColor={{ false: theme.borderStrong, true: theme.accentBorder }}
                   />
                 </View>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('telSettingHint')}</Text>
-                <TouchableOpacity accessibilityRole="button"
-                  style={styles.secondaryBtn}
-                  onPress={() => Linking.openURL(TRUST_URLS.terms || 'https://nexulexai.netlify.app/terms.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
-                  activeOpacity={0.85}
+              </View>
+
+              {/* Dil Seçim Alanı */}
+              <View
+                onLayout={onSettingsSectionLayout('language')}
+                style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 20 }]}
+              >
+                <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 8 }]}>{t('appLanguage')}</Text>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+                  {(APP_LANGUAGES || []).map((lang) => (
+                    <TouchableOpacity accessibilityRole="button" 
+                      key={lang.code} 
+                      onPress={() => changeLanguage(lang.code)}
+                      style={[styles.langBtn, currentLang === lang.code && styles.activeLangBtn]}
+                    >
+                      <Text
+                        style={[styles.langText, currentLang === lang.code && styles.activeLangText]}
+                        numberOfLines={1}
+                      >
+                        {lang.flag}  {lang.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+                <Text style={[styles.settingLabel, { color: theme.text, marginTop: 8, marginBottom: 4 }]}>
+                  {t('analysisCountryLabel')}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => setCountrySheetVisible(true)}
+                  accessibilityRole="button"
+                  accessibilityLabel={t('analysisCountryLabel')}
+                  style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 6 }}
                 >
-                  <Text style={styles.secondaryBtnText}>{t('termsOfUse')}</Text>
-                </TouchableOpacity>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 8 }]}>{t('st7Terms')}</Text>
-                <TouchableOpacity accessibilityRole="button"
-                  style={styles.secondaryBtn}
-                  onPress={() => Linking.openURL(TRUST_URLS.deleteAccount || 'https://nexulexai.netlify.app/delete-account.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
-                  activeOpacity={0.85}
-                >
-                  <Text style={styles.secondaryBtnText}>{t('st2WebDelete')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.text, flex: 1, marginBottom: 0 }]}>
+                    {selectedCountryOption.label} · {t('localeCountryHint')}
+                  </Text>
+                  <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={theme.subText} />
                 </TouchableOpacity>
                 <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st7Delete')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Lang')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Binding')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Store')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Offline')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Note')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st6Lang')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st6LangHint')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st6Rtl')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('st6Country')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st6CountryHint')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st6Generic')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st6Corridor')}</Text>
                 </HonestyFold>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 10 }]}>
-                  {t('disclaimerShort')}
-                </Text>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>
-                  {t('st2Disclaimer')}
-                </Text>
+              </View>
+
+              <View
+                style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
+              >
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 4 }}>
+                  <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, flex: 1 }]}>{t('nudgeSettingTitle')}</Text>
+                  <Switch
+                    value={nudgesOn}
+                    onValueChange={toggleNudges}
+                    thumbColor={nudgesOn ? theme.accent : '#f4f3f4'}
+                    accessibilityLabel={t('nudgeSettingTitle')}
+                    trackColor={{ false: theme.borderStrong, true: theme.accentBorder }}
+                  />
+                </View>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('nudgeSettingHint')}</Text>
+              </View>
+
+              <SettingsGroupHeader theme={theme} icon="lock-closed-outline" label={t('setGrpSecurity')} />
+              <View
+                onLayout={onSettingsSectionLayout('security')}
+                style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
+              >
+                <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 10 }]}>{t('securitySettings')}</Text>
+                <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('st4Security')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('st4SecurityHint')}</Text>
+                </HonestyFold>
+                <TextInput accessibilityLabel={t('newPasswordPlaceholder')}
+                  style={[
+                    styles.input,
+                    {
+                      backgroundColor: theme.inputBg,
+                      color: theme.text,
+                      borderColor: theme.borderColor,
+                    },
+                  ]}
+                  placeholder={t('newPasswordPlaceholder')}
+                  placeholderTextColor={theme.subText}
+                  secureTextEntry
+                  value={newPassword}
+                  onChangeText={setNewPassword}
+                />
+                {newPassword.length > 0 && !passwordLongEnough ? (
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>
+                    {t('minPasswordLength')}
+                  </Text>
+                ) : null}
+                <TouchableOpacity accessibilityRole="button"
+                  style={[styles.secondaryBtn, (updatingPassword || !passwordLongEnough) && styles.buttonDisabled]}
+                  onPress={handleUpdatePassword}
+                  disabled={updatingPassword || !passwordLongEnough}
+                  accessibilityState={{ disabled: updatingPassword || !passwordLongEnough }}
+                >
+                  {updatingPassword ? (
+                    <ActivityIndicator color={theme.accent} />
+                  ) : (
+                    <Text style={styles.secondaryBtnText}>{t('btnUpdatePassword')}</Text>
+                  )}
+                </TouchableOpacity>
               </View>
 
               <TouchableOpacity accessibilityRole="button" 
@@ -5161,7 +5121,6 @@ function AppContent() {
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Restore')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Guides')}</Text>
                 </HonestyFold>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 8 }]}>{t('st9Disclaimer')}</Text>
                 <TouchableOpacity
                   style={[
                     styles.secondaryBtn,
@@ -5189,6 +5148,104 @@ function AppContent() {
                   <Text style={styles.secondaryBtnText}>{t('accountManageSubscription')}</Text>
                 </TouchableOpacity>
               </View>
+              <SettingsGroupHeader theme={theme} icon="help-buoy-outline" label={t('setGrpSupport')} />
+              {/* Destek ve Hata Bildirimi */}
+              <TouchableOpacity accessibilityRole="button"
+                activeOpacity={0.8}
+                onLayout={onSettingsSectionLayout('support')}
+                onPress={() => setSupportVisible(true)}
+                style={[
+                  styles.card,
+                  {
+                    backgroundColor: theme.cardBg,
+                    borderColor: theme.borderColor,
+                    marginBottom: 16,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 12,
+                  },
+                ]}
+              >
+                <Ionicons name="chatbubble-ellipses-outline" size={20} color={theme.accent} />
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.settingLabel, { color: theme.text }]} numberOfLines={1}>
+                    {t('supportTitle')}
+                  </Text>
+                </View>
+                <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={18} color={theme.subText} />
+              </TouchableOpacity>
+              <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 2 }]}>
+                  {t('st4SupportHint')}
+                </Text>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0, marginTop: 4 }]}>
+                  {t('st4Support')}
+                </Text>
+              </HonestyFold>
+
+              <View
+                onLayout={onSettingsSectionLayout('privacy')}
+                style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}
+              >
+                <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 10 }]}>{t('privacyPolicy')}</Text>
+                <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, marginBottom: 6 }]}>{t('st2Title')}</Text>
+                <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Hint')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Keep')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Picker')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Sub')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Quota')}</Text>
+                </HonestyFold>
+                <TouchableOpacity accessibilityRole="button"
+                  style={[styles.secondaryBtn, { marginTop: 0 }]}
+                  onPress={() => Linking.openURL(TRUST_URLS.privacy || 'https://nexulexai.netlify.app/privacy.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
+                  activeOpacity={0.85}
+                >
+                  <Text style={styles.secondaryBtnText}>{t('privacyPolicy')}</Text>
+                </TouchableOpacity>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 8 }]}>{t('st7Privacy')}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 4 }}>
+                  <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, flex: 1 }]}>{t('telSettingTitle')}</Text>
+                  <Switch
+                    value={telemetryOn}
+                    onValueChange={(val) => {
+                      setTelemetryOn(val);
+                      setTelemetryEnabled(val);
+                    }}
+                    thumbColor={telemetryOn ? theme.accent : '#f4f3f4'}
+                    trackColor={{ false: theme.borderStrong, true: theme.accentBorder }}
+                    accessibilityLabel={t('telSettingTitle')}
+                  />
+                </View>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('telSettingHint')}</Text>
+                <TouchableOpacity accessibilityRole="button"
+                  style={styles.secondaryBtn}
+                  onPress={() => Linking.openURL(TRUST_URLS.terms || 'https://nexulexai.netlify.app/terms.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
+                  activeOpacity={0.85}
+                >
+                  <Text style={styles.secondaryBtnText}>{t('termsOfUse')}</Text>
+                </TouchableOpacity>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 8 }]}>{t('st7Terms')}</Text>
+                <TouchableOpacity accessibilityRole="button"
+                  style={styles.secondaryBtn}
+                  onPress={() => Linking.openURL(TRUST_URLS.deleteAccount || 'https://nexulexai.netlify.app/delete-account.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
+                  activeOpacity={0.85}
+                >
+                  <Text style={styles.secondaryBtnText}>{t('st2WebDelete')}</Text>
+                </TouchableOpacity>
+                <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st7Delete')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Lang')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Binding')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Store')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Offline')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Note')}</Text>
+                </HonestyFold>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>
+                  {t('st2Disclaimer')}
+                </Text>
+              </View>
+
             </KeyboardScreen>
           </View>
         </View>
@@ -5418,7 +5475,6 @@ function AppContent() {
   );
 }
 
-const BRAND_MARK = require('./assets/brand-mark.png');
 const SPLASH_BG = '#0A0F1D'; // keep in sync with app.json splash.backgroundColor
 
 export default function App() {

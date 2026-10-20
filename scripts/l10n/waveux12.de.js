@@ -6,6 +6,6 @@ module.exports = {
   ux12Official: 'Prüfen Sie jeden Satz selbst im Amtsblatt oder bei der Behoerde. Tabellen veralten.',
   ux12NoWin: 'Ein Rechner sagt kein Urteil voraus und erfindet keine Gewinnchance.',
   ux12Device: 'Ihre Eingaben bleiben auf diesem Telefon, bis Sie das Ergebnis kopieren oder teilen.',
-  ux12Free: 'Diese Rechner bleiben gratis. Diese Liste oeffnet keine Paywall.',
-  ux12Disclaimer: 'NexuLex ist keine Kanzlei. Eine Zahl ist ein Produktwerkzeug, kein Anwalt.',
+  ux12Free: "Diese Rechner bleiben kostenlos. Das Öffnen dieser Liste verlangt nie eine Zahlung.",
+  ux12Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

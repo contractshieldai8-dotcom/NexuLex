@@ -6,6 +6,5 @@ module.exports = {
   st6CountryHint: 'Auto sigue la region del dispositivo. Una eleccion explicita permanece hasta que la cambie.',
   st6Rtl: 'El arabe y el persa invierten el diseño. Puede hacer falta reiniciar tras el primer cambio.',
   st6Generic: 'Fuera de Turquía, las calculadoras siguen genericas y las tablas oficiales apagadas.',
-  st6Corridor: 'El corredor de la primera apertura uso el mismo idioma y país. Aquí puede cambiar ambos.',
-  st6Disclaimer: 'NexuLex no es un bufete. Idioma y país son puntos de partida, no asesoramiento jurídico.',
+  st6Corridor: 'El corredor de la primera apertura uso el mismo idioma y país. Aquí puede cambiar ambos.'
 };

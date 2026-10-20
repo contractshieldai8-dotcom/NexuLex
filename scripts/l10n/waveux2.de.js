@@ -7,5 +7,5 @@ module.exports = {
   ux2Intent: 'Als Nächstes wählen Sie eine erste Aufgabe. Schritt-für-Schritt-Leitfäden bleiben offen.',
   ux2Change: 'Nutzen Sie die Tasten unten, wenn Sprache oder Land falsch sind.',
   ux2Settings: 'Einstellungen behalten weiter Sprache, Land und die Kontolöschung.',
-  ux2Disclaimer: 'NexuLex ist keine Anwaltskanzlei. Dieser Korridor ist ein Startpunkt, keine Rechtsberatung.',
+  ux2Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

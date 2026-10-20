@@ -7,5 +7,5 @@ module.exports = {
   ux7Brief: 'Le resume avocat est sur le forfait Pro payant. C’est un resume que vous partagez, pas un dépôt’au tribunal.',
   ux7NoWin: 'Un dossier ne prédit pas un résultat de tribunal et ne vous représente pas.',
   ux7Share: 'Un siège foyer peut lire un resume que vous partagez. Il ne peut pas ouvrir le contrat original depuis ce dossier.',
-  ux7Disclaimer: 'NexuLex n’est pas un cabinet. Les dossiers sont des outils produit, pas un conseil juridique.',
+  ux7Disclaimer: "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique.",
 };

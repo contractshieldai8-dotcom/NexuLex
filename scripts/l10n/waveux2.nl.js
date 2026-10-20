@@ -7,5 +7,5 @@ module.exports = {
   ux2Intent: 'Daarna kiest u een eerste taak. Stapsgewijze gidsen vergrendelen nooit.',
   ux2Change: 'Gebruik de knoppen hieronder als deze taal of dit land fout is.',
   ux2Settings: 'Instellingen houdt nog steeds taal, land en accountverwijdering bij.',
-  ux2Disclaimer: 'NexuLex is geen advocatenkantoor. Deze corridor is een startpunt, geen juridisch advies.',
+  ux2Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

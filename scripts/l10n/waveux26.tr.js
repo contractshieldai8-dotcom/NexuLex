@@ -7,5 +7,5 @@ module.exports = {
   ux26Local: 'NexuLex bu telefonda karşılaştırır. Bu adım için yeni bir yükleme yoktur.',
   ux26NoWin: 'Karşılaştırma bir mahkeme sonucu veya kazanım iddiası değildir.',
   ux26Guides: 'Adım adım rehberler her durumda açık kalır.',
-  ux26Disclaimer: 'NexuLex bir hukuk bürosu değildir. Karşılaştırma bir ürün aracıdır, avukat değildir.',
+  ux26Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

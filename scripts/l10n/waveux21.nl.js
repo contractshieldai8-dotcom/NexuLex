@@ -7,5 +7,5 @@ module.exports = {
   ux21Chat: 'Adviseurchats staan apart op deze lijst. Het is geen scanrapport.',
   ux21NoWin: 'De score op een kaart is een werkhulp. Het is geen gerechtelijke uitkomst.',
   ux21Guides: 'Stapsgewijze gidsen blijven in elk geval ontgrendeld.',
-  ux21Disclaimer: 'NexuLex is geen advocatenkantoor. Een geschiedeniskaart is een producthulp, geen advocaat.',
+  ux21Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

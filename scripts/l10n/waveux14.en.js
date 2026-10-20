@@ -7,5 +7,5 @@ module.exports = {
   ux14Sources: 'Open every official source yourself. A citation can be stale.',
   ux14NoAdvice: 'This is a work aid. It is not advice for a client file and does not represent anyone.',
   ux14Device: 'Results stay on this phone unless you save them to a case or share them.',
-  ux14Disclaimer: 'NexuLex is not a law firm. A structured memo is a product tool, not a lawyer.',
+  ux14Disclaimer: "NexuLex is not a law firm. This is general information, not legal advice.",
 };

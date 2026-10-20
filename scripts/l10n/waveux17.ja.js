@@ -7,5 +7,5 @@ module.exports = {
   ux17Store: 'Android では評価が Play の掲載を開きます。iOS では公開 get ページを開きます。Apple のアプリ番号は作りません。',
   ux17Device: '契約と報告はこの電話に残ります。',
   ux17Guides: '手順ガイドはどちらでもロックされません。',
-  ux17Disclaimer: 'NexuLex は法律事務所ではありません。招待は製品の用具であり、弁護士ではありません。',
+  ux17Disclaimer: "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。",
 };

@@ -7,5 +7,5 @@ module.exports = {
   ux5Guides: 'Rehberler asla kilitlenmez. Diğer yongalar sonra kota kullanabilecek araçlar açar.',
   ux5Lawyer: 'Avukat bul resmî rehberleri açar. NexuLex avukat önermez ve sıralamaz.',
   ux5NoWin: 'Tarama mahkeme sonucu öngörmez ve sizi temsil etmez.',
-  ux5Disclaimer: 'NexuLex bir hukuk bürosu değildir. Bu yongalar ürün yollarıdır, hukuki tavsiye değildir.',
+  ux5Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

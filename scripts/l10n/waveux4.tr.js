@@ -6,6 +6,6 @@ module.exports = {
   ux4Lawyer: 'Avukat bul resmî rehberleri açar. NexuLex avukat önermez ve sıralamaz.',
   ux4Country: 'Yanıtlar yukarıdaki ülkeyi izler. Bu bir koridordur, mahkeme değildir.',
   ux4Free: 'İlk sorular ve ilk dosya ücretsiz planda kalır.',
-  ux4NoPay: 'Bu dört yonga paywall açmaz. Ücretsiz kota bitince sonraki araç açabilir.',
-  ux4Disclaimer: 'NexuLex bir hukuk bürosu değildir. Ana ekran işleri ürün aracıdır, hukuki tavsiye değildir.',
+  ux4NoPay: "Bu dört kısayol hiçbir zaman ödeme istemez. Sonraki bir araç, ücretsiz hakkınız bittiğinde isteyebilir.",
+  ux4Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

@@ -6,6 +6,5 @@ module.exports = {
   st6CountryHint: 'Auto suit la région de l’appareil. Un choix explicite reste jusqu’à ce que vous le changiez.',
   st6Rtl: 'L’arabe et le persan inversent la mise en page. Un redemarrage peut être nécessaire après le premier changement.',
   st6Generic: 'Hors Turquie, les calculateurs restent génériques et les tableaux officiels restent éteints.',
-  st6Corridor: 'Le corridor de première ouverture a utilisé la même langue et le même pays. Vous pouvez encore changer les deux ici.',
-  st6Disclaimer: 'NexuLex n’est pas un cabinet. Langue et pays sont des points de départ, pas un conseil juridique.',
+  st6Corridor: 'Le corridor de première ouverture a utilisé la même langue et le même pays. Vous pouvez encore changer les deux ici.'
 };

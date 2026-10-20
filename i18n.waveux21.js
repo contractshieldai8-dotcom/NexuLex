@@ -9,7 +9,7 @@ export const WAVE_UX21_I18N = {
     "ux21Chat": "Danışman sohbetleri bu listede ayrı durur. Tarama raporu değildir.",
     "ux21NoWin": "Karttaki puan bir iş yardımcısıdır. Mahkeme sonucu değildir.",
     "ux21Guides": "Adım adım rehberler her durumda açık kalır.",
-    "ux21Disclaimer": "NexuLex bir hukuk bürosu değildir. Geçmiş kartı ürün aracıdır, avukat değildir."
+    "ux21Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux21Cloud": "Saved scans live in your account. They can open on another signed-in phone.",
@@ -19,7 +19,7 @@ export const WAVE_UX21_I18N = {
     "ux21Chat": "Advisor chats sit on this list separately. They are not a scan report.",
     "ux21NoWin": "The score on a card is a work aid. It is not a court outcome.",
     "ux21Guides": "Step-by-step guides stay unlocked either way.",
-    "ux21Disclaimer": "NexuLex is not a law firm. A history card is a product tool, not a lawyer."
+    "ux21Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux21Cloud": "Gespeicherte Scans liegen in Ihrem Konto. Sie öffnen sich auf einem anderen angemeldeten Telefon.",
@@ -29,7 +29,7 @@ export const WAVE_UX21_I18N = {
     "ux21Chat": "Berater-Chats stehen auf dieser Liste getrennt. Sie sind kein Scan-Bericht.",
     "ux21NoWin": "Die Punktzahl auf einer Karte ist eine Arbeitshilfe. Sie ist kein Gerichtsergebnis.",
     "ux21Guides": "Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.",
-    "ux21Disclaimer": "NexuLex ist keine Kanzlei. Eine Verlaufskarte ist ein Produktwerkzeug, kein Anwalt."
+    "ux21Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux21Cloud": "Les scans enregistres vivent dans votre compte. Ils peuvent s’ouvrir sur un autre téléphone connecte.",
@@ -39,7 +39,7 @@ export const WAVE_UX21_I18N = {
     "ux21Chat": "Les chats conseiller sont à part sur cette liste. Ce n’est pas un rapport de scan.",
     "ux21NoWin": "Le score sur une carte est une aide de travail. Ce n’est pas un résultat de tribunal.",
     "ux21Guides": "Les guides pas à pas restent ouverts dans tous les cas.",
-    "ux21Disclaimer": "NexuLex n’est pas un cabinet. Une carte d’historique est un outil produit, pas un avocat."
+    "ux21Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux21Cloud": "Los análisis guardados viven en su cuenta. Pueden abrirse en otro teléfono con sesión.",
@@ -49,7 +49,7 @@ export const WAVE_UX21_I18N = {
     "ux21Chat": "Los chats del asesor están aparte en esta lista. No son un informe de análisis.",
     "ux21NoWin": "La puntuación de una tarjeta es una ayuda de trabajo. No es un resultado judicial.",
     "ux21Guides": "Las guías paso a paso siguen abiertas de todos modos.",
-    "ux21Disclaimer": "NexuLex no es un bufete. Una tarjeta de historial es una herramienta de producto, no un abogado."
+    "ux21Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux21Cloud": "الفحوصات المحفوظة تعيش في حسابك. ويمكن أن تُفتح على هاتف آخر مسجّل الدخول.",
@@ -59,7 +59,7 @@ export const WAVE_UX21_I18N = {
     "ux21Chat": "محادثات المستشار تظهر في هذه القائمة منفصلة. وليست تقرير فحص.",
     "ux21NoWin": "الدرجة على البطاقة أداة عمل. وليست نتيجة محكمة.",
     "ux21Guides": "الأدلة خطوة بخطوة تبقى مفتوحة في الحالين.",
-    "ux21Disclaimer": "NexuLex ليس مكتب محاماة. وبطاقة السجل أداة منتج وليست محاميا."
+    "ux21Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux21Cloud": "Gli scan salvati vivono nel tuo account. Possono aprirsi su un altro telefono connesso.",
@@ -69,7 +69,7 @@ export const WAVE_UX21_I18N = {
     "ux21Chat": "Le chat del consulente stanno a parte in questo elenco. Non sono un report di scan.",
     "ux21NoWin": "Il punteggio su una scheda è un aiuto di lavoro. Non è un esito di tribunale.",
     "ux21Guides": "Le guide passo passo restano sbloccate in ogni caso.",
-    "ux21Disclaimer": "NexuLex non è uno studio. Una scheda di cronologia è uno strumento di prodotto, non un avvocato."
+    "ux21Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux21Cloud": "已保存的扫描存在你的账户里。可在另一台已登录的手机打开。",
@@ -79,7 +79,7 @@ export const WAVE_UX21_I18N = {
     "ux21Chat": "顾问聊天在此列表中单独出现。不是扫描报告。",
     "ux21NoWin": "卡片上的分数是工作辅助。不是法庭结果。",
     "ux21Guides": "分步指南无论哪种情况都不上锁。",
-    "ux21Disclaimer": "NexuLex 不是律师事务所。历史卡片是产品工具，不是律师。"
+    "ux21Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux21Cloud": "Сохранённые разборы живут в вашем аккаунте. Их можно открыть на другом телефоне со входом.",
@@ -89,7 +89,7 @@ export const WAVE_UX21_I18N = {
     "ux21Chat": "Чаты советника стоят в этом списке отдельно. Это не отчёт разбора.",
     "ux21NoWin": "Оценка на карточке — рабочая помощь. Это не исход суда.",
     "ux21Guides": "Пошаговые гиды в любом случае остаются открытыми.",
-    "ux21Disclaimer": "NexuLex не юридическая фирма. Карточка истории — инструмент продукта, не адвокат."
+    "ux21Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux21Cloud": "بررسی‌های ذخیره‌شده در حساب شما می‌مانند. روی تلفن دیگری با ورود باز می‌شوند.",
@@ -99,7 +99,7 @@ export const WAVE_UX21_I18N = {
     "ux21Chat": "گفتگوهای مشاور در این فهرست جدا هستند. گزارش بررسی نیستند.",
     "ux21NoWin": "امتیاز روی کارت کمک‌کار است. نتیجه دادگاه نیست.",
     "ux21Guides": "راهنماهای گام‌به‌گام در هر حال باز می‌مانند.",
-    "ux21Disclaimer": "NexuLex دفتر وکالت نیست. کارت تاریخچه ابزار محصول است، نه وکیل."
+    "ux21Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux21Cloud": "保存した確認はアカウントにあります。別のログイン済みの電話でも開けます。",
@@ -109,7 +109,7 @@ export const WAVE_UX21_I18N = {
     "ux21Chat": "助言チャットはこの一覧で別に並びます。確認報告ではありません。",
     "ux21NoWin": "カードの点数は作業補助です。裁判所の結果ではありません。",
     "ux21Guides": "手順ガイドはどちらでもロックされません。",
-    "ux21Disclaimer": "NexuLex は法律事務所ではありません。履歴カードは製品の用具であり、弁護士ではありません。"
+    "ux21Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux21Cloud": "As análises guardadas vivem na sua conta. Podem abrir noutro telefone com sessão.",
@@ -119,7 +119,7 @@ export const WAVE_UX21_I18N = {
     "ux21Chat": "As conversas do consultor ficam a parte nesta lista. Não são um relatório de análise.",
     "ux21NoWin": "A pontuação num cartão é uma ajuda de trabalho. Não é um resultado de tribunal.",
     "ux21Guides": "Os guias passo a passo ficam desbloqueados de qualquer forma.",
-    "ux21Disclaimer": "A NexuLex não é um escritório. Um cartão de histórico é uma ferramenta de produto, não um advogado."
+    "ux21Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux21Cloud": "Opgeslagen scans staan in uw account. Ze kunnen openen op een andere ingelogde telefoon.",
@@ -129,6 +129,6 @@ export const WAVE_UX21_I18N = {
     "ux21Chat": "Adviseurchats staan apart op deze lijst. Het is geen scanrapport.",
     "ux21NoWin": "De score op een kaart is een werkhulp. Het is geen gerechtelijke uitkomst.",
     "ux21Guides": "Stapsgewijze gidsen blijven in elk geval ontgrendeld.",
-    "ux21Disclaimer": "NexuLex is geen advocatenkantoor. Een geschiedeniskaart is een producthulp, geen advocaat."
+    "ux21Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

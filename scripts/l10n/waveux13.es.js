@@ -7,5 +7,5 @@ module.exports = {
   ux13Send: 'Lealo usted antes de enviarlo. Un formulario oficial puede verse distinto.',
   ux13Device: 'El borrador se queda en este teléfono salvo que lo copie, lo comparta o lo exporte.',
   ux13NoWin: 'Enviar una carta no abre un caso y no predice una sentencia.',
-  ux13Disclaimer: 'NexuLex no es un bufete. Un borrador relleno es una herramienta de producto, no un abogado.',
+  ux13Disclaimer: "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico.",
 };

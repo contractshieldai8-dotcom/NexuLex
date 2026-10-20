@@ -7,5 +7,5 @@ module.exports = {
   ux8Sources: 'Abra você cada fonte oficial. As normas mudam; uma citação pode ficar velha.',
   ux8NoEvidence: 'Anexar um processo envia o resumo, não os ficheiros de prova.',
   ux8Device: 'As respostas ficam neste telefone até as guardar ou partilhar.',
-  ux8Disclaimer: 'A NexuLex não é um escritório. Uma resposta estruturada é uma ferramenta de produto, não um advogado.',
+  ux8Disclaimer: "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico.",
 };

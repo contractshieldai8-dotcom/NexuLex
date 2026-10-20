@@ -7,5 +7,5 @@ module.exports = {
   ux5Guides: 'Guides never lock. The other chips open tools that may later use a quota.',
   ux5Lawyer: 'Find a lawyer opens official directories. NexuLex does not recommend or rank lawyers.',
   ux5NoWin: 'A scan does not predict a court result and does not represent you.',
-  ux5Disclaimer: 'NexuLex is not a law firm. These chips are product paths, not legal advice.',
+  ux5Disclaimer: "NexuLex is not a law firm. This is general information, not legal advice.",
 };

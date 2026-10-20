@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT } from '../theme';
+import { ACCENT, ACCENT_ALT, toneText } from '../theme';
 import { useFeedback } from '../context/FeedbackContext';
 import { isSpeaking, isSpeakableText, speakAnalysisSummary, speechAvailable, stopBriefing } from '../services/voice';
 
@@ -72,9 +72,9 @@ export default function SpeakButton({ text, lang, color }) {
       style={{ alignSelf: 'flex-end', marginTop: 8, minWidth: 24, minHeight: 24, alignItems: 'center' }}
     >
       {speaking ? (
-        <Ionicons name="stop-circle" size={18} color={color || ACCENT} />
+        <Ionicons name="stop-circle" size={18} color={toneText(color || ACCENT)} />
       ) : (
-        <Ionicons name="volume-high" size={18} color={color || ACCENT} />
+        <Ionicons name="volume-high" size={18} color={toneText(color || ACCENT_ALT)} />
       )}
     </TouchableOpacity>
   );

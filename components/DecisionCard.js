@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import * as Sharing from 'expo-sharing';
 import * as Clipboard from 'expo-clipboard';
 
-import { ACCENT, DANGER, SUCCESS, WARNING, styles } from '../theme';
+import { ACCENT, DANGER, SUCCESS, WARNING, styles, toneText } from '../theme';
 import {
   decisionActionKey,
   displayedDecisionAction,
@@ -179,7 +179,7 @@ export default function DecisionCard({
 
         {(reasons || []).map((item, index) => (
           <View key={index} style={styles.decisionReasonRow}>
-            <Text style={[styles.decisionReasonIndex, { color: tone.color }]}>{index + 1}</Text>
+            <Text style={[styles.decisionReasonIndex, { color: toneText(tone.color) }]}>{index + 1}</Text>
             <Text style={[styles.decisionReasonText, { color: theme.subText }]}>
               {safeDisplayText(item)}
             </Text>
@@ -188,7 +188,7 @@ export default function DecisionCard({
 
         {decision.estimatedHarm ? (
           <View style={[styles.decisionHarmBox, { backgroundColor: theme.inputBg }]}>
-            <Text style={[styles.decisionHarmLabel, { color: tone.color }]}>
+            <Text style={[styles.decisionHarmLabel, { color: toneText(tone.color) }]}>
               {t('decisionHarmLabel')}
             </Text>
             <Text style={[styles.decisionHarmText, { color: theme.text }]}>

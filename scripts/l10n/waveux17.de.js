@@ -7,5 +7,5 @@ module.exports = {
   ux17Store: 'Unter Android oeffnet Beswerten den Play-Eintrag. Unter iOS die oeffentliche get-Seite. Keine erfundene Apple-App-Id.',
   ux17Device: 'Vertrag und Bericht bleiben auf diesem Telefon.',
   ux17Guides: 'Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.',
-  ux17Disclaimer: 'NexuLex ist keine Kanzlei. Eine Einladung ist ein Produktwerkzeug, kein Anwalt.',
+  ux17Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

@@ -7,5 +7,5 @@ module.exports = {
   ux21Chat: 'Le chat del consulente stanno a parte in questo elenco. Non sono un report di scan.',
   ux21NoWin: 'Il punteggio su una scheda è un aiuto di lavoro. Non è un esito di tribunale.',
   ux21Guides: 'Le guide passo passo restano sbloccate in ogni caso.',
-  ux21Disclaimer: 'NexuLex non è uno studio. Una scheda di cronologia è uno strumento di prodotto, non un avvocato.',
+  ux21Disclaimer: "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale.",
 };

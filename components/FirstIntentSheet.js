@@ -38,7 +38,7 @@ export default function FirstIntentSheet({ visible, theme, onPick, onSkip, onClo
         >
           <View style={styles.modalHandle} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-            <Ionicons name="compass-outline" size={20} color={theme.accent} />
+            <Ionicons name="compass-outline" size={20} color={theme.accentAlt} />
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
               {t('fiTitle')}
             </Text>

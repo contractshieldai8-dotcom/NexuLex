@@ -7,5 +7,5 @@ module.exports = {
   ux18Jobs: '四种：未完成文字、上一案件、上一提问、上一报告。',
   ux18NoWin: '这里不承诺结果，也不给律师排名。',
   ux18Guides: '分步指南无论哪种情况都不上锁。',
-  ux18Disclaimer: 'NexuLex 不是律师事务所。继续卡片是产品工具，不是律师。',
+  ux18Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

@@ -7,5 +7,5 @@ module.exports = {
   st2Sub: 'Deleting the account does not cancel an App Store or Google Play subscription. Manage it in the store.',
   st2Quota: 'The free-quota device record stays unlinked after deletion, only to block repeat free claims.',
   st2WebDelete: 'Delete without the app',
-  st2Disclaimer: 'NexuLex is not a law firm. Privacy pages can change; read them yourself.',
+  st2Disclaimer: "NexuLex is not a law firm. The app gives general information, not legal advice; a paid plan unlocks features, not legal representation.",
 };

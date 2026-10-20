@@ -7,5 +7,5 @@ module.exports = {
   ux9Verify: 'Leggi tu l’originale. I termini partono dal giorno in cui hai ricevuto il foglio, non da questa schermata.',
   ux9Device: 'NexuLex tiene il risultato su questo telefono finché non lo salvi in una pratica o lo condividi.',
   ux9NoAdvice: 'È un aiuto alla lettura. Non è un parere per la tua pratica e non ti rappresenta.',
-  ux9Disclaimer: 'NexuLex non è uno studio. Una spiegazione è uno strumento di prodotto, non un avvocato.',
+  ux9Disclaimer: "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale.",
 };

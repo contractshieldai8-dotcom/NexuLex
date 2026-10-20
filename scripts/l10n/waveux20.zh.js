@@ -7,5 +7,5 @@ module.exports = {
   ux20Share: '分享摘要是简短的产品说明。不是完整合同。',
   ux20Guides: '分步指南无论哪种情况都不上锁。',
   ux20NoWin: '本报告不承诺结果，也不给律师排名。',
-  ux20Disclaimer: 'NexuLex 不是律师事务所。扫描报告是产品工具，不是律师。',
+  ux20Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

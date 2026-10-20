@@ -7,5 +7,5 @@ module.exports = {
   ux26Local: 'NexuLex confronta su questo telefono. Nulla di nuovo viene inviato in questo passo.',
   ux26NoWin: 'Un confronto non è un esito di tribunale né una promessa di vittoria.',
   ux26Guides: 'Le guide passo passo restano aperte in ogni caso.',
-  ux26Disclaimer: 'NexuLex non è uno studio legale. Un confronto è uno strumento di prodotto, non un avvocato.',
+  ux26Disclaimer: "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale.",
 };

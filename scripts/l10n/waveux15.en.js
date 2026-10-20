@@ -7,5 +7,5 @@ module.exports = {
   ux15Invite: 'Invite shares only the public get page. NexuLex never attaches the contract.',
   ux15Pause: 'The next sheet waits a short pause so two sheets never stack.',
   ux15Guides: 'Step-by-step guides stay unlocked either way.',
-  ux15Disclaimer: 'NexuLex is not a law firm. A ready scan is a product tool, not a lawyer.',
+  ux15Disclaimer: "NexuLex is not a law firm. This is general information, not legal advice.",
 };

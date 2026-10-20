@@ -7,5 +7,5 @@ module.exports = {
   ux8Sources: 'Open elke officiele bron zelf. Regels veranderen; een citaat kan verouderen.',
   ux8NoEvidence: 'Een dossier bijvoegen stuurt de samenvatting, niet de bewijsbestanden.',
   ux8Device: 'Antwoorden blijven op deze telefoon tot u ze bewaart of deelt.',
-  ux8Disclaimer: 'NexuLex is geen advocatenkantoor. Een gestructureerd antwoord is een producthulp, geen advocaat.',
+  ux8Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

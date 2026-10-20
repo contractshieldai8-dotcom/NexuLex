@@ -7,5 +7,5 @@ module.exports = {
   ux24New: '开始一次新的扫描',
   ux24Report: '打开决定卡片',
   ux24Guides: '分步指南',
-  ux24Disclaimer: 'NexuLex 不是律师事务所。这些快捷方式是产品工具，不是律师。',
+  ux24Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

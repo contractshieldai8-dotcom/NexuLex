@@ -9,7 +9,7 @@ export const WAVE_UX22_I18N = {
     "ux22Audience": "Kitle yalnızca notu kimin açacağını seçer. Avukat sıralamaz.",
     "ux22Pro": "Ek ev ve danışman koltukları ücretli planda kalır. Rehberler ücretsiz kalır.",
     "ux22Guides": "Adım adım rehberler her durumda açık kalır.",
-    "ux22Disclaimer": "NexuLex bir hukuk bürosu değildir. Paylaşım özeti ürün aracıdır, avukat değildir."
+    "ux22Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux22Brief": "A share brief is a short product note. It is not the full contract file.",
@@ -19,7 +19,7 @@ export const WAVE_UX22_I18N = {
     "ux22Audience": "Audience only picks who may open the note. It does not rank a lawyer.",
     "ux22Pro": "Extra household and advisor seats stay on a paid plan. Guides stay free.",
     "ux22Guides": "Step-by-step guides stay unlocked either way.",
-    "ux22Disclaimer": "NexuLex is not a law firm. A share brief is a product tool, not a lawyer."
+    "ux22Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux22Brief": "Ein Teilen-Brief ist eine kurze Produktnotiz. Er ist nicht die volle Vertragsdatei.",
@@ -29,7 +29,7 @@ export const WAVE_UX22_I18N = {
     "ux22Audience": "Die Zielgruppe wählt nur, wer die Notiz öffnen darf. Sie reiht keinen Anwalt.",
     "ux22Pro": "Zusätzliche Haus- und Beraterplätze bleiben im bezahlten Plan. Leitfäden bleiben frei.",
     "ux22Guides": "Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.",
-    "ux22Disclaimer": "NexuLex ist keine Kanzlei. Ein Teilen-Brief ist ein Produktwerkzeug, kein Anwalt."
+    "ux22Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux22Brief": "Un brief de partage est une courte note produit. Ce n’est pas le fichier contrat entier.",
@@ -39,7 +39,7 @@ export const WAVE_UX22_I18N = {
     "ux22Audience": "Le public choisit seulement qui peut ouvrir la note. Il ne classe aucun avocat.",
     "ux22Pro": "Les sièges foyer et conseiller en plus restent dans un forfait payant. Les guides restent gratuits.",
     "ux22Guides": "Les guides pas à pas restent ouverts dans tous les cas.",
-    "ux22Disclaimer": "NexuLex n’est pas un cabinet. Un brief de partage est un outil produit, pas un avocat."
+    "ux22Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux22Brief": "Un brief para compartir es una nota corta de producto. No es el archivo del contrato completo.",
@@ -49,7 +49,7 @@ export const WAVE_UX22_I18N = {
     "ux22Audience": "La audiencia solo elige quién puede abrir la nota. No clasifica a un abogado.",
     "ux22Pro": "Los asientos extra de hogar y asesor se quedan en un plan de pago. Las guías siguen gratis.",
     "ux22Guides": "Las guías paso a paso siguen abiertas de todos modos.",
-    "ux22Disclaimer": "NexuLex no es un bufete. Un brief para compartir es una herramienta de producto, no un abogado."
+    "ux22Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux22Brief": "موجز المشاركة ملاحظة منتج قصيرة. وليس ملف العقد كاملا.",
@@ -59,7 +59,7 @@ export const WAVE_UX22_I18N = {
     "ux22Audience": "الجمهور يختار فقط من يفتح الملاحظة. ولا يرتّب محاميا.",
     "ux22Pro": "مقاعد المنزل والمستشار الإضافية تبقى في خطة مدفوعة. والأدلة تبقى مجانية.",
     "ux22Guides": "الأدلة خطوة بخطوة تبقى مفتوحة في الحالين.",
-    "ux22Disclaimer": "NexuLex ليس مكتب محاماة. وموجز المشاركة أداة منتج وليست محاميا."
+    "ux22Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux22Brief": "Un brief da condividere è una breve nota di prodotto. Non è il file del contratto intero.",
@@ -69,7 +69,7 @@ export const WAVE_UX22_I18N = {
     "ux22Audience": "Il pubblico sceglie solo chi può aprire la nota. Non classifica un avvocato.",
     "ux22Pro": "I posti extra casa e consulente restano su un piano a pagamento. Le guide restano gratuite.",
     "ux22Guides": "Le guide passo passo restano sbloccate in ogni caso.",
-    "ux22Disclaimer": "NexuLex non è uno studio. Un brief da condividere è uno strumento di prodotto, non un avvocato."
+    "ux22Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux22Brief": "分享摘要是简短的产品说明。不是完整合同文件。",
@@ -79,7 +79,7 @@ export const WAVE_UX22_I18N = {
     "ux22Audience": "受众只选择谁可打开该说明。不给律师排名。",
     "ux22Pro": "额外的家庭和顾问席位留在付费方案。指南保持免费。",
     "ux22Guides": "分步指南无论哪种情况都不上锁。",
-    "ux22Disclaimer": "NexuLex 不是律师事务所。分享摘要是产品工具，不是律师。"
+    "ux22Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux22Brief": "Бриф для отправки — короткая заметка продукта. Это не полный файл договора.",
@@ -89,7 +89,7 @@ export const WAVE_UX22_I18N = {
     "ux22Audience": "Аудитория лишь выбирает, кто откроет заметку. Она не ранжирует юриста.",
     "ux22Pro": "Дополнительные места дома и советника остаются в платном плане. Гиды остаются бесплатными.",
     "ux22Guides": "Пошаговые гиды в любом случае остаются открытыми.",
-    "ux22Disclaimer": "NexuLex не юридическая фирма. Бриф для отправки — инструмент продукта, не адвокат."
+    "ux22Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux22Brief": "خلاصه هم‌رسانی یادداشت کوتاه محصول است. پرونده کامل قرارداد نیست.",
@@ -99,7 +99,7 @@ export const WAVE_UX22_I18N = {
     "ux22Audience": "مخاطب فقط کسی را برمی‌گزیند که یادداشت را باز کند. وکیل رتبه‌بندی نمی‌کند.",
     "ux22Pro": "صندلی‌های اضافه خانه و مشاور در طرح پولی می‌مانند. راهنماها رایگان می‌مانند.",
     "ux22Guides": "راهنماهای گام‌به‌گام در هر حال باز می‌مانند.",
-    "ux22Disclaimer": "NexuLex دفتر وکالت نیست. خلاصه هم‌رسانی ابزار محصول است، نه وکیل."
+    "ux22Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux22Brief": "共有の要約は短い製品メモです。契約ファイルの全文ではありません。",
@@ -109,7 +109,7 @@ export const WAVE_UX22_I18N = {
     "ux22Audience": "相手はメモを開ける人だけを選びます。弁護士の順位ではありません。",
     "ux22Pro": "追加の家庭と助言の席は有料プランのままです。ガイドは無料のままです。",
     "ux22Guides": "手順ガイドはどちらでもロックされません。",
-    "ux22Disclaimer": "NexuLex は法律事務所ではありません。共有の要約は製品の用具であり、弁護士ではありません。"
+    "ux22Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux22Brief": "Um brief para partilhar é uma nota curta de produto. Não é o ficheiro do contrato completo.",
@@ -119,7 +119,7 @@ export const WAVE_UX22_I18N = {
     "ux22Audience": "O público só escolhe quem pode abrir a nota. Não classifica um advogado.",
     "ux22Pro": "Lugares extra de casa e consultor ficam num plano pago. Os guias ficam grátis.",
     "ux22Guides": "Os guias passo a passo ficam desbloqueados de qualquer forma.",
-    "ux22Disclaimer": "A NexuLex não é um escritório. Um brief para partilhar é uma ferramenta de produto, não um advogado."
+    "ux22Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux22Brief": "Een deelbrief is een korte productnotitie. Het is niet het volledige contractbestand.",
@@ -129,6 +129,6 @@ export const WAVE_UX22_I18N = {
     "ux22Audience": "Het publiek kiest alleen wie de notitie mag openen. Het rangschikt geen advocaat.",
     "ux22Pro": "Extra huis- en adviseurplaatsen blijven op een betaald plan. Gidsen blijven gratis.",
     "ux22Guides": "Stapsgewijze gidsen blijven in elk geval ontgrendeld.",
-    "ux22Disclaimer": "NexuLex is geen advocatenkantoor. Een deelbrief is een producthulp, geen advocaat."
+    "ux22Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

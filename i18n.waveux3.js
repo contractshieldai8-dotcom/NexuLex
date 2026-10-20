@@ -9,7 +9,7 @@ export const WAVE_UX3_I18N = {
     "ux3Advisor": "Danışman koltukları salt okunur kalır. İlişki biterse kodu iptal edin.",
     "ux3Get": "Genel sayfada sözleşme ve özet yoktur. Yalnızca NexuLex’i açmalarına yardım eder.",
     "ux3Copy": "Kopyalama aynı kod iletisini gönderir. Madde metni kopyalanmaz.",
-    "ux3Disclaimer": "NexuLex bir hukuk bürosu değildir. Koltuk ürün aracıdır, avukat dosyası değildir."
+    "ux3Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux3InviteHint": "The system share sends only the seat code. The original contract is not attached.",
@@ -19,7 +19,7 @@ export const WAVE_UX3_I18N = {
     "ux3Advisor": "Advisor seats stay read-only. Revoke the code if the relationship ends.",
     "ux3Get": "The public page has no contract and no brief. It only helps them open NexuLex.",
     "ux3Copy": "Copy sends the same code message. No clause text is copied.",
-    "ux3Disclaimer": "NexuLex is not a law firm. A seat is a product tool, not a lawyer file."
+    "ux3Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux3InviteHint": "Die Systemfreigabe sendet nur den Sitzcode. Der Originalvertrag wird nicht angehängt.",
@@ -29,7 +29,7 @@ export const WAVE_UX3_I18N = {
     "ux3Advisor": "Beratersitze bleiben nur lesbar. Widerrufen Sie den Code, wenn die Beziehung endet.",
     "ux3Get": "Die oeffentliche Seite hat keinen Vertrag und keinen Brief. Sie hilft nur, NexuLex zu öffnen.",
     "ux3Copy": "Kopieren sendet dieselbe Codenachricht. Kein Klauseltext wird kopiert.",
-    "ux3Disclaimer": "NexuLex ist keine Kanzlei. Ein Sitz ist ein Produktwerkzeug, keine Anwaltsakte."
+    "ux3Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux3InviteHint": "Le partage système n’envoie que le code de siège. Le contrat original n’est pas joint.",
@@ -39,7 +39,7 @@ export const WAVE_UX3_I18N = {
     "ux3Advisor": "Les sièges conseiller restent en lecture seule. Revoquez le code si la relation s’arrete.",
     "ux3Get": "La page publique n’a ni contrat ni brief. Elle aide seulement à ouvrir NexuLex.",
     "ux3Copy": "Copier envoie le même message de code. Aucun texte de clause n’est copie.",
-    "ux3Disclaimer": "NexuLex n’est pas un cabinet. Un siège est un outil produit, pas un dossier avocat."
+    "ux3Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux3InviteHint": "El recurso del sistema envía solo el código del asiento. El contrato original no se adjunta.",
@@ -49,7 +49,7 @@ export const WAVE_UX3_I18N = {
     "ux3Advisor": "Los asientos de asesor siguen en solo lectura. Revogue el código si termina la relación.",
     "ux3Get": "La página pública no tiene contrato ni brief. Solo ayuda a abrir NexuLex.",
     "ux3Copy": "Copiar envía el mismo mensaje de código. No se copia texto de cláusula.",
-    "ux3Disclaimer": "NexuLex no es un bufete. Un asiento es una herramienta de producto, no un expediente de abogado."
+    "ux3Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux3InviteHint": "مشاركة النظام ترسل رمز المقعد فقط. ولا يُرفق العقد الأصلي.",
@@ -59,7 +59,7 @@ export const WAVE_UX3_I18N = {
     "ux3Advisor": "مقاعد المستشار تبقى للقراءة فقط. وألغِ الرمز إذا انتهت العلاقة.",
     "ux3Get": "الصفحة العامة بلا عقد وبلا ملخص. وتساعد فقط على فتح NexuLex.",
     "ux3Copy": "النسخ يرسل رسالة الرمز نفسها. ولا يُنسخ نص بند.",
-    "ux3Disclaimer": "NexuLex ليس مكتب محاماة. المقعد أداة منتج وليس ملف محام."
+    "ux3Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux3InviteHint": "La condivisione di sistema invia solo il codice del posto. Il contratto originale non è allegato.",
@@ -69,7 +69,7 @@ export const WAVE_UX3_I18N = {
     "ux3Advisor": "I posti advisor restano in sola lettura. Revoca il codice se il rapporto finisce.",
     "ux3Get": "La pagina pubblica non ha contratto ne brief. Serve solo ad aprire NexuLex.",
     "ux3Copy": "Copiare invia lo stesso messaggio di codice. Nessun testo di clausola viene copiato.",
-    "ux3Disclaimer": "NexuLex non è uno studio. Un posto è uno strumento di prodotto, non un fascicolo avvocato."
+    "ux3Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux3InviteHint": "系统分享只发送席位代码。不会附上原始合同。",
@@ -79,7 +79,7 @@ export const WAVE_UX3_I18N = {
     "ux3Advisor": "顾问席位保持只读。关系结束后请撤销代码。",
     "ux3Get": "公开页面没有合同，也没有简报。只帮助打开 NexuLex。",
     "ux3Copy": "复制发送同一条代码消息。不会复制条款文本。",
-    "ux3Disclaimer": "NexuLex 不是律师事务所。席位是产品工具，不是律师档案。"
+    "ux3Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux3InviteHint": "Системная отправка шлёт только код места. Исходный договор не прикладывается.",
@@ -89,7 +89,7 @@ export const WAVE_UX3_I18N = {
     "ux3Advisor": "Места советника остаются только для чтения. Отзовите код, если отношения закончились.",
     "ux3Get": "На публичной странице нет договора и брифа. Она лишь помогает открыть NexuLex.",
     "ux3Copy": "Копирование шлёт то же сообщение с кодом. Текст пункта не копируется.",
-    "ux3Disclaimer": "NexuLex не юридическая фирма. Место — продуктовый инструмент, не дело юриста."
+    "ux3Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux3InviteHint": "هم‌رسانی سامانه فقط کد صندلی را می‌فرستد. قرارداد اصلی پیوست نمی‌شود.",
@@ -99,7 +99,7 @@ export const WAVE_UX3_I18N = {
     "ux3Advisor": "صندلی مشاور فقط‌خواندنی می‌ماند. اگر رابطه تمام شد کد را لغو کنید.",
     "ux3Get": "صفحه عمومی نه قرارداد دارد نه خلاصه. فقط برای بازکردن NexuLex کمک می‌کند.",
     "ux3Copy": "رونوشت همان پیام کد را می‌فرستد. متن بند رونوشت نمی‌شود.",
-    "ux3Disclaimer": "NexuLex دفتر وکالت نیست. صندلی ابزار محصول است، نه پرونده وکیل."
+    "ux3Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux3InviteHint": "システム共有はシートコードだけを送ります。元の契約は添付しません。",
@@ -109,7 +109,7 @@ export const WAVE_UX3_I18N = {
     "ux3Advisor": "アドバイザーシートは読み取り専用のままです。関係が終わったらコードを取り消してください。",
     "ux3Get": "公開ページに契約もブリーフもありません。NexuLex を開く手助けだけです。",
     "ux3Copy": "コピーは同じコード文面を送ります。条項文はコピーしません。",
-    "ux3Disclaimer": "NexuLex は法律事務所ではありません。シートは製品ツールであり、弁護士ファイルではありません。"
+    "ux3Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux3InviteHint": "A partilha do sistema envia só o código do lugar. O contrato original não é anexado.",
@@ -119,7 +119,7 @@ export const WAVE_UX3_I18N = {
     "ux3Advisor": "Os lugares de consultor ficam só de leitura. Revoque o código se a relação terminar.",
     "ux3Get": "A página pública não tem contrato nem brief. Só ajuda a abrir a NexuLex.",
     "ux3Copy": "Copiar envia a mesma mensagem de código. Nenhum texto de cláusula é copiado.",
-    "ux3Disclaimer": "A NexuLex não é um escritório. Um lugar é uma ferramenta de produto, não um processo de advogado."
+    "ux3Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux3InviteHint": "De systeemdeling stuurt alleen de plekcode. Het oorspronkelijke contract wordt niet bijgevoegd.",
@@ -129,6 +129,6 @@ export const WAVE_UX3_I18N = {
     "ux3Advisor": "Adviseurplekken blijven alleen-lezen. Trek de code in als de relatie stopt.",
     "ux3Get": "De openbare pagina heeft geen contract en geen brief. Ze helpt alleen NexuLex te openen.",
     "ux3Copy": "Kopieren stuurt hetzelfde codebericht. Er wordt geen clausuletekst gekopieerd.",
-    "ux3Disclaimer": "NexuLex is geen advocatenkantoor. Een plek is een producthulp, geen advocatendossier."
+    "ux3Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

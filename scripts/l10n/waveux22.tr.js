@@ -7,5 +7,5 @@ module.exports = {
   ux22Audience: 'Kitle yalnızca notu kimin açacağını seçer. Avukat sıralamaz.',
   ux22Pro: 'Ek ev ve danışman koltukları ücretli planda kalır. Rehberler ücretsiz kalır.',
   ux22Guides: 'Adım adım rehberler her durumda açık kalır.',
-  ux22Disclaimer: 'NexuLex bir hukuk bürosu değildir. Paylaşım özeti ürün aracıdır, avukat değildir.',
+  ux22Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

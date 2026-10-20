@@ -7,5 +7,5 @@ module.exports = {
   ux2Intent: 'Sonra ilk işi seçersiniz. Adım adım rehberler kilitlenmez.',
   ux2Change: 'Dil veya ülke yanlışsa aşağıdaki düğmeleri kullanın.',
   ux2Settings: 'Ayarlar dil, ülke ve hesap silme denetimlerini tutmaya devam eder.',
-  ux2Disclaimer: 'NexuLex bir hukuk bürosu değildir. Bu koridor başlangıçtır, hukuki danışmanlık değildir.',
+  ux2Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

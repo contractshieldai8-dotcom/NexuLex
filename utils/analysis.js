@@ -546,11 +546,12 @@ export const legalStatusTone = (status) => {
   return 'RED';
 };
 
-export const legalStatusEmoji = (status) => {
+// Ionicons glyph for a legal-validity status (replaces the old colour-emoji prefix).
+export const legalStatusIcon = (status) => {
   const value = String(status || '').toUpperCase();
-  if (value === 'VALID') return '🟢';
-  if (value === 'QUESTIONABLE') return '🟡';
-  return '🔴';
+  if (value === 'VALID') return 'checkmark-circle';
+  if (value === 'QUESTIONABLE') return 'help-circle';
+  return 'close-circle';
 };
 
 export function hasHiddenCosts(costs) {

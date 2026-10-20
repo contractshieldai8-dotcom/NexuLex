@@ -7,5 +7,5 @@ module.exports = {
   ux17Store: 'Su Android, Valuta apre la scheda Play. Su iOS apre la pagina get pubblica. Nessun id Apple inventato.',
   ux17Device: 'Il contratto e il report restano su questo telefono.',
   ux17Guides: 'Le guide passo passo restano sbloccate in ogni caso.',
-  ux17Disclaimer: 'NexuLex non è uno studio. Un invito è uno strumento di prodotto, non un avvocato.',
+  ux17Disclaimer: "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale.",
 };

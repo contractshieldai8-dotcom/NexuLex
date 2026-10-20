@@ -7,5 +7,5 @@ module.exports = {
   ux5Guides: '指南从不锁定。其他芯片会打开之后可能使用额度的工具。',
   ux5Lawyer: '找律师会打开官方名录。NexuLex 不推荐、不排名律师。',
   ux5NoWin: '扫描不预测法庭结果，也不代表您。',
-  ux5Disclaimer: 'NexuLex 不是律师事务所。这些芯片是产品路径，不是法律意见。',
+  ux5Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

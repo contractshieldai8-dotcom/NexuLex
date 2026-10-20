@@ -7,5 +7,5 @@ module.exports = {
   ux19NoWin: 'Burada sonuç vaadi veya avukat sıralaması yoktur.',
   ux19Device: 'Tarayana veya paylaşana kadar hiçbir şey telefondan çıkmaz.',
   ux19Corridor: 'Dil ve ülke az önce seçtiğiniz gibi kalır. Bu kart onları değiştirmez.',
-  ux19Disclaimer: 'NexuLex bir hukuk bürosu değildir. İlk adım kartı ürün aracıdır, avukat değildir.',
+  ux19Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

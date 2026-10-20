@@ -7,5 +7,5 @@ module.exports = {
   ux15Invite: 'De uitnodiging deelt alleen de openbare get-pagina. NexuLex voegt het contract nooit bij.',
   ux15Pause: 'Het volgende blad wacht een korte pauze zodat twee bladen nooit stapelen.',
   ux15Guides: 'Stapsgewijze gidsen blijven in elk geval ontgrendeld.',
-  ux15Disclaimer: 'NexuLex is geen advocatenkantoor. Een klaar scan is een producthulp, geen advocaat.',
+  ux15Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

@@ -7,5 +7,5 @@ module.exports = {
   ux16NoAdvice: 'A corridor of steps. It is not advice for your file and does not represent you.',
   ux16Device: 'The answers stay on this phone unless you copy or share the map.',
   ux16Guides: 'Step-by-step guides stay unlocked either way.',
-  ux16Disclaimer: 'NexuLex is not a law firm. A local map is a product tool, not a lawyer.',
+  ux16Disclaimer: "NexuLex is not a law firm. This is general information, not legal advice.",
 };

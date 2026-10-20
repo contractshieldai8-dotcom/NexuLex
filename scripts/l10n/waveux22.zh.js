@@ -7,5 +7,5 @@ module.exports = {
   ux22Audience: '受众只选择谁可打开该说明。不给律师排名。',
   ux22Pro: '额外的家庭和顾问席位留在付费方案。指南保持免费。',
   ux22Guides: '分步指南无论哪种情况都不上锁。',
-  ux22Disclaimer: 'NexuLex 不是律师事务所。分享摘要是产品工具，不是律师。',
+  ux22Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

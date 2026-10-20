@@ -7,5 +7,5 @@ module.exports = {
   ux16NoAdvice: 'Un corridoio di passi. Non è un parere per il tuo fascicolo e non ti rappresenta.',
   ux16Device: 'Le risposte restano su questo telefono finché non copi o condividi la mappa.',
   ux16Guides: 'Le guide passo passo restano sbloccate in ogni caso.',
-  ux16Disclaimer: 'NexuLex non è uno studio. Una mappa locale è uno strumento di prodotto, non un avvocato.',
+  ux16Disclaimer: "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale.",
 };

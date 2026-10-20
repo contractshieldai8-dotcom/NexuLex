@@ -7,5 +7,5 @@ module.exports = {
   ux3Advisor: 'Danışman koltukları salt okunur kalır. İlişki biterse kodu iptal edin.',
   ux3Get: 'Genel sayfada sözleşme ve brief yoktur. Yalnızca NexuLex’i açmalarına yardım eder.',
   ux3Copy: 'Kopyalama aynı kod iletisini gönderir. Madde metni kopyalanmaz.',
-  ux3Disclaimer: 'NexuLex bir hukuk bürosu değildir. Koltuk ürün aracıdır, avukat dosyası değildir.',
+  ux3Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

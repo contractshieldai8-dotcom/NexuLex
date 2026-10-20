@@ -27,8 +27,8 @@ for (const lang of only ? [only] : langs) {
     if ((lang === 'ar' || lang === 'fa') && (/→/.test(value) || /[\u0600-\u06FF][^?]*\?(\s|$)/.test(value))) problems.push(`${lang}.${key}: RTL`);
   }
   if (!/\{\{percent\}\}/.test(table.mx2Delta || '')) problems.push(`${lang}.mx2Delta: needs {{percent}}`);
-  if (!/\{\{plusPrice\}\}/.test(table.mx2Prices || '') || !/\{\{proPrice\}\}/.test(table.mx2Prices || '')) {
-    problems.push(`${lang}.mx2Prices: needs {{plusPrice}} and {{proPrice}}`);
+  if (!/\{\{professionalPrice\}\}/.test(table.mx2Prices || '') || !/\{\{proPrice\}\}/.test(table.mx2Prices || '')) {
+    problems.push(`${lang}.mx2Prices: needs {{professionalPrice}} and {{proPrice}}`);
   }
   if (!/NexuLex/.test(table.mx2Offering || '') || !/NexuLex/.test(table.mx2Disclaimer || '')) {
     problems.push(`${lang}: offering/disclaimer must name NexuLex`);

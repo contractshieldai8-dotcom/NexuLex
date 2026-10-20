@@ -460,9 +460,12 @@ export default function DraftWizardModal({
                       marginBottom: 12,
                     }}
                   >
-                    <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 4 }]}>
-                      🔒 {t('draftProLockTitle')}
-                    </Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+                      <Ionicons name="lock-closed-outline" size={15} color={theme.accent} />
+                      <Text style={[styles.settingLabel, { color: theme.text, flexShrink: 1 }]}>
+                        {t('draftProLockTitle')}
+                      </Text>
+                    </View>
                     <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
                       {t('draftProLockBody')}
                     </Text>
@@ -480,23 +483,23 @@ export default function DraftWizardModal({
                   {exporting ? (
                     <ActivityIndicator color="#080C14" size="small" />
                   ) : (
-                    <Text style={styles.primaryButtonText}>
-                      {isPro ? '' : '🔒 '}
-                      {t('draftExportDocx')}
-                    </Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                      {isPro ? null : <Ionicons name="lock-closed" size={14} color="#080C14" />}
+                      <Text style={styles.primaryButtonText}>{t('draftExportDocx')}</Text>
+                    </View>
                   )}
                 </TouchableOpacity>
                 <TouchableOpacity accessibilityRole="button" style={styles.secondaryBtn} onPress={handleCopy}>
-                  <Text style={styles.secondaryBtnText}>
-                    {isPro ? '' : '🔒 '}
-                    {t('draftCopy')}
-                  </Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                    {isPro ? null : <Ionicons name="lock-closed-outline" size={14} color={theme.accent} />}
+                    <Text style={styles.secondaryBtnText}>{t('draftCopy')}</Text>
+                  </View>
                 </TouchableOpacity>
                 <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 8 }]} onPress={handleShare}>
-                  <Text style={styles.secondaryBtnText}>
-                    {isPro ? '' : '🔒 '}
-                    {t('draftShare')}
-                  </Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                    {isPro ? null : <Ionicons name="lock-closed-outline" size={14} color={theme.accent} />}
+                    <Text style={styles.secondaryBtnText}>{t('draftShare')}</Text>
+                  </View>
                 </TouchableOpacity>
                 <TouchableOpacity accessibilityRole="button"
                   style={[styles.secondaryBtn, { marginTop: 8 }, improving && styles.buttonDisabled]}
@@ -506,10 +509,10 @@ export default function DraftWizardModal({
                   {improving ? (
                     <ActivityIndicator color={theme.accent} size="small" />
                   ) : (
-                    <Text style={styles.secondaryBtnText}>
-                      {isPro ? '' : '🔒 '}
-                      {t('draftImprove')}
-                    </Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                      {isPro ? null : <Ionicons name="lock-closed-outline" size={14} color={theme.accent} />}
+                      <Text style={styles.secondaryBtnText}>{t('draftImprove')}</Text>
+                    </View>
                   )}
                 </TouchableOpacity>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 0 }]}>

@@ -7,5 +7,5 @@ module.exports = {
   ux8Sources: 'Her resmî kaynağı kendiniz açın. Mevzuat değişir; atıf eski kalabilir.',
   ux8NoEvidence: 'Dosya eklemek özeti gönderir, delil dosyalarını değil.',
   ux8Device: 'Cevaplar kaydetmediğiniz veya paylaşmadığınız sürece bu telefonda kalır.',
-  ux8Disclaimer: 'NexuLex bir hukuk bürosu değildir. Yapılandırılmış cevap ürün aracıdır, avukat değildir.',
+  ux8Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

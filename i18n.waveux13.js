@@ -9,7 +9,7 @@ export const WAVE_UX13_I18N = {
     "ux13Send": "Göndermeden önce kendiniz okuyun. Resmî form farklı görünebilir.",
     "ux13Device": "Taslak kopyalamadığınız, paylaşmadığınız veya dışa aktarmadığınız sürece bu telefonda kalır.",
     "ux13NoWin": "Mektup göndermek dava açmaz ve hüküm tahmin etmez.",
-    "ux13Disclaimer": "NexuLex bir hukuk bürosu değildir. Doldurulmuş taslak ürün aracıdır, avukat değildir."
+    "ux13Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux13Preview": "The first {{previewLines}} lines stay free. The full letter, DOCX and polish stay Pro.",
@@ -19,7 +19,7 @@ export const WAVE_UX13_I18N = {
     "ux13Send": "Read it yourself before you send it. An official form may look different.",
     "ux13Device": "The draft stays on this phone unless you copy, share or export it.",
     "ux13NoWin": "Sending a letter does not start a case and does not predict a judgment.",
-    "ux13Disclaimer": "NexuLex is not a law firm. A filled draft is a product tool, not a lawyer."
+    "ux13Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux13Preview": "Die ersten {{previewLines}} Zeilen bleiben gratis. Voller Brief, DOCX und Politur bleiben Pro.",
@@ -29,7 +29,7 @@ export const WAVE_UX13_I18N = {
     "ux13Send": "Lesen Sie ihn selbst vor dem Versand. Ein amtliches Formular kann anders aussehen.",
     "ux13Device": "Der Entwurf bleibt auf diesem Telefon, bis Sie ihn kopieren, teilen oder exportieren.",
     "ux13NoWin": "Einen Brief senden eroeffnet kein Verfahren und sagt kein Urteil voraus.",
-    "ux13Disclaimer": "NexuLex ist keine Kanzlei. Ein ausgefuellter Entwurf ist ein Produktwerkzeug, kein Anwalt."
+    "ux13Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux13Preview": "Les {{previewLines}} premières lignes restent gratuites. La lettre complete, le DOCX et la relecture restent Pro.",
@@ -39,7 +39,7 @@ export const WAVE_UX13_I18N = {
     "ux13Send": "Lisez-le vous-même avant envoi. Un formulaire officiel peut être différent.",
     "ux13Device": "Le brouillon reste sur ce téléphone sauf si vous le copiez, le partagez ou l’exportez.",
     "ux13NoWin": "Envoyer une lettre n’ouvre pas une affaire et ne prédit pas un jugement.",
-    "ux13Disclaimer": "NexuLex n’est pas un cabinet. Un brouillon rempli est un outil produit, pas un avocat."
+    "ux13Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux13Preview": "Las primeras {{previewLines}} líneas siguen gratis. La carta completa, el DOCX y el pulido siguen Pro.",
@@ -49,7 +49,7 @@ export const WAVE_UX13_I18N = {
     "ux13Send": "Lealo usted antes de enviarlo. Un formulario oficial puede verse distinto.",
     "ux13Device": "El borrador se queda en este teléfono salvo que lo copie, lo comparta o lo exporte.",
     "ux13NoWin": "Enviar una carta no abre un caso y no predice una sentencia.",
-    "ux13Disclaimer": "NexuLex no es un bufete. Un borrador relleno es una herramienta de producto, no un abogado."
+    "ux13Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux13Preview": "الأسطر الـ {{previewLines}} الأولى تبقى مجانية. والخطاب الكامل وDOCX والصقل تبقى Pro.",
@@ -59,7 +59,7 @@ export const WAVE_UX13_I18N = {
     "ux13Send": "اقرأها بنفسك قبل الإرسال. وقد يبدو النموذج الرسمي مختلفا.",
     "ux13Device": "المسودة تبقى على هذا الهاتف ما لم تنسخها أو تشاركها أو تصدّرها.",
     "ux13NoWin": "إرسال خطاب لا يفتح قضية ولا يتوقع حكما.",
-    "ux13Disclaimer": "NexuLex ليس مكتب محاماة. والمسودة المملوءة أداة منتج وليست محاميا."
+    "ux13Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux13Preview": "Le prime {{previewLines}} righe restano gratis. La lettera intera, il DOCX e la limatura restano Pro.",
@@ -69,7 +69,7 @@ export const WAVE_UX13_I18N = {
     "ux13Send": "Leggila tu prima di inviarla. Un modulo ufficiale può essere diverso.",
     "ux13Device": "La bozza resta su questo telefono finché non la copi, la condividi o la esporti.",
     "ux13NoWin": "Inviare una lettera non apre una causa e non predice una sentenza.",
-    "ux13Disclaimer": "NexuLex non è uno studio. Una bozza compilata è uno strumento di prodotto, non un avvocato."
+    "ux13Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux13Preview": "前 {{previewLines}} 行保持免费。全文、DOCX 和润色仍属 Pro。",
@@ -79,7 +79,7 @@ export const WAVE_UX13_I18N = {
     "ux13Send": "发送前请自行阅读。官方表格可能不同。",
     "ux13Device": "除非您复制、分享或导出，草稿留在这台手机上。",
     "ux13NoWin": "寄出信件不会立案，也不会预测判决。",
-    "ux13Disclaimer": "NexuLex 不是律师事务所。填好的草稿是产品工具，不是律师。"
+    "ux13Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux13Preview": "Первые {{previewLines}} строк остаются бесплатными. Полное письмо, DOCX и правка остаются Pro.",
@@ -89,7 +89,7 @@ export const WAVE_UX13_I18N = {
     "ux13Send": "Прочитайте сами перед отправкой. Официальная форма может выглядеть иначе.",
     "ux13Device": "Черновик остаётся на этом телефоне, пока вы его не скопируете, не отправите или не выгрузите.",
     "ux13NoWin": "Отправка письма не открывает дело и не предсказывает решение.",
-    "ux13Disclaimer": "NexuLex не юридическая фирма. Заполненный черновик — инструмент продукта, не адвокат."
+    "ux13Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux13Preview": "نخستین {{previewLines}} خط رایگان می‌ماند. نامهٔ کامل، DOCX و پرداخت Pro است.",
@@ -99,7 +99,7 @@ export const WAVE_UX13_I18N = {
     "ux13Send": "پیش از ارسال خودتان بخوانید. فرم رسمی ممکن است فرق کند.",
     "ux13Device": "پیش‌نویس تا وقتی رونوشت، هم‌رسانی یا برون‌بری نکنید روی همین تلفن می‌ماند.",
     "ux13NoWin": "فرستادن نامه پرونده باز نمی‌کند و حکم پیش‌بینی نمی‌کند.",
-    "ux13Disclaimer": "NexuLex دفتر وکالت نیست. پیش‌نویس پرشده ابزار محصول است، نه وکیل."
+    "ux13Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux13Preview": "最初の {{previewLines}} 行は無料のままです。全文、DOCX、磨きは Pro のままです。",
@@ -109,7 +109,7 @@ export const WAVE_UX13_I18N = {
     "ux13Send": "送る前にご自分で読んでください。公式の書式は違うことがあります。",
     "ux13Device": "コピー、共有、書き出しをしない限り、下書きはこの電話に残ります。",
     "ux13NoWin": "手紙を送っても事件は始まらず、判決も予測しません。",
-    "ux13Disclaimer": "NexuLex は法律事務所ではありません。埋めた下書きは製品の用具であり、弁護士ではありません。"
+    "ux13Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux13Preview": "As primeiras {{previewLines}} linhas ficam grátis. A carta completa, o DOCX e o polimento ficam Pro.",
@@ -119,7 +119,7 @@ export const WAVE_UX13_I18N = {
     "ux13Send": "Leia você antes de enviar. Um formulário oficial pode parecer diferente.",
     "ux13Device": "O rascunho fica neste telefone até o copiar, partilhar ou exportar.",
     "ux13NoWin": "Enviar uma carta não abre um processo e não prevê uma sentença.",
-    "ux13Disclaimer": "A NexuLex não é um escritório. Um rascunho preenchido é uma ferramenta de produto, não um advogado."
+    "ux13Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux13Preview": "De eerste {{previewLines}} regels blijven gratis. De volle brief, DOCX en polijst blijven Pro.",
@@ -129,6 +129,6 @@ export const WAVE_UX13_I18N = {
     "ux13Send": "Lees het zelf voor u het verstuurt. Een officieel formulier kan er anders uitzien.",
     "ux13Device": "Het concept blijft op deze telefoon tot u het kopieert, deelt of exporteert.",
     "ux13NoWin": "Een brief versturen start geen zaak en voorspelt geen vonnis.",
-    "ux13Disclaimer": "NexuLex is geen advocatenkantoor. Een ingevuld concept is een producthulp, geen advocaat."
+    "ux13Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

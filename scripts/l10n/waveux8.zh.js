@@ -7,5 +7,5 @@ module.exports = {
   ux8Sources: '请自行打开每一份官方来源。法规会变；引用可能过时。',
   ux8NoEvidence: '附加案件只发送摘要，不发送证据文件。',
   ux8Device: '除非您保存或分享，答案留在这台手机上。',
-  ux8Disclaimer: 'NexuLex 不是律师事务所。结构化回答是产品工具，不是律师。',
+  ux8Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

@@ -25,9 +25,9 @@ export function pickProfessionalCompare(proList, professionalList) {
   const pair = pickSamePeriodPair(proList, professionalList);
   if (!pair || !sameStoreCurrency(pair.pro, pair.professional)) return null;
   const proPrice = Number(pair.pro.price);
-  const plusPrice = Number(pair.professional.price);
-  if (!Number.isFinite(proPrice) || !Number.isFinite(plusPrice) || proPrice <= 0 || plusPrice <= 0) return null;
-  const extra = plusPrice - proPrice;
+  const professionalPrice = Number(pair.professional.price);
+  if (!Number.isFinite(proPrice) || !Number.isFinite(professionalPrice) || proPrice <= 0 || professionalPrice <= 0) return null;
+  const extra = professionalPrice - proPrice;
   if (!(extra > 0)) return null;
   const percent = Math.floor((extra / proPrice) * 100);
   if (percent < 1 || percent > 400) return null;
@@ -36,7 +36,7 @@ export function pickProfessionalCompare(proList, professionalList) {
     extra,
     percent,
     proPrice,
-    professionalPrice: plusPrice,
+    professionalPrice,
     proPriceString: String(pair.pro.priceString || '').trim(),
     professionalPriceString: String(pair.professional.priceString || '').trim(),
     currency: String(pair.pro.currencyCode || ''),

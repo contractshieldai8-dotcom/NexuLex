@@ -1,11 +1,12 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { getRiskColor, styles } from '../theme';
+import { getRiskColor, getRiskTextColor, styles } from '../theme';
 
 // Risk Skoru Görsel Göstergesi
 export default function RiskGauge({ theme, score, risk, label }) {
   const percent = Math.max(0, Math.min(100, Number(score) || 0));
   const color = getRiskColor(risk);
+  const textColor = getRiskTextColor(risk);
 
   return (
     <View style={styles.gaugeWrapper}>
@@ -15,7 +16,7 @@ export default function RiskGauge({ theme, score, risk, label }) {
       <View style={styles.gaugeLegend}>
         <Text style={[styles.gaugeLegendText, { color: theme.subText }]}>0</Text>
         <Text
-          style={[styles.gaugeLegendText, { color, fontWeight: '700' }]}
+          style={[styles.gaugeLegendText, { color: textColor, fontWeight: '700' }]}
           numberOfLines={1}
         >
           {label}

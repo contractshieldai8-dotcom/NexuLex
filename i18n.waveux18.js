@@ -9,7 +9,7 @@ export const WAVE_UX18_I18N = {
     "ux18Jobs": "Dört tür: bitmemiş metin, son dosya, son soru, son rapor.",
     "ux18NoWin": "Burada sonuç vaadi veya avukat sıralaması yoktur.",
     "ux18Guides": "Adım adım rehberler her durumda açık kalır.",
-    "ux18Disclaimer": "NexuLex bir hukuk bürosu değildir. Devam kartı ürün aracıdır, avukat değildir."
+    "ux18Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux18Device": "Unfinished text stays on this phone. Nothing is sent until you ask or analyze.",
@@ -19,7 +19,7 @@ export const WAVE_UX18_I18N = {
     "ux18Jobs": "Four kinds: unfinished text, last case, last question, last report.",
     "ux18NoWin": "Nothing here promises a result or ranks a lawyer.",
     "ux18Guides": "Step-by-step guides stay unlocked either way.",
-    "ux18Disclaimer": "NexuLex is not a law firm. A resume card is a product tool, not a lawyer."
+    "ux18Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux18Device": "Unfertiger Text bleibt auf diesem Telefon. Nichts wird gesendet, bis Sie fragen oder scannen.",
@@ -29,7 +29,7 @@ export const WAVE_UX18_I18N = {
     "ux18Jobs": "Vier Arten: unfertiger Text, letzte Akte, letzte Frage, letzter Bericht.",
     "ux18NoWin": "Nichts hier verspricht ein Ergebnis oder reiht einen Anwalt.",
     "ux18Guides": "Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.",
-    "ux18Disclaimer": "NexuLex ist keine Kanzlei. Eine Fortsetzen-Karte ist ein Produktwerkzeug, kein Anwalt."
+    "ux18Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux18Device": "Le texte inacheve reste sur ce téléphone. Rien n’est envoye tant que vous ne demandez ou n’analysez.",
@@ -39,7 +39,7 @@ export const WAVE_UX18_I18N = {
     "ux18Jobs": "Quatre types: texte inacheve, dernier dossier, dernière question, dernier rapport.",
     "ux18NoWin": "Rien ici ne promet un résultat ni ne classe un avocat.",
     "ux18Guides": "Les guides pas à pas restent ouverts dans tous les cas.",
-    "ux18Disclaimer": "NexuLex n’est pas un cabinet. Une carte de reprise est un outil produit, pas un avocat."
+    "ux18Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux18Device": "El texto sin terminar se queda en este teléfono. Nada se envía hasta que pregunte o analice.",
@@ -49,7 +49,7 @@ export const WAVE_UX18_I18N = {
     "ux18Jobs": "Cuatro tipos: texto sin terminar, último expediente, última pregunta, último informe.",
     "ux18NoWin": "Nada aquí promete un resultado ni clasifica a un abogado.",
     "ux18Guides": "Las guías paso a paso siguen abiertas de todos modos.",
-    "ux18Disclaimer": "NexuLex no es un bufete. Una tarjeta de reanudacion es una herramienta de producto, no un abogado."
+    "ux18Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux18Device": "النص غير المكتمل يبقى على هذا الهاتف. ولا يُرسل شيء حتى تسأل أو تحلل.",
@@ -59,7 +59,7 @@ export const WAVE_UX18_I18N = {
     "ux18Jobs": "أربعة أنواع: نص غير مكتمل، آخر ملف، آخر سؤال، آخر تقرير.",
     "ux18NoWin": "لا شيء هنا يعد بنتيجة أو يرتّب محاميا.",
     "ux18Guides": "الأدلة خطوة بخطوة تبقى مفتوحة في الحالين.",
-    "ux18Disclaimer": "NexuLex ليس مكتب محاماة. وبطاقة الاستئناف أداة منتج وليست محاميا."
+    "ux18Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux18Device": "Il testo incompiuto resta su questo telefono. Nulla viene inviato finché non chiedi o analizzi.",
@@ -69,7 +69,7 @@ export const WAVE_UX18_I18N = {
     "ux18Jobs": "Quattro tipi: testo incompiuto, ultimo fascicolo, ultima domanda, ultimo report.",
     "ux18NoWin": "Nulla qui promette un esito o classifica un avvocato.",
     "ux18Guides": "Le guide passo passo restano sbloccate in ogni caso.",
-    "ux18Disclaimer": "NexuLex non è uno studio. Una scheda di ripresa è uno strumento di prodotto, non un avvocato."
+    "ux18Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux18Device": "未完成的文字留在这台手机上。在你提问或分析之前不会发送任何内容。",
@@ -79,7 +79,7 @@ export const WAVE_UX18_I18N = {
     "ux18Jobs": "四种：未完成文字、上一案件、上一提问、上一报告。",
     "ux18NoWin": "这里不承诺结果，也不给律师排名。",
     "ux18Guides": "分步指南无论哪种情况都不上锁。",
-    "ux18Disclaimer": "NexuLex 不是律师事务所。继续卡片是产品工具，不是律师。"
+    "ux18Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux18Device": "Незаконченный текст остаётся на этом телефоне. Ничего не отправляется, пока вы не спросите или не разберёте.",
@@ -89,7 +89,7 @@ export const WAVE_UX18_I18N = {
     "ux18Jobs": "Четыре вида: незаконченный текст, последнее дело, последний вопрос, последний отчёт.",
     "ux18NoWin": "Здесь нет обещания исхода и нет рейтинга юристов.",
     "ux18Guides": "Пошаговые гиды в любом случае остаются открытыми.",
-    "ux18Disclaimer": "NexuLex не юридическая фирма. Карточка продолжения — инструмент продукта, не адвокат."
+    "ux18Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux18Device": "متن ناتمام روی همین تلفن می‌ماند. تا نپرسید یا تحلیل نکنید چیزی فرستاده نمی‌شود.",
@@ -99,7 +99,7 @@ export const WAVE_UX18_I18N = {
     "ux18Jobs": "چهار نوع: متن ناتمام، آخرین پرونده، آخرین پرسش، آخرین گزارش.",
     "ux18NoWin": "اینجا وعده نتیجه یا رتبه‌بندی وکیل نیست.",
     "ux18Guides": "راهنماهای گام‌به‌گام در هر حال باز می‌مانند.",
-    "ux18Disclaimer": "NexuLex دفتر وکالت نیست. کارت ادامه ابزار محصول است، نه وکیل."
+    "ux18Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux18Device": "未完の文章はこの電話に残ります。質問または確認するまで何も送られません。",
@@ -109,7 +109,7 @@ export const WAVE_UX18_I18N = {
     "ux18Jobs": "四種類：未完の文章、直前の事件、直前の質問、直前の報告。",
     "ux18NoWin": "ここには結果の約束も弁護士の順位もありません。",
     "ux18Guides": "手順ガイドはどちらでもロックされません。",
-    "ux18Disclaimer": "NexuLex は法律事務所ではありません。再開カードは製品の用具であり、弁護士ではありません。"
+    "ux18Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux18Device": "O texto inacabado fica neste telefone. Nada é enviado até perguntar ou analisar.",
@@ -119,7 +119,7 @@ export const WAVE_UX18_I18N = {
     "ux18Jobs": "Quatro tipos: texto inacabado, último processo, última pergunta, último relatório.",
     "ux18NoWin": "Nada aqui promete um resultado ou classifica um advogado.",
     "ux18Guides": "Os guias passo a passo ficam desbloqueados de qualquer forma.",
-    "ux18Disclaimer": "A NexuLex não é um escritório. Um cartão de retoma é uma ferramenta de produto, não um advogado."
+    "ux18Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux18Device": "Onvoltooide tekst blijft op deze telefoon. Niets wordt verzonden tot u vraagt of analyseert.",
@@ -129,6 +129,6 @@ export const WAVE_UX18_I18N = {
     "ux18Jobs": "Vier soorten: onvoltooide tekst, laatste dossier, laatste vraag, laatste rapport.",
     "ux18NoWin": "Niets hier belooft een resultaat of rangschikt een advocaat.",
     "ux18Guides": "Stapsgewijze gidsen blijven in elk geval ontgrendeld.",
-    "ux18Disclaimer": "NexuLex is geen advocatenkantoor. Een hervattingskaart is een producthulp, geen advocaat."
+    "ux18Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

@@ -7,5 +7,5 @@ module.exports = {
   ux17Store: 'Sous Android, Noter ouvre la fiche Play. Sous iOS, la page get publique. Aucun identifiant Apple inventé.',
   ux17Device: 'Le contrat et le rapport restent sur ce téléphone.',
   ux17Guides: 'Les guides pas à pas restent ouverts dans tous les cas.',
-  ux17Disclaimer: 'NexuLex n’est pas un cabinet. Une invitation est un outil produit, pas un avocat.',
+  ux17Disclaimer: "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique.",
 };

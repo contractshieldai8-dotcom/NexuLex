@@ -7,5 +7,5 @@ module.exports = {
   ux10Sources: 'Her resmî kurumu kendiniz açın. Kurallar değişir; bağlantı eski kalabilir.',
   ux10NoList: 'Uygulama tek tek avukat listelemez veya sıralamaz. Yalnızca resmî kurumları gösterir.',
   ux10Device: 'Rehberler bu telefonda kalır. Bir site açmak uygulamadan çıkar.',
-  ux10Disclaimer: 'NexuLex bir hukuk bürosu değildir. Süreç haritası ürün aracıdır, avukat değildir.',
+  ux10Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

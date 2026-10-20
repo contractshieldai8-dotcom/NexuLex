@@ -7,5 +7,5 @@ module.exports = {
   ux2Intent: 'Luego elige un primer trabajo. Las guías paso a paso no se bloquean.',
   ux2Change: 'Use los botones de abajo si este idioma o país es incorrecto.',
   ux2Settings: 'Ajustes sigue guardando el idioma, el país y los controles de borrar cuenta.',
-  ux2Disclaimer: 'NexuLex no es un despacho de abogados. Este corredor es un punto de partida, no asesoramiento jurídico.',
+  ux2Disclaimer: "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico.",
 };

@@ -6,6 +6,5 @@ module.exports = {
   st4SupportHint: 'Kendi dilinizde yazın. Uygulama, satın alma geri yükleme ve hesap erişimi için yanıtlarız.',
   st4Security: 'Yeni parola giriş hizmetinde saklanır. NexuLex ekibi onu okuyamaz.',
   st4SecurityHint: 'Parolayı değiştirmek App Store veya Google Play aboneliğini iptal etmez.',
-  st4Plan: 'Professional koltuk tavanını yükseltir. Abonelik yine mağazadadır.',
-  st4Disclaimer: 'NexuLex bir hukuk bürosu değildir. Destek ve koltuklar ürün aracıdır, hukuki danışmanlık değildir.',
+  st4Plan: 'Professional koltuk tavanını yükseltir. Abonelik yine mağazadadır.'
 };

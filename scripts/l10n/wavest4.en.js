@@ -6,6 +6,5 @@ module.exports = {
   st4SupportHint: 'Write in your language. We answer about the app, billing restore and account access.',
   st4Security: 'A new password is stored by the sign-in service. NexuLex staff cannot read it.',
   st4SecurityHint: 'Changing the password does not cancel an App Store or Google Play subscription.',
-  st4Plan: 'Professional raises the seat cap. The store still owns the subscription.',
-  st4Disclaimer: 'NexuLex is not a law firm. Support and seats are product tools, not legal advice.',
+  st4Plan: 'Professional raises the seat cap. The store still owns the subscription.'
 };

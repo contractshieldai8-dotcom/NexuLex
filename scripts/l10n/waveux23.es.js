@@ -7,5 +7,5 @@ module.exports = {
   ux23Count: '{{visible}} de {{total}} filas en esta vista.',
   ux23Empty: 'Ninguna fila coincide. Borre la búsqueda o abra Analizar.',
   ux23Guides: 'Las guías paso a paso siguen abiertas de todos modos.',
-  ux23Disclaimer: 'NexuLex no es un bufete. Un registro de historial es un archivo de producto, no un abogado.',
+  ux23Disclaimer: "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico.",
 };

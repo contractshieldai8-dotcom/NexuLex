@@ -7,5 +7,5 @@ module.exports = {
   ux13Send: 'Leggila tu prima di inviarla. Un modulo ufficiale può essere diverso.',
   ux13Device: 'La bozza resta su questo telefono finché non la copi, la condividi o la esporti.',
   ux13NoWin: 'Inviare una lettera non apre una causa e non predice una sentenza.',
-  ux13Disclaimer: 'NexuLex non è uno studio. Una bozza compilata è uno strumento di prodotto, non un avvocato.',
+  ux13Disclaimer: "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale.",
 };

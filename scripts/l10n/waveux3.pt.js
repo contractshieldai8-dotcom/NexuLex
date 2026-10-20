@@ -7,5 +7,5 @@ module.exports = {
   ux3Advisor: 'Os lugares de consultor ficam só de leitura. Revoque o código se a relação terminar.',
   ux3Get: 'A página pública não tem contrato nem brief. Só ajuda a abrir a NexuLex.',
   ux3Copy: 'Copiar envia a mesma mensagem de código. Nenhum texto de cláusula é copiado.',
-  ux3Disclaimer: 'A NexuLex não é um escritório. Um lugar é uma ferramenta de produto, não um processo de advogado.',
+  ux3Disclaimer: "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico.",
 };

@@ -7,5 +7,5 @@ module.exports = {
   ux16NoAdvice: '这是步骤走廊。不是针对你卷宗的意见，也不代表你。',
   ux16Device: '除非你复制或分享地图，回答留在这台手机上。',
   ux16Guides: '分步指南无论哪种情况都不上锁。',
-  ux16Disclaimer: 'NexuLex 不是律师事务所。本地地图是产品工具，不是律师。',
+  ux16Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

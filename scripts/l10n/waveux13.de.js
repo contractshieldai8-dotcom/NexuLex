@@ -7,5 +7,5 @@ module.exports = {
   ux13Send: 'Lesen Sie ihn selbst vor dem Versand. Ein amtliches Formular kann anders aussehen.',
   ux13Device: 'Der Entwurf bleibt auf diesem Telefon, bis Sie ihn kopieren, teilen oder exportieren.',
   ux13NoWin: 'Einen Brief senden eroeffnet kein Verfahren und sagt kein Urteil voraus.',
-  ux13Disclaimer: 'NexuLex ist keine Kanzlei. Ein ausgefuellter Entwurf ist ein Produktwerkzeug, kein Anwalt.',
+  ux13Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

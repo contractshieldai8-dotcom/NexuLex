@@ -7,5 +7,5 @@ module.exports = {
   ux20Share: 'Een deelbrief is een korte productnotitie. Het is niet het volledige contract.',
   ux20Guides: 'Stapsgewijze gidsen blijven in elk geval ontgrendeld.',
   ux20NoWin: 'Niets op dit rapport belooft een resultaat of rangschikt een advocaat.',
-  ux20Disclaimer: 'NexuLex is geen advocatenkantoor. Een scanrapport is een producthulp, geen advocaat.',
+  ux20Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

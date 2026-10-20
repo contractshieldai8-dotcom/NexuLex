@@ -7,5 +7,5 @@ module.exports = {
   ux3Advisor: 'Advisor seats stay read-only. Revoke the code if the relationship ends.',
   ux3Get: 'The public page has no contract and no brief. It only helps them open NexuLex.',
   ux3Copy: 'Copy sends the same code message. No clause text is copied.',
-  ux3Disclaimer: 'NexuLex is not a law firm. A seat is a product tool, not a lawyer file.',
+  ux3Disclaimer: "NexuLex is not a law firm. This is general information, not legal advice.",
 };

@@ -6,6 +6,6 @@ module.exports = {
   ux12Official: 'Conferma tu ogni tasso sulla gazzetta o sull’ente ufficiale. Le tabelle invecchiano.',
   ux12NoWin: 'Un calcolatore non predice una sentenza e non inventa una chance di vincere.',
   ux12Device: 'I tuoi dati restano su questo telefono finché non copi o condividi il risultato.',
-  ux12Free: 'Questi calcolatori restano gratis. Questo elenco non apre un paywall.',
-  ux12Disclaimer: 'NexuLex non è uno studio. Una cifra è uno strumento di prodotto, non un avvocato.',
+  ux12Free: "Questi calcolatori restano gratuiti. Aprire questo elenco non chiede mai di pagare.",
+  ux12Disclaimer: "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale.",
 };

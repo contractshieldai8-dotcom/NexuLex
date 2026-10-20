@@ -7,5 +7,5 @@ module.exports = {
   ux8Sources: 'Öffnen Sie jede amtliche Quelle selbst. Gesetze ändern sich; ein Zitat kann veralten.',
   ux8NoEvidence: 'Eine Akte anhängen sendet die Kurzfassung, nicht die Beweisdateien.',
   ux8Device: 'Antworten bleiben auf diesem Telefon, bis Sie sie speichern oder teilen.',
-  ux8Disclaimer: 'NexuLex ist keine Kanzlei. Eine strukturierte Antwort ist ein Produktwerkzeug, kein Anwalt.',
+  ux8Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

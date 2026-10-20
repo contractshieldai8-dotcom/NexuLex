@@ -7,5 +7,5 @@ module.exports = {
   ux3Advisor: 'Los asientos de asesor siguen en solo lectura. Revogue el código si termina la relación.',
   ux3Get: 'La página pública no tiene contrato ni brief. Solo ayuda a abrir NexuLex.',
   ux3Copy: 'Copiar envía el mismo mensaje de código. No se copia texto de cláusula.',
-  ux3Disclaimer: 'NexuLex no es un bufete. Un asiento es una herramienta de producto, no un expediente de abogado.',
+  ux3Disclaimer: "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico.",
 };

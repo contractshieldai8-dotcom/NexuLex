@@ -13,7 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import * as Sharing from 'expo-sharing';
 
-import { DANGER, ACCENT, getRiskColor, styles } from '../theme';
+import { DANGER, ACCENT, getRiskColor, getRiskTextColor, styles } from '../theme';
 import { typeKeyFromCategory } from '../constants/options';
 import { normalizeAnalysis, buildLocalRadarPreview } from '../utils/analysis';
 import { lifecycleLabelKey } from '../utils/lifecycle';
@@ -267,7 +267,7 @@ export default function HistoryScreen({
       >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <Text
-            style={[styles.historyScore, { color: getRiskColor(item.overall_risk), flexShrink: 1 }]}
+            style={[styles.historyScore, { color: getRiskTextColor(item.overall_risk), flexShrink: 1 }]}
             numberOfLines={1}
           >
             {t('scoreText')}: {item.score}/100 · {getRiskLabel(item.overall_risk)}

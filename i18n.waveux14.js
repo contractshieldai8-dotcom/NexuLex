@@ -9,7 +9,7 @@ export const WAVE_UX14_I18N = {
     "ux14Sources": "Her resmî kaynağı kendiniz açın. Atıf eski kalabilir.",
     "ux14NoAdvice": "Bu bir çalışma yardımcısıdır. Müvekkil dosyasına tavsiye değildir ve kimseyi temsil etmez.",
     "ux14Device": "Sonuçlar bir dosyaya kaydetmediğiniz veya paylaşmadığınız sürece bu telefonda kalır.",
-    "ux14Disclaimer": "NexuLex bir hukuk bürosu değildir. Yapılandırılmış not ürün aracıdır, avukat değildir."
+    "ux14Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux14Quota": "Professional tool runs each day: {{toolsDaily}}. The server counts them.",
@@ -19,7 +19,7 @@ export const WAVE_UX14_I18N = {
     "ux14Sources": "Open every official source yourself. A citation can be stale.",
     "ux14NoAdvice": "This is a work aid. It is not advice for a client file and does not represent anyone.",
     "ux14Device": "Results stay on this phone unless you save them to a case or share them.",
-    "ux14Disclaimer": "NexuLex is not a law firm. A structured memo is a product tool, not a lawyer."
+    "ux14Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux14Quota": "Professional-Werkzeugläufe pro Tag: {{toolsDaily}}. Der Server zählt sie.",
@@ -29,7 +29,7 @@ export const WAVE_UX14_I18N = {
     "ux14Sources": "Öffnen Sie jede amtliche Quelle selbst. Ein Zitat kann veralten.",
     "ux14NoAdvice": "Das ist eine Arbeitshilfe. Keine Beratung für eine Mandantenakte und keine Vertretung.",
     "ux14Device": "Ergebnisse bleiben auf diesem Telefon, bis Sie sie in eine Akte speichern oder teilen.",
-    "ux14Disclaimer": "NexuLex ist keine Kanzlei. Ein strukturiertes Memo ist ein Produktwerkzeug, kein Anwalt."
+    "ux14Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux14Quota": "Passages d’outils Professional par jour: {{toolsDaily}}. Le serveur les compte.",
@@ -39,7 +39,7 @@ export const WAVE_UX14_I18N = {
     "ux14Sources": "Ouvrez chaque source officielle vous-même. Une citation peut être perimee.",
     "ux14NoAdvice": "C’est une aide de travail. Pas un conseil pour un dossier client et pas une représentation.",
     "ux14Device": "Les résultats restent sur ce téléphone sauf si vous les sauvez dans un dossier ou les partagez.",
-    "ux14Disclaimer": "NexuLex n’est pas un cabinet. Une note structurée est un outil produit, pas un avocat."
+    "ux14Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux14Quota": "Ejecuciones de herramientas Professional al día: {{toolsDaily}}. El servidor las cuenta.",
@@ -49,7 +49,7 @@ export const WAVE_UX14_I18N = {
     "ux14Sources": "Abra usted cada fuente oficial. Una cita puede quedar vieja.",
     "ux14NoAdvice": "Es una ayuda de trabajo. No es consejo para un expediente de cliente y no representa a nadie.",
     "ux14Device": "Los resultados se quedan en este teléfono salvo que los guarde en un expediente o los comparta.",
-    "ux14Disclaimer": "NexuLex no es un bufete. Una nota estructurada es una herramienta de producto, no un abogado."
+    "ux14Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux14Quota": "تشغيل أدوات Professional يوميا: {{toolsDaily}}. والخادم يعدّها.",
@@ -59,7 +59,7 @@ export const WAVE_UX14_I18N = {
     "ux14Sources": "افتح كل مصدر رسمي بنفسك. وقد يَقدُم الاقتباس.",
     "ux14NoAdvice": "هذه مساعدة عمل. وليست استشارة لملف موكل ولا تمثيلا لأحد.",
     "ux14Device": "النتائج تبقى على هذا الهاتف ما لم تحفظها في ملف أو تشاركها.",
-    "ux14Disclaimer": "NexuLex ليس مكتب محاماة. والمذكرة المنظمة أداة منتج وليست محاميا."
+    "ux14Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux14Quota": "Esecuzioni di strumenti Professional al giorno: {{toolsDaily}}. Il server le conta.",
@@ -69,7 +69,7 @@ export const WAVE_UX14_I18N = {
     "ux14Sources": "Apri tu ogni fonte ufficiale. Una citazione può essere vecchia.",
     "ux14NoAdvice": "È un aiuto di lavoro. Non è un parere per un fascicolo cliente e non rappresenta nessuno.",
     "ux14Device": "I risultati restano su questo telefono finché non li salvi in una pratica o li condividi.",
-    "ux14Disclaimer": "NexuLex non è uno studio. Una nota strutturata è uno strumento di prodotto, non un avvocato."
+    "ux14Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux14Quota": "每日 Professional 工具运行：{{toolsDaily}}。由服务器计数。",
@@ -79,7 +79,7 @@ export const WAVE_UX14_I18N = {
     "ux14Sources": "请自行打开每一份官方来源。引用可能过时。",
     "ux14NoAdvice": "这是工作辅助。不是针对客户卷宗的意见，也不代表任何人。",
     "ux14Device": "除非您存入案件或分享，结果留在这台手机上。",
-    "ux14Disclaimer": "NexuLex 不是律师事务所。结构化备忘是产品工具，不是律师。"
+    "ux14Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux14Quota": "Запусков инструментов Professional в день: {{toolsDaily}}. Считает сервер.",
@@ -89,7 +89,7 @@ export const WAVE_UX14_I18N = {
     "ux14Sources": "Откройте каждый официальный источник сами. Цитата может устареть.",
     "ux14NoAdvice": "Это рабочая помощь. Не совет по клиентскому делу и не представительство.",
     "ux14Device": "Результаты остаются на этом телефоне, пока вы не сохраните их в дело или не отправите.",
-    "ux14Disclaimer": "NexuLex не юридическая фирма. Структурированная записка — инструмент продукта, не адвокат."
+    "ux14Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux14Quota": "اجرای ابزار Professional در روز: {{toolsDaily}}. سرور می‌شمارد.",
@@ -99,7 +99,7 @@ export const WAVE_UX14_I18N = {
     "ux14Sources": "هر منبع رسمی را خودتان باز کنید. استناد ممکن است کهنه باشد.",
     "ux14NoAdvice": "این کمک کار است. مشاوره پرونده موکل نیست و کسی را نمایندگی نمی‌کند.",
     "ux14Device": "نتایج تا وقتی در پرونده ذخیره یا هم‌رسانی نکنید روی همین تلفن می‌مانند.",
-    "ux14Disclaimer": "NexuLex دفتر وکالت نیست. یادداشت ساخت‌یافته ابزار محصول است، نه وکیل."
+    "ux14Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux14Quota": "一日の Professional ツール実行: {{toolsDaily}}。回数はサーバが数えます。",
@@ -109,7 +109,7 @@ export const WAVE_UX14_I18N = {
     "ux14Sources": "公式の出典はご自分で開いてください。引用は古くなり得ます。",
     "ux14NoAdvice": "これは作業の助けです。依頼者の事件への助言ではなく、代理でもありません。",
     "ux14Device": "案件に保存または共有しない限り、結果はこの電話に残ります。",
-    "ux14Disclaimer": "NexuLex は法律事務所ではありません。組み立てたメモは製品の用具であり、弁護士ではありません。"
+    "ux14Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux14Quota": "Execuções de ferramentas Professional por dia: {{toolsDaily}}. O servidor conta-as.",
@@ -119,7 +119,7 @@ export const WAVE_UX14_I18N = {
     "ux14Sources": "Abra você cada fonte oficial. Uma citação pode ficar velha.",
     "ux14NoAdvice": "É uma ajuda de trabalho. Não é conselho para um processo de cliente e não representa ninguém.",
     "ux14Device": "Os resultados ficam neste telefone até os guardar num processo ou os partilhar.",
-    "ux14Disclaimer": "A NexuLex não é um escritório. Uma nota estruturada é uma ferramenta de produto, não um advogado."
+    "ux14Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux14Quota": "Professional-hulplopen per dag: {{toolsDaily}}. De server telt ze.",
@@ -129,6 +129,6 @@ export const WAVE_UX14_I18N = {
     "ux14Sources": "Open elke officiele bron zelf. Een citaat kan verouderen.",
     "ux14NoAdvice": "Dit is een werkhulp. Geen advies voor een klantdossier en geen vertegenwoordiging.",
     "ux14Device": "Resultaten blijven op deze telefoon tot u ze in een dossier bewaart of deelt.",
-    "ux14Disclaimer": "NexuLex is geen advocatenkantoor. Een gestructureerde nota is een producthulp, geen advocaat."
+    "ux14Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

@@ -34,7 +34,7 @@ for (const lang of only ? [only] : langs) {
     if (/[\u0660-\u0669\u06F0-\u06F9]/.test(value)) problems.push(`${lang}.${key}: use ASCII digits for plan limits`);
     if (digitsOf(value) !== digitsOf(en[key])) problems.push(`${lang}.${key}: numbers ${digitsOf(value)} != ${digitsOf(en[key])}`);
     if (/%|guarantee|garanti\b|garantiert|garantizad|garantit/i.test(value)) problems.push(`${lang}.${key}: no odds or guarantees`);
-    if (lang !== 'en' && value.length >= 12 && value === en[key]) problems.push(`${lang}.${key}: identical to EN`);
+    if (lang !== 'en' && value.length >= 12 && value === en[key] && value !== 'Professional') // 'Professional' is the product's plan name in every language problems.push(`${lang}.${key}: identical to EN`);
     if (lang === 'ar' || lang === 'fa') {
       if (/→/.test(value)) problems.push(`${lang}.${key}: → in RTL copy`);
       if (/[\u0600-\u06FF][^?]*\?(\s|$)/.test(value)) problems.push(`${lang}.${key}: ASCII ? after RTL text`);

@@ -7,5 +7,5 @@ module.exports = {
   st2Sub: 'Borrar la cuenta no cancela una suscripción de App Store o Google Play. Gestione en la tienda.',
   st2Quota: 'El registro del dispositivo del cupo gratuito permanece sin vinculo tras el borrado, solo para bloquear nuevas solicitudes gratuitas.',
   st2WebDelete: 'Borrar sin la aplicación',
-  st2Disclaimer: 'NexuLex no es un despacho de abogados. Las páginas de privacidad pueden cambiar; lealas usted.',
+  st2Disclaimer: "NexuLex no es un despacho de abogados. La app ofrece información general, no asesoramiento jurídico; un plan de pago desbloquea funciones, no representación legal.",
 };

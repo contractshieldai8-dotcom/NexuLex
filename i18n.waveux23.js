@@ -9,7 +9,7 @@ export const WAVE_UX23_I18N = {
     "ux23Count": "Bu görünümde {{visible}} / {{total}} satır.",
     "ux23Empty": "Eşleşen satır yok. Aramayı temizleyin veya Analiz’i açın.",
     "ux23Guides": "Adım adım rehberler her durumda açık kalır.",
-    "ux23Disclaimer": "NexuLex bir hukuk bürosu değildir. Geçmiş kayıt defteri ürün dosyasıdır, avukat değildir."
+    "ux23Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux23Search": "Search parties, type or summary",
@@ -19,7 +19,7 @@ export const WAVE_UX23_I18N = {
     "ux23Count": "{{visible}} of {{total}} rows in this view.",
     "ux23Empty": "No row matches. Clear the search or open Analyze.",
     "ux23Guides": "Step-by-step guides stay unlocked either way.",
-    "ux23Disclaimer": "NexuLex is not a law firm. A history register is a product file, not a lawyer."
+    "ux23Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux23Search": "Parteien, Art oder Kurztext suchen",
@@ -29,7 +29,7 @@ export const WAVE_UX23_I18N = {
     "ux23Count": "{{visible}} von {{total}} Zeilen in dieser Ansicht.",
     "ux23Empty": "Keine Zeile passt. Leeren Sie die Suche oder öffnen Sie Analyse.",
     "ux23Guides": "Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.",
-    "ux23Disclaimer": "NexuLex ist keine Kanzlei. Ein Verlaufsregister ist eine Produktdatei, kein Anwalt."
+    "ux23Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux23Search": "Cherchez les parties, le type ou le résumé",
@@ -39,7 +39,7 @@ export const WAVE_UX23_I18N = {
     "ux23Count": "{{visible}} sur {{total}} lignes dans cette vue.",
     "ux23Empty": "Aucune ligne ne correspond. Videz la recherche ou ouvrez Analyser.",
     "ux23Guides": "Les guides pas à pas restent ouverts dans tous les cas.",
-    "ux23Disclaimer": "NexuLex n’est pas un cabinet. Un registre d’historique est un fichier produit, pas un avocat."
+    "ux23Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux23Search": "Busque partes, tipo o resumen",
@@ -49,7 +49,7 @@ export const WAVE_UX23_I18N = {
     "ux23Count": "{{visible}} de {{total}} filas en esta vista.",
     "ux23Empty": "Ninguna fila coincide. Borre la búsqueda o abra Analizar.",
     "ux23Guides": "Las guías paso a paso siguen abiertas de todos modos.",
-    "ux23Disclaimer": "NexuLex no es un bufete. Un registro de historial es un archivo de producto, no un abogado."
+    "ux23Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux23Search": "ابحث عن الأطراف أو النوع أو الملخص",
@@ -59,7 +59,7 @@ export const WAVE_UX23_I18N = {
     "ux23Count": "{{visible}} من {{total}} صفوف في هذا العرض.",
     "ux23Empty": "لا صف يطابق. امسح البحث أو افتح التحليل.",
     "ux23Guides": "الأدلة خطوة بخطوة تبقى مفتوحة في الحالين.",
-    "ux23Disclaimer": "NexuLex ليس مكتب محاماة. وسجل التاريخ ملف منتج وليس محاميا."
+    "ux23Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux23Search": "Cerca parti, tipo o riepilogo",
@@ -69,7 +69,7 @@ export const WAVE_UX23_I18N = {
     "ux23Count": "{{visible}} di {{total}} righe in questa vista.",
     "ux23Empty": "Nessuna riga corrisponde. Svuota la ricerca o apri Analizza.",
     "ux23Guides": "Le guide passo passo restano sbloccate in ogni caso.",
-    "ux23Disclaimer": "NexuLex non è uno studio. Un registro di cronologia è un file di prodotto, non un avvocato."
+    "ux23Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux23Search": "搜索当事方、类型或摘要",
@@ -79,7 +79,7 @@ export const WAVE_UX23_I18N = {
     "ux23Count": "此视图中 {{visible}} / {{total}} 行。",
     "ux23Empty": "没有匹配行。清除搜索或打开分析。",
     "ux23Guides": "分步指南无论哪种情况都不上锁。",
-    "ux23Disclaimer": "NexuLex 不是律师事务所。历史登记表是产品文件，不是律师。"
+    "ux23Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux23Search": "Ищите стороны, тип или краткое содержание",
@@ -89,7 +89,7 @@ export const WAVE_UX23_I18N = {
     "ux23Count": "{{visible}} из {{total}} строк в этом виде.",
     "ux23Empty": "Нет подходящей строки. Очистите поиск или откройте Разбор.",
     "ux23Guides": "Пошаговые гиды в любом случае остаются открытыми.",
-    "ux23Disclaimer": "NexuLex не юридическая фирма. Реестр истории — файл продукта, не адвокат."
+    "ux23Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux23Search": "طرف‌ها، نوع یا خلاصه را بجویید",
@@ -99,7 +99,7 @@ export const WAVE_UX23_I18N = {
     "ux23Count": "{{visible}} از {{total}} ردیف در این نما.",
     "ux23Empty": "ردیفی جور نیست. جستجو را پاک کنید یا تحلیل را باز کنید.",
     "ux23Guides": "راهنماهای گام‌به‌گام در هر حال باز می‌مانند.",
-    "ux23Disclaimer": "NexuLex دفتر وکالت نیست. دفتر ثبت تاریخچه پرونده محصول است، نه وکیل."
+    "ux23Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux23Search": "当事者、種類、要約を検索します",
@@ -109,7 +109,7 @@ export const WAVE_UX23_I18N = {
     "ux23Count": "この表示は {{visible}} / {{total}} 行です。",
     "ux23Empty": "合う行がありません。検索を消すか確認を開いてください。",
     "ux23Guides": "手順ガイドはどちらでもロックされません。",
-    "ux23Disclaimer": "NexuLex は法律事務所ではありません。履歴の台帳は製品ファイルであり、弁護士ではありません。"
+    "ux23Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux23Search": "Pesquise partes, tipo ou resumo",
@@ -119,7 +119,7 @@ export const WAVE_UX23_I18N = {
     "ux23Count": "{{visible}} de {{total}} linhas nesta vista.",
     "ux23Empty": "Nenhuma linha corresponde. Limpe a pesquisa ou abra Analisar.",
     "ux23Guides": "Os guias passo a passo ficam desbloqueados de qualquer forma.",
-    "ux23Disclaimer": "A NexuLex não é um escritório. Um registo de histórico é um ficheiro de produto, não um advogado."
+    "ux23Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux23Search": "Zoek partijen, type of samenvatting",
@@ -129,6 +129,6 @@ export const WAVE_UX23_I18N = {
     "ux23Count": "{{visible}} van {{total}} rijen in deze weergave.",
     "ux23Empty": "Geen rij komt overeen. Wis de zoekactie of open Analyseren.",
     "ux23Guides": "Stapsgewijze gidsen blijven in elk geval ontgrendeld.",
-    "ux23Disclaimer": "NexuLex is geen advocatenkantoor. Een geschiedenisregister is een productbestand, geen advocaat."
+    "ux23Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

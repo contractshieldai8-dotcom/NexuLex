@@ -7,5 +7,5 @@ module.exports = {
   ux23Count: '{{visible}} de {{total}} linhas nesta vista.',
   ux23Empty: 'Nenhuma linha corresponde. Limpe a pesquisa ou abra Analisar.',
   ux23Guides: 'Os guias passo a passo ficam desbloqueados de qualquer forma.',
-  ux23Disclaimer: 'A NexuLex não é um escritório. Um registo de histórico é um ficheiro de produto, não um advogado.',
+  ux23Disclaimer: "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico.",
 };

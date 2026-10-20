@@ -6,6 +6,6 @@ module.exports = {
   ux12Official: 'Bevestig elk tarief zelf in het staatsblad of bij de instantie. Tabellen verouderen.',
   ux12NoWin: 'Een rekenmachine voorspelt geen vonnis en verzint geen winstkans.',
   ux12Device: 'Uw invoer blijft op deze telefoon tot u het resultaat kopieert of deelt.',
-  ux12Free: 'Deze rekenmachines blijven gratis. Deze lijst opent geen paywall.',
-  ux12Disclaimer: 'NexuLex is geen advocatenkantoor. Een cijfer is een producthulp, geen advocaat.',
+  ux12Free: "Deze rekenhulpen blijven gratis. Deze lijst openen vraagt nooit om betaling.",
+  ux12Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

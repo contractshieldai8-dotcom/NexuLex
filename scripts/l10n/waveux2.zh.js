@@ -7,5 +7,5 @@ module.exports = {
   ux2Intent: '接下来选择第一项工作。分步指南永不锁定。',
   ux2Change: '若此语言或国家不对，请使用下方按钮。',
   ux2Settings: '设置仍保留语言、国家与删除账户控件。',
-  ux2Disclaimer: 'NexuLex 不是律师事务所。此走廊是起点，不是法律意见。',
+  ux2Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

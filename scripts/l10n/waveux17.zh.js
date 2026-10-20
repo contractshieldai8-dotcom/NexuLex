@@ -7,5 +7,5 @@ module.exports = {
   ux17Store: '在 Android 上，评分打开 Play 商品页。在 iOS 上打开公开 get 页。不会编造 Apple 应用编号。',
   ux17Device: '合同和报告留在这台手机上。',
   ux17Guides: '分步指南无论哪种情况都不上锁。',
-  ux17Disclaimer: 'NexuLex 不是律师事务所。邀请是产品工具，不是律师。',
+  ux17Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

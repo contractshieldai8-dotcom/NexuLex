@@ -14,10 +14,11 @@ export default function HonestyFold({ theme, label, showLabel, hideLabel, childr
         accessibilityRole="button"
         accessibilityState={{ expanded: open }}
         accessibilityLabel={open ? hideLabel : showLabel}
-        style={{ flexDirection: 'row', alignItems: 'center', gap: 6, paddingVertical: 2 }}
+        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+        style={{ flexDirection: 'row', alignItems: 'center', gap: 6, paddingVertical: 2, opacity: open ? 1 : 0.8 }}
       >
-        <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={15} color={theme.subText} />
-        <Text style={[styles.sectionHint, { color: theme.subText, flex: 1, marginBottom: 0, fontSize: 13, fontWeight: '600' }]}>
+        <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={14} color={theme.subText} />
+        <Text style={[styles.sectionHint, { color: theme.subText, flex: 1, marginBottom: 0, fontSize: 12, fontWeight: '600' }]}>
           {label || showLabel}
         </Text>
       </TouchableOpacity>

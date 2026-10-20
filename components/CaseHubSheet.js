@@ -19,7 +19,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Sharing from 'expo-sharing';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, DANGER, SUCCESS, WARNING, styles } from '../theme';
+import { ACCENT, DANGER, SUCCESS, WARNING, styles, toneText } from '../theme';
 import {
   cancelCaseReminders,
   deleteEvidenceFiles,
@@ -345,8 +345,8 @@ export default function CaseHubSheet({
   ];
   const linkBtn = (icon, labelKey, onPress, color = ACCENT, extra = null) => (
     <TouchableOpacity accessibilityRole="button" onPress={onPress} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }} hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}>
-      <Ionicons name={icon} size={15} color={color} />
-      <Text style={[styles.label, { color, marginBottom: 0 }]}>{t(labelKey)}</Text>
+      <Ionicons name={icon} size={15} color={toneText(color)} />
+      <Text style={[styles.label, { color: toneText(color), marginBottom: 0 }]}>{t(labelKey)}</Text>
       {extra}
     </TouchableOpacity>
   );

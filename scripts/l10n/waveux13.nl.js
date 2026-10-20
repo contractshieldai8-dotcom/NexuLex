@@ -7,5 +7,5 @@ module.exports = {
   ux13Send: 'Lees het zelf voor u het verstuurt. Een officieel formulier kan er anders uitzien.',
   ux13Device: 'Het concept blijft op deze telefoon tot u het kopieert, deelt of exporteert.',
   ux13NoWin: 'Een brief versturen start geen zaak en voorspelt geen vonnis.',
-  ux13Disclaimer: 'NexuLex is geen advocatenkantoor. Een ingevuld concept is een producthulp, geen advocaat.',
+  ux13Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

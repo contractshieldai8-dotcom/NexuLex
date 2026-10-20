@@ -7,5 +7,5 @@ module.exports = {
   ux21Chat: 'Berater-Chats stehen auf dieser Liste getrennt. Sie sind kein Scan-Bericht.',
   ux21NoWin: 'Die Punktzahl auf einer Karte ist eine Arbeitshilfe. Sie ist kein Gerichtsergebnis.',
   ux21Guides: 'Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.',
-  ux21Disclaimer: 'NexuLex ist keine Kanzlei. Eine Verlaufskarte ist ein Produktwerkzeug, kein Anwalt.',
+  ux21Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

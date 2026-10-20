@@ -7,5 +7,5 @@ module.exports = {
   ux3Advisor: 'Les sièges conseiller restent en lecture seule. Revoquez le code si la relation s’arrete.',
   ux3Get: 'La page publique n’a ni contrat ni brief. Elle aide seulement à ouvrir NexuLex.',
   ux3Copy: 'Copier envoie le même message de code. Aucun texte de clause n’est copie.',
-  ux3Disclaimer: 'NexuLex n’est pas un cabinet. Un siège est un outil produit, pas un dossier avocat.',
+  ux3Disclaimer: "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique.",
 };

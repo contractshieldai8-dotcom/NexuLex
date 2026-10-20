@@ -7,5 +7,5 @@ module.exports = {
   ux20Share: 'Paylaşım özeti kısa bir ürün notudur. Tam sözleşme değildir.',
   ux20Guides: 'Adım adım rehberler her durumda açık kalır.',
   ux20NoWin: 'Bu raporda sonuç vaadi veya avukat sıralaması yoktur.',
-  ux20Disclaimer: 'NexuLex bir hukuk bürosu değildir. Tarama raporu ürün aracıdır, avukat değildir.',
+  ux20Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

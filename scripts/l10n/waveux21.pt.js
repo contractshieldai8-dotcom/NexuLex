@@ -7,5 +7,5 @@ module.exports = {
   ux21Chat: 'As conversas do consultor ficam a parte nesta lista. Não são um relatório de análise.',
   ux21NoWin: 'A pontuação num cartão é uma ajuda de trabalho. Não é um resultado de tribunal.',
   ux21Guides: 'Os guias passo a passo ficam desbloqueados de qualquer forma.',
-  ux21Disclaimer: 'A NexuLex não é um escritório. Um cartão de histórico é uma ferramenta de produto, não um advogado.',
+  ux21Disclaimer: "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico.",
 };

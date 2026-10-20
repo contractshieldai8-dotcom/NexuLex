@@ -7,5 +7,5 @@ module.exports = {
   ux23Count: '{{visible}} von {{total}} Zeilen in dieser Ansicht.',
   ux23Empty: 'Keine Zeile passt. Leeren Sie die Suche oder öffnen Sie Analyse.',
   ux23Guides: 'Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.',
-  ux23Disclaimer: 'NexuLex ist keine Kanzlei. Ein Verlaufsregister ist eine Produktdatei, kein Anwalt.',
+  ux23Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

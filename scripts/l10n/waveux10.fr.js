@@ -7,5 +7,5 @@ module.exports = {
   ux10Sources: 'Ouvrez chaque organisme officiel vous-même. Les règles changent; un lien peut être perime.',
   ux10NoList: 'L’app ne liste ni ne classe d’avocats individuels. Elle pointe seulement des organismes officiels.',
   ux10Device: 'Les guides restent sur ce téléphone. Ouvrir un site quitte l’app.',
-  ux10Disclaimer: 'NexuLex n’est pas un cabinet. Une carte de démarche est un outil produit, pas un avocat.',
+  ux10Disclaimer: "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique.",
 };

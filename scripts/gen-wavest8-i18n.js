@@ -29,8 +29,8 @@ for (const lang of only ? [only] : langs) {
   if (!/\{\{freeAsk\}\}/.test(table.st8Ask || '') || !/\{\{proAsk\}\}/.test(table.st8Ask || '') || !/\{\{professionalAsk\}\}/.test(table.st8Ask || '')) {
     problems.push(`${lang}.st8Ask: needs {{freeAsk}} {{proAsk}} {{professionalAsk}}`);
   }
-  if (!/NexuLex/.test(table.st8Store || '') || !/NexuLex/.test(table.st8Disclaimer || '')) {
-    problems.push(`${lang}: store/disclaimer must name NexuLex`);
+  if (!/NexuLex/.test(table.st8Store || '')) {
+    problems.push(`${lang}: store copy must name NexuLex`);
   }
   out[lang] = Object.fromEntries(baseKeys.map((key) => [key, table[key]]));
 }

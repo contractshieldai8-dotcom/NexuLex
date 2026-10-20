@@ -7,5 +7,5 @@ module.exports = {
   st2Sub: 'Supprimer le compte n’annule pas un abonnement App Store ou Google Play. Gérez-le dans la boutique.',
   st2Quota: 'L’enregistrement appareil du quota gratuit reste non lie après suppression, seulement pour bloquer les demandes gratuites repetees.',
   st2WebDelete: 'Supprimer sans l’application',
-  st2Disclaimer: 'NexuLex n’est pas un cabinet d’avocats. Les pages de confidentialité peuvent changer; lisez-les vous-même.',
+  st2Disclaimer: "NexuLex n’est pas un cabinet d’avocats. L’app donne des informations générales, pas de conseil juridique ; un forfait payant débloque des fonctions, pas une représentation par avocat.",
 };

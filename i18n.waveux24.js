@@ -9,7 +9,7 @@ export const WAVE_UX24_I18N = {
     "ux24New": "Yeni bir tarama başlat",
     "ux24Report": "Karar kartına git",
     "ux24Guides": "Adım adım rehberler",
-    "ux24Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu kısayollar ürün aracıdır, avukat değildir."
+    "ux24Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux24Dock": "NexuLex · Next steps",
@@ -19,7 +19,7 @@ export const WAVE_UX24_I18N = {
     "ux24New": "Start a new scan",
     "ux24Report": "Open the decision card",
     "ux24Guides": "Step-by-step guides",
-    "ux24Disclaimer": "NexuLex is not a law firm. These shortcuts are a product tool, not a lawyer."
+    "ux24Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux24Dock": "NexuLex · Nächste Schritte",
@@ -29,7 +29,7 @@ export const WAVE_UX24_I18N = {
     "ux24New": "Einen neuen Scan starten",
     "ux24Report": "Zur Entscheidungskarte",
     "ux24Guides": "Schritt-für-Schritt-Leitfäden",
-    "ux24Disclaimer": "NexuLex ist keine Kanzlei. Diese Kürzel sind ein Produktwerkzeug, kein Anwalt."
+    "ux24Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux24Dock": "NexuLex · Prochaines étapes",
@@ -39,7 +39,7 @@ export const WAVE_UX24_I18N = {
     "ux24New": "Lancer un nouveau scan",
     "ux24Report": "Ouvrir la carte de décision",
     "ux24Guides": "Guides pas à pas",
-    "ux24Disclaimer": "NexuLex n’est pas un cabinet. Ces raccourcis sont un outil produit, pas un avocat."
+    "ux24Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux24Dock": "NexuLex · Siguientes pasos",
@@ -49,7 +49,7 @@ export const WAVE_UX24_I18N = {
     "ux24New": "Iniciar un análisis nuevo",
     "ux24Report": "Abrir la tarjeta de decisión",
     "ux24Guides": "Guías paso a paso",
-    "ux24Disclaimer": "NexuLex no es un despacho. Estos atajos son una herramienta de producto, no un abogado."
+    "ux24Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux24Dock": "NexuLex · الخطوات التالية",
@@ -59,7 +59,7 @@ export const WAVE_UX24_I18N = {
     "ux24New": "ابدأ فحصا جديدا",
     "ux24Report": "افتح بطاقة القرار",
     "ux24Guides": "أدلة خطوة بخطوة",
-    "ux24Disclaimer": "NexuLex ليس مكتب محاماة. وهذه الاختصارات أداة منتج وليست محاميا."
+    "ux24Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux24Dock": "NexuLex · Passi successivi",
@@ -69,7 +69,7 @@ export const WAVE_UX24_I18N = {
     "ux24New": "Avvia una nuova scansione",
     "ux24Report": "Apri la scheda di decisione",
     "ux24Guides": "Guide passo dopo passo",
-    "ux24Disclaimer": "NexuLex non è uno studio legale. Queste scorciatoie sono uno strumento di prodotto, non un avvocato."
+    "ux24Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux24Dock": "NexuLex · 下一步",
@@ -79,7 +79,7 @@ export const WAVE_UX24_I18N = {
     "ux24New": "开始一次新的扫描",
     "ux24Report": "打开决定卡片",
     "ux24Guides": "分步指南",
-    "ux24Disclaimer": "NexuLex 不是律师事务所。这些快捷方式是产品工具，不是律师。"
+    "ux24Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux24Dock": "NexuLex · Следующие шаги",
@@ -89,7 +89,7 @@ export const WAVE_UX24_I18N = {
     "ux24New": "Начать новый скан",
     "ux24Report": "Открыть карточку решения",
     "ux24Guides": "Пошаговые гиды",
-    "ux24Disclaimer": "NexuLex не юридическая фирма. Эти ярлыки — инструмент продукта, а не адвокат."
+    "ux24Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux24Dock": "NexuLex · گام‌های بعد",
@@ -99,7 +99,7 @@ export const WAVE_UX24_I18N = {
     "ux24New": "یک پویش تازه آغاز کن",
     "ux24Report": "کارت تصمیم را باز کن",
     "ux24Guides": "راهنماهای گام‌به‌گام",
-    "ux24Disclaimer": "NexuLex دفتر وکالت نیست. این میانبرها ابزار محصول هستند، نه وکیل."
+    "ux24Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux24Dock": "NexuLex · 次の手順",
@@ -109,7 +109,7 @@ export const WAVE_UX24_I18N = {
     "ux24New": "新しい確認を始める",
     "ux24Report": "判断カードを開く",
     "ux24Guides": "手順ガイド",
-    "ux24Disclaimer": "NexuLex は法律事務所ではありません。これらの近道は製品ツールであり、弁護士ではありません。"
+    "ux24Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux24Dock": "NexuLex · Próximos passos",
@@ -119,7 +119,7 @@ export const WAVE_UX24_I18N = {
     "ux24New": "Iniciar uma análise nova",
     "ux24Report": "Abrir o cartão de decisão",
     "ux24Guides": "Guias passo a passo",
-    "ux24Disclaimer": "A NexuLex não é um escritório. Estes atalhos são uma ferramenta de produto, não um advogado."
+    "ux24Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux24Dock": "NexuLex · Volgende stappen",
@@ -129,6 +129,6 @@ export const WAVE_UX24_I18N = {
     "ux24New": "Een nieuwe scan starten",
     "ux24Report": "Beslissingskaart openen",
     "ux24Guides": "Stapsgewijze gidsen",
-    "ux24Disclaimer": "NexuLex is geen advocatenkantoor. Deze snelkoppelingen zijn een producttool, geen advocaat."
+    "ux24Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

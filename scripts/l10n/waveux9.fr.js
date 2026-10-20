@@ -7,5 +7,5 @@ module.exports = {
   ux9Verify: 'Lisez l’original vous-même. Les délais partent du jour de réception, pas de cet écran.',
   ux9Device: 'NexuLex garde le résultat sur ce téléphone sauf si vous le sauvez dans un dossier ou le partagez.',
   ux9NoAdvice: 'C’est une aide a la lecture. Pas un conseil pour votre affaire et pas une représentation.',
-  ux9Disclaimer: 'NexuLex n’est pas un cabinet. Une explication est un outil produit, pas un avocat.',
+  ux9Disclaimer: "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique.",
 };

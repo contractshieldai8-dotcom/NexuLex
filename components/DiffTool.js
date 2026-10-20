@@ -14,7 +14,7 @@ import * as Clipboard from 'expo-clipboard';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 
-import { ACCENT, DANGER, SUCCESS, WARNING, alignStart, styles } from '../theme';
+import { ACCENT, DANGER, SUCCESS, WARNING, alignStart, styles, toneText } from '../theme';
 import { playbookItemById } from '../constants/playbooks';
 import { compareContractVersions, reviseContractDraft } from '../services/ai';
 import { describeError } from '../utils/errors';
@@ -412,7 +412,7 @@ export default function DiffTool({
                 </Text>
               ) : null}
               {!light.met && light.unmetReason ? (
-                <Text style={[styles.deadlineMeta, { color: lightColor(light) }]}>
+                <Text style={[styles.deadlineMeta, { color: toneText(lightColor(light)) }]}>
                   {safeDisplayText(light.unmetReason)}
                 </Text>
               ) : null}
@@ -491,7 +491,7 @@ export default function DiffTool({
             <Text style={[styles.deadlineLabel, { color: theme.text, flexShrink: 1 }]} numberOfLines={2}>
               {safeDisplayText(item.topic)}
             </Text>
-            <Text style={[styles.deadlineMeta, { color: winnerColor(item.winner), marginTop: 4 }]}>
+            <Text style={[styles.deadlineMeta, { color: toneText(winnerColor(item.winner)), marginTop: 4 }]}>
               {item.worsened ? t('diffWorsened') : item.winner === 'USER' ? t('diffImproved') : t('diffNeutral')}
               {' · '}
               {t(`diffWinner${item.winner === 'USER' ? 'User' : item.winner === 'OTHER' ? 'Other' : 'Mixed'}`)}
@@ -632,7 +632,7 @@ export default function DiffTool({
             disabled={disabled}
             activeOpacity={0.85}
           >
-            <Text style={styles.sideCardEmoji}>✨</Text>
+            <Ionicons name="sparkles-outline" size={22} color={theme.accent} style={{ marginBottom: 8 }} />
             <Text style={[styles.sideCardLabel, { color: theme.text }]}>{t('diffAutoRevise')}</Text>
             <Text style={[styles.sideCardHint, { color: theme.subText }]}>{t('diffAutoReviseHint')}</Text>
           </TouchableOpacity>
@@ -642,7 +642,7 @@ export default function DiffTool({
             disabled={disabled}
             activeOpacity={0.85}
           >
-            <Text style={styles.sideCardEmoji}>📄</Text>
+            <Ionicons name="git-compare-outline" size={22} color={theme.subText} style={{ marginBottom: 8 }} />
             <Text style={[styles.sideCardLabel, { color: theme.text }]}>{t('diffManualCompare')}</Text>
             <Text style={[styles.sideCardHint, { color: theme.subText }]}>{t('diffManualCompareHint')}</Text>
           </TouchableOpacity>
@@ -656,7 +656,12 @@ export default function DiffTool({
           disabled={disabled}
           activeOpacity={0.85}
         >
-          <Text style={styles.sideCardEmoji}>{lockPremium ? '🔒' : '🛡️'}</Text>
+          <Ionicons
+            name={lockPremium ? 'lock-closed-outline' : 'shield-checkmark-outline'}
+            size={22}
+            color={theme.accent}
+            style={{ marginBottom: 8 }}
+          />
           <Text style={[styles.sideCardLabel, { color: theme.text }]}>{t('verifyMode')}</Text>
           <Text style={[styles.sideCardHint, { color: theme.subText }]}>{t('verifyModeHint')}</Text>
         </TouchableOpacity>

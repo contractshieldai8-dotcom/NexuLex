@@ -7,5 +7,5 @@ module.exports = {
   ux18Jobs: 'Four kinds: unfinished text, last case, last question, last report.',
   ux18NoWin: 'Nothing here promises a result or ranks a lawyer.',
   ux18Guides: 'Step-by-step guides stay unlocked either way.',
-  ux18Disclaimer: 'NexuLex is not a law firm. A resume card is a product tool, not a lawyer.',
+  ux18Disclaimer: "NexuLex is not a law firm. This is general information, not legal advice.",
 };

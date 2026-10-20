@@ -7,5 +7,5 @@ module.exports = {
   ux9Verify: 'Lesen Sie das Original selbst. Fristen beginnen am Tag des Empfangs, nicht auf diesem Bildschirm.',
   ux9Device: 'NexuLex behält das Ergebnis auf diesem Telefon, bis Sie es in eine Akte speichern oder teilen.',
   ux9NoAdvice: 'Das ist eine Lesehilfe. Keine Beratung für Ihre Sache und keine Vertretung.',
-  ux9Disclaimer: 'NexuLex ist keine Kanzlei. Eine Erklärung ist ein Produktwerkzeug, kein Anwalt.',
+  ux9Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

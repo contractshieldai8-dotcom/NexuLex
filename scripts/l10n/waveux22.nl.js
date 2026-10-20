@@ -7,5 +7,5 @@ module.exports = {
   ux22Audience: 'Het publiek kiest alleen wie de notitie mag openen. Het rangschikt geen advocaat.',
   ux22Pro: 'Extra huis- en adviseurplaatsen blijven op een betaald plan. Gidsen blijven gratis.',
   ux22Guides: 'Stapsgewijze gidsen blijven in elk geval ontgrendeld.',
-  ux22Disclaimer: 'NexuLex is geen advocatenkantoor. Een deelbrief is een producthulp, geen advocaat.',
+  ux22Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

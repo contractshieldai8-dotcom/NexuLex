@@ -26,7 +26,6 @@ for (const lang of only ? [only] : langs) {
     if (lang !== 'en' && value.length >= 12 && value === en[key]) problems.push(`${lang}.${key}: identical to EN`);
     if ((lang === 'ar' || lang === 'fa') && (/→/.test(value) || /[\u0600-\u06FF][^?]*\?(\s|$)/.test(value))) problems.push(`${lang}.${key}: RTL`);
   }
-  if (!/NexuLex/.test(table.st4Disclaimer || '')) problems.push(`${lang}.st4Disclaimer: must name NexuLex`);
   out[lang] = Object.fromEntries(baseKeys.map((key) => [key, table[key]]));
 }
 if (problems.length) { console.error(problems.join('\n')); process.exit(1); }

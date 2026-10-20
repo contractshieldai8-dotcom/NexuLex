@@ -7,5 +7,5 @@ module.exports = {
   ux18Jobs: 'Cuatro tipos: texto sin terminar, último expediente, última pregunta, último informe.',
   ux18NoWin: 'Nada aquí promete un resultado ni clasifica a un abogado.',
   ux18Guides: 'Las guías paso a paso siguen abiertas de todos modos.',
-  ux18Disclaimer: 'NexuLex no es un bufete. Una tarjeta de reanudacion es una herramienta de producto, no un abogado.',
+  ux18Disclaimer: "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico.",
 };

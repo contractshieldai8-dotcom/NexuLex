@@ -7,5 +7,5 @@ module.exports = {
   ux16NoAdvice: 'Un corridor d’étapes. Pas un conseil pour votre dossier et pas une représentation.',
   ux16Device: 'Les réponses restent sur ce téléphone sauf si vous copiez ou partagez la carte.',
   ux16Guides: 'Les guides pas à pas restent ouverts dans tous les cas.',
-  ux16Disclaimer: 'NexuLex n’est pas un cabinet. Une carte locale est un outil produit, pas un avocat.',
+  ux16Disclaimer: "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique.",
 };

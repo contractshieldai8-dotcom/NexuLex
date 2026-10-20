@@ -7,5 +7,5 @@ module.exports = {
   ux19NoWin: '这里不承诺结果，也不给律师排名。',
   ux19Device: '在你分析或分享之前，任何内容都不会离开手机。',
   ux19Corridor: '语言和国家保持你刚选的样子。此卡片不会改变它们。',
-  ux19Disclaimer: 'NexuLex 不是律师事务所。第一步卡片是产品工具，不是律师。',
+  ux19Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

@@ -7,5 +7,5 @@ module.exports = {
   ux26Local: 'NexuLex vergelijkt op deze telefoon. Voor deze stap wordt niets nieuws geüpload.',
   ux26NoWin: 'Een vergelijking is geen rechterlijke uitkomst en geen winstclaim.',
   ux26Guides: 'Stapsgewijze gidsen blijven in elk geval open.',
-  ux26Disclaimer: 'NexuLex is geen advocatenkantoor. Een vergelijking is een producttool, geen advocaat.',
+  ux26Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

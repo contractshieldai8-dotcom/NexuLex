@@ -7,5 +7,5 @@ module.exports = {
   ux19NoWin: 'Nichts hier verspricht ein Ergebnis oder reiht einen Anwalt.',
   ux19Device: 'Nichts verlässt das Telefon, bis Sie analysieren oder teilen.',
   ux19Corridor: 'Sprache und Land bleiben, wie Sie sie gerade wählten. Diese Karte ändert sie nicht.',
-  ux19Disclaimer: 'NexuLex ist keine Kanzlei. Eine Erstschritt-Karte ist ein Produktwerkzeug, kein Anwalt.',
+  ux19Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

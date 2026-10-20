@@ -14,8 +14,9 @@ import { I18nManager, Platform, StyleSheet } from 'react-native';
 // Marka Renkleri — dark-theme values. Keep the 6-digit hex form: several
 // screens build tints with `${ACCENT}22` (hex alpha suffix).
 export const ACCENT = '#D4B27A';
-export const ACCENT_ALT = '#7DA7E3';
-export const DANGER = '#E5484D';
+// Technology blue: secondary accent for information / AI / guidance only (never primary actions).
+export const ACCENT_ALT = '#38BDF8';
+export const DANGER = '#EC5459'; // 4.9:1 on cardBg (was #E5484D = 4.4:1, below AA for text)
 export const WARNING = '#E8A33D';
 export const SUCCESS = '#3DBE8B';
 export const alignStart = I18nManager.isRTL ? 'right' : 'left';
@@ -77,6 +78,8 @@ export const darkTheme = {
   accentBorder: 'rgba(212, 178, 122, 0.38)',
   onAccent: INK,
   accentAlt: ACCENT_ALT,
+  accentAltSoft: 'rgba(56, 189, 248, 0.12)',
+  accentAltBorder: 'rgba(56, 189, 248, 0.34)',
   danger: DANGER,
   warning: WARNING,
   success: SUCCESS,
@@ -97,7 +100,9 @@ export const lightTheme = {
   accentSoft: 'rgba(125, 90, 30, 0.10)',
   accentBorder: 'rgba(125, 90, 30, 0.40)',
   onAccent: '#FFFFFF',
-  accentAlt: '#2F5DA8',
+  accentAlt: '#0369A1', // dark twin of #38BDF8 (>= 5:1 on white and pearl)
+  accentAltSoft: 'rgba(3, 105, 161, 0.10)',
+  accentAltBorder: 'rgba(3, 105, 161, 0.34)',
   danger: '#B42318',
   warning: '#9A5B0A',
   success: '#047857',
@@ -113,6 +118,28 @@ export const getRiskColor = (level) => {
   }
 };
 
+// ── Theme-aware text / icon tones ─────────────────────────────────────────
+// ACCENT / DANGER / WARNING / SUCCESS are the dark-theme values and stay valid
+// as *fills* (with INK text on top) in both modes. Used as TEXT or ICON colour on
+// the pale light surfaces they drop below 3:1, so text / icon call sites go
+// through toneText(): identity in dark mode, the darker light-theme twin in
+// light mode. Unknown colours always pass through untouched.
+const LIGHT_TONE_TWIN = {
+  [ACCENT.toLowerCase()]: lightTheme.accent,
+  [ACCENT_ALT.toLowerCase()]: lightTheme.accentAlt,
+  [DANGER.toLowerCase()]: lightTheme.danger,
+  [WARNING.toLowerCase()]: lightTheme.warning,
+  [SUCCESS.toLowerCase()]: lightTheme.success,
+};
+
+export const toneText = (color) => {
+  if (activeThemeMode !== 'light' || typeof color !== 'string') return color;
+  return LIGHT_TONE_TWIN[color.toLowerCase()] || color;
+};
+
+// Risk colour for text / icons (use getRiskColor for fills and borders).
+export const getRiskTextColor = (level) => toneText(getRiskColor(level));
+
 // Tipografi Hiyerarşisi (platforma göre modern sistem fontları)
 export const FONTS = Platform.select({
   ios: { regular: 'System', medium: 'System', bold: 'System' },
@@ -121,7 +148,7 @@ export const FONTS = Platform.select({
 });
 
 // Stil Tanımlamaları
-export const styles = StyleSheet.create({
+const baseStyles = StyleSheet.create({
   container: {
     flex: 1,
   },
@@ -1623,6 +1650,52 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
   },
 });
+
+// ── Light-mode legibility ─────────────────────────────────────────────────
+// A handful of shared styles paint text / borders with the dark-mode champagne
+// (#D4B27A). On the pearl light surfaces that is unreadable (~1.9:1), so the same
+// style keys resolve to the bronze light accent when the light theme is active.
+// Every `styles.<key>` call site keeps working unchanged; App sets the mode once
+// per render through setActiveThemeMode(), before any child reads `styles`.
+let activeThemeMode = 'dark';
+export const setActiveThemeMode = (mode) => {
+  activeThemeMode = mode === 'light' ? 'light' : 'dark';
+};
+
+const lightStyleVariants = StyleSheet.create({
+  secondaryBtn: { ...baseStyles.secondaryBtn, borderColor: lightTheme.accentBorder },
+  secondaryBtnText: { ...baseStyles.secondaryBtnText, color: lightTheme.accent },
+  tipIndex: { ...baseStyles.tipIndex, backgroundColor: lightTheme.accentSoft, color: lightTheme.accent },
+  counterTitle: { ...baseStyles.counterTitle, color: lightTheme.accent },
+  counterText: { ...baseStyles.counterText, color: lightTheme.text },
+  decisionShareText: { ...baseStyles.decisionShareText, color: lightTheme.accent },
+  proposalBtn: { ...baseStyles.proposalBtn, borderColor: lightTheme.accentBorder },
+  proposalBtnText: { ...baseStyles.proposalBtnText, color: lightTheme.accent },
+  chatMicBtn: { ...baseStyles.chatMicBtn, borderColor: lightTheme.accentBorder },
+  legalReference: { ...baseStyles.legalReference, color: lightTheme.accentAlt },
+  langBtn: { ...baseStyles.langBtn, borderColor: lightTheme.borderColor },
+  langText: { ...baseStyles.langText, color: lightTheme.subText },
+  typeChip: { ...baseStyles.typeChip, borderColor: lightTheme.borderColor },
+  typeChipActive: { ...baseStyles.typeChipActive, backgroundColor: lightTheme.accentSoft, borderColor: lightTheme.accent },
+  typeChipText: { ...baseStyles.typeChipText, color: lightTheme.subText },
+  typeChipTextActive: { ...baseStyles.typeChipTextActive, color: lightTheme.accent },
+  modalHandle: { ...baseStyles.modalHandle, backgroundColor: 'rgba(15, 23, 42, 0.22)' },
+  takeawayIndex: { ...baseStyles.takeawayIndex, color: lightTheme.warning },
+  issueTitle: { ...baseStyles.issueTitle, color: lightTheme.danger },
+  issueText: { ...baseStyles.issueText, color: lightTheme.danger },
+  logoutTextLarge: { ...baseStyles.logoutTextLarge, color: lightTheme.danger },
+});
+
+export const styles = Object.defineProperties(
+  { ...baseStyles },
+  Object.keys(lightStyleVariants).reduce((acc, key) => {
+    acc[key] = {
+      enumerable: true,
+      get: () => (activeThemeMode === 'light' ? lightStyleVariants[key] : baseStyles[key]),
+    };
+    return acc;
+  }, {}),
+);
 
 // YELLOW badges need dark ink on WARNING (#E8A33D); RED/others keep white.
 export const badgeLabelStyle = (level) =>

@@ -6,7 +6,7 @@ import * as Linking from 'expo-linking';
 
 import * as Device from 'expo-device';
 
-import { ACCENT, styles } from '../theme';
+import { ACCENT, ACCENT_ALT, styles, toneText } from '../theme';
 import { useFeedback } from '../context/FeedbackContext';
 import {
   composeSpokenText,
@@ -161,9 +161,9 @@ export default function VoiceMicButton({
       accessibilityLabel={listening ? t('voiceListening') : t('voiceListen')}
     >
       {busy && !listening ? (
-        <ActivityIndicator size="small" color={ACCENT} />
+        <ActivityIndicator size="small" color={toneText(ACCENT)} />
       ) : (
-        <Ionicons name={listening ? 'stop' : 'mic'} size={18} color={listening ? '#080C14' : ACCENT} />
+        <Ionicons name={listening ? 'stop' : 'mic'} size={18} color={listening ? '#080C14' : toneText(ACCENT_ALT)} />
       )}
     </TouchableOpacity>
   );

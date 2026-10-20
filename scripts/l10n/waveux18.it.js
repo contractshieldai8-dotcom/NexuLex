@@ -7,5 +7,5 @@ module.exports = {
   ux18Jobs: 'Quattro tipi: testo incompiuto, ultimo fascicolo, ultima domanda, ultimo report.',
   ux18NoWin: 'Nulla qui promette un esito o classifica un avvocato.',
   ux18Guides: 'Le guide passo passo restano sbloccate in ogni caso.',
-  ux18Disclaimer: 'NexuLex non è uno studio. Una scheda di ripresa è uno strumento di prodotto, non un avvocato.',
+  ux18Disclaimer: "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale.",
 };

@@ -6,6 +6,6 @@ module.exports = {
   ux12Official: 'Confirm every rate yourself on the official gazette or authority. Tables go stale.',
   ux12NoWin: 'A calculator does not predict a judgment and does not invent a win chance.',
   ux12Device: 'Your inputs stay on this phone unless you copy or share the result.',
-  ux12Free: 'These calculators stay free. This list never opens a paywall.',
-  ux12Disclaimer: 'NexuLex is not a law firm. A figure is a product tool, not a lawyer.',
+  ux12Free: "These calculators stay free. Opening this list never asks you to pay.",
+  ux12Disclaimer: "NexuLex is not a law firm. This is general information, not legal advice.",
 };

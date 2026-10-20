@@ -254,9 +254,12 @@ export default function ScenarioWizardModal({
                       </View>
                     ) : null}
                     {item.docHint ? (
-                      <Text style={[styles.sectionHint, { color: theme.subText }]}>
-                        📎 {t('scenarioDocsChecklist')}: {item.docHint}
-                      </Text>
+                      <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 6 }}>
+                        <Ionicons name="attach-outline" size={14} color={theme.subText} style={{ marginTop: 2 }} />
+                        <Text style={[styles.sectionHint, { color: theme.subText, flex: 1 }]}>
+                          {t('scenarioDocsChecklist')}: {item.docHint}
+                        </Text>
+                      </View>
                     ) : null}
                   </View>
                 ))}
@@ -298,7 +301,10 @@ export default function ScenarioWizardModal({
                     style={[styles.secondaryBtn, { marginTop: 8, borderColor: theme.accent }]}
                     onPress={() => onOpenDraft(draftTemplateId)}
                   >
-                    <Text style={styles.secondaryBtnText}>📝 {t('draftFromRoadmapCta')}</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                      <Ionicons name="create-outline" size={15} color={theme.accent} />
+                      <Text style={styles.secondaryBtnText}>{t('draftFromRoadmapCta')}</Text>
+                    </View>
                   </TouchableOpacity>
                 ) : null}
               </>

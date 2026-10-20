@@ -7,5 +7,5 @@ module.exports = {
   ux15Invite: 'Die Einladung teilt nur die oeffentliche get-Seite. NexuLex hängt den Vertrag nie an.',
   ux15Pause: 'Das nächste Blatt wartet eine kurze Pause, damit zwei Blätter nie stapeln.',
   ux15Guides: 'Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.',
-  ux15Disclaimer: 'NexuLex ist keine Kanzlei. Ein fertiger Scan ist ein Produktwerkzeug, kein Anwalt.',
+  ux15Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

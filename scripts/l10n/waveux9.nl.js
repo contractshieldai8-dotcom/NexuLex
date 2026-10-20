@@ -7,5 +7,5 @@ module.exports = {
   ux9Verify: 'Lees het origineel zelf. Termijnen starten op de dag van ontvangst, niet op dit scherm.',
   ux9Device: 'NexuLex houdt het resultaat op deze telefoon tot u het in een dossier bewaart of deelt.',
   ux9NoAdvice: 'Dit is een leeshulp. Geen advies voor uw zaak en geen vertegenwoordiging.',
-  ux9Disclaimer: 'NexuLex is geen advocatenkantoor. Een uitleg is een producthulp, geen advocaat.',
+  ux9Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

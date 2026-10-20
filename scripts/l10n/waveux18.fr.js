@@ -7,5 +7,5 @@ module.exports = {
   ux18Jobs: 'Quatre types: texte inacheve, dernier dossier, dernière question, dernier rapport.',
   ux18NoWin: 'Rien ici ne promet un résultat ni ne classe un avocat.',
   ux18Guides: 'Les guides pas à pas restent ouverts dans tous les cas.',
-  ux18Disclaimer: 'NexuLex n’est pas un cabinet. Une carte de reprise est un outil produit, pas un avocat.',
+  ux18Disclaimer: "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique.",
 };

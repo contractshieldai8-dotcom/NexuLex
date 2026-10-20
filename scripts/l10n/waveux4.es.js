@@ -6,6 +6,6 @@ module.exports = {
   ux4Lawyer: 'Buscar un abogado abre directorios oficiales. NexuLex no recomienda ni clasifica abogados.',
   ux4Country: 'Las respuestas siguen el país de arriba. Es un corredor, no un tribunal.',
   ux4Free: 'Las primeras preguntas y el primer expediente se quedan en el plan gratuito.',
-  ux4NoPay: 'Estos cuatro chips nunca abren un paywall. Una herramienta posterior puede, si se agoto la cuota gratuita.',
-  ux4Disclaimer: 'NexuLex no es un bufete. Los trabajos de inicio son herramientas de producto, no asesoramiento jurídico.',
+  ux4NoPay: "Estos cuatro accesos nunca piden pagar. Una herramienta posterior puede hacerlo cuando se agoten sus usos gratuitos.",
+  ux4Disclaimer: "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico.",
 };

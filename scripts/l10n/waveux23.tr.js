@@ -7,5 +7,5 @@ module.exports = {
   ux23Count: 'Bu görünümde {{visible}} / {{total}} satır.',
   ux23Empty: 'Eşleşen satır yok. Aramayı temizleyin veya Analiz’i açın.',
   ux23Guides: 'Adım adım rehberler her durumda açık kalır.',
-  ux23Disclaimer: 'NexuLex bir hukuk bürosu değildir. Geçmiş kayıt defteri ürün dosyasıdır, avukat değildir.',
+  ux23Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

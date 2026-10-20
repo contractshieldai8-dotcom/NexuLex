@@ -7,5 +7,5 @@ module.exports = {
   ux18Jobs: 'Vier soorten: onvoltooide tekst, laatste dossier, laatste vraag, laatste rapport.',
   ux18NoWin: 'Niets hier belooft een resultaat of rangschikt een advocaat.',
   ux18Guides: 'Stapsgewijze gidsen blijven in elk geval ontgrendeld.',
-  ux18Disclaimer: 'NexuLex is geen advocatenkantoor. Een hervattingskaart is een producthulp, geen advocaat.',
+  ux18Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

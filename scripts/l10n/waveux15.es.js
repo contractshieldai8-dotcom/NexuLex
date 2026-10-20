@@ -7,5 +7,5 @@ module.exports = {
   ux15Invite: 'La invitación comparte solo la página get pública. NexuLex nunca adjunta el contrato.',
   ux15Pause: 'La siguiente hoja espera una pausa corta para que dos hojas nunca se apilen.',
   ux15Guides: 'Las guías paso a paso siguen abiertas de todos modos.',
-  ux15Disclaimer: 'NexuLex no es un bufete. Un análisis listo es una herramienta de producto, no un abogado.',
+  ux15Disclaimer: "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico.",
 };

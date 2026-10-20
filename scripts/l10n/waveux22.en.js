@@ -7,5 +7,5 @@ module.exports = {
   ux22Audience: 'Audience only picks who may open the note. It does not rank a lawyer.',
   ux22Pro: 'Extra household and advisor seats stay on a paid plan. Guides stay free.',
   ux22Guides: 'Step-by-step guides stay unlocked either way.',
-  ux22Disclaimer: 'NexuLex is not a law firm. A share brief is a product tool, not a lawyer.',
+  ux22Disclaimer: "NexuLex is not a law firm. This is general information, not legal advice.",
 };

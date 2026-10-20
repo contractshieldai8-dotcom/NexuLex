@@ -7,5 +7,5 @@ module.exports = {
   st2Sub: 'Das Löschen des Kontos kündigt kein App Store- oder Google Play-Abo. Verwalten Sie es im Store.',
   st2Quota: 'Der Geräte-Eintrag für das Gratis-Kontingent bleibt nach dem Löschen unverbunden, nur um erneute Gratis-Ansprüche zu sperren.',
   st2WebDelete: 'Ohne die App löschen',
-  st2Disclaimer: 'NexuLex ist keine Anwaltskanzlei. Datenschutzseiten können sich ändern; lesen Sie selbst.',
+  st2Disclaimer: "NexuLex ist keine Kanzlei. Die App bietet allgemeine Informationen, keine Rechtsberatung; ein bezahlter Tarif schaltet Funktionen frei, keine anwaltliche Vertretung.",
 };

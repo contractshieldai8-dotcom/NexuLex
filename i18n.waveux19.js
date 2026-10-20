@@ -9,7 +9,7 @@ export const WAVE_UX19_I18N = {
     "ux19NoWin": "Burada sonuç vaadi veya avukat sıralaması yoktur.",
     "ux19Device": "Tarayana veya paylaşana kadar hiçbir şey telefondan çıkmaz.",
     "ux19Corridor": "Dil ve ülke az önce seçtiğiniz gibi kalır. Bu kart onları değiştirmez.",
-    "ux19Disclaimer": "NexuLex bir hukuk bürosu değildir. İlk adım kartı ürün aracıdır, avukat değildir."
+    "ux19Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux19Paths": "{{paths}} paths. They only open an existing tool. None of them open the store.",
@@ -19,7 +19,7 @@ export const WAVE_UX19_I18N = {
     "ux19NoWin": "Nothing here promises a result or ranks a lawyer.",
     "ux19Device": "Nothing leaves the phone until you analyze or share.",
     "ux19Corridor": "Language and country stay as you just picked. This card does not change them.",
-    "ux19Disclaimer": "NexuLex is not a law firm. A first-step card is a product tool, not a lawyer."
+    "ux19Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux19Paths": "{{paths}} Wege. Sie öffnen nur ein vorhandenes Werkzeug. Keiner oeffnet den Store.",
@@ -29,7 +29,7 @@ export const WAVE_UX19_I18N = {
     "ux19NoWin": "Nichts hier verspricht ein Ergebnis oder reiht einen Anwalt.",
     "ux19Device": "Nichts verlässt das Telefon, bis Sie analysieren oder teilen.",
     "ux19Corridor": "Sprache und Land bleiben, wie Sie sie gerade wählten. Diese Karte ändert sie nicht.",
-    "ux19Disclaimer": "NexuLex ist keine Kanzlei. Eine Erstschritt-Karte ist ein Produktwerkzeug, kein Anwalt."
+    "ux19Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux19Paths": "{{paths}} chemins. Ils ouvrent seulement un outil existant. Aucun n’ouvre le magasin.",
@@ -39,7 +39,7 @@ export const WAVE_UX19_I18N = {
     "ux19NoWin": "Rien ici ne promet un résultat ni ne classe un avocat.",
     "ux19Device": "Rien ne quitte le téléphone tant que vous n’analysez ou ne partagez.",
     "ux19Corridor": "Langue et pays restent comme vous venez de les choisir. Cette carte ne les change pas.",
-    "ux19Disclaimer": "NexuLex n’est pas un cabinet. Une carte de premier pas est un outil produit, pas un avocat."
+    "ux19Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux19Paths": "{{paths}} caminos. Solo abren una herramienta existente. Ninguno abre la tienda.",
@@ -49,7 +49,7 @@ export const WAVE_UX19_I18N = {
     "ux19NoWin": "Nada aquí promete un resultado ni clasifica a un abogado.",
     "ux19Device": "Nada sale del teléfono hasta que analice o comparta.",
     "ux19Corridor": "Idioma y país siguen como acaba de elegirlos. Esta tarjeta no los cambia.",
-    "ux19Disclaimer": "NexuLex no es un bufete. Una tarjeta de primer paso es una herramienta de producto, no un abogado."
+    "ux19Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux19Paths": "{{paths}} مسارات. وتفتح فقط أداة موجودة. ولا يفتح أي منها المتجر.",
@@ -59,7 +59,7 @@ export const WAVE_UX19_I18N = {
     "ux19NoWin": "لا شيء هنا يعد بنتيجة أو يرتّب محاميا.",
     "ux19Device": "لا يخرج شيء من الهاتف حتى تحلل أو تشارك.",
     "ux19Corridor": "اللغة والبلد يبقيان كما اخترتهما للتو. وهذه البطاقة لا تغيّرهما.",
-    "ux19Disclaimer": "NexuLex ليس مكتب محاماة. وبطاقة الخطوة الأولى أداة منتج وليست محاميا."
+    "ux19Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux19Paths": "{{paths}} percorsi. Aprono solo uno strumento esistente. Nessuno apre lo store.",
@@ -69,7 +69,7 @@ export const WAVE_UX19_I18N = {
     "ux19NoWin": "Nulla qui promette un esito o classifica un avvocato.",
     "ux19Device": "Nulla lascia il telefono finché non analizzi o condividi.",
     "ux19Corridor": "Lingua e paese restano come li hai appena scelti. Questa scheda non li cambia.",
-    "ux19Disclaimer": "NexuLex non è uno studio. Una scheda di primo passo è uno strumento di prodotto, non un avvocato."
+    "ux19Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux19Paths": "{{paths}} 条路径。它们只打开已有工具。都不会打开商店。",
@@ -79,7 +79,7 @@ export const WAVE_UX19_I18N = {
     "ux19NoWin": "这里不承诺结果，也不给律师排名。",
     "ux19Device": "在你分析或分享之前，任何内容都不会离开手机。",
     "ux19Corridor": "语言和国家保持你刚选的样子。此卡片不会改变它们。",
-    "ux19Disclaimer": "NexuLex 不是律师事务所。第一步卡片是产品工具，不是律师。"
+    "ux19Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux19Paths": "{{paths}} путей. Они открывают только существующий инструмент. Ни один не открывает магазин.",
@@ -89,7 +89,7 @@ export const WAVE_UX19_I18N = {
     "ux19NoWin": "Здесь нет обещания исхода и нет рейтинга юристов.",
     "ux19Device": "Ничто не покидает телефон, пока вы не разберёте или не отправите.",
     "ux19Corridor": "Язык и страна остаются как вы только что выбрали. Эта карточка их не меняет.",
-    "ux19Disclaimer": "NexuLex не юридическая фирма. Карточка первого шага — инструмент продукта, не адвокат."
+    "ux19Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux19Paths": "{{paths}} مسیر. فقط ابزار موجود را باز می‌کنند. هیچ‌کدام فروشگاه را باز نمی‌کند.",
@@ -99,7 +99,7 @@ export const WAVE_UX19_I18N = {
     "ux19NoWin": "اینجا وعده نتیجه یا رتبه‌بندی وکیل نیست.",
     "ux19Device": "تا تحلیل یا هم‌رسانی نکنید چیزی از تلفن بیرون نمی‌رود.",
     "ux19Corridor": "زبان و کشور همان است که همین حالا برگزیدید. این کارت آن‌ها را عوض نمی‌کند.",
-    "ux19Disclaimer": "NexuLex دفتر وکالت نیست. کارت گام نخست ابزار محصول است، نه وکیل."
+    "ux19Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux19Paths": "経路は {{paths}} 本です。既存の用具だけを開きます。どれも店を開きません。",
@@ -109,7 +109,7 @@ export const WAVE_UX19_I18N = {
     "ux19NoWin": "ここには結果の約束も弁護士の順位もありません。",
     "ux19Device": "確認または共有するまで、何も電話から出ません。",
     "ux19Corridor": "言語と国は今選んだままです。このカードはそれらを変えません。",
-    "ux19Disclaimer": "NexuLex は法律事務所ではありません。最初の一歩のカードは製品の用具であり、弁護士ではありません。"
+    "ux19Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux19Paths": "{{paths}} caminhos. Abrem só uma ferramenta existente. Nenhum abre a loja.",
@@ -119,7 +119,7 @@ export const WAVE_UX19_I18N = {
     "ux19NoWin": "Nada aqui promete um resultado ou classifica um advogado.",
     "ux19Device": "Nada sai do telefone até analisar ou partilhar.",
     "ux19Corridor": "Língua e país ficam como acabou de os escolher. Este cartão não os muda.",
-    "ux19Disclaimer": "A NexuLex não é um escritório. Um cartão de primeiro passo é uma ferramenta de produto, não um advogado."
+    "ux19Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux19Paths": "{{paths}} paden. Ze openen alleen een bestaand hulpmiddel. Geen opent de winkel.",
@@ -129,6 +129,6 @@ export const WAVE_UX19_I18N = {
     "ux19NoWin": "Niets hier belooft een resultaat of rangschikt een advocaat.",
     "ux19Device": "Niets verlaat de telefoon tot u analyseert of deelt.",
     "ux19Corridor": "Taal en land blijven zoals u ze zojuist koos. Deze kaart verandert ze niet.",
-    "ux19Disclaimer": "NexuLex is geen advocatenkantoor. Een eerste-stapkaart is een producthulp, geen advocaat."
+    "ux19Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

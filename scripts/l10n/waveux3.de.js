@@ -7,5 +7,5 @@ module.exports = {
   ux3Advisor: 'Beratersitze bleiben nur lesbar. Widerrufen Sie den Code, wenn die Beziehung endet.',
   ux3Get: 'Die oeffentliche Seite hat keinen Vertrag und keinen Brief. Sie hilft nur, NexuLex zu öffnen.',
   ux3Copy: 'Kopieren sendet dieselbe Codenachricht. Kein Klauseltext wird kopiert.',
-  ux3Disclaimer: 'NexuLex ist keine Kanzlei. Ein Sitz ist ein Produktwerkzeug, keine Anwaltsakte.',
+  ux3Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

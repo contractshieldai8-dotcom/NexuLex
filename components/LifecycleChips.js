@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, SUCCESS, WARNING, styles } from '../theme';
+import { ACCENT, SUCCESS, WARNING, styles, toneText } from '../theme';
 import { LIFECYCLES, lifecycleLabelKey, normalizeLifecycle } from '../utils/lifecycle';
 
 export function lifecycleColor(value, theme) {
@@ -33,7 +33,7 @@ export function lifecycleChipStyle(value, theme, { active = true } = {}) {
     backgroundColor: active ? color : 'transparent',
     borderWidth: 1,
     borderColor: color,
-    color: active ? '#080C14' : color,
+    color: active ? '#080C14' : toneText(color),
   };
 }
 

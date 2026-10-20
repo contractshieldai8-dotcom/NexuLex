@@ -7,5 +7,5 @@ module.exports = {
   ux10Sources: 'Open elke officiele instantie zelf. Regels veranderen; een link kan verouderen.',
   ux10NoList: 'De app somt geen individuele advocaten op en rangschikt ze niet. Alleen officiele instanties.',
   ux10Device: 'Gidsen blijven op deze telefoon. Een site openen verlaat de app.',
-  ux10Disclaimer: 'NexuLex is geen advocatenkantoor. Een proceskaart is een producthulp, geen advocaat.',
+  ux10Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

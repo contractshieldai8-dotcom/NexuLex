@@ -9,7 +9,7 @@ export const WAVE_ST2_I18N = {
     "st2Sub": "Hesabı silmek App Store veya Google Play aboneliğini iptal etmez. Mağazadan yönetin.",
     "st2Quota": "Ücretsiz kota cihaz kaydı silmeden sonra hesaba bağlı kalmaz; yalnızca tekrar ücretsiz talep engellenir.",
     "st2WebDelete": "Uygulamasız hesap sil",
-    "st2Disclaimer": "NexuLex bir hukuk bürosu değildir. Gizlilik sayfaları değişebilir; kendiniz okuyun."
+    "st2Disclaimer": "NexuLex bir hukuk bürosu değildir. Uygulama genel bilgi sunar, hukuki tavsiye vermez; ücretli plan yalnızca özelliklerin kilidini açar, avukatlık hizmeti içermez."
   },
   "en": {
     "st2Title": "Trust and control",
@@ -19,7 +19,7 @@ export const WAVE_ST2_I18N = {
     "st2Sub": "Deleting the account does not cancel an App Store or Google Play subscription. Manage it in the store.",
     "st2Quota": "The free-quota device record stays unlinked after deletion, only to block repeat free claims.",
     "st2WebDelete": "Delete without the app",
-    "st2Disclaimer": "NexuLex is not a law firm. Privacy pages can change; read them yourself."
+    "st2Disclaimer": "NexuLex is not a law firm. The app gives general information, not legal advice; a paid plan unlocks features, not legal representation."
   },
   "de": {
     "st2Title": "Vertrauen und Kontrolle",
@@ -29,7 +29,7 @@ export const WAVE_ST2_I18N = {
     "st2Sub": "Das Löschen des Kontos kündigt kein App Store- oder Google Play-Abo. Verwalten Sie es im Store.",
     "st2Quota": "Der Geräte-Eintrag für das Gratis-Kontingent bleibt nach dem Löschen unverbunden, nur um erneute Gratis-Ansprüche zu sperren.",
     "st2WebDelete": "Ohne die App löschen",
-    "st2Disclaimer": "NexuLex ist keine Anwaltskanzlei. Datenschutzseiten können sich ändern; lesen Sie selbst."
+    "st2Disclaimer": "NexuLex ist keine Kanzlei. Die App bietet allgemeine Informationen, keine Rechtsberatung; ein bezahlter Tarif schaltet Funktionen frei, keine anwaltliche Vertretung."
   },
   "fr": {
     "st2Title": "Confiance et contrôle",
@@ -39,7 +39,7 @@ export const WAVE_ST2_I18N = {
     "st2Sub": "Supprimer le compte n’annule pas un abonnement App Store ou Google Play. Gérez-le dans la boutique.",
     "st2Quota": "L’enregistrement appareil du quota gratuit reste non lie après suppression, seulement pour bloquer les demandes gratuites repetees.",
     "st2WebDelete": "Supprimer sans l’application",
-    "st2Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Les pages de confidentialité peuvent changer; lisez-les vous-même."
+    "st2Disclaimer": "NexuLex n’est pas un cabinet d’avocats. L’app donne des informations générales, pas de conseil juridique ; un forfait payant débloque des fonctions, pas une représentation par avocat."
   },
   "es": {
     "st2Title": "Confianza y control",
@@ -49,7 +49,7 @@ export const WAVE_ST2_I18N = {
     "st2Sub": "Borrar la cuenta no cancela una suscripción de App Store o Google Play. Gestione en la tienda.",
     "st2Quota": "El registro del dispositivo del cupo gratuito permanece sin vinculo tras el borrado, solo para bloquear nuevas solicitudes gratuitas.",
     "st2WebDelete": "Borrar sin la aplicación",
-    "st2Disclaimer": "NexuLex no es un despacho de abogados. Las páginas de privacidad pueden cambiar; lealas usted."
+    "st2Disclaimer": "NexuLex no es un despacho de abogados. La app ofrece información general, no asesoramiento jurídico; un plan de pago desbloquea funciones, no representación legal."
   },
   "ar": {
     "st2Title": "الثقة والتحكم",
@@ -59,7 +59,7 @@ export const WAVE_ST2_I18N = {
     "st2Sub": "حذف الحساب لا يلغي اشتراك App Store أو Google Play. أدِره من المتجر.",
     "st2Quota": "سجل جهاز الحصة المجانية يبقى غير مرتبط بعد الحذف، فقط لمنع تكرار المطالبات المجانية.",
     "st2WebDelete": "احذف بدون التطبيق",
-    "st2Disclaimer": "NexuLex ليس مكتب محاماة. قد تتغير صفحات الخصوصية؛ اقرأها بنفسك."
+    "st2Disclaimer": "NexuLex ليست مكتب محاماة. يقدّم التطبيق معلومات عامة وليس استشارة قانونية؛ والخطة المدفوعة تفتح الميزات ولا تتضمن تمثيلًا قانونيًا."
   },
   "it": {
     "st2Title": "Fiducia e controllo",
@@ -69,7 +69,7 @@ export const WAVE_ST2_I18N = {
     "st2Sub": "Eliminare l’account non disdice un abbonamento App Store o Google Play. Gestiscilo nello store.",
     "st2Quota": "Il record dispositivo della quota gratuita resta scollegato dopo l’eliminazione, solo per bloccare nuove richieste gratuite.",
     "st2WebDelete": "Elimina senza l’app",
-    "st2Disclaimer": "NexuLex non è uno studio legale. Le pagine sulla privacy possono cambiare; leggile tu."
+    "st2Disclaimer": "NexuLex non è uno studio legale. L’app offre informazioni generali, non consulenza legale; un piano a pagamento sblocca funzioni, non una rappresentanza legale."
   },
   "zh": {
     "st2Title": "信任与掌控",
@@ -79,7 +79,7 @@ export const WAVE_ST2_I18N = {
     "st2Sub": "删除账户不会自动取消 App Store 或 Google Play 订阅。请在商店中管理。",
     "st2Quota": "免费额度的设备记录在删除后仍保持未关联，仅用于阻止重复领取免费额度。",
     "st2WebDelete": "不通过应用删除账户",
-    "st2Disclaimer": "NexuLex 不是律师事务所。隐私页面可能更新，请自行阅读。"
+    "st2Disclaimer": "NexuLex 不是律师事务所。本应用提供一般性信息，不构成法律意见；付费方案只解锁功能，不包含律师代理服务。"
   },
   "ru": {
     "st2Title": "Доверие и контроль",
@@ -89,7 +89,7 @@ export const WAVE_ST2_I18N = {
     "st2Sub": "Удаление аккаунта не отменяет подписку App Store или Google Play. Управляйте ею в магазине.",
     "st2Quota": "Запись устройства о бесплатной квоте остаётся несвязанной после удаления, только чтобы блокировать повторные бесплатные заявки.",
     "st2WebDelete": "Удалить без приложения",
-    "st2Disclaimer": "NexuLex не является юридической фирмой. Страницы конфиденциальности могут меняться; читайте сами."
+    "st2Disclaimer": "NexuLex — не юридическая фирма. Приложение даёт общую информацию, а не юридическую консультацию; платный план открывает функции, но не включает представительство юриста."
   },
   "fa": {
     "st2Title": "اعتماد و کنترل",
@@ -99,7 +99,7 @@ export const WAVE_ST2_I18N = {
     "st2Sub": "حذف حساب اشتراک App Store یا Google Play را لغو نمی‌کند. آن را در فروشگاه مدیریت کنید.",
     "st2Quota": "رکورد دستگاه سهمیه رایگان پس از حذف بدون پیوند می‌ماند، فقط برای جلوگیری از درخواست رایگان تکراری.",
     "st2WebDelete": "حذف بدون برنامه",
-    "st2Disclaimer": "NexuLex یک دفتر وکالت نیست. صفحات حریم خصوصی ممکن است تغییر کنند؛ خودتان بخوانید."
+    "st2Disclaimer": "NexuLex یک دفتر حقوقی نیست. این برنامه اطلاعات عمومی می‌دهد و مشاوره حقوقی نیست؛ طرح پولی فقط امکانات را باز می‌کند و شامل وکالت نمی‌شود."
   },
   "ja": {
     "st2Title": "信頼と管理",
@@ -109,7 +109,7 @@ export const WAVE_ST2_I18N = {
     "st2Sub": "アカウント削除では App Store または Google Play の定期購入は解除されません。ストアで管理してください。",
     "st2Quota": "無料枠の端末記録は削除後もアカウントと結びつかず、繰り返しの無料申請を防ぐためだけに残ります。",
     "st2WebDelete": "アプリなしで削除",
-    "st2Disclaimer": "NexuLex は法律事務所ではありません。プライバシーページは変わることがあります。ご自身でご確認ください。"
+    "st2Disclaimer": "NexuLex は法律事務所ではありません。本アプリは一般的な情報を提供するもので法的助言ではなく、有料プランで使えるのは機能であり、弁護士による代理は含まれません。"
   },
   "pt": {
     "st2Title": "Confiança e controlo",
@@ -119,7 +119,7 @@ export const WAVE_ST2_I18N = {
     "st2Sub": "Apagar a conta não cancela uma subscrição da App Store ou da Google Play. Faça a gestao na loja.",
     "st2Quota": "O registo do dispositivo da quota gratuita fica sem ligação após a eliminacao, só para bloquear novos pedidos gratuitos.",
     "st2WebDelete": "Apagar sem a aplicação",
-    "st2Disclaimer": "A NexuLex não é um escritório de advogados. As páginas de privacidade podem mudar; leia-as você."
+    "st2Disclaimer": "A NexuLex não é um escritório de advocacia. A app oferece informações gerais, não aconselhamento jurídico; um plano pago libera recursos, não representação por advogado."
   },
   "nl": {
     "st2Title": "Vertrouwen en beheer",
@@ -129,6 +129,6 @@ export const WAVE_ST2_I18N = {
     "st2Sub": "Het account verwijderen zegt een App Store- of Google Play-abonnement niet op. Beheer het in de winkel.",
     "st2Quota": "Het apparaatrecord van het gratis quotum blijft na verwijderen ontkoppeld, alleen om herhaalde gratis claims te blokkeren.",
     "st2WebDelete": "Verwijderen zonder de app",
-    "st2Disclaimer": "NexuLex is geen advocatenkantoor. Privacypaginas kunnen wijzigen; lees ze zelf."
+    "st2Disclaimer": "NexuLex is geen advocatenkantoor. De app geeft algemene informatie, geen juridisch advies; een betaald abonnement ontgrendelt functies, geen vertegenwoordiging door een advocaat."
   }
 };

@@ -14,6 +14,7 @@ import * as Clipboard from 'expo-clipboard';
 
 import { ACCENT, DANGER, styles } from '../theme';
 import { SHARE_CODE_RE } from '../utils/shareSnapshot';
+import { decisionActionKey } from '../utils/analysis';
 import {
   listAdvisorSeats,
   mintAdvisorSeat,
@@ -215,7 +216,7 @@ export default function AdvisorSeatCard({ theme, isPro, plan = 'free', onNeedPay
               activeOpacity={0.85}
             >
               <Text style={[styles.deadlineLabel, { color: theme.text }]}>
-                {decision.action || '—'} · {snapshot.score ?? '—'}/100
+                {decision.action ? t(decisionActionKey(decision.action)) : '—'} · {snapshot.score ?? '—'}/100
               </Text>
               <Text style={[styles.deadlineMeta, { color: theme.subText }]}>
                 {String(item.created_at || snapshot.dateISO || '').slice(0, 10)}

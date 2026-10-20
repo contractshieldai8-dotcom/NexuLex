@@ -7,5 +7,5 @@ module.exports = {
   ux22Audience: 'Le public choisit seulement qui peut ouvrir la note. Il ne classe aucun avocat.',
   ux22Pro: 'Les sièges foyer et conseiller en plus restent dans un forfait payant. Les guides restent gratuits.',
   ux22Guides: 'Les guides pas à pas restent ouverts dans tous les cas.',
-  ux22Disclaimer: 'NexuLex n’est pas un cabinet. Un brief de partage est un outil produit, pas un avocat.',
+  ux22Disclaimer: "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique.",
 };

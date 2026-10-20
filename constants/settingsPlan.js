@@ -16,7 +16,6 @@ export const SETTINGS_PLAN_KEYS = [
   'st8Tools',
   'st8First',
   'st8Restore',
-  'st8Disclaimer',
 ];
 
 export function assertSettingsPlanFixtures() {
@@ -25,7 +24,7 @@ export function assertSettingsPlanFixtures() {
     cases += 1;
     if (!cond) throw new Error(`settingsPlan: ${msg}`);
   };
-  check(SETTINGS_PLAN_KEYS.length === 8 && SETTINGS_PLAN_KEYS[SETTINGS_PLAN_KEYS.length - 1] === 'st8Disclaimer', 'eight keys, disclaimer last');
+  check(SETTINGS_PLAN_KEYS.length === 7 && !SETTINGS_PLAN_KEYS.some((key) => /Disclaimer$/.test(key)), 'seven keys, no per-card disclaimer (legal footer lives once, in the trust card)');
   check(PLAN_LIMITS.free.askDaily === 3 && PLAN_LIMITS.pro.askDaily === 40 && PLAN_LIMITS.professional.askDaily === 150, 'ask limits stay');
   check(PLAN_LIMITS.pro.toolsDaily === 0 && PLAN_LIMITS.professional.toolsDaily === 30, 'Professional tools stay paid');
   check(hookForFirstIntent('guides') === null, 'guides never lock');

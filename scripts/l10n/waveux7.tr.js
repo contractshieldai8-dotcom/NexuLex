@@ -7,5 +7,5 @@ module.exports = {
   ux7Brief: 'Avukat özeti ücretli Pro plandadır. Paylaştığınız bir özettir, mahkeme evrakı değildir.',
   ux7NoWin: 'Dosya mahkeme sonucu öngörmez ve sizi temsil etmez.',
   ux7Share: 'Hane koltuğu paylaştığınız özeti okuyabilir. Bu dosyadan orijinal sözleşmeyi açamaz.',
-  ux7Disclaimer: 'NexuLex bir hukuk bürosu değildir. Dosyalar ürün aracıdır, hukuki tavsiye değildir.',
+  ux7Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

@@ -7,5 +7,5 @@ module.exports = {
   ux16NoAdvice: 'Un corredor de pasos. No es consejo para su expediente y no le representa.',
   ux16Device: 'Las respuestas se quedan en este teléfono salvo que copie o comparta el mapa.',
   ux16Guides: 'Las guías paso a paso siguen abiertas de todos modos.',
-  ux16Disclaimer: 'NexuLex no es un bufete. Un mapa local es una herramienta de producto, no un abogado.',
+  ux16Disclaimer: "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico.",
 };

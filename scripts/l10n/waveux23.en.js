@@ -7,5 +7,5 @@ module.exports = {
   ux23Count: '{{visible}} of {{total}} rows in this view.',
   ux23Empty: 'No row matches. Clear the search or open Analyze.',
   ux23Guides: 'Step-by-step guides stay unlocked either way.',
-  ux23Disclaimer: 'NexuLex is not a law firm. A history register is a product file, not a lawyer.',
+  ux23Disclaimer: "NexuLex is not a law firm. This is general information, not legal advice.",
 };

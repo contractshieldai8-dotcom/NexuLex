@@ -4,9 +4,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, DANGER, SUCCESS, WARNING, getRiskColor, styles } from '../theme';
+import { ACCENT, DANGER, SUCCESS, WARNING, getRiskColor, styles, toneText } from '../theme';
 import { fetchShareSnapshot } from '../services/shareBrief';
 import { SHARE_CODE_RE } from '../utils/shareSnapshot';
+import { decisionActionKey } from '../utils/analysis';
 
 const trapItems = (trap) => {
   if (Array.isArray(trap)) return trap;
@@ -97,8 +98,8 @@ export default function ShareBriefScreen({ theme, code, snapshot: providedSnapsh
       ) : (
         <ScrollView contentContainerStyle={{ padding: 20, paddingBottom: 40 }}>
           <View style={[styles.decisionCard, { backgroundColor: theme.cardBg, borderColor: riskColor }]}>
-            <Text style={[styles.decisionHeadline, { color: actionColor }]}>
-              {decision.action} · {snapshot.score}/100
+            <Text style={[styles.decisionHeadline, { color: toneText(actionColor) }]}>
+              {decision.action ? t(decisionActionKey(decision.action)) : '—'} · {snapshot.score}/100
             </Text>
             {decision.headline ? (
               <Text style={[styles.summaryText, { color: theme.text, marginTop: 8 }]}>{decision.headline}</Text>
@@ -136,7 +137,7 @@ export default function ShareBriefScreen({ theme, code, snapshot: providedSnapsh
                   },
                 ]}
               >
-                <Text style={[styles.deadlineLabel, { color: tone }]}>
+                <Text style={[styles.deadlineLabel, { color: toneText(tone) }]}>
                   {flag.title} · {flag.severity}
                 </Text>
                 {flag.explanation ? (

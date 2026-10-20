@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
   Dimensions,
   FlatList,
+  I18nManager,
   Modal,
   Pressable,
   ScrollView,
@@ -158,6 +159,25 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
     onAction?.(action);
   };
 
+  // Information / guidance uses the technology-blue twin; actions stay champagne.
+  const numberBadge = (n) => (
+    <View
+      accessible={false}
+      style={{
+        width: 22,
+        height: 22,
+        borderRadius: 11,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: theme.accentAltSoft,
+        borderWidth: 1,
+        borderColor: theme.accentAltBorder || theme.accentAlt,
+      }}
+    >
+      <Text maxFontSizeMultiplier={1.2} style={{ color: theme.accentAlt, fontSize: 12, fontWeight: '700' }}>{n}</Text>
+    </View>
+  );
+
   const renderItem = ({ item }) => {
     if (item.kind === 'flow' || item.kind === 'news') {
       const flow = item.kind === 'flow' ? item.flow : GUIDE_WORKFLOWS.find((f) => f.id === item.entry.workflowId);
@@ -240,9 +260,9 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
       styles.statusChip,
       {
         alignSelf: 'flex-start',
-        backgroundColor: 'rgba(212, 178, 122, 0.12)',
+        backgroundColor: theme.accentSoft,
         borderWidth: 1,
-        borderColor: theme.accent,
+        borderColor: theme.accentBorder || theme.accent,
         flexDirection: 'row',
         alignItems: 'center',
         gap: 4,
@@ -255,10 +275,12 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
           { borderColor: theme.borderColor, marginBottom: 10, paddingBottom: 10 },
         ]}
       >
-        <Text style={[styles.deadlineLabel, { color: theme.accent, marginBottom: 4 }]}>{index + 1}.</Text>
-        <Text style={[styles.summaryText, { color: theme.text, marginBottom: 6 }]}>
-          {t(step.bodyKey)}
-        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 10, marginBottom: 6 }}>
+          {numberBadge(index + 1)}
+          <Text style={[styles.summaryText, { color: theme.text, marginBottom: 0, flex: 1 }]}>
+            {t(step.bodyKey)}
+          </Text>
+        </View>
         {step.action ? (
           <TouchableOpacity
             onPress={() => runAction(step.action)}
@@ -283,8 +305,49 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
     );
   };
 
+  const backRow = (
+    <TouchableOpacity
+      accessibilityRole="button"
+      accessibilityLabel={t('guideBack')}
+      onPress={() => setActiveId(null)}
+      hitSlop={{ top: 8, bottom: 8, left: 8, right: 12 }}
+      style={{ flexDirection: 'row', alignItems: 'center', gap: 4, alignSelf: 'flex-start', marginBottom: 10 }}
+    >
+      <Ionicons name={I18nManager.isRTL ? 'chevron-forward' : 'chevron-back'} size={16} color={theme.accentAlt} />
+      <Text style={{ color: theme.accentAlt, fontSize: 13, fontWeight: '600' }}>{t('guideBack')}</Text>
+    </TouchableOpacity>
+  );
+
+  const startCard = !active && activeId !== WHATS_NEW && !legalHit && !String(query || '').trim() ? (
+    <View
+      style={{
+        backgroundColor: theme.inputBg,
+        borderColor: theme.borderColor,
+        borderWidth: 1,
+        borderRadius: 14,
+        padding: 14,
+        marginBottom: 12,
+      }}
+    >
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+        <Ionicons name="sparkles-outline" size={16} color={theme.accentAlt} />
+        <Text style={[styles.settingLabel, { color: theme.text, fontSize: 14, flex: 1 }]}>{t('guideStartTitle')}</Text>
+      </View>
+      {['guideStart1', 'guideStart2', 'guideStart3'].map((key, index) => (
+        <View
+          key={key}
+          style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 10, marginBottom: index === 2 ? 0 : 8 }}
+        >
+          {numberBadge(index + 1)}
+          <Text style={[styles.sectionHint, { color: theme.text, flex: 1, marginBottom: 0 }]}>{t(key)}</Text>
+        </View>
+      ))}
+    </View>
+  ) : null;
+
   const listHeader = active && !legalHit ? (
     <View style={{ marginBottom: 8 }}>
+      {backRow}
       <Text style={[styles.takeawayTitle, { color: theme.text, marginBottom: 4 }]}>
         {t(active.titleKey)}
       </Text>
@@ -298,8 +361,11 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
       ) : null}
     </View>
   ) : activeId === WHATS_NEW && !legalHit ? (
-    <Text style={[styles.takeawayTitle, { color: theme.text, marginBottom: 8 }]}>{t('guideWhatsNew')}</Text>
-  ) : null;
+    <View style={{ marginBottom: 8 }}>
+      {backRow}
+      <Text style={[styles.takeawayTitle, { color: theme.text, marginBottom: 8 }]}>{t('guideWhatsNew')}</Text>
+    </View>
+  ) : startCard;
 
   const listFooter = (active || activeId === WHATS_NEW) && !legalHit ? (
     <View style={{ paddingBottom: 8 }}>
@@ -312,9 +378,6 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
           <Text style={styles.primaryButtonText}>{t('guideAskAdvisorCta')}</Text>
         </TouchableOpacity>
       ) : null}
-      <TouchableOpacity accessibilityRole="button" style={[styles.secondaryBtn, { marginTop: 10 }]} onPress={() => setActiveId(null)}>
-        <Text style={styles.secondaryBtnText}>{t('cancelButton')}</Text>
-      </TouchableOpacity>
     </View>
   ) : null;
 
@@ -331,7 +394,7 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
           flexDirection: 'row',
           alignItems: 'center',
           gap: 4,
-          backgroundColor: selected ? 'rgba(212, 178, 122, 0.18)' : theme.inputBg,
+          backgroundColor: selected ? theme.accentSoft : theme.inputBg,
           borderColor: selected ? theme.accent : theme.borderColor,
         },
       ]}
@@ -374,6 +437,21 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
           <View style={styles.modalHandle} />
 
           <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 10 }}>
+            <View
+              accessible={false}
+              style={{
+                width: 34,
+                height: 34,
+                borderRadius: 17,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: theme.accentAltSoft,
+                borderWidth: 1,
+                borderColor: theme.accentAltBorder || theme.accentAlt,
+              }}
+            >
+              <Ionicons name="compass-outline" size={18} color={theme.accentAlt} />
+            </View>
             <View style={{ flex: 1 }}>
               <Text style={[styles.modalTitle, { color: theme.text, marginBottom: 4 }]}>
                 {t('guideTitle')}
@@ -450,26 +528,13 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
             horizontal
             showsHorizontalScrollIndicator={false}
             nestedScrollEnabled
-            style={{ flexGrow: 0, marginBottom: 6 }}
+            style={{ flexGrow: 0, marginBottom: 10 }}
             contentContainerStyle={{ gap: 8, paddingRight: 8, alignItems: 'center' }}
             keyboardShouldPersistTaps="handled"
           >
             {chip(WHATS_NEW, t('guideWhatsNew'), activeId === WHATS_NEW, () => setActiveId(WHATS_NEW), 'sparkles-outline')}
             {GUIDE_FAQ_CHIPS.map((faq) =>
               chip(faq.id, t(faq.chipKey), activeId === faq.workflowId, () => setActiveId(faq.workflowId))
-            )}
-          </ScrollView>
-
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            nestedScrollEnabled
-            style={{ flexGrow: 0, marginBottom: 10 }}
-            contentContainerStyle={{ gap: 8, paddingRight: 8, alignItems: 'center' }}
-            keyboardShouldPersistTaps="handled"
-          >
-            {GUIDE_WORKFLOWS.map((flow) =>
-              chip(flow.id, t(flow.chipKey), activeId === flow.id, () => setActiveId(flow.id))
             )}
           </ScrollView>
 

@@ -7,5 +7,5 @@ module.exports = {
   ux24New: '新しい確認を始める',
   ux24Report: '判断カードを開く',
   ux24Guides: '手順ガイド',
-  ux24Disclaimer: 'NexuLex は法律事務所ではありません。これらの近道は製品ツールであり、弁護士ではありません。',
+  ux24Disclaimer: "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。",
 };

@@ -7,5 +7,5 @@ module.exports = {
   ux13Send: 'Leia você antes de enviar. Um formulário oficial pode parecer diferente.',
   ux13Device: 'O rascunho fica neste telefone até o copiar, partilhar ou exportar.',
   ux13NoWin: 'Enviar uma carta não abre um processo e não prevê uma sentença.',
-  ux13Disclaimer: 'A NexuLex não é um escritório. Um rascunho preenchido é uma ferramenta de produto, não um advogado.',
+  ux13Disclaimer: "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico.",
 };

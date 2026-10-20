@@ -9,7 +9,7 @@ export const WAVE_UX15_I18N = {
     "ux15Invite": "Davet yalnızca herkese açık get sayfasını paylaşır. NexuLex sözleşmeyi eklemez.",
     "ux15Pause": "Sonraki sayfa kısa bir durak bekler; iki sayfa üst üste binmez.",
     "ux15Guides": "Adım adım rehberler her durumda açık kalır.",
-    "ux15Disclaimer": "NexuLex bir hukuk bürosu değildir. Hazır tarama ürün aracıdır, avukat değildir."
+    "ux15Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux15Once": "This card is offered once after the first acceptable scan. It is not a court result.",
@@ -19,7 +19,7 @@ export const WAVE_UX15_I18N = {
     "ux15Invite": "Invite shares only the public get page. NexuLex never attaches the contract.",
     "ux15Pause": "The next sheet waits a short pause so two sheets never stack.",
     "ux15Guides": "Step-by-step guides stay unlocked either way.",
-    "ux15Disclaimer": "NexuLex is not a law firm. A ready scan is a product tool, not a lawyer."
+    "ux15Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux15Once": "Diese Karte erscheint einmal nach dem ersten akzeptablen Scan. Sie ist kein Gerichtsergebnis.",
@@ -29,7 +29,7 @@ export const WAVE_UX15_I18N = {
     "ux15Invite": "Die Einladung teilt nur die oeffentliche get-Seite. NexuLex hängt den Vertrag nie an.",
     "ux15Pause": "Das nächste Blatt wartet eine kurze Pause, damit zwei Blätter nie stapeln.",
     "ux15Guides": "Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.",
-    "ux15Disclaimer": "NexuLex ist keine Kanzlei. Ein fertiger Scan ist ein Produktwerkzeug, kein Anwalt."
+    "ux15Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux15Once": "Cette carte apparaît’une fois après le premier scan acceptable. Ce n’est pas un résultat de tribunal.",
@@ -39,7 +39,7 @@ export const WAVE_UX15_I18N = {
     "ux15Invite": "L’invitation partage seulement la page get publique. NexuLex n’attache jamais le contrat.",
     "ux15Pause": "La feuille suivante attend une courte pause pour que deux feuilles ne se superposent jamais.",
     "ux15Guides": "Les guides pas à pas restent ouverts dans tous les cas.",
-    "ux15Disclaimer": "NexuLex n’est pas un cabinet. Un scan prêt’est un outil produit, pas un avocat."
+    "ux15Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux15Once": "Esta tarjeta aparece una vez tras el primer análisis aceptable. No es un resultado de tribunal.",
@@ -49,7 +49,7 @@ export const WAVE_UX15_I18N = {
     "ux15Invite": "La invitación comparte solo la página get pública. NexuLex nunca adjunta el contrato.",
     "ux15Pause": "La siguiente hoja espera una pausa corta para que dos hojas nunca se apilen.",
     "ux15Guides": "Las guías paso a paso siguen abiertas de todos modos.",
-    "ux15Disclaimer": "NexuLex no es un bufete. Un análisis listo es una herramienta de producto, no un abogado."
+    "ux15Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux15Once": "تظهر هذه البطاقة مرة بعد أول فحص مقبول. وليست نتيجة محكمة.",
@@ -59,7 +59,7 @@ export const WAVE_UX15_I18N = {
     "ux15Invite": "الدعوة تشارك صفحة get العامة فقط. ولا يرفق NexuLex العقد أبدا.",
     "ux15Pause": "الورقة التالية تنتظر وقفة قصيرة حتى لا تتراكب ورقتان.",
     "ux15Guides": "الأدلة خطوة بخطوة تبقى مفتوحة في الحالين.",
-    "ux15Disclaimer": "NexuLex ليس مكتب محاماة. والفحص الجاهز أداة منتج وليس محاميا."
+    "ux15Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux15Once": "Questa scheda compare una volta dopo il primo scan accettabile. Non è un esito di tribunale.",
@@ -69,7 +69,7 @@ export const WAVE_UX15_I18N = {
     "ux15Invite": "L’invito condivide solo la pagina get pubblica. NexuLex non allega mai il contratto.",
     "ux15Pause": "Il foglio successivo attende una breve pausa così due fogli non si sovrappongono.",
     "ux15Guides": "Le guide passo passo restano sbloccate in ogni caso.",
-    "ux15Disclaimer": "NexuLex non è uno studio. Uno scan pronto è uno strumento di prodotto, non un avvocato."
+    "ux15Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux15Once": "此卡片在第一次可接受的扫描后只出现一次。不是法院结果。",
@@ -79,7 +79,7 @@ export const WAVE_UX15_I18N = {
     "ux15Invite": "邀请只分享公开 get 页面。NexuLex 从不附上合同。",
     "ux15Pause": "下一页会短暂停一下，两页绝不会叠在一起。",
     "ux15Guides": "分步指南无论哪种情况都不上锁。",
-    "ux15Disclaimer": "NexuLex 不是律师事务所。完成的扫描是产品工具，不是律师。"
+    "ux15Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux15Once": "Эта карточка появляется один раз после первого приемлемого разбора. Это не исход суда.",
@@ -89,7 +89,7 @@ export const WAVE_UX15_I18N = {
     "ux15Invite": "Приглашение делится только публичной страницей get. NexuLex никогда не прикладывает договор.",
     "ux15Pause": "Следующий лист ждёт короткую паузу, чтобы два листа не наложились.",
     "ux15Guides": "Пошаговые гиды в любом случае остаются открытыми.",
-    "ux15Disclaimer": "NexuLex не юридическая фирма. Готовый разбор — инструмент продукта, не адвокат."
+    "ux15Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux15Once": "این کارت پس از نخستین بررسی قابل‌قبول یک‌بار می‌آید. نتیجه دادگاه نیست.",
@@ -99,7 +99,7 @@ export const WAVE_UX15_I18N = {
     "ux15Invite": "دعوت فقط صفحه عمومی get را هم‌رسانی می‌کند. NexuLex هرگز قرارداد را پیوست نمی‌کند.",
     "ux15Pause": "برگه بعدی مکث کوتاهی می‌کند تا دو برگه روی هم ننشینند.",
     "ux15Guides": "راهنماهای گام‌به‌گام در هر حال باز می‌مانند.",
-    "ux15Disclaimer": "NexuLex دفتر وکالت نیست. بررسی آماده‌شده ابزار محصول است، نه وکیل."
+    "ux15Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux15Once": "このカードは最初の受け入れ可能な確認の後に一度だけ出ます。裁判所の結果ではありません。",
@@ -109,7 +109,7 @@ export const WAVE_UX15_I18N = {
     "ux15Invite": "招待は公開の get ページだけを共有します。NexuLex は契約を添付しません。",
     "ux15Pause": "次のシートは短い間を置き、二枚が重ならないようにします。",
     "ux15Guides": "手順ガイドはどちらでもロックされません。",
-    "ux15Disclaimer": "NexuLex は法律事務所ではありません。できた確認は製品の用具であり、弁護士ではありません。"
+    "ux15Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux15Once": "Este cartão aparece uma vez após a primeira análise aceitável. Não é um resultado de tribunal.",
@@ -119,7 +119,7 @@ export const WAVE_UX15_I18N = {
     "ux15Invite": "O convite partilha só a página get pública. A NexuLex nunca anexa o contrato.",
     "ux15Pause": "A folha seguinte espera uma pausa curta para duas folhas nunca se empilharem.",
     "ux15Guides": "Os guias passo a passo ficam desbloqueados de qualquer forma.",
-    "ux15Disclaimer": "A NexuLex não é um escritório. Uma análise pronta é uma ferramenta de produto, não um advogado."
+    "ux15Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux15Once": "Deze kaart verschijnt eenmaal na de eerste aanvaardbare scan. Het is geen gerechtelijk resultaat.",
@@ -129,6 +129,6 @@ export const WAVE_UX15_I18N = {
     "ux15Invite": "De uitnodiging deelt alleen de openbare get-pagina. NexuLex voegt het contract nooit bij.",
     "ux15Pause": "Het volgende blad wacht een korte pauze zodat twee bladen nooit stapelen.",
     "ux15Guides": "Stapsgewijze gidsen blijven in elk geval ontgrendeld.",
-    "ux15Disclaimer": "NexuLex is geen advocatenkantoor. Een klaar scan is een producthulp, geen advocaat."
+    "ux15Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

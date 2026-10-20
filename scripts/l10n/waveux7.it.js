@@ -7,5 +7,5 @@ module.exports = {
   ux7Brief: 'Il brief avvocato è sul piano Pro a pagamento. È un riassunto che condividi, non un atto di tribunale.',
   ux7NoWin: 'Un fascicolo non predice un esito in tribunale e non ti rappresenta.',
   ux7Share: 'Un posto famiglia può leggere un brief che condividi. Non può aprire il contratto originale da questo file.',
-  ux7Disclaimer: 'NexuLex non è uno studio. I fascicoli sono strumenti di prodotto, non consulenza legale.',
+  ux7Disclaimer: "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale.",
 };

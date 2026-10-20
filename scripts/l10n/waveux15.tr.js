@@ -7,5 +7,5 @@ module.exports = {
   ux15Invite: 'Davet yalnızca herkese açık get sayfasını paylaşır. NexuLex sözleşmeyi eklemez.',
   ux15Pause: 'Sonraki sayfa kısa bir durak bekler; iki sayfa üst üste binmez.',
   ux15Guides: 'Adım adım rehberler her durumda açık kalır.',
-  ux15Disclaimer: 'NexuLex bir hukuk bürosu değildir. Hazır tarama ürün aracıdır, avukat değildir.',
+  ux15Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

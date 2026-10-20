@@ -7,5 +7,5 @@ module.exports = {
   ux15Invite: 'L’invito condivide solo la pagina get pubblica. NexuLex non allega mai il contratto.',
   ux15Pause: 'Il foglio successivo attende una breve pausa così due fogli non si sovrappongono.',
   ux15Guides: 'Le guide passo passo restano sbloccate in ogni caso.',
-  ux15Disclaimer: 'NexuLex non è uno studio. Uno scan pronto è uno strumento di prodotto, non un avvocato.',
+  ux15Disclaimer: "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale.",
 };

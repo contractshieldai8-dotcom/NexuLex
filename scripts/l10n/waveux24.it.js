@@ -7,5 +7,5 @@ module.exports = {
   ux24New: 'Avvia una nuova scansione',
   ux24Report: 'Apri la scheda di decisione',
   ux24Guides: 'Guide passo dopo passo',
-  ux24Disclaimer: 'NexuLex non è uno studio legale. Queste scorciatoie sono uno strumento di prodotto, non un avvocato.',
+  ux24Disclaimer: "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale.",
 };

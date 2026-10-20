@@ -7,5 +7,5 @@ module.exports = {
   ux19NoWin: 'Niets hier belooft een resultaat of rangschikt een advocaat.',
   ux19Device: 'Niets verlaat de telefoon tot u analyseert of deelt.',
   ux19Corridor: 'Taal en land blijven zoals u ze zojuist koos. Deze kaart verandert ze niet.',
-  ux19Disclaimer: 'NexuLex is geen advocatenkantoor. Een eerste-stapkaart is een producthulp, geen advocaat.',
+  ux19Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

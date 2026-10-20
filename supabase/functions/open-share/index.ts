@@ -86,7 +86,7 @@ const html404 = () =>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta name="robots" content="noindex"/>
 <title>NexuLex AI</title>
-<style>body{margin:0;background:#0A0F1D;color:#F8FAFC;font-family:system-ui,sans-serif;padding:48px 20px;text-align:center;line-height:1.45}.accent{color:#00F5D4}.foot{color:#94A3B8;font-size:13px;margin-top:18px}</style>
+<style>body{margin:0;background:#0A0F1D;color:#F8FAFC;font-family:system-ui,sans-serif;padding:48px 20px;text-align:center;line-height:1.45}.accent{color:#D4B27A}.foot{color:#94A3B8;font-size:13px;margin-top:18px}</style>
 </head>
 <body>
 <p class="accent">NexuLex AI</p>
@@ -154,18 +154,18 @@ function renderHtml(snapshot: Record<string, unknown>, code: string) {
 <style>
 body{margin:0;background:#0A0F1D;color:#F8FAFC;font-family:system-ui,sans-serif;line-height:1.45}
 main{max-width:720px;margin:0 auto;padding:28px 20px 48px}
-.accent{color:#00F5D4}
+.accent{color:#D4B27A}
 .card{background:#111827;border:1px solid #1E293B;border-radius:14px;padding:18px;margin:14px 0}
-.score{font-size:28px;color:#00F5D4;font-weight:700}
-.chip{display:inline-block;border:1px solid #00F5D4;color:#00F5D4;border-radius:999px;padding:4px 10px;margin:4px 6px 0 0;font-size:12px}
+.score{font-size:28px;color:#D4B27A;font-weight:700}
+.chip{display:inline-block;border:1px solid #D4B27A;color:#D4B27A;border-radius:999px;padding:4px 10px;margin:4px 6px 0 0;font-size:12px}
 .flag h3{margin:0 0 8px;font-size:15px}
-.counter{color:#00F5D4;white-space:pre-wrap}
+.counter{color:#D4B27A;white-space:pre-wrap}
 pre{white-space:pre-wrap;font-family:inherit;background:#0A0F1D;padding:12px;border-radius:10px}
 .foot{color:#94A3B8;font-size:12px;margin-top:24px}
 .cta{display:flex;flex-direction:column;gap:10px;margin-top:22px}
 .cta a{display:block;text-align:center;text-decoration:none;border-radius:12px;padding:14px 16px;font-weight:600}
-.cta .primary{background:#00F5D4;color:#080C14}
-.cta .secondary{border:1px solid #00F5D4;color:#00F5D4}
+.cta .primary{background:#D4B27A;color:#080C14}
+.cta .secondary{border:1px solid #D4B27A;color:#D4B27A}
 </style>
 </head>
 <body>

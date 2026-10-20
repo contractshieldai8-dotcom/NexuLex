@@ -7,5 +7,5 @@ module.exports = {
   ux21Chat: 'Advisor chats sit on this list separately. They are not a scan report.',
   ux21NoWin: 'The score on a card is a work aid. It is not a court outcome.',
   ux21Guides: 'Step-by-step guides stay unlocked either way.',
-  ux21Disclaimer: 'NexuLex is not a law firm. A history card is a product tool, not a lawyer.',
+  ux21Disclaimer: "NexuLex is not a law firm. This is general information, not legal advice.",
 };

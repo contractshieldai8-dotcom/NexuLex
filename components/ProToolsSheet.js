@@ -17,7 +17,7 @@ import * as Clipboard from 'expo-clipboard';
 import * as Linking from 'expo-linking';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, DANGER, WARNING, styles } from '../theme';
+import { ACCENT, DANGER, WARNING, styles, toneText } from '../theme';
 import { PRO_TOOL_ERROR_CODES, fetchProToolQuota, runProTool } from '../services/proTools';
 import { loadCases, noteEvidence, saveCases } from '../services/caseFileStore';
 import { describeQuota, limitMessageKey } from '../utils/askQuota';
@@ -205,7 +205,7 @@ export default function ProToolsSheet({
   ];
   const sectionTitle = (key, icon, color = ACCENT) => (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 14, marginBottom: 6 }}>
-      <Ionicons name={icon} size={15} color={color} />
+      <Ionicons name={icon} size={15} color={toneText(color)} />
       <Text style={[styles.label, { color: theme.text, marginBottom: 0 }]}>{t(key)}</Text>
     </View>
   );

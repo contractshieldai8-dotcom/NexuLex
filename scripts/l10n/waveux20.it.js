@@ -7,5 +7,5 @@ module.exports = {
   ux20Share: 'Un brief da condividere è una breve nota di prodotto. Non è il contratto intero.',
   ux20Guides: 'Le guide passo passo restano sbloccate in ogni caso.',
   ux20NoWin: 'Nulla in questo report promette un esito o classifica un avvocato.',
-  ux20Disclaimer: 'NexuLex non è uno studio. Un report di scan è uno strumento di prodotto, non un avvocato.',
+  ux20Disclaimer: "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale.",
 };

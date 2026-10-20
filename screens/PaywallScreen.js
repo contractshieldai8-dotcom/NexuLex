@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 
 import { ACCENT, styles } from '../theme';
 import { useFeedback } from '../context/FeedbackContext';
+import HonestyFold from '../components/HonestyFold';
 import { track } from '../services/telemetry';
 import { footKeyForHook } from '../constants/paywallIntent';
 import { isAnnualPackage, isMonthlyPackage, pickAnnualCompare } from '../constants/annualHighlight';
@@ -199,6 +200,18 @@ export default function PaywallScreen({
     }
   };
 
+  // Real findings from the user's own analysis (preview): what was spotted and what stays locked.
+  const findings = (() => {
+    const raw = context?.findings;
+    if (!raw) return null;
+    const topRisk = String(raw.topRisk || '').trim();
+    const lockedRisks = Number(raw.lockedRisks) || 0;
+    const lockedFixes = Number(raw.lockedFixes) || 0;
+    const hasMessage = Boolean(raw.hasMessage);
+    if (!topRisk && !lockedRisks && !lockedFixes && !hasMessage) return null;
+    return { topRisk, lockedRisks, lockedFixes, hasMessage };
+  })();
+
   const canPurchase = available && !loadingPlans && packages.length > 0 && !!selectedId && !owned;
   const annualCompare = pickAnnualCompare(packages);
   const tierCompare = pickProfessionalCompare(
@@ -219,7 +232,7 @@ export default function PaywallScreen({
         style={[
           styles.planCard,
           {
-            backgroundColor: active ? 'rgba(212, 178, 122, 0.08)' : theme.inputBg,
+            backgroundColor: active ? theme.accentSoft : theme.inputBg,
             borderColor: active ? theme.accent : theme.borderColor,
           },
         ]}
@@ -304,6 +317,51 @@ export default function PaywallScreen({
             ) : null}
           </View>
 
+          {findings ? (
+            <View
+              style={[
+                styles.card,
+                { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginTop: 16, marginBottom: 0 },
+              ]}
+            >
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+                <Ionicons name="scan-outline" size={16} color={theme.accentAlt} />
+                <Text style={[styles.settingLabel, { color: theme.text, fontSize: 14, flex: 1 }]} numberOfLines={1}>
+                  {t('pwFoundTitle')}
+                </Text>
+              </View>
+              {findings.topRisk ? (
+                <View style={{ flexDirection: 'row', gap: 10, marginBottom: 10 }}>
+                  <Ionicons name="alert-circle" size={18} color={theme.danger} style={{ marginTop: 1 }} />
+                  <View style={{ flex: 1 }}>
+                    <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 2 }]}>{t('pwTopRisk')}</Text>
+                    <Text style={[styles.summaryText, { color: theme.text, marginBottom: 0 }]} numberOfLines={3}>
+                      {findings.topRisk}
+                    </Text>
+                  </View>
+                </View>
+              ) : null}
+              {findings.lockedRisks > 0 ? (
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                  <Ionicons name="lock-closed-outline" size={16} color={theme.accent} />
+                  <Text style={[styles.sectionHint, { color: theme.text, flex: 1, marginBottom: 0 }]}>
+                    {t('pwLockedRisks', { count: findings.lockedRisks })}
+                  </Text>
+                </View>
+              ) : null}
+              {findings.lockedFixes > 0 || findings.hasMessage ? (
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                  <Ionicons name="lock-closed-outline" size={16} color={theme.accent} />
+                  <Text style={[styles.sectionHint, { color: theme.text, flex: 1, marginBottom: 0 }]}>
+                    {findings.lockedFixes > 0
+                      ? t('pwLockedFixes', { count: findings.lockedFixes })
+                      : t('pwLockedMessage')}
+                  </Text>
+                </View>
+              ) : null}
+            </View>
+          ) : null}
+
           <View style={{ flexDirection: 'row', gap: 10, marginTop: 16 }}>
             {TIERS.map((value) => {
               const active = tier === value;
@@ -321,7 +379,7 @@ export default function PaywallScreen({
                     borderRadius: 14,
                     padding: 12,
                     borderColor: active ? theme.accent : theme.borderColor,
-                    backgroundColor: active ? 'rgba(212, 178, 122, 0.08)' : theme.cardBg,
+                    backgroundColor: active ? theme.accentSoft : theme.cardBg,
                   }}
                 >
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
@@ -429,7 +487,8 @@ export default function PaywallScreen({
             </TouchableOpacity>
 
             {/* Explanatory fine print sits below the purchase controls so plans and the CTA stay above the fold. */}
-            <View style={{ marginTop: 16 }}>
+            <View style={{ marginTop: 12 }}>
+            <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mxFirstValue')}</Text>
             {!loadingPlans && packages.length > 0 && !annualCompare ? (
               <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mxNoCompare')}</Text>
@@ -447,7 +506,7 @@ export default function PaywallScreen({
             ) : null}
             {tierCompare && tierCompare.proPriceString && tierCompare.professionalPriceString ? (
               <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>
-                {t('mx2Prices', { plusPrice: tierCompare.professionalPriceString, proPrice: tierCompare.proPriceString })}
+                {t('mx2Prices', { professionalPrice: tierCompare.professionalPriceString, proPrice: tierCompare.proPriceString })}
               </Text>
             ) : null}
             {tier === 'professional' && annualCompare ? (
@@ -465,7 +524,7 @@ export default function PaywallScreen({
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Peer')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Restore')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11NoCourt')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Disclaimer')}</Text>
+            </HonestyFold>
             </View>
 
             <View style={{ marginTop: 16, alignItems: 'center', gap: 8 }}>

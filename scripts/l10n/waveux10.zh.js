@@ -7,5 +7,5 @@ module.exports = {
   ux10Sources: '请自行打开每个官方机构。规则会变；链接可能过时。',
   ux10NoList: '应用不列出或排名个别律师。只指向官方机构。',
   ux10Device: '指南留在这台手机上。打开网站会离开应用。',
-  ux10Disclaimer: 'NexuLex 不是律师事务所。流程地图是产品工具，不是律师。',
+  ux10Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

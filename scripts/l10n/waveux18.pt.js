@@ -7,5 +7,5 @@ module.exports = {
   ux18Jobs: 'Quatro tipos: texto inacabado, último processo, última pergunta, último relatório.',
   ux18NoWin: 'Nada aqui promete um resultado ou classifica um advogado.',
   ux18Guides: 'Os guias passo a passo ficam desbloqueados de qualquer forma.',
-  ux18Disclaimer: 'A NexuLex não é um escritório. Um cartão de retoma é uma ferramenta de produto, não um advogado.',
+  ux18Disclaimer: "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico.",
 };

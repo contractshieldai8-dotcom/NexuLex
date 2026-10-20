@@ -7,5 +7,5 @@ module.exports = {
   ux22Audience: 'O público só escolhe quem pode abrir a nota. Não classifica um advogado.',
   ux22Pro: 'Lugares extra de casa e consultor ficam num plano pago. Os guias ficam grátis.',
   ux22Guides: 'Os guias passo a passo ficam desbloqueados de qualquer forma.',
-  ux22Disclaimer: 'A NexuLex não é um escritório. Um brief para partilhar é uma ferramenta de produto, não um advogado.',
+  ux22Disclaimer: "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico.",
 };

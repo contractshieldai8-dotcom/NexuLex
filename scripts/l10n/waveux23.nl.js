@@ -7,5 +7,5 @@ module.exports = {
   ux23Count: '{{visible}} van {{total}} rijen in deze weergave.',
   ux23Empty: 'Geen rij komt overeen. Wis de zoekactie of open Analyseren.',
   ux23Guides: 'Stapsgewijze gidsen blijven in elk geval ontgrendeld.',
-  ux23Disclaimer: 'NexuLex is geen advocatenkantoor. Een geschiedenisregister is een productbestand, geen advocaat.',
+  ux23Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

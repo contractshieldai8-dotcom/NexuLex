@@ -7,5 +7,5 @@ module.exports = {
   ux18Jobs: 'Vier Arten: unfertiger Text, letzte Akte, letzte Frage, letzter Bericht.',
   ux18NoWin: 'Nichts hier verspricht ein Ergebnis oder reiht einen Anwalt.',
   ux18Guides: 'Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.',
-  ux18Disclaimer: 'NexuLex ist keine Kanzlei. Eine Fortsetzen-Karte ist ein Produktwerkzeug, kein Anwalt.',
+  ux18Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

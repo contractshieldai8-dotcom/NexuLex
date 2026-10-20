@@ -9,7 +9,7 @@ export const WAVE_UX17_I18N = {
     "ux17Store": "Android’de Puanla Play ilanını açar. iOS’ta herkese açık get sayfasını açar. Apple uygulama kimliği uydurulmaz.",
     "ux17Device": "Sözleşme ve rapor bu telefonda kalır.",
     "ux17Guides": "Adım adım rehberler her durumda açık kalır.",
-    "ux17Disclaimer": "NexuLex bir hukuk bürosu değildir. Davet ürün aracıdır, avukat değildir."
+    "ux17Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux17Get": "Invite shares only the public get page. NexuLex never attaches the contract.",
@@ -19,7 +19,7 @@ export const WAVE_UX17_I18N = {
     "ux17Store": "On Android, Rate opens the Play listing. On iOS it opens the public get page. No Apple app id is invented.",
     "ux17Device": "The contract and the report stay on this phone.",
     "ux17Guides": "Step-by-step guides stay unlocked either way.",
-    "ux17Disclaimer": "NexuLex is not a law firm. An invite is a product tool, not a lawyer."
+    "ux17Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux17Get": "Die Einladung teilt nur die oeffentliche get-Seite. NexuLex hängt den Vertrag nie an.",
@@ -29,7 +29,7 @@ export const WAVE_UX17_I18N = {
     "ux17Store": "Unter Android oeffnet Beswerten den Play-Eintrag. Unter iOS die oeffentliche get-Seite. Keine erfundene Apple-App-Id.",
     "ux17Device": "Vertrag und Bericht bleiben auf diesem Telefon.",
     "ux17Guides": "Schritt-für-Schritt-Leitfäden bleiben in jedem Fall offen.",
-    "ux17Disclaimer": "NexuLex ist keine Kanzlei. Eine Einladung ist ein Produktwerkzeug, kein Anwalt."
+    "ux17Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux17Get": "L’invitation partage seulement la page get publique. NexuLex n’attache jamais le contrat.",
@@ -39,7 +39,7 @@ export const WAVE_UX17_I18N = {
     "ux17Store": "Sous Android, Noter ouvre la fiche Play. Sous iOS, la page get publique. Aucun identifiant Apple inventé.",
     "ux17Device": "Le contrat et le rapport restent sur ce téléphone.",
     "ux17Guides": "Les guides pas à pas restent ouverts dans tous les cas.",
-    "ux17Disclaimer": "NexuLex n’est pas un cabinet. Une invitation est un outil produit, pas un avocat."
+    "ux17Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux17Get": "La invitación comparte solo la página get pública. NexuLex nunca adjunta el contrato.",
@@ -49,7 +49,7 @@ export const WAVE_UX17_I18N = {
     "ux17Store": "En Android, Valorar abre el anuncio de Play. En iOS abre la página get pública. No se inventa un id de Apple.",
     "ux17Device": "El contrato y el informe se quedan en este teléfono.",
     "ux17Guides": "Las guías paso a paso siguen abiertas de todos modos.",
-    "ux17Disclaimer": "NexuLex no es un bufete. Una invitación es una herramienta de producto, no un abogado."
+    "ux17Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux17Get": "الدعوة تشارك صفحة get العامة فقط. ولا يرفق NexuLex العقد أبدا.",
@@ -59,7 +59,7 @@ export const WAVE_UX17_I18N = {
     "ux17Store": "على Android يفتح قيّم إعلان Play. وعلى iOS يفتح صفحة get العامة. ولا يُختلق معرّف تطبيق Apple.",
     "ux17Device": "العقد والتقرير يبقيان على هذا الهاتف.",
     "ux17Guides": "الأدلة خطوة بخطوة تبقى مفتوحة في الحالين.",
-    "ux17Disclaimer": "NexuLex ليس مكتب محاماة. والدعوة أداة منتج وليست محاميا."
+    "ux17Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux17Get": "L’invito condivide solo la pagina get pubblica. NexuLex non allega mai il contratto.",
@@ -69,7 +69,7 @@ export const WAVE_UX17_I18N = {
     "ux17Store": "Su Android, Valuta apre la scheda Play. Su iOS apre la pagina get pubblica. Nessun id Apple inventato.",
     "ux17Device": "Il contratto e il report restano su questo telefono.",
     "ux17Guides": "Le guide passo passo restano sbloccate in ogni caso.",
-    "ux17Disclaimer": "NexuLex non è uno studio. Un invito è uno strumento di prodotto, non un avvocato."
+    "ux17Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux17Get": "邀请只分享公开 get 页面。NexuLex 从不附上合同。",
@@ -79,7 +79,7 @@ export const WAVE_UX17_I18N = {
     "ux17Store": "在 Android 上，评分打开 Play 商品页。在 iOS 上打开公开 get 页。不会编造 Apple 应用编号。",
     "ux17Device": "合同和报告留在这台手机上。",
     "ux17Guides": "分步指南无论哪种情况都不上锁。",
-    "ux17Disclaimer": "NexuLex 不是律师事务所。邀请是产品工具，不是律师。"
+    "ux17Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux17Get": "Приглашение делится только публичной страницей get. NexuLex никогда не прикладывает договор.",
@@ -89,7 +89,7 @@ export const WAVE_UX17_I18N = {
     "ux17Store": "На Android «Оценить» открывает карточку Play. На iOS — публичную страницу get. Идентификатор приложения Apple не выдумывается.",
     "ux17Device": "Договор и отчёт остаются на этом телефоне.",
     "ux17Guides": "Пошаговые гиды в любом случае остаются открытыми.",
-    "ux17Disclaimer": "NexuLex не юридическая фирма. Приглашение — инструмент продукта, не адвокат."
+    "ux17Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux17Get": "دعوت فقط صفحه عمومی get را هم‌رسانی می‌کند. NexuLex هرگز قرارداد را پیوست نمی‌کند.",
@@ -99,7 +99,7 @@ export const WAVE_UX17_I18N = {
     "ux17Store": "در Android امتیاز صفحه Play را باز می‌کند. در iOS صفحه عمومی get را باز می‌کند. شناسه برنامه Apple جعل نمی‌شود.",
     "ux17Device": "قرارداد و گزارش روی همین تلفن می‌مانند.",
     "ux17Guides": "راهنماهای گام‌به‌گام در هر حال باز می‌مانند.",
-    "ux17Disclaimer": "NexuLex دفتر وکالت نیست. دعوت ابزار محصول است، نه وکیل."
+    "ux17Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux17Get": "招待は公開の get ページだけを共有します。NexuLex は契約を添付しません。",
@@ -109,7 +109,7 @@ export const WAVE_UX17_I18N = {
     "ux17Store": "Android では評価が Play の掲載を開きます。iOS では公開 get ページを開きます。Apple のアプリ番号は作りません。",
     "ux17Device": "契約と報告はこの電話に残ります。",
     "ux17Guides": "手順ガイドはどちらでもロックされません。",
-    "ux17Disclaimer": "NexuLex は法律事務所ではありません。招待は製品の用具であり、弁護士ではありません。"
+    "ux17Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux17Get": "O convite partilha só a página get pública. A NexuLex nunca anexa o contrato.",
@@ -119,7 +119,7 @@ export const WAVE_UX17_I18N = {
     "ux17Store": "No Android, Avaliar abre o anúncio da Play. No iOS abre a página get pública. Nenhum id Apple é inventado.",
     "ux17Device": "O contrato e o relatório ficam neste telefone.",
     "ux17Guides": "Os guias passo a passo ficam desbloqueados de qualquer forma.",
-    "ux17Disclaimer": "A NexuLex não é um escritório. Um convite é uma ferramenta de produto, não um advogado."
+    "ux17Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux17Get": "De uitnodiging deelt alleen de openbare get-pagina. NexuLex voegt het contract nooit bij.",
@@ -129,6 +129,6 @@ export const WAVE_UX17_I18N = {
     "ux17Store": "Op Android opent Beoordelen de Play-fiche. Op iOS de openbare get-pagina. Geen verzonnen Apple-app-id.",
     "ux17Device": "Het contract en het rapport blijven op deze telefoon.",
     "ux17Guides": "Stapsgewijze gidsen blijven in elk geval ontgrendeld.",
-    "ux17Disclaimer": "NexuLex is geen advocatenkantoor. Een uitnodiging is een producthulp, geen advocaat."
+    "ux17Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

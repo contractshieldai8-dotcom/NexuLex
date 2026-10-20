@@ -7,5 +7,5 @@ module.exports = {
   ux10Sources: 'Apri tu ogni ente ufficiale. Le regole cambiano; un link può diventare vecchio.',
   ux10NoList: 'L’app non elenca ne classifica avvocati singoli. Indica solo enti ufficiali.',
   ux10Device: 'Le guide restano su questo telefono. Aprire un sito esce dall’app.',
-  ux10Disclaimer: 'NexuLex non è uno studio. Una mappa di procedura è uno strumento di prodotto, non un avvocato.',
+  ux10Disclaimer: "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale.",
 };

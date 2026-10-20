@@ -1,11 +1,10 @@
 // WAVE ST.8 — Ajustes plan / cuota (ES).
 module.exports = {
-  st8Plan: 'El nombre de arriba es el plan que la tienda y nuestro servidor confirmaron por última vez.',
+  st8Plan: "El plan mostrado arriba lo confirmaron por última vez su tienda y nuestro servidor.",
   st8Store: 'App Store y Google Play son dueños de la suscripción. NexuLex no puede cancelarla desde Ajustes.',
-  st8Quota: 'El recuento de análisis de arriba es de esta cuenta. Preguntas jurídicas y herramientas Professional tienen contadores diarios propios en el servidor.',
+  st8Quota: "El número de análisis de arriba corresponde a esta cuenta. Las preguntas jurídicas y las herramientas Professional se cuentan por separado cada día.",
   st8Ask: 'Preguntas jurídicas al día: gratis {{freeAsk}}, Pro {{proAsk}}, Professional {{professionalAsk}}. El servidor las cuenta.',
   st8Tools: 'Las herramientas Professional quedan en el plan Professional de pago. Pro no las incluye.',
   st8First: 'Los primeros análisis, las primeras preguntas y el primer expediente se quedan en el plan gratuito.',
-  st8Restore: 'Si el plan parece incorrecto, restaure compras en el paywall. Ajustes no puede inventar un plan de pago.',
-  st8Disclaimer: 'NexuLex no es un bufete. Los nombres de plan aquí son acceso de producto, no asesoramiento jurídico.',
+  st8Restore: "Si el plan parece incorrecto, restaure sus compras en la pantalla de planes. Ajustes solo muestra lo que confirma la tienda."
 };

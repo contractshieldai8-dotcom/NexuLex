@@ -7,5 +7,5 @@ module.exports = {
   ux5Guides: 'Le guide non si bloccano mai. Gli altri chip aprono strumenti che poi possono usare una quota.',
   ux5Lawyer: 'Trova un avvocato apre elenchi ufficiali. NexuLex non raccomanda ne classifica avvocati.',
   ux5NoWin: 'Una scansione non predice un esito in tribunale e non ti rappresenta.',
-  ux5Disclaimer: 'NexuLex non è uno studio. Questi chip sono percorsi di prodotto, non consulenza legale.',
+  ux5Disclaimer: "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale.",
 };

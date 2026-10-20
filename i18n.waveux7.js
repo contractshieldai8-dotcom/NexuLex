@@ -9,7 +9,7 @@ export const WAVE_UX7_I18N = {
     "ux7Brief": "Avukat özeti ücretli Pro plandadır. Paylaştığınız bir özettir, mahkeme evrakı değildir.",
     "ux7NoWin": "Dosya mahkeme sonucu öngörmez ve sizi temsil etmez.",
     "ux7Share": "Hane koltuğu paylaştığınız özeti okuyabilir. Bu dosyadan orijinal sözleşmeyi açamaz.",
-    "ux7Disclaimer": "NexuLex bir hukuk bürosu değildir. Dosyalar ürün aracıdır, hukuki tavsiye değildir."
+    "ux7Disclaimer": "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir."
   },
   "en": {
     "ux7OnDevice": "The case file stays on this phone. NexuLex does not upload the original contract with the file.",
@@ -19,7 +19,7 @@ export const WAVE_UX7_I18N = {
     "ux7Brief": "The lawyer brief is on the paid Pro plan. It is a summary you share, not a court filing.",
     "ux7NoWin": "A case file does not predict a court result and does not represent you.",
     "ux7Share": "A household seat can read a brief you share. It cannot open the original contract from this file.",
-    "ux7Disclaimer": "NexuLex is not a law firm. Case files are product tools, not legal advice."
+    "ux7Disclaimer": "NexuLex is not a law firm. This is general information, not legal advice."
   },
   "de": {
     "ux7OnDevice": "Die Fallakte bleibt auf diesem Telefon. NexuLex lädt den Originalvertrag nicht mit der Akte hoch.",
@@ -29,7 +29,7 @@ export const WAVE_UX7_I18N = {
     "ux7Brief": "Die Anwaltszusammenfassung liegt im bezahlten Pro-Plan. Sie ist eine geteilte Kurzfassung, keine Gerichtsschrift.",
     "ux7NoWin": "Eine Fallakte sagt kein Gerichtsergebnis voraus und vertritt Sie nicht.",
     "ux7Share": "Ein Haushaltsplatz kann eine geteilte Kurzfassung lesen. Den Originalvertrag aus dieser Akte oeffnet er nicht.",
-    "ux7Disclaimer": "NexuLex ist keine Kanzlei. Fallakten sind Produktwerkzeuge, keine Rechtsberatung."
+    "ux7Disclaimer": "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung."
   },
   "fr": {
     "ux7OnDevice": "Le dossier reste sur ce téléphone. NexuLex n’envoie pas le contrat original avec le dossier.",
@@ -39,7 +39,7 @@ export const WAVE_UX7_I18N = {
     "ux7Brief": "Le resume avocat est sur le forfait Pro payant. C’est un resume que vous partagez, pas un dépôt’au tribunal.",
     "ux7NoWin": "Un dossier ne prédit pas un résultat de tribunal et ne vous représente pas.",
     "ux7Share": "Un siège foyer peut lire un resume que vous partagez. Il ne peut pas ouvrir le contrat original depuis ce dossier.",
-    "ux7Disclaimer": "NexuLex n’est pas un cabinet. Les dossiers sont des outils produit, pas un conseil juridique."
+    "ux7Disclaimer": "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique."
   },
   "es": {
     "ux7OnDevice": "El expediente se queda en este teléfono. NexuLex no sube el contrato original con el archivo.",
@@ -49,7 +49,7 @@ export const WAVE_UX7_I18N = {
     "ux7Brief": "El resumen para el abogado está en el plan Pro de pago. Es un resumen que usted comparte, no un escrito judicial.",
     "ux7NoWin": "Un expediente no predice un resultado judicial y no le representa.",
     "ux7Share": "Un asiento del hogar puede leer un resumen que usted comparte. No puede abrir el contrato original desde este archivo.",
-    "ux7Disclaimer": "NexuLex no es un bufete. Los expedientes son herramientas de producto, no asesoramiento jurídico."
+    "ux7Disclaimer": "NexuLex no es un despacho de abogados. Esta es información general, no asesoramiento jurídico."
   },
   "ar": {
     "ux7OnDevice": "الملف يبقى على هذا الهاتف. ولا يرفع NexuLex العقد الأصلي مع الملف.",
@@ -59,7 +59,7 @@ export const WAVE_UX7_I18N = {
     "ux7Brief": "ملخص المحامي في خطة Pro المدفوعة. وهو ملخص تشاركه لا صحيفة محكمة.",
     "ux7NoWin": "الملف لا يتوقع نتيجة محكمة ولا يمثلك.",
     "ux7Share": "مقعد الأسرة يقرأ ملخصا تشاركه. ولا يفتح العقد الأصلي من هذا الملف.",
-    "ux7Disclaimer": "NexuLex ليس مكتب محاماة. والملفات أدوات منتج وليست استشارة قانونية."
+    "ux7Disclaimer": "NexuLex ليست مكتب محاماة. هذه معلومات عامة وليست استشارة قانونية."
   },
   "it": {
     "ux7OnDevice": "Il fascicolo resta su questo telefono. NexuLex non carica il contratto originale con il file.",
@@ -69,7 +69,7 @@ export const WAVE_UX7_I18N = {
     "ux7Brief": "Il brief avvocato è sul piano Pro a pagamento. È un riassunto che condividi, non un atto di tribunale.",
     "ux7NoWin": "Un fascicolo non predice un esito in tribunale e non ti rappresenta.",
     "ux7Share": "Un posto famiglia può leggere un brief che condividi. Non può aprire il contratto originale da questo file.",
-    "ux7Disclaimer": "NexuLex non è uno studio. I fascicoli sono strumenti di prodotto, non consulenza legale."
+    "ux7Disclaimer": "NexuLex non è uno studio legale. Sono informazioni generali, non consulenza legale."
   },
   "zh": {
     "ux7OnDevice": "案件档案留在这台手机上。NexuLex 不会随档案上传原合同。",
@@ -79,7 +79,7 @@ export const WAVE_UX7_I18N = {
     "ux7Brief": "律师摘要在付费 Pro 方案。那是您分享的摘要，不是向法院呈递的文书。",
     "ux7NoWin": "案件档案不预测法庭结果，也不代表您。",
     "ux7Share": "家庭席位可读您分享的摘要。无法从此档案打开原合同。",
-    "ux7Disclaimer": "NexuLex 不是律师事务所。案件档案是产品工具，不是法律意见。"
+    "ux7Disclaimer": "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。"
   },
   "ru": {
     "ux7OnDevice": "Дело остаётся на этом телефоне. NexuLex не загружает исходный договор вместе с файлом.",
@@ -89,7 +89,7 @@ export const WAVE_UX7_I18N = {
     "ux7Brief": "Краткая для адвоката в платном плане Pro. Это краткая, которой вы делитесь, не судебный документ.",
     "ux7NoWin": "Дело не предсказывает исход суда и не представляет вас.",
     "ux7Share": "Место семьи может прочитать краткую, которой вы поделились. Исходный договор из этого файла оно не откроет.",
-    "ux7Disclaimer": "NexuLex не юридическая фирма. Дела — инструменты продукта, не юридическая консультация."
+    "ux7Disclaimer": "NexuLex — не юридическая фирма. Это общая информация, а не юридическая консультация."
   },
   "fa": {
     "ux7OnDevice": "پرونده روی همین تلفن می‌ماند. NexuLex قرارداد اصلی را همراه پرونده بارگذاری نمی‌کند.",
@@ -99,7 +99,7 @@ export const WAVE_UX7_I18N = {
     "ux7Brief": "خلاصه وکیل در طرح پولی Pro است. خلاصه‌ای است که هم‌رسانی می‌کنید، نه دادخواست دادگاه.",
     "ux7NoWin": "پرونده نتیجه دادگاه را پیش‌بینی نمی‌کند و شما را نمایندگی نمی‌کند.",
     "ux7Share": "صندلی خانوار می‌تواند خلاصه‌ای را که هم‌رسانی می‌کنید بخواند. قرارداد اصلی را از این پرونده باز نمی‌کند.",
-    "ux7Disclaimer": "NexuLex دفتر وکالت نیست. پرونده‌ها ابزار محصول‌اند، نه مشاوره حقوقی."
+    "ux7Disclaimer": "NexuLex یک دفتر حقوقی نیست. این اطلاعات عمومی است و مشاوره حقوقی محسوب نمی‌شود."
   },
   "ja": {
     "ux7OnDevice": "事件ファイルはこの電話に残ります。NexuLex は原本の契約をファイルと一緒に送りません。",
@@ -109,7 +109,7 @@ export const WAVE_UX7_I18N = {
     "ux7Brief": "弁護士向けの要約は有料の Pro プランです。共有する要約であり、裁判所への提出書類ではありません。",
     "ux7NoWin": "事件ファイルは裁判の結果を予測せず、あなたを代理しません。",
     "ux7Share": "世帯の席は、共有した要約を読めます。このファイルから原本の契約は開けません。",
-    "ux7Disclaimer": "NexuLex は法律事務所ではありません。事件ファイルは製品の用具であり、法的助言ではありません。"
+    "ux7Disclaimer": "NexuLex は法律事務所ではありません。これは一般的な情報であり、法的助言ではありません。"
   },
   "pt": {
     "ux7OnDevice": "O processo fica neste telefone. A NexuLex não carrega o contrato original com o ficheiro.",
@@ -119,7 +119,7 @@ export const WAVE_UX7_I18N = {
     "ux7Brief": "O resumo para o advogado está no plano Pro pago. É um resumo que partilha, não um articulado em tribunal.",
     "ux7NoWin": "Um processo não prevê um resultado em tribunal e não o representa.",
     "ux7Share": "Um lugar da casa pode ler um resumo que partilha. Não abre o contrato original a partir deste ficheiro.",
-    "ux7Disclaimer": "A NexuLex não é um escritório. Os processos são ferramentas de produto, não aconselhamento jurídico."
+    "ux7Disclaimer": "A NexuLex não é um escritório de advocacia. Estas são informações gerais, não aconselhamento jurídico."
   },
   "nl": {
     "ux7OnDevice": "Het dossier blijft op deze telefoon. NexuLex uploadt het oorspronkelijke contract niet met het bestand.",
@@ -129,6 +129,6 @@ export const WAVE_UX7_I18N = {
     "ux7Brief": "De advocaatbrief zit in het betaalde Pro-plan. Het is een samenvatting die u deelt, geen processtuk.",
     "ux7NoWin": "Een dossier voorspelt geen rechterlijke uitkomst en vertegenwoordigt u niet.",
     "ux7Share": "Een huishoudplaats kan een samenvatting lezen die u deelt. Het oorspronkelijke contract uit dit bestand opent hij niet.",
-    "ux7Disclaimer": "NexuLex is geen advocatenkantoor. Dossiers zijn producthulpen, geen juridisch advies."
+    "ux7Disclaimer": "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies."
   }
 };

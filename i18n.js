@@ -68,6 +68,7 @@ import { WAVE_UX27_I18N } from './i18n.waveux27';
 import { WAVE_UX30_I18N } from './i18n.waveux30';
 import { WAVE_UX38_I18N } from './i18n.waveux38';
 import { WAVE_UX39_I18N } from './i18n.waveux39';
+import { WAVE_UX40_I18N } from './i18n.waveux40';
 import { WAVE_LG1_I18N } from './i18n.wavelg1';
 import { WAVE_D1_I18N } from './i18n.waved1';
 import { WAVE_ECON1_I18N } from './i18n.waveecon1';
@@ -110,7 +111,7 @@ const resources = {
       pdfSelected: "PDF seçildi",
       pasteLabel: "Veya sözleşme metnini yapıştırın",
       placeholderText: "Sözleşme metnini buraya yapıştırın...",
-      btnStartAnalyze: "⚡ Yapay zeka analizini başlat",
+      btnStartAnalyze: "Yapay zeka analizini başlat",
       analyzing: "Analiz ediliyor...",
 
       // Results & PDF Export
@@ -445,6 +446,7 @@ const resources = {
       ...WAVE_UX30_I18N.tr,
       ...WAVE_UX38_I18N.tr,
       ...WAVE_UX39_I18N.tr,
+      ...WAVE_UX40_I18N.tr,
       ...WAVE_LG1_I18N.tr,
       ...WAVE_D1_I18N.tr,
       ...WAVE_ECON1_I18N.tr,
@@ -487,7 +489,7 @@ const resources = {
       pdfSelected: "PDF selected",
       pasteLabel: "Or paste contract text",
       placeholderText: "Paste contract text here...",
-      btnStartAnalyze: "⚡ Start AI analysis",
+      btnStartAnalyze: "Start AI analysis",
       analyzing: "Analyzing...",
 
       // Results & PDF Export
@@ -822,6 +824,7 @@ const resources = {
       ...WAVE_UX30_I18N.en,
       ...WAVE_UX38_I18N.en,
       ...WAVE_UX39_I18N.en,
+      ...WAVE_UX40_I18N.en,
       ...WAVE_LG1_I18N.en,
       ...WAVE_D1_I18N.en,
       ...WAVE_ECON1_I18N.en,
@@ -864,7 +867,7 @@ const resources = {
       pdfSelected: "PDF ausgewählt",
       pasteLabel: "Oder Vertragstext einfügen",
       placeholderText: "Vertragstext hier einfügen...",
-      btnStartAnalyze: "⚡ KI-Analyse starten",
+      btnStartAnalyze: "KI-Analyse starten",
       analyzing: "Analysieren...",
 
       // Results & PDF Export
@@ -1199,6 +1202,7 @@ const resources = {
       ...WAVE_UX30_I18N.de,
       ...WAVE_UX38_I18N.de,
       ...WAVE_UX39_I18N.de,
+      ...WAVE_UX40_I18N.de,
       ...WAVE_LG1_I18N.de,
       ...WAVE_D1_I18N.de,
       ...WAVE_ECON1_I18N.de,
@@ -1241,7 +1245,7 @@ const resources = {
       pdfSelected: "PDF sélectionné",
       pasteLabel: "Ou collez le texte du contrat",
       placeholderText: "Collez le texte du contrat ici...",
-      btnStartAnalyze: "⚡ Lancer l'analyse IA",
+      btnStartAnalyze: "Lancer l'analyse IA",
       analyzing: "Analyse en cours...",
 
       // Results & PDF Export
@@ -1576,6 +1580,7 @@ const resources = {
       ...WAVE_UX30_I18N.fr,
       ...WAVE_UX38_I18N.fr,
       ...WAVE_UX39_I18N.fr,
+      ...WAVE_UX40_I18N.fr,
       ...WAVE_LG1_I18N.fr,
       ...WAVE_D1_I18N.fr,
       ...WAVE_ECON1_I18N.fr,
@@ -1618,7 +1623,7 @@ const resources = {
       pdfSelected: "PDF seleccionado",
       pasteLabel: "O pegue el texto del contrato",
       placeholderText: "Pegue el texto del contrato aquí...",
-      btnStartAnalyze: "⚡ Iniciar análisis de IA",
+      btnStartAnalyze: "Iniciar análisis de IA",
       analyzing: "Analizando...",
 
       // Results & PDF Export
@@ -1953,6 +1958,7 @@ const resources = {
       ...WAVE_UX30_I18N.es,
       ...WAVE_UX38_I18N.es,
       ...WAVE_UX39_I18N.es,
+      ...WAVE_UX40_I18N.es,
       ...WAVE_LG1_I18N.es,
       ...WAVE_D1_I18N.es,
       ...WAVE_ECON1_I18N.es,
@@ -1995,7 +2001,7 @@ const resources = {
       pdfSelected: "تم تحديد ملف PDF",
       pasteLabel: "أو قم بلصق نص العقد",
       placeholderText: "ألصق نص العقد هنا...",
-      btnStartAnalyze: "⚡ بدء التحليل بالذكاء الاصطناعي",
+      btnStartAnalyze: "بدء التحليل بالذكاء الاصطناعي",
       analyzing: "جاري التحليل...",
 
       // Results & PDF Export
@@ -2330,6 +2336,7 @@ const resources = {
       ...WAVE_UX30_I18N.ar,
       ...WAVE_UX38_I18N.ar,
       ...WAVE_UX39_I18N.ar,
+      ...WAVE_UX40_I18N.ar,
       ...WAVE_LG1_I18N.ar,
       ...WAVE_D1_I18N.ar,
       ...WAVE_ECON1_I18N.ar,
@@ -2372,7 +2379,7 @@ const resources = {
       pdfSelected: "PDF selezionato",
       pasteLabel: "O incolla il testo del contratto",
       placeholderText: "Incolla il testo del contratto qui...",
-      btnStartAnalyze: "⚡ Avvia analisi IA",
+      btnStartAnalyze: "Avvia analisi IA",
       analyzing: "Analisi in corso...",
 
       // Results & PDF Export
@@ -2707,6 +2714,7 @@ const resources = {
       ...WAVE_UX30_I18N.it,
       ...WAVE_UX38_I18N.it,
       ...WAVE_UX39_I18N.it,
+      ...WAVE_UX40_I18N.it,
       ...WAVE_LG1_I18N.it,
       ...WAVE_D1_I18N.it,
       ...WAVE_ECON1_I18N.it,
@@ -2749,7 +2757,7 @@ const resources = {
       pdfSelected: "已选择 PDF",
       pasteLabel: "或粘贴合同文本",
       placeholderText: "在此粘贴合同文本…",
-      btnStartAnalyze: "⚡ 启动 AI 分析",
+      btnStartAnalyze: "启动 AI 分析",
       analyzing: "正在分析…",
 
       // 结果与 PDF 导出
@@ -3084,6 +3092,7 @@ const resources = {
       ...WAVE_UX30_I18N.zh,
       ...WAVE_UX38_I18N.zh,
       ...WAVE_UX39_I18N.zh,
+      ...WAVE_UX40_I18N.zh,
       ...WAVE_LG1_I18N.zh,
       ...WAVE_D1_I18N.zh,
       ...WAVE_ECON1_I18N.zh,
@@ -3126,7 +3135,7 @@ const resources = {
       pdfSelected: "PDF выбран",
       pasteLabel: "Или вставьте текст договора",
       placeholderText: "Вставьте текст договора сюда...",
-      btnStartAnalyze: "⚡ Запустить ИИ-анализ",
+      btnStartAnalyze: "Запустить ИИ-анализ",
       analyzing: "Идёт анализ...",
 
       // Результаты и экспорт PDF
@@ -3461,6 +3470,7 @@ const resources = {
       ...WAVE_UX30_I18N.ru,
       ...WAVE_UX38_I18N.ru,
       ...WAVE_UX39_I18N.ru,
+      ...WAVE_UX40_I18N.ru,
       ...WAVE_LG1_I18N.ru,
       ...WAVE_D1_I18N.ru,
       ...WAVE_ECON1_I18N.ru,
@@ -3503,7 +3513,7 @@ const resources = {
       pdfSelected: "PDF انتخاب شد",
       pasteLabel: "یا متن قرارداد را جای‌گذاری کنید",
       placeholderText: "متن قرارداد را اینجا جای‌گذاری کنید...",
-      btnStartAnalyze: "⚡ شروع تحلیل هوش مصنوعی",
+      btnStartAnalyze: "شروع تحلیل هوش مصنوعی",
       analyzing: "در حال تحلیل...",
 
       // نتایج و خروجی PDF
@@ -3838,6 +3848,7 @@ const resources = {
       ...WAVE_UX30_I18N.fa,
       ...WAVE_UX38_I18N.fa,
       ...WAVE_UX39_I18N.fa,
+      ...WAVE_UX40_I18N.fa,
       ...WAVE_LG1_I18N.fa,
       ...WAVE_D1_I18N.fa,
       ...WAVE_ECON1_I18N.fa,
@@ -3880,7 +3891,7 @@ const resources = {
       pdfSelected: "PDF を選択しました",
       pasteLabel: "または契約書のテキストを貼り付け",
       placeholderText: "ここに契約書のテキストを貼り付けてください...",
-      btnStartAnalyze: "⚡ AI 分析を開始",
+      btnStartAnalyze: "AI 分析を開始",
       analyzing: "分析中...",
 
       // Results & PDF Export
@@ -4215,6 +4226,7 @@ const resources = {
       ...WAVE_UX30_I18N.ja,
       ...WAVE_UX38_I18N.ja,
       ...WAVE_UX39_I18N.ja,
+      ...WAVE_UX40_I18N.ja,
       ...WAVE_LG1_I18N.ja,
       ...WAVE_D1_I18N.ja,
       ...WAVE_ECON1_I18N.ja,
@@ -4257,7 +4269,7 @@ const resources = {
       pdfSelected: "PDF selecionado",
       pasteLabel: "Ou cole o texto do contrato",
       placeholderText: "Cole aqui o texto do contrato...",
-      btnStartAnalyze: "⚡ Iniciar análise com IA",
+      btnStartAnalyze: "Iniciar análise com IA",
       analyzing: "A analisar...",
 
       // Results & PDF Export
@@ -4592,6 +4604,7 @@ const resources = {
       ...WAVE_UX30_I18N.pt,
       ...WAVE_UX38_I18N.pt,
       ...WAVE_UX39_I18N.pt,
+      ...WAVE_UX40_I18N.pt,
       ...WAVE_LG1_I18N.pt,
       ...WAVE_D1_I18N.pt,
       ...WAVE_ECON1_I18N.pt,
@@ -4634,7 +4647,7 @@ const resources = {
       pdfSelected: "PDF geselecteerd",
       pasteLabel: "Of plak de contracttekst",
       placeholderText: "Plak hier de contracttekst...",
-      btnStartAnalyze: "⚡ AI-analyse starten",
+      btnStartAnalyze: "AI-analyse starten",
       analyzing: "Bezig met analyseren...",
 
       // Results & PDF Export
@@ -4969,6 +4982,7 @@ const resources = {
       ...WAVE_UX30_I18N.nl,
       ...WAVE_UX38_I18N.nl,
       ...WAVE_UX39_I18N.nl,
+      ...WAVE_UX40_I18N.nl,
       ...WAVE_LG1_I18N.nl,
       ...WAVE_D1_I18N.nl,
       ...WAVE_ECON1_I18N.nl,

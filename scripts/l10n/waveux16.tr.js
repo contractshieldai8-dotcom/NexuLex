@@ -7,5 +7,5 @@ module.exports = {
   ux16NoAdvice: 'Bu bir adım koridorudur. Dosyanıza tavsiye değildir ve sizi temsil etmez.',
   ux16Device: 'Cevaplar kopyalamadığınız veya paylaşmadığınız sürece bu telefonda kalır.',
   ux16Guides: 'Adım adım rehberler her durumda açık kalır.',
-  ux16Disclaimer: 'NexuLex bir hukuk bürosu değildir. Yerel harita ürün aracıdır, avukat değildir.',
+  ux16Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

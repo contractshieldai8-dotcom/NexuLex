@@ -7,5 +7,5 @@ module.exports = {
   ux5Guides: 'Leitfäden sperren nie. Die anderen Chips öffnen Werkzeuge, die später ein Kontingent nutzen können.',
   ux5Lawyer: 'Anwalt finden oeffnet amtliche Verzeichnisse. NexuLex empfiehlt und rangiert keine Anwälte.',
   ux5NoWin: 'Ein Scan sagt kein Gerichtsergebnis voraus und vertritt Sie nicht.',
-  ux5Disclaimer: 'NexuLex ist keine Kanzlei. Diese Chips sind Produktwege, keine Rechtsberatung.',
+  ux5Disclaimer: "NexuLex ist keine Kanzlei. Das sind allgemeine Informationen, keine Rechtsberatung.",
 };

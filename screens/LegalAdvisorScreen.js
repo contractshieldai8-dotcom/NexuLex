@@ -18,7 +18,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, styles } from '../theme';
+import { ACCENT, ACCENT_ALT, styles, toneText } from '../theme';
 import { JURISDICTIONS } from '../constants/options';
 import { LEGAL_SCENARIOS } from '../constants/legalScenarios';
 import { LEGAL_CALCULATORS, calculatorCopyKeys, getCalcPack } from '../constants/legalCalcRates';
@@ -493,6 +493,7 @@ export default function LegalAdvisorScreen({
         ]}
       >
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <Ionicons name="sparkles" size={13} color={toneText(ACCENT_ALT)} />
           <Text style={[styles.bubbleMeta, { color: theme.subText, flex: 1 }]}>
             {t('advisorAssistant')}
           </Text>
@@ -578,49 +579,6 @@ export default function LegalAdvisorScreen({
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4Free')}</Text>
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('ux4NoPay')}</Text>
         </HonestyFold>
-        <View
-          style={{
-            borderWidth: 1,
-            borderColor: theme.borderColor,
-            backgroundColor: theme.cardBg,
-            borderRadius: 14,
-            padding: 14,
-            marginTop: 10,
-            marginBottom: 8,
-          }}
-        >
-          <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>{t('jp3Title')}</Text>
-          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 8 }]}>
-            {packDepth.statutoryLive
-              ? t('jp3HintStatutory', { date: packDepth.asOfDate || '' })
-              : packDepth.packPending
-                ? t('jp3Pending')
-                : t('jp3HintUniversal')}
-          </Text>
-          {packDepth.portal ? (
-            <TouchableOpacity
-              onPress={() => Linking.openURL(packDepth.portal).catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
-              accessibilityRole="link"
-              style={{ marginBottom: 8 }}
-            >
-              <Text style={[styles.sectionHint, { color: theme.accent, marginBottom: 0 }]}>{t('jp3Portal')}</Text>
-            </TouchableOpacity>
-          ) : null}
-          {packDepth.officialCount ? (
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
-              {t('jp3Bodies', { count: String(packDepth.officialCount) })}
-            </Text>
-          ) : null}
-          <TouchableOpacity
-            onPress={() => openHomeJob('guides')}
-            accessibilityRole="button"
-            style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}
-          >
-            <Text style={[styles.sectionHint, { color: theme.accent, marginBottom: 0, flex: 1 }]}>{t('jp3SeeGuides')}</Text>
-            <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={16} color={theme.accent} />
-          </TouchableOpacity>
-          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 12, marginBottom: 0 }]}>{t('jp3Disclaimer')}</Text>
-        </View>
         {messages.length <= 1 ? (
           <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 4 }]}>
             {t('ahEmptyLead')} {t('ahEmptyTail')}
@@ -689,6 +647,50 @@ export default function LegalAdvisorScreen({
         <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
           <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('ux9Deadlines')}</Text>
         </HonestyFold>
+
+        <View
+          style={{
+            borderWidth: 1,
+            borderColor: theme.borderColor,
+            backgroundColor: theme.cardBg,
+            borderRadius: 14,
+            padding: 14,
+            marginTop: 10,
+            marginBottom: 8,
+          }}
+        >
+          <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15 }]}>{t('jp3Title')}</Text>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 8 }]}>
+            {packDepth.statutoryLive
+              ? t('jp3HintStatutory', { date: packDepth.asOfDate || '' })
+              : packDepth.packPending
+                ? t('jp3Pending')
+                : t('jp3HintUniversal')}
+          </Text>
+          {packDepth.portal ? (
+            <TouchableOpacity
+              onPress={() => Linking.openURL(packDepth.portal).catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
+              accessibilityRole="link"
+              style={{ marginBottom: 8 }}
+            >
+              <Text style={[styles.sectionHint, { color: theme.accent, marginBottom: 0 }]}>{t('jp3Portal')}</Text>
+            </TouchableOpacity>
+          ) : null}
+          {packDepth.officialCount ? (
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>
+              {t('jp3Bodies', { count: String(packDepth.officialCount) })}
+            </Text>
+          ) : null}
+          <TouchableOpacity
+            onPress={() => openHomeJob('guides')}
+            accessibilityRole="button"
+            style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}
+          >
+            <Text style={[styles.sectionHint, { color: theme.accent, marginBottom: 0, flex: 1 }]}>{t('jp3SeeGuides')}</Text>
+            <Ionicons name={I18nManager.isRTL ? 'chevron-back' : 'chevron-forward'} size={16} color={theme.accent} />
+          </TouchableOpacity>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 12, marginBottom: 0 }]}>{t('jp3Disclaimer')}</Text>
+        </View>
 
         <TouchableOpacity
           onPress={() => {
@@ -1099,7 +1101,7 @@ export default function LegalAdvisorScreen({
         }
       />
 
-      <Text style={[styles.chatDisclaimer, { color: theme.subText, flexShrink: 0 }]}>
+      <Text style={[styles.chatDisclaimer, { color: theme.subText, flexShrink: 0, backgroundColor: theme.bg, paddingTop: 6, marginBottom: 0, paddingBottom: 8 }]}>
         {t('advisorDisclaimer')}
       </Text>
 

@@ -7,5 +7,5 @@ module.exports = {
   ux13Send: 'Göndermeden önce kendiniz okuyun. Resmî form farklı görünebilir.',
   ux13Device: 'Taslak kopyalamadığınız, paylaşmadığınız veya dışa aktarmadığınız sürece bu telefonda kalır.',
   ux13NoWin: 'Mektup göndermek dava açmaz ve hüküm tahmin etmez.',
-  ux13Disclaimer: 'NexuLex bir hukuk bürosu değildir. Doldurulmuş taslak ürün aracıdır, avukat değildir.',
+  ux13Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

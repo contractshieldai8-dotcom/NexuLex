@@ -7,5 +7,5 @@ module.exports = {
   ux5Guides: 'Les guides ne se verrouillent jamais. Les autres puces ouvrent des outils qui peuvent plus tard user un quota.',
   ux5Lawyer: 'Trouver un avocat ouvre des annuaires officiels. NexuLex ne recommande ni ne classe d’avocats.',
   ux5NoWin: 'Une analyse ne prédit pas un résultat de tribunal et ne vous représente pas.',
-  ux5Disclaimer: 'NexuLex n’est pas un cabinet. Ces puces sont des chemins produit, pas un conseil juridique.',
+  ux5Disclaimer: "NexuLex n’est pas un cabinet d’avocats. Ce sont des informations générales, pas un conseil juridique.",
 };

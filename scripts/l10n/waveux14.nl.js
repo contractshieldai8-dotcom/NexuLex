@@ -7,5 +7,5 @@ module.exports = {
   ux14Sources: 'Open elke officiele bron zelf. Een citaat kan verouderen.',
   ux14NoAdvice: 'Dit is een werkhulp. Geen advies voor een klantdossier en geen vertegenwoordiging.',
   ux14Device: 'Resultaten blijven op deze telefoon tot u ze in een dossier bewaart of deelt.',
-  ux14Disclaimer: 'NexuLex is geen advocatenkantoor. Een gestructureerde nota is een producthulp, geen advocaat.',
+  ux14Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

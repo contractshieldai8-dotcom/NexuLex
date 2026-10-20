@@ -10,7 +10,6 @@ export const SETTINGS_OPS_KEYS = [
   'st4Security',
   'st4SecurityHint',
   'st4Plan',
-  'st4Disclaimer',
 ];
 
 export function assertSettingsOpsFixtures() {
@@ -19,8 +18,8 @@ export function assertSettingsOpsFixtures() {
     cases += 1;
     if (!cond) throw new Error(`settingsOps: ${msg}`);
   };
-  check(SETTINGS_OPS_KEYS.length === 8 && SETTINGS_OPS_KEYS.includes('st4Disclaimer'), 'eight copy keys');
-  check(SETTINGS_OPS_KEYS[SETTINGS_OPS_KEYS.length - 1] === 'st4Disclaimer', 'disclaimer last in the key list');
+  check(SETTINGS_OPS_KEYS.length === 7, 'seven copy keys (legal footer lives once, in the trust card)');
+  check(!SETTINGS_OPS_KEYS.some((key) => /Disclaimer$/.test(key)), 'no per-card disclaimer key');
   check(!/anonymi|hashed|win rate|best lawyer/i.test(SETTINGS_OPS_KEYS.join(' ')), 'ids are not overclaims');
   return { cases };
 }

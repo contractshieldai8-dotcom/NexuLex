@@ -7,5 +7,5 @@ module.exports = {
   ux21Chat: 'Danışman sohbetleri bu listede ayrı durur. Tarama raporu değildir.',
   ux21NoWin: 'Karttaki puan bir iş yardımcısıdır. Mahkeme sonucu değildir.',
   ux21Guides: 'Adım adım rehberler her durumda açık kalır.',
-  ux21Disclaimer: 'NexuLex bir hukuk bürosu değildir. Geçmiş kartı ürün aracıdır, avukat değildir.',
+  ux21Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };

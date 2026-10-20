@@ -7,5 +7,5 @@ module.exports = {
   ux7Brief: '律师摘要在付费 Pro 方案。那是您分享的摘要，不是向法院呈递的文书。',
   ux7NoWin: '案件档案不预测法庭结果，也不代表您。',
   ux7Share: '家庭席位可读您分享的摘要。无法从此档案打开原合同。',
-  ux7Disclaimer: 'NexuLex 不是律师事务所。案件档案是产品工具，不是法律意见。',
+  ux7Disclaimer: "NexuLex 不是律师事务所。以上为一般性信息，不构成法律意见。",
 };

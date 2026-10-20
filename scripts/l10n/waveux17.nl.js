@@ -7,5 +7,5 @@ module.exports = {
   ux17Store: 'Op Android opent Beoordelen de Play-fiche. Op iOS de openbare get-pagina. Geen verzonnen Apple-app-id.',
   ux17Device: 'Het contract en het rapport blijven op deze telefoon.',
   ux17Guides: 'Stapsgewijze gidsen blijven in elk geval ontgrendeld.',
-  ux17Disclaimer: 'NexuLex is geen advocatenkantoor. Een uitnodiging is een producthulp, geen advocaat.',
+  ux17Disclaimer: "NexuLex is geen advocatenkantoor. Dit is algemene informatie, geen juridisch advies.",
 };

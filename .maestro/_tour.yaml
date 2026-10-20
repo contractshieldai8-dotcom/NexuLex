@@ -1,0 +1,18 @@
+# Shared sub-flow: visits every main tab and saves a screenshot of each.
+# Expects an already signed-in session and env: SHOT_PREFIX plus the tab labels in the app language.
+appId: com.nexulex.ai
+---
+- tapOn: ${TAB_ANALYZE}
+- takeScreenshot: ${SHOT_PREFIX}-1-analyze
+- scroll
+- takeScreenshot: ${SHOT_PREFIX}-1b-analyze-scrolled
+- tapOn: ${TAB_ADVISOR}
+- takeScreenshot: ${SHOT_PREFIX}-2-advisor
+- tapOn: ${TAB_HISTORY}
+- takeScreenshot: ${SHOT_PREFIX}-3-history
+- tapOn: ${TAB_SETTINGS}
+- takeScreenshot: ${SHOT_PREFIX}-4-settings
+- scrollUntilVisible:
+    element: ${DARK_MODE_LABEL}
+    direction: DOWN
+- takeScreenshot: ${SHOT_PREFIX}-4b-settings-appearance

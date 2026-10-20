@@ -31,6 +31,7 @@ import {
   searchGuides,
 } from '../constants/processGuides';
 import { useFeedback } from '../context/FeedbackContext';
+import HonestyFold from './HonestyFold';
 import KeyboardSafeSheet, { useKeyboardSafeSheet } from './KeyboardSafeSheet';
 
 const WIN_H = Dimensions.get('window').height;
@@ -131,14 +132,16 @@ export default function ProcessGuideSheet({
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 0, marginBottom: 0 }]}>
         {t('ux10Free', { guides: String(PROCESS_GUIDES.length) })}
       </Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
-        {t('ux10Country', { country: countryLabel })}
-      </Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux10NoAdvice')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux10Deadlines')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux10Sources')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux10NoList')}</Text>
-      <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux10Device')}</Text>
+      <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>
+          {t('ux10Country', { country: countryLabel })}
+        </Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux10NoAdvice')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux10Deadlines')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux10Sources')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux10NoList')}</Text>
+        <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('ux10Device')}</Text>
+      </HonestyFold>
       <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 10 }]}>{t('ux10Disclaimer')}</Text>
       <TextInput
         {...sheet.field('pgSearch')}

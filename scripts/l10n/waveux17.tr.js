@@ -7,5 +7,5 @@ module.exports = {
   ux17Store: 'Android’de Puanla Play ilanını açar. iOS’ta herkese açık get sayfasını açar. Apple uygulama kimliği uydurulmaz.',
   ux17Device: 'Sözleşme ve rapor bu telefonda kalır.',
   ux17Guides: 'Adım adım rehberler her durumda açık kalır.',
-  ux17Disclaimer: 'NexuLex bir hukuk bürosu değildir. Davet ürün aracıdır, avukat değildir.',
+  ux17Disclaimer: "NexuLex bir hukuk bürosu değildir. Bu, genel bilgidir; hukuki tavsiye değildir.",
 };
