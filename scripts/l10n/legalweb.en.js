@@ -1,7 +1,7 @@
 // WAVE ST.3 — Privacy + delete page (EN master). Locked quota / lawyer sentences stay byte-identical.
 module.exports = {
   privacy: `<h1>Privacy Policy</h1>
-<p class="meta">Last updated: 5 October 2026</p>
+<p class="meta">Last updated: 21 October 2026</p>
 <p>This Privacy Policy explains how NexuLex AI (“we”, “the app”) handles information when you use our mobile application and related web viewers.</p>
 
 <h2>1. Data we process</h2>
@@ -44,7 +44,15 @@ module.exports = {
 <h2 data-sec="voice">8. Voice input</h2>
 <p>Voice input is optional. When you use the microphone, speech recognition is performed by the speech service built into your phone (Apple or Google), under that provider’s own privacy terms. NexuLex AI does not record or store your audio; it receives only the text you choose to use.</p>
 <h2 data-sec="transfer">9. Service providers and international transfers</h2>
-<p>We use Supabase (cloud database and sign-in), a third-party AI provider reached through our server (analysis and answers), RevenueCat (purchase status) and the Apple and Google stores. These providers may process data in countries other than yours, including outside the European Economic Area, the United Kingdom and Switzerland. Where the law requires safeguards for such transfers, we rely on the transfer mechanisms offered by those providers.</p>
+<p>We use these service providers to run NexuLex AI:</p>
+<ul>
+<li>Supabase: cloud database, sign-in and server functions. Our project is hosted in the European Union (Frankfurt, Germany).</li>
+<li>Anthropic (Claude API, United States): analysis and answers, reached only through our server.</li>
+<li>RevenueCat (United States): purchase and plan status.</li>
+<li>Netlify: hosts these web pages and may process technical request data such as your IP address.</li>
+<li>Apple and Google: the app stores, billing, and the speech recognition built into your phone.</li>
+</ul>
+<p>Some providers, such as Anthropic and RevenueCat, process data in the United States, and others may process data outside your country, including outside the European Economic Area, the United Kingdom, Switzerland and Türkiye. Where the law requires safeguards for such transfers, we rely on the data-protection addenda and international transfer mechanisms (such as standard contractual clauses) offered in these providers’ standard terms of service.</p>
 <h2 data-sec="rights">10. Your rights</h2>
 <p>Depending on where you live (for example under the GDPR / UK GDPR, the Swiss FADP, Austria’s DSG, Türkiye’s KVKK, India’s DPDP Act, Canada’s PIPEDA and provincial laws, or Australia’s Privacy Act) you may have the right to access, correct, delete, export, restrict or object to the use of your data, and to withdraw consent. You can delete your account in the app. For other requests, email nexulexai@gmail.com from the address you registered with; we answer within the period the law requires. You may also complain to the data-protection authority in your country.</p>
 <h2 data-sec="children">11. Children, advertising and tracking</h2>
@@ -54,8 +62,44 @@ module.exports = {
 <p>In the European Economic Area, the United Kingdom, Switzerland, Türkiye, Brazil, India, South Korea and South Africa, nothing is sent unless you allow it. Elsewhere it is on by default. You can change this at any time under <strong>Settings → Privacy</strong>; turning it off deletes any reports still waiting on your device. Reports are stored in Supabase and removed after at most 180 days.</p>
 <h2 data-sec="invite">13. Invite codes</h2>
 <p>If you are signed in, NexuLex AI gives you a short invite code. When a friend enters it, we store the two account IDs, the friend’s device identifier (the one used for the free-analysis quota) and the date, only to grant the bonus analyses and to prevent abuse. Nothing about your contracts is shared. If you delete your account, your code and its account links are deleted; a record without any account ID may remain so the same device cannot claim the bonus again.</p>
-<h2>14. Contact</h2>
-<p>Questions about privacy: use the in-app Support screen or contact the publisher listed on the store listing.</p>`,
+<h2 data-sec="controller">14. Controller and legal bases</h2>
+<p>The controller of your personal data is Doğancan Kara, a sole proprietor in Bağcılar, Istanbul, Türkiye (email: nexulexai@gmail.com), publisher of NexuLex AI. Where the GDPR, the UK GDPR or the Swiss FADP applies, we rely on these legal bases: performing our contract with you (your account, analyses, quotas and purchases); our legitimate interests (running the service securely, preventing free-quota abuse and fixing errors); your consent (optional features you switch on, such as anonymous usage reports where consent is required); and legal obligations where they apply. You can withdraw consent at any time; this does not affect earlier processing. Where other data-protection laws apply, we rely on the equivalent grounds they provide.</p>
+<h2 data-sec="security">15. Security</h2>
+<p>We protect data with encrypted connections (HTTPS), account authentication and row-level security policies in our database, and AI requests go through our server rather than directly from the app. No system is completely secure, so please keep your login credentials safe. If a personal-data breach affects you, we will tell you and the authorities where the law requires.</p>
+<h2 data-sec="templates">16. Contract templates</h2>
+<p>The Contract library (Advisor tab) fills open-source contract templates on your device. The details you type into the form are used only to build the document on screen and are kept only in the app’s memory for that session; they are not sent to our servers, to our AI provider or to anyone else, and they are not saved to your account. The document leaves your device only when you copy, share or export it yourself. The template texts are bundled with the app and published by General Legal under the CC0-1.0 public-domain licence.</p>
+<h2 data-sec="retention">17. Retention periods</h2>
+<p>How long we keep data on our servers:</p>
+<table>
+<thead><tr><th>Data</th><th>How long</th></tr></thead>
+<tbody>
+<tr><td>Account and profile</td><td>Until you delete your account</td></tr>
+<tr><td>Saved analyses and contract text</td><td>Until you delete them or your account</td></tr>
+<tr><td>Brief and share codes</td><td>Until the stated validity window ends; an expired code stops working automatically</td></tr>
+<tr><td>Support messages</td><td>At most 24 months, or until you delete your account</td></tr>
+<tr><td>Anonymous usage and error reports</td><td>At most 180 days</td></tr>
+<tr><td>Free-quota record (device identifier and phone number, without any link to your account)</td><td>No fixed end date; kept only to prevent repeated free-quota abuse</td></tr>
+<tr><td>Plan and expiry date on your profile</td><td>Until you delete your account; purchase records held by Apple, Google and RevenueCat follow their own policies</td></tr>
+<tr><td>Data on your device (history, case files, answers, drafts)</td><td>Until you delete it or uninstall the app</td></tr>
+</tbody>
+</table>
+<h2 data-sec="kvkk">18. Türkiye: KVKK information notice (Law No. 6698)</h2>
+<p>If you are in Türkiye, this section is our information notice under Article 10 of the Personal Data Protection Law No. 6698 (KVKK). Data controller: Doğancan Kara (sole proprietor), Bağcılar, Istanbul, Türkiye; email: nexulexai@gmail.com.</p>
+<p>Purposes: creating and running your account, analysing the contracts you submit, enforcing quotas, processing purchases, giving support, keeping the service secure and preventing abuse, and meeting legal obligations. Legal grounds (Article 5): performance of a contract, the controller’s legitimate interests, explicit consent where it is required (for example optional anonymous usage reports), and legal obligations. Method: your own input and automatic collection through the app, by electronic means.</p>
+<p>Recipients and transfers: your data is processed by the service providers named in section 9, some of them outside Türkiye (Supabase in the European Union, Anthropic and RevenueCat in the United States). We carry out transfers abroad in line with Article 9 of the KVKK. We do not sell your data.</p>
+<p>Your rights under Article 11: to learn whether your data is processed and request information about it; to learn the purpose and whether it is used accordingly; to know the third parties to whom it is transferred in Türkiye or abroad; to request correction of incomplete or wrong data; to request deletion or destruction under Article 7 and ask that third parties be told; to object to a result against you that comes only from automated analysis; and to claim compensation for loss caused by unlawful processing.</p>
+<p>To apply, email nexulexai@gmail.com from the address you registered with and describe your request. We answer within 30 days at the latest. If you are not satisfied, you may complain to the Personal Data Protection Board (Kişisel Verileri Koruma Kurulu). Contracts you upload may contain other people’s data; you must have the right to process it.</p>
+<h2 data-sec="ccpa">19. United States: California and other state privacy rights</h2>
+<p>We do not sell your personal information and we do not share it for cross-context behavioural advertising. The app contains no advertising, so there is no “Do Not Sell or Share My Personal Information” setting to switch.</p>
+<p>If you live in California or another US state with a consumer privacy law (for example the CCPA/CPRA), then to the extent that law applies to us you may have the right to know what personal information we collect, use and disclose; to access, correct and delete it; to limit the use of sensitive personal information; and to be free from discrimination for using these rights.</p>
+<p>In the past twelve months we collected these categories: identifiers (email address, phone number, device and install identifiers); commercial information (plan and purchase status); app activity (anonymous usage events); and the content you submit (contracts and questions). We disclose them only to the service providers in section 9, for the business purposes described in this policy. We do not store your voice audio.</p>
+<p>To use your rights, email nexulexai@gmail.com from the address you registered with. We may ask for details to verify that it is you, you can use an authorised agent, and we respond within 45 days where the law requires.</p>
+<h2 data-sec="changes">20. Changes to this policy</h2>
+<p>We may update this Privacy Policy. If we make material changes, we will change the date at the top and, where the law requires, tell you in the app or by other appropriate means before the change applies. Please review this page from time to time.</p>
+<h2 data-sec="language">21. Languages</h2>
+<p>This policy is available in several languages for convenience. In case of discrepancies, the English version shall prevail.</p>
+<h2>22. Contact</h2>
+<p>Questions about privacy and requests about your data: email nexulexai@gmail.com or use the in-app Support screen. Publisher and controller: Doğancan Kara (sole proprietor), Bağcılar, Istanbul, Türkiye.</p>`,
 
   deleteAccount: `<h1>Delete your NexuLex AI account</h1>
 <p class="meta">Last updated: 25 September 2026</p>
@@ -88,7 +132,7 @@ module.exports = {
 <p>See also the <a href="privacy.html">Privacy Policy</a>.</p>`,
 
   terms: `<h1>Terms of Use (EULA)</h1>
-<p class="meta">Last updated: 5 October 2026</p>
+<p class="meta">Last updated: 21 October 2026</p>
 <p>By downloading or using NexuLex AI you agree to these Terms of Use and our <a href="privacy.html">Privacy Policy</a>.</p>
 
 <h2>1. Service description</h2>
@@ -135,6 +179,12 @@ module.exports = {
 <p>Analyses, answers, drafts and summaries are generated by artificial intelligence. They can be incomplete, out of date or wrong, and laws differ by country and change over time. Check important points with official sources or a licensed lawyer before you rely on them.</p>
 <h2 data-sec="termin">12. Suspension and termination</h2>
 <p>You can stop using NexuLex AI and delete your account at any time. We may suspend or end access that breaches these Terms or puts the service or other users at risk.</p>
-<h2>13. Contact</h2>
-<p>Use the in-app Support screen for account or product questions. Store listing publisher details apply for consumer complaints.</p>`,
+<h2 data-sec="templates">13. Contract templates</h2>
+<p>The Contract library (Advisor tab) offers general-purpose business contract templates published by General Legal under the CC0-1.0 public-domain licence. NexuLex AI inserts the details you type and leaves the rest of each template unchanged, in its original English wording. The templates are not tailored to your situation, country or industry and may not be valid or enforceable where you are. They are provided “as is”, without warranty. Have a lawyer licensed in the governing jurisdiction review any contract before you sign it. NexuLex AI is not a party to any contract you create, and the Contract library does not create an attorney–client relationship. The full document, Word export, copy and share actions are part of the Pro plan; free users see a preview.</p>
+<h2 data-sec="law">14. Governing law and courts</h2>
+<p>These Terms are governed by the laws of the Republic of Türkiye. The courts and enforcement offices of Istanbul (Çağlayan) have jurisdiction, without removing any mandatory consumer-protection right you have under the law of the country where you live, including any right to bring a claim before the competent court or body there.</p>
+<h2 data-sec="language">15. Languages</h2>
+<p>These Terms are available in several languages for convenience. In case of discrepancies, the English version shall prevail.</p>
+<h2>16. Contact</h2>
+<p>Use the in-app Support screen or email nexulexai@gmail.com for account, product and consumer questions. Publisher: Doğancan Kara (sole proprietor), Bağcılar, Istanbul, Türkiye.</p>`,
 };

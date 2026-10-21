@@ -43,6 +43,10 @@ h2{font-size:17px;color:#D4B27A;margin:28px 0 8px}
 p,li{color:#CBD5E1;font-size:15px;margin:0 0 12px}
 ol,ul{padding-left:1.2em;margin:0 0 14px}
 .meta{color:#94A3B8;font-size:13px;margin-bottom:22px}
+table{width:100%;border-collapse:collapse;margin:0 0 16px}
+th,td{border-bottom:1px solid #1E293B;padding:9px 8px;text-align:start;vertical-align:top;font-size:14px;color:#CBD5E1}
+th{color:#D4B27A;font-weight:600}
+td:first-child{width:42%}
 .warn{border:1px solid #E5484D;border-radius:10px;padding:12px 14px;margin:0 0 18px}
 .lang{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
 .lang button{background:transparent;border:1px solid #1E293B;color:#94A3B8;border-radius:8px;padding:8px 12px;font-weight:600}

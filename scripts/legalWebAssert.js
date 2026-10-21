@@ -74,8 +74,13 @@ function assertLegalWebPages(privacy, del, listing) {
   return { cases, langs: LANGS.length };
 }
 
-const PRIVACY_SECTIONS = ['signup', 'voice', 'transfer', 'rights', 'children', 'analytics', 'invite'];
-const TERMS_SECTIONS = ['eligibility', 'renewal', 'ai', 'termin'];
+const PRIVACY_SECTIONS = ['signup', 'voice', 'transfer', 'rights', 'children', 'analytics', 'invite', 'controller', 'security', 'templates', 'retention', 'kvkk', 'ccpa', 'changes', 'language'];
+const TERMS_SECTIONS = ['eligibility', 'renewal', 'ai', 'termin', 'templates', 'law', 'language'];
+const EN_PRECEDENCE = 'In case of discrepancies, the English version shall prevail.';
+const FRANKFURT = /Frankfurt|Francfort|Fráncfort|Francoforte|法兰克福|Франкфурт|فرانکفورت|فرانكفورت|フランクフルト/;
+/** One section from its heading up to the next heading (or the panel end). */
+const sectionOf = (panel, name) => (panel.match(new RegExp(`<h2[^>]*data-sec="${name}"[\\s\\S]*?(?=<h2|<\\/section>)`)) || [''])[0];
+const lastSection = (panel) => panel.slice(panel.lastIndexOf('<h2'));
 const STRIPPED = {
   fr: /(?<![\p{L}\p{M}'’])(d|l|n|s|c|j|t|m|qu) [aeiouyhàâéèêîôû]|\b(confidentialite|donnees|mise a jour|ecran|reglages|supprime|boutique ?:)\b/iu,
   es: /\b(politica|traduccion|informacion|analisis|pagina|cancelela|juridico|telefono|ingles|cortesia)\b/i,
@@ -103,8 +108,30 @@ function assertLegalWebCompliance(privacy, terms) {
     check(/18/.test(panelOf(privacy, lang).match(/data-sec="children"[\s\S]*?<\/p>/)[0]), `privacy ${lang} states age 18`);
     check(/24/.test(t.match(/data-sec="renewal"[\s\S]*?<\/p>/)[0]), `terms ${lang} states the 24-hour renewal rule`);
     check(/nexulexai@gmail\.com/.test(p.match(/data-sec="rights"[\s\S]*?<\/p>/)[0]), `privacy ${lang} rights give the contact`);
-    check(/\b5\b/.test(p.match(/<p class="meta">[^<]*<\/p>/)[0]) && !/\b25\b/.test(p.match(/<p class="meta">[^<]*<\/p>/)[0]), `privacy ${lang} dated 5 October 2026`);
+    check(/\b21\b/.test(p.match(/<p class="meta">[^<]*<\/p>/)[0]) && !/\b25\b/.test(p.match(/<p class="meta">[^<]*<\/p>/)[0]), `privacy ${lang} dated 21 October 2026`);
+    check(/\b21\b/.test(t.match(/<p class="meta">[^<]*<\/p>/)[0]), `terms ${lang} dated 21 October 2026`);
+    check(/CC0-1\.0/.test(p.match(/data-sec="templates"[\s\S]*?<\/p>/)[0]) && /CC0-1\.0/.test(t.match(/data-sec="templates"[\s\S]*?<\/p>/)[0]), `${lang} templates sections name the CC0-1.0 licence`);
+    check(/General Legal/.test(p.match(/data-sec="templates"[\s\S]*?<\/p>/)[0]) && /General Legal/.test(t.match(/data-sec="templates"[\s\S]*?<\/p>/)[0]), `${lang} templates sections credit General Legal`);
+    check(/HTTPS/.test(p.match(/data-sec="security"[\s\S]*?<\/p>/)[0]), `privacy ${lang} security section names HTTPS`);
+    check(/GDPR|DSGVO|RGPD|AVG/.test(p.match(/data-sec="controller"[\s\S]*?<\/p>/)[0]), `privacy ${lang} controller section names the GDPR`);
     check(PICKER[lang].test(p), `privacy ${lang} states the picker sentence in its own language`);
+    // Controller identity, providers, retention, KVKK, CCPA, language precedence, governing law (approved parameters).
+    const IDENTITY = /Doğancan Kara/;
+    check(IDENTITY.test(p.match(/data-sec="controller"[\s\S]*?<\/p>/)[0]) && /Bağcılar/.test(p.match(/data-sec="controller"[\s\S]*?<\/p>/)[0]), `privacy ${lang} controller names Doğancan Kara, Bağcılar`);
+    check(IDENTITY.test(lastSection(p)) && /Bağcılar/.test(lastSection(p)) && /nexulexai@gmail\.com/.test(lastSection(p)), `privacy ${lang} contact names the publisher, address and email`);
+    const transfer = sectionOf(p, 'transfer');
+    for (const name of ['Supabase', 'Anthropic', 'RevenueCat', 'Netlify', 'Apple', 'Google']) check(transfer.includes(name), `privacy ${lang} providers name ${name}`);
+    check(FRANKFURT.test(transfer), `privacy ${lang} states the Frankfurt (EU) region`);
+    check(!/Gemini/i.test(p + t), `${lang} must not name Gemini (not used)`);
+    const retention = sectionOf(p, 'retention');
+    check(/<table>/.test(retention) && retention.includes('24') && retention.includes('180'), `privacy ${lang} retention table states 24 months and 180 days`);
+    const kvkk = sectionOf(p, 'kvkk');
+    check(/6698/.test(kvkk) && IDENTITY.test(kvkk) && /nexulexai@gmail\.com/.test(kvkk) && /\b11\b/.test(kvkk) && /\b9\b/.test(kvkk), `privacy ${lang} KVKK section (Law 6698, Articles 9 and 11, controller, contact)`);
+    const ccpa = sectionOf(p, 'ccpa');
+    check(/CCPA\/CPRA/.test(ccpa) && /\b45\b/.test(ccpa) && /nexulexai@gmail\.com/.test(ccpa), `privacy ${lang} CCPA/CPRA section`);
+    check(sectionOf(p, 'language').includes(EN_PRECEDENCE) && sectionOf(t, 'language').includes(EN_PRECEDENCE), `${lang} states English precedence`);
+    check(/Çağlayan/.test(sectionOf(t, 'law')), `terms ${lang} names the Istanbul (Çağlayan) courts`);
+    check(IDENTITY.test(lastSection(t)) && /Bağcılar/.test(lastSection(t)) && /nexulexai@gmail\.com/.test(lastSection(t)), `terms ${lang} contact names the publisher, address and email`);
     const h2 = p.match(/<h2[^>]*>\d+\./g) || [];
     const nums = h2.map((h) => Number(h.match(/(\d+)\./)[1]));
     check(nums.every((n, i) => n === i + 1), `privacy ${lang} section numbers run 1..${nums.length}`);

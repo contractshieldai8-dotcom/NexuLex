@@ -4,7 +4,7 @@
 
 export const GUIDE_TABS = ['analyze', 'advisor', 'history', 'settings'];
 export const GUIDE_SETTINGS_SECTIONS = ['account', 'seats', 'support', 'security', 'language', 'privacy', 'delete'];
-export const GUIDE_ADVISOR_TOOLS = ['doc_explainer', 'case_files', 'legal_ask', 'process_guides', 'pro_tools', 'lawyer_handoff'];
+export const GUIDE_ADVISOR_TOOLS = ['doc_explainer', 'case_files', 'legal_ask', 'process_guides', 'pro_tools', 'lawyer_handoff', 'contract_library'];
 export const GUIDE_ACTION_TYPES = [
   'openTab',
   'openCalculator',
@@ -42,6 +42,7 @@ export const GUIDE_CHANGELOG = [
   { id: 'cl_scan_dock', titleKey: 'guideNewDock', date: '2026-10-02', workflowId: 'scan_dock' },
   { id: 'cl_history_filters', titleKey: 'guideNewHistoryFilters', date: '2026-10-03', workflowId: 'history' },
   { id: 'cl_signed_scan', titleKey: 'guideNewSignedScan', date: '2026-10-04', workflowId: 'scan_dock' },
+  { id: 'cl_contract_library', titleKey: 'guideNewContracts', date: '2026-10-21', workflowId: 'contract_library' },
 ];
 
 export function latestChangelog(count = 5) {
@@ -285,6 +286,20 @@ export const GUIDE_WORKFLOWS = [
       { bodyKey: 'guideStepDocs1', ctaKey: 'draftSectionTitle', action: { type: 'openTab', id: 'advisor' } },
       { bodyKey: 'guideStepDocs2', ctaKey: 'guideCtaAnswer' },
       { bodyKey: 'guideStepDocs3', ctaKey: 'guideCtaExport' },
+    ],
+  },
+  {
+    id: 'contract_library',
+    titleKey: 'guideFlowContractsTitle',
+    hintKey: 'guideFlowContractsHint',
+    introKey: 'guideFlowContractsIntro',
+    chipKey: 'guideChipContracts',
+    tab: 'advisor',
+    steps: [
+      { bodyKey: 'guideStepContracts1', ctaKey: 'clSectionTitle', action: { type: 'openAdvisorTool', id: 'contract_library' } },
+      { bodyKey: 'guideStepContracts2', ctaKey: 'clGenerate' },
+      { bodyKey: 'guideStepContracts3', ctaKey: 'clCheckTitle' },
+      { bodyKey: 'guideStepContracts4', ctaKey: 'guideCtaExport' },
     ],
   },
   {

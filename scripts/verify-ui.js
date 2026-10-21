@@ -186,13 +186,15 @@ const waveD1Src = fs.existsSync('i18n.waved1.js') ? fs.readFileSync('i18n.waved1
 const waveD1Match = waveD1Src.match(/export const WAVE_D1_I18N = ([\s\S]*);\s*$/);
 const waveEcon1Src = fs.existsSync('i18n.waveecon1.js') ? fs.readFileSync('i18n.waveecon1.js', 'utf8') : '';
 const waveEcon1Match = waveEcon1Src.match(/export const WAVE_ECON1_I18N = ([\s\S]*);\s*$/);
+const waveCl1Src = fs.existsSync('i18n.wavecl1.js') ? fs.readFileSync('i18n.wavecl1.js', 'utf8') : '';
+const waveCl1Match = waveCl1Src.match(/export const WAVE_CL1_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
 
 if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || !waveFMatch || !waveBnMatch || !waveBoMatch || !waveCaMatch || !waveCbMatch || !waveCcMatch || !waveCb1Match || !waveStMatch || !waveUx1Match || !waveJp2Match || !waveGd2Match || !waveLr1Match || !waveLr2Match || !waveLr3Match || !waveLr4Match || !waveLr5Match || !waveLr6Match || !waveQa1Match || !waveGr1Match || !waveGr2Match || !waveGr3Match || !waveGr4Match || !waveGr5Match || !waveGr6Match || !waveMx1Match || !waveJp3Match || !waveSt2Match || !waveUx2Match || !waveSt4Match || !waveGr7Match || !waveUx3Match || !waveSt6Match || !waveSt7Match || !waveGr8Match || !waveUx4Match || !waveMx2Match || !waveSt8Match || !waveUx5Match || !waveUx6Match || !waveUx7Match || !waveUx8Match || !waveUx9Match || !waveUx10Match || !waveUx11Match || !waveUx12Match || !waveUx13Match || !waveUx14Match || !waveUx15Match || !waveUx16Match || !waveUx17Match || !waveUx18Match || !waveUx19Match || !waveUx20Match || !waveUx21Match || !waveSt9Match || !waveUx22Match || !waveUx23Match || !waveUx24Match || !waveUx26Match || !waveUx27Match || !waveUx30Match || !waveUx38Match || !waveUx39Match || !waveLg1Match || !waveD1Match || !match) {
   failed = true;
-  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5/GR6/MX1/JP3/ST2/UX2/ST4/GR7/UX3/ST6/ST7/GR8/UX4/MX2/ST8/UX5/UX6/UX7/UX8/UX9/UX10/UX11/UX12/UX13/UX14/UX15/UX16/UX17/UX18/UX19/UX20/UX21/ST9/UX22/UX23/UX24/UX26/UX27/UX30/UX38/UX39 kaynak blogu ayristirilamadi.');
+  console.log('i18n.js veya wave A–F/BN/BO/CA/CB/CC/CB1/ST/UX1/JP2/GD2/LR1/LR2/LR3/LR4/LR5/LR6/QA1/GR1/GR2/GR3/GR4/GR5/GR6/MX1/JP3/ST2/UX2/ST4/GR7/UX3/ST6/ST7/GR8/UX4/MX2/ST8/UX5/UX6/UX7/UX8/UX9/UX10/UX11/UX12/UX13/UX14/UX15/UX16/UX17/UX18/UX19/UX20/UX21/ST9/UX22/UX23/UX24/UX26/UX27/UX30/UX38/UX39/ECON1/CL1 kaynak blogu ayristirilamadi.');
 } else {
   const WAVE_A_I18N = eval(`(${extrasMatch[1]})`); // eslint-disable-line no-eval
   const WAVE_B_I18N = eval(`(${waveBMatch[1]})`); // eslint-disable-line no-eval
@@ -266,6 +268,7 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
 const WAVE_LG1_I18N = eval(`(${waveLg1Match[1]})`); // eslint-disable-line no-eval
 const WAVE_D1_I18N = eval(`(${waveD1Match[1]})`); // eslint-disable-line no-eval
 const WAVE_ECON1_I18N = eval(`(${waveEcon1Match[1]})`); // eslint-disable-line no-eval
+const WAVE_CL1_I18N = eval(`(${waveCl1Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -339,8 +342,9 @@ const WAVE_ECON1_I18N = eval(`(${waveEcon1Match[1]})`); // eslint-disable-line n
     'WAVE_LG1_I18N',
     'WAVE_D1_I18N',
     'WAVE_ECON1_I18N',
+    'WAVE_CL1_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N, WAVE_ST8_I18N, WAVE_UX5_I18N, WAVE_UX6_I18N, WAVE_UX7_I18N, WAVE_UX8_I18N, WAVE_UX9_I18N, WAVE_UX10_I18N, WAVE_UX11_I18N, WAVE_UX12_I18N, WAVE_UX13_I18N, WAVE_UX14_I18N, WAVE_UX15_I18N, WAVE_UX16_I18N, WAVE_UX17_I18N, WAVE_UX18_I18N, WAVE_UX19_I18N, WAVE_UX20_I18N, WAVE_UX21_I18N, WAVE_ST9_I18N, WAVE_UX22_I18N, WAVE_UX23_I18N, WAVE_UX24_I18N, WAVE_UX26_I18N, WAVE_UX27_I18N, WAVE_UX30_I18N, WAVE_UX38_I18N, WAVE_UX39_I18N, WAVE_UX40_I18N, WAVE_LG1_I18N, WAVE_D1_I18N, WAVE_ECON1_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N, WAVE_ST8_I18N, WAVE_UX5_I18N, WAVE_UX6_I18N, WAVE_UX7_I18N, WAVE_UX8_I18N, WAVE_UX9_I18N, WAVE_UX10_I18N, WAVE_UX11_I18N, WAVE_UX12_I18N, WAVE_UX13_I18N, WAVE_UX14_I18N, WAVE_UX15_I18N, WAVE_UX16_I18N, WAVE_UX17_I18N, WAVE_UX18_I18N, WAVE_UX19_I18N, WAVE_UX20_I18N, WAVE_UX21_I18N, WAVE_ST9_I18N, WAVE_UX22_I18N, WAVE_UX23_I18N, WAVE_UX24_I18N, WAVE_UX26_I18N, WAVE_UX27_I18N, WAVE_UX30_I18N, WAVE_UX38_I18N, WAVE_UX39_I18N, WAVE_UX40_I18N, WAVE_LG1_I18N, WAVE_D1_I18N, WAVE_ECON1_I18N, WAVE_CL1_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -1088,9 +1092,9 @@ const WAVE_ECON1_I18N = eval(`(${waveEcon1Match[1]})`); // eslint-disable-line n
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 2343) {
+  if (languages.length !== 13 || baseKeys.length !== 2420) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2343`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2420`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -3552,6 +3556,7 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_LG1_I18N',
       'WAVE_D1_I18N',
       'WAVE_ECON1_I18N',
+      'WAVE_CL1_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -3614,7 +3619,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.waveux40.js', 'utf8').match(/export const WAVE_UX40_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavelg1.js', 'utf8').match(/export const WAVE_LG1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waved1.js', 'utf8').match(/export const WAVE_D1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.waveecon1.js', 'utf8').match(/export const WAVE_ECON1_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.waveecon1.js', 'utf8').match(/export const WAVE_ECON1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavecl1.js', 'utf8').match(/export const WAVE_CL1_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -5436,7 +5442,7 @@ Ticaret Unvanı: Anadolu Bilişim
     if (!app.includes(`onSettingsSectionLayout('${section}')`)) gdFail(`settings section anchor ${section}`);
   }
   if (!/scrollRef=\{settingsScrollRef\}/.test(app)) gdFail('settings scroll ref');
-  const advEffect = (advisor.match(/useEffect\(\(\) => \{\s*if \(!guideAction\?\.nonce\) return;[\s\S]*?\}, \[guideAction, openDraft\]\);/) || [''])[0];
+  const advEffect = (advisor.match(/useEffect\(\(\) => \{\s*if \(!guideAction\?\.nonce\) return;[\s\S]*?\}, \[guideAction, openDraft, openContract\]\);/) || [''])[0];
   if (!/openCalculator'\) setCalculatorId/.test(advEffect) || !/openScenario'\) setScenarioId/.test(advEffect) || !/openDraft'\) openDraft/.test(advEffect)) gdFail('LegalAdvisorScreen must handle openCalculator/openScenario/openDraft');
 
   // Sheet: BL.3 pattern, registry lists, search depth
@@ -5640,7 +5646,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/capturedHook === 'cases'/.test(app)) cfFail('purchase from case files must stay on the advisor tab');
   if (!/'cases'[,\]]/.test(read('screens/PaywallScreen.js'))) cfFail('paywall hook copy for cases');
   if (!/guideAction\.type === 'openAdvisorTool' && guideAction\.id === 'case_files'/.test(advisor)) cfFail('advisor must open case files from the guide');
-  if (!/\}, \[guideAction, openDraft\]\);/.test(advisor)) cfFail('guide effect deps must stay [guideAction, openDraft]');
+  if (!/\}, \[guideAction, openDraft, openContract\]\);/.test(advisor)) cfFail('guide effect deps must stay [guideAction, openDraft, openContract]');
   if (!/onNeedPaywall\?\.\('cases'\)/.test(advisor) || !/<CaseHubSheet/.test(advisor) || !/t\('caseCardTitle'\)/.test(advisor)) cfFail('advisor entry card / sheet / paywall');
   if (!/pendingCaseReturnRef\.current = false;\s*setCaseHubOpen\(true\);/.test(advisor)) cfFail('case files must reopen after the paywall');
   if (!/onAddToCase=\{openCaseImport\}/.test(advisor) || !/onAddToCase\(entry\.explanation\)/.test(explainer)) cfFail('explainer must hand documents to case files');
@@ -5748,7 +5754,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/t\('askDisclaimer'\)\}<\/Text>\s*<\/View>\s*\);\s*\};/.test(sheetSrc)) qaFail('disclaimer must be the last element of the answer');
 
   // Wiring
-  if (!/guideAction\.type === 'openAdvisorTool' && guideAction\.id === 'legal_ask'/.test(advisor) || !/\}, \[guideAction, openDraft\]\);/.test(advisor)) qaFail('advisor must open the Q&A from the guide');
+  if (!/guideAction\.type === 'openAdvisorTool' && guideAction\.id === 'legal_ask'/.test(advisor) || !/\}, \[guideAction, openDraft, openContract\]\);/.test(advisor)) qaFail('advisor must open the Q&A from the guide');
   if (!/onNeedPaywall\?\.\('ask'\)/.test(advisor) || !/<LegalAskSheet/.test(advisor) || !/pendingAskReturnRef\.current = false;\s*setAskOpen\(true\);/.test(advisor)) qaFail('advisor sheet / paywall round-trip');
   if (!/capturedHook === 'ask'/.test(app) || !/'ask'(, 'professional')?(, 'lawyer')?\]\);/.test(read('screens/PaywallScreen.js'))) qaFail('paywall hook ask');
   if (!/'legal_ask'[,\]]/.test(capSrc) || !/id: 'legal_ask'[\s\S]{0,400}action: \{ type: 'openAdvisorTool', id: 'legal_ask' \}/.test(capSrc) || !/id: 'cl_legal_ask'/.test(capSrc)) qaFail('guide workflow + changelog');
@@ -5825,7 +5831,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/onOpenCalculator\?\.\('deadline_date'\)/.test(sheetSrc)) pgFail('deadline steps must open the deadline calculator');
   if (!/onAsk\?\.\(\{ area: active\.area, question: t\('pgAskTemplate'/.test(sheetSrc) || !/onStartCase\?\.\(\{ title: t\(active\.titleKey\), area: active\.area \}\)/.test(sheetSrc)) pgFail('ask / case hand-offs');
 
-  if (!/guideAction\.type === 'openAdvisorTool' && guideAction\.id === 'process_guides'/.test(advisor) || !/\}, \[guideAction, openDraft\]\);/.test(advisor)) pgFail('advisor must open the guides from the guide deep link');
+  if (!/guideAction\.type === 'openAdvisorTool' && guideAction\.id === 'process_guides'/.test(advisor) || !/\}, \[guideAction, openDraft, openContract\]\);/.test(advisor)) pgFail('advisor must open the guides from the guide deep link');
   if (!/const openAskFromGuide = useCallback\(\(prefill\) => \{\s*setGuidesOpen\(false\);\s*setAskPrefill\(prefill\);\s*setTimeout\(\(\) => setAskOpen\(true\), 400\);/.test(advisor)) pgFail('ask hand-off must close the guides first');
   if (!/const openCaseFromGuide = useCallback\(\(seed\) => \{\s*setGuidesOpen\(false\);[\s\S]{0,120}setCaseSeed\(seed\);\s*setTimeout\(\(\) => setCaseHubOpen\(true\), 400\);/.test(advisor)) pgFail('case hand-off must close the guides first');
   if (!/prefill=\{askPrefill\}/.test(advisor) || !/seed=\{caseSeed\}/.test(advisor) || !/<ProcessGuideSheet/.test(advisor)) pgFail('advisor sheet wiring');
@@ -5972,7 +5978,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/featureId="pro_tools"/.test(sheetSrc) || !/'pro_tools'\]/.test(read('services/aiReport.js'))) proFail('AI report must cover pro_tools');
 
   // Wiring: advisor, case files, paywall tiers, App plan sync, seats, guide.
-  if (!/guideAction\.type === 'openAdvisorTool' && guideAction\.id === 'pro_tools'/.test(advisor) || !/\}, \[guideAction, openDraft\]\);/.test(advisor)) proFail('advisor must open the workbench from the guide deep link');
+  if (!/guideAction\.type === 'openAdvisorTool' && guideAction\.id === 'pro_tools'/.test(advisor) || !/\}, \[guideAction, openDraft, openContract\]\);/.test(advisor)) proFail('advisor must open the workbench from the guide deep link');
   if (!/const openProToolsFromCase = useCallback\(\(caseItem\) => \{\s*setCaseHubOpen\(false\);[\s\S]{0,80}setTimeout\(\(\) => setProToolsOpen\(true\), 400\);/.test(advisor)) proFail('case hand-off must close the case hub first');
   if (!/pendingProReturnRef\.current = true;\s*setProToolsOpen\(false\);\s*onNeedPaywall\?\.\('professional'\);/.test(advisor) || !/if \(!pendingProReturnRef\.current\) return;\s*pendingProReturnRef\.current = false;\s*setProToolsOpen\(true\);/.test(advisor)) proFail('paywall round-trip must reopen the workbench');
   if (!/<ProToolsSheet[\s\S]{0,200}plan=\{plan\}[\s\S]{0,60}seed=\{proSeed\}/.test(advisor) || !/onOpenProTools=\{openProToolsFromCase\}/.test(advisor)) proFail('advisor sheet wiring');
@@ -6088,7 +6094,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/isRtlLanguage\(i18n\.language\) \? '<body dir="rtl">'/.test(sheetSrc)) lhFail('PDF must be right-to-left for ar / fa');
 
   // Wiring: advisor card + deep link + hand-offs + paywall round-trip; case / answer / guide links; paywall hook; guide.
-  if (!/guideAction\.type === 'openAdvisorTool' && guideAction\.id === 'lawyer_handoff'/.test(advisor) || !/\}, \[guideAction, openDraft\]\);/.test(advisor)) lhFail('advisor must open the hand-off from the guide deep link');
+  if (!/guideAction\.type === 'openAdvisorTool' && guideAction\.id === 'lawyer_handoff'/.test(advisor) || !/\}, \[guideAction, openDraft, openContract\]\);/.test(advisor)) lhFail('advisor must open the hand-off from the guide deep link');
   if (!/const openLawyerFrom = useCallback\(\(seed\) => \{\s*setCaseHubOpen\(false\);\s*setAskOpen\(false\);\s*setGuidesOpen\(false\);[\s\S]{0,80}setTimeout\(\(\) => setLawyerOpen\(true\), 400\);/.test(advisor)) lhFail('hand-offs must close the source sheet first');
   if (!/pendingLawyerReturnRef\.current = true;\s*setLawyerOpen\(false\);\s*onNeedPaywall\?\.\('lawyer'\);/.test(advisor) || !/if \(!pendingLawyerReturnRef\.current\) return;\s*pendingLawyerReturnRef\.current = false;\s*setLawyerOpen\(true\);/.test(advisor)) lhFail('paywall round-trip must reopen the hand-off');
   if (!/<LawyerHandoffSheet[\s\S]{0,200}isPro=\{isPro\}\s*seed=\{lawyerSeed\}/.test(advisor) || (advisor.match(/onFindLawyer=\{openLawyerFrom\}/g) || []).length !== 2 || !/onOpenLawyer=\{\(caseItem\) => openLawyerFrom\(caseItem \? \{ caseId: caseItem\.id \} : null\)\}/.test(advisor)) lhFail('advisor sheet wiring');
@@ -9514,10 +9520,19 @@ Ticaret Unvanı: Anadolu Bilişim
   const priv = rd('web/privacy.html');
   const terms = rd('web/terms.html');
   const n = (h, re) => (h.match(re) || []).length;
-  for (const [name, html, secs] of [['privacy', priv, ['signup', 'voice', 'transfer', 'rights', 'children']], ['terms', terms, ['eligibility', 'renewal', 'ai', 'termin']]]) {
+  for (const [name, html, secs] of [['privacy', priv, ['signup', 'voice', 'transfer', 'rights', 'children', 'controller', 'security', 'templates', 'retention', 'kvkk', 'ccpa', 'changes', 'language']], ['terms', terms, ['eligibility', 'renewal', 'ai', 'termin', 'templates', 'law', 'language']]]) {
     for (const s of secs) if (n(html, new RegExp(`data-sec="${s}"`, 'g')) !== 13) cFail(`${name}.html section ${s} must exist in 13 languages`);
-    if (n(html, /5 October 2026/g) < 1) cFail(`${name}.html date must be 5 October 2026`);
+    if (n(html, /21 October 2026/g) < 1) cFail(`${name}.html date must be 21 October 2026`);
   }
+  // Approved legal parameters: controller identity, providers, retention, language precedence, governing law. No Gemini (not used).
+  if (n(priv, /Doğancan Kara/g) < 26 || n(terms, /Doğancan Kara/g) < 13) cFail('privacy/terms must name Doğancan Kara in every language');
+  if (n(priv, /Bağcılar/g) < 26 || n(terms, /Bağcılar/g) < 13) cFail('privacy/terms must give the Bağcılar address in every language');
+  if (n(priv, /In case of discrepancies, the English version shall prevail\./g) !== 13 || n(terms, /In case of discrepancies, the English version shall prevail\./g) !== 13) cFail('English precedence note must close every language');
+  if (n(terms, /Çağlayan/g) !== 13) cFail('terms must name the Istanbul (Çağlayan) courts in every language');
+  if (n(priv, /<table>/g) !== 13 || n(priv, /6698/g) < 13 || n(priv, /CCPA\/CPRA/g) < 13) cFail('privacy needs retention table, KVKK and CCPA/CPRA x13');
+  if (/Gemini/i.test(priv + terms + rd('web/delete-account.html'))) cFail('legal pages must not name Gemini (the backend uses Anthropic only)');
+  if (/Gemini|generativelanguage/i.test(rd('supabase/functions/analyze-contract/index.ts') + rd('services/ai.js'))) cFail('Gemini appeared in the AI path; update the sub-processor list first');
+  if (!fs.existsSync('supabase/migrations/20261021120000_support_retention.sql')) cFail('support-message 24-month purge migration missing');
   if (ok) console.log('OK  WAVE C legal compliance: paywall auto-renew disclosure x13, privacy/terms sections x13, web pages in sync');
 }
 

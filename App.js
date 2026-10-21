@@ -4972,7 +4972,19 @@ function AppContent() {
               <SettingsGroupHeader theme={theme} icon="color-palette-outline" label={t('setGrpPrefs')} />
               <View style={[styles.card, { backgroundColor: theme.cardBg, borderColor: theme.borderColor, marginBottom: 16 }]}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Text style={[styles.settingLabel, { color: theme.text }]}>{t('darkMode')}</Text>
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    style={{ flex: 1, paddingVertical: 6 }}
+                    importantForAccessibility="no"
+                    accessible={false}
+                    onPress={() => {
+                      const val = !isDarkMode;
+                      setIsDarkMode(val);
+                      AsyncStorage.setItem(THEME_MODE_KEY, val ? 'dark' : 'light').catch(() => {});
+                    }}
+                  >
+                    <Text style={[styles.settingLabel, { color: theme.text }]}>{t('darkMode')}</Text>
+                  </TouchableOpacity>
                   <Switch 
                     accessibilityLabel={t('darkMode')}
                     value={isDarkMode} 

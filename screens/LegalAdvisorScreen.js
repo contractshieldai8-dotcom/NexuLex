@@ -28,6 +28,8 @@ import { OptionSheet, SelectorField } from '../components/OptionSelector';
 import ScenarioWizardModal from '../components/ScenarioWizardModal';
 import CalculatorModal from '../components/CalculatorModal';
 import DraftWizardModal from '../components/DraftWizardModal';
+import ContractLibrarySheet from '../components/ContractLibrarySheet';
+import { CONTRACT_LIBRARY } from '../constants/contractTemplates';
 import DocumentExplainerSheet from '../components/DocumentExplainerSheet';
 import CaseHubSheet from '../components/CaseHubSheet';
 import LegalAskSheet from '../components/LegalAskSheet';
@@ -78,6 +80,11 @@ export default function LegalAdvisorScreen({
   const [draftOpenAtPreview, setDraftOpenAtPreview] = useState(false);
   // In-memory only: wizard answers survive the paywall round-trip, never persisted.
   const [draftAnswersById, setDraftAnswersById] = useState({});
+  const [contractOpen, setContractOpen] = useState(false);
+  const [contractTemplateId, setContractTemplateId] = useState(null);
+  const [contractOpenAtPreview, setContractOpenAtPreview] = useState(false);
+  const [contractAnswersById, setContractAnswersById] = useState({});
+  const pendingContractReturnRef = useRef(null);
   const [docExplainOpen, setDocExplainOpen] = useState(false);
   const [docExplainEntryId, setDocExplainEntryId] = useState(null);
   const pendingExplainReturnRef = useRef(false);
@@ -148,6 +155,12 @@ export default function LegalAdvisorScreen({
     setDraftOpen(true);
   }, []);
 
+  const openContract = useCallback((id = null, { atPreview = false } = {}) => {
+    setContractTemplateId(id);
+    setContractOpenAtPreview(atPreview);
+    setContractOpen(true);
+  }, []);
+
   // WAVE GD.2 — guide deep link (App already checked availability and switched to this tab).
   useEffect(() => {
     if (!guideAction?.nonce) return;
@@ -172,8 +185,10 @@ export default function LegalAdvisorScreen({
     } else if (guideAction.type === 'openAdvisorTool' && guideAction.id === 'lawyer_handoff') {
       setLawyerSeed(null);
       setLawyerOpen(true);
+    } else if (guideAction.type === 'openAdvisorTool' && guideAction.id === 'contract_library') {
+      openContract(guideAction.entryId || null);
     }
-  }, [guideAction, openDraft]);
+  }, [guideAction, openDraft, openContract]);
 
   // WAVE LR.4 — guide hand-offs; iOS presents one modal at a time, so open after the guide dismisses.
   const openAskFromGuide = useCallback((prefill) => {
@@ -276,6 +291,28 @@ export default function LegalAdvisorScreen({
     [onNeedPaywall]
   );
 
+  const handleContractAnswers = useCallback((id, answers) => {
+    setContractAnswersById((prev) => ({ ...prev, [id]: answers }));
+  }, []);
+
+  const clearContractAnswers = useCallback((id) => {
+    setContractAnswersById((prev) => {
+      if (!prev[id]) return prev;
+      const next = { ...prev };
+      delete next[id];
+      return next;
+    });
+  }, []);
+
+  const handleContractPaywall = useCallback(
+    (id) => {
+      pendingContractReturnRef.current = id || null;
+      setContractOpen(false);
+      onNeedPaywall?.('draft');
+    },
+    [onNeedPaywall]
+  );
+
   const [paywallClosedTick, setPaywallClosedTick] = useState(0);
 
   useEffect(() => {
@@ -302,6 +339,24 @@ export default function LegalAdvisorScreen({
       if (timer) clearTimeout(timer);
     };
   }, [isActive, openDraft, paywallClosedTick, paywallVisible]);
+
+  useEffect(() => {
+    if (!paywallClosedTick || paywallVisible || !isActive) return undefined;
+    const id = pendingContractReturnRef.current;
+    if (!id) return undefined;
+    let timer = null;
+    const task = InteractionManager.runAfterInteractions(() => {
+      timer = setTimeout(() => {
+        if (pendingContractReturnRef.current !== id) return;
+        pendingContractReturnRef.current = null;
+        openContract(id, { atPreview: true });
+      }, 400);
+    });
+    return () => {
+      task?.cancel?.();
+      if (timer) clearTimeout(timer);
+    };
+  }, [isActive, openContract, paywallClosedTick, paywallVisible]);
 
   useEffect(() => {
     if (!paywallClosedTick || paywallVisible || !isActive || !pendingExplainReturnRef.current) return undefined;
@@ -1010,6 +1065,45 @@ export default function LegalAdvisorScreen({
           ))}
         </ScrollView>
 
+        <Text style={[styles.label, { color: theme.subText, marginTop: 4 }]}>
+          {t('clSectionTitle')} · {CONTRACT_LIBRARY.length}
+        </Text>
+        <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
+          <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 0 }]}>{t('clSectionHint')}</Text>
+        </HonestyFold>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ gap: 8, paddingBottom: 6 }}
+          style={{ marginBottom: 8 }}
+        >
+          {CONTRACT_LIBRARY.map((item) => (
+            <TouchableOpacity
+              accessibilityRole="button"
+              key={item.id}
+              activeOpacity={0.85}
+              onPress={() => openContract(item.id)}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 6,
+                borderWidth: 1,
+                borderColor: theme.borderColor,
+                backgroundColor: theme.cardBg,
+                borderRadius: 12,
+                paddingHorizontal: 12,
+                paddingVertical: 8,
+                maxWidth: 240,
+              }}
+            >
+              <Ionicons name={item.icon} size={16} color={theme.accent} />
+              <Text style={[styles.settingLabel, { color: theme.text, fontSize: 13, flexShrink: 1 }]} numberOfLines={1}>
+                {t(item.titleKey)}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+
         <View style={{ marginTop: 4 }}>
           <SelectorField
             theme={theme}
@@ -1041,6 +1135,7 @@ export default function LegalAdvisorScreen({
       i18n.language,
       messages.length,
       offeredDrafts,
+      openContract,
       openDraft,
       openHomeJob,
       packDepth,
@@ -1197,6 +1292,22 @@ export default function LegalAdvisorScreen({
         onClose={() => {
           setDraftOpen(false);
           setDraftOpenAtPreview(false);
+        }}
+      />
+
+      <ContractLibrarySheet
+        visible={contractOpen}
+        theme={theme}
+        templateId={contractTemplateId}
+        isPro={isPro}
+        answersById={contractAnswersById}
+        onChangeAnswers={handleContractAnswers}
+        onClearAnswers={clearContractAnswers}
+        openAtPreview={contractOpenAtPreview}
+        onNeedPaywall={handleContractPaywall}
+        onClose={() => {
+          setContractOpen(false);
+          setContractOpenAtPreview(false);
         }}
       />
 
