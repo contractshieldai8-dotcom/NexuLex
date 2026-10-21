@@ -51,6 +51,7 @@
     "verify:contrast": "node scripts/verify-contrast.js",
     "build:locales": "node scripts/build-locale-bundles.js",
     "test:sql": "node scripts/test-referrals-sql.mjs",
+    "test:claim": "node scripts/test-claim-quota-sql.mjs",
     "test:econ1": "node scripts/test-econ1-sql.mjs",
     "test:econ3": "node scripts/test-econ3-sql.mjs",
     "test:analyze": "node scripts/test-analyze-guard.mjs",

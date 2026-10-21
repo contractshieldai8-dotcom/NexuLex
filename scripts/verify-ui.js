@@ -10126,6 +10126,20 @@ Ticaret Unvanı: Anadolu Bilişim
   }
   if (ok) console.log(`OK  WAVE ECON.1 cost guard (${fixtures} fixtures + real-Postgres suite): free 3 + 1/week per device, paid monthly caps 300/900/300, anonymous token telemetry, 10 keys x 13`);
 }
+// WAVE QUOTA.1: claim_free_quota never fails on a device id that another profile already holds (field report:
+// duplicate key idx_unique_profiles_device_id). Real-Postgres suite, old function reproduces the bug, new one passes.
+{
+  let ok = true;
+  const qFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE QUOTA.1: ${m}`); };
+  try {
+    if (!fs.existsSync('supabase/migrations/20261021130000_claim_quota_device_collision.sql')) qFail('migration 20261021130000_claim_quota_device_collision.sql missing');
+    const run = require('child_process').spawnSync(process.execPath, ['scripts/test-claim-quota-sql.mjs'], { encoding: 'utf8' });
+    if (run.status !== 0) qFail(`Postgres test (PGlite) failed:\n${(run.stdout || '') + (run.stderr || '')}`.slice(0, 1500));
+  } catch (error) {
+    qFail(`harness error: ${error.message}`);
+  }
+  if (ok) console.log('OK  WAVE QUOTA.1 claim_free_quota: second account on a known device no longer errors, no extra free grant, abuse record kept (real Postgres)');
+}
 // WAVE PRICE.1: price matrix rules. The matrix holds real store numbers only; the app and this repo never invent one.
 {
   let ok = true;
