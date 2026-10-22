@@ -85,7 +85,7 @@ function FilterButton({ theme, open, active, label, onToggle, buttonRef }) {
           flexDirection: 'row',
           alignItems: 'center',
           gap: 4,
-          height: 40,
+          minHeight: 40,
           borderWidth: 1,
           borderColor: active || open ? theme.accent : theme.borderColor,
           backgroundColor: active ? 'rgba(212, 178, 122, 0.12)' : theme.cardBg,
@@ -107,6 +107,8 @@ export default function HistoryScreen({
   theme,
   history,
   loading,
+  loadFailed = false,
+  onRetryLoad,
   onOpenItem,
   onDeleted,
   onOpenChat,
@@ -193,7 +195,7 @@ export default function HistoryScreen({
         Alert.alert(t('successTitle'), t('deleteSuccess'));
       } catch (error) {
         console.error('Analiz silme hatası:', error);
-        Alert.alert(t('errorTitle'), `${t('deleteError')}\n${error.message}`);
+        Alert.alert(t('errorTitle'), t('deleteError'));
       } finally {
         setDeletingId(null);
       }
@@ -450,7 +452,7 @@ export default function HistoryScreen({
           style={{
             flex: 1.15,
             minWidth: 0,
-            height: 40,
+            minHeight: 40,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
@@ -539,6 +541,21 @@ export default function HistoryScreen({
         ListEmptyComponent={
           showFirstSpinner ? (
             <ActivityIndicator color={theme.accent} size="large" style={{ marginTop: 40 }} />
+          ) : history.length === 0 && loadFailed ? (
+            // Offline or server error: never show "nothing saved yet" when the list simply could not be loaded.
+            <View style={{ alignItems: 'center', marginTop: 48, paddingHorizontal: 12 }} accessibilityRole="alert">
+              <Ionicons name="cloud-offline-outline" size={44} color={theme.subText} />
+              <Text style={{ color: theme.subText, textAlign: 'center', marginTop: 12, lineHeight: 20 }}>{t('errNetwork')}</Text>
+              <TouchableOpacity
+                onPress={() => onRetryLoad?.()}
+                accessibilityLabel={t('errBoundaryRetry')}
+                accessibilityRole="button"
+                activeOpacity={0.85}
+                style={[styles.secondaryBtn, { marginTop: 16, alignSelf: 'center', paddingHorizontal: 24, borderColor: theme.accent }]}
+              >
+                <Text style={[styles.secondaryBtnText, { color: theme.accent }]}>{t('errBoundaryRetry')}</Text>
+              </TouchableOpacity>
+            </View>
           ) : history.length === 0 ? (
             sessions.length ? null : (
               // E.3: nothing saved yet - one calm message and one clear next step (ux23Empty is for empty filters only).
@@ -599,7 +616,7 @@ export default function HistoryScreen({
               accessibilityRole="button"
               accessibilityState={{ selected: option.selected }}
               style={{
-                height: 40,
+                minHeight: 40,
                 paddingHorizontal: 10,
                 flexDirection: 'row',
                 alignItems: 'center',

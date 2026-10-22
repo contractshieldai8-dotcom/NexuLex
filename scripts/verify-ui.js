@@ -1,4 +1,4 @@
-// Geliştirme yardımcı betiği: theme.js içinde arayüzün beklediği stil
+﻿// Geliştirme yardımcı betiği: theme.js içinde arayüzün beklediği stil
 // anahtarlarının ve i18n dil paritesinin eksiksiz olduğunu doğrular.
 // Kullanım: node scripts/verify-ui.js
 
@@ -180,6 +180,10 @@ const waveUx39Src = fs.existsSync('i18n.waveux39.js') ? fs.readFileSync('i18n.wa
 const waveUx39Match = waveUx39Src.match(/export const WAVE_UX39_I18N = ([\s\S]*);\s*$/);
 const waveUx40Src = fs.existsSync('i18n.waveux40.js') ? fs.readFileSync('i18n.waveux40.js', 'utf8') : '';
 const waveUx40Match = waveUx40Src.match(/export const WAVE_UX40_I18N = ([\s\S]*);\s*$/);
+const waveUx41Src = fs.existsSync('i18n.waveux41.js') ? fs.readFileSync('i18n.waveux41.js', 'utf8') : '';
+const waveUx41Match = waveUx41Src.match(/export const WAVE_UX41_I18N = ([\s\S]*);\s*$/);
+const wavePf1Src = fs.existsSync('i18n.wavepf1.js') ? fs.readFileSync('i18n.wavepf1.js', 'utf8') : '';
+const wavePf1Match = wavePf1Src.match(/export const WAVE_PF1_I18N = ([\s\S]*);\s*$/);
 const waveLg1Src = fs.existsSync('i18n.wavelg1.js') ? fs.readFileSync('i18n.wavelg1.js', 'utf8') : '';
 const waveLg1Match = waveLg1Src.match(/export const WAVE_LG1_I18N = ([\s\S]*);\s*$/);
 const waveD1Src = fs.existsSync('i18n.waved1.js') ? fs.readFileSync('i18n.waved1.js', 'utf8') : '';
@@ -267,6 +271,8 @@ if (!extrasMatch || !waveBMatch || !waveCMatch || !waveDMatch || !waveEMatch || 
   const WAVE_UX38_I18N = eval(`(${waveUx38Match[1]})`); // eslint-disable-line no-eval
   const WAVE_UX39_I18N = eval(`(${waveUx39Match[1]})`); // eslint-disable-line no-eval
   const WAVE_UX40_I18N = eval(`(${waveUx40Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_UX41_I18N = eval(`(${waveUx41Match[1]})`); // eslint-disable-line no-eval
+  const WAVE_PF1_I18N = eval(`(${wavePf1Match[1]})`); // eslint-disable-line no-eval
 const WAVE_LG1_I18N = eval(`(${waveLg1Match[1]})`); // eslint-disable-line no-eval
 const WAVE_D1_I18N = eval(`(${waveD1Match[1]})`); // eslint-disable-line no-eval
 const WAVE_ECON1_I18N = eval(`(${waveEcon1Match[1]})`); // eslint-disable-line no-eval
@@ -342,13 +348,15 @@ const WAVE_AC1_I18N = eval(`(${waveAc1Match[1]})`); // eslint-disable-line no-ev
     'WAVE_UX38_I18N',
     'WAVE_UX39_I18N',
     'WAVE_UX40_I18N',
+    'WAVE_UX41_I18N',
+    'WAVE_PF1_I18N',
     'WAVE_LG1_I18N',
     'WAVE_D1_I18N',
     'WAVE_ECON1_I18N',
     'WAVE_CL1_I18N',
     'WAVE_AC1_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N, WAVE_ST8_I18N, WAVE_UX5_I18N, WAVE_UX6_I18N, WAVE_UX7_I18N, WAVE_UX8_I18N, WAVE_UX9_I18N, WAVE_UX10_I18N, WAVE_UX11_I18N, WAVE_UX12_I18N, WAVE_UX13_I18N, WAVE_UX14_I18N, WAVE_UX15_I18N, WAVE_UX16_I18N, WAVE_UX17_I18N, WAVE_UX18_I18N, WAVE_UX19_I18N, WAVE_UX20_I18N, WAVE_UX21_I18N, WAVE_ST9_I18N, WAVE_UX22_I18N, WAVE_UX23_I18N, WAVE_UX24_I18N, WAVE_UX26_I18N, WAVE_UX27_I18N, WAVE_UX30_I18N, WAVE_UX38_I18N, WAVE_UX39_I18N, WAVE_UX40_I18N, WAVE_LG1_I18N, WAVE_D1_I18N, WAVE_ECON1_I18N, WAVE_CL1_I18N, WAVE_AC1_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N, WAVE_ST8_I18N, WAVE_UX5_I18N, WAVE_UX6_I18N, WAVE_UX7_I18N, WAVE_UX8_I18N, WAVE_UX9_I18N, WAVE_UX10_I18N, WAVE_UX11_I18N, WAVE_UX12_I18N, WAVE_UX13_I18N, WAVE_UX14_I18N, WAVE_UX15_I18N, WAVE_UX16_I18N, WAVE_UX17_I18N, WAVE_UX18_I18N, WAVE_UX19_I18N, WAVE_UX20_I18N, WAVE_UX21_I18N, WAVE_ST9_I18N, WAVE_UX22_I18N, WAVE_UX23_I18N, WAVE_UX24_I18N, WAVE_UX26_I18N, WAVE_UX27_I18N, WAVE_UX30_I18N, WAVE_UX38_I18N, WAVE_UX39_I18N, WAVE_UX40_I18N, WAVE_UX41_I18N, WAVE_PF1_I18N, WAVE_LG1_I18N, WAVE_D1_I18N, WAVE_ECON1_I18N, WAVE_CL1_I18N, WAVE_AC1_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -1096,9 +1104,9 @@ const WAVE_AC1_I18N = eval(`(${waveAc1Match[1]})`); // eslint-disable-line no-ev
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 2418) {
+  if (languages.length !== 13 || baseKeys.length !== 2435) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2418`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2435`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -1397,11 +1405,11 @@ if (!/empty-edge-text/.test(aiProxySrc) || !/AI_ERROR_CODES\.PARSE/.test(aiProxy
 const optionsSrc = fs.readFileSync('constants/options.js', 'utf8');
 const jurBlock = optionsSrc.match(/export const JURISDICTIONS = \[([\s\S]*?)\];/);
 const jurCodes = jurBlock ? jurBlock[1].match(/code: '[^']+'/g) || [] : [];
-if (jurCodes.length !== 20) {
+if (jurCodes.length !== 25) {
   failed = true;
-  console.log(`JURISDICTIONS satir sayisi ${jurCodes.length}, beklenen 20 (auto+19)`);
+  console.log(`JURISDICTIONS satir sayisi ${jurCodes.length}, beklenen 25 (auto+24)`);
 } else {
-  console.log('OK  JURISDICTIONS 20 satir (auto+19)');
+  console.log('OK  JURISDICTIONS 25 satir (auto+24)');
 }
 
 const appSrc = fs.readFileSync('App.js', 'utf8');
@@ -3557,6 +3565,8 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_UX38_I18N',
       'WAVE_UX39_I18N',
       'WAVE_UX40_I18N',
+      'WAVE_UX41_I18N',
+      'WAVE_PF1_I18N',
       'WAVE_LG1_I18N',
       'WAVE_D1_I18N',
       'WAVE_ECON1_I18N',
@@ -3622,6 +3632,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.waveux38.js', 'utf8').match(/export const WAVE_UX38_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waveux39.js', 'utf8').match(/export const WAVE_UX39_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waveux40.js', 'utf8').match(/export const WAVE_UX40_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.waveux41.js', 'utf8').match(/export const WAVE_UX41_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavepf1.js', 'utf8').match(/export const WAVE_PF1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.wavelg1.js', 'utf8').match(/export const WAVE_LG1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waved1.js', 'utf8').match(/export const WAVE_D1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waveecon1.js', 'utf8').match(/export const WAVE_ECON1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -5026,7 +5038,7 @@ Ticaret Unvanı: Anadolu Bilişim
     console.log(`WAVE L10N.1 ${msg}`);
   };
   const loadWave = (file) => new Function(fs.readFileSync(file, 'utf8').replace(/export const \w+\s*=/, 'return '))(); // eslint-disable-line no-new-func
-  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'wavest2', 'wavest4', 'wavest6', 'wavest7', 'wavest8', 'wavest9', 'waveux1', 'waveux2', 'waveux3', 'waveux4', 'waveux5', 'waveux6', 'waveux7', 'waveux8', 'waveux9', 'waveux10', 'waveux11', 'waveux12', 'waveux13', 'waveux14', 'waveux15', 'waveux16', 'waveux17', 'waveux18', 'waveux19', 'waveux20', 'waveux21', 'waveux22', 'waveux23', 'waveux24', 'waveux26', 'waveux27', 'waveux30', 'waveux38', 'waveux39', 'waveux40', 'wavelg1', 'waved1', 'wavejp2', 'wavejp3', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavegr7', 'wavegr8', 'wavemx1', 'wavemx2', 'wavef', 'wavebn', 'wavebo'];
+  const AUDITED = ['waveca', 'wavecb', 'wavecb1', 'wavecc', 'wavest', 'wavest2', 'wavest4', 'wavest6', 'wavest7', 'wavest8', 'wavest9', 'waveux1', 'waveux2', 'waveux3', 'waveux4', 'waveux5', 'waveux6', 'waveux7', 'waveux8', 'waveux9', 'waveux10', 'waveux11', 'waveux12', 'waveux13', 'waveux14', 'waveux15', 'waveux16', 'waveux17', 'waveux18', 'waveux19', 'waveux20', 'waveux21', 'waveux22', 'waveux23', 'waveux24', 'waveux26', 'waveux27', 'waveux30', 'waveux38', 'waveux39', 'waveux40', 'waveux41', 'wavepf1', 'wavelg1', 'waved1', 'wavejp2', 'wavejp3', 'wavegd2', 'wavelr1', 'wavelr2', 'wavelr3', 'wavelr4', 'wavelr5', 'wavelr6', 'waveqa1', 'wavegr1', 'wavegr2', 'wavegr3', 'wavegr4', 'wavegr5', 'wavegr6', 'wavegr7', 'wavegr8', 'wavemx1', 'wavemx2', 'wavef', 'wavebn', 'wavebo'];
   const RTL = ['ar', 'fa'];
   const KEY_ALLOWLIST = new Set([]);
   const brandOnly = (value) => value
@@ -5125,6 +5137,11 @@ Ticaret Unvanı: Anadolu Bilişim
     AU: 'https://www.legislation.gov.au',
     AT: 'https://www.ris.bka.gv.at',
     CH: 'https://www.fedlex.admin.ch',
+    JP: 'https://elaws.e-gov.go.jp',
+    BR: 'https://www.planalto.gov.br',
+    PT: 'https://diariodarepublica.pt',
+    MX: 'https://www.diputados.gob.mx',
+    KR: 'https://www.law.go.kr',
   };
   const BANNED = /\b(TBK|TKHK|BGB|GDPR|KVKK|UCC|Art\.|§|m\.\s?\d+|Section\s\d+)\b/i;
   let fixtures = 0;
@@ -5134,7 +5151,7 @@ Ticaret Unvanı: Anadolu Bilişim
 
     // P0 registry
     const packs = api.JURISDICTION_PACKS;
-    if (Object.keys(packs).sort().join() !== Object.keys(ROOTS).sort().join()) jpFail('pack set must be TR/DE/GB/US/FR/ES/IT/NL/AE/SA/EU/IN/CA/AU/AT/CH');
+    if (Object.keys(packs).sort().join() !== Object.keys(ROOTS).sort().join()) jpFail('pack set must be TR/DE/GB/US/FR/ES/IT/NL/AE/SA/EU/IN/CA/AU/AT/CH/JP/BR/PT/MX/KR');
     for (const [code, p] of Object.entries(packs)) {
       if (p.code !== code) jpFail(`${code}.code`);
       for (const field of ['enabled', 'verified', 'asOfDate', 'reviewer', 'sources', 'calculators', 'scenarios', 'drafts']) {
@@ -5152,7 +5169,7 @@ Ticaret Unvanı: Anadolu Bilişim
         if (!s.labelKey) jpFail(`${code} source labelKey`);
       });
     }
-    if (api.EU_MEMBERS.join() !== 'DE,FR,ES,IT,NL,AT') jpFail('EU_MEMBERS');
+    if (api.EU_MEMBERS.join() !== 'DE,FR,ES,IT,NL,PT,AT') jpFail('EU_MEMBERS');
     if (api.applicablePacks('DE').map((p) => p.code).join() !== 'DE,EU' || api.applicablePacks('US').map((p) => p.code).join() !== 'US') jpFail('EU pack must apply to members only');
 
     // P0 availability
@@ -8797,7 +8814,8 @@ Ticaret Unvanı: Anadolu Bilişim
   const app = read('App.js');
   const deleteCard = app.slice(app.indexOf("onSettingsSectionLayout('delete')"), app.indexOf('GEÇMİŞ DETAY MODALI'));
   for (const key of keys) {
-    if (!deleteCard.includes(`t('${key}'`)) stFail(`delete card must render ${key}`);
+    // A store-specific key renders through storeKey() so iOS shows the App Store only variant ("<key>Ios").
+    if (!deleteCard.includes(`t('${key}'`) && !deleteCard.includes(`t(storeKey('${key}'`)) stFail(`delete card must render ${key}`);
   }
   if (/t\('st9Disclaimer'\)/.test(deleteCard)) {
     stFail('the delete card must not repeat the legal footer');
@@ -9459,6 +9477,66 @@ Ticaret Unvanı: Anadolu Bilişim
   if (uxOk) console.log('OK  WAVE UX.39 IN / CA / AU / AT / CH: selector, profiles, official sources, disabled packs, labels × 13');
 }
 
+// WAVE UX.41 — Japan, Brazil, Portugal, Mexico, South Korea: selector, legal profiles, official sources, disabled packs, 13-language labels, locale suggestion
+{
+  let uxOk = true;
+  const uxFail = (msg) => {
+    failed = true;
+    uxOk = false;
+    console.log(`WAVE UX.41 ${msg}`);
+  };
+  const read = (p) => fs.readFileSync(p, 'utf8');
+  const NEW = {
+    JP: ['e-gov.go.jp', 'courts.go.jp'],
+    BR: ['planalto.gov.br'],
+    PT: ['diariodarepublica.pt', 'dre.pt'],
+    MX: ['diputados.gob.mx', 'dof.gob.mx'],
+    KR: ['law.go.kr', 'moleg.go.kr'],
+  };
+  const options = read('constants/options.js');
+  const ai = read('services/ai.js');
+  const answer = read('utils/legalAnswer.js');
+  const askFn = read('supabase/functions/legal-ask/index.ts');
+  const toolsFn = read('supabase/functions/pro-tools/index.ts');
+  const packs = read('constants/jurisdictionPacks.js');
+  const rates = read('constants/legalCalcRates.js');
+  const profileBlock = (ai.match(/const JURISDICTION_PROFILES = \{([\s\S]*?)\n\};/) || [])[1] || '';
+  const wave = eval(`(${read('i18n.waveux41.js').match(/export const WAVE_UX41_I18N = ([\s\S]*);\s*$/)[1]})`); // eslint-disable-line no-eval
+  const langs = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+
+  if (Object.keys(wave).sort().join() !== [...langs].sort().join()) uxFail('wave must carry exactly the 13 languages');
+  for (const lang of langs) {
+    if (Object.keys(wave[lang]).sort().join() !== Object.keys(NEW).map((c) => `country${c}`).sort().join()) uxFail(`${lang} must carry exactly 5 country keys`);
+  }
+  for (const code of Object.keys(NEW)) {
+    const key = `country${code}`;
+    if (!new RegExp(`\\{ code: '${code}', labelKey: '${key}', hint: '[^']+' \\}`).test(options)) uxFail(`${code} must be selectable in JURISDICTIONS`);
+    const profile = (profileBlock.match(new RegExp(`\\n  ${code}: '([^\\n]*)',`)) || [])[1] || '';
+    if (profile.length < 200) uxFail(`${code} needs a real legal profile`);
+    if (!/never invent one/.test(profile) || !/risk label, never as a final ruling/.test(profile)) uxFail(`${code} profile must forbid invented numbers and final rulings`);
+    if (/\b(void|invalid|null and void|you will win|guarantee)\b/i.test(profile)) uxFail(`${code} profile must not contain verdict wording`);
+    const rowOf = (src, re) => (src.match(re) || [])[1] || '';
+    const client = rowOf(answer, new RegExp(`\\n  ${code}: \\{ portal: '[^']+', domains: \\[([^\\]]*)\\]`));
+    const ask = rowOf(askFn, new RegExp(`\\n  ${code}: \\{ name: [^\\n]*domains: \\[([^\\]]*)\\]`));
+    const tools = rowOf(toolsFn, new RegExp(`\\n  ${code}: \\{ name: [^\\n]*domains: \\[([^\\]]*)\\]`));
+    for (const domain of NEW[code]) {
+      if (!client.includes(`'${domain}'`)) uxFail(`${code} client allowlist must list ${domain}`);
+    }
+    if (client.replace(/\s+/g, '') !== ask.replace(/\s+/g, '') || ask !== tools) uxFail(`${code} allowlist must match across app, legal-ask and pro-tools`);
+    if (!new RegExp(`\\n  ${code}: pack\\('${code}'\\),`).test(packs)) uxFail(`${code} pack stub must stay disabled and empty`);
+    for (const lang of langs) {
+      if (typeof wave[lang]?.[key] !== 'string' || !wave[lang][key].trim()) uxFail(`${lang}.${key} missing`);
+    }
+  }
+  for (const [code, currency] of [['BR', 'BRL'], ['MX', 'MXN'], ['KR', 'KRW'], ['JP', 'JPY'], ['PT', 'EUR']]) {
+    if (!new RegExp(`\\n  ${code}: '${currency}'`).test(rates)) uxFail(`currency map must cover ${code}`);
+  }
+  if (!/EU_MEMBERS = \['DE', 'FR', 'ES', 'IT', 'NL', 'PT', 'AT'\]/.test(packs)) uxFail('Portugal is an EU member in the pack registry');
+  const edgeLock = require('crypto').createHash('sha256').update(fs.readFileSync('supabase/functions/analyze-contract/index.ts')).digest('hex');
+  if (edgeLock !== ANALYZE_EDGE_SHA256) uxFail('analyze-contract SHA256 changed');
+  if (uxOk) console.log('OK  WAVE UX.41 JP / BR / PT / MX / KR: selector, profiles, official sources, disabled packs, labels × 13');
+}
+
 // WAVE A — no layout shift when lifecycle, offer tier, or shield preview change
 {
   let uxOk = true;
@@ -9536,7 +9614,8 @@ Ticaret Unvanı: Anadolu Bilişim
   const cFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE C: ${m}`); };
   const rd = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '');
   const paywall = rd('screens/PaywallScreen.js');
-  const ci = paywall.indexOf("t('lg1AutoRenew')");
+  // The disclosure renders through storeKey(): Android shows lg1AutoRenew, iOS the App Store only lg1AutoRenewIos.
+  const ci = paywall.indexOf("t(storeKey('lg1AutoRenew', Platform.OS))");
   const cta = paywall.indexOf("t('paywallCta')");
   if (ci < 0) cFail('paywall must show the auto-renewal disclosure');
   else if (cta >= 0 && ci > cta) cFail('auto-renewal disclosure must sit above the purchase button');

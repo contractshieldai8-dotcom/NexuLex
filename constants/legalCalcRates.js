@@ -55,6 +55,9 @@ export const GENERIC_CURRENCY_BY_COUNTRY = {
   AU: 'AUD',
   AT: 'EUR',
   CH: 'CHF',
+  BR: 'BRL',
+  MX: 'MXN',
+  KR: 'KRW',
 };
 
 /** 'auto' country only. 'en' is intentionally unmapped (US / GB / others are ambiguous). */

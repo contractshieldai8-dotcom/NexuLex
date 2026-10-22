@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { ACCENT, DANGER, SUCCESS, WARNING, styles, toneText } from '../theme';
 import KeyboardScreen from '../components/KeyboardScreen';
 import { supabase } from '../services/supabase';
+import { authErrorMessage } from '../utils/authErrors';
 
 const MIN_LENGTH = 6;
 
@@ -77,7 +78,7 @@ export default function ResetPasswordScreen({ visible, theme, email, onDone, onC
       Alert.alert(t('successTitle'), t('passwordUpdated'));
       onDone();
     } catch (error) {
-      Alert.alert(t('errorTitle'), error.message);
+      Alert.alert(t('errorTitle'), authErrorMessage(error, t));
     } finally {
       setSaving(false);
     }
@@ -133,6 +134,9 @@ export default function ResetPasswordScreen({ visible, theme, email, onDone, onC
                   onChangeText={setPassword}
                   secureTextEntry={secure}
                   autoCapitalize="none"
+                  autoCorrect={false}
+                  spellCheck={false}
+                  textContentType="newPassword"
                   autoComplete="new-password"
                 />
                 <TouchableOpacity accessibilityRole="button"
@@ -182,6 +186,10 @@ export default function ResetPasswordScreen({ visible, theme, email, onDone, onC
                 onChangeText={setConfirm}
                 secureTextEntry={secure}
                 autoCapitalize="none"
+                autoCorrect={false}
+                spellCheck={false}
+                textContentType="newPassword"
+                autoComplete="new-password"
               />
 
               {mismatch ? (

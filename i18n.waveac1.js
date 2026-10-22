@@ -20,7 +20,14 @@ export const WAVE_AC1_I18N = {
     "shareLabelNote": "Not",
     "shareLabelTime": "Süre",
     "shareLabelDocs": "Belgeler",
-    "shareLabelWarning": "Uyarı"
+    "shareLabelWarning": "Uyarı",
+    "historySaveFailed": "Sonucunuz hazır ancak Geçmiş'e henüz kaydedilemedi. Bağlantınızı kontrol edin.",
+    "authErrInvalidCreds": "E-posta veya şifre hatalı.",
+    "authErrEmailTaken": "Bu e-posta ile zaten bir hesap var. Giriş yapmayı deneyin.",
+    "authErrEmailUnconfirmed": "Önce e-postanızı doğrulayın. Gelen kutunuzdaki bağlantıya dokunun.",
+    "authErrWeakPassword": "Bu şifre çok zayıf. En az 6 karakter kullanın ve yaygın şifrelerden kaçının.",
+    "authErrInvalidEmail": "Geçerli bir e-posta adresi girin.",
+    "authErrSamePassword": "Mevcut şifrenizden farklı bir şifre seçin."
   },
   "en": {
     "sgAgree": "I am 18 or older and I accept the {{terms}} and the {{privacy}}.",
@@ -40,7 +47,14 @@ export const WAVE_AC1_I18N = {
     "shareLabelNote": "Note",
     "shareLabelTime": "Timing",
     "shareLabelDocs": "Documents",
-    "shareLabelWarning": "Warning"
+    "shareLabelWarning": "Warning",
+    "historySaveFailed": "Your result is ready, but it could not be saved to History yet. Check your connection.",
+    "authErrInvalidCreds": "Incorrect email or password.",
+    "authErrEmailTaken": "An account with this email already exists. Sign in instead.",
+    "authErrEmailUnconfirmed": "Please verify your email first. Check your inbox for the link.",
+    "authErrWeakPassword": "This password is too weak. Use at least 6 characters and avoid common passwords.",
+    "authErrInvalidEmail": "Enter a valid email address.",
+    "authErrSamePassword": "Choose a password that is different from your current one."
   },
   "de": {
     "sgAgree": "Ich bin mindestens 18 Jahre alt und akzeptiere die {{terms}} und die {{privacy}}.",
@@ -60,7 +74,14 @@ export const WAVE_AC1_I18N = {
     "shareLabelNote": "Hinweis",
     "shareLabelTime": "Zeitrahmen",
     "shareLabelDocs": "Unterlagen",
-    "shareLabelWarning": "Warnung"
+    "shareLabelWarning": "Warnung",
+    "historySaveFailed": "Dein Ergebnis ist fertig, konnte aber noch nicht im Verlauf gespeichert werden. Prüfe deine Verbindung.",
+    "authErrInvalidCreds": "E-Mail oder Passwort ist falsch.",
+    "authErrEmailTaken": "Mit dieser E-Mail existiert bereits ein Konto. Melde dich stattdessen an.",
+    "authErrEmailUnconfirmed": "Bitte bestätige zuerst deine E-Mail. Den Link findest du in deinem Posteingang.",
+    "authErrWeakPassword": "Dieses Passwort ist zu schwach. Verwende mindestens 6 Zeichen und vermeide gängige Passwörter.",
+    "authErrInvalidEmail": "Gib eine gültige E-Mail-Adresse ein.",
+    "authErrSamePassword": "Wähle ein Passwort, das sich von deinem aktuellen unterscheidet."
   },
   "fr": {
     "sgAgree": "J'ai au moins 18 ans et j'accepte les {{terms}} et la {{privacy}}.",
@@ -80,7 +101,14 @@ export const WAVE_AC1_I18N = {
     "shareLabelNote": "Remarque",
     "shareLabelTime": "Délai",
     "shareLabelDocs": "Documents",
-    "shareLabelWarning": "Attention"
+    "shareLabelWarning": "Attention",
+    "historySaveFailed": "Votre résultat est prêt, mais il n'a pas pu être enregistré dans l'Historique. Vérifiez votre connexion.",
+    "authErrInvalidCreds": "E-mail ou mot de passe incorrect.",
+    "authErrEmailTaken": "Un compte existe déjà avec cet e-mail. Connectez-vous plutôt.",
+    "authErrEmailUnconfirmed": "Veuillez d'abord vérifier votre e-mail. Le lien se trouve dans votre boîte de réception.",
+    "authErrWeakPassword": "Ce mot de passe est trop faible. Utilisez au moins 6 caractères et évitez les mots de passe courants.",
+    "authErrInvalidEmail": "Saisissez une adresse e-mail valide.",
+    "authErrSamePassword": "Choisissez un mot de passe différent de l'actuel."
   },
   "es": {
     "sgAgree": "Tengo al menos 18 años y acepto las {{terms}} y la {{privacy}}.",
@@ -100,7 +128,14 @@ export const WAVE_AC1_I18N = {
     "shareLabelNote": "Nota",
     "shareLabelTime": "Plazo",
     "shareLabelDocs": "Documentos",
-    "shareLabelWarning": "Aviso"
+    "shareLabelWarning": "Aviso",
+    "historySaveFailed": "Tu resultado está listo, pero aún no se pudo guardar en el Historial. Revisa tu conexión.",
+    "authErrInvalidCreds": "Correo o contraseña incorrectos.",
+    "authErrEmailTaken": "Ya existe una cuenta con este correo. Inicia sesión.",
+    "authErrEmailUnconfirmed": "Primero verifica tu correo. Encontrarás el enlace en tu bandeja de entrada.",
+    "authErrWeakPassword": "Esta contraseña es demasiado débil. Usa al menos 6 caracteres y evita contraseñas comunes.",
+    "authErrInvalidEmail": "Introduce un correo electrónico válido.",
+    "authErrSamePassword": "Elige una contraseña distinta de la actual."
   },
   "ar": {
     "sgAgree": "عمري 18 عامًا أو أكثر وأوافق على {{terms}} و{{privacy}}.",
@@ -120,7 +155,14 @@ export const WAVE_AC1_I18N = {
     "shareLabelNote": "ملاحظة",
     "shareLabelTime": "المدة",
     "shareLabelDocs": "المستندات",
-    "shareLabelWarning": "تنبيه"
+    "shareLabelWarning": "تنبيه",
+    "historySaveFailed": "نتيجتك جاهزة، لكن تعذّر حفظها في السجل حتى الآن. تحقق من اتصالك.",
+    "authErrInvalidCreds": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+    "authErrEmailTaken": "يوجد حساب بهذا البريد الإلكتروني بالفعل. سجّل الدخول بدلًا من ذلك.",
+    "authErrEmailUnconfirmed": "يرجى تأكيد بريدك الإلكتروني أولًا. ستجد الرابط في صندوق الوارد.",
+    "authErrWeakPassword": "كلمة المرور هذه ضعيفة جدًا. استخدم 6 أحرف على الأقل وتجنّب كلمات المرور الشائعة.",
+    "authErrInvalidEmail": "أدخل عنوان بريد إلكتروني صالحًا.",
+    "authErrSamePassword": "اختر كلمة مرور مختلفة عن الحالية."
   },
   "it": {
     "sgAgree": "Ho almeno 18 anni e accetto le {{terms}} e l'{{privacy}}.",
@@ -140,7 +182,14 @@ export const WAVE_AC1_I18N = {
     "shareLabelNote": "Nota",
     "shareLabelTime": "Tempi",
     "shareLabelDocs": "Documenti",
-    "shareLabelWarning": "Avvertenza"
+    "shareLabelWarning": "Avvertenza",
+    "historySaveFailed": "Il risultato è pronto, ma non è stato ancora possibile salvarlo nella Cronologia. Controlla la connessione.",
+    "authErrInvalidCreds": "E-mail o password errata.",
+    "authErrEmailTaken": "Esiste già un account con questa e-mail. Accedi invece.",
+    "authErrEmailUnconfirmed": "Verifica prima la tua e-mail. Trovi il link nella posta in arrivo.",
+    "authErrWeakPassword": "Questa password è troppo debole. Usa almeno 6 caratteri ed evita password comuni.",
+    "authErrInvalidEmail": "Inserisci un indirizzo e-mail valido.",
+    "authErrSamePassword": "Scegli una password diversa da quella attuale."
   },
   "zh": {
     "sgAgree": "我已年满18岁，并同意{{terms}}和{{privacy}}。",
@@ -160,7 +209,14 @@ export const WAVE_AC1_I18N = {
     "shareLabelNote": "说明",
     "shareLabelTime": "时间",
     "shareLabelDocs": "文件",
-    "shareLabelWarning": "提醒"
+    "shareLabelWarning": "提醒",
+    "historySaveFailed": "结果已生成，但暂时无法保存到历史记录。请检查网络连接。",
+    "authErrInvalidCreds": "邮箱或密码不正确。",
+    "authErrEmailTaken": "该邮箱已注册账户，请直接登录。",
+    "authErrEmailUnconfirmed": "请先验证邮箱，链接在您的收件箱中。",
+    "authErrWeakPassword": "此密码太弱。请至少使用6个字符，并避免常见密码。",
+    "authErrInvalidEmail": "请输入有效的邮箱地址。",
+    "authErrSamePassword": "请选择与当前密码不同的新密码。"
   },
   "ru": {
     "sgAgree": "Мне исполнилось 18 лет, и я принимаю {{terms}} и {{privacy}}.",
@@ -180,7 +236,14 @@ export const WAVE_AC1_I18N = {
     "shareLabelNote": "Примечание",
     "shareLabelTime": "Сроки",
     "shareLabelDocs": "Документы",
-    "shareLabelWarning": "Внимание"
+    "shareLabelWarning": "Внимание",
+    "historySaveFailed": "Результат готов, но пока не удалось сохранить его в истории. Проверьте подключение.",
+    "authErrInvalidCreds": "Неверная почта или пароль.",
+    "authErrEmailTaken": "Аккаунт с этой почтой уже существует. Войдите в него.",
+    "authErrEmailUnconfirmed": "Сначала подтвердите почту. Ссылка есть во входящих.",
+    "authErrWeakPassword": "Этот пароль слишком слабый. Используйте не менее 6 символов и избегайте распространённых паролей.",
+    "authErrInvalidEmail": "Введите действительный адрес электронной почты.",
+    "authErrSamePassword": "Выберите пароль, отличный от текущего."
   },
   "fa": {
     "sgAgree": "من حداقل 18 سال دارم و {{terms}} و {{privacy}} را می‌پذیرم.",
@@ -200,7 +263,14 @@ export const WAVE_AC1_I18N = {
     "shareLabelNote": "یادداشت",
     "shareLabelTime": "زمان",
     "shareLabelDocs": "مدارک",
-    "shareLabelWarning": "هشدار"
+    "shareLabelWarning": "هشدار",
+    "historySaveFailed": "نتیجه شما آماده است، اما هنوز در تاریخچه ذخیره نشد. اتصال خود را بررسی کنید.",
+    "authErrInvalidCreds": "ایمیل یا گذرواژه نادرست است.",
+    "authErrEmailTaken": "حسابی با این ایمیل از قبل وجود دارد. به‌جای آن وارد شوید.",
+    "authErrEmailUnconfirmed": "ابتدا ایمیل خود را تأیید کنید. پیوند در صندوق ورودی شماست.",
+    "authErrWeakPassword": "این گذرواژه بسیار ضعیف است. حداقل 6 نویسه به کار ببرید و از گذرواژه‌های رایج دوری کنید.",
+    "authErrInvalidEmail": "یک نشانی ایمیل معتبر وارد کنید.",
+    "authErrSamePassword": "گذرواژه‌ای متفاوت از گذرواژه فعلی انتخاب کنید."
   },
   "ja": {
     "sgAgree": "18歳以上であり、{{terms}}と{{privacy}}に同意します。",
@@ -220,7 +290,14 @@ export const WAVE_AC1_I18N = {
     "shareLabelNote": "注記",
     "shareLabelTime": "目安時間",
     "shareLabelDocs": "書類",
-    "shareLabelWarning": "注意"
+    "shareLabelWarning": "注意",
+    "historySaveFailed": "結果は完成しましたが、履歴にはまだ保存できませんでした。接続を確認してください。",
+    "authErrInvalidCreds": "メールアドレスまたはパスワードが正しくありません。",
+    "authErrEmailTaken": "このメールアドレスのアカウントはすでに存在します。ログインしてください。",
+    "authErrEmailUnconfirmed": "先にメールアドレスを確認してください。受信トレイにリンクがあります。",
+    "authErrWeakPassword": "このパスワードは弱すぎます。6文字以上にし、よくあるパスワードは避けてください。",
+    "authErrInvalidEmail": "有効なメールアドレスを入力してください。",
+    "authErrSamePassword": "現在のパスワードとは異なるパスワードを選んでください。"
   },
   "pt": {
     "sgAgree": "Tenho pelo menos 18 anos e aceito os {{terms}} e a {{privacy}}.",
@@ -240,7 +317,14 @@ export const WAVE_AC1_I18N = {
     "shareLabelNote": "Nota",
     "shareLabelTime": "Prazo",
     "shareLabelDocs": "Documentos",
-    "shareLabelWarning": "Aviso"
+    "shareLabelWarning": "Aviso",
+    "historySaveFailed": "O seu resultado está pronto, mas ainda não foi possível guardá-lo no Histórico. Verifique a ligação.",
+    "authErrInvalidCreds": "E-mail ou palavra-passe incorretos.",
+    "authErrEmailTaken": "Já existe uma conta com este e-mail. Inicie sessão.",
+    "authErrEmailUnconfirmed": "Verifique primeiro o seu e-mail. Encontra a ligação na caixa de entrada.",
+    "authErrWeakPassword": "Esta palavra-passe é demasiado fraca. Use pelo menos 6 caracteres e evite palavras-passe comuns.",
+    "authErrInvalidEmail": "Introduza um endereço de e-mail válido.",
+    "authErrSamePassword": "Escolha uma palavra-passe diferente da atual."
   },
   "nl": {
     "sgAgree": "Ik ben 18 jaar of ouder en ga akkoord met de {{terms}} en het {{privacy}}.",
@@ -260,6 +344,13 @@ export const WAVE_AC1_I18N = {
     "shareLabelNote": "Opmerking",
     "shareLabelTime": "Termijn",
     "shareLabelDocs": "Documenten",
-    "shareLabelWarning": "Let op"
+    "shareLabelWarning": "Let op",
+    "historySaveFailed": "Je resultaat is klaar, maar kon nog niet in de Geschiedenis worden opgeslagen. Controleer je verbinding.",
+    "authErrInvalidCreds": "E-mailadres of wachtwoord onjuist.",
+    "authErrEmailTaken": "Er bestaat al een account met dit e-mailadres. Log in.",
+    "authErrEmailUnconfirmed": "Bevestig eerst je e-mailadres. De link staat in je inbox.",
+    "authErrWeakPassword": "Dit wachtwoord is te zwak. Gebruik minstens 6 tekens en vermijd veelgebruikte wachtwoorden.",
+    "authErrInvalidEmail": "Voer een geldig e-mailadres in.",
+    "authErrSamePassword": "Kies een ander wachtwoord dan je huidige."
   }
 };

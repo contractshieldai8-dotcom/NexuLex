@@ -22,6 +22,11 @@ export const JURISDICTIONS = [
   { code: 'AU', labelKey: 'countryAU', hint: 'Common Law · ACL · Unfair Contract Terms' },
   { code: 'AT', labelKey: 'countryAT', hint: 'ABGB · KSchG · UGB' },
   { code: 'CH', labelKey: 'countryCH', hint: 'OR · ZGB · UWG' },
+  { code: 'JP', labelKey: 'countryJP', hint: '民法 · 消費者契約法 · 労働契約法' },
+  { code: 'BR', labelKey: 'countryBR', hint: 'Código Civil · CDC · CLT · LGPD' },
+  { code: 'PT', labelKey: 'countryPT', hint: 'Código Civil · DL 446/85 · Código do Trabalho' },
+  { code: 'MX', labelKey: 'countryMX', hint: 'Código Civil Federal · LFPC · LFT' },
+  { code: 'KR', labelKey: 'countryKR', hint: '민법 · 약관규제법 · 근로기준법' },
 ];
 
 // Uygulama arayüzü ve rapor dilleri (i18n kodlarıyla birebir aynı).

@@ -17,6 +17,7 @@ import {
   I18nManager,
   AppState,
   Appearance,
+  BackHandler,
   Share,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -48,6 +49,7 @@ import PaywallScreen from './screens/PaywallScreen';
 import ResetPasswordScreen from './screens/ResetPasswordScreen';
 import { AUTH_LINK_RESULTS, handleAuthDeepLink } from './utils/authLinks';
 import { createAuthRedirectUrl } from './utils/authRedirects';
+import { authErrorMessage } from './utils/authErrors';
 import { parseShareCode, SHARE_CODE_RE } from './utils/shareSnapshot';
 import { buildHistoryCompareSeed } from './utils/historyCompare';
 import { readOwnedFile, writeOwnedBase64, isExpoGoUri, trySaveBase64ViaSaf } from './utils/fileAccess';
@@ -170,12 +172,24 @@ import { useFeedback, FeedbackProvider } from './context/FeedbackContext';
 import { AdvisorChatProvider, useAdvisorChat } from './context/AdvisorChatContext';
 import { ReportAiButton } from './components/AiReportSheet';
 import { deleteAccountAndPurge, openSubscriptionManagement } from './services/account';
+import { storeKey } from './utils/storeText';
 import { TRUST_URLS } from './constants/settingsTrust';
 import { corridorMessage } from './constants/localeCorridor';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LAST_ANALYSIS_KEY = '@nexulex/last_analysis_id';
 const THEME_MODE_KEY = '@nexulex/theme_mode';
+// The device appearance must be read before the app pins its own scheme (Appearance.setColorScheme below).
+const SYSTEM_SCHEME = (() => {
+  try {
+    return Appearance.getColorScheme();
+  } catch {
+    return null;
+  }
+})();
+// An explicit choice (Settings switch) always wins; with no saved choice the app follows the device
+// appearance, and stays on the brand's dark ink when the device does not say.
+const resolveThemeDark = (stored) => (stored === 'light' ? false : stored === 'dark' ? true : SYSTEM_SCHEME !== 'light');
 const GUIDE_ITEM_TYPES = { openCalculator: 'calculator', openDraft: 'draft', openScenario: 'scenario' };
 
 // Analiz butonunda gösterilecek dinamik durum metinleri.
@@ -252,13 +266,26 @@ function AppContent() {
     let alive = true;
     AsyncStorage.getItem(THEME_MODE_KEY)
       .then((stored) => {
-        if (alive && stored === 'light') setIsDarkMode(false);
+        if (alive) setIsDarkMode(resolveThemeDark(stored));
       })
       .catch(() => {});
     return () => {
       alive = false;
     };
   }, []);
+  // Android hardware back: leave a secondary tab for the home (Analyze) tab first, exit only from there.
+  // Open sheets and modals handle back themselves through onRequestClose, so this runs only when none is open.
+  useEffect(() => {
+    if (Platform.OS !== 'android') return undefined;
+    const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (activeTab !== 'analyze') {
+        setActiveTab('analyze');
+        return true;
+      }
+      return false;
+    });
+    return () => subscription.remove();
+  }, [activeTab]);
   // Keep native chrome (keyboard, system dialogs, status icons) in step with the in-app theme.
   useEffect(() => {
     try {
@@ -287,6 +314,7 @@ function AppContent() {
   // Geçmiş Taramalar ve Modal Durumu
   const [history, setHistory] = useState([]);
   const [loadingHistory, setLoadingHistory] = useState(false);
+  const [historyLoadFailed, setHistoryLoadFailed] = useState(false);
   const [selectedHistoryItem, setSelectedHistoryItem] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -609,12 +637,18 @@ function AppContent() {
 
   // Supabase Oturum Dinleyici
   useEffect(() => {
+    // Fresh-install safety net (App Review 2.1): an expired stored session on a dead or captive network must
+    // never keep the splash screen up. After 6 s the app opens on the sign-in screen and the session listener
+    // below still delivers the real session if the refresh completes later.
+    const bootstrapFailsafe = setTimeout(() => setAuthBootstrapped(true), 6000);
     supabase.auth
       .getSession()
       .then(({ data: { session } }) => {
         setUser(session?.user ?? null);
       })
+      .catch(() => {})
       .finally(() => {
+        clearTimeout(bootstrapFailsafe);
         setAuthBootstrapped(true);
       });
 
@@ -626,7 +660,10 @@ function AppContent() {
       if (event === 'PASSWORD_RECOVERY') setResetPasswordVisible(true);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      clearTimeout(bootstrapFailsafe);
+      subscription.unsubscribe();
+    };
   }, []);
 
   const appReady = localeReady && authBootstrapped && (!holdSplashForShield || shieldRestoreReady);
@@ -758,7 +795,7 @@ function AppContent() {
       // Resolve the saved appearance BEFORE the splash hides so light-mode users never see a dark flash.
       try {
         const storedMode = await AsyncStorage.getItem(THEME_MODE_KEY);
-        if (!cancelled && storedMode === 'light') setIsDarkMode(false);
+        if (!cancelled) setIsDarkMode(resolveThemeDark(storedMode));
       } catch {
         /* default (dark) stays */
       }
@@ -1428,6 +1465,7 @@ function AppContent() {
 
       if (error) throw error;
       historyLoadedRef.current = true;
+      setHistoryLoadFailed(false);
       const nextRows = (data || []).map(sanitizeAnalysisRow);
       setHistory((prev) => {
         if (
@@ -1440,6 +1478,8 @@ function AppContent() {
       });
     } catch (err) {
       console.log('Geçmiş hatası:', err.message);
+      // Offline / server error: keep whatever is on screen and let the history tab explain it.
+      setHistoryLoadFailed(true);
     } finally {
       if (first) setLoadingHistory(false);
     }
@@ -2094,7 +2134,7 @@ function AppContent() {
       setForgotPasswordMode(false);
       setResetEmail('');
     } catch (err) {
-      Alert.alert(t('errorTitle'), err.message);
+      Alert.alert(t('errorTitle'), authErrorMessage(err, t));
     }
   };
 
@@ -2112,7 +2152,7 @@ function AppContent() {
       if (error) throw error;
       Alert.alert(t('successTitle'), t('verificationResent'));
     } catch (error) {
-      Alert.alert(t('errorTitle'), error.message);
+      Alert.alert(t('errorTitle'), authErrorMessage(error, t));
     } finally {
       setResendingVerification(false);
     }
@@ -2131,7 +2171,7 @@ function AppContent() {
       Alert.alert(t('successTitle'), t('passwordUpdated'));
       setNewPassword('');
     } catch (error) {
-      Alert.alert(t('errorTitle'), error.message);
+      Alert.alert(t('errorTitle'), authErrorMessage(error, t));
     } finally {
       setUpdatingPassword(false);
     }
@@ -2142,7 +2182,7 @@ function AppContent() {
     if (deletingAccount) return;
     const first = await showModal({
       title: t('accountDeleteTitle'),
-      message: t('accountDeleteWarning'),
+      message: t(storeKey('accountDeleteWarning', Platform.OS)),
       destructive: true,
       actions: [
         { id: 'cancel', label: t('cancelButton'), style: 'cancel' },
@@ -2449,7 +2489,10 @@ function AppContent() {
       };
       let analysisId = decorated.id || null;
       if (user) {
-        analysisId = (await saveAnalysisToSupabase(decorated)) || analysisId;
+        const savedId = await saveAnalysisToSupabase(decorated);
+        // The result still shows; History just does not have it yet (share / status changes retry the save).
+        if (!savedId && !analysisId) showToast(t('historySaveFailed'), { type: 'warning' });
+        analysisId = savedId || analysisId;
       }
       setOfferTiers({});
       setResult({ ...decorated, id: analysisId });
@@ -2944,8 +2987,8 @@ function AppContent() {
       }
 
       await shareOwned(t('savePdfToDevice'));
-    } catch (err) {
-      Alert.alert(t('errorTitle'), `${t('pdfExportError')}\n${err.message}`);
+    } catch {
+      Alert.alert(t('errorTitle'), t('pdfExportError'));
     }
   };
 
@@ -3177,7 +3220,7 @@ function AppContent() {
                     <Text style={[styles.counterTitle, { flex: 1 }]}>{t('counterTitle')}</Text>
                     <TouchableOpacity accessibilityRole="button"
                       onPress={() => copyCounterOfferToClipboard(flag, index, 'flag', flagId)}
-                      hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                      hitSlop={{ top: 16, bottom: 16, left: 16, right: 16 }}
                       accessibilityLabel={t('copyCounterOffer')}
                     >
                       <Ionicons
@@ -3349,7 +3392,7 @@ function AppContent() {
                 <Text style={[styles.counterTitle, { flex: 1 }]}>{t('counterTitle')}</Text>
                 <TouchableOpacity accessibilityRole="button"
                   onPress={() => copyCounterOfferToClipboard(item, index, keyPrefix, clauseId)}
-                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                  hitSlop={{ top: 16, bottom: 16, left: 16, right: 16 }}
                   accessibilityLabel={t('copyCounterOffer')}
                 >
                   <Ionicons
@@ -3391,7 +3434,7 @@ function AppContent() {
           </Text>
           <TouchableOpacity accessibilityRole="button"
             onPress={() => copyCounterMessage(analysis.counterMessage)}
-            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
             accessibilityLabel={t('copyCounterMessage')}
           >
             <Ionicons
@@ -4550,7 +4593,7 @@ function AppContent() {
                   </Text>
                   <TouchableOpacity
                     onPress={() => setSelectedFile(null)}
-                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                    hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
                     accessibilityRole="button"
                     accessibilityLabel={t('a11yRemove')}
                   >
@@ -4772,6 +4815,8 @@ function AppContent() {
                 theme={theme}
                 history={history}
                 loading={loadingHistory}
+                loadFailed={historyLoadFailed}
+                onRetryLoad={fetchHistory}
                 getRiskLabel={getRiskLabel}
                 formatDate={formatDate}
                 onOpenChat={() => setActiveTab('advisor')}
@@ -4845,7 +4890,7 @@ function AppContent() {
                 )}
                 <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Plan')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Store')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t(storeKey('st8Store', Platform.OS))}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Quota')}</Text>
                   <PlanQuotaTable theme={theme} plan={plan} />
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st8Tools')}</Text>
@@ -5068,7 +5113,7 @@ function AppContent() {
                 <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 10 }]}>{t('securitySettings')}</Text>
                 <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('st4Security')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('st4SecurityHint')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t(storeKey('st4SecurityHint', Platform.OS))}</Text>
                 </HonestyFold>
                 <TextInput accessibilityLabel={t('newPasswordPlaceholder')}
                   style={[
@@ -5082,6 +5127,11 @@ function AppContent() {
                   placeholder={t('newPasswordPlaceholder')}
                   placeholderTextColor={theme.subText}
                   secureTextEntry
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  spellCheck={false}
+                  textContentType="newPassword"
+                  autoComplete="new-password"
                   value={newPassword}
                   onChangeText={setNewPassword}
                 />
@@ -5126,7 +5176,7 @@ function AppContent() {
                 <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Analyses')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Device')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Sub')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t(storeKey('st9Sub', Platform.OS))}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Web')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Store')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4, marginBottom: 0 }]}>{t('st9Restore')}</Text>
@@ -5254,7 +5304,7 @@ function AppContent() {
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Keep')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Ai')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Picker')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Sub')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t(storeKey('st2Sub', Platform.OS))}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Quota')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st7Delete')}</Text>
                   <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st7Binding')}</Text>

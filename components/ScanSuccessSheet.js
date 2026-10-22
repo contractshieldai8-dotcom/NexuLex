@@ -38,7 +38,7 @@ export default function ScanSuccessSheet({ visible, theme, countryLabel, onPick,
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
               {t('ssTitle')}
             </Text>
-            <TouchableOpacity onPress={onSkip} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} accessibilityRole="button" accessibilityLabel={t('closeButton')}>
+            <TouchableOpacity onPress={onSkip} hitSlop={{ top: 13, bottom: 13, left: 13, right: 13 }} accessibilityRole="button" accessibilityLabel={t('closeButton')}>
               <Ionicons name="close" size={22} color={theme.subText} />
             </TouchableOpacity>
           </View>

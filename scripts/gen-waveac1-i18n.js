@@ -216,10 +216,10 @@ const T = {
   },
 };
 
-const SHARE_LABELS = require('./l10n/shareLabels.js');
+const SHARE_LABELS = { ...require('./l10n/shareLabels.js'), ...require('./l10n/saveFeedback.js'), ...require('./l10n/authErrors.js') };
 for (const [key, byLang] of Object.entries(SHARE_LABELS)) {
   for (const lang of Object.keys(T)) {
-    if (typeof byLang[lang] !== 'string') throw new Error(`shareLabels.${key} missing ${lang}`);
+    if (typeof byLang[lang] !== 'string') throw new Error(`l10n.${key} missing ${lang}`);
     T[lang][key] = byLang[lang];
   }
 }

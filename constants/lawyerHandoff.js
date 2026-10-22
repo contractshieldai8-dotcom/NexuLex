@@ -26,6 +26,8 @@ export const BAR_BODIES = {
   RU: [b('Федеральная палата адвокатов РФ', 'https://fparf.ru')],
   IR: [b('کانون وکلای دادگستری مرکز', 'https://icbar.ir')],
   JP: [b('日本弁護士連合会', 'https://www.nichibenren.or.jp')],
+  MX: [b('Barra Mexicana, Colegio de Abogados', 'https://www.bma.org.mx')],
+  KR: [b('대한변호사협회', 'https://www.koreanbar.or.kr')],
   EU: [b('European e-Justice Portal', 'https://e-justice.europa.eu'), b('CCBE – Council of Bars and Law Societies of Europe', 'https://www.ccbe.eu')],
 };
 

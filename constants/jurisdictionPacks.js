@@ -26,10 +26,15 @@ export const OFFICIAL_SOURCE_ROOTS = {
   AU: 'https://www.legislation.gov.au',
   AT: 'https://www.ris.bka.gv.at',
   CH: 'https://www.fedlex.admin.ch',
+  JP: 'https://elaws.e-gov.go.jp',
+  BR: 'https://www.planalto.gov.br',
+  PT: 'https://diariodarepublica.pt',
+  MX: 'https://www.diputados.gob.mx',
+  KR: 'https://www.law.go.kr',
 };
 
 /** The EU pack applies on top of these member jurisdictions. */
-export const EU_MEMBERS = ['DE', 'FR', 'ES', 'IT', 'NL', 'AT'];
+export const EU_MEMBERS = ['DE', 'FR', 'ES', 'IT', 'NL', 'PT', 'AT'];
 
 const pack = (code, overrides = {}) => ({
   code,
@@ -68,6 +73,11 @@ export const JURISDICTION_PACKS = {
   AU: pack('AU'),
   AT: pack('AT'),
   CH: pack('CH'),
+  JP: pack('JP'),
+  BR: pack('BR'),
+  PT: pack('PT'),
+  MX: pack('MX'),
+  KR: pack('KR'),
 };
 
 const LIST_KEY = { calculator: 'calculators', draft: 'drafts', scenario: 'scenarios' };

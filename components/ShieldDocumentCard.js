@@ -399,7 +399,7 @@ export default function ShieldDocumentCard({
             key={patch.id}
             style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 10, paddingVertical: 8 }}
           >
-            <TouchableOpacity
+            <TouchableOpacity hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
               onPress={() => togglePatch(patch)}
               activeOpacity={0.85}
               hitSlop={12}

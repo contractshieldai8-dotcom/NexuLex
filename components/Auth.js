@@ -1,4 +1,4 @@
-﻿import React, { useMemo, useState } from 'react';
+﻿import React, { useMemo, useRef, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, Platform, Linking } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
@@ -10,6 +10,7 @@ import { APP_LANGUAGES, getLanguage } from '../constants/options';
 import { TRUST_URLS } from '../constants/settingsTrust';
 import { setAppLanguage } from '../utils/language';
 import { createAuthRedirectUrl } from '../utils/authRedirects';
+import { authErrorMessage } from '../utils/authErrors';
 
 // Bump when the Terms of Use or Privacy Policy change in a way that needs fresh consent.
 const LEGAL_VERSION = '2026-10';
@@ -21,7 +22,9 @@ export default function Auth({ onLoginSuccess, theme = darkTheme }) {
   const { t, i18n } = useTranslation();
   const styles = useMemo(() => makeStyles(theme), [theme]);
   const [isSignUp, setIsSignUp] = useState(false);
-  const [email, setEmail] = useState('');
+  const [emailInput, setEmailInput] = useState('');
+  // Keyboards and password managers often append a space; a padded address is rejected by the server.
+  const email = emailInput.trim();
   const [password, setPassword] = useState('');
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -52,7 +55,10 @@ export default function Auth({ onLoginSuccess, theme = darkTheme }) {
     return String(text).split(/(\u0001[TP]\u0001)/);
   }, [t, activeLang]);
 
+  const passwordRef = useRef(null);
+
   const handleAuth = async () => {
+    if (loading) return;
     if (!email || !password) {
       Alert.alert(t('errorTitle'), t('authFillFields'));
       return;
@@ -113,7 +119,7 @@ export default function Auth({ onLoginSuccess, theme = darkTheme }) {
         if (data.user) onLoginSuccess(data.user);
       }
     } catch (error) {
-      Alert.alert(t('errorTitle'), error.message);
+      Alert.alert(t('errorTitle'), authErrorMessage(error, t));
     } finally {
       setLoading(false);
     }
@@ -131,7 +137,7 @@ export default function Auth({ onLoginSuccess, theme = darkTheme }) {
       if (error) throw error;
       Alert.alert(t('successTitle'), t('verificationResent'));
     } catch (error) {
-      Alert.alert(t('errorTitle'), error.message);
+      Alert.alert(t('errorTitle'), authErrorMessage(error, t));
     } finally {
       setLoading(false);
     }
@@ -157,7 +163,7 @@ export default function Auth({ onLoginSuccess, theme = darkTheme }) {
         onLoginSuccess(data.user);
       }
     } catch (error) {
-      Alert.alert(t('errorTitle'), error.message);
+      Alert.alert(t('errorTitle'), authErrorMessage(error, t));
     } finally {
       setLoading(false);
     }
@@ -183,17 +189,32 @@ export default function Auth({ onLoginSuccess, theme = darkTheme }) {
         style={styles.input}
         placeholder={t('emailPlaceholder')}
         placeholderTextColor={theme.subText}
-        value={email}
-        onChangeText={setEmail}
+        value={emailInput}
+        onChangeText={setEmailInput}
         autoCapitalize="none"
+        autoCorrect={false}
+        spellCheck={false}
         keyboardType="email-address"
+        textContentType="emailAddress"
+        autoComplete="email"
+        returnKeyType="next"
+        blurOnSubmit={false}
+        onSubmitEditing={() => passwordRef.current?.focus()}
       />
 
       <TextInput accessibilityLabel={t('passwordPlaceholder')}
+        ref={passwordRef}
         style={styles.input}
         placeholder={t('passwordPlaceholder')}
         placeholderTextColor={theme.subText}
         secureTextEntry
+        autoCapitalize="none"
+        autoCorrect={false}
+        spellCheck={false}
+        textContentType={isSignUp ? 'newPassword' : 'password'}
+        autoComplete={isSignUp ? 'new-password' : 'current-password'}
+        returnKeyType={isSignUp ? 'done' : 'go'}
+        onSubmitEditing={isSignUp ? undefined : handleAuth}
         value={password}
         onChangeText={setPassword}
       />
@@ -207,7 +228,7 @@ export default function Auth({ onLoginSuccess, theme = darkTheme }) {
               accessibilityLabel={String(t('sgAgree', { terms: t('sgTermsLink'), privacy: t('sgPrivacyLink') }))}
               onPress={() => setAgreed((value) => !value)}
               activeOpacity={0.8}
-              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+              hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
             >
               <Ionicons
                 name={agreed ? 'checkbox' : 'square-outline'}

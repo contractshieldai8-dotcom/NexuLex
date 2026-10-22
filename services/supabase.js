@@ -11,7 +11,10 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.warn('Supabase URL veya Anon Key .env dosyasında bulunamadı!');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+// createClient throws on an empty URL, which in a release build with missing EAS env values would be a white
+// screen at launch. A well-formed placeholder keeps the app rendering; every request then fails as an ordinary
+// network error that the screens already handle (offline state + retry).
+export const supabase = createClient(supabaseUrl || 'https://missing-config.invalid', supabaseAnonKey || 'missing-config', {
   auth: {
     // React Native'de localStorage yoktur; adaptör verilmezse oturum yalnızca
     // bellekte tutulur ve uygulama kapanınca kaybolur.

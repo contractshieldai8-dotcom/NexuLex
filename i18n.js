@@ -69,6 +69,8 @@ import { WAVE_UX30_I18N } from './i18n.waveux30';
 import { WAVE_UX38_I18N } from './i18n.waveux38';
 import { WAVE_UX39_I18N } from './i18n.waveux39';
 import { WAVE_UX40_I18N } from './i18n.waveux40';
+import { WAVE_UX41_I18N } from './i18n.waveux41';
+import { WAVE_PF1_I18N } from './i18n.wavepf1';
 import { WAVE_LG1_I18N } from './i18n.wavelg1';
 import { WAVE_D1_I18N } from './i18n.waved1';
 import { WAVE_ECON1_I18N } from './i18n.waveecon1';
@@ -320,7 +322,6 @@ const resources = {
       paywallFeature4: "Sözleşmedeki açık bitiş/yenileme tarihinden tuzak takvimi ve cihaz hatırlatıcısı",
       paywallCta: "Aboneliği başlat",
       paywallLater: "Daha sonra",
-      paywallComingSoon: "Ödeme altyapısı çok yakında aktif olacak. İlginiz için teşekkürler!",
       seePlans: "Planları gör",
 
       // E-Posta Doğrulama & Telefon
@@ -442,6 +443,9 @@ const resources = {
       ...WAVE_UX38_I18N.tr,
       ...WAVE_UX39_I18N.tr,
       ...WAVE_UX40_I18N.tr,
+
+      ...WAVE_UX41_I18N.tr,
+      ...WAVE_PF1_I18N.tr,
       ...WAVE_LG1_I18N.tr,
       ...WAVE_D1_I18N.tr,
       ...WAVE_ECON1_I18N.tr,
@@ -694,7 +698,6 @@ const resources = {
       paywallFeature4: "Trap calendar and device reminders from explicit end/renewal dates in the contract",
       paywallCta: "Start subscription",
       paywallLater: "Later",
-      paywallComingSoon: "Our payment infrastructure will be live very soon. Thanks for your interest!",
       seePlans: "See plans",
 
       // Email Verification & Phone
@@ -816,6 +819,9 @@ const resources = {
       ...WAVE_UX38_I18N.en,
       ...WAVE_UX39_I18N.en,
       ...WAVE_UX40_I18N.en,
+
+      ...WAVE_UX41_I18N.en,
+      ...WAVE_PF1_I18N.en,
       ...WAVE_LG1_I18N.en,
       ...WAVE_D1_I18N.en,
       ...WAVE_ECON1_I18N.en,
@@ -1068,7 +1074,6 @@ const resources = {
       paywallFeature4: "Fallenkalender und Geräteerinnerungen aus ausdrücklichen End-/Verlängerungsdaten im Vertrag",
       paywallCta: "Abo starten",
       paywallLater: "Später",
-      paywallComingSoon: "Unsere Zahlungsinfrastruktur ist in Kürze verfügbar. Danke für Ihr Interesse!",
       seePlans: "Tarife ansehen",
 
       // E-Mail-Bestätigung & Telefon
@@ -1190,6 +1195,9 @@ const resources = {
       ...WAVE_UX38_I18N.de,
       ...WAVE_UX39_I18N.de,
       ...WAVE_UX40_I18N.de,
+
+      ...WAVE_UX41_I18N.de,
+      ...WAVE_PF1_I18N.de,
       ...WAVE_LG1_I18N.de,
       ...WAVE_D1_I18N.de,
       ...WAVE_ECON1_I18N.de,
@@ -1442,7 +1450,6 @@ const resources = {
       paywallFeature4: "Calendrier des pièges et rappels appareil à partir des dates de fin/renouvellement explicites du contrat",
       paywallCta: "Démarrer l'abonnement",
       paywallLater: "Plus tard",
-      paywallComingSoon: "Notre système de paiement sera disponible très bientôt. Merci de votre intérêt !",
       seePlans: "Voir les formules",
 
       // Vérification de l'e-mail et téléphone
@@ -1564,6 +1571,9 @@ const resources = {
       ...WAVE_UX38_I18N.fr,
       ...WAVE_UX39_I18N.fr,
       ...WAVE_UX40_I18N.fr,
+
+      ...WAVE_UX41_I18N.fr,
+      ...WAVE_PF1_I18N.fr,
       ...WAVE_LG1_I18N.fr,
       ...WAVE_D1_I18N.fr,
       ...WAVE_ECON1_I18N.fr,
@@ -1816,7 +1826,6 @@ const resources = {
       paywallFeature4: "Calendario de trampas y recordatorios del dispositivo a partir de fechas de fin/renovación explícitas del contrato",
       paywallCta: "Iniciar suscripción",
       paywallLater: "Más tarde",
-      paywallComingSoon: "Nuestra plataforma de pago estará disponible muy pronto. ¡Gracias por su interés!",
       seePlans: "Ver planes",
 
       // Verificación de correo y teléfono
@@ -1938,6 +1947,9 @@ const resources = {
       ...WAVE_UX38_I18N.es,
       ...WAVE_UX39_I18N.es,
       ...WAVE_UX40_I18N.es,
+
+      ...WAVE_UX41_I18N.es,
+      ...WAVE_PF1_I18N.es,
       ...WAVE_LG1_I18N.es,
       ...WAVE_D1_I18N.es,
       ...WAVE_ECON1_I18N.es,
@@ -2190,7 +2202,6 @@ const resources = {
       paywallFeature4: "تقويم الفخاخ وتذكيرات الجهاز من تواريخ الانتهاء/التجديد الصريحة في العقد",
       paywallCta: "ابدأ الاشتراك",
       paywallLater: "لاحقاً",
-      paywallComingSoon: "ستكون بوابة الدفع متاحة قريباً جداً. شكراً لاهتمامك!",
       seePlans: "عرض الخطط",
 
       // التحقق من البريد الإلكتروني والهاتف
@@ -2312,6 +2323,9 @@ const resources = {
       ...WAVE_UX38_I18N.ar,
       ...WAVE_UX39_I18N.ar,
       ...WAVE_UX40_I18N.ar,
+
+      ...WAVE_UX41_I18N.ar,
+      ...WAVE_PF1_I18N.ar,
       ...WAVE_LG1_I18N.ar,
       ...WAVE_D1_I18N.ar,
       ...WAVE_ECON1_I18N.ar,
@@ -2564,7 +2578,6 @@ const resources = {
       paywallFeature4: "Calendario trappole e promemoria sul dispositivo dalle date di fine/rinnovo esplicite nel contratto",
       paywallCta: "Attiva l'abbonamento",
       paywallLater: "Più tardi",
-      paywallComingSoon: "Il nostro sistema di pagamento sarà attivo molto presto. Grazie per l'interesse!",
       seePlans: "Vedi i piani",
 
       // Verifica e-mail e telefono
@@ -2686,6 +2699,9 @@ const resources = {
       ...WAVE_UX38_I18N.it,
       ...WAVE_UX39_I18N.it,
       ...WAVE_UX40_I18N.it,
+
+      ...WAVE_UX41_I18N.it,
+      ...WAVE_PF1_I18N.it,
       ...WAVE_LG1_I18N.it,
       ...WAVE_D1_I18N.it,
       ...WAVE_ECON1_I18N.it,
@@ -2938,7 +2954,6 @@ const resources = {
       paywallFeature4: "根据合同中明确的结束/续约日期生成陷阱日历和设备提醒",
       paywallCta: "开通订阅",
       paywallLater: "稍后再说",
-      paywallComingSoon: "支付功能即将上线，感谢您的关注！",
       seePlans: "查看方案",
 
       // 邮箱验证与手机号
@@ -3060,6 +3075,9 @@ const resources = {
       ...WAVE_UX38_I18N.zh,
       ...WAVE_UX39_I18N.zh,
       ...WAVE_UX40_I18N.zh,
+
+      ...WAVE_UX41_I18N.zh,
+      ...WAVE_PF1_I18N.zh,
       ...WAVE_LG1_I18N.zh,
       ...WAVE_D1_I18N.zh,
       ...WAVE_ECON1_I18N.zh,
@@ -3312,7 +3330,6 @@ const resources = {
       paywallFeature4: "Календарь ловушек и напоминания на устройстве по явным датам окончания/продления в договоре",
       paywallCta: "Оформить подписку",
       paywallLater: "Позже",
-      paywallComingSoon: "Приём платежей заработает совсем скоро. Спасибо за интерес!",
       seePlans: "Посмотреть тарифы",
 
       // Подтверждение почты и телефон
@@ -3434,6 +3451,9 @@ const resources = {
       ...WAVE_UX38_I18N.ru,
       ...WAVE_UX39_I18N.ru,
       ...WAVE_UX40_I18N.ru,
+
+      ...WAVE_UX41_I18N.ru,
+      ...WAVE_PF1_I18N.ru,
       ...WAVE_LG1_I18N.ru,
       ...WAVE_D1_I18N.ru,
       ...WAVE_ECON1_I18N.ru,
@@ -3686,7 +3706,6 @@ const resources = {
       paywallFeature4: "تقویم دام و یادآور دستگاه از تاریخ پایان/تمدید صریح در قرارداد",
       paywallCta: "شروع اشتراک",
       paywallLater: "بعداً",
-      paywallComingSoon: "درگاه پرداخت ما به‌زودی فعال می‌شود. از توجه شما سپاسگزاریم!",
       seePlans: "مشاهده طرح‌ها",
 
       // تأیید ایمیل و تلفن
@@ -3808,6 +3827,9 @@ const resources = {
       ...WAVE_UX38_I18N.fa,
       ...WAVE_UX39_I18N.fa,
       ...WAVE_UX40_I18N.fa,
+
+      ...WAVE_UX41_I18N.fa,
+      ...WAVE_PF1_I18N.fa,
       ...WAVE_LG1_I18N.fa,
       ...WAVE_D1_I18N.fa,
       ...WAVE_ECON1_I18N.fa,
@@ -4060,7 +4082,6 @@ const resources = {
       paywallFeature4: "契約に明記された終了／更新日からトラップカレンダーと端末リマインダー",
       paywallCta: "サブスクリプションを開始",
       paywallLater: "後で",
-      paywallComingSoon: "決済基盤はまもなく稼働します。ご関心をお寄せいただきありがとうございます！",
       seePlans: "プランを見る",
 
       // メール認証と電話番号
@@ -4182,6 +4203,9 @@ const resources = {
       ...WAVE_UX38_I18N.ja,
       ...WAVE_UX39_I18N.ja,
       ...WAVE_UX40_I18N.ja,
+
+      ...WAVE_UX41_I18N.ja,
+      ...WAVE_PF1_I18N.ja,
       ...WAVE_LG1_I18N.ja,
       ...WAVE_D1_I18N.ja,
       ...WAVE_ECON1_I18N.ja,
@@ -4434,7 +4458,6 @@ const resources = {
       paywallFeature4: "Calendário de armadilhas e lembretes no dispositivo a partir de datas explícitas de fim/renovação no contrato",
       paywallCta: "Iniciar subscrição",
       paywallLater: "Mais tarde",
-      paywallComingSoon: "A nossa infraestrutura de pagamentos estará disponível muito em breve. Obrigado pelo seu interesse!",
       seePlans: "Ver planos",
 
       // Verificação de e-mail e telefone
@@ -4556,6 +4579,9 @@ const resources = {
       ...WAVE_UX38_I18N.pt,
       ...WAVE_UX39_I18N.pt,
       ...WAVE_UX40_I18N.pt,
+
+      ...WAVE_UX41_I18N.pt,
+      ...WAVE_PF1_I18N.pt,
       ...WAVE_LG1_I18N.pt,
       ...WAVE_D1_I18N.pt,
       ...WAVE_ECON1_I18N.pt,
@@ -4808,7 +4834,6 @@ const resources = {
       paywallFeature4: "Valkalender en apparaat-herinneringen uit expliciete eind-/verlengingsdata in het contract",
       paywallCta: "Abonnement starten",
       paywallLater: "Later",
-      paywallComingSoon: "Onze betaalinfrastructuur gaat zeer binnenkort live. Bedankt voor je interesse!",
       seePlans: "Abonnementen bekijken",
 
       // E-mailverificatie en telefoon
@@ -4930,6 +4955,9 @@ const resources = {
       ...WAVE_UX38_I18N.nl,
       ...WAVE_UX39_I18N.nl,
       ...WAVE_UX40_I18N.nl,
+
+      ...WAVE_UX41_I18N.nl,
+      ...WAVE_PF1_I18N.nl,
       ...WAVE_LG1_I18N.nl,
       ...WAVE_D1_I18N.nl,
       ...WAVE_ECON1_I18N.nl,

@@ -4,6 +4,7 @@ import {
   Alert,
   Linking,
   Modal,
+  Platform,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -17,6 +18,7 @@ import { styles } from '../theme';
 import { useFeedback } from '../context/FeedbackContext';
 import HonestyFold from '../components/HonestyFold';
 import { track } from '../services/telemetry';
+import { storeKey } from '../utils/storeText';
 import { footKeyForHook } from '../constants/paywallIntent';
 import { isAnnualPackage, isMonthlyPackage, pickAnnualCompare } from '../constants/annualHighlight';
 import { pickProfessionalCompare } from '../constants/professionalCompare';
@@ -453,7 +455,7 @@ export default function PaywallScreen({
               <Text
                 style={[styles.sectionHint, { color: theme.subText, textAlign: 'center', marginTop: 4, marginBottom: 10 }]}
               >
-                {t('lg1AutoRenew')}
+                {t(storeKey('lg1AutoRenew', Platform.OS))}
               </Text>
             ) : null}
 
@@ -517,12 +519,12 @@ export default function PaywallScreen({
             </View>
 
             <View style={{ marginTop: 16, alignItems: 'center', gap: 8 }}>
-              <TouchableOpacity accessibilityRole="button" onPress={() => openLegal(PRIVACY_URL)} activeOpacity={0.85}>
+              <TouchableOpacity accessibilityRole="button" style={{ minHeight: 44, justifyContent: 'center' }} onPress={() => openLegal(PRIVACY_URL)} activeOpacity={0.85}>
                 <Text style={[styles.sectionHint, { color: theme.accent, marginBottom: 0 }]}>
                   {t('privacyPolicy')}
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity accessibilityRole="button" onPress={() => openLegal(TERMS_URL)} activeOpacity={0.85}>
+              <TouchableOpacity accessibilityRole="button" style={{ minHeight: 44, justifyContent: 'center' }} onPress={() => openLegal(TERMS_URL)} activeOpacity={0.85}>
                 <Text style={[styles.sectionHint, { color: theme.accent, marginBottom: 0 }]}>
                   {t('termsOfUse')}
                 </Text>

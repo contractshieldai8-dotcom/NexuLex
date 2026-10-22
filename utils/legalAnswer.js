@@ -27,6 +27,8 @@ export const OFFICIAL_SOURCES = {
   JP: { portal: 'https://elaws.e-gov.go.jp', domains: ['elaws.e-gov.go.jp', 'e-gov.go.jp', 'courts.go.jp', 'moj.go.jp', '*.go.jp'] },
   PT: { portal: 'https://diariodarepublica.pt', domains: ['diariodarepublica.pt', 'dre.pt', '*.gov.pt'] },
   BR: { portal: 'https://www.planalto.gov.br', domains: ['planalto.gov.br', '*.gov.br', '*.jus.br'] },
+  MX: { portal: 'https://www.diputados.gob.mx', domains: ['diputados.gob.mx', 'dof.gob.mx', 'scjn.gob.mx', 'profeco.gob.mx', '*.gob.mx'] },
+  KR: { portal: 'https://www.law.go.kr', domains: ['law.go.kr', 'moleg.go.kr', 'scourt.go.kr', 'ccourt.go.kr', '*.go.kr'] },
   IN: { portal: 'https://indiacode.nic.in', domains: ['indiacode.nic.in', 'legislative.gov.in', 'egazette.gov.in', 'sci.gov.in', '*.gov.in'] },
   CA: { portal: 'https://laws-lois.justice.gc.ca', domains: ['laws-lois.justice.gc.ca', 'justice.gc.ca', 'canada.ca', 'scc-csc.ca', 'legisquebec.gouv.qc.ca', 'ontario.ca', 'gov.bc.ca', '*.gc.ca'] },
   AU: { portal: 'https://www.legislation.gov.au', domains: ['legislation.gov.au', 'hcourt.gov.au', 'ag.gov.au', 'accc.gov.au', 'fairwork.gov.au', '*.gov.au'] },

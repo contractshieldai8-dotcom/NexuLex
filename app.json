@@ -40,6 +40,7 @@
         "backgroundColor": "#0A0F1D"
       },
       "package": "com.nexulex.ai",
+      "allowBackup": false,
       "permissions": [
         "android.permission.RECORD_AUDIO",
         "android.permission.MODIFY_AUDIO_SETTINGS",

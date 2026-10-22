@@ -4,26 +4,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getLocales } from 'expo-localization';
 import { JURISDICTIONS, SUPPORTED_LANGUAGE_CODES } from '../constants/options';
+import { suggestJurisdictionFor } from './jurisdictionSuggest';
 
 const JURISDICTION_KEY = '@nexulex/jurisdiction';
 const ONBOARDED_KEY = '@nexulex/localeOnboarded';
 const INTENT_KEY = '@nexulex/intentOnboarded';
 
 const VALID_JURISDICTIONS = new Set((JURISDICTIONS || []).map((item) => item.code));
-
-const LANG_TO_JURISDICTION = {
-  tr: 'TR',
-  de: 'DE',
-  fr: 'FR',
-  es: 'ES',
-  it: 'IT',
-  nl: 'NL',
-  ru: 'RU',
-  zh: 'CN',
-  fa: 'IR',
-  ar: 'AE',
-  pt: 'EU',
-};
 
 export function getDeviceLocales() {
   try {
@@ -52,38 +39,7 @@ export function deviceRegion() {
 }
 
 export function suggestJurisdiction(lang, region) {
-  const code = String(lang || '')
-    .split(/[-_]/)[0]
-    .toLowerCase();
-  const regionCode = String(region || deviceRegion() || '')
-    .split(/[-_]/)[0]
-    .toUpperCase();
-
-  if (code === 'en') {
-    if (['GB', 'AU', 'IE'].includes(regionCode)) {
-      return { code: 'GB', englishPick: false, arabicAlt: false };
-    }
-    if (['US', 'CA'].includes(regionCode)) {
-      return { code: 'US', englishPick: false, arabicAlt: false };
-    }
-    return { code: 'US', englishPick: true, arabicAlt: false };
-  }
-
-  if (code === 'ar') {
-    if (regionCode === 'SA') {
-      return { code: 'SA', englishPick: false, arabicAlt: true };
-    }
-    if (['AE', 'QA', 'KW', 'BH', 'OM'].includes(regionCode)) {
-      return { code: 'AE', englishPick: false, arabicAlt: true };
-    }
-    return { code: 'AE', englishPick: false, arabicAlt: true };
-  }
-
-  if (LANG_TO_JURISDICTION[code]) {
-    return { code: LANG_TO_JURISDICTION[code], englishPick: false, arabicAlt: false };
-  }
-
-  return { code: 'auto', englishPick: false, arabicAlt: false };
+  return suggestJurisdictionFor(lang, region || deviceRegion());
 }
 
 export async function loadStoredJurisdiction() {

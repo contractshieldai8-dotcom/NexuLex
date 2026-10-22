@@ -540,7 +540,7 @@ export default function CaseHubSheet({
                   {isoToDmy(event.date)} · {t(`caseKind_${event.kind}`)}
                   {alert && left !== null ? ` · ${daysLabel(left)}` : ''}
                 </Text>
-                <TouchableOpacity accessibilityRole="button" onPress={() => deleteEvent(event)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityLabel={t('caseDeleteItem')}>
+                <TouchableOpacity accessibilityRole="button" onPress={() => deleteEvent(event)} hitSlop={{ top: 17, bottom: 17, left: 17, right: 17 }} accessibilityLabel={t('caseDeleteItem')}>
                   <Ionicons name="trash-outline" size={15} color={theme.subText} />
                 </TouchableOpacity>
               </View>
@@ -566,10 +566,10 @@ export default function CaseHubSheet({
               <Text style={[styles.settingLabel, { color: theme.text, fontSize: 14, flex: 1 }]} numberOfLines={2}>
                 {item.label || t(EVIDENCE_LABEL_KEYS[item.kind])}
               </Text>
-              <TouchableOpacity accessibilityRole="button" onPress={() => shareEvidence(item)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityLabel={t('caseEvidenceShare')}>
+              <TouchableOpacity accessibilityRole="button" onPress={() => shareEvidence(item)} hitSlop={{ top: 16, bottom: 16, left: 16, right: 16 }} accessibilityLabel={t('caseEvidenceShare')}>
                 <Ionicons name="share-outline" size={16} color={theme.accent} />
               </TouchableOpacity>
-              <TouchableOpacity accessibilityRole="button" onPress={() => deleteEvidence(item)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }} accessibilityLabel={t('caseDeleteItem')}>
+              <TouchableOpacity accessibilityRole="button" onPress={() => deleteEvidence(item)} hitSlop={{ top: 17, bottom: 17, left: 17, right: 17 }} accessibilityLabel={t('caseDeleteItem')}>
                 <Ionicons name="trash-outline" size={15} color={theme.subText} />
               </TouchableOpacity>
             </View>
@@ -731,7 +731,7 @@ export default function CaseHubSheet({
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
               {t(titleKey)}
             </Text>
-            <TouchableOpacity onPress={onClose} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} accessibilityRole="button" accessibilityLabel={t('closeButton')}>
+            <TouchableOpacity onPress={onClose} hitSlop={{ top: 13, bottom: 13, left: 13, right: 13 }} accessibilityRole="button" accessibilityLabel={t('closeButton')}>
               <Ionicons name="close" size={22} color={theme.subText} />
             </TouchableOpacity>
           </View>

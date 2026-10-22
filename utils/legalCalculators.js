@@ -65,7 +65,7 @@ export function currencyLabel(currency, language) {
 export function formatMoney(amount, currency, locale) {
   const n = Number(amount) || 0;
   if (currency === 'DAY') return String(Math.round(n));
-  if (currency === 'PCT') return `%${Math.abs(n).toFixed(2)}`;
+  if (currency === 'PCT') return locale ? formatPercentText(Math.abs(n), locale) : `%${Math.abs(n).toFixed(2)}`;
   try {
     if (!currency) {
       return new Intl.NumberFormat(locale || undefined, {
@@ -447,7 +447,7 @@ const shareAmount = (amount, currency) => {
 /**
  * Share/copy text: breakdown → total → footnote → asOf (statutory only) → jurisdiction → disclaimer LAST.
  */
-export function formatCalculationForSharing(result, format = 'plain', t = (k) => k) {
+export function formatCalculationForSharing(result, format = 'plain', t = (k) => k, language = null) {
   if (!result || typeof result !== 'object' || result.unavailable || result.invalid) return '';
   const lines = [];
   const generic = result.mode === 'generic';
@@ -474,7 +474,7 @@ export function formatCalculationForSharing(result, format = 'plain', t = (k) =>
       return;
     }
     if (row.currency === 'PCT') {
-      lines.push(`${label}: %${Math.abs(amt).toFixed(2)}`);
+      lines.push(`${label}: ${language ? formatPercentText(Math.abs(amt), language) : `%${Math.abs(amt).toFixed(2)}`}`);
       return;
     }
     lines.push(`${label}: ${shareAmount(amt, row.currency)}`);

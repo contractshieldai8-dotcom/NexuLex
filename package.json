@@ -45,7 +45,7 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "verify": "node scripts/verify-ui.js && node scripts/verify-contrast.js && node scripts/build-locale-bundles.js --check && node scripts/test-contract-library.mjs && node scripts/test-ai-consent.js && node scripts/test-claim-quota-sql.mjs",
+    "verify": "node scripts/verify-ui.js && node scripts/verify-contrast.js && node scripts/build-locale-bundles.js --check && node scripts/test-contract-library.mjs && node scripts/test-ai-consent.js && node scripts/test-auth-errors.mjs && node scripts/test-jurisdictions.mjs && node scripts/test-formatters.mjs && node scripts/test-tap-targets.mjs && node scripts/test-store-config.mjs && node scripts/test-review-readiness.mjs && node scripts/test-claim-quota-sql.mjs",
     "test:contracts": "node scripts/test-contract-library.mjs",
     "sync:templates": "node scripts/sync-legal-templates.js",
     "verify:contrast": "node scripts/verify-contrast.js",

@@ -11,6 +11,8 @@ import { formatCode, withInviteCode } from '../utils/referralCore';
 import { track } from '../services/telemetry';
 import KeyboardSafeSheet, { useKeyboardSafeSheet } from './KeyboardSafeSheet';
 
+// iOS shows no other-store wording and no pre-launch notes (App Store Review 2.3.10 / 2.1).
+const IS_ANDROID = Platform.OS === 'android';
 const WIN_H = Dimensions.get('window').height;
 const SHEET_MAX = Math.round(WIN_H * 0.92);
 
@@ -80,7 +82,7 @@ export default function ShareLoopSheet({ visible, theme, country, referralCode, 
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
               {t('vlTitle')}
             </Text>
-            <TouchableOpacity onPress={onClose} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} accessibilityRole="button" accessibilityLabel={t('closeButton')}>
+            <TouchableOpacity onPress={onClose} hitSlop={{ top: 13, bottom: 13, left: 13, right: 13 }} accessibilityRole="button" accessibilityLabel={t('closeButton')}>
               <Ionicons name="close" size={22} color={theme.subText} />
             </TouchableOpacity>
           </View>
@@ -91,7 +93,7 @@ export default function ShareLoopSheet({ visible, theme, country, referralCode, 
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux17NoReport')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux17Once')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux17NoWin')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux17Store')}</Text>
+            {IS_ANDROID ? <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux17Store')}</Text> : null}
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux17Device')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('ux17Guides')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux17Disclaimer')}</Text>
@@ -122,14 +124,10 @@ export default function ShareLoopSheet({ visible, theme, country, referralCode, 
             <TouchableOpacity style={[styles.secondaryBtn, { marginBottom: 8 }]} onPress={openStore} accessibilityRole="button">
               <Text style={styles.secondaryBtnText}>{t('vlRate')}</Text>
             </TouchableOpacity>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('vlRateHint')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('gr7RateHint')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>
-              {Platform.OS === 'android' ? t('gr7Play') : t('gr7Get')}
-            </Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('gr7NoApple')}</Text>
+            {IS_ANDROID ? <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('vlRateHint')}</Text> : null}
+            {IS_ANDROID ? <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('gr7RateHint')}</Text> : null}
+            {IS_ANDROID ? <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('gr7Play')}</Text> : null}
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('gr7InviteHint')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('gr7Align')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 6 }]}>{t('gr7Country')}</Text>
             <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 8 }]}>{t('gr7Note')}</Text>
 

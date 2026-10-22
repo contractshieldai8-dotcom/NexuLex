@@ -566,7 +566,7 @@ export default function LegalAdvisorScreen({
           {item.id !== 'greeting' && !item.isError ? (
             <TouchableOpacity accessibilityRole="button"
               onPress={() => handleCopy(item)}
-              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+              hitSlop={{ top: 17, bottom: 17, left: 17, right: 17 }}
               accessibilityLabel={t('copyAnswer')}
             >
               <Ionicons
@@ -1117,7 +1117,7 @@ export default function LegalAdvisorScreen({
           <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginTop: 4 }}>
             <TouchableOpacity
               onPress={handleClear}
-              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+              hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
               accessibilityRole="button"
               accessibilityLabel={t('advisorClearChat')}
             >

@@ -491,7 +491,7 @@ export default function NexuLexGuideSheet({ visible, theme, onClose, onOpenAdvis
             {query ? (
               <TouchableOpacity
             onPress={() => setQuery('')}
-            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            hitSlop={{ top: 16, bottom: 16, left: 16, right: 16 }}
             accessibilityRole="button"
             accessibilityLabel={t('a11yClearSearch')}
           >

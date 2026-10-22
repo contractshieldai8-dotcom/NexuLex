@@ -231,14 +231,14 @@ export default function CalculatorModal({
 
   const handleCopy = async () => {
     if (!result) return;
-    const text = formatCalculationForSharing(result, 'plain', t);
+    const text = formatCalculationForSharing(result, 'plain', t, language);
     await Clipboard.setStringAsync(text);
     showToast(t('copiedToClipboard'), { type: 'success', duration: 1400 });
   };
 
   const handleShare = async () => {
     if (!result) return;
-    const message = formatCalculationForSharing(result, 'whatsapp', t);
+    const message = formatCalculationForSharing(result, 'whatsapp', t, language);
     try {
       await Share.share({ message });
     } catch (_error) {
@@ -349,7 +349,7 @@ export default function CalculatorModal({
             <Text style={[styles.modalTitle, { color: theme.text, flex: 1, marginBottom: 0 }]} numberOfLines={2}>
               {t(copyKeys.titleKey)}
             </Text>
-            <TouchableOpacity onPress={onClose} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} accessibilityRole="button" accessibilityLabel={t('closeButton')}>
+            <TouchableOpacity onPress={onClose} hitSlop={{ top: 13, bottom: 13, left: 13, right: 13 }} accessibilityRole="button" accessibilityLabel={t('closeButton')}>
               <Ionicons name="close" size={22} color={theme.subText} />
             </TouchableOpacity>
           </View>

@@ -54,7 +54,7 @@ export default function SupportScreen({ theme, onClose }) {
           {onClose ? (
             <TouchableOpacity accessibilityRole="button"
               onPress={onClose}
-              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+              hitSlop={{ top: 13, bottom: 13, left: 13, right: 13 }}
               accessibilityLabel={t('closeButton')}
             >
               <Ionicons name="close" size={22} color={theme.subText} />

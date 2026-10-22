@@ -96,6 +96,8 @@ const OFFICIAL_DOMAINS: Record<string, { name: string; domains: string[] }> = {
   JP: { name: 'Japan', domains: ['elaws.e-gov.go.jp', 'e-gov.go.jp', 'courts.go.jp', 'moj.go.jp', '*.go.jp'] },
   PT: { name: 'Portugal', domains: ['diariodarepublica.pt', 'dre.pt', '*.gov.pt'] },
   BR: { name: 'Brazil', domains: ['planalto.gov.br', '*.gov.br', '*.jus.br'] },
+  MX: { name: 'Mexico', domains: ['diputados.gob.mx', 'dof.gob.mx', 'scjn.gob.mx', 'profeco.gob.mx', '*.gob.mx'] },
+  KR: { name: 'South Korea', domains: ['law.go.kr', 'moleg.go.kr', 'scourt.go.kr', 'ccourt.go.kr', '*.go.kr'] },
   IN: { name: 'India', domains: ['indiacode.nic.in', 'legislative.gov.in', 'egazette.gov.in', 'sci.gov.in', '*.gov.in'] },
   CA: { name: 'Canada (federal and provincial)', domains: ['laws-lois.justice.gc.ca', 'justice.gc.ca', 'canada.ca', 'scc-csc.ca', 'legisquebec.gouv.qc.ca', 'ontario.ca', 'gov.bc.ca', '*.gc.ca'] },
   AU: { name: 'Australia (federal and state)', domains: ['legislation.gov.au', 'hcourt.gov.au', 'ag.gov.au', 'accc.gov.au', 'fairwork.gov.au', '*.gov.au'] },

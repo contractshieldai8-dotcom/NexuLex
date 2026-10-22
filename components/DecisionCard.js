@@ -311,7 +311,7 @@ export default function DecisionCard({
             </Text>
             <TouchableOpacity accessibilityRole="button"
               onPress={() => handleCopyCounter().catch(() => {})}
-              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+              hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
               accessibilityLabel={t('copyCounterMessage')}
             >
               <Ionicons
