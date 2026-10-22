@@ -2,7 +2,8 @@
 module.exports = {
   st2Title: 'Confianza y control',
   st2Hint: 'Que guarda NexuLex, que permanece en el dispositivo y como se gestiona la suscripción de la tienda.',
-  st2Keep: 'Los análisis y los mensajes de soporte permanecen en su cuenta hasta que los borre.',
+  st2Keep: "Su correo, los análisis y los mensajes de soporte permanecen en su cuenta hasta que los borre. No recopilamos un número de teléfono.",
+  st2Ai: "El texto del contrato, las fotos y las preguntas solo se envían a nuestro proveedor de IA (Anthropic) con su permiso y únicamente para generar su resultado. Puede desactivarlo arriba.",
   st2Picker: 'Las fotos y los PDF se eligen en el selector del sistema. No se capturan en segundo plano.',
   st2Sub: 'Borrar la cuenta no cancela una suscripción de App Store o Google Play. Gestione en la tienda.',
   st2Quota: 'El registro del dispositivo del cupo gratuito permanece sin vinculo tras el borrado, solo para bloquear nuevas solicitudes gratuitas.',

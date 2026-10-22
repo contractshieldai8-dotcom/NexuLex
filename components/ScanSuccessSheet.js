@@ -3,7 +3,7 @@ import { Dimensions, I18nManager, Modal, Pressable, StyleSheet, Text, TouchableO
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, styles } from '../theme';
+import { styles } from '../theme';
 import { SCAN_SUCCESS_JOBS } from '../constants/scanSuccess';
 import { scanSuccessInviteUrl } from '../constants/scanSuccessLocale';
 import KeyboardSafeSheet, { useKeyboardSafeSheet } from './KeyboardSafeSheet';

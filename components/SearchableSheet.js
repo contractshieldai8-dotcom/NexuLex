@@ -13,7 +13,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
-import { ACCENT, alignStart, styles } from '../theme';
+import { alignStart, styles } from '../theme';
 import { useKeyboardSafeSheet } from './KeyboardSafeSheet';
 
 const SHEET_MAX = Math.round(Dimensions.get('window').height * 0.85);

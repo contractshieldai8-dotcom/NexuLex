@@ -14,7 +14,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, styles } from '../theme';
+import { styles } from '../theme';
 import { AI_REPORT_REASONS, submitAiReport } from '../services/aiReport';
 import { useFeedback } from '../context/FeedbackContext';
 import KeyboardSafeSheet, { useKeyboardSafeSheet } from './KeyboardSafeSheet';

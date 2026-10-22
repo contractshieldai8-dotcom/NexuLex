@@ -10,7 +10,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, WARNING, styles } from '../theme';
+import { styles } from '../theme';
 import { decodePlainText, exportPlain } from '../utils/exportPlain';
 import { shareShieldDocx, shareShieldRedlinePdf } from '../utils/redlineExport';
 import {

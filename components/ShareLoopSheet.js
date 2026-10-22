@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import * as Clipboard from 'expo-clipboard';
 
-import { ACCENT, styles } from '../theme';
+import { styles } from '../theme';
 import { useFeedback } from '../context/FeedbackContext';
 import { buildInvitePayload, inviteUrl, rateUrl } from '../constants/shareLoop';
 import { formatCode, withInviteCode } from '../utils/referralCore';

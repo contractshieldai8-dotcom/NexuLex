@@ -10,7 +10,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, styles } from '../theme';
+import { styles } from '../theme';
 import KeyboardScreen from '../components/KeyboardScreen';
 import { submitSupportMessage } from '../services/support';
 

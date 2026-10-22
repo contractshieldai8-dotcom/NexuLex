@@ -17,7 +17,7 @@ import * as DocumentPicker from 'expo-document-picker';
 import * as ImagePicker from 'expo-image-picker';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, ACCENT_ALT, DANGER, SUCCESS, WARNING, styles, toneText } from '../theme';
+import { ACCENT_ALT, DANGER, SUCCESS, WARNING, styles, toneText } from '../theme';
 import { explainLegalDocument } from '../services/ai';
 import {
   loadFreeExplainsLeft,

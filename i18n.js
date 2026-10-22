@@ -73,6 +73,7 @@ import { WAVE_LG1_I18N } from './i18n.wavelg1';
 import { WAVE_D1_I18N } from './i18n.waved1';
 import { WAVE_ECON1_I18N } from './i18n.waveecon1';
 import { WAVE_CL1_I18N } from './i18n.wavecl1';
+import { WAVE_AC1_I18N } from './i18n.waveac1';
 
 const resources = {
   tr: {
@@ -323,16 +324,11 @@ const resources = {
       seePlans: "Planları gör",
 
       // E-Posta Doğrulama & Telefon
-      phonePlaceholder: "Telefon numaranız (+90...)",
-      phoneRequired: "Lütfen telefon numaranızı girin.",
-      phoneInvalid: "Geçerli bir telefon numarası girin.",
-      phoneAlreadyUsed: "Bu telefon numarası başka bir hesapta kayıtlı.",
       verifyEmailTitle: "E-postanızı doğrulayın",
       verifyEmailMessage: "Hesabınızı etkinleştirmek ve ücretsiz analiz haklarınızı almak için e-postanıza gönderdiğimiz bağlantıya tıklayın.",
       emailNotVerified: "Ücretsiz haklarınızı kullanmak için önce e-posta adresinizi doğrulayın.",
       resendVerification: "Doğrulama e-postasını tekrar gönder",
       verificationResent: "Doğrulama e-postası tekrar gönderildi.",
-      deviceAlreadyUsed: "Bu cihaz veya telefon numarası daha önce ücretsiz haklardan yararlanmış.",
 
       // Servis Hataları (kullanıcıya gösterilen anlaşılır karşılıklar)
       errNetwork: "İnternet bağlantısı kurulamadı. Bağlantınızı kontrol edip tekrar deneyin.",
@@ -350,8 +346,6 @@ const resources = {
       languageNoResult: "Eşleşen dil bulunamadı.",
 
       // Ülke Kodu Seçici
-      countryCodeTitle: "Ülke kodu seçin",
-      countryCodeSearchPlaceholder: "Ülke veya kod ara...",
 
       // Abonelik Planları
       paywallRestore: "Satın alımları geri yükle",
@@ -452,6 +446,8 @@ const resources = {
       ...WAVE_D1_I18N.tr,
       ...WAVE_ECON1_I18N.tr,
       ...WAVE_CL1_I18N.tr,
+
+      ...WAVE_AC1_I18N.tr,
     }
   },
   en: {
@@ -702,16 +698,11 @@ const resources = {
       seePlans: "See plans",
 
       // Email Verification & Phone
-      phonePlaceholder: "Your phone number (+1...)",
-      phoneRequired: "Please enter your phone number.",
-      phoneInvalid: "Please enter a valid phone number.",
-      phoneAlreadyUsed: "This phone number is already registered to another account.",
       verifyEmailTitle: "Verify your email",
       verifyEmailMessage: "Click the link we sent to your email address to activate your account and receive your free analyses.",
       emailNotVerified: "Please verify your email address before using your free analyses.",
       resendVerification: "Resend verification email",
       verificationResent: "Verification email sent again.",
-      deviceAlreadyUsed: "This device or phone number has already used the free quota.",
 
       // Service Errors (user-facing wording)
       errNetwork: "No internet connection. Check your connection and try again.",
@@ -729,8 +720,6 @@ const resources = {
       languageNoResult: "No matching language found.",
 
       // Country Code Selector
-      countryCodeTitle: "Select country code",
-      countryCodeSearchPlaceholder: "Search country or code...",
 
       // Subscription Plans
       paywallRestore: "Restore purchases",
@@ -831,6 +820,8 @@ const resources = {
       ...WAVE_D1_I18N.en,
       ...WAVE_ECON1_I18N.en,
       ...WAVE_CL1_I18N.en,
+
+      ...WAVE_AC1_I18N.en,
     }
   },
   de: {
@@ -1081,16 +1072,11 @@ const resources = {
       seePlans: "Tarife ansehen",
 
       // E-Mail-Bestätigung & Telefon
-      phonePlaceholder: "Ihre Telefonnummer (+49...)",
-      phoneRequired: "Bitte geben Sie Ihre Telefonnummer ein.",
-      phoneInvalid: "Bitte geben Sie eine gültige Telefonnummer ein.",
-      phoneAlreadyUsed: "Diese Telefonnummer ist bereits einem anderen Konto zugeordnet.",
       verifyEmailTitle: "Bestätigen Sie Ihre E-Mail",
       verifyEmailMessage: "Klicken Sie auf den Link, den wir an Ihre E-Mail-Adresse gesendet haben, um Ihr Konto zu aktivieren und Ihre kostenlosen Analysen zu erhalten.",
       emailNotVerified: "Bitte bestätigen Sie Ihre E-Mail-Adresse, bevor Sie Ihre kostenlosen Analysen nutzen.",
       resendVerification: "Bestätigungs-E-Mail erneut senden",
       verificationResent: "Bestätigungs-E-Mail erneut gesendet.",
-      deviceAlreadyUsed: "Dieses Gerät oder diese Telefonnummer hat das kostenlose Kontingent bereits genutzt.",
 
       // Dienstfehler (verständliche Meldungen für Nutzer)
       errNetwork: "Keine Internetverbindung. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
@@ -1108,8 +1094,6 @@ const resources = {
       languageNoResult: "Keine passende Sprache gefunden.",
 
       // Ländervorwahl-Auswahl
-      countryCodeTitle: "Ländervorwahl auswählen",
-      countryCodeSearchPlaceholder: "Land oder Vorwahl suchen...",
 
       // Abonnementpläne
       paywallRestore: "Käufe wiederherstellen",
@@ -1210,6 +1194,8 @@ const resources = {
       ...WAVE_D1_I18N.de,
       ...WAVE_ECON1_I18N.de,
       ...WAVE_CL1_I18N.de,
+
+      ...WAVE_AC1_I18N.de,
     }
   },
   fr: {
@@ -1460,16 +1446,11 @@ const resources = {
       seePlans: "Voir les formules",
 
       // Vérification de l'e-mail et téléphone
-      phonePlaceholder: "Votre numéro de téléphone (+33...)",
-      phoneRequired: "Veuillez saisir votre numéro de téléphone.",
-      phoneInvalid: "Veuillez saisir un numéro de téléphone valide.",
-      phoneAlreadyUsed: "Ce numéro de téléphone est déjà associé à un autre compte.",
       verifyEmailTitle: "Vérifiez votre e-mail",
       verifyEmailMessage: "Cliquez sur le lien que nous avons envoyé à votre adresse e-mail pour activer votre compte et obtenir vos analyses gratuites.",
       emailNotVerified: "Veuillez vérifier votre adresse e-mail avant d'utiliser vos analyses gratuites.",
       resendVerification: "Renvoyer l'e-mail de vérification",
       verificationResent: "E-mail de vérification renvoyé.",
-      deviceAlreadyUsed: "Cet appareil ou ce numéro de téléphone a déjà utilisé le quota gratuit.",
 
       // Erreurs de service (formulations destinées aux utilisateurs)
       errNetwork: "Aucune connexion Internet. Vérifiez votre connexion et réessayez.",
@@ -1487,8 +1468,6 @@ const resources = {
       languageNoResult: "Aucune langue correspondante trouvée.",
 
       // Sélecteur d'indicatif pays
-      countryCodeTitle: "Sélectionner l'indicatif pays",
-      countryCodeSearchPlaceholder: "Rechercher un pays ou un indicatif...",
 
       // Formules d'abonnement
       paywallRestore: "Restaurer les achats",
@@ -1589,6 +1568,8 @@ const resources = {
       ...WAVE_D1_I18N.fr,
       ...WAVE_ECON1_I18N.fr,
       ...WAVE_CL1_I18N.fr,
+
+      ...WAVE_AC1_I18N.fr,
     }
   },
   es: {
@@ -1839,16 +1820,11 @@ const resources = {
       seePlans: "Ver planes",
 
       // Verificación de correo y teléfono
-      phonePlaceholder: "Su número de teléfono (+34...)",
-      phoneRequired: "Introduzca su número de teléfono.",
-      phoneInvalid: "Introduzca un número de teléfono válido.",
-      phoneAlreadyUsed: "Este número de teléfono ya está registrado en otra cuenta.",
       verifyEmailTitle: "Verifique su correo electrónico",
       verifyEmailMessage: "Haga clic en el enlace que hemos enviado a su correo electrónico para activar su cuenta y recibir sus análisis gratuitos.",
       emailNotVerified: "Verifique su dirección de correo electrónico antes de usar sus análisis gratuitos.",
       resendVerification: "Reenviar correo de verificación",
       verificationResent: "Correo de verificación reenviado.",
-      deviceAlreadyUsed: "Este dispositivo o número de teléfono ya ha utilizado la cuota gratuita.",
 
       // Errores del servicio (mensajes para el usuario)
       errNetwork: "No hay conexión a Internet. Comprueba tu conexión e inténtalo de nuevo.",
@@ -1866,8 +1842,6 @@ const resources = {
       languageNoResult: "No se ha encontrado ningún idioma coincidente.",
 
       // Selector de código de país
-      countryCodeTitle: "Seleccionar código de país",
-      countryCodeSearchPlaceholder: "Buscar país o código...",
 
       // Planes de suscripción
       paywallRestore: "Restaurar compras",
@@ -1968,6 +1942,8 @@ const resources = {
       ...WAVE_D1_I18N.es,
       ...WAVE_ECON1_I18N.es,
       ...WAVE_CL1_I18N.es,
+
+      ...WAVE_AC1_I18N.es,
     }
   },
   ar: {
@@ -2218,16 +2194,11 @@ const resources = {
       seePlans: "عرض الخطط",
 
       // التحقق من البريد الإلكتروني والهاتف
-      phonePlaceholder: "رقم هاتفك (+971...)",
-      phoneRequired: "يرجى إدخال رقم هاتفك.",
-      phoneInvalid: "يرجى إدخال رقم هاتف صالح.",
-      phoneAlreadyUsed: "رقم الهاتف هذا مسجل بالفعل في حساب آخر.",
       verifyEmailTitle: "تحقق من بريدك الإلكتروني",
       verifyEmailMessage: "انقر على الرابط الذي أرسلناه إلى بريدك الإلكتروني لتفعيل حسابك والحصول على تحليلاتك المجانية.",
       emailNotVerified: "يرجى التحقق من بريدك الإلكتروني قبل استخدام تحليلاتك المجانية.",
       resendVerification: "إعادة إرسال بريد التحقق",
       verificationResent: "تم إعادة إرسال بريد التحقق.",
-      deviceAlreadyUsed: "هذا الجهاز أو رقم الهاتف استفاد بالفعل من الحصة المجانية.",
 
       // أخطاء الخدمة (صياغة موجهة للمستخدم)
       errNetwork: "لا يوجد اتصال بالإنترنت. تحقق من اتصالك وحاول مرة أخرى.",
@@ -2245,8 +2216,6 @@ const resources = {
       languageNoResult: "لم يتم العثور على لغة مطابقة.",
 
       // اختيار رمز الدولة
-      countryCodeTitle: "اختر رمز الدولة",
-      countryCodeSearchPlaceholder: "ابحث عن دولة أو رمز...",
 
       // خطط الاشتراك
       paywallRestore: "استعادة المشتريات",
@@ -2347,6 +2316,8 @@ const resources = {
       ...WAVE_D1_I18N.ar,
       ...WAVE_ECON1_I18N.ar,
       ...WAVE_CL1_I18N.ar,
+
+      ...WAVE_AC1_I18N.ar,
     }
   },
   it: {
@@ -2597,16 +2568,11 @@ const resources = {
       seePlans: "Vedi i piani",
 
       // Verifica e-mail e telefono
-      phonePlaceholder: "Il tuo numero di telefono (+39...)",
-      phoneRequired: "Inserisci il tuo numero di telefono.",
-      phoneInvalid: "Inserisci un numero di telefono valido.",
-      phoneAlreadyUsed: "Questo numero di telefono è già registrato su un altro account.",
       verifyEmailTitle: "Verifica la tua e-mail",
       verifyEmailMessage: "Clicca sul link che abbiamo inviato al tuo indirizzo e-mail per attivare l'account e ricevere le tue analisi gratuite.",
       emailNotVerified: "Verifica il tuo indirizzo e-mail prima di usare le analisi gratuite.",
       resendVerification: "Invia di nuovo l'e-mail di verifica",
       verificationResent: "E-mail di verifica inviata di nuovo.",
-      deviceAlreadyUsed: "Questo dispositivo o numero di telefono ha già usufruito della quota gratuita.",
 
       // Errori del servizio (messaggi rivolti all'utente)
       errNetwork: "Nessuna connessione a Internet. Controlla la connessione e riprova.",
@@ -2624,8 +2590,6 @@ const resources = {
       languageNoResult: "Nessuna lingua corrispondente trovata.",
 
       // Selettore del prefisso internazionale
-      countryCodeTitle: "Seleziona prefisso internazionale",
-      countryCodeSearchPlaceholder: "Cerca paese o prefisso...",
 
       // Piani di abbonamento
       paywallRestore: "Ripristina acquisti",
@@ -2726,6 +2690,8 @@ const resources = {
       ...WAVE_D1_I18N.it,
       ...WAVE_ECON1_I18N.it,
       ...WAVE_CL1_I18N.it,
+
+      ...WAVE_AC1_I18N.it,
     }
   },
   zh: {
@@ -2976,16 +2942,11 @@ const resources = {
       seePlans: "查看方案",
 
       // 邮箱验证与手机号
-      phonePlaceholder: "您的手机号码（+86…）",
-      phoneRequired: "请输入您的手机号码。",
-      phoneInvalid: "请输入有效的手机号码。",
-      phoneAlreadyUsed: "该手机号码已被其他账户注册。",
       verifyEmailTitle: "验证您的邮箱",
       verifyEmailMessage: "请点击我们发送到您邮箱的链接，以激活账户并领取免费分析次数。",
       emailNotVerified: "使用免费分析次数前，请先验证您的邮箱地址。",
       resendVerification: "重新发送验证邮件",
       verificationResent: "验证邮件已重新发送。",
-      deviceAlreadyUsed: "该设备或手机号码已使用过免费额度。",
 
       // 服务错误（面向用户的提示）
       errNetwork: "无法连接互联网。请检查网络后重试。",
@@ -3003,8 +2964,6 @@ const resources = {
       languageNoResult: "未找到匹配的语言。",
 
       // 国家代码选择器
-      countryCodeTitle: "选择国家代码",
-      countryCodeSearchPlaceholder: "搜索国家或代码...",
 
       // 订阅方案
       paywallRestore: "恢复购买",
@@ -3105,6 +3064,8 @@ const resources = {
       ...WAVE_D1_I18N.zh,
       ...WAVE_ECON1_I18N.zh,
       ...WAVE_CL1_I18N.zh,
+
+      ...WAVE_AC1_I18N.zh,
     }
   },
   ru: {
@@ -3355,16 +3316,11 @@ const resources = {
       seePlans: "Посмотреть тарифы",
 
       // Подтверждение почты и телефон
-      phonePlaceholder: "Ваш номер телефона (+7...)",
-      phoneRequired: "Введите ваш номер телефона.",
-      phoneInvalid: "Введите корректный номер телефона.",
-      phoneAlreadyUsed: "Этот номер телефона уже привязан к другому аккаунту.",
       verifyEmailTitle: "Подтвердите вашу почту",
       verifyEmailMessage: "Перейдите по ссылке, отправленной на вашу электронную почту, чтобы активировать аккаунт и получить бесплатные анализы.",
       emailNotVerified: "Подтвердите адрес электронной почты, прежде чем использовать бесплатные анализы.",
       resendVerification: "Отправить письмо подтверждения ещё раз",
       verificationResent: "Письмо для подтверждения отправлено повторно.",
-      deviceAlreadyUsed: "Это устройство или номер телефона уже использовали бесплатную квоту.",
 
       // Ошибки сервиса (понятные пользователю формулировки)
       errNetwork: "Нет подключения к интернету. Проверьте соединение и попробуйте снова.",
@@ -3382,8 +3338,6 @@ const resources = {
       languageNoResult: "Подходящий язык не найден.",
 
       // Выбор кода страны
-      countryCodeTitle: "Выберите код страны",
-      countryCodeSearchPlaceholder: "Поиск страны или кода...",
 
       // Планы подписки
       paywallRestore: "Восстановить покупки",
@@ -3484,6 +3438,8 @@ const resources = {
       ...WAVE_D1_I18N.ru,
       ...WAVE_ECON1_I18N.ru,
       ...WAVE_CL1_I18N.ru,
+
+      ...WAVE_AC1_I18N.ru,
     }
   },
   fa: {
@@ -3734,16 +3690,11 @@ const resources = {
       seePlans: "مشاهده طرح‌ها",
 
       // تأیید ایمیل و تلفن
-      phonePlaceholder: "شماره تلفن شما (+98...)",
-      phoneRequired: "لطفاً شماره تلفن خود را وارد کنید.",
-      phoneInvalid: "لطفاً یک شماره تلفن معتبر وارد کنید.",
-      phoneAlreadyUsed: "این شماره تلفن قبلاً با حساب دیگری ثبت شده است.",
       verifyEmailTitle: "ایمیل خود را تأیید کنید",
       verifyEmailMessage: "برای فعال‌سازی حساب و دریافت تحلیل‌های رایگان، روی لینکی که به ایمیل شما فرستادیم کلیک کنید.",
       emailNotVerified: "پیش از استفاده از تحلیل‌های رایگان، نشانی ایمیل خود را تأیید کنید.",
       resendVerification: "ارسال دوباره ایمیل تأیید",
       verificationResent: "ایمیل تأیید دوباره ارسال شد.",
-      deviceAlreadyUsed: "این دستگاه یا شماره تلفن قبلاً از سهمیه رایگان استفاده کرده است.",
 
       // خطاهای سرویس (پیام‌های قابل فهم برای کاربر)
       errNetwork: "اتصال اینترنت برقرار نیست. اتصال خود را بررسی کنید و دوباره تلاش کنید.",
@@ -3761,8 +3712,6 @@ const resources = {
       languageNoResult: "زبان مطابقی یافت نشد.",
 
       // انتخاب کد کشور
-      countryCodeTitle: "کد کشور را انتخاب کنید",
-      countryCodeSearchPlaceholder: "جستجوی کشور یا کد...",
 
       // طرح‌های اشتراک
       paywallRestore: "بازیابی خریدها",
@@ -3863,6 +3812,8 @@ const resources = {
       ...WAVE_D1_I18N.fa,
       ...WAVE_ECON1_I18N.fa,
       ...WAVE_CL1_I18N.fa,
+
+      ...WAVE_AC1_I18N.fa,
     }
   },
   ja: {
@@ -4113,16 +4064,11 @@ const resources = {
       seePlans: "プランを見る",
 
       // メール認証と電話番号
-      phonePlaceholder: "電話番号（+81...）",
-      phoneRequired: "電話番号を入力してください。",
-      phoneInvalid: "有効な電話番号を入力してください。",
-      phoneAlreadyUsed: "この電話番号はすでに別のアカウントで登録されています。",
       verifyEmailTitle: "メールアドレスの確認",
       verifyEmailMessage: "メールアドレスに送信したリンクをクリックして、アカウントを有効化し無料分析を受け取ってください。",
       emailNotVerified: "無料分析をご利用になる前に、メールアドレスの確認を行ってください。",
       resendVerification: "確認メールを再送信",
       verificationResent: "確認メールを再送信しました。",
-      deviceAlreadyUsed: "この端末または電話番号はすでに無料枠を利用しています。",
 
       // サービスエラー（ユーザー向けの表現）
       errNetwork: "インターネットに接続できません。接続を確認してもう一度お試しください。",
@@ -4140,8 +4086,6 @@ const resources = {
       languageNoResult: "一致する言語が見つかりません。",
 
       // 国番号セレクター
-      countryCodeTitle: "国番号を選択",
-      countryCodeSearchPlaceholder: "国名または番号を検索...",
 
       // サブスクリプションプラン
       paywallRestore: "購入を復元",
@@ -4242,6 +4186,8 @@ const resources = {
       ...WAVE_D1_I18N.ja,
       ...WAVE_ECON1_I18N.ja,
       ...WAVE_CL1_I18N.ja,
+
+      ...WAVE_AC1_I18N.ja,
     }
   },
   pt: {
@@ -4492,16 +4438,11 @@ const resources = {
       seePlans: "Ver planos",
 
       // Verificação de e-mail e telefone
-      phonePlaceholder: "O seu número de telefone (+351...)",
-      phoneRequired: "Introduza o seu número de telefone.",
-      phoneInvalid: "Introduza um número de telefone válido.",
-      phoneAlreadyUsed: "Este número de telefone já está registado noutra conta.",
       verifyEmailTitle: "Confirme o seu e-mail",
       verifyEmailMessage: "Clique no link que enviámos para o seu e-mail para ativar a conta e receber as suas análises gratuitas.",
       emailNotVerified: "Confirme o seu endereço de e-mail antes de utilizar as análises gratuitas.",
       resendVerification: "Reenviar e-mail de confirmação",
       verificationResent: "E-mail de confirmação reenviado.",
-      deviceAlreadyUsed: "Este dispositivo ou número de telefone já utilizou a quota gratuita.",
 
       // Erros de serviço (mensagens dirigidas ao utilizador)
       errNetwork: "Sem ligação à Internet. Verifique a ligação e tente novamente.",
@@ -4519,8 +4460,6 @@ const resources = {
       languageNoResult: "Nenhum idioma correspondente encontrado.",
 
       // Seletor de indicativo de país
-      countryCodeTitle: "Selecionar indicativo de país",
-      countryCodeSearchPlaceholder: "Procurar país ou indicativo...",
 
       // Planos de subscrição
       paywallRestore: "Restaurar compras",
@@ -4621,6 +4560,8 @@ const resources = {
       ...WAVE_D1_I18N.pt,
       ...WAVE_ECON1_I18N.pt,
       ...WAVE_CL1_I18N.pt,
+
+      ...WAVE_AC1_I18N.pt,
     }
   },
   nl: {
@@ -4871,16 +4812,11 @@ const resources = {
       seePlans: "Abonnementen bekijken",
 
       // E-mailverificatie en telefoon
-      phonePlaceholder: "Je telefoonnummer (+31...)",
-      phoneRequired: "Voer je telefoonnummer in.",
-      phoneInvalid: "Voer een geldig telefoonnummer in.",
-      phoneAlreadyUsed: "Dit telefoonnummer is al bij een ander account geregistreerd.",
       verifyEmailTitle: "Bevestig je e-mailadres",
       verifyEmailMessage: "Klik op de link die we naar je e-mailadres hebben gestuurd om je account te activeren en je gratis analyses te ontvangen.",
       emailNotVerified: "Bevestig je e-mailadres voordat je je gratis analyses gebruikt.",
       resendVerification: "Bevestigingsmail opnieuw versturen",
       verificationResent: "Bevestigingsmail opnieuw verstuurd.",
-      deviceAlreadyUsed: "Dit apparaat of telefoonnummer heeft het gratis quotum al gebruikt.",
 
       // Servicefouten (formulering voor de gebruiker)
       errNetwork: "Geen internetverbinding. Controleer je verbinding en probeer het opnieuw.",
@@ -4898,8 +4834,6 @@ const resources = {
       languageNoResult: "Geen overeenkomende taal gevonden.",
 
       // Landnummerkeuze
-      countryCodeTitle: "Landnummer kiezen",
-      countryCodeSearchPlaceholder: "Land of nummer zoeken...",
 
       // Abonnementen
       paywallRestore: "Aankopen herstellen",
@@ -5000,6 +4934,8 @@ const resources = {
       ...WAVE_D1_I18N.nl,
       ...WAVE_ECON1_I18N.nl,
       ...WAVE_CL1_I18N.nl,
+
+      ...WAVE_AC1_I18N.nl,
     }
   }
 };

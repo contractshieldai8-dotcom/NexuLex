@@ -1,0 +1,257 @@
+// WAVE AC.1 - Sign-up legal agreement (18+ / Terms / Privacy) and AI third-party processing consent.
+// Phone collection was removed (data minimisation); these strings replace the old phone UI.
+// Run: node scripts/gen-waveac1-i18n.js   -> writes i18n.waveac1.js (same key set in all 13 languages).
+// sgTermsLink / sgPrivacyLink are inserted into sgAgree via {{terms}} / {{privacy}} (grammatical form of that sentence).
+const fs = require('fs');
+const path = require('path');
+
+const T = {
+  en: {
+    sgAgree: 'I am 18 or older and I accept the {{terms}} and the {{privacy}}.',
+    sgTermsLink: 'Terms of use',
+    sgPrivacyLink: 'Privacy policy',
+    sgAgreeRequired: 'To create your account, confirm that you are 18 or older and accept the Terms of use and the Privacy policy.',
+    sgNoPhone: 'We only ask for your email and a password. No phone number is needed.',
+    aiConsentTitle: 'Allow AI processing?',
+    aiConsentSend: 'To analyze a contract or answer a question, NexuLex AI sends what you provide (contract text, photos, PDF pages, questions and facts) over an encrypted connection to our server, which passes it to our AI provider Anthropic (Claude, United States) only to create your result.',
+    aiConsentRules: 'Nothing is sent until you start an analysis or ask a question. We do not sell your contracts. Do not submit information you are not allowed to share.',
+    aiConsentWithdraw: 'You can withdraw this at any time in Settings under Privacy.',
+    aiConsentAgree: 'Agree and continue',
+    aiConsentDecline: 'Not now',
+    aiConsentNeeded: 'AI features need your permission. Nothing was sent.',
+    aiConsentSettingTitle: 'AI processing of my submissions',
+    aiConsentSettingHint: 'Lets NexuLex AI send the contract text, photos and questions you submit to our AI provider (Anthropic) to create results. Turn it off and the app asks again before the next request.',
+  },
+  tr: {
+    sgAgree: '18 yaşını doldurdum; {{terms}} ve {{privacy}} metinlerini kabul ediyorum.',
+    sgTermsLink: 'Kullanım koşulları',
+    sgPrivacyLink: 'Gizlilik politikası',
+    sgAgreeRequired: 'Hesap oluşturmak için 18 yaşını doldurduğunuzu onaylayın; kullanım koşullarını ve gizlilik politikasını kabul edin.',
+    sgNoPhone: 'Yalnızca e-posta ve şifre yeterli. Telefon numarası gerekmez.',
+    aiConsentTitle: 'Yapay zekâ işlemesine izin verilsin mi?',
+    aiConsentSend: 'Bir sözleşmeyi analiz etmek veya bir soruyu yanıtlamak için NexuLex AI, sağladığınız içeriği (sözleşme metni, fotoğraflar, PDF sayfaları, sorular ve olgular) şifreli bağlantıyla sunucumuza gönderir; sunucumuz bunu yalnızca sonucunuzu üretmek için yapay zekâ sağlayıcımız Anthropic\'e (Claude, ABD) iletir.',
+    aiConsentRules: 'Siz bir analiz başlatana veya soru sorana kadar hiçbir şey gönderilmez. Sözleşmelerinizi satmayız. Paylaşma hakkınız olmayan bilgileri göndermeyin.',
+    aiConsentWithdraw: 'Bu izni istediğiniz zaman Ayarlar\'da Gizlilik bölümünden geri çekebilirsiniz.',
+    aiConsentAgree: 'Kabul et ve devam et',
+    aiConsentDecline: 'Şimdi değil',
+    aiConsentNeeded: 'Yapay zekâ özellikleri izninizi gerektirir. Hiçbir şey gönderilmedi.',
+    aiConsentSettingTitle: 'Gönderdiklerimin yapay zekâ ile işlenmesi',
+    aiConsentSettingHint: 'NexuLex AI\'nın gönderdiğiniz sözleşme metnini, fotoğrafları ve soruları sonuç üretmek için yapay zekâ sağlayıcımıza (Anthropic) iletmesine izin verir. Kapatırsanız uygulama bir sonraki istekten önce yeniden sorar.',
+  },
+  de: {
+    sgAgree: 'Ich bin mindestens 18 Jahre alt und akzeptiere die {{terms}} und die {{privacy}}.',
+    sgTermsLink: 'Nutzungsbedingungen',
+    sgPrivacyLink: 'Datenschutzrichtlinie',
+    sgAgreeRequired: 'Bestätige zum Erstellen deines Kontos, dass du mindestens 18 Jahre alt bist, und akzeptiere die Nutzungsbedingungen und die Datenschutzrichtlinie.',
+    sgNoPhone: 'Wir brauchen nur E-Mail und Passwort. Eine Telefonnummer ist nicht nötig.',
+    aiConsentTitle: 'KI-Verarbeitung erlauben?',
+    aiConsentSend: 'Um einen Vertrag zu analysieren oder eine Frage zu beantworten, sendet NexuLex AI deine Eingaben (Vertragstext, Fotos, PDF-Seiten, Fragen und Sachverhalte) verschlüsselt an unseren Server, der sie ausschließlich zur Erstellung deines Ergebnisses an unseren KI-Anbieter Anthropic (Claude, USA) weiterleitet.',
+    aiConsentRules: 'Es wird nichts gesendet, bevor du eine Analyse startest oder eine Frage stellst. Wir verkaufen deine Verträge nicht. Gib keine Informationen ein, die du nicht weitergeben darfst.',
+    aiConsentWithdraw: 'Du kannst diese Zustimmung jederzeit unter Einstellungen im Bereich Datenschutz widerrufen.',
+    aiConsentAgree: 'Zustimmen und fortfahren',
+    aiConsentDecline: 'Nicht jetzt',
+    aiConsentNeeded: 'KI-Funktionen benötigen deine Erlaubnis. Es wurde nichts gesendet.',
+    aiConsentSettingTitle: 'KI-Verarbeitung meiner Eingaben',
+    aiConsentSettingHint: 'Erlaubt NexuLex AI, Vertragstext, Fotos und Fragen, die du einreichst, zur Ergebniserstellung an unseren KI-Anbieter (Anthropic) zu senden. Bei Deaktivierung fragt die App vor der nächsten Anfrage erneut.',
+  },
+  fr: {
+    sgAgree: 'J\'ai au moins 18 ans et j\'accepte les {{terms}} et la {{privacy}}.',
+    sgTermsLink: 'Conditions d\'utilisation',
+    sgPrivacyLink: 'Politique de confidentialité',
+    sgAgreeRequired: 'Pour créer votre compte, confirmez que vous avez au moins 18 ans et acceptez les Conditions d\'utilisation et la Politique de confidentialité.',
+    sgNoPhone: 'Seuls un e-mail et un mot de passe sont demandés. Aucun numéro de téléphone n\'est nécessaire.',
+    aiConsentTitle: 'Autoriser le traitement par IA ?',
+    aiConsentSend: 'Pour analyser un contrat ou répondre à une question, NexuLex AI envoie ce que vous fournissez (texte du contrat, photos, pages PDF, questions et faits) via une connexion chiffrée à notre serveur, qui le transmet à notre fournisseur d\'IA Anthropic (Claude, États-Unis) uniquement pour produire votre résultat.',
+    aiConsentRules: 'Rien n\'est envoyé avant que vous lanciez une analyse ou posiez une question. Nous ne vendons pas vos contrats. N\'envoyez pas d\'informations que vous n\'avez pas le droit de partager.',
+    aiConsentWithdraw: 'Vous pouvez retirer cet accord à tout moment dans Réglages, rubrique Confidentialité.',
+    aiConsentAgree: 'Accepter et continuer',
+    aiConsentDecline: 'Pas maintenant',
+    aiConsentNeeded: 'Les fonctions d\'IA nécessitent votre autorisation. Rien n\'a été envoyé.',
+    aiConsentSettingTitle: 'Traitement par IA de mes envois',
+    aiConsentSettingHint: 'Permet à NexuLex AI d\'envoyer à notre fournisseur d\'IA (Anthropic) le texte de contrat, les photos et les questions que vous soumettez afin de produire des résultats. Si vous le désactivez, l\'app redemande avant la prochaine requête.',
+  },
+  es: {
+    sgAgree: 'Tengo al menos 18 años y acepto las {{terms}} y la {{privacy}}.',
+    sgTermsLink: 'Condiciones de uso',
+    sgPrivacyLink: 'Política de privacidad',
+    sgAgreeRequired: 'Para crear tu cuenta, confirma que tienes al menos 18 años y acepta las Condiciones de uso y la Política de privacidad.',
+    sgNoPhone: 'Solo pedimos correo electrónico y contraseña. No hace falta un número de teléfono.',
+    aiConsentTitle: '¿Permitir el procesamiento con IA?',
+    aiConsentSend: 'Para analizar un contrato o responder una pregunta, NexuLex AI envía lo que aportas (texto del contrato, fotos, páginas PDF, preguntas y hechos) mediante una conexión cifrada a nuestro servidor, que lo transmite a nuestro proveedor de IA Anthropic (Claude, EE. UU.) únicamente para generar tu resultado.',
+    aiConsentRules: 'No se envía nada hasta que inicies un análisis o hagas una pregunta. No vendemos tus contratos. No envíes información que no tengas derecho a compartir.',
+    aiConsentWithdraw: 'Puedes retirar este permiso en cualquier momento en Ajustes, en Privacidad.',
+    aiConsentAgree: 'Aceptar y continuar',
+    aiConsentDecline: 'Ahora no',
+    aiConsentNeeded: 'Las funciones de IA necesitan tu permiso. No se envió nada.',
+    aiConsentSettingTitle: 'Procesamiento con IA de mis envíos',
+    aiConsentSettingHint: 'Permite que NexuLex AI envíe a nuestro proveedor de IA (Anthropic) el texto de contrato, las fotos y las preguntas que envíes para generar resultados. Si lo desactivas, la app vuelve a preguntar antes de la próxima solicitud.',
+  },
+  ar: {
+    sgAgree: 'عمري 18 عامًا أو أكثر وأوافق على {{terms}} و{{privacy}}.',
+    sgTermsLink: 'شروط الاستخدام',
+    sgPrivacyLink: 'سياسة الخصوصية',
+    sgAgreeRequired: 'لإنشاء حسابك، أكّد أن عمرك 18 عامًا أو أكثر ووافق على شروط الاستخدام وسياسة الخصوصية.',
+    sgNoPhone: 'نطلب فقط البريد الإلكتروني وكلمة المرور. لا حاجة إلى رقم هاتف.',
+    aiConsentTitle: 'السماح بالمعالجة بالذكاء الاصطناعي؟',
+    aiConsentSend: 'لتحليل عقد أو الإجابة عن سؤال، يرسل NexuLex AI ما تقدّمه (نص العقد والصور وصفحات PDF والأسئلة والوقائع) عبر اتصال مشفّر إلى خادمنا، الذي يمرّره إلى مزوّد الذكاء الاصطناعي لدينا Anthropic (Claude، الولايات المتحدة) فقط لإنشاء نتيجتك.',
+    aiConsentRules: 'لا يُرسل أي شيء قبل أن تبدأ تحليلًا أو تطرح سؤالًا. نحن لا نبيع عقودك. لا ترسل معلومات لا يحق لك مشاركتها.',
+    aiConsentWithdraw: 'يمكنك سحب هذه الموافقة في أي وقت من الإعدادات ثم الخصوصية.',
+    aiConsentAgree: 'أوافق وأتابع',
+    aiConsentDecline: 'ليس الآن',
+    aiConsentNeeded: 'ميزات الذكاء الاصطناعي تحتاج إلى إذنك. لم يُرسل أي شيء.',
+    aiConsentSettingTitle: 'معالجة ما أرسله بالذكاء الاصطناعي',
+    aiConsentSettingHint: 'يسمح لـ NexuLex AI بإرسال نص العقد والصور والأسئلة التي تقدّمها إلى مزوّد الذكاء الاصطناعي لدينا (Anthropic) لإنشاء النتائج. عند الإيقاف يسألك التطبيق مجددًا قبل الطلب التالي.',
+  },
+  it: {
+    sgAgree: 'Ho almeno 18 anni e accetto le {{terms}} e l\'{{privacy}}.',
+    sgTermsLink: 'Condizioni d\'uso',
+    sgPrivacyLink: 'Informativa sulla privacy',
+    sgAgreeRequired: 'Per creare l\'account, conferma di avere almeno 18 anni e accetta le Condizioni d\'uso e l\'Informativa sulla privacy.',
+    sgNoPhone: 'Chiediamo solo e-mail e password. Non serve il numero di telefono.',
+    aiConsentTitle: 'Consentire l\'elaborazione con IA?',
+    aiConsentSend: 'Per analizzare un contratto o rispondere a una domanda, NexuLex AI invia ciò che fornisci (testo del contratto, foto, pagine PDF, domande e fatti) tramite connessione cifrata al nostro server, che lo inoltra al nostro fornitore di IA Anthropic (Claude, Stati Uniti) solo per creare il tuo risultato.',
+    aiConsentRules: 'Non viene inviato nulla finché non avvii un\'analisi o fai una domanda. Non vendiamo i tuoi contratti. Non inviare informazioni che non hai il diritto di condividere.',
+    aiConsentWithdraw: 'Puoi revocare questo consenso in qualsiasi momento in Impostazioni, sotto Privacy.',
+    aiConsentAgree: 'Accetta e continua',
+    aiConsentDecline: 'Non ora',
+    aiConsentNeeded: 'Le funzioni di IA richiedono il tuo permesso. Non è stato inviato nulla.',
+    aiConsentSettingTitle: 'Elaborazione con IA dei miei invii',
+    aiConsentSettingHint: 'Consente a NexuLex AI di inviare al nostro fornitore di IA (Anthropic) il testo del contratto, le foto e le domande che invii per creare i risultati. Se lo disattivi, l\'app chiede di nuovo prima della prossima richiesta.',
+  },
+  zh: {
+    sgAgree: '我已年满18岁，并同意{{terms}}和{{privacy}}。',
+    sgTermsLink: '使用条款',
+    sgPrivacyLink: '隐私政策',
+    sgAgreeRequired: '创建账户前，请确认您已年满18岁，并同意使用条款和隐私政策。',
+    sgNoPhone: '只需邮箱和密码，无需提供手机号码。',
+    aiConsentTitle: '允许 AI 处理吗？',
+    aiConsentSend: '为分析合同或回答问题，NexuLex AI 会通过加密连接将您提供的内容（合同文本、照片、PDF 页面、问题和事实）发送到我们的服务器，服务器仅为生成您的结果而将其转发给我们的 AI 服务提供商 Anthropic（Claude，美国）。',
+    aiConsentRules: '在您开始分析或提出问题之前，不会发送任何内容。我们不会出售您的合同。请勿提交您无权分享的信息。',
+    aiConsentWithdraw: '您可以随时在“设置”的“隐私”中撤回此同意。',
+    aiConsentAgree: '同意并继续',
+    aiConsentDecline: '暂不',
+    aiConsentNeeded: 'AI 功能需要您的许可。未发送任何内容。',
+    aiConsentSettingTitle: '用 AI 处理我提交的内容',
+    aiConsentSettingHint: '允许 NexuLex AI 将您提交的合同文本、照片和问题发送给我们的 AI 服务提供商（Anthropic）以生成结果。关闭后，应用会在下次请求前再次询问。',
+  },
+  ru: {
+    sgAgree: 'Мне исполнилось 18 лет, и я принимаю {{terms}} и {{privacy}}.',
+    sgTermsLink: 'Условия использования',
+    sgPrivacyLink: 'Политику конфиденциальности',
+    sgAgreeRequired: 'Чтобы создать аккаунт, подтвердите, что вам исполнилось 18 лет, и примите Условия использования и Политику конфиденциальности.',
+    sgNoPhone: 'Нужны только электронная почта и пароль. Номер телефона не требуется.',
+    aiConsentTitle: 'Разрешить обработку с помощью ИИ?',
+    aiConsentSend: 'Чтобы проанализировать договор или ответить на вопрос, NexuLex AI отправляет предоставленные вами данные (текст договора, фото, страницы PDF, вопросы и обстоятельства) по зашифрованному соединению на наш сервер, который передаёт их нашему поставщику ИИ Anthropic (Claude, США) только для формирования вашего результата.',
+    aiConsentRules: 'Ничего не отправляется, пока вы не запустите анализ или не зададите вопрос. Мы не продаём ваши договоры. Не отправляйте сведения, которыми вы не вправе делиться.',
+    aiConsentWithdraw: 'Вы можете отозвать это согласие в любой момент в разделе «Настройки», пункт «Конфиденциальность».',
+    aiConsentAgree: 'Согласиться и продолжить',
+    aiConsentDecline: 'Не сейчас',
+    aiConsentNeeded: 'Для функций ИИ нужно ваше разрешение. Ничего не отправлено.',
+    aiConsentSettingTitle: 'Обработка моих материалов с помощью ИИ',
+    aiConsentSettingHint: 'Позволяет NexuLex AI передавать отправленные вами текст договора, фото и вопросы нашему поставщику ИИ (Anthropic) для формирования результатов. Если отключить, приложение снова спросит перед следующим запросом.',
+  },
+  fa: {
+    sgAgree: 'من حداقل 18 سال دارم و {{terms}} و {{privacy}} را می‌پذیرم.',
+    sgTermsLink: 'شرایط استفاده',
+    sgPrivacyLink: 'سیاست حفظ حریم خصوصی',
+    sgAgreeRequired: 'برای ساخت حساب، تأیید کنید که حداقل 18 سال دارید و شرایط استفاده و سیاست حفظ حریم خصوصی را می‌پذیرید.',
+    sgNoPhone: 'فقط ایمیل و گذرواژه لازم است. شماره تلفن لازم نیست.',
+    aiConsentTitle: 'پردازش با هوش مصنوعی مجاز شود؟',
+    aiConsentSend: 'برای تحلیل یک قرارداد یا پاسخ به یک پرسش، NexuLex AI آنچه ارائه می‌دهید (متن قرارداد، عکس‌ها، صفحه‌های PDF، پرسش‌ها و وقایع) را از طریق اتصال رمزگذاری‌شده به سرور ما می‌فرستد و سرور آن را فقط برای تولید نتیجه شما به ارائه‌دهنده هوش مصنوعی ما، Anthropic (Claude، ایالات متحده)، منتقل می‌کند.',
+    aiConsentRules: 'تا زمانی که تحلیلی را شروع نکنید یا پرسشی نپرسید، چیزی ارسال نمی‌شود. ما قراردادهای شما را نمی‌فروشیم. اطلاعاتی را که حق اشتراک‌گذاری آن را ندارید ارسال نکنید.',
+    aiConsentWithdraw: 'هر زمان می‌توانید این رضایت را در تنظیمات، بخش حریم خصوصی، پس بگیرید.',
+    aiConsentAgree: 'می‌پذیرم و ادامه می‌دهم',
+    aiConsentDecline: 'حالا نه',
+    aiConsentNeeded: 'قابلیت‌های هوش مصنوعی به اجازه شما نیاز دارند. چیزی ارسال نشد.',
+    aiConsentSettingTitle: 'پردازش مطالب ارسالی من با هوش مصنوعی',
+    aiConsentSettingHint: 'به NexuLex AI اجازه می‌دهد متن قرارداد، عکس‌ها و پرسش‌هایی را که ارسال می‌کنید برای تولید نتیجه به ارائه‌دهنده هوش مصنوعی ما (Anthropic) بفرستد. اگر خاموش کنید، برنامه پیش از درخواست بعدی دوباره می‌پرسد.',
+  },
+  ja: {
+    sgAgree: '18歳以上であり、{{terms}}と{{privacy}}に同意します。',
+    sgTermsLink: '利用規約',
+    sgPrivacyLink: 'プライバシーポリシー',
+    sgAgreeRequired: 'アカウントを作成するには、18歳以上であることを確認し、利用規約とプライバシーポリシーに同意してください。',
+    sgNoPhone: '必要なのはメールアドレスとパスワードだけです。電話番号は不要です。',
+    aiConsentTitle: 'AIでの処理を許可しますか？',
+    aiConsentSend: '契約書の分析や質問への回答のため、NexuLex AIは、あなたが提供した内容（契約書のテキスト、写真、PDFページ、質問、事実関係）を暗号化された接続で当社サーバーへ送信し、サーバーはあなたの結果を作成する目的に限り、AIプロバイダーのAnthropic（Claude、米国）へ転送します。',
+    aiConsentRules: '分析を開始するか質問するまで、何も送信されません。契約書を販売することはありません。共有する権利のない情報は送信しないでください。',
+    aiConsentWithdraw: 'この同意は、設定のプライバシーからいつでも撤回できます。',
+    aiConsentAgree: '同意して続ける',
+    aiConsentDecline: '今はしない',
+    aiConsentNeeded: 'AI機能にはあなたの許可が必要です。何も送信されていません。',
+    aiConsentSettingTitle: '送信内容のAI処理',
+    aiConsentSettingHint: 'NexuLex AIが、あなたが送信した契約書テキスト、写真、質問を結果作成のためにAIプロバイダー（Anthropic）へ送ることを許可します。オフにすると、次のリクエストの前に再度確認します。',
+  },
+  pt: {
+    sgAgree: 'Tenho pelo menos 18 anos e aceito os {{terms}} e a {{privacy}}.',
+    sgTermsLink: 'Termos de utilização',
+    sgPrivacyLink: 'Política de privacidade',
+    sgAgreeRequired: 'Para criar a sua conta, confirme que tem pelo menos 18 anos e aceite os Termos de utilização e a Política de privacidade.',
+    sgNoPhone: 'Pedimos apenas e-mail e palavra-passe. Não é necessário número de telefone.',
+    aiConsentTitle: 'Permitir o processamento por IA?',
+    aiConsentSend: 'Para analisar um contrato ou responder a uma pergunta, o NexuLex AI envia o que fornece (texto do contrato, fotografias, páginas PDF, perguntas e factos) através de uma ligação cifrada para o nosso servidor, que o encaminha para o nosso fornecedor de IA Anthropic (Claude, Estados Unidos) apenas para criar o seu resultado.',
+    aiConsentRules: 'Nada é enviado até iniciar uma análise ou fazer uma pergunta. Não vendemos os seus contratos. Não envie informações que não tem o direito de partilhar.',
+    aiConsentWithdraw: 'Pode retirar esta autorização a qualquer momento em Definições, na secção Privacidade.',
+    aiConsentAgree: 'Aceitar e continuar',
+    aiConsentDecline: 'Agora não',
+    aiConsentNeeded: 'As funções de IA precisam da sua autorização. Nada foi enviado.',
+    aiConsentSettingTitle: 'Processamento por IA dos meus envios',
+    aiConsentSettingHint: 'Permite que o NexuLex AI envie ao nosso fornecedor de IA (Anthropic) o texto do contrato, as fotografias e as perguntas que submeter para criar resultados. Se desativar, a app volta a perguntar antes do pedido seguinte.',
+  },
+  nl: {
+    sgAgree: 'Ik ben 18 jaar of ouder en ga akkoord met de {{terms}} en het {{privacy}}.',
+    sgTermsLink: 'Gebruiksvoorwaarden',
+    sgPrivacyLink: 'Privacybeleid',
+    sgAgreeRequired: 'Bevestig om je account aan te maken dat je 18 jaar of ouder bent en ga akkoord met de Gebruiksvoorwaarden en het Privacybeleid.',
+    sgNoPhone: 'We vragen alleen om e-mail en wachtwoord. Een telefoonnummer is niet nodig.',
+    aiConsentTitle: 'AI-verwerking toestaan?',
+    aiConsentSend: 'Om een contract te analyseren of een vraag te beantwoorden, stuurt NexuLex AI wat je aanlevert (contracttekst, foto\'s, pdf-pagina\'s, vragen en feiten) via een versleutelde verbinding naar onze server, die het alleen doorgeeft aan onze AI-leverancier Anthropic (Claude, Verenigde Staten) om je resultaat te maken.',
+    aiConsentRules: 'Er wordt niets verstuurd voordat je een analyse start of een vraag stelt. We verkopen je contracten niet. Dien geen informatie in die je niet mag delen.',
+    aiConsentWithdraw: 'Je kunt deze toestemming op elk moment intrekken bij Instellingen, onder Privacy.',
+    aiConsentAgree: 'Akkoord en doorgaan',
+    aiConsentDecline: 'Niet nu',
+    aiConsentNeeded: 'AI-functies hebben je toestemming nodig. Er is niets verstuurd.',
+    aiConsentSettingTitle: 'AI-verwerking van mijn inzendingen',
+    aiConsentSettingHint: 'Staat NexuLex AI toe de contracttekst, foto\'s en vragen die je indient naar onze AI-leverancier (Anthropic) te sturen om resultaten te maken. Zet je dit uit, dan vraagt de app opnieuw vóór het volgende verzoek.',
+  },
+};
+
+const SHARE_LABELS = require('./l10n/shareLabels.js');
+for (const [key, byLang] of Object.entries(SHARE_LABELS)) {
+  for (const lang of Object.keys(T)) {
+    if (typeof byLang[lang] !== 'string') throw new Error(`shareLabels.${key} missing ${lang}`);
+    T[lang][key] = byLang[lang];
+  }
+}
+
+const langs = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
+const digitsOf = (v) => (v.replace(/\{\{\w+\}\}/g, '').match(/[0-9]+/g) || []).sort().join();
+const phOf = (v) => (v.match(/\{\{\w+\}\}/g) || []).sort().join();
+const en = T.en;
+const keys = Object.keys(en);
+const problems = [];
+const out = {};
+for (const lang of langs) {
+  const t = T[lang];
+  if (!t) { problems.push(`${lang}: missing table`); continue; }
+  const missing = keys.filter((k) => typeof t[k] !== 'string' || !t[k].trim());
+  const extra = Object.keys(t).filter((k) => !keys.includes(k));
+  if (missing.length || extra.length) problems.push(`${lang}: missing=[${missing}] extra=[${extra}]`);
+  for (const k of keys) {
+    const v = t[k];
+    if (typeof v !== 'string') continue;
+    if (phOf(v) !== phOf(en[k])) problems.push(`${lang}.${k}: placeholders`);
+    if (digitsOf(v) !== digitsOf(en[k])) problems.push(`${lang}.${k}: digits`);
+    if (/\u2192|\u2190/.test(v)) problems.push(`${lang}.${k}: arrow`);
+    if (lang !== 'en' && v.length >= 12 && v === en[k]) problems.push(`${lang}.${k}: identical to EN`);
+    if ((lang === 'ar' || lang === 'fa') && /[\u0600-\u06FF][^?]*\?(\s|$)/.test(v)) problems.push(`${lang}.${k}: ASCII ? after RTL`);
+    if (/phone|telefon/i.test(v) && k !== 'sgNoPhone') problems.push(`${lang}.${k}: mentions phone`);
+  }
+  if (!/NexuLex/.test(t.aiConsentSend) || !/Anthropic/.test(t.aiConsentSend)) problems.push(`${lang}.aiConsentSend: must name NexuLex and Anthropic`);
+  if (!/Anthropic/.test(t.aiConsentSettingHint)) problems.push(`${lang}.aiConsentSettingHint: must name Anthropic`);
+  out[lang] = Object.fromEntries(keys.map((k) => [k, t[k]]));
+}
+if (problems.length) { console.error(problems.join('\n')); process.exit(1); }
+const header = '// WAVE AC.1 - Sign-up legal agreement (18+ / Terms / Privacy) and AI third-party processing consent. Same key set in all 13 languages.\n// Generated by scripts/gen-waveac1-i18n.js - edit that file, not this one.\n\n';
+fs.writeFileSync(path.join(__dirname, '..', 'i18n.waveac1.js'), `${header}export const WAVE_AC1_I18N = ${JSON.stringify(out, null, 2)};\n`, 'utf8');
+console.log('Wrote i18n.waveac1.js keys=', keys.length);

@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Clipboard from 'expo-clipboard';
 
-import { ACCENT, DANGER, styles } from '../theme';
+import { styles } from '../theme';
 import { SHARE_AUDIENCES } from '../utils/shareSnapshot';
 import { mintShare, revokeShare } from '../services/shareBrief';
 import { listAdvisorSeats, pushAdvisorBrief } from '../services/advisorSeat';

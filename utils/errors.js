@@ -20,8 +20,8 @@ const CODE_TO_KEY = {
   [AI_ERROR_CODES.EXTRACT]: 'extractFailed',
   [AI_ERROR_CODES.EXTRACT_TRUNCATED]: 'errExtractTruncated',
   [AI_ERROR_CODES.DRAFT_TRUNCATED]: 'errDraftTruncated',
+  [AI_ERROR_CODES.CONSENT]: 'aiConsentNeeded',
   [QUOTA_ERRORS.QUOTA_EXHAUSTED]: 'noFreeAnalysesLeft',
-  [QUOTA_ERRORS.PHONE_TAKEN]: 'phoneAlreadyUsed',
   [QUOTA_ERRORS.NOT_AUTHENTICATED]: 'errSessionExpired',
 };
 

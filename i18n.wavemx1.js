@@ -6,7 +6,6 @@ export const WAVE_MX1_I18N = {
     "mxAnnualHint": "Bu ekrandaki mağaza fiyatıyla aylık planı on iki kez ödemeye göre karşılaştırılır.",
     "mxMonthlyNote": "Her ay faturalanır. İki fiyat da listeleniyorsa ve yıllık daha ucuzsa yılı seçin.",
     "mxNoCompare": "Tasarruf rakamı yalnızca mağaza hem aylık hem yıllık fiyat gösterdiğinde çıkar.",
-    "mxFirstValue": "İlk tarama, ilk sorular ve ilk dosya ücretsiz planda kalır.",
     "mxYearlyPick": "On iki aydan ucuzsa yıllık plan seçili gelir."
   },
   "en": {
@@ -14,7 +13,6 @@ export const WAVE_MX1_I18N = {
     "mxAnnualHint": "Compared with paying the monthly plan twelve times at the store price on this screen.",
     "mxMonthlyNote": "Billed every month. Choose yearly when both prices are listed and yearly costs less.",
     "mxNoCompare": "A savings figure appears only when the store lists both a monthly and a yearly price.",
-    "mxFirstValue": "Your first scan, first questions and first case file stay on the free plan.",
     "mxYearlyPick": "Yearly is selected when it costs less than twelve months."
   },
   "de": {
@@ -22,7 +20,6 @@ export const WAVE_MX1_I18N = {
     "mxAnnualHint": "Verglichen mit zwölfmal dem monatlichen Ladenpreis auf diesem Bildschirm.",
     "mxMonthlyNote": "Monatlich abgerechnet. Wählen Sie jährlich, wenn beide Preise stehen und das Jahr günstiger ist.",
     "mxNoCompare": "Eine Ersparnis erscheint nur, wenn der Store Monats- und Jahrespreis nennt.",
-    "mxFirstValue": "Erster Scan, erste Fragen und erste Akte bleiben im kostenlosen Plan.",
     "mxYearlyPick": "Jährlich ist vorausgewählt, wenn es günstiger ist als zwölf Monate."
   },
   "fr": {
@@ -30,7 +27,6 @@ export const WAVE_MX1_I18N = {
     "mxAnnualHint": "Comparé à douze fois le prix mensuel affiché par le magasin sur cet écran.",
     "mxMonthlyNote": "Facturé chaque mois. Choisissez l’année si les deux prix sont listés’et que l’année coûte moins.",
     "mxNoCompare": "Un chiffre d’économie n’apparaît que si le magasin affiche un prix mensuel et un prix annuel.",
-    "mxFirstValue": "La première analyse, les premières questions et le premier dossier restent dans le forfait gratuit.",
     "mxYearlyPick": "L’année est sélectionnée quand elle coûte moins que douze mois."
   },
   "es": {
@@ -38,7 +34,6 @@ export const WAVE_MX1_I18N = {
     "mxAnnualHint": "Comparado con pagar doce veces el precio mensual de la tienda en esta pantalla.",
     "mxMonthlyNote": "Se cobra cada mes. Elige el año si ambos precios aparecen y el año sale más barato.",
     "mxNoCompare": "La cifra de ahorro solo aparece si la tienda lista un precio mensual y uno anual.",
-    "mxFirstValue": "El primer análisis, las primeras preguntas y el primer expediente siguen en el plan gratuito.",
     "mxYearlyPick": "El año queda seleccionado cuando cuesta menos que doce meses."
   },
   "ar": {
@@ -46,7 +41,6 @@ export const WAVE_MX1_I18N = {
     "mxAnnualHint": "مقارنة بدفع الخطة الشهرية اثنتي عشرة مرة بسعر المتجر على هذه الشاشة.",
     "mxMonthlyNote": "تُفوتر كل شهر. اختر السنوي عندما يظهر السعران وتكون السنة أقل تكلفة.",
     "mxNoCompare": "يظهر رقم التوفير فقط عندما يعرض المتجر سعرًا شهريًا وآخر سنويًا.",
-    "mxFirstValue": "الفحص الأول والأسئلة الأولى وملف القضية الأول تبقى في الخطة المجانية.",
     "mxYearlyPick": "يُختار السنوي عندما يكلف أقل من اثني عشر شهرًا."
   },
   "it": {
@@ -54,7 +48,6 @@ export const WAVE_MX1_I18N = {
     "mxAnnualHint": "Confrontato con dodici volte il prezzo mensile del negozio su questa schermata.",
     "mxMonthlyNote": "Addebitato ogni mese. Scegli l’anno se entrambi i prezzi sono elencati e l’anno costa meno.",
     "mxNoCompare": "La cifra di risparmio compare solo se il negozio elenca un prezzo mensile e uno annuale.",
-    "mxFirstValue": "La prima analisi, le prime domande e il primo fascicolo restano nel piano gratuito.",
     "mxYearlyPick": "L’anno è selezionato quando costa meno di dodici mesi."
   },
   "zh": {
@@ -62,7 +55,6 @@ export const WAVE_MX1_I18N = {
     "mxAnnualHint": "按本屏商店标价，与月付计划连付十二次相比。",
     "mxMonthlyNote": "按月扣费。当月付和年付都列出且年付更便宜时，请选年付。",
     "mxNoCompare": "只有商店同时列出月价和年价时，才会出现节省数字。",
-    "mxFirstValue": "第一次扫描、首批提问和第一份案件档案仍留在免费方案。",
     "mxYearlyPick": "当年付低于十二个月时，会预先选中年付。"
   },
   "ru": {
@@ -70,7 +62,6 @@ export const WAVE_MX1_I18N = {
     "mxAnnualHint": "Сравнение с двенадцатью месячными ценами магазина на этом экране.",
     "mxMonthlyNote": "Списывается каждый месяц. Выберите год, если указаны обе цены и год дешевле.",
     "mxNoCompare": "Цифра экономии появляется, только если магазин показывает и месячную, и годовую цену.",
-    "mxFirstValue": "Первый разбор, первые вопросы и первое дело остаются в бесплатном плане.",
     "mxYearlyPick": "Год выбран, когда он дешевле двенадцати месяцев."
   },
   "fa": {
@@ -78,7 +69,6 @@ export const WAVE_MX1_I18N = {
     "mxAnnualHint": "در مقایسه با دوازده بار پرداخت قیمت ماهانهٔ فروشگاه در همین صفحه.",
     "mxMonthlyNote": "هر ماه صورتحساب می‌شود. وقتی هر دو قیمت هست و سالانه ارزان‌تر است، سال را برگزینید.",
     "mxNoCompare": "رقم صرفه‌جویی فقط وقتی دیده می‌شود که فروشگاه هم قیمت ماهانه و هم سالانه را نشان دهد.",
-    "mxFirstValue": "نخستین بررسی، نخستین پرسش‌ها و نخستین پرونده در طرح رایگان می‌مانند.",
     "mxYearlyPick": "سالانه وقتی انتخاب می‌شود که از دوازده ماه ارزان‌تر باشد."
   },
   "ja": {
@@ -86,7 +76,6 @@ export const WAVE_MX1_I18N = {
     "mxAnnualHint": "この画面の店頭月額を十二回払う場合との比較です。",
     "mxMonthlyNote": "毎月請求されます。月額と年額の両方が出て年額の方が安いときは年を選んでください。",
     "mxNoCompare": "節約の数字は、店が月額と年額の両方を出しているときだけ表示されます。",
-    "mxFirstValue": "最初の確認、最初の質問、最初の事件ファイルは無料プランのままです。",
     "mxYearlyPick": "十二か月より安いとき、年額が選ばれます。"
   },
   "pt": {
@@ -94,7 +83,6 @@ export const WAVE_MX1_I18N = {
     "mxAnnualHint": "Comparado com pagar doze vezes o preço mensal da loja neste ecrã.",
     "mxMonthlyNote": "Cobrado todos os meses. Escolha o ano quando ambos os preços estão listados e o ano custa menos.",
     "mxNoCompare": "O valor poupado só aparece quando a loja lista um preço mensal e um anual.",
-    "mxFirstValue": "A primeira análise, as primeiras perguntas e o primeiro processo ficam no plano gratuito.",
     "mxYearlyPick": "O ano fica selecionado quando custa menos do que doze meses."
   },
   "nl": {
@@ -102,7 +90,6 @@ export const WAVE_MX1_I18N = {
     "mxAnnualHint": "Vergeleken met twaalf keer de maandprijs van de winkel op dit scherm.",
     "mxMonthlyNote": "Elke maand gefactureerd. Kies jaarlijks als beide prijzen staan en het jaar goedkoper is.",
     "mxNoCompare": "Een besparingscijfer verschijnt alleen als de winkel een maand- en een jaarprijs toont.",
-    "mxFirstValue": "Uw eerste scan, eerste vragen en eerste dossier blijven op het gratis plan.",
     "mxYearlyPick": "Jaarlijks is geselecteerd wanneer het goedkoper is dan twaalf maanden."
   }
 };

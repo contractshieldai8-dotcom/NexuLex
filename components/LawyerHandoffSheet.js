@@ -18,7 +18,7 @@ import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, WARNING, styles } from '../theme';
+import { ACCENT, styles } from '../theme';
 import { JURISDICTIONS } from '../constants/options';
 import { resolveJurisdiction } from '../constants/jurisdiction';
 import {

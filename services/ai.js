@@ -5,6 +5,7 @@
 // geçer; anahtar yalnızca sunucuda (ANTHROPIC_API_KEY secret) bulunur.
 
 import { supabase } from './supabase';
+import { AI_CONSENT_REQUIRED, ensureAiConsent } from './aiConsent';
 import { getCachedAnalysis, setCachedAnalysis, documentCacheToken } from './analysisCache';
 import { isAcceptableAnalysis, isPlaceholderText } from '../utils/analysis';
 import { resolveAnalysisCategory } from '../utils/contractType';
@@ -276,6 +277,7 @@ export const AI_ERROR_CODES = {
   EXTRACT: 'AI_EXTRACT_FAILED',
   EXTRACT_TRUNCATED: 'AI_EXTRACT_TRUNCATED',
   DRAFT_TRUNCATED: 'AI_DRAFT_TRUNCATED',
+  CONSENT: AI_CONSENT_REQUIRED,
 };
 
 // Ham hatayı kullanıcıya gösterilebilir, kodlanmış bir hataya dönüştürür.
@@ -402,6 +404,8 @@ async function callClaudeProxy({
   budgetKind = 'pdf',
 } = {}) {
   assertMessagesBudget(messages, budgetKind);
+  // Nothing leaves the device before the user has agreed to AI processing.
+  await ensureAiConsent();
   const headers = await buildRequestHeaders();
   const endpoint = `${SUPABASE_URL.replace(/\/+$/, '')}/functions/v1/${EDGE_FUNCTION_NAME}`;
   const body = JSON.stringify({ mode, system, messages, maxTokens, expectJson });

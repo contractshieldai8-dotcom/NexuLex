@@ -1,6 +1,6 @@
 // NEXULEX AI — Cihaz kimliği ve ücretsiz analiz hakkı yönetimi.
-// SMS OTP yerine e-posta doğrulaması + telefon/cihaz eşsizliği ile kötüye
-// kullanımı maliyetsiz biçimde engeller.
+// Telefon numarası toplanmaz (veri minimizasyonu). Ücretsiz hak kötüye kullanımı;
+// doğrulanmış e-posta + cihaz başına tek hak + hesap başına tek hak ile maliyetsiz engellenir.
 
 import { Platform } from 'react-native';
 import * as Application from 'expo-application';
@@ -66,22 +66,7 @@ function simpleHash(input) {
   return `${h1.toString(36)}${h2.toString(36)}`;
 }
 
-// E.164'e yakın normalizasyon: yalnızca rakamlar ve baştaki "+" korunur.
-export function normalizePhone(raw) {
-  if (!raw) return null;
-  const trimmed = String(raw).trim();
-  const digits = trimmed.replace(/[^\d]/g, '');
-  if (!digits) return null;
-  return trimmed.startsWith('+') ? `+${digits}` : `+${digits}`;
-}
-
-export function isValidPhone(raw) {
-  const normalized = normalizePhone(raw);
-  return !!normalized && normalized.length >= 9 && normalized.length <= 17;
-}
-
 export const QUOTA_ERRORS = {
-  PHONE_TAKEN: 'PHONE_TAKEN',
   QUOTA_EXHAUSTED: 'QUOTA_EXHAUSTED',
   NOT_AUTHENTICATED: 'NOT_AUTHENTICATED',
 };
@@ -91,7 +76,6 @@ const isClockSkewError = (error) =>
 
 const mapRpcError = (error) => {
   const message = error?.message || '';
-  if (message.includes('PHONE_TAKEN')) return QUOTA_ERRORS.PHONE_TAKEN;
   if (message.includes('QUOTA_EXHAUSTED')) return QUOTA_ERRORS.QUOTA_EXHAUSTED;
   if (message.includes('NOT_AUTHENTICATED')) return QUOTA_ERRORS.NOT_AUTHENTICATED;
   return null;
@@ -114,18 +98,18 @@ async function getFreshSession() {
   return session?.access_token ? session : null;
 }
 
-// Giriş / kayıt sonrasında çağrılır. Profili kurar, telefon+cihaz eşsizse ve
-// e-posta doğrulanmışsa 2 ücretsiz hak tanımlar, aksi halde 0 bırakır.
-export async function syncProfileAndQuota({ phone } = {}) {
+// Giriş / kayıt sonrasında çağrılır. Profili kurar; e-posta doğrulanmışsa ve bu cihaz ile hesap
+// daha önce hak almadıysa 2 ücretsiz hak tanımlar, aksi halde 0 bırakır.
+export async function syncProfileAndQuota() {
   const session = await getFreshSession();
   if (!session) return null;
 
   const deviceId = await getDeviceId();
-  const normalizedPhone = normalizePhone(phone);
 
   const runClaim = () =>
     supabase.rpc('claim_free_quota', {
-      p_phone: normalizedPhone,
+      // Eski imza korunur; telefon artık toplanmaz ve sunucu bu değeri yok sayar.
+      p_phone: null,
       p_device: deviceId,
     });
 
@@ -169,7 +153,7 @@ export async function fetchProfile() {
   const userId = auth?.user?.id;
   if (!userId) return null;
 
-  const baseColumns = 'id, email, phone_number, device_id, free_analyses_left, is_pro';
+  const baseColumns = 'id, email, device_id, free_analyses_left, is_pro';
   let { data, error } = await supabase
     .from('profiles')
     .select(`${baseColumns}, plan`)

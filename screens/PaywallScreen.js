@@ -13,7 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, styles } from '../theme';
+import { styles } from '../theme';
 import { useFeedback } from '../context/FeedbackContext';
 import HonestyFold from '../components/HonestyFold';
 import { track } from '../services/telemetry';
@@ -489,14 +489,18 @@ export default function PaywallScreen({
             {/* Explanatory fine print sits below the purchase controls so plans and the CTA stay above the fold. */}
             <View style={{ marginTop: 12 }}>
             <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mxFirstValue')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2FirstValue')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Guides')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Store')}</Text>
+            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Offering')}</Text>
             {!loadingPlans && packages.length > 0 && !annualCompare ? (
               <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mxNoCompare')}</Text>
             ) : null}
             {!loadingPlans && annualCompare ? (
-              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mxYearlyPick')}</Text>
+              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>
+                {tier === 'professional' ? t('mx2Yearly') : t('mxYearlyPick')}
+              </Text>
             ) : null}
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Offering')}</Text>
             {tierCompare ? (
               <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>
                 {t('mx2Delta', { percent: String(tierCompare.percent) })}
@@ -509,21 +513,6 @@ export default function PaywallScreen({
                 {t('mx2Prices', { professionalPrice: tierCompare.professionalPriceString, proPrice: tierCompare.proPriceString })}
               </Text>
             ) : null}
-            {tier === 'professional' && annualCompare ? (
-              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Yearly')}</Text>
-            ) : null}
-            {tier === 'professional' && plan === 'pro' ? (
-              <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Upgrade')}</Text>
-            ) : null}
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2FirstValue')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('mx2Disclaimer')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Store')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11First')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Guides')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Yearly')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Peer')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11Restore')}</Text>
-            <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 10 }]}>{t('ux11NoCourt')}</Text>
             </HonestyFold>
             </View>
 

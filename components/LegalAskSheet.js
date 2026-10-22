@@ -16,7 +16,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Linking from 'expo-linking';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, DANGER, WARNING, styles } from '../theme';
+import { ACCENT, styles } from '../theme';
 import { ASK_ERROR_CODES, askLegalQuestion, fetchLegalAskQuota, loadSavedAnswers, saveAnswer } from '../services/legalAsk';
 import { loadCases, saveCases } from '../services/caseFileStore';
 import { CASE_AREAS, CASE_AREA_ICONS, addEvent, formatCaseBrief, todayIso } from '../utils/caseFiles';

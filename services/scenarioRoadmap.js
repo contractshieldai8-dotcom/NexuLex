@@ -106,16 +106,20 @@ export function buildRoadmap(scenarioId, answers = {}, { country, language } = {
 
 /**
  * Clean share/copy text. Always appends mandatory disclaimer at the end.
+ * Hints are marked with localized plain-text labels (no emoji), so the text reads the same in every
+ * messaging app. Pass the language the roadmap was built in; it defaults to the app language.
  * @param {'plain'|'whatsapp'|'email'} format
+ * @param {string} [locale]
  */
-export function formatRoadmapForSharing(roadmap, format = 'plain') {
+export function formatRoadmapForSharing(roadmap, format = 'plain', locale) {
   if (!roadmap || typeof roadmap !== 'object') return '';
+  const label = (key) => tKey(key, locale);
   const lines = [];
   const title = String(roadmap.title || roadmap.scenarioId || '').trim();
   if (title) lines.push(title);
   lines.push('');
   if (roadmap.generic && roadmap.banner) {
-    lines.push(`ℹ ${String(roadmap.banner).trim()}`);
+    lines.push(`${label('shareLabelNote')}: ${String(roadmap.banner).trim()}`);
     lines.push('');
   }
 
@@ -125,14 +129,14 @@ export function formatRoadmapForSharing(roadmap, format = 'plain') {
     const detail = String(step.detail || '').trim();
     lines.push(`${n}. ${head}`.trim());
     if (detail) lines.push(detail);
-    if (step.timeHint) lines.push(`⏱ ${step.timeHint}`);
-    if (step.docHint) lines.push(`📎 ${step.docHint}`);
+    if (step.timeHint) lines.push(`${label('shareLabelTime')}: ${step.timeHint}`);
+    if (step.docHint) lines.push(`${label('shareLabelDocs')}: ${step.docHint}`);
     lines.push('');
   });
 
   const lawyer = String(roadmap.lawyerThreshold || '').trim();
   if (lawyer) {
-    lines.push(`⚠ ${lawyer}`);
+    lines.push(`${label('shareLabelWarning')}: ${lawyer}`);
     lines.push('');
   }
 
@@ -155,6 +159,6 @@ export function formatRoadmapForSharing(roadmap, format = 'plain') {
 export function buildAdvisorFollowUpPrompt(roadmap, locale = 'en') {
   if (!roadmap) return '';
   const intro = tKey('scenarioAskAdvisorPrompt', locale);
-  const body = formatRoadmapForSharing(roadmap, 'plain');
+  const body = formatRoadmapForSharing(roadmap, 'plain', locale);
   return `${intro}\n\n${body}`.trim();
 }

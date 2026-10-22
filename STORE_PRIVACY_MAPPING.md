@@ -29,7 +29,7 @@ Genel yanıtlar:
 | Google Play kategorisi → veri türü | Toplanır | Paylaşılır | Zorunlu / isteğe bağlı | Amaç |
 |---|---|---|---|---|
 | Personal info → Email address | Evet | Hayır | Zorunlu | App functionality, Account management |
-| Personal info → Phone number | Evet | Hayır | Zorunlu (ücretsiz hak için) | Fraud prevention, security and compliance |
+| Personal info → Phone number | **Hayır — toplanmıyor** (kayıttan kaldırıldı; eski kayıtlar silindi) | — | — | — |
 | Personal info → User IDs | Evet | Hayır | Zorunlu | App functionality, Account management |
 | Financial info → Purchase history | Evet (plan ve bitiş tarihi) | Hayır | İsteğe bağlı | App functionality |
 | Photos and videos → Photos | Evet (kullanıcı sistem seçicisinden seçer; arka planda erişim yok) | Hayır | İsteğe bağlı | App functionality |
@@ -51,7 +51,7 @@ Genel: **Data Used to Track You: yok** (ATT istenmez, `NSUserTrackingUsageDescri
 | Apple kategorisi → tür | Kimliğe bağlı mı | İzleme | Amaç |
 |---|---|---|---|
 | Contact Info → Email Address | Evet | Hayır | App Functionality |
-| Contact Info → Phone Number | Evet | Hayır | App Functionality (kötüye kullanım önleme) |
+| Contact Info → Phone Number | **Hayır — toplanmıyor** | — | — |
 | Identifiers → User ID | Evet | Hayır | App Functionality |
 | Identifiers → Device ID | Evet | Hayır | App Functionality (ücretsiz kota, kötüye kullanım önleme) |
 | Purchases → Purchase History | Evet | Hayır | App Functionality |
@@ -71,7 +71,7 @@ Genel: **Data Used to Track You: yok** (ATT istenmez, `NSUserTrackingUsageDescri
 | Destek mesajları | En fazla 24 ay | `purge_old_support_messages(24)` — migrasyon `20261021120000_support_retention.sql` |
 | Anonim kullanım ve hata raporları | En fazla 180 gün | `purge_old_app_events(180)` — aynı migrasyonla zamanlanır |
 | Paylaşım kodları | Geçerlilik süresi dolunca devre dışı | Edge fonksiyonu süre denetimi |
-| Ücretsiz kota kaydı (cihaz kimliği, telefon) | Sabit bitiş yok; hesapla bağsız | Politikada açıkça yazılı |
+| Ücretsiz kota kaydı (yalnızca cihaz kimliği) | Sabit bitiş yok; hesapla bağsız | Politikada açıkça yazılı |
 
 ## 4. Yayından önce yapılacaklar (sizin tarafınızda)
 
@@ -84,6 +84,6 @@ Genel: **Data Used to Track You: yok** (ATT istenmez, `NSUserTrackingUsageDescri
 
 - **GDPR Madde 27:** AB’de tanımlı temsilci yok. AB kullanıcılarına bilinçli hedefleme büyürse temsilci atanması değerlendirilmelidir.
 - **Özel DPA yok:** Aktarımlar sağlayıcıların standart hizmet şartlarındaki veri koruma ekleri ve aktarım mekanizmalarına dayanır (politikadaki ifade bununla birebir).
-- **Süresiz kota kaydı:** Cihaz kimliği ve telefon, hesapla bağsız ve süresiz tutulur. Saklama sınırlaması ilkesi açısından en hassas noktadır; politikada açıkça belirtilmiştir. Yazım bilinçli olarak “anonimleştirilmiş/hashlenmiş” iddiasını **içermez**; teknik olarak bu doğrulanmadan yazılmamalıdır (`legalWebAssert.js` bu ifadeleri yasaklar).
+- **Süresiz kota kaydı:** Cihaz kimliği, hesapla bağsız ve süresiz tutulur (telefon numarası artık toplanmaz; veri minimizasyonu). Saklama sınırlaması ilkesi açısından en hassas noktadır; politikada açıkça belirtilmiştir. Yazım bilinçli olarak “anonimleştirilmiş/hashlenmiş” iddiasını **içermez**; teknik olarak bu doğrulanmadan yazılmamalıdır (`legalWebAssert.js` bu ifadeleri yasaklar).
 - **KVKK / VERBİS:** Şahıs işletmesi olarak VERBİS kayıt yükümlülüğü eşiklerini ve istisnalarını bir Türk hukuk danışmanıyla bir kez doğrulayın.
 - **Dil önceliği:** Çeviri uyuşmazlığında İngilizce metin geçerlidir; her dilde not vardır.

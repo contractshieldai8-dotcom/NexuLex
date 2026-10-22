@@ -3,6 +3,7 @@
 
 import { supabase } from './supabase';
 import { AI_ERROR_CODES } from './ai';
+import { ensureAiConsent } from './aiConsent';
 import { isUsableToolResult, normalizeToolResult } from '../utils/plan';
 
 const FUNCTION_NAME = 'pro-tools';
@@ -68,6 +69,7 @@ export async function fetchProToolQuota() {
 }
 
 export async function runProTool({ tool, material, position = '', area = 'other', country = 'auto', lang = 'en' }) {
+  await ensureAiConsent();
   const payload = await invoke({ tool, material, position, area, country, lang });
   const result = normalizeToolResult(tool, payload?.result, { country });
   if (!isUsableToolResult(result)) throw fail(AI_ERROR_CODES.PARSE, { quota: payload?.quota || null });

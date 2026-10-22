@@ -3,7 +3,7 @@ import { Alert, Pressable, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, styles } from '../theme';
+import { styles } from '../theme';
 
 const ROWS = [
   { key: 'parties', icon: 'people-outline', labelKey: 'radarParties', field: 'parties' },

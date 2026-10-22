@@ -12,7 +12,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import * as Clipboard from 'expo-clipboard';
 
-import { ACCENT, DANGER, styles } from '../theme';
+import { styles } from '../theme';
 import { SHARE_CODE_RE } from '../utils/shareSnapshot';
 import { decisionActionKey } from '../utils/analysis';
 import {

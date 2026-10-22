@@ -19,7 +19,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Sharing from 'expo-sharing';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, DANGER, SUCCESS, WARNING, styles, toneText } from '../theme';
+import { ACCENT, DANGER, styles, toneText } from '../theme';
 import {
   cancelCaseReminders,
   deleteEvidenceFiles,

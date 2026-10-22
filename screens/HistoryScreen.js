@@ -13,7 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import * as Sharing from 'expo-sharing';
 
-import { DANGER, ACCENT, getRiskColor, getRiskTextColor, styles } from '../theme';
+import { getRiskTextColor, styles } from '../theme';
 import { typeKeyFromCategory } from '../constants/options';
 import { normalizeAnalysis, buildLocalRadarPreview } from '../utils/analysis';
 import { lifecycleLabelKey } from '../utils/lifecycle';

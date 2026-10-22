@@ -31,16 +31,18 @@ module.exports = {
 <p>Analiz raporu, danışman yanıtı veya iyileştirilmiş taslak için yapay zekâ çıktısını bildirebilirsiniz. Bildirim; nedeni, isteğe bağlı notunuzu, öğe kimliğini, uygulama dilini ve seçili ülkeyi saklar. Sözleşme veya yanıt metni (en fazla 2000 karakter) yalnızca “Sözleşme bağlamını ekle” seçeneğini açarsanız eklenir.</p>
 <p>Avukat bul: ilk mesaj ve dosya paketi yapay zekâ kullanılmadan cihazınızda oluşturulur; sunucularımıza veya herhangi bir avukata gönderilmez. Yalnızca siz kopyalar veya paylaşırsanız cihazınızdan çıkar. Rehber bağlantıları baroların ve kamu kurumlarının kendi gizlilik politikaları olan resmî sitelerini açar. NexuLex verilerinizi avukatlara aktarmaz ve yönlendirme ücreti almaz.</p>
 
+<p data-consent-record="1">Yapay zekâ rıza kaydı: içeriğinizin yapay zekâ sağlayıcısına gönderilmesine izin verdiğinizde veya izni geri çektiğinizde bu kararı yalnızca eklenebilen bir rıza kaydına yazarız: hesap kimliğiniz, rıza türü, metin sürümü, verildi veya geri çekildi bilgisi ve zaman. Kayıtta sözleşme metni yoktur. Karar, çevrimdışı olsanız bile cihazınızda hemen geçerli olur; kayıt hemen yazılamazsa uygulama sonra yeniden dener. Satırlarınızı yalnızca siz okuyabilirsiniz, uygulamadan hiç kimse bunları değiştiremez veya silemez; hesabınızı sildiğinizde kayıtlar da silinir.</p>
 <h2>5. Saklama ve silme</h2>
 <p>Hesabınızı dilediğiniz zaman uygulamada <strong>Ayarlar → Hesabı sil</strong> ile ya da <a href="delete-account.html">hesap silme sayfasındaki</a> adımlarla (uygulama gerekmeden) silebilirsiniz. Silme; hesabınızı ve profilinizi, kayıtlı analizleri ve sözleşme metinlerini, paylaşım kodlarını, hatırlatıcıları, danışman / hane koltuklarını ve brief’leri, destek iletilerini ve yapay zekâ çıktı bildirimlerini kaldırır. Uygulama içi silmenin yapıldığı cihazda planlanmış hatırlatıcılar, yerel önbellekler ve dışa aktarılan dosyalar da temizlenir.</p>
-<p>Hesap silindikten sonra, ücretsiz hakkı almak için kullanılan cihaz tanımlayıcısı ve telefon numarası hesabınızla hiçbir bağlantı olmadan, yalnızca ücretsiz hakkın tekrar tekrar kötüye kullanılmasını önlemek amacıyla saklanır.</p>
+<p>Hesap silindikten sonra, ücretsiz hakkı almak için kullanılan cihaz tanımlayıcısı hesabınızla hiçbir bağlantı olmadan, yalnızca ücretsiz hakkın tekrar tekrar kötüye kullanılmasını önlemek amacıyla saklanır.</p>
 <p>Aktif bir App Store / Google Play aboneliği hesap silmeyle otomatik olarak iptal edilmez; mağaza hesabınızdan iptal edin. Brief kodları belirtilen süre sonunda otomatik sona erer.</p>
 
 <h2>6. Hukuki uyarı</h2>
 <p><strong>NexuLex AI bir hukuk bürosu değildir ve hukuki tavsiye vermez.</strong> Çıktılar genel bilgilendirme araçlarıdır. Karar size aittir; kendi dosyanız için yetkili bir avukata danışın.</p>
 
 <h2 data-sec="signup">7. Kayıt bilgileri</h2>
-<p>Kayıtta bir e-posta adresi ve bir telefon numarası verirsiniz. Telefon numarası ve cihaz tanımlayıcısı, ücretsiz analiz hakkını almak ve bu hakkın tekrar tekrar kötüye kullanılmasını önlemek için kullanılır. Reklam için kullanılmaz ve satılmaz.</p>
+<p>Kayıtta bir e-posta adresi ve bir şifre verir, 18 yaşını doldurduğunuzu ve Kullanım Koşulları ile bu Gizlilik Politikası’nı kabul ettiğinizi onaylarsınız; bu onayı ve tarihini kaydederiz. Telefon numarası istemeyiz. Cihaz tanımlayıcısı, ücretsiz analiz hakkını almak ve bu hakkın tekrar tekrar kötüye kullanılmasını önlemek için kullanılır. Reklam için kullanılmaz ve satılmaz.</p>
+<p>İlk yapay zekâ isteğinizden önce uygulama, gönderdiğiniz içeriği (sözleşme metni, fotoğraflar, PDF sayfaları, sorular) yapay zekâ sağlayıcımıza göndermek için izninizi ister. Bu izni istediğiniz zaman Ayarlar’da Gizlilik bölümünden geri çekebilirsiniz; izin yoksa hiçbir yapay zekâ isteği yapılmaz.</p>
 <h2 data-sec="voice">8. Sesli giriş</h2>
 <p>Sesli giriş isteğe bağlıdır. Mikrofonu kullandığınızda konuşma tanıma, telefonunuzun yerleşik konuşma hizmeti (Apple veya Google) tarafından, o sağlayıcının kendi gizlilik koşullarıyla yapılır. NexuLex AI sesinizi kaydetmez ve saklamaz; yalnızca kullanmayı seçtiğiniz metni alır.</p>
 <h2 data-sec="transfer">9. Hizmet sağlayıcılar ve uluslararası aktarım</h2>
@@ -78,7 +80,7 @@ module.exports = {
 <tr><td>Özet ve paylaşım kodları</td><td>Belirtilen geçerlilik süresi dolana kadar; süresi dolan kod otomatik olarak geçersiz olur</td></tr>
 <tr><td>Destek mesajları</td><td>En fazla 24 ay veya hesabınızı silene kadar</td></tr>
 <tr><td>Anonim kullanım ve hata raporları</td><td>En fazla 180 gün</td></tr>
-<tr><td>Ücretsiz kota kaydı (hesabınızla bağlantısı olmayan cihaz kimliği ve telefon numarası)</td><td>Sabit bir bitiş tarihi yoktur; yalnızca ücretsiz kotanın tekrar kötüye kullanılmasını önlemek için tutulur</td></tr>
+<tr><td>Ücretsiz kota kaydı (hesabınızla bağlantısı olmayan cihaz kimliği)</td><td>Sabit bir bitiş tarihi yoktur; yalnızca ücretsiz kotanın tekrar kötüye kullanılmasını önlemek için tutulur</td></tr>
 <tr><td>Profilinizdeki plan ve bitiş tarihi</td><td>Hesabınızı silene kadar; Apple, Google ve RevenueCat’in tuttuğu satın alma kayıtları kendi politikalarına tabidir</td></tr>
 <tr><td>Cihazınızdaki veriler (geçmiş, dosyalar, yanıtlar, taslaklar)</td><td>Siz silene veya uygulamayı kaldırana kadar</td></tr>
 </tbody>
@@ -92,7 +94,7 @@ module.exports = {
 <h2 data-sec="ccpa">19. ABD: Kaliforniya ve diğer eyalet gizlilik hakları</h2>
 <p>Kişisel bilgilerinizi satmayız ve bağlamlar arası davranışsal reklam amacıyla paylaşmayız. Uygulamada reklam yoktur; bu nedenle açılıp kapatılacak bir “Kişisel Bilgilerimi Satma veya Paylaşma” ayarı da yoktur.</p>
 <p>Kaliforniya’da veya tüketici gizliliği yasası olan başka bir ABD eyaletinde yaşıyorsanız (örneğin CCPA/CPRA), bu yasa bizim için geçerli olduğu ölçüde; topladığımız, kullandığımız ve açıkladığımız kişisel bilgileri öğrenme, bunlara erişme, bunları düzeltme ve silme, hassas kişisel bilgilerin kullanımını sınırlama ve bu hakları kullandığınız için ayrımcılığa uğramama haklarına sahip olabilirsiniz.</p>
-<p>Son on iki ayda şu kategorileri topladık: tanımlayıcılar (e-posta adresi, telefon numarası, cihaz ve kurulum kimlikleri); ticari bilgiler (plan ve satın alma durumu); uygulama etkinliği (anonim kullanım olayları); ve gönderdiğiniz içerik (sözleşmeler ve sorular). Bunları yalnızca bu politikada anlatılan iş amaçlarıyla, 9. bölümdeki hizmet sağlayıcılara açıklarız. Ses kaydınızı saklamayız.</p>
+<p>Son on iki ayda şu kategorileri topladık: tanımlayıcılar (e-posta adresi, cihaz ve kurulum kimlikleri); ticari bilgiler (plan ve satın alma durumu); uygulama etkinliği (anonim kullanım olayları); ve gönderdiğiniz içerik (sözleşmeler ve sorular). Bunları yalnızca bu politikada anlatılan iş amaçlarıyla, 9. bölümdeki hizmet sağlayıcılara açıklarız. Ses kaydınızı saklamayız.</p>
 <p>Haklarınızı kullanmak için kayıt olduğunuz adresten nexulexai@gmail.com adresine yazın. Sizin olduğunuzu doğrulamak için bilgi isteyebiliriz; yetkili bir temsilci kullanabilirsiniz; yasanın gerektirdiği hâllerde 45 gün içinde yanıt veririz.</p>
 <h2 data-sec="changes">20. Bu politikadaki değişiklikler</h2>
 <p>Bu Gizlilik Politikasını güncelleyebiliriz. Önemli bir değişiklik yaparsak üstteki tarihi değiştiririz ve hukuk gerektiriyorsa değişiklik uygulanmadan önce sizi uygulama içinde veya uygun başka yollarla bilgilendiririz. Bu sayfayı zaman zaman gözden geçirin.</p>
@@ -128,7 +130,7 @@ module.exports = {
 </ul>
 
 <h2>Saklananlar</h2>
-<p>Ücretsiz analiz hakkını almak için kullanılan cihaz tanımlayıcısı ve telefon numarası, hesabınızla hiçbir bağlantı olmadan ve yalnızca ücretsiz hakkın tekrar tekrar kötüye kullanılmasını önlemek amacıyla saklanır. Apple, Google ve RevenueCat’teki satın alma kayıtları kendi politikalarına tabidir.</p>
+<p>Ücretsiz analiz hakkını almak için kullanılan cihaz tanımlayıcısı, hesabınızla hiçbir bağlantı olmadan ve yalnızca ücretsiz hakkın tekrar tekrar kötüye kullanılmasını önlemek amacıyla saklanır. Apple, Google ve RevenueCat’teki satın alma kayıtları kendi politikalarına tabidir.</p>
 
 <p>Ayrıca bkz. <a href="privacy.html">Gizlilik Politikası</a>.</p>`,
 

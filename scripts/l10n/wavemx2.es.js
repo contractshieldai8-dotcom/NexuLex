@@ -5,7 +5,5 @@ module.exports = {
   mx2NoDelta: 'Una cifra Pro frente a Professional solo aparece cuando ambos planes listan el mismo período en la misma moneda.',
   mx2Yearly: 'Professional anual se destaca solo cuando cuesta menos que doce pagos mensuales Professional.',
   mx2Offering: "Professional es un plan aparte en su tienda. NexuLex muestra su precio solo cuando la tienda lo indica.",
-  mx2Upgrade: "Si ya tiene Pro, la tienda gestiona el cambio de plan y la diferencia de precio. La app no añade ningún cargo.",
   mx2FirstValue: 'El primer análisis, las primeras preguntas y el primer expediente siguen gratis. Las herramientas Professional quedan en el plan Professional de pago.',
-  mx2Disclaimer: 'NexuLex no es un bufete. Solo se comparan los precios de tienda de esta pantalla.',
 };

@@ -221,6 +221,8 @@ export async function createBenchmark({ key, fetchImpl = globalThis.fetch, budge
   const loader = createAppLoader({
     stubs: {
       'services/supabase': { supabase: { auth: { getSession: async () => ({ data: { session: { access_token: bearer } } }) } } },
+      // Headless run: there is no UI to ask; consent is a device-side gate that is covered by verify-ui.
+      'services/aiConsent': { AI_CONSENT_REQUIRED: 'AI_CONSENT_REQUIRED', ensureAiConsent: async () => true },
       'services/analysisCache': { getCachedAnalysis: async () => null, setCachedAnalysis: async () => {}, documentCacheToken: () => 'bench' },
     },
   });

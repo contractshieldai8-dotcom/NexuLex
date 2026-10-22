@@ -21,7 +21,6 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as DocumentPicker from 'expo-document-picker';
-import * as FileSystem from 'expo-file-system/legacy';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 import * as Linking from 'expo-linking';
@@ -53,7 +52,7 @@ import { parseShareCode, SHARE_CODE_RE } from './utils/shareSnapshot';
 import { buildHistoryCompareSeed } from './utils/historyCompare';
 import { readOwnedFile, writeOwnedBase64, isExpoGoUri, trySaveBase64ViaSaf } from './utils/fileAccess';
 import { paginatePlainBody } from './utils/exportPlain';
-import { darkTheme, lightTheme, getRiskColor, getRiskTextColor, badgeLabelStyle, styles, setActiveThemeMode, ACCENT, DANGER, WARNING, alignStart } from './theme';
+import { darkTheme, lightTheme, getRiskColor, getRiskTextColor, badgeLabelStyle, styles, setActiveThemeMode, ACCENT, alignStart } from './theme';
 import { normalizeAnalysis, getKeyTakeaways, escapeHtml, applyFreePreview, toDecisionCardPayload, pickPaywallHook, hasHiddenCosts, integrityHasWarnings, safeDisplayText, ensureTrapCalendar, FROST_TRAP_DATES, legalStatusKey, legalStatusIcon, meaningfulRedFlags, buildAdvisorAnalysisContext, userSignConditions, isBillableAnalysis, isAcceptableAnalysis, isPlaceholderText, buildLocalRadarPreview, pickCounterOffer, countOfferTiers, buildReadyToSendMessage } from './utils/analysis';
 import { describeError } from './utils/errors';
 import { loadStoredLanguage, setAppLanguage } from './utils/language';
@@ -148,6 +147,7 @@ import {
   askTelemetryConsentOnce,
   trackFirstValue,
 } from './services/telemetry';
+import { hasAiConsent, setAiConsent } from './services/aiConsent';
 import { fetchMyReferral, redeemReferral, readRefAsked, markRefAsked } from './services/referral';
 import { formatCode, formatCodeInput, isValidCode, shouldOfferCode, withInviteCode } from './utils/referralCore';
 import { buildInvitePayload, inviteUrl } from './constants/shareLoop';
@@ -717,6 +717,13 @@ function AppContent() {
   useEffect(() => {
     if (activeTab === 'settings') setTelemetryOn(isTelemetryEnabled());
   }, [activeTab]);
+  // AI processing consent (withdrawable). Read from the device whenever Settings opens or the user changes.
+  const [aiConsentOn, setAiConsentOn] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    if (activeTab === 'settings') hasAiConsent().then((on) => { if (alive) setAiConsentOn(on); });
+    return () => { alive = false; };
+  }, [activeTab, user?.id]);
   useEffect(() => {
     if (localeReady && authBootstrapped && shieldRestoreReady && holdSplashForShield) {
       setHoldSplashForShield(false);
@@ -1298,20 +1305,12 @@ function AppContent() {
     }
 
     try {
-      const phone =
-        session.user.user_metadata?.phone_number ||
-        session.user.phone ||
-        user?.user_metadata?.phone_number ||
-        user?.phone ||
-        null;
-      const claimed = await syncProfileAndQuota({ phone });
+      const claimed = await syncProfileAndQuota();
       const resolved = claimed || (await fetchProfile());
       setProfile(resolved);
       return resolved;
     } catch (error) {
-      if (error.code === QUOTA_ERRORS.PHONE_TAKEN) {
-        Alert.alert(t('warningTitle'), t('phoneAlreadyUsed'));
-      } else if (error.code === 'CLOCK_SKEW') {
+      if (error.code === 'CLOCK_SKEW') {
         showToast(t('clockSkewHint'), { type: 'warning' });
       }
 
@@ -5201,21 +5200,6 @@ function AppContent() {
               >
                 <Text style={[styles.settingLabel, { color: theme.text, marginBottom: 10 }]}>{t('privacyPolicy')}</Text>
                 <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, marginBottom: 6 }]}>{t('st2Title')}</Text>
-                <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Hint')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Keep')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Picker')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Sub')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Quota')}</Text>
-                </HonestyFold>
-                <TouchableOpacity accessibilityRole="button"
-                  style={[styles.secondaryBtn, { marginTop: 0 }]}
-                  onPress={() => Linking.openURL(TRUST_URLS.privacy || 'https://nexulexai.netlify.app/privacy.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
-                  activeOpacity={0.85}
-                >
-                  <Text style={styles.secondaryBtnText}>{t('privacyPolicy')}</Text>
-                </TouchableOpacity>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 8 }]}>{t('st7Privacy')}</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 4 }}>
                   <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, flex: 1 }]}>{t('telSettingTitle')}</Text>
                   <Switch
@@ -5230,6 +5214,27 @@ function AppContent() {
                   />
                 </View>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('telSettingHint')}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 4 }}>
+                  <Text style={[styles.settingLabel, { color: theme.text, fontSize: 15, flex: 1 }]}>{t('aiConsentSettingTitle')}</Text>
+                  <Switch
+                    value={aiConsentOn}
+                    onValueChange={(val) => {
+                      setAiConsentOn(val);
+                      setAiConsent(val).then((ok) => { if (!ok) setAiConsentOn(!val); });
+                    }}
+                    thumbColor={aiConsentOn ? theme.accent : '#f4f3f4'}
+                    trackColor={{ false: theme.borderStrong, true: theme.accentBorder }}
+                    accessibilityLabel={t('aiConsentSettingTitle')}
+                  />
+                </View>
+                <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 12 }]}>{t('aiConsentSettingHint')}</Text>
+                <TouchableOpacity accessibilityRole="button"
+                  style={[styles.secondaryBtn, { marginTop: 0 }]}
+                  onPress={() => Linking.openURL(TRUST_URLS.privacy || 'https://nexulexai.netlify.app/privacy.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
+                  activeOpacity={0.85}
+                >
+                  <Text style={styles.secondaryBtnText}>{t('privacyPolicy')}</Text>
+                </TouchableOpacity>
                 <TouchableOpacity accessibilityRole="button"
                   style={styles.secondaryBtn}
                   onPress={() => Linking.openURL(TRUST_URLS.terms || 'https://nexulexai.netlify.app/terms.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
@@ -5237,7 +5242,6 @@ function AppContent() {
                 >
                   <Text style={styles.secondaryBtnText}>{t('termsOfUse')}</Text>
                 </TouchableOpacity>
-                <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6, marginBottom: 8 }]}>{t('st7Terms')}</Text>
                 <TouchableOpacity accessibilityRole="button"
                   style={styles.secondaryBtn}
                   onPress={() => Linking.openURL(TRUST_URLS.deleteAccount || 'https://nexulexai.netlify.app/delete-account.html').catch(() => showToast(t('askLinkFailed'), { type: 'error' }))}
@@ -5246,12 +5250,14 @@ function AppContent() {
                   <Text style={styles.secondaryBtnText}>{t('st2WebDelete')}</Text>
                 </TouchableOpacity>
                 <HonestyFold theme={theme} label={t('foldLabel')} showLabel={t('foldShow')} hideLabel={t('foldHide')}>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 4 }]}>{t('st7Delete')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Lang')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Binding')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Store')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Offline')}</Text>
-                  <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 6 }]}>{t('st7Note')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Hint')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Keep')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Ai')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Picker')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Sub')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st2Quota')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st7Delete')}</Text>
+                  <Text style={[styles.sectionHint, { color: theme.subText, marginBottom: 4 }]}>{t('st7Binding')}</Text>
                 </HonestyFold>
                 <Text style={[styles.sectionHint, { color: theme.subText, marginTop: 8, marginBottom: 0 }]}>
                   {t('st2Disclaimer')}

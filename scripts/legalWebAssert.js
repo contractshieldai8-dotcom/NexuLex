@@ -3,7 +3,7 @@
 const LANGS = ['tr', 'en', 'de', 'fr', 'es', 'ar', 'it', 'zh', 'ru', 'fa', 'ja', 'pt', 'nl'];
 
 const LOCKED_QUOTA =
-  'device identifier and phone number used to claim the free quota are retained without any link to your account, solely to prevent repeated free-quota abuse';
+  'device identifier used to claim the free quota is retained without any link to your account, solely to prevent repeated free-quota abuse';
 
 const LOCKED_LAWYER =
   'Find a lawyer: the first message and the case packet are created on your device without AI and are not sent to our servers or to any lawyer';
@@ -52,6 +52,8 @@ function assertLegalWebPages(privacy, del, listing) {
     check(privacy.includes(`id="${lang}"`) && privacy.includes(`data-lang="${lang}"`), `privacy panel ${lang}`);
     check(del.includes(`id="${lang}"`) && del.includes(`data-lang="${lang}"`), `delete panel ${lang}`);
     check(/NexuLex/.test(panelOf(privacy, lang)), `privacy ${lang} names NexuLex`);
+    check(/<p data-consent-record="1">[^<]{120,}<\/p>/.test(panelOf(privacy, lang)), `privacy ${lang} states the consent record (append-only ledger of AI consent decisions)`);
+    check(!/<p data-consent-record="1">[^<]*<\/p>[\s\S]*<p data-consent-record="1">/.test(panelOf(privacy, lang)), `privacy ${lang} states the consent record once`);
     check(/NexuLex/.test(panelOf(del, lang)), `delete ${lang} names NexuLex`);
   }
   check(privacy.includes(LOCKED_QUOTA), 'EN free-quota sentence stays');

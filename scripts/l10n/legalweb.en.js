@@ -31,16 +31,18 @@ module.exports = {
 <p>You can report an AI output from the analysis report, an advisor answer or a polished draft. A report stores the reason, your optional note, the item id, app language and selected country. Contract or answer text (up to 2,000 characters) is attached only if you switch on “Include contract context”.</p>
 <p>Find a lawyer: the first message and the case packet are created on your device without AI and are not sent to our servers or to any lawyer. They leave your device only when you copy or share them yourself. Directory links open the official websites of bar associations and public bodies, which have their own privacy policies. NexuLex does not pass your data to lawyers and receives no referral fees.</p>
 
+<p data-consent-record="1">AI consent record: when you allow or withdraw permission to send your content to the AI provider, we record that decision in an append-only consent record: your account ID, the consent type, the wording version, granted or withdrawn, and the time. It contains no contract text. The decision applies on your device at once, even offline; if the record cannot be saved right away, the app saves it later. Only you can read your own rows, nobody in the app can edit or delete them, and they are erased when you delete your account.</p>
 <h2>5. Retention &amp; deletion</h2>
 <p>You can delete your account at any time in the app under <strong>Settings → Delete account</strong>, or by following the steps on the <a href="delete-account.html">account deletion page</a> (no app needed). Deletion removes your account and profile, saved analyses and contract text, share codes, reminders, advisor / household seats and briefs, support messages and AI-output reports. On the device used for in-app deletion, scheduled reminders, local caches and exported files are also cleared.</p>
-<p>After account deletion, the device identifier and phone number used to claim the free quota are retained without any link to your account, solely to prevent repeated free-quota abuse.</p>
+<p>After account deletion, the device identifier used to claim the free quota is retained without any link to your account, solely to prevent repeated free-quota abuse.</p>
 <p>An active App Store / Google Play subscription is not cancelled automatically by account deletion; cancel it in your store account. Brief codes expire automatically after their stated validity window.</p>
 
 <h2>6. Legal disclaimer</h2>
 <p><strong>NexuLex AI is not a law firm and does not provide legal advice.</strong> Outputs are general informational tools. Decisions remain yours; consult a licensed lawyer for your matter.</p>
 
 <h2 data-sec="signup">7. Sign-up details</h2>
-<p>At sign-up you provide an email address and a phone number. The phone number and a device identifier are used to claim the free analysis quota and to prevent repeated free-quota abuse. They are not used for advertising and are not sold.</p>
+<p>At sign-up you provide an email address and a password, and you confirm that you are 18 or older and accept the Terms of Use and this Privacy Policy; we record that confirmation and its date. We do not ask for a phone number. A device identifier is used to claim the free analysis quota and to prevent repeated free-quota abuse. It is not used for advertising and is not sold.</p>
+<p>Before your first AI request the app asks for your permission to send what you submit (contract text, photos, PDF pages, questions) to our AI provider. You can withdraw it at any time in Settings under Privacy; without it, no AI request is made.</p>
 <h2 data-sec="voice">8. Voice input</h2>
 <p>Voice input is optional. When you use the microphone, speech recognition is performed by the speech service built into your phone (Apple or Google), under that provider’s own privacy terms. NexuLex AI does not record or store your audio; it receives only the text you choose to use.</p>
 <h2 data-sec="transfer">9. Service providers and international transfers</h2>
@@ -78,7 +80,7 @@ module.exports = {
 <tr><td>Brief and share codes</td><td>Until the stated validity window ends; an expired code stops working automatically</td></tr>
 <tr><td>Support messages</td><td>At most 24 months, or until you delete your account</td></tr>
 <tr><td>Anonymous usage and error reports</td><td>At most 180 days</td></tr>
-<tr><td>Free-quota record (device identifier and phone number, without any link to your account)</td><td>No fixed end date; kept only to prevent repeated free-quota abuse</td></tr>
+<tr><td>Free-quota record (device identifier, without any link to your account)</td><td>No fixed end date; kept only to prevent repeated free-quota abuse</td></tr>
 <tr><td>Plan and expiry date on your profile</td><td>Until you delete your account; purchase records held by Apple, Google and RevenueCat follow their own policies</td></tr>
 <tr><td>Data on your device (history, case files, answers, drafts)</td><td>Until you delete it or uninstall the app</td></tr>
 </tbody>
@@ -92,7 +94,7 @@ module.exports = {
 <h2 data-sec="ccpa">19. United States: California and other state privacy rights</h2>
 <p>We do not sell your personal information and we do not share it for cross-context behavioural advertising. The app contains no advertising, so there is no “Do Not Sell or Share My Personal Information” setting to switch.</p>
 <p>If you live in California or another US state with a consumer privacy law (for example the CCPA/CPRA), then to the extent that law applies to us you may have the right to know what personal information we collect, use and disclose; to access, correct and delete it; to limit the use of sensitive personal information; and to be free from discrimination for using these rights.</p>
-<p>In the past twelve months we collected these categories: identifiers (email address, phone number, device and install identifiers); commercial information (plan and purchase status); app activity (anonymous usage events); and the content you submit (contracts and questions). We disclose them only to the service providers in section 9, for the business purposes described in this policy. We do not store your voice audio.</p>
+<p>In the past twelve months we collected these categories: identifiers (email address, device and install identifiers); commercial information (plan and purchase status); app activity (anonymous usage events); and the content you submit (contracts and questions). We disclose them only to the service providers in section 9, for the business purposes described in this policy. We do not store your voice audio.</p>
 <p>To use your rights, email nexulexai@gmail.com from the address you registered with. We may ask for details to verify that it is you, you can use an authorised agent, and we respond within 45 days where the law requires.</p>
 <h2 data-sec="changes">20. Changes to this policy</h2>
 <p>We may update this Privacy Policy. If we make material changes, we will change the date at the top and, where the law requires, tell you in the app or by other appropriate means before the change applies. Please review this page from time to time.</p>
@@ -127,7 +129,7 @@ module.exports = {
 </ul>
 
 <h2>What is kept</h2>
-<p>The device identifier and phone number used to claim the free analysis quota are retained without any link to your account, solely to prevent repeated free-quota abuse. Purchase records held by Apple, Google and RevenueCat are governed by their own policies.</p>
+<p>The device identifier used to claim the free analysis quota is retained without any link to your account, solely to prevent repeated free-quota abuse. Purchase records held by Apple, Google and RevenueCat are governed by their own policies.</p>
 
 <p>See also the <a href="privacy.html">Privacy Policy</a>.</p>`,
 

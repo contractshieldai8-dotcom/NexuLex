@@ -188,6 +188,8 @@ const waveEcon1Src = fs.existsSync('i18n.waveecon1.js') ? fs.readFileSync('i18n.
 const waveEcon1Match = waveEcon1Src.match(/export const WAVE_ECON1_I18N = ([\s\S]*);\s*$/);
 const waveCl1Src = fs.existsSync('i18n.wavecl1.js') ? fs.readFileSync('i18n.wavecl1.js', 'utf8') : '';
 const waveCl1Match = waveCl1Src.match(/export const WAVE_CL1_I18N = ([\s\S]*);\s*$/);
+const waveAc1Src = fs.existsSync('i18n.waveac1.js') ? fs.readFileSync('i18n.waveac1.js', 'utf8') : '';
+const waveAc1Match = waveAc1Src.match(/export const WAVE_AC1_I18N = ([\s\S]*);\s*$/);
 let fullResources = null;
 const i18nSrc = fs.readFileSync('i18n.js', 'utf8');
 const match = i18nSrc.match(/const resources = ([\s\S]*?);\s*\n\s*i18n\.use/);
@@ -269,6 +271,7 @@ const WAVE_LG1_I18N = eval(`(${waveLg1Match[1]})`); // eslint-disable-line no-ev
 const WAVE_D1_I18N = eval(`(${waveD1Match[1]})`); // eslint-disable-line no-eval
 const WAVE_ECON1_I18N = eval(`(${waveEcon1Match[1]})`); // eslint-disable-line no-eval
 const WAVE_CL1_I18N = eval(`(${waveCl1Match[1]})`); // eslint-disable-line no-eval
+const WAVE_AC1_I18N = eval(`(${waveAc1Match[1]})`); // eslint-disable-line no-eval
   const resources = Function(
     'WAVE_A_I18N',
     'WAVE_B_I18N',
@@ -343,8 +346,9 @@ const WAVE_CL1_I18N = eval(`(${waveCl1Match[1]})`); // eslint-disable-line no-ev
     'WAVE_D1_I18N',
     'WAVE_ECON1_I18N',
     'WAVE_CL1_I18N',
+    'WAVE_AC1_I18N',
     `return (${match[1]});`
-  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N, WAVE_ST8_I18N, WAVE_UX5_I18N, WAVE_UX6_I18N, WAVE_UX7_I18N, WAVE_UX8_I18N, WAVE_UX9_I18N, WAVE_UX10_I18N, WAVE_UX11_I18N, WAVE_UX12_I18N, WAVE_UX13_I18N, WAVE_UX14_I18N, WAVE_UX15_I18N, WAVE_UX16_I18N, WAVE_UX17_I18N, WAVE_UX18_I18N, WAVE_UX19_I18N, WAVE_UX20_I18N, WAVE_UX21_I18N, WAVE_ST9_I18N, WAVE_UX22_I18N, WAVE_UX23_I18N, WAVE_UX24_I18N, WAVE_UX26_I18N, WAVE_UX27_I18N, WAVE_UX30_I18N, WAVE_UX38_I18N, WAVE_UX39_I18N, WAVE_UX40_I18N, WAVE_LG1_I18N, WAVE_D1_I18N, WAVE_ECON1_I18N, WAVE_CL1_I18N);
+  )(WAVE_A_I18N, WAVE_B_I18N, WAVE_C_I18N, WAVE_D_I18N, WAVE_E_I18N, WAVE_F_I18N, WAVE_BN_I18N, WAVE_BO_I18N, WAVE_CA_I18N, WAVE_CB_I18N, WAVE_CC_I18N, WAVE_CB1_I18N, WAVE_ST_I18N, WAVE_UX1_I18N, WAVE_JP2_I18N, WAVE_GD2_I18N, WAVE_LR1_I18N, WAVE_LR2_I18N, WAVE_LR3_I18N, WAVE_LR4_I18N, WAVE_LR5_I18N, WAVE_LR6_I18N, WAVE_QA1_I18N, WAVE_GR1_I18N, WAVE_GR2_I18N, WAVE_GR3_I18N, WAVE_GR4_I18N, WAVE_GR5_I18N, WAVE_GR6_I18N, WAVE_MX1_I18N, WAVE_JP3_I18N, WAVE_ST2_I18N, WAVE_UX2_I18N, WAVE_ST4_I18N, WAVE_GR7_I18N, WAVE_UX3_I18N, WAVE_ST6_I18N, WAVE_ST7_I18N, WAVE_GR8_I18N, WAVE_UX4_I18N, WAVE_MX2_I18N, WAVE_ST8_I18N, WAVE_UX5_I18N, WAVE_UX6_I18N, WAVE_UX7_I18N, WAVE_UX8_I18N, WAVE_UX9_I18N, WAVE_UX10_I18N, WAVE_UX11_I18N, WAVE_UX12_I18N, WAVE_UX13_I18N, WAVE_UX14_I18N, WAVE_UX15_I18N, WAVE_UX16_I18N, WAVE_UX17_I18N, WAVE_UX18_I18N, WAVE_UX19_I18N, WAVE_UX20_I18N, WAVE_UX21_I18N, WAVE_ST9_I18N, WAVE_UX22_I18N, WAVE_UX23_I18N, WAVE_UX24_I18N, WAVE_UX26_I18N, WAVE_UX27_I18N, WAVE_UX30_I18N, WAVE_UX38_I18N, WAVE_UX39_I18N, WAVE_UX40_I18N, WAVE_LG1_I18N, WAVE_D1_I18N, WAVE_ECON1_I18N, WAVE_CL1_I18N, WAVE_AC1_I18N);
   fullResources = resources;
   const languages = Object.keys(resources);
   const baseKeys = Object.keys(resources.en.translation);
@@ -883,7 +887,7 @@ const WAVE_CL1_I18N = eval(`(${waveCl1Match[1]})`); // eslint-disable-line no-ev
     console.log(`WAVE_GR6 count langs=${Object.keys(WAVE_GR6_I18N).length} keys=${waveGr6Base.length}`);
   }
   const waveMx1Base = Object.keys(WAVE_MX1_I18N.en || {});
-  if (Object.keys(WAVE_MX1_I18N).length !== 13 || waveMx1Base.length !== 6) {
+  if (Object.keys(WAVE_MX1_I18N).length !== 13 || waveMx1Base.length !== 5) {
     failed = true;
     console.log(`WAVE_MX1 count langs=${Object.keys(WAVE_MX1_I18N).length} keys=${waveMx1Base.length}`);
   }
@@ -893,7 +897,7 @@ const WAVE_CL1_I18N = eval(`(${waveCl1Match[1]})`); // eslint-disable-line no-ev
     console.log(`WAVE_JP3 count langs=${Object.keys(WAVE_JP3_I18N).length} keys=${waveJp3Base.length}`);
   }
   const waveSt2Base = Object.keys(WAVE_ST2_I18N.en || {});
-  if (Object.keys(WAVE_ST2_I18N).length !== 13 || waveSt2Base.length !== 8) {
+  if (Object.keys(WAVE_ST2_I18N).length !== 13 || waveSt2Base.length !== 9) {
     failed = true;
     console.log(`WAVE_ST2 count langs=${Object.keys(WAVE_ST2_I18N).length} keys=${waveSt2Base.length}`);
   }
@@ -923,7 +927,7 @@ const WAVE_CL1_I18N = eval(`(${waveCl1Match[1]})`); // eslint-disable-line no-ev
     console.log(`WAVE_ST6 count langs=${Object.keys(WAVE_ST6_I18N).length} keys=${waveSt6Base.length}`);
   }
   const waveSt7Base = Object.keys(WAVE_ST7_I18N.en || {});
-  if (Object.keys(WAVE_ST7_I18N).length !== 13 || waveSt7Base.length !== 8) {
+  if (Object.keys(WAVE_ST7_I18N).length !== 13 || waveSt7Base.length !== 2) {
     failed = true;
     console.log(`WAVE_ST7 count langs=${Object.keys(WAVE_ST7_I18N).length} keys=${waveSt7Base.length}`);
   }
@@ -938,7 +942,7 @@ const WAVE_CL1_I18N = eval(`(${waveCl1Match[1]})`); // eslint-disable-line no-ev
     console.log(`WAVE_UX4 count langs=${Object.keys(WAVE_UX4_I18N).length} keys=${waveUx4Base.length}`);
   }
   const waveMx2Base = Object.keys(WAVE_MX2_I18N.en || {});
-  if (Object.keys(WAVE_MX2_I18N).length !== 13 || waveMx2Base.length !== 8) {
+  if (Object.keys(WAVE_MX2_I18N).length !== 13 || waveMx2Base.length !== 6) {
     failed = true;
     console.log(`WAVE_MX2 count langs=${Object.keys(WAVE_MX2_I18N).length} keys=${waveMx2Base.length}`);
   }
@@ -978,7 +982,7 @@ const WAVE_CL1_I18N = eval(`(${waveCl1Match[1]})`); // eslint-disable-line no-ev
     console.log(`WAVE_UX10 count langs=${Object.keys(WAVE_UX10_I18N).length} keys=${waveUx10Base.length}`);
   }
   const waveUx11Base = Object.keys(WAVE_UX11_I18N.en || {});
-  if (Object.keys(WAVE_UX11_I18N).length !== 13 || waveUx11Base.length !== 8) {
+  if (Object.keys(WAVE_UX11_I18N).length !== 13 || waveUx11Base.length !== 3) {
     failed = true;
     console.log(`WAVE_UX11 count langs=${Object.keys(WAVE_UX11_I18N).length} keys=${waveUx11Base.length}`);
   }
@@ -1092,9 +1096,9 @@ const WAVE_CL1_I18N = eval(`(${waveCl1Match[1]})`); // eslint-disable-line no-ev
   }
 
   console.log(`OK  i18n (${languages.length} dil x ${baseKeys.length} anahtar): ${languages.join(', ')}`);
-  if (languages.length !== 13 || baseKeys.length !== 2420) {
+  if (languages.length !== 13 || baseKeys.length !== 2418) {
     failed = true;
-    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2420`);
+    console.log(`i18n sayim ${languages.length} x ${baseKeys.length}, beklenen 13 x 2418`);
   }
 
   const enSub = resources.en.translation.paywallSubtitle || '';
@@ -3557,6 +3561,7 @@ Ticaret Unvanı: Anadolu Bilişim
       'WAVE_D1_I18N',
       'WAVE_ECON1_I18N',
       'WAVE_CL1_I18N',
+      'WAVE_AC1_I18N',
       `return (${i18nMatch[1]});`
     )(extras, waveB, waveC, waveD, waveE, WAVE_F, waveBn, waveBo, waveCa, waveCb, waveCc,
       eval(`(${fs.readFileSync('i18n.wavecb1.js', 'utf8').match(/export const WAVE_CB1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
@@ -3620,7 +3625,8 @@ Ticaret Unvanı: Anadolu Bilişim
       eval(`(${fs.readFileSync('i18n.wavelg1.js', 'utf8').match(/export const WAVE_LG1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waved1.js', 'utf8').match(/export const WAVE_D1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
       eval(`(${fs.readFileSync('i18n.waveecon1.js', 'utf8').match(/export const WAVE_ECON1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
-      eval(`(${fs.readFileSync('i18n.wavecl1.js', 'utf8').match(/export const WAVE_CL1_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.wavecl1.js', 'utf8').match(/export const WAVE_CL1_I18N = ([\s\S]*);\s*$/)[1]})`), // eslint-disable-line no-eval
+      eval(`(${fs.readFileSync('i18n.waveac1.js', 'utf8').match(/export const WAVE_AC1_I18N = ([\s\S]*);\s*$/)[1]})`)); // eslint-disable-line no-eval
     const en = resources.en.translation;
     const missingCta = ctaKeys.filter((key) => !en[key]);
     if (missingCta.length) {
@@ -4762,7 +4768,7 @@ Ticaret Unvanı: Anadolu Bilişim
     stFail('web/delete-account.html must give instructions + support email + subscription links');
   }
   if (!/href="delete-account\.html"/.test(privacy)) stFail('privacy.html must link delete-account.html');
-  if (!/device identifier and phone number used to claim the free quota are retained without any link to your account, solely to prevent repeated free-quota abuse/.test(privacy)) {
+  if (!/device identifier used to claim the free quota is retained without any link to your account, solely to prevent repeated free-quota abuse/.test(privacy)) {
     stFail('privacy.html must state the unlinked free-quota retention');
   }
   if (/anonymi[sz]ed|hashed|anonimleştir|hashlen/i.test(privacy + del)) stFail('free-quota retention must not be described as anonymized/hashed');
@@ -6840,8 +6846,8 @@ Ticaret Unvanı: Anadolu Bilişim
     mxFail(`runtime: ${error.message}`);
   }
   const R = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
-  const keys = ['mxAnnualBadge', 'mxAnnualHint', 'mxMonthlyNote', 'mxNoCompare', 'mxFirstValue', 'mxYearlyPick'];
-  if (keys.length !== 6) mxFail('six copy keys');
+  const keys = ['mxAnnualBadge', 'mxAnnualHint', 'mxMonthlyNote', 'mxNoCompare', 'mxYearlyPick'];
+  if (keys.length !== 5) mxFail('five copy keys');
   for (const L of LANGS) {
     const miss = keys.filter((k) => typeof R[L][k] !== 'string' || !R[L][k].trim());
     if (miss.length) mxFail(`${L} missing ${miss.join(', ')}`);
@@ -6856,7 +6862,7 @@ Ticaret Unvanı: Anadolu Bilişim
   const purchases = read('services/purchases.js');
   const model = read('constants/annualHighlight.js');
   if (!/pickAnnualCompare/.test(paywall) || !/mxAnnualBadge/.test(paywall)) mxFail('paywall must show the store-based yearly compare');
-  if (!/t\('mxFirstValue'\)/.test(paywall)) mxFail('paywall must say the first value stays free');
+  if (!/t\('mx2FirstValue'\)/.test(paywall) || /t\('mxFirstValue'\)/.test(paywall)) mxFail('paywall must say the first value stays free exactly once (mx2FirstValue)');
   if (!/t\('disclaimerCounsel'\)/.test(paywall)) mxFail('paywall disclaimer must stay last');
   if (!/price: pkg\.product\.price/.test(purchases) || !/currencyCode: pkg\.product\.currencyCode/.test(purchases)) {
     mxFail('offerings must pass the store price and currency');
@@ -6941,12 +6947,13 @@ Ticaret Unvanı: Anadolu Bilişim
     st2Fail(`runtime: ${error.message}`);
   }
   const R = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
-  const keys = ['st2Title', 'st2Hint', 'st2Keep', 'st2Picker', 'st2Sub', 'st2Quota', 'st2WebDelete', 'st2Disclaimer'];
-  if (keys.length !== 8) st2Fail('eight copy keys');
+  const keys = ['st2Title', 'st2Hint', 'st2Keep', 'st2Ai', 'st2Picker', 'st2Sub', 'st2Quota', 'st2WebDelete', 'st2Disclaimer'];
+  if (keys.length !== 9) st2Fail('nine copy keys');
   for (const L of LANGS) {
     const miss = keys.filter((k) => typeof R[L][k] !== 'string' || !R[L][k].trim());
     if (miss.length) st2Fail(`${L} missing ${miss.join(', ')}`);
     if (!/NexuLex/.test(R[L].st2Disclaimer || '')) st2Fail(`${L}.st2Disclaimer must name NexuLex`);
+    if (!/Anthropic/.test(R[L].st2Ai || '')) st2Fail(`${L}.st2Ai must name the AI provider (Anthropic)`);
     if (/anonymi|hashed|anonimleştir|garanti\b|guarantee|win rate|%/i.test(keys.map((k) => R[L][k] || '').join('\n'))) {
       st2Fail(`${L} overclaim or banned token`);
     }
@@ -6975,7 +6982,7 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!listing.includes("Selected by the user via the system picker. Sent to our server and AI provider solely to analyze the contract; analysis results are stored in the user's account until deleted by the user or upon account deletion. Never accessed in the background.")) {
     st2Fail('Data Safety photo/document statement must stay');
   }
-  if (!/device identifier and phone number used to claim the free quota are retained without any link to your account, solely to prevent repeated free-quota abuse/.test(privacy)) {
+  if (!/device identifier used to claim the free quota is retained without any link to your account, solely to prevent repeated free-quota abuse/.test(privacy)) {
     st2Fail('privacy.html free-quota sentence must stay');
   }
   if (/anonymi[sz]ed|hashed|anonimleştir|hashlen/i.test(privacy)) st2Fail('privacy.html must not claim anonymized quota');
@@ -7413,11 +7420,11 @@ Ticaret Unvanı: Anadolu Bilişim
     st7Fail(`runtime: ${error.message}`);
   }
   const R = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
-  const keys = ['st7Privacy', 'st7Terms', 'st7Delete', 'st7Lang', 'st7Binding', 'st7Store', 'st7Offline', 'st7Note'];
+  const keys = ['st7Delete', 'st7Binding'];
   for (const L of LANGS) {
     const miss = keys.filter((k) => typeof R[L][k] !== 'string' || !R[L][k].trim());
     if (miss.length) st7Fail(`${L} missing ${miss.join(', ')}`);
-    if (!/NexuLex/.test(R[L].st7Terms || '') || !/NexuLex/.test(R[L].st7Note || '')) st7Fail(`${L} terms/note must name NexuLex`);
+    if (/phone|telefon/i.test(R[L].st7Delete || '')) st7Fail(`${L}.st7Delete must not mention a phone`);
     if (/anonymi|hashed|anonimleştir|garanti\b|guarantee|win rate|%/i.test(keys.map((k) => R[L][k] || '').join('\n'))) {
       st7Fail(`${L} overclaim or banned token`);
     }
@@ -7429,6 +7436,18 @@ Ticaret Unvanı: Anadolu Bilişim
   const app = read('App.js');
   for (const key of keys) {
     if (!app.includes(`t('${key}')`)) st7Fail(`privacy card must render ${key}`);
+  }
+  {
+    // One legal footer: a single fold and one disclaimer in the privacy card; the removed repeats stay out.
+    const dropped = ['st7Privacy', 'st7Terms', 'st7Lang', 'st7Store', 'st7Offline', 'st7Note'];
+    const back = dropped.filter((k) => app.includes(`t('${k}')`));
+    if (back.length) st7Fail(`privacy card repeats removed lines: ${back.join(', ')}`);
+    const cardStart = app.indexOf("onSettingsSectionLayout('privacy')");
+    const cardEnd = app.indexOf("t('st2Disclaimer')", cardStart);
+    const card = app.slice(cardStart, cardEnd);
+    if (cardStart < 0 || cardEnd < 0 || (card.match(/<HonestyFold/g) || []).length !== 1) st7Fail('privacy card must hold exactly one fold');
+    if ((app.match(/t\('st2Disclaimer'\)/g) || []).length !== 1) st7Fail('st2Disclaimer must be rendered once');
+    if (!card.includes("t('st2Ai')") || !card.includes("t('aiConsentSettingTitle')")) st7Fail('privacy card must explain and toggle AI processing');
   }
   if (!/t\('st2Disclaimer'\)\s*\}\s*<\/Text>\s*<\/View>/.test(app)) st7Fail('st2Disclaimer must stay last in the privacy card');
   if (!/Linking\.openURL\(TRUST_URLS\.privacy \|\| 'https:\/\/nexulexai\.netlify\.app\/privacy\.html'\)\.catch\(/.test(app)) st7Fail('privacy URL must catch on the same line');
@@ -7582,8 +7601,8 @@ Ticaret Unvanı: Anadolu Bilişim
     mxFail(`runtime: ${error.message}`);
   }
   const R = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
-  const keys = ['mx2Delta', 'mx2Prices', 'mx2NoDelta', 'mx2Yearly', 'mx2Offering', 'mx2Upgrade', 'mx2FirstValue', 'mx2Disclaimer'];
-  if (keys.length !== 8) mxFail('eight copy keys');
+  const keys = ['mx2Delta', 'mx2Prices', 'mx2NoDelta', 'mx2Yearly', 'mx2Offering', 'mx2FirstValue'];
+  if (keys.length !== 6) mxFail('six copy keys');
   for (const L of LANGS) {
     const miss = keys.filter((k) => typeof R[L][k] !== 'string' || !R[L][k].trim());
     if (miss.length) mxFail(`${L} missing ${miss.join(', ')}`);
@@ -7592,8 +7611,8 @@ Ticaret Unvanı: Anadolu Bilişim
       mxFail(`${L}.mx2Prices needs {{professionalPrice}} and {{proPrice}}`);
     }
     if (/%/.test(keys.map((k) => R[L][k]).join('\n'))) mxFail(`${L} must not hard-code a percent sign`);
-    if (!/NexuLex/.test(R[L].mx2Offering || '') || !/NexuLex/.test(R[L].mx2Disclaimer || '')) {
-      mxFail(`${L} offering/disclaimer must name NexuLex`);
+    if (!/NexuLex/.test(R[L].mx2Offering || '')) {
+      mxFail(`${L} offering must name NexuLex`);
     }
     if (L !== 'en') {
       const same = keys.filter((k) => R[L][k] === R.en[k] && R.en[k].length >= 12);
@@ -7610,14 +7629,14 @@ Ticaret Unvanı: Anadolu Bilişim
   if (!/pickProfessionalCompare/.test(paywall) || !/fetchOfferings\(tier === 'professional' \? 'pro' : 'professional'\)/.test(paywall)) {
     mxFail('paywall must compare the peer store offering');
   }
-  if (!/pickAnnualCompare/.test(paywall) || !/t\('mxAnnualBadge'/.test(paywall) || !/t\('mxFirstValue'\)/.test(paywall)) {
+  if (!/pickAnnualCompare/.test(paywall) || !/t\('mxAnnualBadge'/.test(paywall) || !/t\('mx2FirstValue'\)/.test(paywall)) {
     mxFail('MX.1 yearly compare must stay on the paywall');
   }
   if (!/t\('planUpgradeNote'\)/.test(paywall) || !/t\('planProfessionalUnavailable'\)/.test(paywall)) {
     mxFail('Professional upgrade and unavailable copy must stay');
   }
-  if (paywall.lastIndexOf("t('disclaimerCounsel')") < paywall.lastIndexOf("t('mx2Disclaimer')")) {
-    mxFail('paywall disclaimer must stay last');
+  if (paywall.lastIndexOf("t('disclaimerCounsel')") < paywall.lastIndexOf("t('ux11Disclaimer')") || /t\('mx2Disclaimer'\)/.test(paywall)) {
+    mxFail('paywall disclaimer must stay last and appear once');
   }
   if (!/price: pkg\.product\.price/.test(purchases) || !/currencyCode: pkg\.product\.currencyCode/.test(purchases)) {
     mxFail('offerings must pass the store price and currency');
@@ -7626,8 +7645,7 @@ Ticaret Unvanı: Anadolu Bilişim
     mxFail('Professional extra must stay inside a sane band and skip mixed currency');
   }
   if (/40\s*%|save 40|yüzde 40/i.test(paywall + model)) mxFail('no hardcoded marketing percent');
-  if (!mx1.includes('"mxAnnualBadge": "{{percent}} less than twelve monthly payments"')
-    || !mx1.includes('"mxFirstValue": "Your first scan, first questions and first case file stay on the free plan."')) {
+  if (!mx1.includes('"mxAnnualBadge": "{{percent}} less than twelve monthly payments"')) {
     mxFail('en MX.1 copy must stay byte-identical');
   }
   if (!/hookForFirstIntent\('guides'\) === null/.test(read('constants/paywallIntent.js'))) mxFail('guides must stay unlocked');
@@ -8091,7 +8109,7 @@ Ticaret Unvanı: Anadolu Bilişim
     uxFail(`runtime: ${error.message}`);
   }
   const R = Object.fromEntries(LANGS.map((L) => [L, fullResources[L].translation]));
-  const keys = ['ux11Store', 'ux11First', 'ux11Guides', 'ux11Yearly', 'ux11Peer', 'ux11Restore', 'ux11NoCourt', 'ux11Disclaimer'];
+  const keys = ['ux11Store', 'ux11Guides', 'ux11Disclaimer'];
   for (const L of LANGS) {
     const miss = keys.filter((k) => typeof R[L][k] !== 'string' || !R[L][k].trim());
     if (miss.length) uxFail(`${L} missing ${miss.join(', ')}`);
@@ -8111,14 +8129,25 @@ Ticaret Unvanı: Anadolu Bilişim
   if (paywall.lastIndexOf("t('disclaimerCounsel')") < paywall.lastIndexOf("t('ux11Disclaimer')")) {
     uxFail('disclaimerCounsel must stay last');
   }
-  if (!/pickAnnualCompare/.test(paywall) || !/t\('mxAnnualBadge'/.test(paywall) || !/t\('mxFirstValue'\)/.test(paywall)) {
+  if (!/pickAnnualCompare/.test(paywall) || !/t\('mxAnnualBadge'/.test(paywall) || !/t\('mx2FirstValue'\)/.test(paywall)) {
     uxFail('MX.1 yearly compare and first-value copy must stay');
   }
-  if (!/pickProfessionalCompare/.test(paywall) || !/t\('mx2Disclaimer'\)/.test(paywall)) uxFail('MX.2 compare must stay');
+  if (!/pickProfessionalCompare/.test(paywall) || !/t\('mx2Offering'\)/.test(paywall)) uxFail('MX.2 compare must stay');
+  {
+    // The fold keeps one copy of each statement: the repeated lines were removed, and must not creep back.
+    const dropped = ['mxFirstValue', 'mx2Upgrade', 'mx2Disclaimer', 'ux11First', 'ux11Yearly', 'ux11Peer', 'ux11Restore', 'ux11NoCourt'];
+    const back = dropped.filter((k) => paywall.includes(`t('${k}'`));
+    if (back.length) uxFail(`paywall fold repeats removed lines: ${back.join(', ')}`);
+    const foldStart = paywall.indexOf('<HonestyFold');
+    const foldBody = paywall.slice(foldStart, paywall.indexOf('</HonestyFold>'));
+    const shown = (foldBody.match(/t\(/g) || []).length - 3; // minus foldLabel / foldShow / foldHide
+    if (shown < 4 || shown > 10) uxFail(`paywall fold must stay short (4-10 lines), found ${shown}`);
+    if ((paywall.match(/<HonestyFold/g) || []).length !== 1) uxFail('paywall must have exactly one fold');
+  }
   if (!gr4.includes('"pwFootAsk": "The first questions each day stay free. Unlock only after you have used them."') || !gr4.includes('"pwFootQuota": "Your first scans stay free. Unlock only after those scans are used."')) {
     uxFail('en GR.4 footnotes must stay byte-identical');
   }
-  if (!mx1.includes('"mxAnnualBadge": "{{percent}} less than twelve monthly payments"') || !mx1.includes('"mxFirstValue": "Your first scan, first questions and first case file stay on the free plan."')) {
+  if (!mx1.includes('"mxAnnualBadge": "{{percent}} less than twelve monthly payments"')) {
     uxFail('en MX.1 copy must stay byte-identical');
   }
   if (!mx2.includes('"mx2Delta": "Professional costs {{percent}} more than Pro at the same store period and currency."') || !mx2.includes('"mx2FirstValue": "Your first scan, first questions and first case stay free. Professional tools stay on the paid Professional plan."')) {
@@ -9545,7 +9574,7 @@ Ticaret Unvanı: Anadolu Bilişim
   const pos = (needle) => pw.indexOf(needle);
   const plans = pos('(packages || []).map(renderPlan)');
   const cta = pos("t('paywallCta')");
-  const fine = pos("t('mxFirstValue')");
+  const fine = pos("t('mx2FirstValue')");
   const legal = pos('openLegal(PRIVACY_URL)');
   if (plans < 0 || cta < 0 || fine < 0 || legal < 0) dFail('paywall anchors missing');
   else if (!(plans < cta && cta < fine && fine < legal)) dFail('order must be plans, CTA, fine print, legal links');
@@ -10296,5 +10325,38 @@ Ticaret Unvanı: Anadolu Bilişim
     e4Fail(`harness error: ${error.message}`);
   }
   if (ok) console.log('OK  WAVE ECON.4 model tooling: caps + 13-language A/B (budget-capped, key from env) + telemetry export/report/--matrix + model-based price matrix, offline suites green');
+}
+// WAVE CONSENT.1 — append-only consent ledger + device-first dual write
+{
+  let ok = true;
+  const cFail = (m) => { ok = false; failed = true; console.log(`FAIL WAVE CONSENT.1: ${m}`); };
+  try {
+    const mig = fs.readFileSync('supabase/migrations/20261022120000_consents_ledger.sql', 'utf8');
+    if (!/create table if not exists public\.consents/.test(mig)) cFail('consents table migration missing');
+    for (const col of ['user_id uuid not null references auth.users (id) on delete cascade', 'consent_type text not null', 'version integer not null', 'granted boolean not null', 'created_at timestamptz not null default now()']) {
+      if (!mig.includes(col)) cFail(`consents column missing: ${col}`);
+    }
+    if (!/alter table public\.consents enable row level security/.test(mig)) cFail('consents must have RLS enabled');
+    if (!/for select to authenticated\s+using \(user_id = auth\.uid\(\)\)/.test(mig)) cFail('consents: users read only their own rows');
+    if (!/for insert to authenticated\s+with check \(user_id = auth\.uid\(\)\)/.test(mig)) cFail('consents: users insert only their own rows');
+    if (/create policy[^;]*for (update|delete|all)\b/i.test(mig)) cFail('consents must have no UPDATE/DELETE/ALL policy (append-only)');
+    if (!/grant select, insert on table public\.consents to authenticated/.test(mig) || /grant[^;]*\b(update|delete)\b[^;]*public\.consents/i.test(mig)) cFail('consents grants must be select + insert only');
+    if (!/CONSENTS_APPEND_ONLY/.test(mig)) cFail('consents: privileged UPDATE must be blocked by a trigger');
+    const svc = fs.readFileSync('services/aiConsent.js', 'utf8');
+    if (!/from\('consents'\)\.insert\(/.test(svc) || !/AI_CONSENT_TYPE = 'ai_processing'/.test(svc)) cFail('aiConsent must append decisions to the consents ledger');
+    if (!/AsyncStorage\.setItem\(\s*storageKey\(userId\)/.test(svc) || svc.indexOf('storageKey(userId),') > svc.indexOf('flushConsentQueue();', svc.indexOf('export async function setAiConsent'))) cFail('aiConsent: device record must be written before the ledger');
+    if (!/export function flushConsentQueue/.test(svc) || !/QUEUE_PREFIX/.test(svc)) cFail('aiConsent: failed ledger writes must be queued and retried');
+    if (!/export async function getAiConsentStatus/.test(svc) || !/'outdated'/.test(svc) || !/AI_CONSENT_VERSION/.test(svc)) cFail('aiConsent: version bump must re-ask (outdated status)');
+    const pkg = fs.readFileSync('package.json', 'utf8');
+    if (!/"verify":[^\n]*test-ai-consent\.js[^\n]*test-claim-quota-sql\.mjs/.test(pkg)) cFail('npm run verify must run the consent behaviour test and the PGlite SQL suite');
+    const sqlTest = fs.readFileSync('scripts/test-claim-quota-sql.mjs', 'utf8');
+    for (const needle of ['CONSENTS_APPEND_ONLY', 'row-level security', 'cascade']) {
+      if (!sqlTest.includes(needle)) cFail(`PGlite suite lacks a consents check for: ${needle}`);
+    }
+    if (!/cascades and erases its rows/.test(sqlTest)) cFail('PGlite suite must prove the account-deletion cascade');
+  } catch (error) {
+    cFail(`harness error: ${error.message}`);
+  }
+  if (ok) console.log('OK  WAVE CONSENT.1 consents ledger: RLS own-rows select+insert only, no UPDATE/DELETE, cascade on account delete, device-first dual write with queued retry, version bump re-asks, PGlite + behaviour suites wired into verify');
 }
 process.exit(failed ? 1 : 0);

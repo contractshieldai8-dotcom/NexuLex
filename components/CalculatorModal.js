@@ -15,7 +15,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, DANGER, styles } from '../theme';
+import { ACCENT, styles } from '../theme';
 import { LEGAL_CALCULATORS, calculatorCopyKeys, isCalculatorAvailable } from '../constants/legalCalcRates';
 import {
   buildCalcAdvisorPrompt,

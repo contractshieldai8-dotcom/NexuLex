@@ -61,6 +61,19 @@ function ratio(a, b) {
   return (hi + 0.05) / (lo + 0.05);
 }
 
+// Composite an rgba(r, g, b, a) token over an opaque #rrggbb surface; returns #rrggbb or null.
+function blendRgba(rgba, surfaceHex) {
+  const m = /^rgba\(\s*(\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\s*\)$/.exec(rgba || '');
+  const s = HEX.exec(surfaceHex || '');
+  if (!m || !s) return null;
+  const alpha = Number(m[4]);
+  const base = parseInt(s[1], 16);
+  const src = [Number(m[1]), Number(m[2]), Number(m[3])];
+  const dst = [(base >> 16) & 255, (base >> 8) & 255, base & 255];
+  const out = src.map((c, i) => Math.round(c * alpha + dst[i] * (1 - alpha)));
+  return `#${out.map((c) => c.toString(16).padStart(2, '0')).join('')}`;
+}
+
 let failures = 0;
 let checks = 0;
 
@@ -87,6 +100,11 @@ for (const [mode, name] of [['dark', 'darkTheme'], ['light', 'lightTheme']]) {
     for (const surface of ['bg', 'cardBg', 'inputBg', 'surfaceRaised']) {
       check(mode, key, surface, tokens[key], tokens[surface], 4.5);
     }
+  }
+  // accentAlt text/icons on its own translucent chip (accentAltSoft composited over each surface)
+  for (const surface of surfaces) {
+    const chip = blendRgba(tokens.accentAltSoft, tokens[surface]);
+    if (chip) check(mode, 'accentAlt', `accentAltSoft over ${surface}`, tokens.accentAlt, chip, 4.5);
   }
   // Label on a filled accent button
   check(mode, 'onAccent', 'accent', tokens.onAccent, tokens.accent, 4.5);

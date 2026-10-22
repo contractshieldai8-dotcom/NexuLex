@@ -16,7 +16,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, DANGER, alignStart, styles } from '../theme';
+import { ACCENT, alignStart, styles } from '../theme';
 import {
   DRAFT_FREE_PREVIEW_LINES,
   getDraftTemplateById,

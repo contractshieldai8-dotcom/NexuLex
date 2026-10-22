@@ -5,7 +5,5 @@ module.exports = {
   mx2NoDelta: 'Een cijfer Pro versus Professional verschijnt alleen als beide plannen dezelfde periode in dezelfde valuta tonen.',
   mx2Yearly: 'Jaarlijks Professional wordt alleen belicht als het goedkoper is dan twaalf maandelijkse Professional-betalingen.',
   mx2Offering: "Professional is een apart abonnement in uw winkel. NexuLex toont de prijs alleen wanneer de winkel die vermeldt.",
-  mx2Upgrade: "Heeft u al Pro, dan regelt de winkel de upgrade en een eventueel prijsverschil. De app rekent niets extra.",
   mx2FirstValue: 'De eerste scan, de eerste vragen en het eerste dossier blijven gratis. Professional-hulpmiddelen blijven op het betaalde Professional-plan.',
-  mx2Disclaimer: 'NexuLex is geen advocatenkantoor. Alleen de winkelprijzen op dit scherm worden vergeleken.',
 };

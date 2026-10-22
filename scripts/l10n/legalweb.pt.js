@@ -26,14 +26,16 @@ module.exports = {
 <p>Perguntas jurídicas e as ferramentas Professional (cronologia, lista de questões, nota de pesquisa): a pergunta, factos, material do processo e o ficheiro anexo (sem provas) são enviados por ligação cifrada através do nosso servidor ao fornecedor de IA só para criar a resposta. O nosso servidor guarda apenas uma contagem diária de perguntas e execuções Professional, não o seu texto nem a saída da IA. Respostas, resultados e processos ficam no dispositivo salvo se os guardar ou partilhar.</p>
 <p>Pode reportar uma saída de IA a partir do relatório de análise, de uma resposta do consultor ou de um rascunho melhorado. O reporte guarda o motivo, a nota opcional, o id, o idioma da app e o país escolhido. O texto do contrato ou da resposta (até 2000 caracteres) só é anexado se ligar «Incluir o contexto do contrato».</p>
 <p>Encontrar um advogado: a primeira mensagem e o pacote do processo são criados no dispositivo sem IA e não são enviados aos nossos servidores nem a qualquer advogado. Saem do dispositivo só quando os copia ou partilha. As ligações de diretório abrem sítios oficiais de ordens e entidades públicas, com as suas políticas. A NexuLex não passa os seus dados a advogados e não recebe honorários de referência.</p>
+<p data-consent-record="1">Registo do consentimento de IA: quando permite ou retira a permissão para enviar o seu conteúdo ao fornecedor de IA, guardamos essa decisão num registo de consentimento só de acréscimo: o identificador da sua conta, o tipo de consentimento, a versão do texto, concedido ou retirado, e a hora. Não contém texto de contratos. A decisão aplica-se de imediato no seu dispositivo, mesmo sem ligação; se o registo não puder ser guardado logo, a aplicação guarda-o mais tarde. Só você pode ler as suas linhas, ninguém na aplicação as pode alterar ou apagar, e são eliminadas quando elimina a sua conta.</p>
 <h2>5. Conservação e eliminação</h2>
 <p>Pode apagar a conta em qualquer momento na app em <strong>Definições, depois Apagar conta</strong>, ou com os passos da <a href="delete-account.html">página de eliminação</a> (sem a app). A eliminação remove conta e perfil, análises e textos de contrato, códigos de partilha, lembretes, lugares de consultor / agregado e briefs, mensagens de apoio e relatos de IA. No dispositivo da eliminação in-app também se limpam lembretes agendados, caches locais e ficheiros exportados.</p>
-<p>Após a eliminação, o identificador do dispositivo e o telefone usados para a quota gratuita ficam sem ligação à conta, só para impedir pedidos gratuitos repetidos.</p>
+<p>Após a eliminação, o identificador do dispositivo usado para a quota gratuita fica sem ligação à conta, só para impedir pedidos gratuitos repetidos.</p>
 <p>Uma subscrição ativa da App Store / Google Play não é cancelada automaticamente ao apagar a conta; cancele-a na conta da loja. Os códigos de brief expiram sozinhos após a janela indicada.</p>
 <h2>6. Aviso legal</h2>
 <p><strong>A NexuLex AI não é um escritório de advogados e não presta aconselhamento jurídico.</strong> As saídas são ferramentas de informação geral. As decisões são suas; consulte um advogado habilitado para o seu assunto.</p>
 <h2 data-sec="signup">7. Dados de registo</h2>
-<p>No registo indica um endereço de e-mail e um número de telefone. O número de telefone e um identificador do dispositivo servem para reclamar a quota gratuita de análise e impedir abusos repetidos. Não são usados para publicidade nem são vendidos.</p>
+<p>No registo indica um endereço de e-mail e uma palavra-passe e confirma que tem pelo menos 18 anos e que aceita os Termos de utilização e esta Política de privacidade; guardamos essa confirmação e a sua data. Não pedimos número de telefone. Um identificador do dispositivo serve para reclamar a quota gratuita de análise e impedir abusos repetidos. Não é usado para publicidade nem é vendido.</p>
+<p>Antes do seu primeiro pedido de IA, a app pede a sua autorização para enviar o que submete (texto do contrato, fotografias, páginas PDF, perguntas) ao nosso fornecedor de IA. Pode retirá-la a qualquer momento em Definições, na secção Privacidade; sem ela, nenhum pedido de IA é enviado.</p>
 <h2 data-sec="voice">8. Entrada de voz</h2>
 <p>A entrada de voz é opcional. Quando usa o microfone, o reconhecimento de voz é feito pelo serviço de voz integrado no seu telefone (Apple ou Google), segundo as condições de privacidade desse fornecedor. A NexuLex AI não grava nem guarda o seu áudio; recebe apenas o texto que decidir usar.</p>
 <h2 data-sec="transfer">9. Prestadores de serviços e transferências internacionais</h2>
@@ -71,7 +73,7 @@ module.exports = {
 <tr><td>Códigos de resumo e de partilha</td><td>Até ao fim da validade indicada; um código expirado deixa de funcionar automaticamente</td></tr>
 <tr><td>Mensagens de apoio</td><td>No máximo 24 meses, ou até eliminar a sua conta</td></tr>
 <tr><td>Relatórios anónimos de utilização e de erros</td><td>No máximo 180 dias</td></tr>
-<tr><td>Registo da quota gratuita (identificador do dispositivo e número de telefone, sem qualquer ligação à sua conta)</td><td>Sem data de fim fixa; guardado apenas para evitar o abuso repetido da quota gratuita</td></tr>
+<tr><td>Registo da quota gratuita (identificador do dispositivo, sem qualquer ligação à sua conta)</td><td>Sem data de fim fixa; guardado apenas para evitar o abuso repetido da quota gratuita</td></tr>
 <tr><td>Plano e data de expiração no seu perfil</td><td>Até eliminar a sua conta; os registos de compra da Apple, da Google e da RevenueCat seguem as respetivas políticas</td></tr>
 <tr><td>Dados no seu dispositivo (histórico, processos, respostas, rascunhos)</td><td>Até os eliminar ou desinstalar a app</td></tr>
 </tbody>
@@ -85,7 +87,7 @@ module.exports = {
 <h2 data-sec="ccpa">19. Estados Unidos: direitos na Califórnia e noutros estados</h2>
 <p>Não vendemos as suas informações pessoais nem as partilhamos para publicidade comportamental entre contextos. A app não contém publicidade, pelo que não existe uma definição «Não vender nem partilhar as minhas informações pessoais» para ativar.</p>
 <p>Se vive na Califórnia ou noutro estado dos EUA com lei de privacidade do consumidor (por exemplo, a CCPA/CPRA), na medida em que essa lei se aplique a nós, pode ter o direito de saber que informações pessoais recolhemos, usamos e divulgamos; de aceder a elas, corrigi-las e eliminá-las; de limitar o uso de informações pessoais sensíveis; e de não sofrer discriminação por exercer estes direitos.</p>
-<p>Nos últimos doze meses recolhemos estas categorias: identificadores (endereço de e-mail, número de telefone, identificadores do dispositivo e da instalação); informações comerciais (estado do plano e das compras); atividade na app (eventos de utilização anónimos); e o conteúdo que submete (contratos e perguntas). Divulgamo-las apenas aos prestadores da secção 9, para as finalidades comerciais descritas nesta política. Não guardamos o seu áudio de voz.</p>
+<p>Nos últimos doze meses recolhemos estas categorias: identificadores (endereço de e-mail, identificadores do dispositivo e da instalação); informações comerciais (estado do plano e das compras); atividade na app (eventos de utilização anónimos); e o conteúdo que submete (contratos e perguntas). Divulgamo-las apenas aos prestadores da secção 9, para as finalidades comerciais descritas nesta política. Não guardamos o seu áudio de voz.</p>
 <p>Para exercer os seus direitos, escreva para nexulexai@gmail.com a partir do endereço com que se registou. Podemos pedir dados para verificar a sua identidade, pode recorrer a um representante autorizado e respondemos em 45 dias quando a lei o exigir.</p>
 <h2 data-sec="changes">20. Alterações a esta política</h2>
 <p>Podemos atualizar esta política de privacidade. Se fizermos alterações importantes, mudaremos a data no topo e, quando a lei o exigir, informá-lo-emos na app ou por outro meio adequado antes de a alteração se aplicar. Consulte esta página de vez em quando.</p>
@@ -116,7 +118,7 @@ module.exports = {
 <li>No dispositivo da eliminação in-app: lembretes agendados, caches locais e ficheiros exportados.</li>
 </ul>
 <h2>O que é conservado</h2>
-<p>O identificador do dispositivo e o telefone usados para a quota gratuita de análise ficam sem ligação à conta, só para impedir pedidos gratuitos repetidos. As compras na Apple, Google e RevenueCat seguem as próprias regras.</p>
+<p>O identificador do dispositivo usado para a quota gratuita de análise fica sem ligação à conta, só para impedir pedidos gratuitos repetidos. As compras na Apple, Google e RevenueCat seguem as próprias regras.</p>
 <p>Veja também a <a href="privacy.html">política de privacidade</a>.</p>`,
 
   terms: `<h1>Termos de utilização (EULA)</h1>

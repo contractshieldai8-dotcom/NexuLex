@@ -12,6 +12,7 @@ export const TRUST_URLS = {
 export const TRUST_KEYS = [
   'st2Title',
   'st2Keep',
+  'st2Ai',
   'st2Picker',
   'st2Sub',
   'st2Quota',
@@ -28,7 +29,7 @@ export function assertSettingsTrustFixtures() {
   };
   check(TRUST_URLS.privacy.endsWith('/privacy.html') && TRUST_URLS.terms.endsWith('/terms.html'), 'privacy and terms URLs');
   check(TRUST_URLS.deleteAccount.endsWith('/delete-account.html'), 'web delete URL');
-  check(TRUST_KEYS.length === 8 && TRUST_KEYS.includes('st2Disclaimer'), 'eight copy keys');
+  check(TRUST_KEYS.length === 9 && TRUST_KEYS.includes('st2Disclaimer') && TRUST_KEYS.includes('st2Ai'), 'nine copy keys');
   check(!/anonymi|hashed|anonimleştir/i.test(TRUST_KEYS.join(' ')), 'ids are not privacy overclaims');
   check(Object.values(TRUST_URLS).every((url) => url.startsWith('https://nexulexai.netlify.app/')), 'all trust URLs stay on the public site');
   return { cases };

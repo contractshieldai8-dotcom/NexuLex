@@ -14,7 +14,7 @@ import * as Clipboard from 'expo-clipboard';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 
-import { ACCENT, DANGER, SUCCESS, WARNING, alignStart, styles, toneText } from '../theme';
+import { DANGER, SUCCESS, WARNING, alignStart, styles, toneText } from '../theme';
 import { playbookItemById } from '../constants/playbooks';
 import { compareContractVersions, reviseContractDraft } from '../services/ai';
 import { describeError } from '../utils/errors';
@@ -632,7 +632,7 @@ export default function DiffTool({
             disabled={disabled}
             activeOpacity={0.85}
           >
-            <Ionicons name="sparkles-outline" size={22} color={theme.accent} style={{ marginBottom: 8 }} />
+            <Ionicons name="sparkles-outline" size={22} color={theme.accentAlt} style={{ marginBottom: 8 }} />
             <Text style={[styles.sideCardLabel, { color: theme.text }]}>{t('diffAutoRevise')}</Text>
             <Text style={[styles.sideCardHint, { color: theme.subText }]}>{t('diffAutoReviseHint')}</Text>
           </TouchableOpacity>

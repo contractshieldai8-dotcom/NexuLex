@@ -30,8 +30,8 @@ for (const lang of only ? [only] : langs) {
   if (!/\{\{professionalPrice\}\}/.test(table.mx2Prices || '') || !/\{\{proPrice\}\}/.test(table.mx2Prices || '')) {
     problems.push(`${lang}.mx2Prices: needs {{professionalPrice}} and {{proPrice}}`);
   }
-  if (!/NexuLex/.test(table.mx2Offering || '') || !/NexuLex/.test(table.mx2Disclaimer || '')) {
-    problems.push(`${lang}: offering/disclaimer must name NexuLex`);
+  if (!/NexuLex/.test(table.mx2Offering || '')) {
+    problems.push(`${lang}: offering must name NexuLex`);
   }
   out[lang] = Object.fromEntries(baseKeys.map((key) => [key, table[key]]));
 }

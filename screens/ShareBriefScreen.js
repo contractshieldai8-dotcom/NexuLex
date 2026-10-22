@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, DANGER, SUCCESS, WARNING, getRiskColor, styles, toneText } from '../theme';
+import { DANGER, SUCCESS, WARNING, getRiskColor, styles, toneText } from '../theme';
 import { fetchShareSnapshot } from '../services/shareBrief';
 import { SHARE_CODE_RE } from '../utils/shareSnapshot';
 import { decisionActionKey } from '../utils/analysis';

@@ -13,7 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, DANGER, alignStart, styles } from '../theme';
+import { alignStart, styles } from '../theme';
 import { LEGAL_SCENARIOS, getScenarioById } from '../constants/legalScenarios';
 import { draftForScenario } from '../constants/draftTemplates';
 import { resolveJurisdiction } from '../constants/jurisdiction';
@@ -83,14 +83,14 @@ export default function ScenarioWizardModal({
 
   const handleCopy = async () => {
     if (!roadmap) return;
-    const text = formatRoadmapForSharing(roadmap, 'plain');
+    const text = formatRoadmapForSharing(roadmap, 'plain', i18n.language);
     await Clipboard.setStringAsync(text);
     showToast(t('copiedToClipboard'), { type: 'success', duration: 1400 });
   };
 
   const handleShare = async () => {
     if (!roadmap) return;
-    const message = formatRoadmapForSharing(roadmap, 'whatsapp');
+    const message = formatRoadmapForSharing(roadmap, 'whatsapp', i18n.language);
     try {
       await Share.share({ message });
     } catch (_error) {

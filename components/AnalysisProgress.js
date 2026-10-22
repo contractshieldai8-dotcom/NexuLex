@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { ActivityIndicator, Animated, Easing, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
-import { ACCENT, styles } from '../theme';
+import { styles } from '../theme';
 
 const stageFor = (step) => {
   if (step === 'report') {

@@ -11,7 +11,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ACCENT, styles } from '../theme';
+import { styles } from '../theme';
 import { PARTY_SIDES } from '../constants/options';
 
 // Analiz ekranı ve Hukuk Danışmanı sekmesinde kullanılan şık seçici alan.

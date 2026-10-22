@@ -26,14 +26,16 @@ module.exports = {
 <p>Juridische vragen en de Professional-hulpmiddelen (chronologie, kwestielijst, onderzoeksnotitie): uw vraag, feiten, dossierstof en een bijgevoegd dossier (zonder bewijsbestanden) gaan alleen om het antwoord te maken via een versleutelde verbinding door onze server naar de AI-aanbieder. Onze server bewaart alleen een dagelijkse telling van vragen en Professional-runs, niet uw tekst en niet de AI-uitvoer. Antwoorden, resultaten en dossiers blijven op uw apparaat tot u ze ergens anders bewaart of deelt.</p>
 <p>U kunt een AI-uitvoer melden vanuit het analyserapport, een adviseurantwoord of een bijgewerkte concepttekst. Een melding bewaart de reden, uw optionele notitie, het item-id, de app-taal en het gekozen land. Contract- of antwoordtekst (maximaal 2000 tekens) wordt alleen bijgevoegd als u «Contractcontext toevoegen» aanzet.</p>
 <p>Advocaat vinden: het eerste bericht en het dossierpakket ontstaan zonder AI op uw apparaat en gaan niet naar onze servers of naar een advocaat. Ze verlaten het apparaat alleen als u zelf kopieert of deelt. Directorylinks openen officiële sites van balies en overheidsorganen met eigen privacyregels. NexuLex geeft uw gegevens niet door aan advocaten en ontvangt geen doorverwijzingsvergoeding.</p>
+<p data-consent-record="1">AI-toestemmingsregister: wanneer u toestemming geeft of intrekt om uw inhoud naar de AI-aanbieder te sturen, leggen we die keuze vast in een toestemmingsregister waaraan alleen kan worden toegevoegd: uw account-id, het type toestemming, de tekstversie, verleend of ingetrokken, en het tijdstip. Het bevat geen contracttekst. De keuze geldt direct op uw apparaat, ook offline; kan het register niet meteen worden opgeslagen, dan doet de app dat later. Alleen u kunt uw eigen regels lezen, niemand in de app kan ze wijzigen of verwijderen, en ze worden gewist wanneer u uw account verwijdert.</p>
 <h2>5. Bewaartermijn en verwijdering</h2>
 <p>U kunt het account altijd in de app verwijderen via <strong>Instellingen, daarna Account verwijderen</strong>, of via de stappen op de <a href="delete-account.html">verwijderpagina</a> (zonder app). Verwijdering haalt account en profiel weg, opgeslagen analyses en contracttekst, deelcodes, herinneringen, adviseur- / huishoudplekken en briefs, supportberichten en AI-meldingen. Op het apparaat van de in-app-verwijdering worden geplande herinneringen, lokale caches en geëxporteerde bestanden ook gewist.</p>
-<p>Na verwijdering blijven het apparaatkenmerk en het telefoonnummer van het gratis quotum zonder koppeling met uw account bewaard, alleen om herhaalde gratis claims te blokkeren.</p>
+<p>Na verwijdering blijft het apparaatkenmerk van het gratis quotum zonder koppeling met uw account bewaard, alleen om herhaalde gratis claims te blokkeren.</p>
 <p>Een actief App Store- of Google Play-abonnement wordt niet automatisch opgezegd bij accountverwijdering; zeg het op in het winkelaccount. Briefcodes verlopen vanzelf na het genoemde venster.</p>
 <h2>6. Juridische waarschuwing</h2>
 <p><strong>NexuLex AI is geen advocatenkantoor en geeft geen juridisch advies.</strong> Uitvoer is algemene informatiehulpmiddelen. Beslissingen blijven van u; raadpleeg een bevoegde advocaat voor uw zaak.</p>
 <h2 data-sec="signup">7. Aanmeldgegevens</h2>
-<p>Bij het aanmelden geeft u een e-mailadres en een telefoonnummer op. Het telefoonnummer en een apparaat-ID worden gebruikt om het gratis analysetegoed te claimen en herhaald misbruik te voorkomen. Ze worden niet voor advertenties gebruikt en niet verkocht.</p>
+<p>Bij het aanmelden geeft u een e-mailadres en een wachtwoord op en bevestigt u dat u 18 jaar of ouder bent en de Gebruiksvoorwaarden en dit Privacybeleid accepteert; we bewaren die bevestiging en de datum. We vragen niet om een telefoonnummer. Een apparaat-ID wordt gebruikt om het gratis analysetegoed te claimen en herhaald misbruik te voorkomen. Het wordt niet voor advertenties gebruikt en niet verkocht.</p>
+<p>Vóór uw eerste AI-verzoek vraagt de app uw toestemming om wat u indient (contracttekst, foto’s, pdf-pagina’s, vragen) naar onze AI-leverancier te sturen. U kunt die toestemming op elk moment intrekken bij Instellingen, onder Privacy; zonder toestemming wordt geen AI-verzoek verstuurd.</p>
 <h2 data-sec="voice">8. Spraakinvoer</h2>
 <p>Spraakinvoer is optioneel. Als u de microfoon gebruikt, wordt spraakherkenning uitgevoerd door de spraakdienst die in uw telefoon is ingebouwd (Apple of Google), volgens de privacyvoorwaarden van die aanbieder. NexuLex AI neemt uw audio niet op en bewaart die niet; het ontvangt alleen de tekst die u wilt gebruiken.</p>
 <h2 data-sec="transfer">9. Dienstverleners en internationale doorgifte</h2>
@@ -71,7 +73,7 @@ module.exports = {
 <tr><td>Samenvattings- en deelcodes</td><td>Tot het einde van de vermelde geldigheid; een verlopen code werkt automatisch niet meer</td></tr>
 <tr><td>Supportberichten</td><td>Maximaal 24 maanden, of tot u uw account verwijdert</td></tr>
 <tr><td>Anonieme gebruiks- en foutrapporten</td><td>Maximaal 180 dagen</td></tr>
-<tr><td>Registratie van het gratis tegoed (apparaat-ID en telefoonnummer, zonder enige koppeling aan uw account)</td><td>Geen vaste einddatum; alleen bewaard om herhaald misbruik van het gratis tegoed te voorkomen</td></tr>
+<tr><td>Registratie van het gratis tegoed (apparaat-ID, zonder enige koppeling aan uw account)</td><td>Geen vaste einddatum; alleen bewaard om herhaald misbruik van het gratis tegoed te voorkomen</td></tr>
 <tr><td>Abonnement en einddatum in uw profiel</td><td>Tot u uw account verwijdert; aankoopgegevens bij Apple, Google en RevenueCat volgen hun eigen beleid</td></tr>
 <tr><td>Gegevens op uw apparaat (geschiedenis, dossiers, antwoorden, concepten)</td><td>Tot u ze verwijdert of de app verwijdert</td></tr>
 </tbody>
@@ -85,7 +87,7 @@ module.exports = {
 <h2 data-sec="ccpa">19. Verenigde Staten: rechten in Californië en andere staten</h2>
 <p>Wij verkopen uw persoonlijke gegevens niet en delen ze niet voor contextoverschrijdende gedragsgerichte reclame. De app bevat geen reclame, dus er is ook geen instelling “Mijn persoonlijke gegevens niet verkopen of delen” om in te schakelen.</p>
 <p>Woont u in Californië of een andere Amerikaanse staat met een consumentenprivacywet (bijvoorbeeld de CCPA/CPRA), dan hebt u, voor zover die wet op ons van toepassing is, mogelijk het recht te weten welke persoonlijke gegevens wij verzamelen, gebruiken en openbaar maken; die in te zien, te corrigeren en te verwijderen; het gebruik van gevoelige persoonlijke gegevens te beperken; en niet te worden gediscrimineerd voor het uitoefenen van deze rechten.</p>
-<p>In de afgelopen twaalf maanden hebben wij deze categorieën verzameld: identificatoren (e-mailadres, telefoonnummer, apparaat- en installatie-ID’s); commerciële gegevens (abonnements- en aankoopstatus); appactiviteit (anonieme gebruiksgebeurtenissen); en de inhoud die u indient (contracten en vragen). Wij maken ze alleen openbaar aan de dienstverleners in sectie 9, voor de zakelijke doeleinden die in dit beleid zijn beschreven. Wij slaan uw spraakopnamen niet op.</p>
+<p>In de afgelopen twaalf maanden hebben wij deze categorieën verzameld: identificatoren (e-mailadres, apparaat- en installatie-ID’s); commerciële gegevens (abonnements- en aankoopstatus); appactiviteit (anonieme gebruiksgebeurtenissen); en de inhoud die u indient (contracten en vragen). Wij maken ze alleen openbaar aan de dienstverleners in sectie 9, voor de zakelijke doeleinden die in dit beleid zijn beschreven. Wij slaan uw spraakopnamen niet op.</p>
 <p>Om uw rechten uit te oefenen, mailt u vanaf het adres waarmee u zich hebt geregistreerd naar nexulexai@gmail.com. Wij kunnen om gegevens vragen om te controleren dat u het bent, u kunt een gemachtigde inschakelen en wij antwoorden binnen 45 dagen waar de wet dat vereist.</p>
 <h2 data-sec="changes">20. Wijzigingen in dit beleid</h2>
 <p>Wij kunnen dit privacybeleid bijwerken. Bij belangrijke wijzigingen passen wij de datum bovenaan aan en, waar de wet dat vereist, informeren wij u in de app of op een andere passende manier voordat de wijziging ingaat. Bekijk deze pagina af en toe.</p>
@@ -116,7 +118,7 @@ module.exports = {
 <li>Op het apparaat van de in-app-verwijdering: geplande herinneringen, lokale caches en geëxporteerde bestanden.</li>
 </ul>
 <h2>Wat blijft</h2>
-<p>Het apparaatkenmerk en telefoonnummer van het gratis analysequotum blijven zonder koppeling met uw account, alleen om herhaalde gratis claims te blokkeren. Aankopen bij Apple, Google en RevenueCat volgen hun eigen regels.</p>
+<p>Het apparaatkenmerk van het gratis analysequotum blijft zonder koppeling met uw account, alleen om herhaalde gratis claims te blokkeren. Aankopen bij Apple, Google en RevenueCat volgen hun eigen regels.</p>
 <p>Zie ook het <a href="privacy.html">privacybeleid</a>.</p>`,
 
   terms: `<h1>Gebruiksvoorwaarden (EULA)</h1>

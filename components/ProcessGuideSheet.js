@@ -15,7 +15,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Linking from 'expo-linking';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, DANGER, WARNING, styles } from '../theme';
+import { ACCENT, styles } from '../theme';
 import { JURISDICTIONS } from '../constants/options';
 import { resolveJurisdiction } from '../constants/jurisdiction';
 import {

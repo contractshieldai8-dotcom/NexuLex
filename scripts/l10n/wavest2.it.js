@@ -2,7 +2,8 @@
 module.exports = {
   st2Title: 'Fiducia e controllo',
   st2Hint: 'Cosa conserva NexuLex, cosa resta sul dispositivo e come si gestisce l’abbonamento dello store.',
-  st2Keep: 'Analisi e messaggi di supporto restano nell’account finché non li elimini.',
+  st2Keep: "La tua e-mail, le analisi e i messaggi di supporto restano nell’account finché non li elimini. Non raccogliamo il numero di telefono.",
+  st2Ai: "Il testo del contratto, le foto e le domande vanno al nostro fornitore di IA (Anthropic) solo dopo il tuo consenso e solo per creare il tuo risultato. Puoi disattivarlo qui sopra.",
   st2Picker: 'Foto e PDF si scelgono nel selettore di sistema. Non vengono acquisiti in background.',
   st2Sub: 'Eliminare l’account non disdice un abbonamento App Store o Google Play. Gestiscilo nello store.',
   st2Quota: 'Il record dispositivo della quota gratuita resta scollegato dopo l’eliminazione, solo per bloccare nuove richieste gratuite.',

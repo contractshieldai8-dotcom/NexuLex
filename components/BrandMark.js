@@ -12,7 +12,8 @@ export default function BrandMark({ size = 26, isDarkMode = true, style }) {
   if (isDarkMode) {
     return <Image source={MARK} style={[{ width: size, height: size }, style]} resizeMode="contain" accessible={false} />;
   }
-  const inner = Math.round(size * 0.68);
+  // Small header sizes get a larger mark inside the tile so the shield edges stay legible at ~26px.
+  const inner = Math.round(size * (size >= 48 ? 0.68 : 0.8));
   return (
     <View
       accessible={false}

@@ -273,7 +273,7 @@ export default function ContractLibrarySheet({
                     gap: 8,
                   }}
                 >
-                  <Ionicons name="information-circle-outline" size={16} color={theme.accent} />
+                  <Ionicons name="information-circle-outline" size={16} color={theme.accentAlt} />
                   <Text style={[styles.sectionHint, { color: theme.text, marginBottom: 0, flex: 1 }]}>
                     {t(template.assumptionKey)}
                   </Text>

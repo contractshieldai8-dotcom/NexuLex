@@ -26,14 +26,16 @@ module.exports = {
 <p>Rechtsfragen und die Professional-Werkzeuge (Chronologie, Streitpunkte, Recherchevermerk): Ihre Frage, Sachverhalt, Aktenmaterial und eine angehängte Akte (ohne Beweisdateien) gehen nur zur Antwort über eine verschlüsselte Verbindung durch unseren Server an den KI-Anbieter. Unser Server behält nur eine tägliche Zählung der Fragen und Professional-Läufe, nicht Ihren Text und nicht die KI-Ausgabe. Antworten, Ergebnisse und Akten bleiben auf Ihrem Gerät, bis Sie sie woanders speichern oder teilen.</p>
 <p>Sie können eine KI-Ausgabe aus dem Analysebericht, einer Beraterantwort oder einem überarbeiteten Entwurf melden. Eine Meldung speichert den Grund, Ihre optionale Notiz, die Element-ID, die App-Sprache und das gewählte Land. Vertrags- oder Antworttext (höchstens 2000 Zeichen) wird nur angehängt, wenn Sie „Vertragskontext einbeziehen“ einschalten.</p>
 <p>Anwalt finden: die erste Nachricht und das Aktenpaket entstehen ohne KI auf Ihrem Gerät und werden nicht an unsere Server oder an einen Anwalt gesendet. Sie verlassen das Gerät nur, wenn Sie selbst kopieren oder teilen. Verzeichnislinks öffnen amtliche Seiten von Kammern und öffentlichen Stellen mit eigenen Datenschutzregeln. NexuLex gibt Ihre Daten nicht an Anwälte weiter und erhält keine Vermittlungsgebühr.</p>
+<p data-consent-record="1">KI-Einwilligungsnachweis: Wenn Sie die Erlaubnis, Ihre Inhalte an den KI-Anbieter zu senden, erteilen oder widerrufen, halten wir diese Entscheidung in einem nur ergänzbaren Einwilligungsprotokoll fest: Ihre Konto-ID, die Art der Einwilligung, die Textversion, erteilt oder widerrufen und den Zeitpunkt. Es enthält keinen Vertragstext. Die Entscheidung gilt sofort auf Ihrem Gerät, auch offline; lässt sich der Eintrag nicht sofort speichern, holt die App das später nach. Nur Sie können Ihre eigenen Zeilen lesen, in der App kann sie niemand ändern oder löschen, und sie werden gelöscht, wenn Sie Ihr Konto löschen.</p>
 <h2>5. Aufbewahrung und Löschung</h2>
 <p>Sie können das Konto jederzeit in der App unter <strong>Einstellungen, dann Konto löschen</strong> oder über die Schritte auf der <a href="delete-account.html">Löschseite</a> (ohne App) löschen. Die Löschung entfernt Konto und Profil, gespeicherte Analysen und Vertragstext, Freigabecodes, Erinnerungen, Berater- / Haushaltsplätze und Briefs, Support-Nachrichten und KI-Meldungen. Auf dem Gerät der In-App-Löschung werden geplante Erinnerungen, lokale Caches und exportierte Dateien ebenfalls geleert.</p>
-<p>Nach der Kontolöschung bleiben Gerätekennung und Telefonnummer der Gratisquote ohne jede Verbindung zu Ihrem Konto erhalten, nur um wiederholte Gratisansprüche zu sperren.</p>
+<p>Nach der Kontolöschung bleibt die Gerätekennung der Gratisquote ohne jede Verbindung zu Ihrem Konto erhalten, nur um wiederholte Gratisansprüche zu sperren.</p>
 <p>Ein aktives App Store- oder Google Play-Abo wird durch die Kontolöschung nicht automatisch gekündigt; kündigen Sie es im Store-Konto. Brief-Codes enden nach dem angegebenen Fenster von selbst.</p>
 <h2>6. Rechtlicher Hinweis</h2>
 <p><strong>NexuLex AI ist keine Anwaltskanzlei und erteilt keine Rechtsberatung.</strong> Ausgaben sind allgemeine Informationshilfen. Entscheidungen bleiben Ihre; ziehen Sie für Ihren Fall eine zugelassene Anwältin oder einen zugelassenen Anwalt hinzu.</p>
 <h2 data-sec="signup">7. Anmeldedaten</h2>
-<p>Bei der Anmeldung geben Sie eine E-Mail-Adresse und eine Telefonnummer an. Telefonnummer und Gerätekennung dienen dazu, das kostenlose Analysekontingent zu beanspruchen und wiederholten Missbrauch zu verhindern. Sie werden nicht für Werbung genutzt und nicht verkauft.</p>
+<p>Bei der Anmeldung geben Sie eine E-Mail-Adresse und ein Passwort an und bestätigen, dass Sie mindestens 18 Jahre alt sind und die Nutzungsbedingungen sowie diese Datenschutzrichtlinie akzeptieren; diese Bestätigung und ihr Datum speichern wir. Eine Telefonnummer verlangen wir nicht. Eine Gerätekennung dient dazu, das kostenlose Analysekontingent zu beanspruchen und wiederholten Missbrauch zu verhindern. Sie wird nicht für Werbung genutzt und nicht verkauft.</p>
+<p>Vor Ihrer ersten KI-Anfrage bittet die App um Ihre Erlaubnis, das von Ihnen Übermittelte (Vertragstext, Fotos, PDF-Seiten, Fragen) an unseren KI-Anbieter zu senden. Sie können sie jederzeit unter Einstellungen im Bereich Datenschutz widerrufen; ohne Erlaubnis wird keine KI-Anfrage gestellt.</p>
 <h2 data-sec="voice">8. Spracheingabe</h2>
 <p>Die Spracheingabe ist optional. Wenn Sie das Mikrofon nutzen, erfolgt die Spracherkennung durch den in Ihr Telefon integrierten Sprachdienst (Apple oder Google) nach den Datenschutzbedingungen dieses Anbieters. NexuLex AI nimmt Ihr Audio weder auf noch speichert es; wir erhalten nur den Text, den Sie verwenden möchten.</p>
 <h2 data-sec="transfer">9. Dienstleister und internationale Übermittlung</h2>
@@ -71,7 +73,7 @@ module.exports = {
 <tr><td>Kurzbericht- und Freigabecodes</td><td>Bis zum Ende der angegebenen Gültigkeit; ein abgelaufener Code funktioniert automatisch nicht mehr</td></tr>
 <tr><td>Support-Nachrichten</td><td>Höchstens 24 Monate oder bis Sie Ihr Konto löschen</td></tr>
 <tr><td>Anonyme Nutzungs- und Fehlerberichte</td><td>Höchstens 180 Tage</td></tr>
-<tr><td>Eintrag zum Gratis-Kontingent (Gerätekennung und Telefonnummer, ohne Verknüpfung mit Ihrem Konto)</td><td>Kein festes Ende; nur zur Verhinderung wiederholten Missbrauchs des Gratis-Kontingents gespeichert</td></tr>
+<tr><td>Eintrag zum Gratis-Kontingent (Gerätekennung, ohne Verknüpfung mit Ihrem Konto)</td><td>Kein festes Ende; nur zur Verhinderung wiederholten Missbrauchs des Gratis-Kontingents gespeichert</td></tr>
 <tr><td>Tarif und Ablaufdatum in Ihrem Profil</td><td>Bis Sie Ihr Konto löschen; Kaufdaten bei Apple, Google und RevenueCat unterliegen deren eigenen Richtlinien</td></tr>
 <tr><td>Daten auf Ihrem Gerät (Verlauf, Fallakten, Antworten, Entwürfe)</td><td>Bis Sie sie löschen oder die App deinstallieren</td></tr>
 </tbody>
@@ -85,7 +87,7 @@ module.exports = {
 <h2 data-sec="ccpa">19. USA: Datenschutzrechte in Kalifornien und anderen Bundesstaaten</h2>
 <p>Wir verkaufen Ihre personenbezogenen Daten nicht und geben sie nicht für kontextübergreifende verhaltensbasierte Werbung weiter. Die App enthält keine Werbung; deshalb gibt es auch keine Einstellung „Meine personenbezogenen Daten nicht verkaufen oder weitergeben“.</p>
 <p>Wenn Sie in Kalifornien oder einem anderen US-Bundesstaat mit Verbraucherdatenschutzgesetz leben (zum Beispiel CCPA/CPRA), haben Sie, soweit dieses Gesetz auf uns anwendbar ist, möglicherweise das Recht zu erfahren, welche personenbezogenen Daten wir erheben, nutzen und offenlegen; sie einzusehen, zu berichtigen und zu löschen; die Nutzung sensibler Daten einzuschränken; und wegen der Ausübung dieser Rechte nicht benachteiligt zu werden.</p>
-<p>In den vergangenen zwölf Monaten haben wir diese Kategorien erhoben: Kennungen (E-Mail-Adresse, Telefonnummer, Geräte- und Installationskennungen); kommerzielle Angaben (Tarif- und Kaufstatus); App-Aktivität (anonyme Nutzungsereignisse); und von Ihnen übermittelte Inhalte (Verträge und Fragen). Wir legen sie nur gegenüber den Dienstleistern in Abschnitt 9 offen, für die in dieser Richtlinie beschriebenen geschäftlichen Zwecke. Ihre Sprachaufnahmen speichern wir nicht.</p>
+<p>In den vergangenen zwölf Monaten haben wir diese Kategorien erhoben: Kennungen (E-Mail-Adresse, Geräte- und Installationskennungen); kommerzielle Angaben (Tarif- und Kaufstatus); App-Aktivität (anonyme Nutzungsereignisse); und von Ihnen übermittelte Inhalte (Verträge und Fragen). Wir legen sie nur gegenüber den Dienstleistern in Abschnitt 9 offen, für die in dieser Richtlinie beschriebenen geschäftlichen Zwecke. Ihre Sprachaufnahmen speichern wir nicht.</p>
 <p>Zur Ausübung Ihrer Rechte schreiben Sie von Ihrer registrierten Adresse an nexulexai@gmail.com. Wir können Angaben zur Überprüfung Ihrer Identität verlangen, Sie können einen Bevollmächtigten einsetzen, und wir antworten innerhalb von 45 Tagen, soweit das Gesetz es verlangt.</p>
 <h2 data-sec="changes">20. Änderungen dieser Richtlinie</h2>
 <p>Wir können diese Datenschutzrichtlinie aktualisieren. Bei wesentlichen Änderungen ändern wir das Datum oben und informieren Sie, soweit gesetzlich erforderlich, vor Geltung der Änderung in der App oder auf andere geeignete Weise. Bitte sehen Sie diese Seite von Zeit zu Zeit durch.</p>
@@ -116,7 +118,7 @@ module.exports = {
 <li>Auf dem Gerät der In-App-Löschung: geplante Erinnerungen, lokale Caches und exportierte Dateien.</li>
 </ul>
 <h2>Was bleibt</h2>
-<p>Gerätekennung und Telefonnummer der Gratis-Analysequote bleiben ohne Verbindung zu Ihrem Konto, nur um wiederholte Gratisansprüche zu sperren. Kaufdaten bei Apple, Google und RevenueCat folgen deren eigenen Regeln.</p>
+<p>Die Gerätekennung der Gratis-Analysequote bleibt ohne Verbindung zu Ihrem Konto, nur um wiederholte Gratisansprüche zu sperren. Kaufdaten bei Apple, Google und RevenueCat folgen deren eigenen Regeln.</p>
 <p>Siehe auch die <a href="privacy.html">Datenschutzrichtlinie</a>.</p>`,
 
   terms: `<h1>Nutzungsbedingungen (EULA)</h1>

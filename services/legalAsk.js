@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { supabase } from './supabase';
 import { AI_ERROR_CODES } from './ai';
+import { ensureAiConsent } from './aiConsent';
 import { MAX_SAVED_ANSWERS, isUsableAnswer, normalizeLegalAnswer } from '../utils/legalAnswer';
 
 const SAVED_KEY = '@nexulex/legalAnswers';
@@ -69,6 +70,7 @@ export async function fetchLegalAskQuota() {
 }
 
 export async function askLegalQuestion({ question, facts = '', area = 'other', audience = 'person', country = 'auto', lang = 'en', caseContext = '' }) {
+  await ensureAiConsent();
   const payload = await invoke({ question, facts, area, audience, country, lang, caseContext });
   const answer = normalizeLegalAnswer(payload?.answer, { country });
   if (!isUsableAnswer(answer)) throw fail(AI_ERROR_CODES.PARSE, { quota: payload?.quota || null });

@@ -3,7 +3,7 @@ import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
-import { ACCENT, DANGER, styles } from '../theme';
+import { styles } from '../theme';
 import { useAdvisorChat } from '../context/AdvisorChatContext';
 
 export default function RecentChatsList({ theme, compact = false, onOpen, pinTitle = false }) {

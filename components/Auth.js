@@ -1,44 +1,34 @@
-﻿import React, { useEffect, useMemo, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, Platform } from 'react-native';
+﻿import React, { useMemo, useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, Platform, Linking } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { supabase } from '../services/supabase';
 import { darkTheme, alignStart } from '../theme';
-import { QUOTA_ERRORS, syncProfileAndQuota } from '../services/quota';
+import { syncProfileAndQuota } from '../services/quota';
 import SearchableSheet from './SearchableSheet';
 import { APP_LANGUAGES, getLanguage } from '../constants/options';
-import {
-  COUNTRY_CODES,
-  getCountryByIso,
-  getDefaultCountryForLanguage,
-  isValidLocalNumber,
-  toE164,
-} from '../constants/countries';
+import { TRUST_URLS } from '../constants/settingsTrust';
 import { setAppLanguage } from '../utils/language';
 import { createAuthRedirectUrl } from '../utils/authRedirects';
 
-// GiriÅŸ ekranÄ±, uygulamanÄ±n koyu paletiyle uyumlu yalÄ±n bir tema kullanÄ±r.
+// Bump when the Terms of Use or Privacy Policy change in a way that needs fresh consent.
+const LEGAL_VERSION = '2026-10';
+
+// Sign-in screen follows the app appearance. Sign-up asks only for email + password:
+// no phone number is collected (data minimisation); free-quota abuse is handled server-side
+// with the device id and the verified email.
 export default function Auth({ onLoginSuccess, theme = darkTheme }) {
   const { t, i18n } = useTranslation();
-  // Sign-in follows the app appearance (it used to be a fixed dark card, which looked
-  // foreign inside the light theme). Dark values are identical to the previous palette.
   const styles = useMemo(() => makeStyles(theme), [theme]);
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [phone, setPhone] = useState('');
+  const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [langSheetVisible, setLangSheetVisible] = useState(false);
-  const [countrySheetVisible, setCountrySheetVisible] = useState(false);
   const [pendingVerification, setPendingVerification] = useState(false);
 
   const activeLang = (i18n.language || 'tr').split('-')[0];
-  const [country, setCountry] = useState(() => getDefaultCountryForLanguage(activeLang));
-
-  // KullanÄ±cÄ± dili deÄŸiÅŸtirdiÄŸinde Ã¼lke kodu da makul varsayÄ±lana taÅŸÄ±nÄ±r.
-  useEffect(() => {
-    setCountry(getDefaultCountryForLanguage(activeLang));
-  }, [activeLang]);
 
   const languageOptions = useMemo(
     () =>
@@ -52,18 +42,15 @@ export default function Auth({ onLoginSuccess, theme = darkTheme }) {
     []
   );
 
-  // AynÄ± arama kodunu paylaÅŸan Ã¼lkeler iÃ§in (Ã¶r. +1) anahtar benzersizleÅŸtirilir.
-  const countryOptions = useMemo(
-    () =>
-      (COUNTRY_CODES || []).map((item) => ({
-        code: item.iso,
-        label: item.name,
-        hint: item.dial,
-        flag: item.flag,
-        keywords: [item.dial, item.dial.replace('+', ''), item.iso],
-      })),
-    []
-  );
+  const openLegal = (url, fallback) => {
+    Linking.openURL(url || fallback).catch(() => Alert.alert(t('errorTitle'), t('askLinkFailed')));
+  };
+
+  // "18+ and accept Terms and Privacy" sentence with tappable links; the sentence order is per language.
+  const agreementParts = useMemo(() => {
+    const text = t('sgAgree', { terms: '\u0001T\u0001', privacy: '\u0001P\u0001', interpolation: { escapeValue: false } });
+    return String(text).split(/(\u0001[TP]\u0001)/);
+  }, [t, activeLang]);
 
   const handleAuth = async () => {
     if (!email || !password) {
@@ -71,31 +58,26 @@ export default function Auth({ onLoginSuccess, theme = darkTheme }) {
       return;
     }
 
-    // KayÄ±tta telefon zorunlu: Ã¼cretsiz haklarÄ±n kÃ¶tÃ¼ye kullanÄ±mÄ±nÄ± engeller.
-    if (isSignUp) {
-      if (!phone.trim()) {
-        Alert.alert(t('warningTitle'), t('phoneRequired'));
-        return;
-      }
-      if (!isValidLocalNumber(country, phone)) {
-        Alert.alert(t('warningTitle'), t('phoneInvalid'));
-        return;
-      }
+    if (isSignUp && !agreed) {
+      Alert.alert(t('warningTitle'), t('sgAgreeRequired'));
+      return;
     }
 
     setLoading(true);
     try {
       if (isSignUp) {
-        // Numara her zaman E.164 (+<Ã¼lke kodu><numara>) olarak saklanÄ±r.
-        const normalizedPhone = toE164(country, phone);
-
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
-            // SMS OTP yerine e-posta doÄŸrulama baÄŸlantÄ±sÄ± kullanÄ±lÄ±r.
+            // Email verification link (no SMS OTP).
             emailRedirectTo: createAuthRedirectUrl(),
-            data: { phone_number: normalizedPhone },
+            // Evidence of the 18+ declaration and which legal texts were accepted.
+            data: {
+              age_18_confirmed: true,
+              legal_accepted_at: new Date().toISOString(),
+              legal_version: LEGAL_VERSION,
+            },
           },
         });
         if (error) throw error;
@@ -113,10 +95,10 @@ export default function Auth({ onLoginSuccess, theme = darkTheme }) {
 
         if (session && sessionUser) {
           try {
-            await syncProfileAndQuota({ phone: normalizedPhone });
+            await syncProfileAndQuota();
           } catch (quotaError) {
-            if (quotaError.code === QUOTA_ERRORS.PHONE_TAKEN) {
-              Alert.alert(t('warningTitle'), t('phoneAlreadyUsed'));
+            if (quotaError.code === 'CLOCK_SKEW') {
+              Alert.alert(t('warningTitle'), t('clockSkewHint'));
             }
           }
           onLoginSuccess(sessionUser);
@@ -166,13 +148,9 @@ export default function Auth({ onLoginSuccess, theme = darkTheme }) {
       if (error) throw error;
       if (data.user) {
         try {
-          if (isSignUp && phone.trim()) {
-            await syncProfileAndQuota({ phone: toE164(country, phone) });
-          }
+          if (isSignUp) await syncProfileAndQuota();
         } catch (quotaError) {
-          if (quotaError.code === QUOTA_ERRORS.PHONE_TAKEN) {
-            Alert.alert(t('warningTitle'), t('phoneAlreadyUsed'));
-          } else if (quotaError.code === 'CLOCK_SKEW') {
+          if (quotaError.code === 'CLOCK_SKEW') {
             Alert.alert(t('warningTitle'), t('clockSkewHint'));
           }
         }
@@ -221,29 +199,54 @@ export default function Auth({ onLoginSuccess, theme = darkTheme }) {
       />
 
       {isSignUp && !pendingVerification && (
-        <View style={styles.phoneRow}>
-          <TouchableOpacity accessibilityRole="button"
-            style={styles.phoneCountryBtn}
-            onPress={() => setCountrySheetVisible(true)}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.phoneFlag}>{country.flag}</Text>
-            <Text style={styles.phoneDial}>{country.dial}</Text>
-            <Ionicons name="chevron-down" size={13} color={theme.subText} />
-          </TouchableOpacity>
-
-          <TextInput accessibilityLabel={t('phonePlaceholder')}
-            style={[styles.input, styles.phoneInput]}
-            placeholder={t('phonePlaceholder')}
-            placeholderTextColor={theme.subText}
-            value={phone}
-            // YalnÄ±zca rakam ve ayÄ±rÄ±cÄ±lar; Ã¼lke kodu ayrÄ± alandan gelir.
-            onChangeText={(value) => setPhone(value.replace(/[^\d\s-]/g, ''))}
-            keyboardType="phone-pad"
-            maxLength={country.max + 4}
-            autoCapitalize="none"
-          />
-        </View>
+        <>
+          <View style={styles.agreeRow}>
+            <TouchableOpacity
+              accessibilityRole="checkbox"
+              accessibilityState={{ checked: agreed }}
+              accessibilityLabel={String(t('sgAgree', { terms: t('sgTermsLink'), privacy: t('sgPrivacyLink') }))}
+              onPress={() => setAgreed((value) => !value)}
+              activeOpacity={0.8}
+              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+            >
+              <Ionicons
+                name={agreed ? 'checkbox' : 'square-outline'}
+                size={24}
+                color={agreed ? theme.accent : theme.subText}
+              />
+            </TouchableOpacity>
+            <Text style={styles.agreeText}>
+              {agreementParts.map((part, index) => {
+                if (part === '\u0001T\u0001') {
+                  return (
+                    <Text
+                      key={`p${index}`}
+                      accessibilityRole="link"
+                      style={styles.agreeLink}
+                      onPress={() => openLegal(TRUST_URLS.terms, 'https://nexulexai.netlify.app/terms.html')}
+                    >
+                      {t('sgTermsLink')}
+                    </Text>
+                  );
+                }
+                if (part === '\u0001P\u0001') {
+                  return (
+                    <Text
+                      key={`p${index}`}
+                      accessibilityRole="link"
+                      style={styles.agreeLink}
+                      onPress={() => openLegal(TRUST_URLS.privacy, 'https://nexulexai.netlify.app/privacy.html')}
+                    >
+                      {t('sgPrivacyLink')}
+                    </Text>
+                  );
+                }
+                return <Text key={`p${index}`}>{part}</Text>;
+              })}
+            </Text>
+          </View>
+          <Text style={styles.noPhoneHint}>{t('sgNoPhone')}</Text>
+        </>
       )}
 
       {pendingVerification ? (
@@ -284,7 +287,13 @@ export default function Auth({ onLoginSuccess, theme = darkTheme }) {
         </>
       ) : (
         <>
-          <TouchableOpacity accessibilityRole="button" style={styles.button} onPress={handleAuth} disabled={loading}>
+          <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityState={{ disabled: loading || (isSignUp && !agreed) }}
+            style={[styles.button, isSignUp && !agreed && styles.buttonDim]}
+            onPress={handleAuth}
+            disabled={loading}
+          >
             {loading ? (
               <ActivityIndicator color={theme.onAccent} />
             ) : (
@@ -320,19 +329,6 @@ export default function Auth({ onLoginSuccess, theme = darkTheme }) {
         onSelect={setAppLanguage}
         onClose={() => setLangSheetVisible(false)}
       />
-
-      <SearchableSheet
-        visible={countrySheetVisible}
-        theme={theme}
-        title={t('countryCodeTitle')}
-        searchPlaceholder={t('countryCodeSearchPlaceholder')}
-        emptyLabel={t('languageNoResult')}
-        closeLabel={t('closeButton')}
-        options={countryOptions}
-        selectedCode={country.iso}
-        onSelect={(iso) => setCountry(getCountryByIso(iso))}
-        onClose={() => setCountrySheetVisible(false)}
-      />
     </View>
   );
 }
@@ -361,24 +357,14 @@ const makeStyles = (theme) =>
     },
     langChipFlag: { fontSize: 16 },
     langChipText: { color: theme.accent, fontFamily: FONTS.medium, fontSize: 13, fontWeight: '600' },
-    phoneRow: { flexDirection: 'row', alignItems: 'stretch', gap: 8 },
-    phoneCountryBtn: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 5,
-      paddingHorizontal: 12,
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: theme.borderColor,
-      backgroundColor: theme.inputBg,
-      marginBottom: 12,
-    },
-    phoneFlag: { fontSize: 18 },
-    phoneDial: { color: theme.text, fontFamily: FONTS.medium, fontSize: 14, fontWeight: '600' },
-    phoneInput: { flex: 1 },
     title: { fontFamily: FONTS.bold, fontSize: 20, fontWeight: '800', letterSpacing: 0.4, color: theme.text, marginBottom: 16, textAlign: 'center' },
     input: { backgroundColor: theme.inputBg, color: theme.text, fontFamily: FONTS.regular, fontSize: 14, padding: 14, borderRadius: 12, borderWidth: 1, borderColor: theme.borderColor, marginBottom: 12, textAlign: alignStart },
+    agreeRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, marginTop: 2, marginBottom: 8 },
+    agreeText: { flex: 1, color: theme.text, fontFamily: FONTS.regular, fontSize: 13, lineHeight: 19, textAlign: alignStart },
+    agreeLink: { color: theme.accent, fontFamily: FONTS.medium, fontWeight: '700', textDecorationLine: 'underline' },
+    noPhoneHint: { color: theme.subText, fontFamily: FONTS.regular, fontSize: 12, lineHeight: 17, textAlign: alignStart },
     button: { backgroundColor: theme.accent, paddingVertical: 16, paddingHorizontal: 18, borderRadius: 12, alignItems: 'center', justifyContent: 'center', minHeight: 54, marginTop: 8 },
+    buttonDim: { opacity: 0.55 },
     buttonText: { color: theme.onAccent, fontFamily: FONTS.bold, fontWeight: '800', fontSize: 16, letterSpacing: 0.3, textAlign: 'center' },
     switchText: { color: theme.subText, fontFamily: FONTS.regular, textAlign: 'center', fontSize: 13, lineHeight: 18 },
     verifyHint: { color: theme.subText, fontFamily: FONTS.regular, textAlign: 'center', fontSize: 13, lineHeight: 19, marginBottom: 8 },

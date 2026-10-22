@@ -497,7 +497,7 @@ export function formatGuideText(item, t, { links = [], emergency = null, disclai
   if (!item) return '';
   const lines = [t(item.titleKey), t(item.descKey), ''];
   if (item.urgent) {
-    lines.push(`⚠ ${emergency ? t('pgEmergency', { number: emergency }) : t('pgEmergencyGeneric')}`, '');
+    lines.push(`${emergency ? t('pgEmergency', { number: emergency }) : t('pgEmergencyGeneric')}`, '');
   }
   lines.push(`${t('pgFocusTitle')}: ${t(item.focusKey)}`, '', t('pgStepsTitle'));
   item.stages.forEach((stage, index) => {

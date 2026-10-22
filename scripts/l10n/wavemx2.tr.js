@@ -5,7 +5,5 @@ module.exports = {
   mx2NoDelta: 'Pro ile Professional farkı yalnızca her iki plan aynı dönemde ve aynı para biriminde listelenince çıkar.',
   mx2Yearly: 'Yıllık Professional, on iki Professional aylık ödemeden ucuzsa vurgulanır.',
   mx2Offering: "Professional, mağazanızda ayrı bir plandır. NexuLex fiyatını yalnızca mağaza listelediğinde gösterir.",
-  mx2Upgrade: "Zaten Pro kullanıyorsanız yükseltmeyi ve fiyat farkını mağaza yönetir. Uygulama ek ücret eklemez.",
   mx2FirstValue: 'İlk tarama, ilk sorular ve ilk dosya ücretsiz kalır. Professional araçları ücretli Professional plandadır.',
-  mx2Disclaimer: 'NexuLex bir hukuk bürosu değildir. Yalnızca bu ekrandaki mağaza fiyatları karşılaştırılır.',
 };
